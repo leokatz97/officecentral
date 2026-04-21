@@ -1,0 +1,40 @@
+<div class="predictive-search-suggestion-wrapper" data-suggestions-container>
+  {%- if settings.enable_suggestions and settings.suggestions_queries != blank -%}
+    <div class="predictive-search-suggestion">
+      {%- if settings.suggestions_heading != blank -%}
+        <span class="predictive-search--label heading-font">{{ settings.suggestions_heading }}</span>
+      {%- endif -%}
+      <div class="predictive-suggestion-list">
+        {% assign queryList = settings.suggestions_queries | split: ',' %}
+        {% for query in queryList %}
+          {% assign query = query | strip %}
+          {% if query != blank %}
+            <a title="{{ query }}" href="{{ routes.search_url }}?q={{query}}">
+              {{ query -}}
+              <span class="suggestion-icon">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                  <path d="M0.965622 0.666214L0.965657 2.10146L7.91963 2.10149L1.19464 8.82648L2.20955 9.84138L8.93454 3.11639L8.93454 10.0703L10.3698 10.0704L10.3698 0.666179L0.965622 0.666214Z" fill="currentColor"/>
+                </svg>
+              </span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {%- endif -%}
+  {%- if settings.product_suggestions != blank -%}
+    <div class="predictive-search-products">
+      {%- if settings.product_suggestions_heading != blank -%}
+        <span class="predictive-search--label heading-font">{{ settings.product_suggestions_heading }}</span>
+      {%- endif -%}
+      <div class="predictive-search-tranding-products {% if settings.search_drawer_style  == 'side'%} product-vertical{% endif %} ">
+        <ul class="tranding-product-list">
+          {% for product in settings.product_suggestions %}
+            {% render 'product-search-grid', product: product, gridImageSize: settings.suggestion_grid_image_size, hideComparePrice: true, searchDrawerStyle: settings.search_drawer_style %}
+          {% endfor %}
+         
+        </ul>
+      </div>
+    </div>
+  {%- endif -%}
+</div>

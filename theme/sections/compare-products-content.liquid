@@ -1,0 +1,137 @@
+{% if settings.compare %}
+  <div class="compare-btn-sidebar hidden">
+    <a href="#" class="button small-btn" onClick="toggleCompareBasket(event)">{{ 'onboarding.compare' | t }}</a>
+  </div>
+{% endif %}
+
+<div
+  class="compare-product-section"
+  data-section="?section_id={{ section.id }}&type=product&q="
+  data-compare-product-wrapper
+>
+  <div class="compare-model-items hidden" data-compare-items>
+    {% assign add_product = 0 %}
+    {% for product in search.results %}
+      {% assign add_product = add_product | plus: 1 %}
+      <div class="col-md-3 col-lg-3 compare-product-item">
+        <div class="compare-product-item-inner">
+          <div class="product-img {% if settings.image_border %} product-border-enabled {% endif %}">
+            {% if product.featured_media != blank %}
+              <div
+                class="media"
+                style="--imageRatio:100%"
+              >
+                {% render 'lazy-image', image: product.featured_media.preview_image, imageSize: '60' %}
+              </div>
+            {% else %}
+              <div class="media" style="--imageRatio:100%">
+                {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+          </div>
+          <div class="product-detail">
+            <div class="product-title">{{ product.title }}</div>
+            {% render 'price', cardProduct: product, current_variant: product, comparePrice: true, unitPrice: true,hideComparePrice:true %}
+          </div>
+          <button class="remove-product-card compare-items-bottom" data-remove-icon aria-label="compare">
+            <span class="remove_icon" data-remove="{{ product.id }}">
+              {% render 'icons', icon: 'close' %}
+            </span>
+          </button>
+        </div>
+      </div>
+    {% endfor %}
+    {% if add_product >= 1 and add_product < 4 %}
+      <div class="col-md-3 col-lg-3 compare-product-item">
+        <div class="compare-product-item-empty">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M13 5.39454L13 7.09181L0.513651 7.09181L0.513651 5.39454L13 5.39454Z" fill="currentColor"/>
+            <path d="M5.90819 -3.09993e-07L7.60546 -2.35803e-07L7.60546 12.4863L5.90819 12.4863L5.90819 -3.09993e-07Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <div class="compare-model-items-info" data-compare-items-info>
+    <div class="compare-model-header">
+      <h3>{{ 'products.compare.name' | t }}</h3>
+    </div>
+    <div class="compare-modal-results" data-products-count="{{ add_product }}">
+      {% render 'compare-product-blocks', blocks: section.blocks, product: product %}
+    </div>
+  </div>
+
+  {% render 'compare-products' %}
+</div>
+<style>
+  [data-compare-items-info] {
+    display: none;
+  }
+</style>
+{% schema %}
+{
+  "name": "t:sections.compare-products-content.name",
+  "tag": "section",
+  "class": "section product-comparison-popup",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "blocks": [
+    {
+      "type": "productimageinfo",
+      "name": "t:sections.compare-products-content.blocks.productimageinfo.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "sku",
+      "name": "t:sections.compare-products-content.blocks.sku.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "discount",
+      "name": "t:sections.compare-products-content.blocks.discount.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "vendor",
+      "name": "t:sections.compare-products-content.blocks.vendor.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "rating",
+      "name": "t:sections.compare-products-content.blocks.rating.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "weight",
+      "name": "t:sections.compare-products-content.blocks.weight.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "tags",
+      "name": "t:sections.compare-products-content.blocks.tags.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "stock",
+      "name": "t:sections.compare-products-content.blocks.stock.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "description",
+      "name": "t:sections.compare-products-content.blocks.description.name",
+      "limit": 1,
+      "settings": []
+    }
+  ]
+}
+{% endschema %}

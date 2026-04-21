@@ -1,0 +1,68 @@
+{% liquid
+  assign preorder = false
+  if settings.enable_preorder and current_variant.inventory_policy == 'continue' and current_variant.inventory_quantity <= 0
+    assign preorder = true
+  endif
+%}
+
+<div class="pdp-action-wrapper">
+  {% comment %} {% if stickyProduct %} 
+    {{ quantitySelectorBlock }}
+  {% endif %} {% endcomment %}
+  {% if source == 'sticky-product' %}
+    {% if settings.enable_terms_checkbox and settings.terms_conditions_text != blank %}
+    <div class="terms-conditions-block" data-terms-conditions {% unless current_variant.available %} style="display:none;" {% endunless %}>
+      <div class="checkbox-box">
+        <input type="checkbox" class="checkbox-input" name="sticky-terms-conditions" value="" id="sticky-terms-conditions" data-product-terms >
+        <span class="checkbox-tick"></span>
+        <label class="filter-hand-icon" for="sticky-terms-conditions" title="terms-conditions">{{ settings.terms_conditions_text }}</label>
+      </div>
+    </div>
+{% endif %}
+  {% endif %}
+ {%- assign show_quote_cta = false -%}
+  {%- if current_variant != null -%}
+    {%- if current_variant.available == false -%}{%- assign show_quote_cta = true -%}{%- endif -%}
+    {%- if current_variant.price == 0 -%}{%- assign show_quote_cta = true -%}{%- endif -%}
+  {%- endif -%}
+  {%- if show_quote_cta -%}
+    {%- comment -%} Sold-out OR $0-price → Request a Quote CTA (replaces disabled Add to Cart button) {%- endcomment -%}
+    <a
+      href="/pages/contact?subject=Quote+request%3A+{{ product.title | url_encode }}&product={{ product.handle }}"
+      class="{% if stickyProduct %}medium-btn button{% else %} large-btn button{% endif %}{% if settings.enable_button_shadow %} button-shadow{% endif %}"
+      data-quote-request
+    >
+      <span>Request a Quote</span>
+    </a>
+  {%- else -%}
+    <button
+      {% unless stickyProduct %}
+        id="AddToCart-{{ formid }}"
+      {% endunless %}
+      type="submit"
+      name="add"
+      class="{% if stickyProduct %}medium-btn button{% else %} large-btn button{% endif %}{% if settings.enable_button_shadow %} button-shadow{% endif %}"
+      {% if stickyProduct %}
+        data-form="{{ formid }}"
+      {% endif %}
+      data-add-to-cart
+      {% if settings.Cart_type == 'drawer' %}
+        data-side-drawer-open
+      {% endif %}
+      {% if settings.enable_terms_checkbox and settings.terms_conditions_text != blank %}disabled{% endif %}
+    >
+      {%- if current_variant == null -%}
+        <span>{{ 'products.product.unavailable' | t }}</span>
+      {%- elsif preorder -%}
+        <span>{{ 'products.product.preorder' | t }}</span>
+      {%- else -%}
+        <span>{{ 'products.product.add_to_cart' | t }}</span>
+      {%- endif -%}
+    </button>
+    {% unless stickyProduct %}
+      {%- if block.settings.show_dynamic_checkout and current_variant.available -%}
+        {{ form | payment_button }}
+      {%- endif -%}
+    {% endunless %}
+  {%- endif -%}
+  </div>

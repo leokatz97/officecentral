@@ -1,0 +1,27 @@
+
+{% liquid
+    if colorScheme
+        assign colorScheme = colorScheme
+    else 
+        assign colorScheme = settings.color_scheme_popup 
+    endif
+ %}
+ <div class="{{ class }} popup scheme-{{ colorScheme }}" id="{{ id }}" data-side-drawer>
+  {% unless popupsize == 'fullwidth' %}
+  <div class="close-fullwidth cursor-pointer" aria-label="Close"  data-side-drawer-close></div>
+  {% endunless %}
+  <div class="popup-dialog {{ popupsize }}">
+    <div class="popup-content">
+      <button class="popup-close"  title="popup close" aria-label="close" data-side-drawer-close>
+          <svg x="0px" y="0px" viewBox="0 0 11.8 11.8" style="enable-background:new 0 0 11.8 11.8;" fill="currentColor">
+              <path d="M11.5,10.6L6.7,5.9l4.7-4.7c0.2-0.2,0.2-0.6,0-0.8c-0.1-0.1-0.3-0.2-0.4-0.2c0,0,0,0,0,0c-0.2,0-0.3,0.1-0.4,0.2L5.9,5.1
+              L1.2,0.3c-0.2-0.2-0.6-0.2-0.8,0c-0.2,0.2-0.2,0.6,0,0.8l4.7,4.7l-4.7,4.7c-0.1,0.1-0.2,0.3-0.2,0.4c0,0.3,0.3,0.6,0.6,0.6
+              c0.2,0,0.3-0.1,0.4-0.2l4.7-4.7l4.7,4.7c0.1,0.1,0.3,0.2,0.4,0.2s0.3-0.1,0.4-0.2C11.7,11.3,11.7,10.9,11.5,10.6z"></path>
+          </svg>
+      </button>
+      <div class="popup-content-inner" >
+        {{ popupContent }}
+      </div>
+    </div>
+  </div>
+</div>

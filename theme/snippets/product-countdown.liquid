@@ -1,0 +1,29 @@
+{% if cardProduct.metafields.theme.product_countdown %}
+    {% assign launch_date = cardProduct.metafields.theme.product_countdown.value  %}
+    {% assign launch__date = launch_date | date: '%d' | plus: 0 %}
+<div class="countdown-timer" data-launch-date="{{ launch_date }}" data-countdown-timer style="display:none;">
+  <div class="countdown-timer-inner">
+    <div class="count-days">
+      <span class="time days"></span>
+      {% if launch__date < 02 %}
+        <span class="separator">{{ 'sections.featured_collection.collection_countdown_day' | t }}</span>
+        {% else %}
+      <span class="separator">{{ 'sections.featured_collection.collection_countdown_days' | t }}</span>
+      {% endif %}
+    </div>
+    <div class="count-hours">
+      <span class="time hours"></span>
+      <span class="separator">{{ 'general.countdown.hours' | t }}</span>
+    </div>
+    <div class="count-minutes">
+      <span class="time minutes"></span>
+      <span class="separator">{{ 'general.countdown.minutes' | t }}</span>
+    </div>
+    <div class="count-seconds">
+      <span class="time seconds"></span>
+      <span class="separator">{{ 'general.countdown.seconds' | t }}</span>   
+    </div> 
+  </div>
+    
+</div>
+{% endif %}

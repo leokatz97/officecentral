@@ -1,0 +1,193 @@
+{{ 'account.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign Colorscheme = section.settings.color_scheme
+%}
+<div class="scheme-{{ Colorscheme }}{% if section.settings.enable_gradient %} gradiant{% endif %} section-padding">
+  <div class="{{ settings.layout_style }}">
+    <div class="customer register">
+      <h2 class="account-form-heading h2">{{ 'customer.register.title' | t }}</h2>
+      {%- form 'create_customer', novalidate: 'novalidate' -%}
+        {%- if form.errors -%}
+          <div class="form-message error" tabindex="-1" autofocus>
+            {{ 'templates.contact.form.error_heading' | t }}
+            <ul>
+            {%- for field in form.errors -%}
+              <li>
+                {%- if field == 'form' -%}
+                  {{ form.errors.messages[field] }}
+                {%- else -%}
+                  <a href="#RegisterForm-{{ field }}">
+                    {{ form.errors.translated_fields[field] | capitalize }}
+                    {{ form.errors.messages[field] }}
+                  </a>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+          </div>
+          
+        {%- endif -%}
+        <div class="form-group">
+          <label for="RegisterForm-FirstName">
+            {{ 'customer.register.first_name' | t }}
+          </label>
+          <input
+            type="text"
+            class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            name="customer[first_name]"
+            id="RegisterForm-FirstName"
+            {% if form.first_name %}
+              value="{{ form.first_name }}"
+            {% endif %}
+            autocomplete="given-name"
+            placeholder="{{ 'customer.register.first_name' | t }}"
+          >
+        </div>
+        <div class="form-group">
+          <label for="RegisterForm-LastName">
+            {{ 'customer.register.last_name' | t }}
+          </label>
+          <input
+            type="text"
+            name="customer[last_name]"
+            class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            id="RegisterForm-LastName"
+            {% if form.last_name %}
+              value="{{ form.last_name }}"
+            {% endif %}
+            autocomplete="family-name"
+            placeholder="{{ 'customer.register.last_name' | t }}"
+          >
+        </div>
+        <div class="form-group">
+          <label for="RegisterForm-email">
+            {{ 'customer.register.email' | t }}
+          </label>
+          <input
+            type="email"
+            name="customer[email]"
+            class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            id="RegisterForm-email"
+            {% if form.email %}
+              value="{{ form.email }}"
+            {% endif %}
+            spellcheck="false"
+            autocapitalize="off"
+            autocomplete="email"
+            aria-required="true"
+            {% if form.errors contains 'email' %}
+              aria-invalid="true"
+              aria-describedby="RegisterForm-email-error"
+            {% endif %}
+            placeholder="{{ 'customer.register.email' | t }}"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="RegisterForm-password">
+            {{ 'customer.register.password' | t }}
+          </label>
+          <input
+            type="password"
+            class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            name="customer[password]"
+            id="RegisterForm-password"
+            aria-required="true"
+            {% if form.errors contains 'password' %}
+              aria-invalid="true"
+              aria-describedby="RegisterForm-password-error"
+            {% endif %}
+            placeholder="{{ 'customer.register.password' | t }}"
+          >
+        </div>
+        
+        <button class="button large-btn btn-block{% if settings.enable_button_shadow %} button-shadow{% endif %}">{{ 'customer.register.submit' | t }}</button>
+        <div class="create-account-text text-center">
+          <p class="text-medium">
+            <span class="create-account-text-info">{{ 'customer.login_page.already_account' | t }}</span>
+            <a href="{{ routes.account_login_url }}" class="hyperlink"><strong>{{ 'customer.login_page.login' | t }}</strong></a>
+          </p>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{ section.id }}{
+       --padding-top: {{ section.settings.top_space_desktop}}px;
+       --padding-bottom: {{ section.settings.bottom_space_desktop}}px;
+     }
+     @media only screen and (max-width:767px) {
+       #shopify-section-{{ section.id }}{
+         --padding-top: {{ section.settings.top_space_mobile }}px !important;
+         --padding-bottom: {{ section.settings.bottom_space_mobile }}px !important;
+       }
+     }
+</style> 
+{% schema %}
+{
+  "name": "t:sections.register.name",
+  "class": "account-register-section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:global.general_labels.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "t:global.general_labels.gradient",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:global.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "top_space_desktop",
+      "label": "t:global.section_padding.options.top_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_desktop",
+      "label": "t:global.section_padding.options.bottom_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "top_space_mobile",
+      "label": "t:global.section_padding.options.top_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_padding.options.bottom_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    }
+
+  ]
+}
+{% endschema %}

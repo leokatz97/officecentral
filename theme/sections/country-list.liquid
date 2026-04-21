@@ -1,0 +1,17 @@
+{% for country in localization.available_countries %}
+    <li class="custom-select-item">
+      <button
+        type="submit"
+        name="country_code"
+        id="country-{{ section.id }}-{{ forloop.index }}"
+        value="{{ country.iso_code }}"
+        class="custom-select-item-active"
+        title="{{ country.name }}"
+      >
+        <span class="countryflags countryflag__{{ country.iso_code }}"> </span>
+        <span>
+         {{ country.currency.iso_code }}
+          {{ country.currency.symbol }}</span>
+      </button>
+    </li>
+  {% endfor %} 

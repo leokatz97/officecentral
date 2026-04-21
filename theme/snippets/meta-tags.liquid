@@ -1,0 +1,86 @@
+{%- liquid
+    assign og_title = page_title | default: shop.name
+    assign og_url = canonical_url | default: request.origin
+    assign og_type = 'website'
+    assign og_description = page_description | default: shop.description | default: shop.name
+  
+    if request.page_type == 'product'
+      assign og_type = 'product'
+    elsif request.page_type == 'article'
+      assign og_type = 'article'
+    elsif request.page_type == 'password'
+      assign og_url = request.origin
+    endif
+  %}
+  
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta property="og:url" content="{{ og_url }}">
+  <meta property="og:title" content="{{ og_title | escape }}">
+  <meta property="og:type" content="{{ og_type }}">
+  <meta property="og:description" content="{{ og_description | escape }}">
+  
+  {%- if page_image -%}
+    <meta property="og:image" content="http:{{ page_image | image_url }}">
+    <meta property="og:image:secure_url" content="https:{{ page_image | image_url }}">
+    <meta property="og:image:width" content="{{ page_image.width }}">
+    <meta property="og:image:height" content="{{ page_image.height }}">
+  {%- endif -%}
+  
+  {%- if request.page_type == 'product' -%}
+    <meta property="og:price:amount" content="{{ product.price | money_without_currency | strip_html }}">
+    <meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
+  {%- endif -%}
+{% unless settings.seo_microdata %}
+   {%- if request.page_type == 'product' -%}
+  {%- liquid
+  if product.selected_or_first_available_variant.featured_media
+    assign seo_media = product.selected_or_first_available_variant.featured_media
+  else
+    assign seo_media = product.featured_media
+  endif
+-%}
+<script type="application/ld+json">
+   {{ product | structured_data }}
+</script>
+{% endif %}
+  {% if request.page_type == 'blog' %}
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "articleBody": {{ article.content | strip_html | json }},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ shop.url | append: page.url | json }}
+    },
+    "headline": {{ article.title | json }},
+    {% if article.excerpt != blank %}
+      "description": {{ article.excerpt | strip_html | json }},
+    {% endif %}
+    {% if article.image %}
+      {% assign image_size = article.image.width | append: 'x' %}
+      "image": [
+        {{ article | img_url: image_size | prepend: "https:" | json }}
+      ],
+    {% endif %}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+    "author": {
+      "@type": "Person",
+      "name": {{ article.author | json }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }}
+    }
+  }
+</script>
+    {% endif %}
+  {% endunless %}
+  {%- if settings.social_twitter_link != blank -%}
+    <meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
+  {%- endif -%}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ og_title | escape }}">
+  <meta name="twitter:description" content="{{ og_description | escape }}">
+  

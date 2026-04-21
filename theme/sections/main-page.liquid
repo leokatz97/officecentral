@@ -1,0 +1,308 @@
+<div class="scheme-{{section.settings.color_scheme}} {% if section.settings.enable_gradient %} gradiant{% endif %} section-padding">
+  {% if section.settings.banner_image != blank or page.title %}
+    <div class="page-banner overlay-text {% if section.settings.banner_image != blank %}banner-height{% endif %}">
+      {% if section.settings.banner_image != blank %}
+        <div class="page-banner-image">
+          {% render 'lazy-image', image: section.settings.banner_image %}
+        </div>
+      {% else %}
+
+      {% endif %}
+      <div class="page-banner-content-box">
+        <div class="{{ settings.layout_style }}">
+          <div class="page-banner-content {{ section.settings.heading_alignment }}">
+            <{{ section.settings.seo_heading }} class="{{ section.settings.heading_size }} page-banner-title page-content-item">
+              {{ page.title }}
+            </{{ section.settings.seo_heading }}>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% if page.content != blank and section.settings.page_content %}
+    <div class="page-banner-content-box">
+      <div class="{{ settings.layout_style }}">
+        <div class="page-banner-content">
+          <div class="page-description rte rict-text-editor-content page-content-item">
+            {{
+              page.content
+              | replace: '<p></p>', '<br/>'
+              | replace: '<h1></h1>', '<br/>'
+              | replace: '<h2></h2>', '<br/>'
+              | replace: '<h3></h3>', '<br/>'
+              | replace: '<h4></h4>', '<br/>'
+              | replace: '<h5></h5>', '<br/>'
+              | replace: '<h6></h6>', '<br/>'
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  #shopify-section-{{ section.id }}{
+      --media-height: {{ section.settings.desktop_height }};
+        --padding-top: {{ section.settings.top_space_desktop}}px;
+        --padding-bottom: {{ section.settings.bottom_space_desktop}}px;
+        --banner-overlay-bg: {{ section.settings.background_color }};
+        --banner-overlay-opacity: {{ section.settings.background_opacity }};
+        {% unless section.settings.text_color == 'rgba(0,0,0,0)' or section.settings.text_color == blank %}
+          --banner-overlay-text: {{ section.settings.text_color }};
+          {% else %}
+          --banner-overlay-text: rgba(var(--textColor),1);
+        {% endunless %}
+      --pageBannerBg: {{ section.settings.banner_background_color }};
+     }
+     html[color-mode="dark"] #shopify-section-{{ section.id }}{
+        --banner-overlay-bg: #000000;
+        --banner-overlay-text: #d1d1d1;
+        --pageBannerBg: #161616;
+     }
+     @media only screen and (max-width:767px) {
+       #shopify-section-{{ section.id }}{
+         --media-height: {{ section.settings.mobile_height }};
+          --padding-top: {{ section.settings.top_space_mobile }}px !important;
+          --padding-bottom: {{ section.settings.bottom_space_mobile }}px !important;
+       }
+     }
+</style>
+
+{% schema %}
+{
+  "name": "t:sections.main_page.name",
+  "tag": "section",
+  "class": "section main-page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:global.general_labels.general"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "t:sections.main_page.settings.banner_image.label",
+      "info": "t:sections.main_page.settings.banner_image.info"
+    },
+    {
+      "type": "select",
+      "id": "desktop_height",
+      "label": "t:sections.main_page.settings.desktop_height.label",
+      "default": "300px",
+      "options": [
+        {
+          "value": "200px",
+          "label": "t:global.general_labels.small"
+        },
+        {
+          "value": "300px",
+          "label": "t:global.general_labels.medium"
+        },
+        {
+          "value": "550px",
+          "label": "t:global.general_labels.large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_height",
+      "label": "t:sections.main_page.settings.mobile_height.label",
+      "default": "200px",
+      "options": [
+        {
+          "value": "100px",
+          "label": "t:global.general_labels.small"
+        },
+        {
+          "value": "200px",
+          "label": "t:global.general_labels.medium"
+        },
+        {
+          "value": "350px",
+          "label": "t:global.general_labels.large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:global.heading.heading_size.label",
+      "default": "h1",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "seo_heading",
+      "label": "t:global.heading.heading_tag.label",
+      "info": "t:global.heading.heading_tag.info",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "t:global.heading_alignment.label",
+      "default": "text-center",
+      "options": [
+        {
+          "label": "t:global.heading_alignment.options.left.label",
+          "value": "text-left"
+        },
+        {
+          "label": "t:global.heading_alignment.options.center.label",
+          "value": "text-center"
+        },
+        {
+          "label": "t:global.heading_alignment.options.right.label",
+          "value": "text-right"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "page_content",
+      "label": "t:sections.main_page.settings.page_content.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:global.general_labels.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "t:global.general_labels.gradient",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "banner_background_color",
+      "default": "#B3B3B3",
+      "label": "t:sections.main_page.settings.banner_background_color.label",
+      "info": "t:sections.main_page.settings.banner_background_color.info"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:global.general_labels.text"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main_page.settings.Overlay.label"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:sections.main_page.settings.background_color.label",
+      "default": "#B3B3B3"
+    },
+    {
+      "type": "range",
+      "id": "background_opacity",
+      "label": "t:sections.main_page.settings.background_opacity.label",
+      "default": 0.6,
+      "min": 0,
+      "max": 1,
+      "step": 0.1
+    },
+    {
+      "type": "header",
+      "content": "t:global.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "top_space_desktop",
+      "label": "t:global.section_padding.options.top_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_desktop",
+      "label": "t:global.section_padding.options.bottom_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "top_space_mobile",
+      "label": "t:global.section_padding.options.top_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_padding.options.bottom_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    }
+  ]
+}
+{% endschema %}

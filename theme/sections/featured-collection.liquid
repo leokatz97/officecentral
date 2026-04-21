@@ -1,0 +1,1229 @@
+{{ 'featured-collection.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign cardSize = section.settings.card_size
+  assign Colorscheme = section.settings.color_scheme
+  assign collection = section.settings.collection_grid
+  assign showSale = section.settings.show_sale
+%}
+{% capture countdown_timer %}
+  <div class="countdown-content-box-sale">
+    {% if section.settings.content != blank %}
+       <div class="countdown-richtext"><span>{{ section.settings.content }}</span></div>
+  {% endif %}
+  {% assign launch_date = section.settings.day | plus:0 %}
+  {% assign launch_year = section.settings.year %}
+  {% assign launch_month = section.settings.month %}
+  {% assign launch_hours = section.settings.hours %}
+  {% assign launch_minutes = section.settings.minutes %}
+<div class="countdown-timer-sale" data-launch-date="{{ launch_month }}/{{ launch_date }}/{{ launch_year }} {{ launch_hours }}:{{ launch_minutes }}:00" data-countdown-timer>
+  <div class="count-days-sale">
+    <span class="time days count-number heading-font"></span>
+    {% if launch_date < 02 %}
+      <span class="separator">{{ 'sections.featured_collection.collection_countdown_day' | t }}</span>
+      {% else %}
+    <span class="separator">{{ 'sections.featured_collection.collection_countdown_days' | t }}</span>
+    {% endif %}
+  </div>
+  <div class="count-hours-sale"> 
+    <span class="time hours count-number heading-font"></span>
+    <span class="separator">{{ 'sections.featured_collection.collection_countdown_hrs' | t }}</span>
+  </div>
+  <div class="count-minutes-sale">
+    <span class="time minutes count-number heading-font"></span>
+    <span class="separator">{{ 'sections.featured_collection.collection_countdown_mins' | t }}</span>
+  </div>
+  <div class="count-seconds-sale">
+    <span class="time seconds count-number heading-font"></span>
+    <span class="separator">{{ 'sections.featured_collection.collection_countdown_secs' | t }}</span>   
+  </div> 
+</div>
+</div>
+{% endcapture %}
+<div class="scheme-{{ Colorscheme }} section-padding {% if section.settings.enable_gradient %} gradiant{% endif %}">
+  <div class="{{ settings.layout_style }}">
+    <div class="heading-sale-counter">
+      {%- capture highlightPrefix -%}
+          <span class="line-marker {% if section.settings.highlight_style == 'background' %}highlight-background {% if section.settings.highlight_bg__color == 'gradient' %}highlight-background-gradient{% else %}highlight-background-solid{% endif %}{% endif %}">
+             {%- endcapture -%}
+      {%- capture highlightSuffix -%}
+      {% if section.settings.highlight_style != 'background' %}
+           {% render 'marker', marker: section.settings.highlight_style %}
+      {% endif %}
+          </span>
+          {%- endcapture -%}
+      <div class="section-title" {% if settings.enable_animation %}data-aos="fade-up" data-aos-duration="1000"{% endif %}>
+        {% if section.settings.heading != blank %}
+          <{{ section.settings.seo_heading }} class="{{ section.settings.heading_size }} section-heading {% if section.settings.heading_animation %} linear-animation{% endif %}">
+            {% if section.settings.heading_animation %}
+              {{ section.settings.heading }}
+            {% else %}
+            {{ section.settings.heading | replace: "[", highlightPrefix | replace: "]", highlightSuffix }}
+            {% endif %}
+            </{{ section.settings.seo_heading }}>
+          {% else %}
+            <{{ section.settings.seo_heading }} class="{{ section.settings.heading_size }} section-heading {% if section.settings.heading_animation %} linear-animation{% endif %}">
+              {{ collection.title }}
+              </{{ section.settings.seo_heading }}>
+            {% endif %}
+          </div> 
+          {% if showSale %}
+            <div class="show-sale" data-counter-sale>
+              {{ countdown_timer }}
+            </div>
+          {% endif %}
+        </div>
+        {% liquid
+        %}
+        <div
+          class="product-grid-wrapper{% if section.settings.collection_style != 'carousel' %} stacked view-{{  section.settings.grid_style }}{%  if section.settings.swipe_on_mobile%} enable-swipe{% endif %}{% else %} slider{% endif %}"
+          {% if section.settings.collection_style == 'carousel' %}
+          data-slideshow='{
+             "cellAlign":"left",
+             "contain": true,
+             "pageDots": {% if section.settings.slider_thumbnail == 'dots' %}true{% else %}false{% endif %},
+             "draggable": true,
+             "prevNextButtons": false,
+             "wrapAround":false,
+             "groupCells": true,
+             "cellSelector":".product-grid-box"
+             }'
+          {% else %}
+          data-grid
+          {% endif %}>
+          {% for product in section.settings.collection_grid.products limit: section.settings.products_to_show %}
+            {% assign aos_delay = forloop.index | times : 100 %}
+
+            <div class="{% if cardSize == 'large' %}card-size-large{% elsif cardSize == 'medium' %}card-size-medium{% elsif cardSize == 'small' %}card-size-small{% else %} card-size-default{% endif %} product-grid-box" >
+              {% liquid
+                capture placeholderIndex
+                cycle cycleGroup: '1', '2', '3', '4'
+                endcapture
+
+                render 'product-card-grid', section: section, cardProduct: product, showCount: true, comparePrice: true, unitPrice: true, cycleIndex: placeholderIndex, gridImageSize: section.settings.grid_image_size, quickViewtrue: true, compareTrue: true, aosDelay: aos_delay
+              %}
+            </div>
+          {% else %}
+
+            {% for i in (1..section.settings.products_to_show) %}
+              
+              {% liquid
+                capture placeholderIndex
+                  cycle cycleGroup: '1', '2', '3', '4'
+                endcapture
+
+                assign aos_delay = forloop.index | times : 100
+              %}
+              <div class="{% if cardSize == 'large' %}card-size-large{% elsif cardSize == 'medium' %}card-size-medium{% elsif cardSize == 'small' %}card-size-small{% else %} card-size-default{% endif %} product-grid-box" >
+                {% render 'product-card-grid', cycleIndex: placeholderIndex, gridImageSize: section.settings.grid_image_size, aosDelay: aos_delay %}
+              </div>
+            {% endfor %}
+          {% endfor %}
+          {% liquid
+            if section.settings.collection_style == 'carousel' and section.settings.slider_thumbnail == 'only-arrow'
+              render 'carousal-arrows', class: 'custom-navigation-button-icon'
+            endif
+          %}
+        </div>
+        {% if section.settings.btn_link != blank or collection != blank %}
+          {% if section.settings.btn_text != blank %}
+            <div class="section-bottom-button text-{{ section.settings.button_position }}">
+              <a
+                href="{% if section.settings.btn_link %}{{ section.settings.btn_link }}{% else %}{{ collection.url }}{% endif %}"
+                class="{% if section.settings.button_as_link %}hyperlink {% else %} button {{ section.settings.button_size }}-btn{% if settings.enable_button_shadow %} button-shadow{% endif %}{% endif %} "
+                aria-label="{{ section.settings.btn_text }} "
+                title="{{ section.settings.btn_text }}">{{ section.settings.btn_text }}</a>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    <style>
+      #shopify-section-{{ section.id }} {
+        --padding-top: {{ section.settings.top_space_desktop }}px;
+        --padding-bottom: {{ section.settings.bottom_space_desktop }}px;
+        {% if section.settings.text__color != 'rgba(0,0,0,0)' or section.settings.text__color != blank %}
+          --sale-text-color: {{ section.settings.text__color }};
+        {% else %}
+          --sale-text-color: rgba(var(--textColor), 1);
+        {% endif %}
+        {%- if section.settings.background_style == 'gradient' -%}
+          {% if section.settings.background_gradient != blank %}
+            --sale-bg-color: {{ section.settings.background_gradient }};
+          {% else %}
+            --sale-bg-color: var(--gradientBackground);
+          {% endif %}
+        {%- else -%}
+        {% if section.settings.bg__color != 'rgba(0,0,0,0)' or section.settings.bg__color != blank %}
+          --sale-bg-color: {{ section.settings.bg__color }};
+        {% else %}
+          --sale-bg-color: rgba(var(--background), 1);
+        {% endif %}
+      {%- endif -%}
+      {% if section.settings.counter_text__color != 'rgba(0,0,0,0)' or section.settings.counter_text__color != blank %}
+        --counter-button-text-color: {{ section.settings.counter_text__color }};
+      {% else %}
+        --counter-button-text-color: rgba(var(--textColor), 1);
+      {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .product-card-item {
+    --image-fit: {{ section.settings.grid_image_fit }};
+  }
+  [data-counter-sale] {
+    display: none;
+  }
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} {
+      --padding-top: {{ section.settings.top_space_mobile }}px ;
+      --padding-bottom: {{ section.settings.bottom_space_mobile }}px ;
+    }
+  }
+  {% if section.settings.section_visibility == 'large' %}
+    @media (max-width: 767px) {
+      #shopify-section-{{ section.id }} {
+        display: none !important;
+      }
+    }
+  {% elsif section.settings.section_visibility == 'small' %}
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      display: none !important;
+    }
+  }
+{% endif %}
+  html[color-mode="dark"] #shopify-section-{{ section.id }}{
+      --sale-text-color: #d1d1d1;
+      --sale-bg-color: #161616;
+      --counter-button-text-color: #d1d1d1;
+    }
+    </style>
+    {% schema %}
+{
+  "name": "t:sections.featured-collection.name",
+  "class": "featured-collection-section",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:global.general_labels.general"
+    },
+    {
+      "type": "select",
+      "id": "section_visibility",
+      "label": "t:global.section_visibility.label",
+      "default": "always",
+      "options": [
+        {
+          "label": "t:global.section_visibility.options.always.label",
+          "value": "always"
+        },
+        {
+          "label": "t:global.section_visibility.options.small.label",
+          "value": "small"
+        },
+        {
+          "label": "t:global.section_visibility.options.large.label",
+          "value": "large"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:global.general_labels.layout"
+    },
+    {
+      "id": "collection_grid",
+      "type": "collection",
+      "label": "t:global.general_labels.collection"
+    },
+    {
+      "type": "select",
+      "id": "collection_style",
+      "default": "grid",
+      "label": "t:sections.featured-collection.settings.collection_style.label",
+      "options": [
+        {
+          "value": "carousel",
+          "label": "t:sections.featured-collection.settings.collection_style.options.carousel.label"
+        },
+        {
+          "value": "grid",
+          "label": "t:sections.featured-collection.settings.collection_style.options.grid.label"
+        }
+      ]
+    },
+    {
+      "type":"select",
+      "id":"grid_style",
+      "label":"t:sections.featured-collection.settings.grid_style.label",
+      "default": "vertical",
+      "options":[
+        {
+          "value": "vertical",
+          "label": "t:sections.featured-collection.settings.grid_style.options.vertical.label"
+        },
+        {
+          "value": "horizontal",
+          "label": "t:sections.featured-collection.settings.grid_style.options.horizontal.label"
+        }
+      ]
+    },
+    {
+      "type":"checkbox",
+      "id":"swipe_on_mobile",
+      "label":"t:sections.featured-collection.settings.swipe_on_mobile.label",
+      "default":false
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 25,
+      "step": 1,
+      "default": 5,
+      "label": "t:sections.featured-collection.settings.products_to_show.label"
+    },
+    {
+      "type": "select",
+      "id": "card_size",
+      "default": "small",
+      "label": "t:sections.featured-collection.settings.card_size.label",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:global.general_labels.small"
+        },
+        {
+          "value": "medium",
+          "label": "t:global.general_labels.medium"
+        },
+        {
+          "value": "large",
+          "label": "t:global.general_labels.large"
+        }
+      ]
+    },
+
+    {
+      "type": "select",
+      "id": "grid_image_size",
+      "label": "t:global.grid_image_size.label",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "t:global.grid_image_size.options.auto.label"
+        },
+        {
+          "value": "landscape",
+          "label": "t:global.grid_image_size.options.landscape.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:global.grid_image_size.options.portrait.label"
+        },
+        {
+          "value": "square",
+          "label": "t:global.grid_image_size.options.square.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "grid_image_fit",
+      "label": "t:sections.featured-collection.settings.grid_image_fit.label",
+      "default": "cover",
+      "options": [
+        {
+          "value": "cover",
+          "label": "t:sections.featured-collection.settings.grid_image_fit.options.cover.label"
+        },
+        {
+          "value": "contain",
+          "label": "t:sections.featured-collection.settings.grid_image_fit.options.contain.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.carousel_header.content"
+    },
+    {
+      "type": "select",
+      "id": "slider_thumbnail",
+      "label": "t:sections.featured-collection.settings.slider_thumbnail.label",
+      "default": "only-arrow",
+      "options": [
+        {
+          "value": "dots",
+          "label": "t:sections.featured-collection.settings.slider_thumbnail.options.dots.label"
+        },
+        {
+          "value": "only-arrow",
+          "label": "t:sections.featured-collection.settings.slider_thumbnail.options.arrow.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.countdown_header.content"
+    },
+    {
+      "id": "show_sale",
+      "type": "checkbox",
+      "label": "t:sections.featured-collection.settings.show_sale.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "content",
+      "label": "t:global.general_labels.content",
+      "default": "Content here"
+    },
+    {
+      "type": "number",
+      "id": "year",
+      "label": "t:sections.countdown.settings.year.label",
+      "default": 2024
+    },
+    {
+      "type": "select",
+      "id": "month",
+      "label": "t:sections.countdown.settings.month.label",
+      "options": [
+        {
+          "value": "01",
+          "label": "t:sections.countdown.settings.month.options.january"
+        },
+        {
+          "value": "02",
+          "label": "t:sections.countdown.settings.month.options.february"
+        },
+        {
+          "value": "03",
+          "label": "t:sections.countdown.settings.month.options.march"
+        },
+        {
+          "value": "04",
+          "label": "t:sections.countdown.settings.month.options.april"
+        },
+        {
+          "value": "05",
+          "label": "t:sections.countdown.settings.month.options.may"
+        },
+        {
+          "value": "06",
+          "label": "t:sections.countdown.settings.month.options.june"
+        },
+        {
+          "value": "07",
+          "label": "t:sections.countdown.settings.month.options.july"
+        },
+        {
+          "value": "08",
+          "label": "t:sections.countdown.settings.month.options.august"
+        },
+        {
+          "value": "09",
+          "label": "t:sections.countdown.settings.month.options.september"
+        },
+        {
+          "value": "10",
+          "label": "t:sections.countdown.settings.month.options.october"
+        },
+        {
+          "value": "11",
+          "label": "t:sections.countdown.settings.month.options.november"
+        },
+        {
+          "value": "12",
+          "label": "t:sections.countdown.settings.month.options.december"
+        }
+      ],
+      "default": "07"
+    },
+    {
+      "type": "select",
+      "id": "day",
+      "label": "t:sections.countdown.settings.day.label",
+      "options": [
+        {
+          "value": "01",
+          "label": "01"
+        },
+        {
+          "value": "02",
+          "label": "02"
+        },
+        {
+          "value": "03",
+          "label": "03"
+        },
+        {
+          "value": "04",
+          "label": "04"
+        },
+        {
+          "value": "05",
+          "label": "05"
+        },
+        {
+          "value": "06",
+          "label": "06"
+        },
+        {
+          "value": "07",
+          "label": "07"
+        },
+        {
+          "value": "08",
+          "label": "08"
+        },
+        {
+          "value": "09",
+          "label": "09"
+        },
+        {
+          "value": "10",
+          "label": "10"
+        },
+        {
+          "value": "11",
+          "label": "11"
+        },
+        {
+          "value": "12",
+          "label": "12"
+        },
+        {
+          "value": "13",
+          "label": "13"
+        },
+        {
+          "value": "14",
+          "label": "14"
+        },
+        {
+          "value": "15",
+          "label": "15"
+        },
+        {
+          "value": "16",
+          "label": "16"
+        },
+        {
+          "value": "17",
+          "label": "17"
+        },
+        {
+          "value": "18",
+          "label": "18"
+        },
+        {
+          "value": "19",
+          "label": "19"
+        },
+        {
+          "value": "20",
+          "label": "20"
+        },
+        {
+          "value": "21",
+          "label": "21"
+        },
+        {
+          "value": "22",
+          "label": "22"
+        },
+        {
+          "value": "23",
+          "label": "23"
+        },
+        {
+          "value": "24",
+          "label": "24"
+        },
+        {
+          "value": "25",
+          "label": "25"
+        },
+        {
+          "value": "26",
+          "label": "26"
+        },
+        {
+          "value": "27",
+          "label": "27"
+        },
+        {
+          "value": "28",
+          "label": "28"
+        },
+        {
+          "value": "29",
+          "label": "29"
+        },
+        {
+          "value": "30",
+          "label": "30"
+        },
+        {
+          "value": "31",
+          "label": "31"
+        }
+      ],
+      "default": "08"
+    },
+    {
+      "type": "select",
+      "id": "hours",
+      "label": "t:sections.countdown.settings.hours.label",
+      "options": [
+        {
+          "value": "00",
+          "label": "t:sections.countdown.settings.hours.options.00"
+        },
+        {
+          "value": "01",
+          "label": "t:sections.countdown.settings.hours.options.01"
+        },
+        {
+          "value": "02",
+          "label": "t:sections.countdown.settings.hours.options.02"
+        },
+        {
+          "value": "03",
+          "label": "t:sections.countdown.settings.hours.options.03"
+        },
+        {
+          "value": "04",
+          "label": "t:sections.countdown.settings.hours.options.04"
+        },
+        {
+          "value": "05",
+          "label": "t:sections.countdown.settings.hours.options.05"
+        },
+        {
+          "value": "06",
+          "label": "t:sections.countdown.settings.hours.options.06"
+        },
+        {
+          "value": "07",
+          "label": "t:sections.countdown.settings.hours.options.07"
+        },
+        {
+          "value": "08",
+          "label": "t:sections.countdown.settings.hours.options.08"
+        },
+        {
+          "value": "09",
+          "label": "t:sections.countdown.settings.hours.options.09"
+        },
+        {
+          "value": "10",
+          "label": "t:sections.countdown.settings.hours.options.10"
+        },
+        {
+          "value": "11",
+          "label": "t:sections.countdown.settings.hours.options.11"
+        },
+        {
+          "value": "12",
+          "label": "t:sections.countdown.settings.hours.options.12"
+        },
+        {
+          "value": "13",
+          "label": "t:sections.countdown.settings.hours.options.13"
+        },
+        {
+          "value": "14",
+          "label": "t:sections.countdown.settings.hours.options.14"
+        },
+        {
+          "value": "15",
+          "label": "t:sections.countdown.settings.hours.options.15"
+        },
+        {
+          "value": "16",
+          "label": "t:sections.countdown.settings.hours.options.16"
+        },
+        {
+          "value": "17",
+          "label": "t:sections.countdown.settings.hours.options.17"
+        },
+        {
+          "value": "18",
+          "label": "t:sections.countdown.settings.hours.options.18"
+        },
+        {
+          "value": "19",
+          "label": "t:sections.countdown.settings.hours.options.19"
+        },
+        {
+          "value": "20",
+          "label": "t:sections.countdown.settings.hours.options.20"
+        },
+        {
+          "value": "21",
+          "label": "t:sections.countdown.settings.hours.options.21"
+        },
+        {
+          "value": "22",
+          "label": "t:sections.countdown.settings.hours.options.22"
+        },
+        {
+          "value": "23",
+          "label": "t:sections.countdown.settings.hours.options.23"
+        }
+      ],
+      "default": "08"
+    },
+    {
+      "type": "select",
+      "id": "minutes",
+      "label": "t:sections.countdown.settings.minutes.label",
+      "options": [
+        {
+          "value": "00",
+          "label": "00"
+        },
+        {
+          "value": "01",
+          "label": "01"
+        },
+        {
+          "value": "02",
+          "label": "02"
+        },
+        {
+          "value": "03",
+          "label": "03"
+        },
+        {
+          "value": "04",
+          "label": "04"
+        },
+        {
+          "value": "05",
+          "label": "05"
+        },
+        {
+          "value": "06",
+          "label": "06"
+        },
+        {
+          "value": "07",
+          "label": "07"
+        },
+        {
+          "value": "08",
+          "label": "08"
+        },
+        {
+          "value": "09",
+          "label": "09"
+        },
+        {
+          "value": "10",
+          "label": "10"
+        },
+        {
+          "value": "11",
+          "label": "11"
+        },
+        {
+          "value": "12",
+          "label": "12"
+        },
+        {
+          "value": "13",
+          "label": "13"
+        },
+        {
+          "value": "14",
+          "label": "14"
+        },
+        {
+          "value": "15",
+          "label": "15"
+        },
+        {
+          "value": "16",
+          "label": "16"
+        },
+        {
+          "value": "17",
+          "label": "17"
+        },
+        {
+          "value": "18",
+          "label": "18"
+        },
+        {
+          "value": "19",
+          "label": "19"
+        },
+        {
+          "value": "20",
+          "label": "20"
+        },
+        {
+          "value": "21",
+          "label": "21"
+        },
+        {
+          "value": "22",
+          "label": "22"
+        },
+        {
+          "value": "23",
+          "label": "23"
+        },
+        {
+          "value": "24",
+          "label": "24"
+        },
+        {
+          "value": "25",
+          "label": "25"
+        },
+        {
+          "value": "26",
+          "label": "26"
+        },
+        {
+          "value": "27",
+          "label": "27"
+        },
+        {
+          "value": "28",
+          "label": "28"
+        },
+        {
+          "value": "29",
+          "label": "29"
+        },
+        {
+          "value": "30",
+          "label": "30"
+        },
+        {
+          "value": "31",
+          "label": "31"
+        },
+        {
+          "value": "32",
+          "label": "32"
+        },
+        {
+          "value": "33",
+          "label": "33"
+        },
+        {
+          "value": "34",
+          "label": "34"
+        },
+        {
+          "value": "35",
+          "label": "35"
+        },
+        {
+          "value": "36",
+          "label": "36"
+        },
+        {
+          "value": "37",
+          "label": "37"
+        },
+        {
+          "value": "38",
+          "label": "38"
+        },
+        {
+          "value": "39",
+          "label": "39"
+        },
+        {
+          "value": "40",
+          "label": "40"
+        },
+        {
+          "value": "41",
+          "label": "41"
+        },
+        {
+          "value": "42",
+          "label": "42"
+        },
+        {
+          "value": "43",
+          "label": "43"
+        },
+        {
+          "value": "44",
+          "label": "44"
+        },
+        {
+          "value": "45",
+          "label": "45"
+        },
+        {
+          "value": "46",
+          "label": "46"
+        },
+        {
+          "value": "47",
+          "label": "47"
+        },
+        {
+          "value": "48",
+          "label": "48"
+        },
+        {
+          "value": "49",
+          "label": "49"
+        },
+        {
+          "value": "50",
+          "label": "50"
+        },
+        {
+          "value": "51",
+          "label": "51"
+        },
+        {
+          "value": "52",
+          "label": "52"
+        },
+        {
+          "value": "53",
+          "label": "53"
+        },
+        {
+          "value": "54",
+          "label": "54"
+        },
+        {
+          "value": "55",
+          "label": "55"
+        },
+        {
+          "value": "56",
+          "label": "56"
+        },
+        {
+          "value": "57",
+          "label": "57"
+        },
+        {
+          "value": "58",
+          "label": "58"
+        },
+        {
+          "value": "59",
+          "label": "59"
+        }
+      ],
+      "default": "08"
+    },
+    {
+      "type": "header",
+      "content": "t:global.general_labels.content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:global.heading.label",
+      "info": "t:global.heading.info",
+      "default": "Featured collection"
+    },
+    {
+      "type": "select",
+      "id": "highlight_style",
+      "label": "t:global.highlight_style.label",
+      "default": "underline",
+      "options": [
+        {
+          "value": "underline",
+          "label": "t:global.highlight_style.options.underline.label"
+        },
+        {
+          "value": "shape_2",
+          "label": "t:global.highlight_style.options.shape_2.label"
+        },
+        {
+          "value": "shape_3",
+          "label": "t:global.highlight_style.options.shape_3.label"
+        },
+        {
+          "value": "shape_4",
+          "label": "t:global.highlight_style.options.shape_4.label"
+        },
+        {
+          "value": "shape_5",
+          "label": "t:global.highlight_style.options.shape_5.label"
+        },
+        {
+          "value": "shape_6",
+          "label": "t:global.highlight_style.options.shape_6.label"
+        },
+        {
+          "value": "background",
+          "label": "t:global.highlight_style.options.background.label"
+        },
+        {
+          "value": "no_shape",
+          "label": "t:global.highlight_style.options.no_shape.label"
+        }
+        
+      ]
+    },
+    {
+      "type": "select",
+      "id": "highlight_bg__color",
+      "label": "t:global.bg__color.label",
+      "default": "gradient",
+      "options": [
+        {
+          "value": "gradient",
+          "label": "t:global.bg__color.options.gradient.label"
+        },
+        {
+          "value": "solid",
+          "label": "t:global.bg__color.options.solid.label"
+        }
+      ]
+    },
+    {
+      "type":"checkbox",
+      "id":"heading_animation",
+      "label":"t:global.heading_animation.label",
+      "info":"t:global.heading_animation.info"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:global.heading.heading_size.label",
+      "default": "h3",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "seo_heading",
+      "label": "t:global.heading.heading_tag.label",
+      "info": "t:global.heading.heading_tag.info",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:global.general_labels.button"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "t:global.general_labels.text",
+      "default": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "t:global.general_labels.link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_as_link",
+      "label": "t:global.general_labels.button_as_link",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_size",
+      "label": "t:global.button_size.label",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:global.button_size.options.small.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:global.button_size.options.medium.label"
+        },
+        {
+          "value": "large",
+          "label": "t:global.button_size.options.large.label"
+        },
+        {
+          "value": "extra-large",
+          "label": "t:global.button_size.options.extra_large.label"
+        }
+      ]
+    },
+    {
+      "type": "text_alignment",
+      "id": "button_position",
+      "label": "t:sections.featured-collection.settings.button_position.label",
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-collection.settings.custom_colors_header.content"
+    },
+    {
+      "type": "color",
+      "id": "text__color",
+      "label": "t:sections.featured-collection.settings.text__color.label"
+    },
+    {
+      "type": "color",
+      "id": "counter_text__color",
+      "label": "t:sections.featured-collection.settings.counter_text__color.label"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "t:sections.featured-collection.settings.background_style.label",
+      "default": "solid",
+      "options": [
+        {
+          "label": "t:global.general_labels.solid",
+          "value": "solid"
+        },
+        {
+          "label": "t:global.general_labels.gradient_bg",
+          "value": "gradient"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "bg__color",
+      "label": "t:sections.featured-collection.settings.bg__color.label"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "t:sections.featured-collection.settings.background_gradient.label",
+      "default": "linear-gradient(#ffffff, #000000)"
+    },
+    {
+      "type": "header",
+      "content": "t:global.general_labels.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "t:global.general_labels.gradient",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:global.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "top_space_desktop",
+      "label": "t:global.section_padding.options.top_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_desktop",
+      "label": "t:global.section_padding.options.bottom_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "top_space_mobile",
+      "label": "t:global.section_padding.options.top_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_padding.options.bottom_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured-collection.presets.name"
+    }
+  ]
+}
+{% endschema %}

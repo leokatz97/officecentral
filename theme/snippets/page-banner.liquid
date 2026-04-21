@@ -1,0 +1,46 @@
+{% capture bannerContent %}
+<div class="page-banner-content-box">
+  <div class="container">
+    <div class="page-banner-content {{ section.settings.heading_alignment }}">
+    <{{ section.settings.seo_heading }} class="{{ section.settings.heading_size }} page-banner-title page-content-item">
+        {% if section.settings.heading != blank %}
+            {{ section.settings.heading }}
+            {% else %}
+    {{ item.title }}
+        {% endif %}
+    </{{ section.settings.seo_heading }}>
+    {% if section.settings.description != blank or item.description %}
+        <div class="page-banner-desc page-content-item rte">
+    {{ section.settings.description | replace: '<p></p>', '<br/>'
+        | replace: '<h1></h1>', '<br/>'
+        | replace: '<h2></h2>', '<br/>'
+        | replace: '<h3></h3>', '<br/>'
+        | replace: '<h4></h4>', '<br/>'
+        | replace: '<h5></h5>', '<br/>'
+        | replace: '<h6></h6>', '<br/>' }}
+        {% if item.description  != blank %}
+        {{ item.description }}
+        {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div> 
+</div>
+{% endcapture %}
+{% if section.settings.banner_image != blank or section.settings.overlay_text != blank %}
+  <div class="page-banner{% if section.settings.overlay_text != blank %} overlay-text{% endif %}">
+    {% if section.settings.banner_image != blank %}
+      <div class="page-banner-image">
+        {% if section.settings.banner_image != blank %}
+          {% render 'lazy-image', image: section.settings.banner_image %}
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if section.settings.overlay_text != blank %}
+      {{ bannerContent }}
+    {% endif %}
+  </div>
+{% endif %}
+{% if section.settings.overlay_text == blank %}
+  {{ bannerContent }}
+{% endif %}

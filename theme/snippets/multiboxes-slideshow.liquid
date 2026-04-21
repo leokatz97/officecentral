@@ -1,0 +1,216 @@
+{% liquid 
+  assign slideCount = 0 
+  assign lazypreload = false
+  if section.index == 0
+    assign lazypreload = true
+  endif
+%}
+{% capture mediaGridSlides %}
+  {% for i in (1..3) %} 
+      {% capture slidedesktopImageCount %}image_desktop{{ i }}{% endcapture %}
+      {% assign slidedesktopImage = block.settings[slidedesktopImageCount] %}
+      {% capture slidemobileImageCount %}image_mobile{{ i }}{% endcapture %}
+      {% assign slidemobileImage = block.settings[slidemobileImageCount] %}
+      {% capture slidevideoCount %}slider_video{{ i }}{% endcapture %}
+      {% assign slideVideo = block.settings[slidevideoCount] %}
+      {% capture slideheadingCount %}heading{{ i }}{% endcapture %}
+      {% assign slideHeading = block.settings[slideheadingCount] %}
+
+      {% capture slideheadingsizeCount %}heading_size{{ i }}{% endcapture %}
+      {% assign slideHeadingsize = block.settings[slideheadingsizeCount] %}
+      {% capture slideheadingtagCount %}seo_heading{{ i }}{% endcapture %}
+      {% assign slideHeadingTag = block.settings[slideheadingtagCount] %}
+      {% capture slidecontentCount %}description{{ i }}{% endcapture %}
+      {% assign slideContent = block.settings[slidecontentCount] %}
+      {% capture slidebtnTextCount %}btn_text{{ i }}{% endcapture %}
+      {% assign slideBtntext = block.settings[slidebtnTextCount] %}
+      {% capture slidebtnLinkCount %}btn_link{{ i }}{% endcapture %}
+      {% assign slideBtnLink = block.settings[slidebtnLinkCount] %}
+      {% capture slideasLinkCount %}slide_as_link{{ i }}{% endcapture %}
+      {% assign slideasLink = block.settings[slideasLinkCount] %}
+      {% capture slidebtnAsLinkCount %}button_as_link{{ i }}{% endcapture %}
+      {% assign slideBtnAsLink = block.settings[slidebtnAsLinkCount] %}
+      {% capture slidebtnSizeCount %}button_size{{ i }}{% endcapture %}
+      {% assign slideBtnSize = block.settings[slidebtnSizeCount] %}
+      {% capture slidedesktopAlignmentCount %}desktop_alignment{{ i }}{% endcapture %}
+      {% assign slidedesktopAlignment = block.settings[slidedesktopAlignmentCount] %}
+      {% capture slidedesktopPositionCount %}desktop_position{{ i }}{% endcapture %}
+      {% assign slidedesktopPosition = block.settings[slidedesktopPositionCount] %}
+      {% liquid
+        assign textContent = false
+        if slideHeading != blank or slideContent != blank
+          assign textContent = true
+        endif
+        if slideBtntext != blank and slideBtnLink != blank
+          assign textContent = true
+        endif
+        capture slideImage
+          assign blockMedia = false
+          assign mobileImage = false          
+          if slidemobileImage != blank or slidedesktopImage != blank or slideVideo != blank
+            assign blockMedia = true
+          endif
+          if slidemobileImage != blank
+            assign mobileImage = true
+            assign mobileClass = 'mobile-img d-block d-md-none'
+            if i == 1
+              assign height = slidemobileImage.width | divided_by: slidemobileImage.aspect_ratio | round
+              assign sizes = '100vw'
+              assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                   
+              echo slidemobileImage | image_url: width: 3840 | image_tag: height: height,class: mobileClass, sizes: sizes, widths: widths
+            else
+              render 'lazy-image', image: slidemobileImage, class: mobileClass,lazypreload:true
+            endif
+          endif
+          assign desktopClass = ''
+          if mobileImage
+            assign desktopClass = 'd-none d-md-block'
+          endif
+          if slidedesktopImage != blank
+            if i == 1
+              assign height = slidedesktopImage.width | divided_by: slidedesktopImage.aspect_ratio | round
+              assign sizes = '100vw'
+              assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'         
+              echo slidedesktopImage | image_url: width: 3840 | image_tag: height: height,class: desktopClass, sizes: sizes, widths: widths
+            else
+              render 'lazy-image', image: slidedesktopImage, class: desktopClass,lazypreload:true
+            endif            
+          elsif slidedesktopImage == blank and mobileImage
+            assign placeholderClass = 'placeholder-svg d-none d-md-block'
+            echo 'hero-apparel-2' | placeholder_svg_tag: placeholderClass
+          else
+            assign placeholderClass = 'placeholder-svg'
+            echo 'hero-apparel-1' | placeholder_svg_tag: placeholderClass
+          endif
+        endcapture
+      %}
+      {% if textContent or blockMedia %}
+      {% assign slideCount = slideCount | plus: 1 %}
+      <div
+        id="slideshow_item_{{i}}"
+        class="slideshow-item"
+      > 
+        {% if slideasLink == true %}
+          {% if slideBtnLink != blank %}
+            <a class="slideshow-link" href="{{ slideBtnLink }}" aria-label="Media link"></a>
+          {% endif %}
+        {% endif %}
+        <div class="slideshow-media">
+          <div class="media media-fixed">
+            {% if slideVideo != blank %}
+             <deferred-media class="deferred-media">
+                <template>
+                  <video id="slider_video-{{i}}" class="videoBackgroundFiles" autoplay muted loop playsinline>
+                    <source src="{% if slideVideo.sources[0].url contains 'mp4' %}{{ slideVideo.sources[0].url -}}{% else %}{{ slideVideo.sources[1].url -}}{% endif%}" type="video/mp4">
+                  </video>
+                </template>
+                 <div class="deferred-media-placeholder">
+                    {% render 'lazy-image', image: slideVideo.preview_image, imageSize: 1920 %}
+                </div>
+               <noscript>
+                <a
+                  href="{% if slideVideo.media_type == 'external_video' %}{{ slideVideo | external_video_url }}{% else %}{{ slideVideo.preview_image | image_url: width: 2048 }}{% endif %}"
+                  target="_blank"
+                  class="unstyled-link"
+                  aria-label="{{ slideVideo.alt | default: product.title | strip_html }}"
+                >
+                  {% comment %}theme-check-disable ImgWidthAndHeight{% endcomment %}
+                  <img
+                    src="{{ slideVideo.preview_image | image_url: width: 2048 }}"
+                    alt="{{ slideVideo.preview_image.alt | escape }}"
+                    loading="lazy"
+                  >
+                  {% comment %}theme-check-enable ImgWidthAndHeight{% endcomment %}
+                </a>
+              </noscript>
+            </deferred-media> 
+            {%- else -%}
+              {{ slideImage }}
+            {% endif %}
+          </div>
+        </div>
+        {% if slideHeading != blank or slideContent != blank or slideBtnLink != blank %}
+          <div class="slideshow-content-wrapper">
+            <div class="slideshow-content {{ slidedesktopAlignment }} {{ slidedesktopPosition }}">
+              <div class="slideshow-content-inner">
+                {% if slideHeading != blank %}
+                  <div class="section-title">
+                    <{{ slideHeadingTag }} class="slideshow-heading {{ slideHeadingsize }}">
+                      {{- slideHeading -}}
+                    </{{ slideHeadingTag }}>
+
+                    {% if slideContent != blank %}
+                      <p class="slideshow-desc">{{ slideContent }}</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                {% if slideasLink == false %}
+                  {% if slideBtnLink != blank and slideBtntext != blank %}
+                    <a
+                      href="{{ slideBtnLink }}"
+                      class="{% if slideBtnAsLink %}hyperlink {% else %} button{% if settings.enable_button_shadow %} button-shadow{% endif %}{% endif %} slideshow-button {{ slideBtnSize }}-btn"
+                      title="{{ slideBtntext }}"
+                    >
+                      {{ slideBtntext }}
+                    </a>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+<div
+  id="block-{{ block.id }}"
+  class="categories-media-grid-item categories-media-grid-item-{{ loopIndex }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="slideshow-banner">
+    <div
+      class="slideshow-banner-inner slider {{ block.settings.arrows_visibility }}"
+      {% if slideCount > 1 %}
+        data-slideshow='
+          {
+          "contain": true,
+          "cellAlign": "left",
+          "wrapAround": true,
+          "imagesLoaded": true,
+          "lazyLoad": true,
+          "fade": true,
+          "pageDots": {% if block.settings.slider_thumbnail == 'dots' %}true{% else %}false{% endif %},
+          "autoPlay": {% if block.settings.auto_rotate == true %}{{ block.settings.change_slides_speed | times: 1000 }}{% else %}false{% endif %},
+          "draggable": true,
+          "prevNextButtons": false,
+          "groupCells": true,
+          "cellSelector":".slideshow-item"
+          }
+        '
+      {% endif %}
+    >
+      {% if mediaGridSlides != blank and slideCount > 0 %}
+        {{ mediaGridSlides }}
+      {% else %}
+      <div
+        id="slideshow_item_1"
+        class="slideshow-item"
+      > 
+        <div class="slideshow-media">
+          <div class="media media-fixed">
+            {% liquid
+                assign placeholderClass = 'placeholder-svg'
+                echo 'hero-apparel-2' | placeholder_svg_tag: placeholderClass
+            %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if block.settings.slider_thumbnail == 'only-arrow' and slideCount > 1 %}
+        {% render 'carousal-arrows', class: 'custom-navigation-button-icon' %}
+      {% endif %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+{%- capture drawerContent -%}
+<div class="quickview-drawer-content" data-product-wrapper>  
+  <div class="row no-gutters">
+    <div class="col-12 col-md-6">
+      <div
+        class="quickview-popup-img"
+        data-type="stacked"
+        data-product-media> 
+        {% render 'product-custom-badge' %}
+        {% render 'product-media', product: product,main_slider:false, featuredProduct: true %}
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="quickview-drawer-content-inner" data-featured-content>
+        {% render 'product-blocks', product: product, current_variant: current_variant, section: section, block: block, formid: formid, discountPercent: true, show_rating_without_count: true %}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endcapture -%}
+{% if drawerContent != blank %}
+  {% render 'side-drawer',
+    id: 'productQuickview',
+    class: 'quickview-drawer large-width',
+    quick_attr: true,
+    drawerContent: drawerContent,
+    colorScheme: colorScheme,
+    gradient: gradient
+  %}
+{% endif %}

@@ -1,0 +1,53 @@
+ {{ 'testimonials.css' | asset_url | stylesheet_tag }}
+{% if section.settings.heading != blank %}
+    <div class="section-title {{ section.settings.heading_alignment }}" {% if settings.enable_animation %}data-aos="fade-up" data-aos-duration="1000"{% endif %}>
+       {%- capture highlightPrefix -%}
+       <span class="line-marker {% if section.settings.highlight_style == 'background' %}highlight-background {% if section.settings.bg__color == 'gradient' %}highlight-background-gradient{% else %}highlight-background-solid{% endif %}{% endif %}">
+          {%- endcapture -%}
+          {%- capture highlightSuffix -%}
+          {% if section.settings.highlight_style != 'background' %}
+            {% render 'marker', marker: section.settings.highlight_style %}
+         {% endif %}
+       </span>
+       {%- endcapture -%}
+       <{{ section.settings.seo_heading }} class="{{ section.settings.heading_size }} section-heading {% if section.settings.heading_animation %} linear-animation{% endif %}">
+        {% if section.settings.heading_animation %}
+          {{ section.settings.heading }}
+      {% else %}
+        {{ section.settings.heading | replace:"[", highlightPrefix | replace:"]",highlightSuffix}}
+        {% endif %}
+       </{{ section.settings.seo_heading }}>
+       {% if section.settings.description != blank %}
+        <p class="testimonial-desc">
+           {{ section.settings.description }}
+        </p>
+        {% endif %}
+    </div> 
+    {% endif %}
+<div class="slider {{ section.settings.testimonial_style }} testimonial-item-wrapper{% if section.settings.enlargen_slide %} enlargen-slider{% endif %}"
+data-slideshow='
+  {
+  "contain": true,
+  "cellAlign": "{% if section.settings.enlargen_slide %}center{% else %}left{% endif %}",
+  "imagesLoaded": true,
+  "lazyLoad": true,
+  "wrapAround": true,
+  "pageDots": {% if section.settings.slider_thumbnail == 'dots'%}true{% else %}false{% endif %},
+  "autoPlay": {% if section.settings.auto_rotate == true %}{{ section.settings.change_slides_speed | times: 1000 }}{% else %}false{% endif %},
+  "draggable": true,
+  "groupCells":{% if section.settings.enlargen_slide %}false{% else %}true{% endif %},
+  "prevNextButtons": false,
+  "cellSelector":".testimonial-item"
+  }
+'
+ >
+  {% for block in section.blocks %}
+    {% assign aos_delay = forloop.index | times : 100 %}
+    <div id="testimonial-{{ block.id }}" class="testimonial-item text-{{ section.settings.testimonial_text_alignment }}" {{ block.shopify_attributes }}> 
+        {% render 'testimonial-content', block:block, section:section, aos_delay: aos_delay %}
+    </div>
+{% endfor %}
+    {% if section.settings.slider_thumbnail == 'only-arrow' %}
+      {% render 'carousal-arrows', class: 'custom-navigation-button-icon' %}
+  {% endif %}
+</div>

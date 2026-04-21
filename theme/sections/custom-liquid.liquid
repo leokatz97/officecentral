@@ -1,0 +1,146 @@
+{%-liquid
+     assign Colorscheme = section.settings.color_scheme
+%}
+<div class="scheme-{{ Colorscheme }} section-padding{% if section.settings.enable_gradient %} gradiant{% endif %}">
+    <div class="container-sm">
+        <div class="custom-liquid text-{{ section.settings.text_alignment }}">
+            {{
+              section.settings.custom_liquid
+              | replace: '<table', '<div class="table-responsive"><table'
+              | replace: '</table>', '</table></div>'
+            }}
+          </div>
+    </div>
+</div>
+<style>
+  #shopify-section-{{ section.id }}{
+  --padding-top: {{ section.settings.top_space_desktop}}px;
+  --padding-bottom: {{ section.settings.bottom_space_desktop}}px;
+}
+@media screen and (max-width: 767px) {
+  #shopify-section-{{ section.id }}{
+      --padding-top: {{ section.settings.top_space_mobile }}px !important;
+      --padding-bottom: {{ section.settings.bottom_space_mobile }}px !important;
+    }
+  }
+  {% if section.settings.section_visibility == 'large' %}
+    @media (max-width: 767px) {
+      #shopify-section-{{ section.id }}{
+        display: none !important;
+      }
+    }
+  {% elsif section.settings.section_visibility == 'small' %}
+    @media (min-width: 768px) {
+      #shopify-section-{{ section.id }}{
+        display: none !important;
+      }
+    }
+{% endif %}
+</style>
+{% schema %}
+{
+  "name": "t:sections.custom-liquid.name",
+  "tag": "section",
+  "class": "custom-liquid-section",
+  "disabled_on":{
+    "groups":["header","footer"]
+  },
+  "settings":[
+    {
+      "type": "header",
+      "content": "t:global.general_labels.general"
+    },
+    {
+        "type": "select",
+        "id": "section_visibility",
+        "label": "t:global.section_visibility.label",
+        "default": "always",
+        "options": [
+          {
+            "label": "t:global.section_visibility.options.always.label",
+            "value": "always"
+          }, {
+            "label": "t:global.section_visibility.options.small.label",
+            "value": "small"
+          }, {
+            "label": "t:global.section_visibility.options.large.label",
+            "value": "large"
+          }
+        ]
+      },
+    {
+        "type": "liquid",
+        "id": "custom_liquid",
+        "label": "t:sections.custom-liquid.settings.custom_liquid.label",
+        "info": "t:sections.custom-liquid.settings.custom_liquid.info"
+      },
+      {
+        "type": "text_alignment",
+        "id": "text_alignment",
+        "label": "t:global.text_alignment.label",
+        "default": "center"
+      },
+    {
+          "type": "header",
+         "content": "t:global.general_labels.colors"
+    },
+       {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "default": "primary",
+          "label": "t:global.color_scheme.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_gradient",
+          "label": "t:global.general_labels.gradient",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "t:global.section_padding.label"
+        },
+        {
+          "type": "range",
+          "id": "top_space_desktop",
+          "label": "t:global.section_padding.options.top_space_desktop.label",
+          "default": 70,
+          "min": 0,
+          "max": 150,
+          "step": 5
+        },
+        {
+          "type": "range",
+          "id": "bottom_space_desktop",
+          "label": "t:global.section_padding.options.bottom_space_desktop.label",
+          "default": 70,
+          "min": 0,
+          "max": 150,
+          "step": 5
+        },
+        {
+          "type": "range",
+          "id": "top_space_mobile",
+          "label": "t:global.section_padding.options.top_space_mobile.label",
+          "default": 40,
+          "min": 0,
+          "max": 100,
+          "step": 5
+        },
+        {
+          "type": "range",
+          "id": "bottom_space_mobile",
+          "label": "t:global.section_padding.options.bottom_space_mobile.label",
+          "default": 40,
+          "min": 0,
+          "max": 100,
+          "step": 5
+        }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.custom-liquid.presets.name"
+    }
+  ]
+}
+{% endschema %}

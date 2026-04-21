@@ -1,0 +1,202 @@
+
+{{ 'account.css' | asset_url | stylesheet_tag }}
+<div class="customer login" id="recover">
+    <h2 class="account-form-heading h2">{{ 'customer.reset_password.title' | t }}</h2>
+    {%- form 'recover_customer_password' -%}
+    {%- if form.errors -%}
+        <div id="RecoverEmail-email-error" class="form-message error">
+        {{ form.errors.messages.form }}
+        </div>
+    {%- endif -%}
+    {% assign recover_success = form.posted_successfully? %}
+    <div class="form-group">
+        <label for="email">{{ 'customer.login_page.email' | t }}</label>
+        <input
+        type="email"
+        class="form-control input-sm{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+        name="email"
+        id="RecoverEmail"
+        autocorrect="off"
+        autocapitalize="off"
+        autocomplete="email"
+        {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="RecoverEmail-email-error"
+            autofocus
+        {% endif %}
+        placeholder="{{ 'customer.login_page.email' | t }}"
+        >
+    </div>
+    
+    <button class="button btn-block small-btn{% if settings.enable_button_shadow %} button-shadow{% endif %}">{{ 'customer.login_page.submit' | t }}</button>
+    <div class="create-account-text text-center">
+        <p class="text-small">
+        <a href="#login" class="hyperlink text-small" onClick="toggleForm(event)" data-close="recover" data-open="login"> {{ 'customer.login_page.cancel' | t }}</a>
+        </p>
+    </div>
+    {% endform %}
+</div>
+<div class="customer login" id="login">
+    <h6 class="account-form-heading h6">{{ 'customer.login_page.title' | t }}</h6>
+    {%- if recover_success == true -%}
+    <div class="form-message success" tabindex="-1" autofocus>
+        {{ 'customer.recover_password.success' | t }}
+    </div>
+    {%- endif -%}
+    {%- form 'customer_login', novalidate: 'novalidate' -%}
+    {%- if form.errors -%}
+        <div class="form-message error" tabindex="-1" autofocus>
+        <div> {{ 'templates.contact.form.error_heading' | t }}
+        {{ form.errors | default_errors }}
+        </div>
+        </div>
+        
+    {%- endif -%}
+    <div class="form-group">
+        <label class="hidden" for="email"> {{ 'customer.login_page.email' | t }} </label>
+        <input
+        type="email"
+        class="form-control input-sm{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+        name="customer[email]"
+        id="CustomerEmail"
+        autocomplete="email"
+        autocorrect="off"
+        autocapitalize="off"
+        {% if form.errors contains 'form' %}
+            aria-invalid="true"
+        {% endif %}
+        placeholder="{{ 'customer.login_page.email' | t }}"
+        >
+    </div>
+    <div class="form-group">
+        <label class="hidden" for="customerPassword">{{ 'customer.login_page.password' | t }}</label>
+        <input
+        type="password"
+        class="form-control input-sm{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+        name="customer[password]"
+        id="CustomerPassword"
+        autocomplete="current-password"
+        {% if form.errors contains 'form' %}
+            aria-invalid="true"
+        {% endif %}
+        placeholder="{{ 'customer.login_page.password' | t }}"
+        >
+    </div>
+    <button class="button btn-block small-btn{% if settings.enable_button_shadow %} button-shadow{% endif %}">{{ 'customer.login_page.sign_in' | t }}</button>
+    <div class="create-account-text text-center">
+        <a href="#recover" class="hyperlink forgot-password-text text-small" onClick="toggleForm(event)"  data-close="login" data-open="recover">{{ 'customer.login_page.forgot_password' | t }}</a>
+        <p>        
+        <a href="{{ routes.account_register_url }}" class="hyperlink text-small" onClick="toggleForm(event)" data-close="login" data-open="register">
+            {{- 'customer.login_page.create_account' | t -}}
+        </a>
+        </p>
+    </div>
+    {% endform %}
+</div>
+<div class="customer register" id="register">
+    <h2 class="account-form-heading h2">{{ 'customer.register.title' | t }}</h2>
+    {%- form 'create_customer', novalidate: 'novalidate' -%}
+        {%- if form.errors -%}
+        <div class="form-message error" tabindex="-1" autofocus>
+            {{ 'templates.contact.form.error_heading' | t }}
+            <ul>
+            {%- for field in form.errors -%}
+            <li>
+                {%- if field == 'form' -%}
+                {{ form.errors.messages[field] }}
+                {%- else -%}
+                <a href="#RegisterForm-{{ field }}">
+                    {{ form.errors.translated_fields[field] | capitalize }}
+                    {{ form.errors.messages[field] }}
+                </a>
+                {%- endif -%}
+            </li>
+            {%- endfor -%}
+        </ul>
+        </div>
+        
+        {%- endif -%}
+        <div class="form-group">
+        <label class="hidden" for="RegisterForm-FirstName">
+            {{ 'customer.register.first_name' | t }}
+        </label>
+        <input
+            type="text"
+            class="form-control input-sm{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            name="customer[first_name]"
+            id="RegisterForm-FirstName"
+            {% if form.first_name %}
+            value="{{ form.first_name }}"
+            {% endif %}
+            autocomplete="given-name"
+            placeholder="{{ 'customer.register.first_name' | t }}"
+        >
+        </div>
+        <div class="form-group">
+        <label class="hidden" for="RegisterForm-LastName">
+            {{ 'customer.register.last_name' | t }}
+        </label>
+        <input
+            type="text"
+            class="form-control input-sm{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            name="customer[last_name]"
+            id="RegisterForm-LastName"
+            {% if form.last_name %}
+            value="{{ form.last_name }}"
+            {% endif %}
+            autocomplete="family-name"
+            placeholder="{{ 'customer.register.last_name' | t }}"
+        >
+        </div>
+        <div class="form-group">
+        <label class="hidden" for="RegisterForm-email">
+            {{ 'customer.register.email' | t }}
+        </label>
+        <input
+            type="email"
+            class="form-control input-sm{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            name="customer[email]"
+            id="RegisterForm-email"
+            {% if form.email %}
+            value="{{ form.email }}"
+            {% endif %}
+            spellcheck="false"
+            autocapitalize="off"
+            autocomplete="email"
+            aria-required="true"
+            {% if form.errors contains 'email' %}
+            aria-invalid="true"
+            aria-describedby="RegisterForm-email-error"
+            {% endif %}
+            placeholder="{{ 'customer.register.email' | t }}"
+        >
+        </div>
+        
+        <div class="form-group">
+        <label class="hidden" for="RegisterForm-password">
+            {{ 'customer.register.password' | t }}
+        </label>
+        <input
+            type="password"
+            class="form-control input-sm{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            name="customer[password]"
+            id="RegisterForm-password"
+            aria-required="true"
+            {% if form.errors contains 'password' %}
+            aria-invalid="true"
+            aria-describedby="RegisterForm-password-error"
+            {% endif %}
+            placeholder="{{ 'customer.register.password' | t }}"
+        >
+        </div>
+        
+        <button class="button small-btn btn-block{% if settings.enable_button_shadow %} button-shadow{% endif %}">{{ 'customer.register.submit' | t }}</button>
+        <div class="create-account-text text-center">
+        <p class="text-small">
+        
+            {{ 'customer.login_page.already_account' | t }}
+            <a href="{{ routes.account_login_url }}" class="hyperlink" onClick="toggleForm(event)" data-close="register" data-open="login">{{ 'customer.login_page.login' | t }}</a>
+        </p>
+        </div>
+    {% endform %}
+</div>

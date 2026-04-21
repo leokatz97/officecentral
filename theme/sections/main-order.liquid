@@ -1,0 +1,329 @@
+{{ 'account.css' | asset_url | stylesheet_tag }}
+<div class="scheme-{{ section.settings.color_scheme }}{% if section.settings.enable_gradient %} gradiant{% endif %} section-padding">
+  <div class="container-sm">
+    <div class="account-header">
+      <h1>{{ 'customer.account.title' | t }}</h1>
+    </div>
+    <div class="row">
+      <div class="col-lg-3">
+        {% render 'account-sidebar' %}
+      </div>
+      <div class="col-lg-9">
+        <div class="account-content order-details">
+          <div class="order-header">
+            <div class="order-header-detail">
+              <h3 class="order-header-heading">{{ 'customer.orders.title' | t }}</h3>
+              <h6 class="h6 order-detail-heading">{{ 'customer.order.title' | t: name: order.name }}</h6>
+              {%- assign order_date = order.created_at | time_tag: format: 'date_at_time' -%}
+              <p class="order-detail-desc">({{ 'customer.order.date_html' | t: date: order_date }})</p>
+              {%- if order.cancelled -%}
+                {%- assign cancelled_at = order.cancelled_at | time_tag: format: 'date_at_time' -%}
+                <p>{{ 'customer.order.cancelled_html' | t: date: cancelled_at }}</p>
+                <p>{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+          <div class="product-history-box order-table">
+            <div class="product-history-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      <strong>{{ 'customer.order.product' | t }}</strong>
+                    </th>
+                    <th>
+                      <strong>{{ 'customer.order.price' | t }}</strong>
+                    </th>
+                    <th>
+                      <strong>{{ 'customer.order.quantity' | t }}</strong>
+                    </th>
+                    <th>
+                      <strong>{{ 'customer.order.total' | t }}</strong>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {%- for line_item in order.line_items -%}
+                    <tr>
+                      <td
+                        id="Row{{ line_item.key }}"
+                        headers="ColumnProduct"
+                        role="rowheader"
+                        scope="row"
+                        data-label="{{ 'customer.order.product' | t }}"
+                      >
+                        <div class="order-product-info-wrapper">
+                          {% if line_item.image != blank %}
+                            <a href="{{ line_item.product.url }}" class="small-product-img">
+                              <div
+                                class="media"
+                                style="--imageRatio:{{ 1 | divided_by: line_item.image.aspect_ratio | times: 100 }}%"
+                              >
+                                <img
+                                  src="{{ line_item.image | image_url: width: 100 }}"
+                                  width="100"
+                                  height="auto"
+                                  alt="{{ line_item.title | strip_html }}"
+                                  loading="lazy"
+                                >
+                              </div>
+                            </a>
+                          {% endif %}
+                          <div class="order-product-detail">
+                            <a href="{{ line_item.product.url }}" class="product-title {{ settings.font_type }}-font">
+                              {{- line_item.title | strip_html -}}
+                            </a>
+                            {%- unless line_item.product.has_only_default_variant -%}
+                              <p class="product-variant-title text-small">{{ line_item.variant.title }}</p>
+                            {%- endunless -%}
+                            {%- if line_item.selling_plan_allocation != null -%}
+                              <p class="product-variant-title text-small">
+                                {{ line_item.selling_plan_allocation.selling_plan.name }}
+                              </p>
+                            {%- endif -%}
+                            {%- if line_item.line_level_discount_allocations != blank -%}
+                              <div class="order-discount">
+                                {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                                  <p>
+                                    {{- discount_allocation.discount_application.title }} (<span
+                                      >-{{ discount_allocation.amount | money -}}</span
+                                    >)
+                                  </p>
+                                {%- endfor -%}
+                              </div>
+                            {%- endif -%}
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="product-price">
+                          {%- if line_item.original_price != line_item.final_price -%}
+                            <span class="hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                            <span class="price-item actual-price ">{{ line_item.final_price | money }}</span>
+                            <span class="hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                            <span class="compare-price">
+                              {{- line_item.original_price | money -}}
+                            </span>
+                          {%- else -%}
+                            <span class="hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                            <span class="price-item actual-price">{{ line_item.original_price | money }}</span>
+                          {%- endif -%}
+                          {%- if line_item.variant.available and line_item.unit_price_measurement -%}
+                            {%- capture unit_price_separator -%}
+                                 /
+                              {%- endcapture -%}
+                            {%- capture unit_price_base_unit -%}
+                                {%- if line_item.unit_price_measurement.reference_value != 1 -%}
+                                  {{- line_item.unit_price_measurement.reference_value -}}
+                                {%- endif -%}
+                                {{ line_item.unit_price_measurement.reference_unit }}
+                              {%- endcapture -%}
+                            <span class="product-unit-price" data-unit-price>
+                              {{- line_item.unit_price | money }}
+                              {{ unit_price_separator }}
+                              {{- unit_price_base_unit -}}
+                            </span>
+                          {%- endif -%}
+                        </div>
+                      </td>
+                      <td>{{ line_item.quantity }}</td>
+                      <td>
+                        <div class="product-price">
+                          {%- if line_item.original_line_price != line_item.final_line_price -%}
+                            <span class="hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                            <span class="price-item actual-price">
+                              {{- line_item.original_line_price | money -}}
+                            </span>
+                            <span class="hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                            <span class="compare-price">{{ line_item.final_line_price | money }}</span>
+                          {%- else -%}
+                            <span class="price-item actual-price">
+                              {{- line_item.original_line_price | money -}}
+                            </span>
+                          {%- endif -%}
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <div class="order-total-prize-wrapper">
+              <div class="account-price-total-box">
+                <p class="order-subtotal-text">{{ 'customer.order.subtotal' | t }}</p>
+                <p>{{ order.line_items_subtotal_price | money }}</p>
+              </div>
+              {%- for discount_application in order.cart_level_discount_applications -%}
+                <div class="account-price-total-box">
+                  <p class="order-discount-text">
+                    {{ 'customer.order.discount' | t }}
+                    <span
+                      >(
+                      {{- discount_application.title -}}
+                      )</span
+                    >
+                  </p>
+                  <p>-{{ discount_application.total_allocated_amount | money }}</p>
+                </div>
+              {% endfor %}
+              {%- for shipping_method in order.shipping_methods -%}
+                <div class="account-price-total-box">
+                  <p class="order-shipping-text">
+                    {{ 'customer.order.shipping' | t }}
+                    <span>({{ shipping_method.title }})</span>
+                  </p>
+                  <p>{{ shipping_method.price | money }}</p>
+                </div>
+              {% endfor %}
+              {%- for tax_line in order.tax_lines -%}
+                <div class="account-price-total-box">
+                  <p class="order-tax-text">
+                    {{ 'customer.order.tax' | t }}
+                    <span
+                      >({{ tax_line.title }}
+                      {{ tax_line.rate | times: 100 }}%)</span
+                    >
+                  </p>
+                  <p>{{ order.tax_price | money }}</p>
+                </div>
+              {% endfor %}
+              {%- if order.total_duties -%}
+                <div class="account-price-total-box">
+                  <p class="order-duties-text">
+                    {{ 'customer.order.total_duties' | t }}
+                  </p>
+                  <p>{{ order.total_duties | money }}</p>
+                </div>
+              {%- endif -%}
+              {%- if order.total_refunded_amount > 0 -%}
+                <div class="account-price-total-box">
+                  <p class="order-duties-text">
+                    {{ 'customer.order.total_refunded' | t }}
+                  </p>
+                  <p>-{{ order.total_refunded_amount | money_with_currency }}</p>
+                </div>
+              {%- endif -%}
+              <div class="account-price-total-box">
+                <p>{{ 'customer.order.total' | t }} :</p>
+                <h6>{{ order.total_net_amount | money }}</h6>
+              </div>
+            </div>
+            <div class="order-footer-box">
+              <a class="button med-btn{% if settings.enable_button_shadow %} button-shadow{% endif %}" href="{{ routes.account_url }}">
+                <span>{{ 'general.back_to_order' | t }}</span>
+              </a>
+            </div>
+          </div>
+          <div class="adderess-wrapper">
+            <div class="address-box">
+              <div class="address-box-inner">
+                <div class="address-box-content">
+                  <h6 class="address-title h6">{{ 'customer.order.shipping_address' | t }}</h6>
+                  <div class="address-text">
+                    <p>{{ order.shipping_address | format_address }}</p>
+                  </div>
+                </div>
+                <div class="payment-status-box text-small">
+                  <p class="payment-status-text">
+                    {{ 'customer.order.payment_status' | t }}: <span>{{ order.financial_status_label }}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="address-box-inner">
+                <div class="address-box-content">
+                  <h6 class="address-title h6">{{ 'customer.order.billing_address' | t }}</h6>
+                  <div class="address-text">
+                    <p>{{ order.billing_address | format_address }}</p>
+                  </div>
+                </div>
+                <div class="payment-status-box text-small">
+                  <p class="payment-status-text">
+                    {{ 'customer.order.fulfillment_status' | t }}:
+                    <span class="unfulfilled-text"> {{ order.fulfillment_status_label }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  #shopify-section-{{ section.id }}{
+       --padding-top: {{ section.settings.top_space_desktop}}px;
+       --padding-bottom: {{ section.settings.bottom_space_desktop}}px;
+     }
+     @media only screen and (max-width:767px) {
+       #shopify-section-{{ section.id }}{
+         --padding-top: {{ section.settings.top_space_mobile }}px !important;
+         --padding-bottom: {{ section.settings.bottom_space_mobile }}px !important;
+       }
+     }
+</style>
+{% schema %}
+{
+  "name": "t:sections.order.name",
+  "class": "main-order-section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:global.general_labels.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "t:global.general_labels.gradient",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:global.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "top_space_desktop",
+      "label": "t:global.section_padding.options.top_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_desktop",
+      "label": "t:global.section_padding.options.bottom_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "top_space_mobile",
+      "label": "t:global.section_padding.options.top_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_padding.options.bottom_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    }
+  ]
+}
+{% endschema %}

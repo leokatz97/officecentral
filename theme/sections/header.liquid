@@ -1,0 +1,2944 @@
+
+{% assign isQuickLinks = false %}
+  {% for block in section.blocks %}
+    {% case block.type %}
+     {% when 'menu_label' %}
+      {% if block.settings.link != blank and block.settings.title != blank  %}
+        {% assign isQuickLinks = true %}
+      {% endif %}
+      {% endcase %}
+    {% endfor %}
+<style>
+    header{
+      --logoWidth:{{ section.settings.logo_width }}px;
+      --searchBorderColor:{{ settings.search_border_color }};
+      --menuFontFamily:var(--{{ section.settings.menu_font }}Font);
+      --submenuFontFamily:var(--{{ section.settings.sub_menu_font }}Font);
+      --menuPosition:{{ section.settings.menu_items_alignment }};
+      --headerOuterBackground: {{ section.settings.top_corner_color }};
+        {% if section.settings.menu_items_alignment == 'center' %}
+          --quickLinkPosition: center;
+        {% elsif section.settings.menu_items_alignment == 'flex-end' %}
+          --quickLinkPosition: flex-end;
+        {% else %}
+          --quickLinkPosition: space-between;
+        {% endif %}
+      --store-detail-dropdown-color: {{ section.settings.store_details_text_color }};
+      --store-detail-dropdown-link: {{ section.settings.store_details_link_color }};
+      --store-detail-dropdown-border: {{ section.settings.store_details_border_color }};
+      --store-detail-dropdown-bg: {{ section.settings.store_details_dropdown_bg }};
+
+      {% assign storeDetailDropdownBg = section.settings.store_details_dropdown_bg | color_brightness %}
+      {%- if storeDetailDropdownBg < 130 -%}
+        --store-detail-dropdown-hover:{{ section.settings.store_details_dropdown_bg | color_lighten: 10 }};
+        {%- else -%}
+        --store-detail-dropdown-hover:{{ section.settings.store_details_dropdown_bg | color_darken: 10 }};
+      {%- endif -%}
+
+      --support-content-bg: {{ section.settings.support_content_bg }};
+      --support-text-color: {{ section.settings.support_content_text }};
+      
+      
+    }
+    {% if isQuickLinks and section.settings.menu_items_alignment == 'center' %}
+      .secondary-header .quick-links-enable .nav-menu-list {
+          width: max-content;
+      }
+    {% endif %}
+    .inner-side .side-menu-wrapper .nav-item .nav-item-header a,
+    .inner-side .mobile-category-menu-bar .nav-item .nav-item-header a,
+    header .categories-submenu-link{
+      font-family:var(--menuFontFamily);
+    }
+    .inner-side .side-menu-wrapper .nav-item .inner-child .nav-item-header a,
+    .inner-side .side-menu-wrapper .nav-item .inner-child .megamenu-promotion-title,
+    .inner-side .mobile-category-menu-bar .nav-item .inner-child .nav-item-header a,
+    .inner-side .mobile-category-menu-bar .nav-item .inner-child .categories-inner-submenu-img-content *,
+    header .categories-inner-submenu-item a,
+    header .categories-inner-submenu-heading{
+      font-family:var(--submenuFontFamily);
+    }
+    header .search-content[data-search-drawer] {
+      --searchTextColor: rgb(var(--textColor));
+      --headerIconColor: rgb(var(--textColor));
+      --headerBg: rgb(var(--alternateBackground));
+    }
+    html[color-mode="dark"]   header .search-content[data-search-drawer] {
+      --searchTextColor: #d1d1d1;
+      --headerIconColor: #d1d1d1;
+      --headerBg:#000;
+    }
+    {% if section.settings.enable_header_shape %}
+    #shopify-section-{{ section.id }} .shapes-background {
+      background: transparent;
+      position: absolute;
+      width: 100%;
+      top: 100%;
+    }
+    #shopify-section-{{ section.id }}  .shapes-background svg {
+      width: 100%;
+      display: block;
+      object-fit: var(--image-fit);
+      {% unless section.settings.select_shape == 'shape8' %}
+      transform: rotate(180deg);    
+      {% endunless %}
+      margin-top: -1px;
+    }
+    #shopify-section-{{ section.id }}  .shapes-background svg path,
+    #shopify-section-{{ section.id }}  .shapes-background svg rect{
+      {% unless section.settings.svg_color == 'rgba(0,0,0,0)' or section.settings.svg_color == blank %}
+      fill: {{ section.settings.svg_color }};
+      {% else %}
+        {% if section.settings.header_style == 'logo_with_inline_menu' %}
+          fill: {{ settings.background_header }};
+        {% else %}
+          fill: {{ settings.secondary_background_header }};
+        {% endif %}
+      {% endunless %}
+    }
+    #shopify-section-{{ section.id }} .shapes-background svg path.shape-stoke-path{
+      {% unless section.settings.svg_stroke == 'rgba(0,0,0,0)' or section.settings.svg_stroke == blank %}
+      stroke: {{ section.settings.svg_stroke }};
+      {% else %}
+        {% if section.settings.header_style == 'logo_with_inline_menu' %}
+          stroke: {{ settings.background_header }};
+        {% else %}
+        stroke: {{ settings.secondary_background_header }};
+        {% endif %}
+      {% endunless %}
+    }
+    [color-mode="dark"] #shopify-section-{{ section.id }}  .shapes-background svg path,
+    [color-mode="dark"] #shopify-section-{{ section.id }}  .shapes-background svg rect{
+      {% if section.settings.header_style == 'logo_with_inline_menu' %}
+        fill: #000;
+      {% else %}
+        fill: #0e0e0e;
+      {% endif %}
+    }
+    [color-mode="dark"] #shopify-section-{{ section.id }} .shapes-background svg path.shape-stoke-path{
+      {% if section.settings.header_style == 'logo_with_inline_menu' %}
+        stroke:#000;
+      {% else %}
+      stroke: #0e0e0e;
+      {% endif %}
+    }
+ 
+  {% endif %}
+</style>
+<link rel="preload" as="style" href="{{ 'country-flags.css' | asset_url }}">
+{{ 'country-flags.css' | asset_url | stylesheet_tag }}
+<div
+  class="main-header{% if section.settings.enable_sticky_header%} sticky-header{% endif %}{% if section.settings.header_style == 'logo_with_inline_menu' %} logo-with-inline-menu{% endif %}{% if template == 'index' and section.settings.transparent_header %} transparent-header-true{% endif %}{% if section.settings.header_shadow %} header-shadow{% endif %}{% if section.settings.show_top_corner_radius %} radius-enabled{% endif %}"
+  {% if section.settings.enable_sticky_header %}
+    data-sticky-type="{{ section.settings.sticky_header_type}}"
+  {% endif %}
+>
+  <div
+    class="primary-header"
+    data-header-section
+  >
+    <div class="container">
+      <div class="primary-header-blocks logo-{{ section.settings.logo_alignment }}">
+        {% liquid
+          assign badgeBlocks = section.blocks | where: 'type', 'promo_badge'
+          capture promoBadges
+            for block in badgeBlocks
+              render 'header-promo-badges', block: block
+            endfor
+          endcapture
+          render 'mobile-menu',section:section
+          assign headerNavigationStatus = false
+          if section.settings.menu != blank or promoBadges != blank
+            assign headerNavigationStatus = true
+          elsif section.settings.category_heading != blank and section.settings.category_menu != blank
+            assign headerNavigationStatus = true
+          endif
+          if section.settings.header_style == 'logo_with_humburger_menu'
+          render 'hamburger-menu', section: section
+         endif
+          if section.settings.logo_alignment == 'left'
+            render 'header-logo', section: section
+          endif
+          if section.settings.header_style == 'logo_with_search_bar'
+            if section.settings.enable_search
+              render 'header-search-bar', barStatus: true
+            else
+              echo '<div class="d-none d-md-block"></div>'
+            endif
+          endif
+          if section.settings.header_style == 'logo_with_inline_menu' and headerNavigationStatus
+            render 'header-navigation', section: section, badgesData: promoBadges
+          endif
+        
+          if section.settings.logo_alignment == 'center'
+            render 'header-logo', section: section
+          endif
+          echo '<div class="header-options">'
+
+          if section.settings.store_content != blank and section.settings.store_detail != blank and section.settings.enable_store_details
+          render 'support-details', section: section
+          endif
+
+          if settings.enable_dl_mode_toggle
+            render 'color-mode', section: section, device:'desktop' 
+          endif
+          assign headerIcons = false
+          if section.settings.enable_cart
+            assign headerIcons = true
+          endif
+          if section.settings.enable_account and shop.customer_accounts_enabled
+            assign headerIcons = true
+          endif
+          if section.settings.header_style == 'logo_with_inline_menu' and section.settings.enable_search
+            assign headerIcons = true
+          endif
+          if headerIcons
+            render 'header-icons', section: section
+          endif
+          echo '</div>'
+        %}
+      </div>
+    </div>
+  </div>
+  
+
+  {% if section.settings.header_style == 'logo_with_search_bar' and headerNavigationStatus %}
+    <div class="secondary-header d-none d-lg-block">
+      <div class="container">
+        {% render 'header-navigation', section: section, badgesData: promoBadges %}
+      </div>
+    </div>
+  {% endif %}
+   
+      {% if section.settings.header_style == 'logo_with_search_bar' and settings.search_drawer_style != 'full_width' %}
+    {% render 'predictive-search-drawer', fullWidth: true, drawerformobile : true  %}
+  {% else %}
+    {% render 'predictive-search-drawer', fullWidth: true  %}
+  {% endif %}
+
+
+  {% if section.settings.enable_header_shape %}
+    <div class="shapes-background">
+      {% render 'shapes', shape: section.settings.select_shape %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "tag": "header",
+  "class": "header sticky",
+  "settings": [
+    {
+      "type": "select",
+      "id": "header_style",
+      "default": "logo_with_search_bar",
+      "label": "t:sections.header.settings.header_style.label",
+      "options": [
+        {
+          "value": "logo_with_search_bar",
+          "label": "t:sections.header.settings.header_style.options.logo_with_search_bar.label"
+        },
+        {
+          "value": "logo_with_inline_menu",
+          "label": "t:sections.header.settings.header_style.options.logo_with_inline_menu.label"
+        },
+        {
+          "value": "logo_with_humburger_menu",
+          "label": "t:sections.header.settings.header_style.options.logo_with_humburger_menu.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_header",
+      "default": false,
+      "label": "t:sections.header.settings.enable_sticky_header.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_header",
+      "default": false,
+      "label": "t:sections.header.settings.enable_transparent_header.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_shadow",
+      "default": false,
+      "label": "t:sections.header.settings.header_shadow.label"
+    },
+    {
+      "type": "select",
+      "id": "sticky_header_type",
+      "label": "t:sections.header.settings.sticky_header_type.label",
+      "default": "on_scroll",
+      "options": [
+        {
+          "label": "t:sections.header.settings.sticky_header_type.options.on_scroll.label",
+          "value": "on_scroll"
+        },
+        {
+          "label": "t:sections.header.settings.sticky_header_type.options.always.label",
+          "value": "always"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 150,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "t:sections.header.settings.logo_width.label",
+      "default": 150
+    },
+    {
+      "type": "select",
+      "id": "logo_alignment",
+      "default": "left",
+      "label": "t:sections.header.settings.logo_alignment.label",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.header.settings.logo_alignment.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.header.settings.logo_alignment.options.center.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:global.general_labels.corners_radius"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_corner_radius",
+      "default": false,
+      "label": "t:sections.header.settings.show_top_corner_radius.label",
+      "info": "t:sections.header.settings.show_top_corner_radius.info"
+    },
+    {
+      "type": "color",
+      "id" : "top_corner_color",
+      "label": "t:sections.header.settings.top_corner_color.label",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.navigation_header.content"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "select",
+      "id": "menu_type",
+      "default": "dropdown",
+      "label": "t:sections.header.settings.menu_type.label",
+      "options": [
+        {
+          "value": "dropdown",
+          "label": "t:sections.header.settings.menu_type.options.dropdown.label"
+        },
+        {
+          "value": "mega_menu",
+          "label": "t:sections.header.settings.menu_type.options.mega_menu.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "menu_items_alignment",
+      "default": "flex-start",
+      "label": "t:sections.header.settings.menu_items_alignment.label",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "t:sections.header.settings.menu_items_alignment.options.left.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.header.settings.menu_items_alignment.options.center.label"
+        },
+        {
+          "value": "flex-end",
+          "label": "t:sections.header.settings.menu_items_alignment.options.right.label"
+        },
+        {
+          "value": "space-between",
+          "label": "t:sections.header.settings.menu_items_alignment.options.space-between.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "menu_font",
+      "default": "heading",
+      "label": "t:sections.header.settings.menu_font.label",
+      "options": [
+        {
+          "value": "heading",
+          "label": "t:sections.header.settings.menu_font.options.heading.label"
+        },
+        {
+          "value": "body",
+          "label": "t:sections.header.settings.menu_font.options.body.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "menu_font_bold",
+      "default": true,
+      "label": "t:sections.header.settings.menu_font_bold.label"
+    },
+    {
+      "type": "select",
+      "id": "sub_menu_font",
+      "default": "body",
+      "label": "t:sections.header.settings.sub_menu_font.label",
+      "options": [
+        {
+          "value": "heading",
+          "label": "t:sections.header.settings.menu_font.options.heading.label"
+        },
+        {
+          "value": "body",
+          "label": "t:sections.header.settings.menu_font.options.body.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "menu_font_size",
+      "default": "regular",
+      "label": "t:sections.header.settings.menu_font_size.label",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:global.general_labels.small"
+        },
+        {
+          "value": "regular",
+          "label": "t:global.general_labels.regular"
+        },
+        {
+          "value": "medium",
+          "label": "t:global.general_labels.medium"
+        },
+        {
+          "value": "large",
+          "label": "t:global.general_labels.large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "submenu_font_size",
+      "default": "regular",
+      "label": "t:sections.header.settings.submenu_font_size.label",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:global.general_labels.small"
+        },
+        {
+          "value": "regular",
+          "label": "t:global.general_labels.regular"
+        },
+        {
+          "value": "medium",
+          "label": "t:global.general_labels.medium"
+        },
+        {
+          "value": "large",
+          "label": "t:global.general_labels.large"
+        }
+      ]
+    },
+    {
+      "type":"header",
+      "content":"t:global.general_labels.category"
+    },
+    {
+      "type": "text",
+      "id": "category_heading",
+      "default": "Categories",
+      "label": "t:sections.header.settings.category_heading.label"
+    },
+    {
+      "type": "link_list",
+      "id": "category_menu",
+      "label": "t:sections.header.settings.category_menu.label",
+      "info":"t:sections.header.settings.category_menu.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_icons_category_menu",
+      "default": false,
+      "label": "t:sections.header.settings.enable_icons_category_menu.label",
+      "info": "t:sections.header.settings.enable_icons_category_menu.info"
+    },
+    {
+      "type":"select",
+      "id":"category_style",
+      "label":"t:sections.header.settings.category_style.label",
+      "default":"style_1",
+      "options":[
+        {
+          "value":"style_1",
+          "label":"t:sections.header.settings.category_style.options.style_1.label"
+        },
+        {
+          "value":"style_2",
+          "label":"t:sections.header.settings.category_style.options.style_2.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.icons_header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_account",
+      "default": true,
+      "label": "t:sections.header.settings.enable_account.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_cart",
+      "default": true,
+      "label": "t:sections.header.settings.enable_cart.label"
+    },
+    
+    {
+      "type": "select",
+      "id": "cart_icon_options",
+      "default": "both",
+      "label": "t:sections.header.settings.cart_icon_options.label",
+      "info": "t:sections.header.settings.cart_icon_options.info",
+      "options": [
+        {
+          "value": "quantity",
+          "label": "t:sections.header.settings.cart_icon_options.options.quantity.label"
+        },
+        {
+          "value": "carttotal",
+          "label": "t:sections.header.settings.cart_icon_options.options.carttotal.label"
+        },
+        {
+          "value": "both",
+          "label": "t:sections.header.settings.cart_icon_options.options.both.label"
+        },
+        {
+          "value": "none",
+          "label": "t:sections.header.settings.cart_icon_options.options.none.label"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_cart_border",
+      "default": true,
+      "label": "t:sections.header.settings.enable_cart_border.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_cart_rounded",
+      "default": false,
+      "label": "t:sections.header.settings.enable_cart_rounded.label",
+      "info": "t:sections.header.settings.enable_cart_rounded.info"
+    },
+    {
+        "type": "select",
+        "id": "account_type",
+        "label": "t:sections.header.settings.account_type.label",
+        "default": "page",
+        "options": [
+          {
+            "value": "page",
+            "label": "t:sections.header.settings.account_type.options.page.label"
+          },
+          {
+            "value": "dropdown",
+            "label": "t:sections.header.settings.account_type.options.dropdown.label"
+          }
+        ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.search.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_search",
+      "default": true,
+      "label": "t:sections.header.settings.enable_search.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "search_border_enabled",
+      "default": true,
+      "label": "t:sections.header.settings.search_border_enabled.label"
+    },
+    {
+      "type": "select",
+      "id": "search_size",
+      "label": "t:sections.header.settings.search_size.label",
+      "default": "med",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.header.settings.search_size.options.small.label"
+        },
+        {
+          "value": "med",
+          "label": "t:sections.header.settings.search_size.options.med.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.header.settings.search_size.options.large.label"
+        }
+      ]
+  },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.store_details.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.header.settings.store_details.paragraph.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_store_details",
+      "default": false,
+      "label": "t:sections.header.settings.store_details.enable_store_details.label"
+    },
+    {
+      "type": "text",
+      "id": "store_detail",
+      "label": "t:sections.header.settings.store_details.store_details_text.label"
+    },
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "t:sections.header.settings.icon.label",
+      "default": "shipping",
+      "options": [
+        {
+          "label": "t:sections.header.settings.icon.options.chat.label",
+          "value": "chat"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.file.label",
+          "value": "file"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.gift.label",
+          "value": "gift"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.global.label",
+          "value": "global"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.heart.label",
+          "value": "heart"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.phone.label",
+          "value": "phone"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.refund.label",
+          "value": "refund"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.search.label",
+          "value": "search"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.secure.label",
+          "value": "secure"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.shipping.label",
+          "value": "shipping"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.smile.label",
+          "value": "smile"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.support.label",
+          "value": "support"
+        },
+        
+        {
+          "label": "t:sections.header.settings.icon.options.thumb.label",
+          "value": "thumb"
+        },
+        {
+          "label": "t:sections.header.settings.icon.options.user.label",
+          "value": "user"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "store_content",
+      "label": "t:sections.header.settings.store_details.content.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:global.general_labels.colors"
+    },
+    {
+      "type": "color",
+      "id" : "support_content_text",
+      "label": "t:global.general_labels.text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id" : "support_content_bg",
+      "label": "t:global.general_labels.background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id" : "store_details_text_color",
+      "label": "t:sections.header.settings.store_details.store_details_text_color.label",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id" : "store_details_dropdown_bg",
+      "label": "t:sections.header.settings.store_details.store_details_dropdown_bg.label",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "color",
+      "id" : "store_details_link_color",
+      "label": "t:sections.header.settings.store_details.store_details_link_color.label",
+      "default": "#6d85a8"
+    },
+    {
+      "type": "color",
+      "id" : "store_details_border_color",
+      "label": "t:sections.header.settings.store_details.store_details_border_color.label",
+      "default": "#eeeeee"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.shape_header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_header_shape",
+      "default": false,
+      "label": "t:sections.header.settings.enable_header_shape.label"
+    },
+    {
+      "type": "select",
+      "id": "select_shape",
+      "label": "t:global.shape_style.label",
+      "default": "shape1",
+      "options": [
+        {
+          "value": "shape1",
+          "label": "t:global.shape_style.shape_1.label"
+        },
+        {
+          "value": "shape2",
+          "label": "t:global.shape_style.shape_2.label"
+        },
+        {
+          "value": "shape3",
+          "label": "t:global.shape_style.shape_3.label"
+        },
+        {
+          "value": "shape4",
+          "label": "t:global.shape_style.shape_4.label"
+        },
+        {
+          "value": "shape5",
+          "label": "t:global.shape_style.shape_5.label"
+        },
+        {
+          "value": "shape6",
+          "label": "t:global.shape_style.shape_6.label"
+        },
+        {
+          "value": "shape7",
+          "label": "t:global.shape_style.shape_7.label"
+        },
+        {
+          "value": "shape8",
+          "label": "t:global.shape_style.shape_8.label"
+        },
+        {
+          "value": "shape9",
+          "label": "t:global.shape_style.shape_9.label"
+        },
+        {
+          "value": "shape10",
+          "label": "t:global.shape_style.shape_10.label"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "svg_color",
+      "label": "t:sections.header.settings.svg_color.label"
+    },
+    {
+      "type": "color",
+      "id": "svg_stroke",
+      "label": "t:sections.header.settings.svg_stroke.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type":"store_details",
+      "name":"t:sections.header.blocks.store_details.name",
+      "limit":3,
+      "settings": [
+        {
+          "type":"text",
+          "id":"store_details",
+          "label":"t:sections.header.blocks.store_details.settings.store_details.label"
+        },
+        {
+          "type":"text",
+          "id":"phone",
+          "label":"t:sections.header.blocks.store_details.settings.phone.label"
+        },
+        {
+          "type":"textarea",
+          "id":"address_details",
+          "label":"t:sections.header.blocks.store_details.settings.address_details.label"
+        },
+        {
+          "type":"text",
+          "id":"email",
+          "label":"t:sections.header.blocks.store_details.settings.email.label"
+        }
+      ]
+    },
+    {
+      "type": "promo_badge",
+      "name": "t:sections.header.blocks.promo_badge.name",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "label": "t:global.general_labels.title",
+          "id": "title",
+          "default": "Badge"
+        },
+        {
+          "type": "url",
+          "label": "t:global.general_labels.link",
+          "id": "link",
+          "default": "/collections/all"
+        },
+        {
+          "type": "color",
+          "label": "t:global.general_labels.color",
+          "id": "text_color",
+          "default": "#3FA043"
+        },
+        {
+          "type": "color",
+          "label": "t:global.general_labels.background",
+          "id": "text_bg",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "type": "mega_menu",
+      "name": "t:sections.header.blocks.mega_menu.name",
+      "settings": [
+        {
+          "type": "text",
+          "label": "t:sections.header.blocks.mega_menu.settings.title.label",
+          "id": "title",
+          "info": "t:sections.header.blocks.mega_menu.settings.title.info"
+        },
+        {
+          "type": "checkbox",
+          "label": "t:sections.header.blocks.mega_menu.settings.text_overlay.label",
+          "id": "text_overlay",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.content_header1.content"
+        },
+        {
+          "type": "image_picker",
+          "label": "t:global.general_labels.image",
+          "id": "content_image_1"
+        },
+        {
+          "type": "text",
+          "label": "t:global.general_labels.heading",
+          "id": "content_title_1"
+        },
+        {
+          "type": "url",
+          "label": "t:global.general_labels.link",
+          "id": "content_link_1"
+        },
+        {
+          "type": "range",
+          "label": "t:sections.header.blocks.mega_menu.settings.content_overlay_opacity_1.label",
+          "id": "content_overlay_opacity_1",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50,
+          "unit": "%"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.content_header2.content"
+        },
+        {
+          "type": "image_picker",
+          "label": "t:global.general_labels.image",
+          "id": "content_image_2"
+        },
+        {
+          "type": "text",
+          "label": "t:global.general_labels.heading",
+          "id": "content_title_2"
+        },
+        {
+          "type": "url",
+          "label": "t:global.general_labels.link",
+          "id": "content_link_2"
+        },
+        {
+          "type": "range",
+          "label": "t:sections.header.blocks.mega_menu.settings.content_overlay_opacity_1.label",
+          "id": "content_overlay_opacity_2",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50,
+          "unit": "%"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.content_header3.content"
+        },
+        {
+          "type": "image_picker",
+          "label": "t:global.general_labels.image",
+          "id": "content_image_3"
+        },
+        {
+          "type": "text",
+          "label": "t:global.general_labels.heading",
+          "id": "content_title_3"
+        },
+        {
+          "type": "url",
+          "label": "t:global.general_labels.link",
+          "id": "content_link_3"
+        },
+        {
+          "type": "range",
+          "label": "t:sections.header.blocks.mega_menu.settings.content_overlay_opacity_1.label",
+          "id": "content_overlay_opacity_3",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50,
+          "unit": "%"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.content_header4.content"
+        },
+        {
+          "type": "image_picker",
+          "label": "t:global.general_labels.image",
+          "id": "content_image_4"
+        },
+        {
+          "type": "text",
+          "label": "t:global.general_labels.heading",
+          "id": "content_title_4"
+        },
+        {
+          "type": "url",
+          "label": "t:global.general_labels.link",
+          "id": "content_link_4"
+        },
+        {
+          "type": "range",
+          "label": "t:sections.header.blocks.mega_menu.settings.content_overlay_opacity_1.label",
+          "id": "content_overlay_opacity_4",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50,
+          "unit": "%"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.content_header5.content"
+        },
+        {
+          "type": "image_picker",
+          "label": "t:global.general_labels.image",
+          "id": "content_image_5"
+        },
+        {
+          "type": "text",
+          "label": "t:global.general_labels.heading",
+          "id": "content_title_5"
+        },
+        {
+          "type": "url",
+          "label": "t:global.general_labels.link",
+          "id": "content_link_5"
+        },
+        {
+          "type": "range",
+          "label": "t:sections.header.blocks.mega_menu.settings.content_overlay_opacity_1.label",
+          "id": "content_overlay_opacity_5",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50,
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "type": "category_mega_menu",
+      "name": "t:sections.header.blocks.category_mega_menu.name",
+      "settings": [
+        {
+          "type": "text",
+          "label": "t:sections.header.blocks.category_mega_menu.settings.title.label",
+          "id": "title",
+          "info": "t:sections.header.blocks.category_mega_menu.settings.title.info"
+        },
+        {
+          "type": "header",
+          "content": "t:global.general_labels.general_settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_images",
+          "default": true,
+          "label": "t:sections.header.blocks.category_mega_menu.settings.show_product_images.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_collection_images",
+          "default": true,
+          "label": "t:sections.header.blocks.category_mega_menu.settings.show_collection_images.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_content_below_image",
+          "default": false,
+          "label": "t:sections.header.blocks.category_mega_menu.settings.show_content_below_image.label"
+        },
+        {
+          "type": "header",
+          "content": "t:global.general_labels.content1"
+        },
+        {
+          "type": "image_picker",
+          "label": "t:global.general_labels.image",
+          "id": "content_image_1"
+        },
+        {
+          "type": "text",
+          "label": "t:global.general_labels.heading",
+          "id": "content_title_1"
+        },
+        {
+          "type": "textarea",
+          "label": "t:global.general_labels.description",
+          "id": "content_desc_1"
+        },
+        {
+          "type": "url",
+          "label": "t:global.general_labels.link",
+          "id": "content_link_1"
+        },
+        {
+          "type": "header",
+          "content": "t:global.general_labels.content2"
+        },
+        {
+          "type": "image_picker",
+          "label": "t:global.general_labels.image",
+          "id": "content_image_2"
+        },
+        {
+          "type": "text",
+          "label": "t:global.general_labels.heading",
+          "id": "content_title_2"
+        },
+        {
+          "type": "textarea",
+          "label": "t:global.general_labels.description",
+          "id": "content_desc_2"
+        },
+        {
+          "type": "url",
+          "label": "t:global.general_labels.link",
+          "id": "content_link_2"
+        },
+        {
+          "type": "header",
+          "content": "t:global.general_labels.content3"
+        },
+        {
+          "type": "image_picker",
+          "label": "t:global.general_labels.image",
+          "id": "content_image_3"
+        },
+        {
+          "type": "text",
+          "label": "t:global.general_labels.heading",
+          "id": "content_title_3"
+        },
+        {
+          "type": "textarea",
+          "label": "t:global.general_labels.description",
+          "id": "content_desc_3"
+        },
+        {
+          "type": "url",
+          "label": "t:global.general_labels.link",
+          "id": "content_link_3"
+        },
+        {
+          "type": "range",
+          "label": "t:sections.header.blocks.category_mega_menu.settings.content_overlay_opacity.label",
+          "id": "content_overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50,
+          "unit": "%"
+        }
+       
+      ]
+    },
+    {
+      "type": "menu_label",
+      "name": "t:sections.header.blocks.menu_label.name",
+      "limit": 3,
+      "settings": [
+        {
+          "type":"paragraph",
+          "content":"t:sections.header.blocks.menu_label.settings.paragraph.label"
+        },
+        {
+          "type": "text",
+          "label": "t:sections.header.blocks.menu_label.settings.menu_text.label",
+          "id": "title"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.header.blocks.menu_label.settings.icon.label",
+          "default": "shipping",
+          "options": [
+            {
+              "label": "t:sections.header.settings.icon.options.chat.label",
+              "value": "chat"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.file.label",
+              "value": "file"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.gift.label",
+              "value": "gift"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.global.label",
+              "value": "global"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.heart.label",
+              "value": "heart"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.phone.label",
+              "value": "phone"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.refund.label",
+              "value": "refund"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.search.label",
+              "value": "search"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.secure.label",
+              "value": "secure"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.shipping.label",
+              "value": "shipping"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.smile.label",
+              "value": "smile"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.support.label",
+              "value": "support"
+            },
+            
+            {
+              "label": "t:sections.header.settings.icon.options.thumb.label",
+              "value": "thumb"
+            },
+            {
+              "label": "t:sections.header.settings.icon.options.user.label",
+              "value": "user"
+            }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:global.general_labels.link"
+        }
+      ]
+    },
+    {
+      "type": "categories_icon",
+      "name": "t:sections.header.blocks.categories_icon.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_1.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_1",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_1",
+          "label": "t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_2.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_2",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+            {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+              "value": "none"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+              "value": "accessories"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+            "value": "camera"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+              "value": "cap"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+              "value": "dress"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+              "value": "food-packet"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+              "value": "crockery"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+              "value": "gaming"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+            "value": "headphone"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+              "value": "home-appliances"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+              "value": "hot-food"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+              "value": "laptop"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+            "value": "mic"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+              "value": "mobile"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+              "value": "ruler"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+              "value": "shoes"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+            "value": "spy-camera"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+              "value": "tab"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+              "value": "thunder"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+              "value": "trouser"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+              "value": "t-shirt"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+              "value": "tv"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+              "value": "vegan"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+            "value": "watch"
+          }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_2",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_3.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_3",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+            {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+              "value": "none"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+              "value": "accessories"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+            "value": "camera"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+              "value": "cap"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+              "value": "dress"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+              "value": "food-packet"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+              "value": "crockery"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+              "value": "gaming"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+            "value": "headphone"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+              "value": "home-appliances"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+              "value": "hot-food"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+              "value": "laptop"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+            "value": "mic"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+              "value": "mobile"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+              "value": "ruler"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+              "value": "shoes"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+            "value": "spy-camera"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+              "value": "tab"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+              "value": "thunder"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+              "value": "trouser"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+              "value": "t-shirt"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+              "value": "tv"
+          },
+          {
+              "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+              "value": "vegan"
+          },
+          {
+            "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+            "value": "watch"
+          }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_3",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_4.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_4",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_4",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_5.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_5",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_5",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_6.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_6",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_6",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_7.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_7",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_7",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_8.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_8",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_8",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_9.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_9",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_9",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_10.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_10",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_10",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_11.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_11",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_11",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_12.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_12",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_12",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_13.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_13",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_13",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_14.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_14",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_14",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.categories_icon.settings.header_15.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_15",
+          "label": "t:sections.header.blocks.categories_icon.settings.icon.label",
+          "default": "none",
+          "options": [
+             {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.none.label",
+                  "value": "none"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.accessories.label",
+                  "value": "accessories"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.camera.label",
+                "value": "camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.cap.label",
+                  "value": "cap"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.dress.label",
+                  "value": "dress"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.food-packet.label",
+                  "value": "food-packet"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.crockery.label",
+                  "value": "crockery"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.gaming.label",
+                  "value": "gaming"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.headphone.label",
+                "value": "headphone"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.home-appliances.label",
+                  "value": "home-appliances"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.hot-food.label",
+                  "value": "hot-food"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.laptop.label",
+                  "value": "laptop"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mic.label",
+                "value": "mic"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.mobile.label",
+                  "value": "mobile"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.ruler.label",
+                  "value": "ruler"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.shoes.label",
+                  "value": "shoes"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.spy-camera.label",
+                "value": "spy-camera"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tab.label",
+                  "value": "tab"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.thunder.label",
+                  "value": "thunder"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.trouser.label",
+                  "value": "trouser"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.t-shirt.label",
+                  "value": "t-shirt"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.tv.label",
+                  "value": "tv"
+              },
+              {
+                  "label": "t:sections.header.blocks.categories_icon.settings.icon.options.vegan.label",
+                  "value": "vegan"
+              },
+              {
+                "label": "t:sections.header.blocks.categories_icon.settings.icon.options.watch.label",
+                "value": "watch"
+              }
+            ]
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code_15",
+          "label":"t:sections.header.blocks.categories_icon.settings.svg_code.label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

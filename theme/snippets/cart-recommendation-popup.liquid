@@ -1,0 +1,94 @@
+{% capture bannerProducts %}
+    {% assign count = 0 %}
+    {% for i in (1..4) %}
+        {% capture imageCount %}banner_image{{ i }}{% endcapture %}
+        {% assign bannerImage = settings[imageCount] %}
+        {% capture textCount %}banner_text{{ i }}{% endcapture %}
+        {% assign bannerText = settings[textCount] %}
+        {% capture descriptionCount %}banner_description{{ i }}{% endcapture %}
+        {% assign bannerDescription = settings[descriptionCount] %}
+        {% if bannerImage != blank or bannerText != blank or bannerDescription != blank %}
+      <div class="cart-offer-banner-item {{bannerImage }}">
+          {% if bannerImage != blank %}
+          <div class="cart-offer-banner-img">
+              <div class="media" style="--imageRatio:{% if bannerImage != blank %}{{ 1 | divided_by : bannerImage.aspect_ratio | times: 100 }}{% else %}100{% endif %}%;">
+                 {% render 'lazy-image', image: bannerImage %}
+              </div>
+          </div>
+         {% endif %}
+      {% if bannerDescription != blank or bannerText != blank %}
+          <div class="offer-banner-img-info">
+              <h6 class="cart-offer-subheading h6">{{ bannerDescription }}</h6>
+              <h3 class="h3 cart-offer-heading">{{ bannerText }}</h3>
+          </div>
+      {% endif %}
+      </div>
+      {% assign count = count | plus:1 %}
+     {% endif %}
+  {% endfor %}
+{% endcapture %}
+{% liquid
+  assign recommendedStatus = false
+  if settings.recommended_popular_products
+    if settings.popular_heading != blank or bannerProducts != blank or settings.popular_product_list.count > 0
+      assign recommendedStatus = true
+    endif
+  endif
+%}
+{% if recommendedStatus %}
+  <div class="cart-recommandation-popup-inner">
+    {% if settings.popular_heading != blank %}
+      <div class="cart-recommandation-popup-header">
+        <h3 class="cart-drawer-heading">{{ settings.popular_heading }}</h3>
+      </div>
+    {% endif %}
+    {% if settings.popular_product_list.count > 0 %}
+    <div class="cart-recommandation-product-items">
+      {% for product in settings.popular_product_list %}
+        <div class="cart-recommandation-product-item">
+          {% render 'product-short-detail', cardProduct: product, showdiscountOff: false %}
+        </div>
+      {% endfor %}
+      {% if settings.popular_btn_text != blank and settings.popular_btn_link != blank %}
+        <div class="all-offer-btn">
+          <a
+            href="{% if settings.popular_btn_link != blank %}{{ settings.popular_btn_link }}{% else %}{{ collection.url }}{% endif %}"
+            class="{% if settings.popular_button_as_link %}hyperlink {% else %} button{% if settings.enable_button_shadow %} button-shadow{% endif %}{% endif %} collection-card-button {{ settings.popular_button_size }}-btn"
+            title="{{ settings.popular_btn_text }}"
+          >
+            {{- settings.popular_btn_text -}}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+    {% endif %}
+    {% if bannerProducts != blank %}
+    <div class="cart-offer-banner">
+      <div
+        class="cart-offer-banner-inner {{count }}"
+        {% if count > 1 %}
+          data-slideshow='
+            {
+            "contain": true,
+            "wrapAround": true,
+            "cellAlign": "left",
+            "imagesLoaded": true,
+            "lazyLoad": true,
+            "fade": true,
+            "pageDots": true,
+            "autoPlay": true,
+            "draggable": true,
+            "prevNextButtons": false,
+            "groupCells": true,
+            "cellSelector":".cart-offer-banner-item",
+            "zoom": true
+            }
+          '
+        {% endif %}
+      >
+        {{ bannerProducts }}
+      </div>
+    </div>
+  {% endif %}
+  </div>
+{% endif %}

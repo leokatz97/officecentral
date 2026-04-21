@@ -1,0 +1,281 @@
+
+{%- capture drawerHeading -%}
+    {%- if section.settings.heading != blank -%}
+        <h2 class="h2 need-help-heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- endcapture -%}
+{% assign contentHeadings = '' %}
+{% assign contentDescriptions = '' %}
+{% assign blockCount = 0 %}
+{%- capture drawerContent -%}
+        {%- for block in section.blocks -%}
+            {% if block.settings.heading != blank %}
+              {% if block.settings.description != blank or block.settings.image != blank %}
+                {% assign blockCount = blockCount | plus: 1 %}
+                {%- capture headingData -%}
+                  <li class="help-list-tab-item{% if contentHeadings == '' %} active{% endif %}" data-tab="help-list-tab-content-{{ block.id }}" data-help-tab>
+                    <span class="cursor-pointer help-list-tab-link"> 
+                        {% if section.settings.show_icons %}
+                            <span class="help-list-tab-link-icon">
+                                {% render 'icons', icon: block.settings.icon %}
+                            </span>
+                        {% endif %}
+                        {{ block.settings.heading }}
+                    </span>
+                  </li>
+                {%- endcapture -%}
+                {%- capture descriptionData -%}
+                    <div id="help-list-tab-content-{{ block.id }}" class="help-list-tab-content-item{% if contentDescriptions == '' %} active{% endif %}"{% if contentDescriptions != '' %} style="display:none"{% endif %}>
+                        <div class="help-list-tab-content-item-inner">
+                          {% if block.settings.image != blank and block.settings.image_position == 'top' %}
+                            <div class="help-list-tab-content-item-img">
+                              <div class="media" style="--imageRatio:{{ 1 | divided_by : block.settings.image.aspect_ratio | times: 100  }}%">
+                                {% render 'lazy-image' image:block.settings.image %}
+                              </div>
+                            </div>
+                          {% endif %}
+                          {% if block.settings.description != blank %}
+                          <div class="help-list-desc-body rte">
+                            {{ block.settings.description | replace: '<p></p>', '<br/>' 
+                              | replace: '<h1></h1>', '<br/>'
+                              | replace: '<h2></h2>', '<br/>'
+                              | replace: '<h3></h3>', '<br/>'
+                              | replace: '<h4></h4>', '<br/>'
+                              | replace: '<h5></h5>', '<br/>'
+                              | replace: '<h6></h6>', '<br/>' }}
+                          </div>
+                        {% endif %}
+                        {% if block.settings.image != blank and block.settings.image_position == 'bottom' %}
+                          <div class="help-list-tab-content-item-img">
+                            <div class="media" style="--imageRatio:{{ 1 | divided_by : block.settings.image.aspect_ratio | times: 100  }}%">
+                              {% render 'lazy-image' image:block.settings.image %}
+                            </div>
+                          </div>
+                        {% endif %}
+                        </div>
+                        <style>
+                            [data-tab="help-list-tab-content-{{ block.id }}"],
+                            #help-list-tab-content-{{ block.id }}{
+                                {% unless block.settings.background_color == 'rgba(0,0,0,0)' or block.settings.background_color == blank%}
+                                --blockBackground:{{ block.settings.background_color}};
+                                {% else %}
+                                  --blockBackground: rgb(var(--alternateBackground));
+                                {% endunless %}
+                                {% unless block.settings.heading_color == 'rgba(0,0,0,0)' or block.settings.heading_color == blank%}
+                                --blockHeading:{{ block.settings.heading_color.red}},{{ block.settings.heading_color.green }},{{ block.settings.heading_color.blue}};
+                                {% else %}
+                                  --blockHeading: rgb(var(--headingColor));
+                                {% endunless %}
+                                {% unless block.settings.text_color == 'rgba(0,0,0,0)' or block.settings.text_color == blank%}
+                                --blockColor:{{ block.settings.text_color.red}},{{ block.settings.text_color.green }},{{ block.settings.text_color.blue}};
+                                {% else %}
+                                  --blockColor: rgb(var(--textColor));
+                                {% endunless %}
+                                {% unless block.settings.border_color == 'rgba(0,0,0,0)' or block.settings.border_color == blank%}
+                                --blockBorder:{{ block.settings.border_color}};
+                                {% else %}
+                                --blockBorder:rgb(var(--borderColor));
+                                {% endunless %}
+                            }
+                        </style>
+                    </div>
+                {%- endcapture -%}
+
+                {% assign contentHeadings = contentHeadings | append: headingData %}
+                {% assign contentDescriptions = contentDescriptions | append: descriptionData %}
+              {% endif %}
+            {% endif %}
+        {%- endfor -%}
+        {% if contentHeadings != blank and contentDescriptions != blank %}
+            <div class="help-list">
+                <div class="help-list-tab-wrapper" data-help-tab-wrapper>
+                    <ul class="help-list-tabs">
+                        {{ contentHeadings }}
+                    </ul>
+                    <div class="help-list-tab-content">
+                        {{ contentDescriptions }}
+                    </div>
+                </div>
+            </div>
+            {%- endif -%}
+    {%- endcapture -%}
+
+{% if drawerContent != blank %}
+    {{ 'information-drawer.css' | asset_url | stylesheet_tag }}
+    {% render 'side-drawer', id: 'need-help-side-drawer', class: 'need-help-drawer', drawerHeading: drawerHeading, drawerContent: drawerContent %}
+{% endif %}
+
+<style>
+    #shopify-section-{{ section.id }}{
+        --blockCount:{{  blockCount }};
+    }
+</style>
+{% schema %}
+{
+  "name": "t:sections.information_drawer.name",
+  "tag": "section",
+  "class": "information-drawer-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:global.general_labels.content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:global.heading.label",
+      "info": "t:global.heading.info",
+      "default": "Need help"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icons",
+      "label": "t:sections.information_drawer.settings.show_icons.label",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "information",
+      "name": "t:sections.information_drawer.blocks.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:global.general_labels.heading",
+          "default": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.label",
+          "default": "shipping",
+          "options": [
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.chat.label",
+              "value": "chat"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.eye.label",
+              "value": "eye"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.file.label",
+              "value": "file"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.gift.label",
+              "value": "gift"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.global.label",
+              "value": "global"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.heart.label",
+              "value": "heart"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.phone.label",
+              "value": "phone"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.refund.label",
+              "value": "refund"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.search.label",
+              "value": "search"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.secure.label",
+              "value": "secure"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.shipping.label",
+              "value": "shipping"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.smile.label",
+              "value": "smile"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.support.label",
+              "value": "support"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.thumb.label",
+              "value": "thumb"
+            },
+            {
+              "label": "t:sections.multicolumns.blocks.icon-with-text.settings.icon.options.user.label",
+              "value": "user"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:global.general_labels.description",
+          "default": "<p>Description here</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:global.general_labels.image"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "t:global.image_position.label",
+          "default": "bottom",
+          "options": [
+            {
+              "label": "t:global.image_position.options.top.label",
+              "value": "top"
+            },
+            {
+              "label": "t:global.image_position.options.bottom.label",
+              "value": "bottom"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "t:global.general_labels.colors"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "t:global.general_labels.background"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "t:global.general_labels.heading"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "t:global.general_labels.text"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "t:global.general_labels.border"
+        }
+      ]
+    }
+  ],
+  "default":{ 
+      "blocks": [
+        {
+          "type": "information"
+        },
+        {
+          "type": "information"
+        }
+      ]
+    }
+}
+{% endschema %}

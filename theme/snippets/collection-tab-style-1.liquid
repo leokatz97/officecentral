@@ -1,0 +1,124 @@
+{% if section.settings.section_fullwidth == true%}
+  <div class="{{ settings.layout_style }}">
+{% endif %}
+  {% if section.settings.heading != blank %}
+    <div class="section-title {{ section.settings.heading_alignment }}">
+      {%- capture highlightPrefix -%}
+        <span class="line-marker {% if section.settings.highlight_style == 'background' %}highlight-background {% if section.settings.highlight_bg__color == 'gradient' %}highlight-background-gradient{% else %}highlight-background-solid{% endif %}{% endif %}">
+      {%- endcapture -%}
+      {%- capture highlightSuffix -%}
+      {% if section.settings.highlight_style != 'background' %}
+        {% render 'marker', marker: section.settings.highlight_style %}
+    {% endif %}
+        </span>
+      {%- endcapture -%}
+      <{{ section.settings.seo_heading }} class="{{ section.settings.heading_size }} section-heading {% if section.settings.heading_animation %} linear-animation{% endif %}">
+        {% if section.settings.heading_animation %}
+          {{ section.settings.heading }}
+        {% else %}   
+          {{ section.settings.heading | replace:"[", highlightPrefix | replace:"]",highlightSuffix}}
+        {% endif %}
+      </{{ section.settings.seo_heading }}>
+    </div>
+  {% endif %}
+  {% if section.settings.section_fullwidth == true%}
+</div>
+{% endif %}
+<div class="product-tab-wrapper tab-wrapper{% if section.settings.tabs_layout == 'pills' %} tab-pills{% else %} tab-links{% endif %}" id="tabs-{{ section.id }}">
+  {%  assign tabContent = '' %}
+  {% if section.settings.section_fullwidth == true%}
+    <div class="{{ settings.layout_style }}">
+  {% endif %}
+    <ul class="unstylish-list tab-main product-tab-main text-{{ section.settings.tab_alignment }}">
+      {%  for block in section.blocks %}
+        {%  assign collection = collections[block.settings.collection] %}
+        {% unless section.blocks.size == 1 and section.settings.hide_tab_heading %}
+        <li class="tab-item product-tab-item {% if forloop.first %}active{% endif %}" data-tab="tabs-{{ block.id }}">
+          <span class="tab-link product-tab-link cursor-pointer">
+            {% liquid 
+              if block.settings.tab-heading != blank
+                echo block.settings.tab-heading
+              elsif collection.title == blank and block.settings.tab-heading == blank
+                echo 'sections.header.tab' | t 
+              else
+                echo collection.title
+              endif 
+            %}
+          </span>
+        </li>
+      {% endunless %}
+        {%  capture content  %}
+        <div id="tabs-{{ block.id }}" class="tab-contents-item {% if forloop.first %}visible{% else %}hidden{% endif %}">
+          <div class="product-grid-wrapper{% if section.settings.collection_style == 'carousel' %} slider{% else %} stacked{% endif %}" {% if section.settings.collection_style == 'carousel' %} 
+                  data-slideshow='{
+                  "cellAlign":"left",
+                  "contain": true,
+                  "pageDots": {% if section.settings.slider_thumbnail == 'dots' %}true{% else %}false{% endif %},
+                  "draggable": true,
+                  "prevNextButtons": false,
+                  "wrapAround":false,
+                  "groupCells": true,
+                  "cellSelector":".product-grid-box"
+                  }'
+                
+                  {% else %}
+                  data-grid
+                  {% endif %}>
+                  {% liquid
+                  assign cycleGroup = 'cycle' | append: section.id
+                  %}
+                     {% for product in collection.products limit: section.settings.products_to_show %}
+                      
+                     {% liquid 
+
+                      capture placeholderIndex 
+                          cycle cycleGroup: '1', '2', '3', '4'
+                     endcapture 
+
+                     assign aos_delay = forloop.index | times : 100
+                    %}
+                     <div class="{% if cardSize == 'large' %}card-size-large{% elsif cardSize == 'medium' %}card-size-medium{% elsif cardSize == 'small' %}card-size-small{% else %} card-size-default{% endif %} product-grid-box" >
+                      {% render 'product-card-grid', section:section, cardProduct: product, showCount:true, text_alignment: section.settings.text_alignment, comparePrice: true, unitPrice: true, cycleIndex: placeholderIndex, gridImageSize: section.settings.grid_image_size, quickViewtrue: true, compareTrue: true, aosDelay: aos_delay%}
+                  </div>
+                   {% else %}
+                   {% for i in (1..section.settings.products_to_show) %}
+                   
+                   {% liquid 
+                    
+                    capture placeholderIndex 
+                      cycle cycleGroup: '1', '2', '3', '4'
+                   endcapture 
+
+                   assign aos_delay = forloop.index | times : 100
+                  %}
+                   <div class="{% if cardSize == 'large' %}card-size-large{% elsif cardSize == 'medium' %}card-size-medium{% elsif cardSize == 'small' %}card-size-small{% else %} card-size-default{% endif %} product-grid-box">
+                      {% render 'product-card-grid', cycleIndex: placeholderIndex, gridImageSize: section.settings.grid_image_size, section:section, showCount:true, text_alignment: section.settings.text_alignment, aosDelay: aos_delay%}
+                   </div>
+                   {% endfor %}
+                     {% endfor %}
+                  {% if section.settings.collection_style == 'carousel' %}
+                     {% if section.settings.slider_thumbnail == 'only-arrow' %}
+                       {% render 'carousal-arrows',class:'custom-navigation-button-icon' %}
+                     {% endif %}
+                  {% endif %}
+          </div>
+          {% assign products_count_number = collection.products_count | plus: 0 %}
+            {% if products_count_number > 3 and section.settings.collection_style == 'carousel' and section.settings.slider_thumbnail == 'progressbar' %}
+                <div class="slider-progress-bar" data-slider-progressbar="" style="--progressBarWidth: 0%;"></div>
+            {% endif %}
+        </div>
+        {% endcapture %}
+        {%  assign tabContent = tabContent | append: content %}
+      {%  endfor %}  
+    </ul>
+    {% if section.settings.section_fullwidth == true%}
+    </div>
+    {% endif %}
+    <deferred-slider class="deferred-slider" style="display: block;height:auto">
+        <template>
+          <div class="product-tab-content tab-content">
+          {{ tabContent }}
+          </div>
+      </template>
+    </deferred-slider>
+</div>

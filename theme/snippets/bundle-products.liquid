@@ -1,0 +1,366 @@
+{% liquid
+  assign imageOnlyBorder = false
+  if settings.image_background == false and settings.image_border == true and settings.image_border_hover
+    assign imageOnlyBorder = false
+  elsif settings.image_background == false and settings.image_border == true
+    assign imageOnlyBorder = true
+  endif
+  if section.settings.bundle_grid_image_size == 'landscape'
+  assign productImageRatio = 'var(--img-landscape)'
+elsif section.settings.bundle_grid_image_size == 'square'
+  assign productImageRatio = 'var(--img-square)'
+elsif section.settings.bundle_grid_image_size == 'portrait'
+  assign productImageRatio = 'var(--img-portrait)'
+else
+  if cardProduct.featured_media != blank
+    assign productImageRatio = 1 | divided_by: cardProduct.featured_media.preview_image.aspect_ratio | times: 100 | append: '%'
+  else
+    assign productImageRatio = 100 | append: '%'
+  endif
+endif
+%}
+<div class="bundle-product-items-wrapper">
+  <ul class="bundle-product-items">
+    <li class="bundle-product-item">
+      <div class="product-card-item" data-product-grid>
+        <div class="product-card {% if settings.image_background == true and settings.image_border == true  %}product-background-enabled product-border-enabled{% if settings.image_border_hover %} product-border-hover{% endif %}{% elsif settings.image_background == false and settings.image_border == true and settings.image_border_hover %} product-border-enabled product-border-hover{% elsif settings.image_background == true %}product-background-enabled{% endif %}">
+          <div class="product-card-img on-hover-img">
+            <a
+              class="product-img{% if settings.image_background == false and settings.grid_gap == true  %} product-gap-enabled{% endif %}{% if imageOnlyBorder %} product-border-enabled{% if settings.image_border_hover %} product-border-hover{% endif %}{% endif %}"
+              href="{{ product.url }}"
+              tabindex="-1"
+              title="{{ product.url | escape }}"
+            >
+              <div class="media" style="--imageRatio:{% if section.settings.bundle_grid_image_size == 'auto' %}{% if product.featured_media != blank %}{{ 1 | divided_by: product.featured_media.preview_image.aspect_ratio | times: 100 }}{% else %}100{% endif %}%{% else %}{{ productImageRatio }}{% endif %}">
+                {% if product.featured_media != blank %}
+                  {% if product.featured_media.media_type == 'video' %}
+                    {% if settings.show_video_in_grid %}
+                      <deferred-media class="deferred-media">
+                        <template>
+                          {{
+                            product.featured_media
+                            | media_tag:
+                              loading: 'lazy',
+                              class: 'no-js-hidden',
+                              autoplay: true,
+                              controls: false,
+                              loop: true,
+                              preload: 'none'
+                          }}
+                        </template>
+                        <div class="deferred-media-placeholder">
+                          {% render 'lazy-image', image: product.featured_media.preview_image, sizes:'[100,200,300,400,500,600,700,800]' %}
+                        </div>
+                        <noscript>
+                          <img
+                            src="{{ product.featured_media.preview_image | image_url: width: 2048 }}"
+                            alt="{{ product.featured_media.preview_image.alt | escape }}"
+                            loading="lazy"
+                            width="{{ product.featured_media.preview_image.width }}"
+                            height="{{ product.featured_media.preview_image.height }}"
+                            aria-label="{{ product.featured_media.alt | default: product.title | strip_html }}"
+                          >
+                        </noscript>
+                      </deferred-media>
+                    {% else %}
+                      {%- render 'lazy-image',
+                        image: product.featured_media.preview_image,
+                        class: 'product-image', sizes:'[100,200,300,400,500,600,700,800]'
+                      -%}
+                    {% endif %}
+                  {% else %}
+                    {% render 'lazy-image',
+                      image: product.featured_media.preview_image,
+                      class: 'product-image', sizes:'[100,200,300,400,500,600,700,800]'
+                    %}
+                  {% endif %}
+                {% else %}
+                  {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+
+              {% if product.media[1] != blank and settings.product_second_image %}
+                <div class="product-second-img">
+                  {% if product.media[1].media_type == 'video' and settings.show_video_in_grid %}
+                    <deferred-media class="deferred-media">
+                      <template>
+                        {{
+                          product.media[1]
+                          | media_tag:
+                            loading: 'lazy',
+                            class: 'no-js-hidden product-img-hover',
+                            autoplay: true,
+                            controls: false,
+                            loop: true,
+                            preload: 'none'
+                        }}
+                      </template>
+                      <div class="deferred-media-placeholder">
+                        {% render 'lazy-image', image: product.media[1].preview_image, sizes:'[100,200,300,400,500,600,700,800]'%}
+                      </div>
+                      <noscript>
+                        <img
+                          src="{{ product.media[1].preview_image | image_url: width: 2048 }}"
+                          alt="{{ product.media[1].preview_image.alt | escape }}"
+                          loading="lazy"
+                          width="{{ product.media[1].preview_image.width }}"
+                          height="{{ product.media[1].preview_image.height }}"
+                          aria-label="{{ product.media[1].alt | default: product.title | strip_html }}"
+                        >
+                      </noscript>
+                    </deferred-media>
+                  {% else %}
+                    {% render 'lazy-image', image: product.media[1], class: 'product-img-hover', sizes:'[100,200,300,400,500,600,700,800]' %}
+                  {% endif %}
+                </div>
+              {% endif %}
+            </a>
+          </div>
+          <div class="product-card-detail">
+            <a
+              href="{{ product.url }}"
+              class="product-title"
+            >
+              {% if settings.product_card_title_style == 'bold' %}
+                  <strong>
+              {% endif %}
+                {{- product.title | escape -}}
+              {% if settings.product_card_title_style == 'bold' %}
+                  </strong>
+              {% endif %}
+            </a>
+            <div class="product-price">
+              <span class="price-item actual-price price-varies">
+                {{- product.selected_or_first_available_variant.price | money -}}
+              </span>
+              <span class="price-item compare-price{% unless product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %} hidden{% endunless %}">
+                {{- product.selected_or_first_available_variant.compare_at_price | money -}}
+              </span>
+            </div>
+            {% if product.available %}
+              {% assign availableVariantCount = 0 %}
+              {% capture variantData %}
+                {% for variant in product.variants %}
+                    {% if variant.available %}
+                        {% assign availableVariantCount = availableVariantCount | plus:1 %}
+                        <option value="{{ variant.id }}" data-price="{{ variant.price | money }}"{% if variant.compare_at_price > variant.price %} data-compare-price="{{ variant.compare_at_price | money }}"{% endif %}{% if product.first_available_variant == variant.id %} selected{% endif %}>{{ variant.title }}</option>
+                    {% endif %}
+                {% endfor %}
+                {% endcapture %}
+              <input
+                type="hidden"
+                name="id[]"
+                value="{{ product.first_available_variant.id }}"
+                class="bundle-product-id"
+                form="bundleProducts-{{ section.id }}"
+              >
+              {% if availableVariantCount > 1 %}
+                <div class="product-variants">
+                  <select
+                    id="product-variants-{{ section.id }}-{{ product.id }}"
+                    class="form-control"
+                    data-bundle-product-options
+                  >
+                    {{ variantData }}
+                  </select>
+                </div>
+              {% endif %}
+            {% endif %}
+            <div class="bundle-item-add-button text-center">
+              <span class="button small-btn btn-block {% if settings.enable_button_shadow %} button-shadow{% endif %}" data-text="{{ 'products.product.add_to_bundle' | t }}" data-added-text="{{ 'products.product.remove_from_bundle' | t }}" data-add-to-bundle
+                >{{ 'products.product.add_to_bundle' | t }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    {% for bProduct in section.settings.bundle_products %}
+      {% unless bProduct.id == product.id %}
+      <li class="bundle-product-item">
+        <div class="product-card-item" data-product-grid>
+          <div class="product-card {% if settings.image_background == true and settings.image_border == true  %}product-background-enabled product-border-enabled{% if settings.image_border_hover %} product-border-hover{% endif %}{% elsif settings.image_background == false and settings.image_border == true and settings.image_border_hover %} product-border-enabled product-border-hover{% elsif settings.image_background == true %}product-background-enabled{% endif %}">
+            <div class="product-card-img on-hover-img">
+              <a
+                class="product-img{% if settings.image_background == false and settings.grid_gap == true  %} product-gap-enabled{% endif %}{% if imageOnlyBorder %} product-border-enabled{% if settings.image_border_hover %} product-border-hover{% endif %}{% endif %}"
+                href="{{ bProduct.url }}"
+                tabindex="-1"
+                title="{{ bProduct.title | escape }}"
+              >
+                <div class="media" style="--imageRatio:{% if section.settings.bundle_grid_image_size == 'auto' %}{% if bProduct.featured_media != blank %}{{ 1 | divided_by: bProduct.featured_media.preview_image.aspect_ratio | times: 100 }}{% else %}100{% endif %}%{% else %}{{ productImageRatio }}{% endif %}">
+                  {% if bProduct.featured_media != blank %}
+                    {% if bProduct.featured_media.media_type == 'video' %}
+                      {% if settings.show_video_in_grid %}
+                        <deferred-media class="deferred-media">
+                          <template>
+                            {{
+                              bProduct.featured_media
+                              | media_tag:
+                                loading: 'lazy',
+                                class: 'no-js-hidden',
+                                autoplay: true,
+                                controls: false,
+                                loop: true,
+                                preload: 'none'
+                            }}
+                          </template>
+                          <div class="deferred-media-placeholder">
+                            {% render 'lazy-image', image: bProduct.featured_media.preview_image, sizes:'[100,200,300,400,500,600,700,800]' %}
+                          </div>
+                          <noscript>
+                            <img
+                              src="{{ bProduct.featured_media.preview_image | image_url: width: 2048 }}"
+                              alt="{{ bProduct.featured_media.preview_image.alt | escape }}"
+                              loading="lazy"
+                              width="{{ bProduct.featured_media.preview_image.width }}"
+                              height="{{ bProduct.featured_media.preview_image.height }}"
+                              aria-label="{{ bProduct.featured_media.alt | default: bProduct.title | strip_html }}"
+                            >
+                          </noscript>
+                        </deferred-media>
+                      {% else %}
+                        {%- render 'lazy-image',
+                          image: bProduct.featured_media.preview_image,
+                          class: 'product-image', sizes:'[100,200,300,400,500,600,700,800]'
+                        -%}
+                      {% endif %}
+                    {% else %}
+                      {% render 'lazy-image',
+                        image: bProduct.featured_media.preview_image,
+                        class: 'product-image', sizes:'[100,200,300,400,500,600,700,800]'
+                      %}
+                    {% endif %}
+                  {% else %}
+                    {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                </div>
+
+                {% if bProduct.media[1] != blank and settings.bProduct_second_image %}
+                  <div class="product-second-img">
+                    {% if bProduct.media[1].media_type == 'video' and settings.show_video_in_grid %}
+                      <deferred-media class="deferred-media">
+                        <template>
+                          {{
+                            bProduct.media[1]
+                            | media_tag:
+                              loading: 'lazy',
+                              class: 'no-js-hidden product-img-hover',
+                              autoplay: true,
+                              controls: false,
+                              loop: true,
+                              preload: 'none'
+                          }}
+                        </template>
+                        <div class="deferred-media-placeholder">
+                          {% render 'lazy-image', image: bProduct.media[1].preview_image, sizes:'[100,200,300,400,500,600,700,800]' %}
+                        </div>
+                        <noscript>
+                          <img
+                            src="{{ bProduct.media[1].preview_image | image_url: width: 2048 }}"
+                            alt="{{ bProduct.media[1].preview_image.alt | escape }}"
+                            loading="lazy"
+                            width="{{ bProduct.media[1].preview_image.width }}"
+                            height="{{ bProduct.media[1].preview_image.height }}"
+                            aria-label="{{ bProduct.media[1].alt | default: bProduct.title | strip_html }}"
+                          >
+                        </noscript>
+                      </deferred-media>
+                    {% else %}
+                      {% render 'lazy-image', image: bProduct.media[1], class: 'product-img-hover', sizes:'[100,200,300,400,500,600,700,800]' %}
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </a>
+            </div>
+            <div class="product-card-detail">
+              <a
+                href="{{ bProduct.url }}"
+                class="product-title"
+              >
+                {% if settings.product_card_title_style == 'bold' %}
+                    <strong>
+                {% endif %}
+                  {{- bProduct.title | escape -}}
+                {% if settings.product_card_title_style == 'bold' %}
+                    </strong>
+                {% endif %}
+              </a>
+              <div class="product-price">
+                <span class="price-item actual-price price-varies">
+                  {{- bProduct.selected_or_first_available_variant.price | money -}}
+                </span>
+
+                <span class="price-item compare-price{% unless bProduct.selected_or_first_available_variant.compare_at_price > bProduct.selected_or_first_available_variant.price %} hidden{% endunless %}">
+                  {{- bProduct.selected_or_first_available_variant.compare_at_price | money -}}
+                </span>
+              </div>
+              {% if bProduct.available %}
+                {% assign availableVariantCount = 0 %}
+                {% capture variantData %}
+                  {% for variant in bProduct.variants %}
+                    {% if variant.available %}
+                      {% assign availableVariantCount = availableVariantCount | plus:1 %}
+                      <option value="{{ variant.id }}" data-price="{{ variant.price | money }}"{% if variant.compare_at_price > variant.price %} data-compare-price="{{ variant.compare_at_price | money }}"{% endif %}{% if bProduct.first_available_variant == variant.id %} selected{% endif %}>{{ variant.title }}</option>
+                    {% endif %}
+                  {% endfor %}
+                {% endcapture %}
+                <input
+                  type="hidden"
+                  name="id[]"
+                  class="bundle-product-id"
+                  value="{{ bProduct.first_available_variant.id }}"
+                  form="bundleProducts-{{ section.id }}"
+                  disabled
+                >
+                {% if availableVariantCount > 1 %}
+                  <div class="product-variants">
+                    <select
+                      id="product-variants-{{ section.id }}-{{ bProduct.id }}"
+                      class="form-control"
+                      data-bundle-product-options
+                    >
+                      {{ variantData }}
+                    </select>
+                  </div>
+                {% endif %}
+              {% endif %}
+              <div class="bundle-item-add-button text-center">
+                <span class="button small-btn btn-block{% if settings.enable_button_shadow %} button-shadow{% endif %}" data-text="{{ 'products.product.add_to_bundle' | t }}" data-added-text="{{ 'products.product.remove_from_bundle' | t }}" data-add-to-bundle
+                  >{{ 'products.product.add_to_bundle' | t }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    {% endunless %}
+    {% endfor %}
+  </ul>
+</div>
+<div class="bundle-product-title-section text-center">
+  {% if section.settings.bundle_heading != blank %}
+  <h2 class="h2 bundle-product-title">{{ section.settings.bundle_heading }}</h2>
+  {% endif %}
+  {% if section.settings.bundle_description != blank %}
+  <p class="bundle-product-desc">
+    {{ section.settings.bundle_description | newline_to_br }}
+  </p>
+{% endif %}
+    {% assign formid = 'bundleProducts-' | append: section.id %}
+    {% form 'product', product, id: formid,
+      class: 'bundle-product-total',
+      novalidate: 'novalidate',
+      data-type: 'add-to-cart-form' %}
+    <div class="form-message error hidden" data-form-error></div>
+    <button
+      type="submit"
+      name="add"
+      class="medium-btn button bundle-product-button{% if settings.enable_button_shadow %} button-shadow{% endif %}"
+      data-add-to-cart
+      data-side-drawer-open
+      disabled
+    >
+      <span>{{ 'products.product.add_to_cart' | t }}</span>
+    </button>
+  {% endform %}
+</div>

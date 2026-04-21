@@ -1,0 +1,24 @@
+{% if link.links.size > 0 %}
+  <div class="categories-inner-submenu-left">
+    <ul class="categories-inner-submenu-items">
+        {% for childLink in link.links %}
+          <li>
+            <a href="{{ childLink.url }}" class="categories-inner-submenu-heading" title="{{ childLink.title }}">
+              {{- childLink.title -}}
+            </a>
+            {% if childLink.links.size > 0 %}
+              <ul>
+                {% for grandChildLink in childLink.links %}
+                  <li class="categories-inner-submenu-item">
+                    <a href="{{ grandChildLink.url }}" title="{{ grandChildLink.title }}">
+                      {{ grandChildLink.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+    </ul>
+  </div>
+{% endif %}

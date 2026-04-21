@@ -1,0 +1,111 @@
+
+
+
+
+
+{% liquid
+  assign accountPageType = section.settings.account_type
+  if customer and accountPageType == 'dropdown'
+    assign accountPageType = 'dropdown'
+  endif
+%}
+
+<ul class="header-icons-list list-inline box-shadow-true">
+  {% if section.settings.enable_search %}
+    <li class="header-icons{% if section.settings.header_style == 'logo_with_search_bar' and section.settings.enable_search %} d-block d-lg-none{% endif %}">
+      <a
+        class="header-icons-link search"
+        {% if settings.search_drawer_style != 'full_width' %}
+          data-side-drawer-open href="#side-ajax-search-drawer"
+        {% else %}
+          href="{{ routes.search_url }}"
+          data-search-open
+        {% endif %}
+        aria-label="search"
+       
+      >
+      <svg width="19" height="19" viewBox="0 0 19 19" fill="none" >
+      <path d="M18.768 17.6486L14.0425 12.9231C15.3303 11.3482 15.9634 9.33852 15.811 7.30985C15.6586 5.28118 14.7322 3.3887 13.2236 2.02386C11.715 0.65902 9.7395 -0.0737608 7.70575 -0.0229107C5.672 0.0279395 3.73559 0.858531 2.29706 2.29706C0.858531 3.73559 0.0279395 5.672 -0.0229107 7.70575C-0.0737608 9.7395 0.65902 11.715 2.02386 13.2236C3.3887 14.7322 5.28118 15.6586 7.30985 15.811C9.33852 15.9634 11.3482 15.3303 12.9231 14.0425L17.6486 18.768C17.7979 18.9122 17.9979 18.992 18.2054 18.9902C18.413 18.9884 18.6116 18.9051 18.7584 18.7584C18.9051 18.6116 18.9884 18.413 18.9902 18.2054C18.992 17.9979 18.9122 17.7979 18.768 17.6486ZM7.91662 14.25C6.664 14.25 5.43952 13.8785 4.398 13.1826C3.35649 12.4867 2.54473 11.4975 2.06538 10.3403C1.58602 9.18301 1.4606 7.90959 1.70498 6.68104C1.94935 5.4525 2.55254 4.32401 3.43827 3.43827C4.32401 2.55254 5.4525 1.94935 6.68104 1.70498C7.90959 1.4606 9.18301 1.58602 10.3403 2.06538C11.4975 2.54473 12.4867 3.35649 13.1826 4.398C13.8785 5.43952 14.25 6.664 14.25 7.91662C14.2481 9.59574 13.5802 11.2056 12.3929 12.3929C11.2056 13.5802 9.59574 14.2481 7.91662 14.25Z" fill="currentColor"/>
+      </svg>
+      
+      </a>
+    </li>
+  {% endif %}
+
+  {% if section.settings.enable_cart %}
+    {% assign cart_style_status = false %}
+    {%if section.settings.cart_icon_options =='quantity' or  section.settings.cart_icon_options =='none' %}
+    {% assign cart_style_status = true %}
+    {%endif  %}
+    <li class="header-icons {% if section.settings.enable_cart_border == true %}border-enabled{% endif %}" {{section.settings.cart_icon_options}}>
+      <a
+        class="header-icons-link cart {% if settings.enable_button_shadow and section.settings.enable_cart_border == true %}cart-shadow-enabled {% endif %} {% if cart.item_count > 0 and section.settings.cart_icon_options == 'none' or cart.item_count >99 %} dot-icon{% endif %}{% if section.settings.enable_cart_rounded and cart_style_status == true %} round{% endif %}"
+        {% if settings.Cart_type == 'drawer' %}
+          data-side-drawer-open href="#ajax-cart-drawer"
+        {% else %}
+          href="{{ routes.cart_url }}"
+        {% endif %}
+        aria-label="Ajax cart icon"
+      >
+      <svg width="21" height="24" viewBox="0 0 21 24" fill="none">
+<path d="M21 20.2378L19.5517 5.70811C19.5517 5.18919 19.069 4.8 18.5862 4.8H15.8103C15.6897 2.07568 13.2759 0 10.5 0C7.72414 0 5.43103 2.07568 5.18965 4.8H2.41379C1.93103 4.8 1.56897 5.18919 1.44828 5.70811L0 20.2378C0 20.3676 0 20.3676 0 20.4973C0 22.4432 1.81034 24 4.10345 24H16.8965C19.1897 24 21 22.4432 21 20.4973V20.2378ZM18.4655 21.5351C18.1034 21.7946 17.5 22.0541 16.8965 22.0541H4.10345C3.5 22.0541 2.89655 21.9243 2.53448 21.5351C2.17241 21.2757 1.93103 20.8865 1.93103 20.3676L3.25862 6.61622H5.18965V8.43243C5.18965 8.95135 5.67241 9.34054 6.15517 9.34054C6.63793 9.34054 7.12069 8.95135 7.12069 8.43243V6.61622H14V8.43243C14 8.95135 14.4828 9.34054 14.9655 9.34054C15.4483 9.34054 15.931 8.95135 15.931 8.43243V6.61622H17.8621L19.1897 20.2378C19.1897 20.627 18.9483 21.0162 18.5862 21.4054L18.4655 21.5351ZM7.12069 4.8C7.24138 3.11351 8.81034 1.94595 10.5 1.94595C12.1897 1.94595 13.7586 3.24324 13.8793 4.8H7.12069Z" fill="currentColor"/>
+</svg>
+
+        {% if section.settings.cart_icon_options == 'both' %}
+          <span class="cart-total-price {% if cart.item_count == 0 %} hidden{% endif %}" data-header-cart-total>
+            {{ cart.items_subtotal_price | money }}
+          </span>
+          <span class="cart-count{% if cart.item_count == 0 %} hidden{% endif %}" data-header-cart-count>
+            {%- if cart.item_count < 100 and cart.item_count > 0 %}{{ cart.item_count }}{% endif -%}
+          </span>
+        {% endif %}
+        {% if section.settings.cart_icon_options == 'quantity' or section.settings.cart_icon_options == 'none' %}
+          <span class="cart-count{% if cart.item_count == 0 %} hidden{% endif %}" data-header-cart-count>
+            {%- if cart.item_count < 100 and cart.item_count > 0 %}{{ cart.item_count }}{% endif -%}
+          </span>
+        {% endif %}
+        {% if section.settings.cart_icon_options == 'carttotal' %}
+          <span class="cart-total-price {% if cart.item_count == 0 %} hidden{% endif %}" data-header-cart-total>
+            {{ cart.items_subtotal_price | money }}
+          </span>
+        {% endif %} 
+
+      </a>
+    </li>
+  {% endif %}
+
+  {% if section.settings.enable_account and shop.customer_accounts_enabled %}
+    <li class="header-icons d-none d-lg-block">
+      <a
+        class="header-icons-link account"
+        href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+        aria-label="account"
+        {% unless section.settings.account_type == 'page' or request.page_type contains 'customers' %} onClick=toggleAccountPopup(event,'{{- accountPageType -}}'){% endunless %}
+      >
+      <svg width="20" height="21" viewBox="0 0 20 21" fill="none" >
+      <path d="M9.99998 0C6.93332 0 4.44444 2.47578 4.44444 5.52632C4.44444 8.57684 6.93332 11.0526 9.99998 11.0526C13.0666 11.0526 15.5555 8.57684 15.5555 5.52632C15.5555 2.47578 13.0666 0 9.99998 0ZM9.99998 8.8421C8.15555 8.8421 6.66666 7.36106 6.66666 5.52632C6.66666 3.69158 8.15555 2.21052 9.99998 2.21052C11.8445 2.21052 13.3333 3.69158 13.3333 5.52632C13.3333 7.36106 11.8445 8.8421 9.99998 8.8421ZM20 21V19.8948C20 15.6174 16.5222 12.1578 12.2222 12.1578H7.77776C3.47778 12.1578 0 15.6174 0 19.8948V21H2.22222V19.8948C2.22222 16.8442 4.71111 14.3684 7.77776 14.3684H12.2222C15.2889 14.3684 17.7777 16.8442 17.7777 19.8948V21H20Z" fill="currentColor"/>
+      </svg>
+      </a>
+    </li>
+  {% endif %}
+ 
+</ul>
+
+
+{% unless request.page_type contains 'customers' %}
+  <div class="customer-account-popup" data-account-dropdown>
+    {% if customer and section.settings.account_type != 'page' %}
+      <div class="customer-account-popup-inner">
+        <p>{{ customer.name }}</p>
+        <a href="{{ routes.account_url }}"  class="account-link">
+          {{ 'customer.account_fallback' | t }}
+        </a>
+        <a class="button black-btn small-btn btn-block{% if settings.enable_button_shadow %} button-shadow{% endif %}" href="{{ routes.account_logout_url }}">
+          {{ 'customer.log_out' | t }}
+        </a>
+      </div>
+    {% elsif section.settings.account_type == 'dropdown' %}
+        {% render 'header-account' %}
+    {% endif %}
+  </div>
+{% endunless %}

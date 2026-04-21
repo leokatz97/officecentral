@@ -1,0 +1,163 @@
+
+{% if section.settings.age_verification_pop_enable %}
+  <div class="age-verification-wrapper scheme-{{ settings.color_scheme_popup  }}" data-age-verification-status="{{ section.settings.age_verification_pop_enable }}" data-age-verification>
+    <div class="age-verification-outer active">
+      {% if section.settings.age_verification_heading != blank %}
+        <h5 class="age-verification-heading">{{ section.settings.age_verification_heading }}</h5>
+      {% endif %}
+      {% if section.settings.age_verification_description != blank %}
+        <div class="age-verification-desc rte">{{ section.settings.age_verification_description | replace: '<p></p>', '<br/>'
+          | replace: '<h1></h1>', '<br/>'
+          | replace: '<h2></h2>', '<br/>'
+          | replace: '<h3></h3>', '<br/>'
+          | replace: '<h4></h4>', '<br/>'
+          | replace: '<h5></h5>', '<br/>'
+          | replace: '<h6></h6>', '<br/>' }}</div>
+      {% endif %}
+      {% if section.settings.approve_btn_text != blank or section.settings.decline_btn_text != blank %}
+        <div class="age-verify-btn">
+          {% if section.settings.approve_btn_text != blank %}
+            <button class="button btn-block submit-age{% if settings.enable_button_shadow %} button-shadow{% endif %}" onClick="verifyAge(event)">
+              {{ section.settings.approve_btn_text }}
+            </button>
+          {% endif %}
+          {% if section.settings.decline_btn_text != blank %}
+            <button class="button secondary-button btn-block reject-age{% if settings.enable_button_shadow %} button-shadow{% endif %}" onClick="rejectAgeVerify(event)">
+              {{ section.settings.decline_btn_text }}
+            </button>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    <div class="age-verification-decline">
+      {% if section.settings.decline_heading != blank %}
+        <h5 class="age-verification-heading">{{ section.settings.decline_heading }}</h5>
+      {% endif %}
+      {% if section.settings.decline_sub_heading != blank %}
+        <div class="age-verification-desc rte">{{ section.settings.decline_sub_heading | replace: '<p></p>', '<br/>'
+          | replace: '<h1></h1>', '<br/>'
+          | replace: '<h2></h2>', '<br/>'
+          | replace: '<h3></h3>', '<br/>'
+          | replace: '<h4></h4>', '<br/>'
+          | replace: '<h5></h5>', '<br/>'
+          | replace: '<h6></h6>', '<br/>' }}</div>
+      {% endif %}
+      {% if section.settings.age_decline_btn_text != blank %}
+        <div class="age-decline-btn">
+          <button class="button btn-block decline-age{% if settings.enable_button_shadow %} button-shadow{% endif %}" onClick="backToAgeVerify(event)">
+            {{ section.settings.age_decline_btn_text }}
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <style>
+    {% assign position = section.settings.age_verification_position | split:'|'%}
+    #shopify-section-{{ section.id }} {
+        align-items:{{position[0]}};
+        justify-content:{{position[1]}};
+    }
+  </style>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.age-verification.name",
+  "class": "age-verification",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "age_verification_pop_enable",
+      "label": "t:sections.age-verification.settings.age_verification_pop_enable.label",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "age_verification_position",
+      "label": "t:global.popup_position.label",
+      "default": "flex-end|flex-end",
+      "options": [
+        {
+          "value": "flex-start|flex-start",
+          "label": "t:global.popup_position.options.top_left.label"
+        },
+        {
+          "value": "flex-start|center",
+          "label": "t:global.popup_position.options.top_center.label"
+        },
+        {
+          "value": "flex-start|flex-end",
+          "label": "t:global.popup_position.options.top_right.label"
+        },
+        {
+          "value": "center|flex-start",
+          "label": "t:global.popup_position.options.middle_left.label"
+        },
+        {
+          "value": "center|center",
+          "label": "t:global.popup_position.options.middle_center.label"
+        },
+        {
+          "value": "center|flex-end",
+          "label": "t:global.popup_position.options.middle_right.label"
+        },
+        {
+          "value": "flex-end|flex-start",
+          "label": "t:global.popup_position.options.bottom_left.label"
+        },
+        {
+          "value": "flex-end|center",
+          "label": "t:global.popup_position.options.bottom_center.label"
+        },
+        {
+          "value": "flex-end|flex-end",
+          "label": "t:global.popup_position.options.bottom_right.label"
+        }
+      ]
+    },
+    {
+      "type": "inline_richtext",
+      "id": "age_verification_heading",
+      "label": "t:global.general_labels.heading",
+      "default": "Age Verification"
+    },
+    {
+      "type": "richtext",
+      "id": "age_verification_description",
+      "label": "t:global.general_labels.description",
+      "default": "<p>Create your own style with our variety of collections with Mens Women.<\/p>"
+    },
+    {
+      "type": "text",
+      "id": "approve_btn_text",
+      "label": "t:sections.age-verification.settings.approve_btn_text.label",
+      "default": "I am over 18"
+    },
+    {
+      "type": "text",
+      "id": "decline_btn_text",
+      "label": "t:sections.age-verification.settings.decline_btn_text.label",
+      "default": "I am under 18"
+    },
+    {
+      "type": "text",
+      "id": "decline_heading",
+      "label": "t:sections.age-verification.settings.decline_heading.label",
+      "default": "Come back when you're older"
+    },
+    {
+      "type": "richtext",
+      "id": "decline_sub_heading",
+      "label": "t:sections.age-verification.settings.decline_sub_heading.label",
+      "default": "<p>Sorry, the content of this store can't be seen by a younger audience. Come back when you're older.<\/p>"
+    },
+    {
+      "type": "text",
+      "id": "age_decline_btn_text",
+      "label": "t:sections.age-verification.settings.age_decline_btn_text.label",
+      "default": "Oops, I entered incorrectly"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "HTML preview (static server for *-preview.html)",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["/tmp/bbi-preview-server.py"],
+      "port": 8080
+    },
+    {
+      "name": "HTML preview bridge (MCP sandbox can read /tmp)",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["/tmp/bbi-bridge-server.py"],
+      "port": 8082
+    },
+    {
+      "name": "Shopify theme dev (live theme preview)",
+      "runtimeExecutable": "shopify",
+      "runtimeArgs": ["theme", "dev", "--path", "theme", "--store", "office-central-online.myshopify.com"],
+      "port": 9292
+    },
+    {
+      "name": "Shopify OAuth callback (Python, one-shot)",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["shopify-oauth.py"],
+      "port": 3000
+    },
+    {
+      "name": "Shopify OAuth callback (Node, one-shot)",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["shopify-oauth.js"],
+      "port": 3000
+    }
+  ]
+}

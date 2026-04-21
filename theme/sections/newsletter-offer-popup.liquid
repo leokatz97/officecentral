@@ -1,0 +1,942 @@
+{% if section.settings.newsletter_pop_offer_enable %}
+  {% liquid
+    assign Colorscheme = section.settings.color_scheme
+  %}
+  {% assign formofferStatus = false %}
+  <div class="newsletter-outer {% if section.settings.border_enabled %}border-enabled{% endif %}">
+    <div class="newsletter-outer-inner scheme-{{ Colorscheme }} {% if section.settings.enable_gradient %} gradiant{% endif %}">
+      <a href="#" class="close-btn" onClick="closeNewsletterOfferPopup(event)" aria-label="Close Newsletter Popup">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M0.476248 1.9318L1.94236 0.465685L16.3477 14.871L14.8816 16.3372L0.476248 1.9318Z" fill="currentColor"></path>
+          <path d="M1.9354 16.3416L0.46928 14.8755L14.8746 0.47018L16.3407 1.9363L1.9354 16.3416Z" fill="currentColor"></path>
+        </svg>
+      </a>
+      <div class="offer-popup">
+        <div class="offer-title">
+          {% if section.settings.heading != blank or section.settings.sub_heading != blank %}
+            <{{ section.settings.seo_heading }} class="{{ section.settings.heading_size }} offer-subheading">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18" fill="none">
+                <path d="M14 12.5811C14 14.2847 12.6058 16.8393 10.0977 17.9789C9.89016 18.0731 9.68364 17.8315 9.81796 17.6509C10.3698 16.9075 10.6366 15.9499 10.6366 15.1029C10.6366 13.4947 9.77805 12.8073 9.77805 12.8073C9.55302 13.4997 9.21279 14.0775 8.76787 14.5481C8.33878 15.0013 7.58223 14.5151 7.80747 13.9475C8.79934 11.4511 8.84377 10.5656 7.00648 9.48636C7.77332 12.3317 4.17196 12.6725 4.17196 15.8865C4.17196 16.3761 4.35483 17.0421 4.73002 17.6241C4.85406 17.8161 4.63273 18.0411 4.42662 17.9347C1.80993 16.5861 0 13.5295 0 11.0362C0 7.92657 3.11468 5.32358 3.22185 5.23678C3.22452 5.23418 3.22452 5.23418 3.22452 5.23418C3.3393 6.44657 3.87329 7.35517 4.66872 8.07637C4.83781 8.22956 5.10089 8.04737 4.99887 7.84577C4.60784 7.07237 4.19788 5.85337 4.40214 4.36138C4.40481 4.35098 4.40481 4.33838 4.40749 4.32818C4.61442 2.54479 5.87329 1.1732 7.87041 0C6.36285 5.59338 14 6.26537 14 12.5811Z" fill="currentColor"/>
+              </svg>
+              {{ section.settings.heading }}
+            </{{ section.settings.seo_heading }}>
+            <h5 class="{{ section.settings.textstyle }} offer-heading">{{ section.settings.sub_heading }}</h5>
+          {% endif %}
+        </div>
+        <div class="countdown-timer-wrapper">
+          {% if section.settings.countdown_text != blank %}
+            <p>{{ section.settings.countdown_text }}</p>
+          {% endif %}
+          {% assign launch_date = section.settings.day | plus:0 %}
+          {% assign launch_year = section.settings.year %}
+          {% assign launch_month = section.settings.month %}
+          {% assign launch_hours = section.settings.hours %}
+          {% assign launch_minutes = section.settings.minutes %}
+          <div
+            class="countdown-timer"
+            data-launch-date="{{ launch_month }}/{{ launch_date }}/{{ launch_year }} {{ launch_hours }}:{{ launch_minutes }}:00"
+            data-countdown-timer
+          >
+            <div class="count-days">
+              <span class="time days">00</span>
+              {% if launch_date < 02 %}
+                <span class="separator">{{ 'sections.featured_collection.collection_countdown_day' | t }}</span>
+                {% else %}
+              <span class="separator">{{ 'sections.featured_collection.collection_countdown_days' | t }}</span>
+              {% endif %}
+            </div>
+            <div class="count-hours">
+              <span class="time hours">00</span>
+              <span class="separator">hrs</span>
+            </div>
+            <div class="count-minutes">
+              <span class="time minutes">00</span>
+              <span class="separator">min</span>
+            </div>
+            <div class="count-seconds">
+              <span class="time seconds">00</span>
+              <span class="separator">sec</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="offer-newsletter">
+        {% if section.settings.newsletter_heading != blank %}
+          <p class="newsletter-heading">{{ section.settings.newsletter_heading }}</p>
+        {% endif %}
+        {% if section.settings.newsletter_description != blank %}
+          <div class="newsletter-desc rte">
+            {{
+              section.settings.newsletter_description
+              | replace: '<p></p>', '<br/>'
+              | replace: '<h1></h1>', '<br/>'
+              | replace: '<h2></h2>', '<br/>'
+              | replace: '<h3></h3>', '<br/>'
+              | replace: '<h4></h4>', '<br/>'
+              | replace: '<h5></h5>', '<br/>'
+              | replace: '<h6></h6>', '<br/>'
+            }}
+          </div>
+        {% endif %}
+        {%- form 'customer', id: 'contact-form-popup', class: 'contact-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="hidden" name="contact[context]" value="popup">
+          <div class="newsletter-fields">
+            {% if form.posted_successfully? %}
+              {% assign formofferStatus = true %}
+              <div class="form-message success">
+                <span class="success-text">{{ 'newsletter.success' | t }}</span>
+              </div>
+            {% else %}
+              <label for="popUpEmailId" class="visually-hidden hidden">{{ 'newsletter.email_placeholder' | t }}</label>
+              <input
+                class="form-control enter-email{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+                type="email"
+                name="contact[email]"
+                id="popUpEmailId"
+                value="{%- if form.context == 'popup' -%}{{ form.email }}{% endif %}"
+                placeholder="{{ 'newsletter.email_placeholder' | t }}"
+                autocapitalize="off"
+                required
+              >
+              {%- if form.errors -%}
+                <div class="form-message error">
+                  <span class="form-group error-text" id="Newsletter-error--{{ section.id }}">
+                    {{- form.errors.translated_fields.email | capitalize }}
+                    {{ form.errors.messages.email -}}
+                  </span>
+                </div>
+              {%- endif -%}
+              <button class="button btn-block subcribe-btn{% if settings.enable_button_shadow %} button-shadow{% endif %}" name="commit">
+                {{ 'newsletter.button_label' | t }}
+              </button>
+            {% endif %}
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+  <a href="#" class="newsletterPopUp-close-btn" onClick="closeNewsletterOfferPopup(event)" aria-label="Close Newsletter popup"></a>
+  <style>
+    {% assign position = section.settings.newsletter_position | split: '|' %}
+    #shopify-section-{{ section.id }} {
+        align-items:{{ position[0] }};
+        justify-content:{{ position[1] }};
+    }
+    .newsletter-outer.border-enabled {
+     {%- if section.settings.border_style == 'gradient' -%}
+          {% if section.settings.background_border_gradient != blank %}
+              background: {{ section.settings.background_border_gradient }};
+          {% else %}
+          background: var(--gradientBackground);
+          {% endif %}
+          {%- else -%}
+          {% unless section.settings.background_border == 'rgba(0,0,0,0)' or section.settings.background_border == blank %}
+            background: {{ section.settings.background_border }};
+          {% else %}
+          background: rgba(var(--background),1);
+          {% endunless %}
+        {%- endif -%}
+      }
+  </style>
+{% endif %}
+<script>
+  {% if formofferStatus %}
+    const newsletterofferFormSubmitted = true;
+    {% else %}
+    const newsletterofferFormSubmitted = false;
+  {% endif %}
+  const newsletterofferPopupEnable = {{ section.settings.newsletter_pop_offer_enable }};
+  const newsletterofferPopupExpDays = {{ section.settings.popup_offer_cookie }};
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.newsletter-popup.name",
+  "class": "newsletter-popup",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "newsletter_pop_offer_enable",
+      "label": "t:sections.newsletter-popup.settings.newsletter_pop_offer_enable.label",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "newsletter_position",
+      "label": "t:global.popup_position.label",
+      "default": "flex-end|flex-end",
+      "options": [
+        {
+          "value": "flex-start|flex-start",
+          "label": "t:global.popup_position.options.top_left.label"
+        },
+        {
+          "value": "flex-start|center",
+          "label": "t:global.popup_position.options.top_center.label"
+        },
+        {
+          "value": "flex-start|flex-end",
+          "label": "t:global.popup_position.options.top_right.label"
+        },
+        {
+          "value": "center|flex-start",
+          "label": "t:global.popup_position.options.middle_left.label"
+        },
+        {
+          "value": "center|center",
+          "label": "t:global.popup_position.options.middle_center.label"
+        },
+        {
+          "value": "center|flex-end",
+          "label": "t:global.popup_position.options.middle_right.label"
+        },
+        {
+          "value": "flex-end|flex-start",
+          "label": "t:global.popup_position.options.bottom_left.label"
+        },
+        {
+          "value": "flex-end|center",
+          "label": "t:global.popup_position.options.bottom_center.label"
+        },
+        {
+          "value": "flex-end|flex-end",
+          "label": "t:global.popup_position.options.bottom_right.label"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "popup_offer_cookie",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "label": "t:sections.newsletter-popup.settings.popup_offer_cookie.label",
+      "default": 10
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:global.heading.label",
+      "default": "Countdown Heading Here"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:global.heading.heading_size.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "seo_heading",
+      "default": "h2",
+      "label": "t:global.heading.heading_tag.label",
+      "info": "t:global.heading.heading_tag.info",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ]
+    },
+    {
+      "type": "inline_richtext",
+      "id": "sub_heading",
+      "label": "t:sections.newsletter-popup.settings.sub_heading.label",
+      "default": "Hurry up! Offer ends in:"
+    },
+    {
+      "type": "select",
+      "id": "textstyle",
+      "default": "small-case",
+      "label": "t:sections.newsletter-popup.settings.textstyle.label",
+      "info": "t:sections.newsletter-popup.settings.textstyle.info",
+      "options": [
+        {
+          "value": "small-case",
+          "label": "t:global.general_labels.small"
+        },
+        {
+          "value": "medium-case",
+          "label": "t:global.general_labels.medium"
+        },
+        {
+          "value": "large-case",
+          "label": "t:global.general_labels.large"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.newsletter-popup.settings.countdown_timer.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "countdown_text",
+      "label": "t:sections.newsletter-popup.settings.countdown_text.label",
+      "default": "Hurry up! Offer ends in:"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.newsletter-popup.settings.date.label"
+    },
+    {
+      "type": "number",
+      "id": "year",
+      "label": "t:sections.newsletter-popup.settings.year.label",
+      "default": 2024
+    },
+    {
+      "type": "select",
+      "id": "month",
+      "label": "t:sections.newsletter-popup.settings.month.label",
+      "default": "07",
+      "options": [
+        {
+          "value": "01",
+          "label": "t:sections.newsletter-popup.settings.month.options.january"
+        },
+        {
+          "value": "02",
+          "label": "t:sections.newsletter-popup.settings.month.options.february"
+        },
+        {
+          "value": "03",
+          "label": "t:sections.newsletter-popup.settings.month.options.march"
+        },
+        {
+          "value": "04",
+          "label": "t:sections.newsletter-popup.settings.month.options.april"
+        },
+        {
+          "value": "05",
+          "label": "t:sections.newsletter-popup.settings.month.options.may"
+        },
+        {
+          "value": "06",
+          "label": "t:sections.newsletter-popup.settings.month.options.june"
+        },
+        {
+          "value": "07",
+          "label": "t:sections.newsletter-popup.settings.month.options.july"
+        },
+        {
+          "value": "08",
+          "label": "t:sections.newsletter-popup.settings.month.options.august"
+        },
+        {
+          "value": "09",
+          "label": "t:sections.newsletter-popup.settings.month.options.september"
+        },
+        {
+          "value": "10",
+          "label": "t:sections.newsletter-popup.settings.month.options.october"
+        },
+        {
+          "value": "11",
+          "label": "t:sections.newsletter-popup.settings.month.options.november"
+        },
+        {
+          "value": "12",
+          "label": "t:sections.newsletter-popup.settings.month.options.december"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "day",
+      "label": "t:sections.newsletter-popup.settings.day.label",
+      "options": [
+        {
+          "value": "01",
+          "label": "01"
+        },
+        {
+          "value": "02",
+          "label": "02"
+        },
+        {
+          "value": "03",
+          "label": "03"
+        },
+        {
+          "value": "04",
+          "label": "04"
+        },
+        {
+          "value": "05",
+          "label": "05"
+        },
+        {
+          "value": "06",
+          "label": "06"
+        },
+        {
+          "value": "07",
+          "label": "07"
+        },
+        {
+          "value": "08",
+          "label": "08"
+        },
+        {
+          "value": "09",
+          "label": "09"
+        },
+        {
+          "value": "10",
+          "label": "10"
+        },
+        {
+          "value": "11",
+          "label": "11"
+        },
+        {
+          "value": "12",
+          "label": "12"
+        },
+        {
+          "value": "13",
+          "label": "13"
+        },
+        {
+          "value": "14",
+          "label": "14"
+        },
+        {
+          "value": "15",
+          "label": "15"
+        },
+        {
+          "value": "16",
+          "label": "16"
+        },
+        {
+          "value": "17",
+          "label": "17"
+        },
+        {
+          "value": "18",
+          "label": "18"
+        },
+        {
+          "value": "19",
+          "label": "19"
+        },
+        {
+          "value": "20",
+          "label": "20"
+        },
+        {
+          "value": "21",
+          "label": "21"
+        },
+        {
+          "value": "22",
+          "label": "22"
+        },
+        {
+          "value": "23",
+          "label": "23"
+        },
+        {
+          "value": "24",
+          "label": "24"
+        },
+        {
+          "value": "25",
+          "label": "25"
+        },
+        {
+          "value": "26",
+          "label": "26"
+        },
+        {
+          "value": "27",
+          "label": "27"
+        },
+        {
+          "value": "28",
+          "label": "28"
+        },
+        {
+          "value": "29",
+          "label": "29"
+        },
+        {
+          "value": "30",
+          "label": "30"
+        },
+        {
+          "value": "31",
+          "label": "31"
+        }
+      ],
+      "default": "08"
+    },
+    {
+      "type": "select",
+      "id": "hours",
+      "label": "t:sections.newsletter-popup.settings.hours.label",
+      "options": [
+        {
+          "value": "00",
+          "label": "t:sections.newsletter-popup.settings.hours.options.00"
+        },
+        {
+          "value": "01",
+          "label": "t:sections.newsletter-popup.settings.hours.options.01"
+        },
+        {
+          "value": "02",
+          "label": "t:sections.newsletter-popup.settings.hours.options.02"
+        },
+        {
+          "value": "03",
+          "label": "t:sections.newsletter-popup.settings.hours.options.03"
+        },
+        {
+          "value": "04",
+          "label": "t:sections.newsletter-popup.settings.hours.options.04"
+        },
+        {
+          "value": "05",
+          "label": "t:sections.newsletter-popup.settings.hours.options.05"
+        },
+        {
+          "value": "06",
+          "label": "t:sections.newsletter-popup.settings.hours.options.06"
+        },
+        {
+          "value": "07",
+          "label": "t:sections.newsletter-popup.settings.hours.options.07"
+        },
+        {
+          "value": "08",
+          "label": "t:sections.newsletter-popup.settings.hours.options.08"
+        },
+        {
+          "value": "09",
+          "label": "t:sections.newsletter-popup.settings.hours.options.09"
+        },
+        {
+          "value": "10",
+          "label": "t:sections.newsletter-popup.settings.hours.options.10"
+        },
+        {
+          "value": "11",
+          "label": "t:sections.newsletter-popup.settings.hours.options.11"
+        },
+        {
+          "value": "12",
+          "label": "t:sections.newsletter-popup.settings.hours.options.12"
+        },
+        {
+          "value": "13",
+          "label": "t:sections.newsletter-popup.settings.hours.options.13"
+        },
+        {
+          "value": "14",
+          "label": "t:sections.newsletter-popup.settings.hours.options.14"
+        },
+        {
+          "value": "15",
+          "label": "t:sections.newsletter-popup.settings.hours.options.15"
+        },
+        {
+          "value": "16",
+          "label": "t:sections.newsletter-popup.settings.hours.options.16"
+        },
+        {
+          "value": "17",
+          "label": "t:sections.newsletter-popup.settings.hours.options.17"
+        },
+        {
+          "value": "18",
+          "label": "t:sections.newsletter-popup.settings.hours.options.18"
+        },
+        {
+          "value": "19",
+          "label": "t:sections.newsletter-popup.settings.hours.options.19"
+        },
+        {
+          "value": "20",
+          "label": "t:sections.newsletter-popup.settings.hours.options.20"
+        },
+        {
+          "value": "21",
+          "label": "t:sections.newsletter-popup.settings.hours.options.21"
+        },
+        {
+          "value": "22",
+          "label": "t:sections.newsletter-popup.settings.hours.options.22"
+        },
+        {
+          "value": "23",
+          "label": "t:sections.newsletter-popup.settings.hours.options.23"
+        }
+      ],
+      "default": "08"
+    },
+    {
+      "type": "select",
+      "id": "minutes",
+      "label": "t:sections.newsletter-popup.settings.minutes.label",
+      "options": [
+        {
+          "value": "00",
+          "label": "00"
+        },
+        {
+          "value": "01",
+          "label": "01"
+        },
+        {
+          "value": "02",
+          "label": "02"
+        },
+        {
+          "value": "03",
+          "label": "03"
+        },
+        {
+          "value": "04",
+          "label": "04"
+        },
+        {
+          "value": "05",
+          "label": "05"
+        },
+        {
+          "value": "06",
+          "label": "06"
+        },
+        {
+          "value": "07",
+          "label": "07"
+        },
+        {
+          "value": "08",
+          "label": "08"
+        },
+        {
+          "value": "09",
+          "label": "09"
+        },
+        {
+          "value": "10",
+          "label": "10"
+        },
+        {
+          "value": "11",
+          "label": "11"
+        },
+        {
+          "value": "12",
+          "label": "12"
+        },
+        {
+          "value": "13",
+          "label": "13"
+        },
+        {
+          "value": "14",
+          "label": "14"
+        },
+        {
+          "value": "15",
+          "label": "15"
+        },
+        {
+          "value": "16",
+          "label": "16"
+        },
+        {
+          "value": "17",
+          "label": "17"
+        },
+        {
+          "value": "18",
+          "label": "18"
+        },
+        {
+          "value": "19",
+          "label": "19"
+        },
+        {
+          "value": "20",
+          "label": "20"
+        },
+        {
+          "value": "21",
+          "label": "21"
+        },
+        {
+          "value": "22",
+          "label": "22"
+        },
+        {
+          "value": "23",
+          "label": "23"
+        },
+        {
+          "value": "24",
+          "label": "24"
+        },
+        {
+          "value": "25",
+          "label": "25"
+        },
+        {
+          "value": "26",
+          "label": "26"
+        },
+        {
+          "value": "27",
+          "label": "27"
+        },
+        {
+          "value": "28",
+          "label": "28"
+        },
+        {
+          "value": "29",
+          "label": "29"
+        },
+        {
+          "value": "30",
+          "label": "30"
+        },
+        {
+          "value": "31",
+          "label": "31"
+        },
+        {
+          "value": "32",
+          "label": "32"
+        },
+        {
+          "value": "33",
+          "label": "33"
+        },
+        {
+          "value": "34",
+          "label": "34"
+        },
+        {
+          "value": "35",
+          "label": "35"
+        },
+        {
+          "value": "36",
+          "label": "36"
+        },
+        {
+          "value": "37",
+          "label": "37"
+        },
+        {
+          "value": "38",
+          "label": "38"
+        },
+        {
+          "value": "39",
+          "label": "39"
+        },
+        {
+          "value": "40",
+          "label": "40"
+        },
+        {
+          "value": "41",
+          "label": "41"
+        },
+        {
+          "value": "42",
+          "label": "42"
+        },
+        {
+          "value": "43",
+          "label": "43"
+        },
+        {
+          "value": "44",
+          "label": "44"
+        },
+        {
+          "value": "45",
+          "label": "45"
+        },
+        {
+          "value": "46",
+          "label": "46"
+        },
+        {
+          "value": "47",
+          "label": "47"
+        },
+        {
+          "value": "48",
+          "label": "48"
+        },
+        {
+          "value": "49",
+          "label": "49"
+        },
+        {
+          "value": "50",
+          "label": "50"
+        },
+        {
+          "value": "51",
+          "label": "51"
+        },
+        {
+          "value": "52",
+          "label": "52"
+        },
+        {
+          "value": "53",
+          "label": "53"
+        },
+        {
+          "value": "54",
+          "label": "54"
+        },
+        {
+          "value": "55",
+          "label": "55"
+        },
+        {
+          "value": "56",
+          "label": "56"
+        },
+        {
+          "value": "57",
+          "label": "57"
+        },
+        {
+          "value": "58",
+          "label": "58"
+        },
+        {
+          "value": "59",
+          "label": "59"
+        }
+      ],
+      "default": "08"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.newsletter-popup.settings.newsletter.label"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "t:global.general_labels.heading",
+      "default": "Join our Newsletter"
+    },
+    {
+      "type": "richtext",
+      "id": "newsletter_description",
+      "label": "t:global.general_labels.description"
+    },
+    {
+      "type": "header",
+      "content": "t:global.general_labels.colors"
+    },
+    {
+      "type": "checkbox",
+      "id": "border_enabled",
+      "label": "t:sections.newsletter-popup.settings.border_enabled.label",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "border_style",
+      "label": "t:sections.newsletter-popup.settings.border_style.label",
+      "default": "solid",
+      "options": [
+        {
+          "label": "t:global.general_labels.solid",
+          "value": "solid"
+        },
+        {
+          "value": "gradient",
+          "label": "t:global.general_labels.gradient_bg"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "background_border",
+      "label": "t:sections.newsletter-popup.settings.background_border.label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color_background",
+      "id": "background_border_gradient",
+      "label": "t:sections.newsletter-popup.settings.background_border_gradient.label",
+      "default": "linear-gradient(#ffffff, #000000)"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "t:global.general_labels.gradient",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,19 @@
+<div
+  class="product-gallery-img-wrapper"
+  data-product-media
+  data-type="slider"
+>
+  <div class="product-gallery-img product-media-wrapper" data-vip="{{product.tags}}">
+   {% render 'product-custom-badge' %}
+   
+   
+    {% render 'product-media', section: section, product: product, main_slider: true , media_popup:media_popup%}
+  </div>
+
+  {% if product.media.size > 1 %}
+    <div class="product-gallery-thumbnail-img">
+      {% render 'product-thumbnails', product: product, thumbnails_slider: true %}
+    </div>
+  {% endif %}
+</div>
+

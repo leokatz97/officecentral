@@ -1,0 +1,24 @@
+<div class="trending-content product-card">
+  <a
+    class="trending-product-img {% if settings.image_border %} product-border-enabled {% endif %}"
+    href="{{ cardProduct.url }}"
+  >
+    <div
+      class="media"
+      Style="--imageRatio:{{ 1 | divided_by: cardProduct.featured_media.preview_image.aspect_ratio | times: 100 | append: '%' }}"
+    >
+      {% if cardProduct.featured_media %}
+        {% render 'lazy-image', image: cardProduct.featured_media %}
+      {% else %}
+        {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+  </a>
+  <div class="trending-product-detail">
+    {% if cardProduct != blank %}
+      <a href="{{ cardProduct.url }}" class="product-title">{{ cardProduct.title }}</a>
+      {% render 'reviews-without-count', cardProduct: cardProduct %}
+      {% render 'price', current_variant: cardProduct, cardProduct: cardProduct, savePercentoff: showdiscountOff %}
+    {% endif %}
+  </div>
+</div>

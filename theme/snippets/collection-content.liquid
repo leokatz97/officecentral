@@ -1,0 +1,22 @@
+{% if heading or description %}
+  <div class="page-banner-content-box">
+    <div class="container">
+      <div class="page-banner-content{% if overlayContent %} {{ section.settings.overlay_content_position }}{% endif %}">
+        {% if heading %}
+          <{{ section.settings.tag }} class="page-banner-title page-content-item {{ section.settings.heading_size }}">
+            {{- collection.title -}}
+          </{{ section.settings.tag }}>
+        {% endif %}
+        {% if description %}
+          <div class="page-banner-desc page-content-item rte">
+            {{
+              collection.description
+              | replace: '<table', '<div class="table-responsive"><table'
+              | replace: '</table>', '</table></div>'
+            }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}

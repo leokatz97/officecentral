@@ -1,0 +1,187 @@
+{{ 'account.css' | asset_url | stylesheet_tag }}
+<div class="scheme-{{ section.settings.color_scheme }}{% if section.settings.enable_gradient %} gradiant{% endif %} section-padding">
+  <div class="{{ settings.layout_style }}">
+    <div class="customer login" id="recover">
+      <h2 class="account-form-heading h2">{{ 'customer.reset_password.title' | t }}</h2>
+      {%- form 'recover_customer_password' -%}
+        {%- if form.errors -%}
+          <div id="RecoverEmail-email-error" class="form-message error">
+            {{ form.errors.messages.form }}
+          </div>
+        {%- endif -%}
+        {% assign recover_success = form.posted_successfully? %}
+        <div class="form-group">
+          <label for="RecoverEmail">{{ 'customer.login_page.email' | t }}</label>
+          <input
+            type="email"
+            class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            name="email"
+            id="RecoverEmail"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            {% if form.errors %}
+              aria-invalid="true"
+              aria-describedby="RecoverEmail-email-error"
+              autofocus
+            {% endif %}
+            placeholder="{{ 'customer.login_page.email' | t }}"
+          >
+        </div>
+        
+        <button class="button large-btn btn-block{% if settings.enable_button_shadow %} button-shadow{% endif %}">{{ 'customer.login_page.submit' | t }}</button>
+        <div class="create-account-text text-center">
+          <p class="text-medium"> <a href="#login" class="hyperlink"> <strong>{{ 'customer.login_page.cancel' | t }}</strong></a> </p>
+        </div>
+      {% endform %}
+    </div>
+    <div class="customer login" id="login">
+      <h2 class="account-form-heading h2">{{ 'customer.login_page.title' | t }}</h2>
+      {%- if recover_success == true -%}
+        <div class="form-message success" tabindex="-1" autofocus>
+          {{ 'customer.recover_password.success' | t }}
+        </div>
+      {%- endif -%}
+      {%- form 'customer_login', novalidate: 'novalidate' -%}
+        {%- if form.errors -%}
+          <div class="form-message error" tabindex="-1" autofocus>
+           <div> {{ 'templates.contact.form.error_heading' | t }}
+            {{ form.errors | default_errors }}
+           </div>
+          </div>
+          
+        {%- endif -%}
+        <div class="form-group">
+          <label for="CustomerEmail"> {{ 'customer.login_page.email' | t }} </label>
+          <input
+            type="email"
+            class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            name="customer[email]"
+            id="CustomerEmail"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            {% if form.errors contains 'form' %}
+              aria-invalid="true"
+            {% endif %}
+            placeholder="{{ 'customer.login_page.email' | t }}"
+          >
+            
+        </div>
+        <div class="form-group">
+          <label for="customerPassword">{{ 'customer.login_page.password' | t }}</label>
+          <input
+            type="password"
+            class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+            name="customer[password]"
+            id="CustomerPassword"
+            autocomplete="current-password"
+            {% if form.errors contains 'form' %}
+              aria-invalid="true"
+            {% endif %}
+            placeholder="{{ 'customer.login_page.password' | t }}"
+          >
+        </div>
+        <div class="form-group forgot-password-box text-right">
+          <a href="#recover" class="forgot-password-text">{{ 'customer.login_page.forgot_password' | t }}</a>
+        </div>
+        <button class="button large-btn btn-block{% if settings.enable_button_shadow %} button-shadow{% endif %}">{{ 'customer.login_page.sign_in' | t }}</button>
+        <div class="create-account-text text-center">
+          <p class="text-medium"><span class="create-account-text-info">{{- 'customer.login_page.have_account' | t -}}</span>
+            <a href="{{ routes.account_register_url }}" class="hyperlink">
+              <strong>{{- 'customer.login_page.create_account' | t -}}</strong>
+            </a>
+          </p>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+  {%- if shop.checkout.guest_login -%}
+    <div>
+      <hr>
+      <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
+      {%- form 'guest_login' -%}
+        <button class="{% if settings.enable_button_shadow %} button-shadow{% endif %}">
+          {{ 'customer.login_page.guest_continue' | t }}
+        </button>
+      {%- endform -%}
+    </div>
+  {%- endif -%}
+</div>
+<style>
+  #shopify-section-{{ section.id }}{
+       --padding-top: {{ section.settings.top_space_desktop}}px;
+       --padding-bottom: {{ section.settings.bottom_space_desktop}}px;
+     }
+     @media only screen and (max-width:767px) {
+       #shopify-section-{{ section.id }}{
+         --padding-top: {{ section.settings.top_space_mobile }}px !important;
+         --padding-bottom: {{ section.settings.bottom_space_mobile }}px !important;
+       }
+     }
+</style>  
+{% schema %}
+{
+  "name": "t:sections.login.name",
+  "class": "account-login-section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:global.general_labels.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "t:global.general_labels.gradient",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:global.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "top_space_desktop",
+      "label": "t:global.section_padding.options.top_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_desktop",
+      "label": "t:global.section_padding.options.bottom_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "top_space_mobile",
+      "label": "t:global.section_padding.options.top_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_padding.options.bottom_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    }
+  ]
+}
+{% endschema %}

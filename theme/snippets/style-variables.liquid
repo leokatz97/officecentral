@@ -1,0 +1,397 @@
+{%- liquid
+  assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+  assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+  assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+  assign header_font_italic = settings.type_header_font | font_modify: 'style', 'italic'
+%}
+{% style %}
+  {{ settings.type_body_font | font_face: font_display: 'swap' }}
+  {{ body_font_bold | font_face: font_display: 'swap' }}
+  {{ body_font_italic | font_face: font_display: 'swap' }}
+  {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+  {{ settings.type_header_font | font_face: font_display: 'swap' }}
+  {{ header_font_italic | font_face: font_display: 'swap' }}
+  {% assign backgroundClass = 'body' %}
+  {% assign gradiantClass = 'gradiant' %}
+  {% for scheme in settings.color_schemes -%}
+    {% assign scheme_classes = scheme_classes | append: ', .scheme-' | append: scheme.id %}
+    {% assign backgroundClass = backgroundClass | append: ', .scheme-' | append: scheme.id  %}
+    {% assign gradiantClass = gradiantClass | append: ', .gradiant.scheme-' | append: scheme.id  %}
+    {% if forloop.index == 1 -%}
+      :root,
+    {%- endif %}
+    .scheme-{{ scheme.id }},
+    [color-mode="light"] .scheme-{{ scheme.id }} {
+      --background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+      {% if scheme.settings.background_gradient != empty %}
+      --gradientBackground: {{ scheme.settings.background_gradient }};
+      {% else %}
+      --gradientBackground: {{ scheme.settings.background }};
+      {% endif %}
+      {% unless scheme.settings.highlight_text_color == 'rgba(0,0,0,0)' or scheme.settings.highlight_text_color == blank%}
+      --highlightTextColor: {{ scheme.settings.highlight_text_color }};
+      {% else %}
+      --highlightTextColor: rgb(var(--textColor));
+      {% endunless %}
+      {% unless scheme.settings.highlight_gradient_color == 'rgba(0,0,0,0)' or scheme.settings.highlight_gradient_color == blank %}
+        --highlightGradientBackground:{{ scheme.settings.highlight_gradient_color }};
+      {% else %}
+        --highlightGradientBackground: var(--gradientBackground);
+      {% endunless %}
+      {% unless scheme.settings.highlight_solid_color == 'rgba(0,0,0,0)' or scheme.settings.highlight_solid_color == blank %}
+        --highlightBackground:{{ scheme.settings.highlight_solid_color }};
+      {% else %}
+        --highlightBackground: var(--background);
+      {% endunless %}
+      --alternateBackground:{{ scheme.settings.alternate_background.red }},{{ scheme.settings.alternate_background.green }},{{ scheme.settings.alternate_background.blue }};
+      --textColor: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+      --linkColor: {{ scheme.settings.link_text.red }},{{ scheme.settings.link_text.green }},{{ scheme.settings.link_text.blue }};
+      --headingColor:{{ scheme.settings.heading.red }},{{ scheme.settings.heading.green }},{{ scheme.settings.heading.blue }};
+      --buttonBackground: {{ scheme.settings.button_bg.red }},{{ scheme.settings.button_bg.green }},{{ scheme.settings.button_bg.blue }};
+      --buttonColor: {{ scheme.settings.button_text.red }},{{ scheme.settings.button_text.green }},{{ scheme.settings.button_text.blue }};
+      --buttonBorder: {{ scheme.settings.button_border.red }},{{ scheme.settings.button_border.green }},{{ scheme.settings.button_border.blue }};
+      --buttonBackgroundHover: {{ scheme.settings.button_bg_hover.red }},{{ scheme.settings.button_bg_hover.green }},{{ scheme.settings.button_bg_hover.blue }};
+      --buttonColorHover:{{ scheme.settings.button_text_hover.red }},{{ scheme.settings.button_text_hover.green }},{{ scheme.settings.button_text_hover.blue }};
+      --buttonBorderHover:{{ scheme.settings.button_border_hover.red }},{{ scheme.settings.button_border_hover.green }},{{ scheme.settings.button_border_hover.blue }};
+      --alternateButtonBackground:{{ scheme.settings.secondary_button_bg.red }},{{ scheme.settings.secondary_button_bg.green }},{{ scheme.settings.secondary_button_bg.blue }};
+      --alternateButtonColor: {{ scheme.settings.secondary_button_text.red }},{{ scheme.settings.secondary_button_text.green }},{{ scheme.settings.secondary_button_text.blue }};
+      --alternateButtonBorder:{{ scheme.settings.secondary_button_border.red }},{{ scheme.settings.secondary_button_border.green }},{{ scheme.settings.secondary_button_border.blue }};
+      --alternateButtonBackgroundHover: {{ scheme.settings.secondary_button_bg_hover.red }},{{ scheme.settings.secondary_button_bg_hover.green }},{{ scheme.settings.secondary_button_bg_hover.blue }};
+      --alternateButtonColorHover:{{ scheme.settings.secondary_button_text_hover.red }},{{ scheme.settings.secondary_button_text_hover.green }},{{ scheme.settings.secondary_button_text_hover.blue }};
+      --alternateButtonBorderHover:{{ scheme.settings.secondary_button_border_hover.red }},{{ scheme.settings.secondary_button_border_hover.green }},{{ scheme.settings.secondary_button_border_hover.blue }};
+      --inputBackground:{{ scheme.settings.input_bg.red }},{{ scheme.settings.input_bg.green }},{{ scheme.settings.input_bg.blue }};
+      --inputColor:{{ scheme.settings.input_text.red }},{{ scheme.settings.input_text.green }},{{ scheme.settings.input_text.blue }};
+      --inputBorder:{{ scheme.settings.input_border.red }},{{ scheme.settings.input_border.green }},{{ scheme.settings.input_border.blue }};
+      --productBorder: {{ scheme.settings.product_border.red }},{{ scheme.settings.product_border.green }},{{ scheme.settings.product_border.blue }};
+      --borderColor:{{ scheme.settings.line_divider.red }},{{ scheme.settings.line_divider.green }},{{ scheme.settings.line_divider.blue }};
+      --ratingStarColor: {{ scheme.settings.rating_color.red }},{{ scheme.settings.rating_color.green }},{{ scheme.settings.rating_color.blue }};
+      --sliderArrowBackground:{{ scheme.settings.arrow_bg.red }},{{ scheme.settings.arrow_bg.green }},{{ scheme.settings.arrow_bg.blue }};
+      --sliderArrowColor:{{ scheme.settings.arrow_color.red }},{{ scheme.settings.arrow_color.green }},{{ scheme.settings.arrow_color.blue }};
+      --cardBackground: {{ scheme.settings.card_bg.red }},{{ scheme.settings.card_bg.green }},{{ scheme.settings.card_bg.blue }};
+      --line-color: {{ scheme.settings.highlight_color.red }},{{ scheme.settings.highlight_color.green }},{{ scheme.settings.highlight_color.blue }},1;
+      --productImagebackground:{{ scheme.settings.product_media_background }};
+      --buttonShadow:{{ scheme.settings.button_shadow }};
+      --secondaryButtonShadow:{{ scheme.settings.secondary_button_shadow }};
+      {% unless scheme.settings.card_shadow == 'rgba(0,0,0,0)' or scheme.settings.card_shadow == blank %}
+      --shadowColor: {{ scheme.settings.card_shadow.red }},{{ scheme.settings.card_shadow.green }},{{ scheme.settings.card_shadow.blue }};
+      {% endunless %}
+      --productIconColor: {{ scheme.settings.product_card_icon.red }},{{ scheme.settings.product_card_icon.green }},{{ scheme.settings.product_card_icon.blue }};
+      --productIconBg: {{ scheme.settings.product_card_icon_background.red }},{{ scheme.settings.product_card_icon_background.green }},{{ scheme.settings.product_card_icon_background.blue }};
+      
+    }
+    {% if forloop.first %}
+    [color-mode="dark"] body,
+    [color-mode="dark"] .scheme-{{ scheme.id }} {
+      --background: 0,0,0;
+      --gradientBackground: #000000;
+      --alternateBackground:14,14,14;
+      --textColor: 209,209,209;
+      --linkColor: 209,209,209;
+      --headingColor:209,209,209;
+      --buttonBackground: 255,202,16;
+      --buttonColor:  0,0,0;
+      --buttonBorder: 255,202,16;
+      --buttonBackgroundHover: 255,255,255;
+      --buttonColorHover:0,0,0;
+      --buttonBorderHover:255,255,255;
+      --alternateButtonBackground:255,255,255;
+      --alternateButtonColor: 0,0,0;
+      --alternateButtonBorder:25,,255,255;
+      --alternateButtonBackgroundHover: 255,202,16;
+      --alternateButtonColorHover:0,14,14;
+      --alternateButtonBorderHover:255,202,16;
+      --inputBackground:14,14,14;
+      --inputColor:209,209,209;
+      --inputBorder:40,40,40;
+      --productBorder: 30,30,30;
+      --borderColor:30,30,30;
+      --ratingStarColor: 253,168,38;
+      --sliderArrowBackground:255,255,255;
+      --sliderArrowColor:0,0,0;
+      --cardBackground: 14,14,14;
+      --line-color: 161,0,0;
+      --productImagebackground:#0e0e0e;
+      --buttonShadow:#fff;
+      --secondaryButtonShadow:#ccc;
+      --productIconColor:255,255,255;
+      --productIconBg:0,0,0;
+    }
+    {% else %}
+      [color-mode="dark"] .scheme-{{ scheme.id }} {
+      --background: 14,14,14;
+      --gradientBackground: #0e0e0e;
+      --alternateBackground:0,0,0;
+      --textColor: 209,209,209;
+      --linkColor: 209,209,209;
+      --headingColor:209,209,209;
+      --buttonBackground: 224,224,224;
+      --buttonColor:  14,14,14;
+      --buttonBorder: 224,224,224;
+      --buttonBackgroundHover: 187,187,187;
+      --buttonColorHover:14,14,14;
+      --buttonBorderHover:187,187,187;
+      --alternateButtonBackground:255,255,255;
+      --alternateButtonColor: 0,0,0;
+      --alternateButtonBorder:25,,255,255;
+      --alternateButtonBackgroundHover: 224,224,224;
+      --alternateButtonColorHover:14,14,14;
+      --alternateButtonBorderHover:224,224,224;
+      --inputBackground:0,0,0;
+      --inputColor:209,209,209;
+      --inputBorder:40,40,40;
+      --productBorder: 30,30,30;
+      --borderColor:30,30,30;
+      --ratingStarColor: 253,168,38;
+      --sliderArrowBackground:255,255,255;
+      --sliderArrowColor:0,0,0;
+      --cardBackground: 0,0,0;
+      --line-color: 161,0,0;
+      --productImagebackground:#000;
+      --buttonShadow:#ccc;
+      --secondaryButtonShadow:#fff;
+      --productIconColor:255,255,255;
+      --productIconBg:0,0,0;
+      }
+    {% endif %}
+  {% endfor %}
+
+  {{ backgroundClass }}{
+    color:rgb(var(--textColor));
+    background-color:rgb(var(--background))
+  }
+  {{ gradiantClass }}{
+    background:var(--gradientBackground)
+  }
+  :root{
+    color-scheme: light dark;
+    --switchColor:{% if settings.mode_color != empty %}{{ settings.mode_color }}{% else %}rgba(0,0,0,0){% endif %};
+    --switchBackground:{% if settings.mode_background != empty %}{{ settings.mode_background }}{% else %}rgba(0,0,0,0){% endif %};
+    --switchBorder:{% if settings.mode_border != empty %}{{ settings.mode_border }}{% else %}rgba(0,0,0,0){% endif %};
+    --switchActiveBackground:{% if settings.mode_Activebackground != empty %}{{ settings.mode_Activebackground }}{% else %}rgba(0,0,0,0){% endif %};
+    --switchActiveColor:{% if settings.mode_Activecolor != empty %}{{ settings.mode_Activecolor }}{% else %}rgba(0,0,0,0){% endif %};
+    --switchActiveBorder:{% if settings.mode_Activeborder != empty %}{{ settings.mode_Activeborder }}{% else %}rgba(0,0,0,0){% endif %};
+    --success:{{ settings.success_message.red }},{{ settings.success_message.green }},{{ settings.success_message.blue }};
+    --error:{{ settings.error_message.red }},{{ settings.error_message.green }},{{ settings.error_message.blue }};
+    --saleBadgeBackground:{{ settings.saleBadgeBg.red }},{{ settings.saleBadgeBg.green }},{{ settings.saleBadgeBg.blue }};
+    {% assign SalebadgeBgBrightness = settings.saleBadgeBg | color_brightness %}
+    {%- if SalebadgeBgBrightness < 130 -%}
+      --saleBadgeColor:#ffffff;
+      {%- else -%}
+      --saleBadgeColor:#000000;
+    {%- endif -%}
+    --newBadgeBackground:{{ settings.newBadgeBg.red }},{{ settings.newBadgeBg.green }},{{ settings.newBadgeBg.blue }};
+    {% assign newBadgeColorBrightness = settings.newBadgeBg | color_brightness %}
+    {%- if newBadgeColorBrightness < 130 -%}
+      --newBadgeColor:#ffffff;
+      {%- else -%}
+      --newBadgeColor:#000000;
+    {%- endif -%}
+    --preorderBadgeBackground:{{ settings.preorderBadgeBg.red }},{{ settings.preorderBadgeBg.green }},{{ settings.preorderBadgeBg.blue }};
+    {% assign preorderBadgeColorBrightness = settings.preorderBadgeBg | color_brightness %}
+    {%- if preorderBadgeColorBrightness < 130 -%}
+      --preorderBadgeColor:#ffffff;
+      {%- else -%}
+      --preorderBadgeColor:#000000;
+    {%- endif -%}
+    --soldBadgeBackground:{{ settings.soldBadgeBg.red }},{{ settings.soldBadgeBg.green }},{{ settings.soldBadgeBg.blue }};
+    {% assign soldBadgeColorBrightness = settings.soldBadgeBg | color_brightness %}
+    {%- if soldBadgeColorBrightness < 130 -%}
+      --soldBadgeColor:#ffffff;
+      {%- else -%}
+      --soldBadgeColor:#000000;
+    {%- endif -%}
+    --customBadgeBackground:{{ settings.customBadgeBg.red }},{{ settings.customBadgeBg.green }},{{ settings.customBadgeBg.blue }};
+    {% assign customBadgeColorBrightness = settings.customBadgeBg | color_brightness %}
+    {%- if customBadgeColorBrightness < 130 -%}
+      --customBadgeColor:#ffffff;
+      {%- else -%}
+      --customBadgeColor:#000000;
+    {%- endif -%}
+    --discount-background: {{ settings.discount_bg }};
+    --discount-color: {{ settings.discount_percent }};
+    /* Typography  */
+    --bodyFont: {{ settings.type_body_font.family }},{{ settings.type_body_font.fallback_families }};
+    --bodyFontWeight: {{ settings.type_body_font.weight }};
+    --bodyFontStyle: {{ settings.type_body_font.style }};
+    --bodyFontLineHeight: {{ settings.type_base_line_height }};
+    --bodyFontBase: {{ settings.body_scale_mobile }}px;
+    --headingFont: {{ settings.type_header_font.family }},{{ settings.type_header_font.fallback_families }};
+    --headingFontWeight: {{ settings.type_header_font.weight }};
+    --headingFontStyle: {{ settings.type_header_font.style }};
+    --headingFontLineHeight: {{ settings.type_heading_line_height }};
+    --headingFontBase: {{settings.heading_font_scale_mobile }}px;
+    --buttonFont: var(--bodyFont);
+    --buttonFontWeight: var(--headingFontWeight);
+    --buttonFontStyle: var(--bodyFontStyle);
+    --buttonFontLineHeight: var(--bodyFontLineHeight);
+    /* Button  */
+    --buttonRadius:{%- if settings.button_radius -%}{{ settings.button_radius_mobile }}px{%- else -%}0{%- endif -%};
+    --buttonText:{{ settings.button_text_transform }};
+    /* Header */
+    --headerBg: {{ settings.background_header }};
+    --headerColor:{{ settings.header_text }};
+    --headerHoverColor: {{ settings.header_text_hover }};
+    --transparentHeaderColor: {{ settings.transparent_header_color }};
+    --headerIconColor:{{ settings.header_icon }};
+    --cartCountBg: {{ settings.header_cart_count_bg }};
+    --cartCountColor: {{ settings.header_cart_count }};
+    --submenuBg: {{ settings.header_sub_menu_bg }};
+    --submenuColor: {{ settings.header_sub_menu }};
+    --submenuHoverColor: {{ settings.header_sub_menu_hover }};
+    --submenutwoBg: {{ settings.header_sub_menu_bg2 }};
+    --submenutwoColor: {{ settings.header_sub_menu2 }};
+    --submenutwoHoverColor: {{ settings.header_sub_menu_hover2 }};
+    --searchTextColor: {{ settings.search_input_color }};
+    --searchBackgroundColor: {{ settings.search_bg_color }};
+    --overlayColor: {{ settings.mega_menu_overlay.red }}, {{ settings.mega_menu_overlay.green }}, {{ settings.mega_menu_overlay.blue }};
+    --overlayText: {{ settings.mega_menu_overlay_text }};
+    --backToTopBackground: {{ settings.scroll_top_background }};
+    --backToTopColor: {{ settings.icon_color }};
+    --xsmallText: calc(var(--bodyFontBase) - 4px);
+    --smallText: calc(var(--bodyFontBase) - 2px);
+    --text: var(--bodyFontBase);
+    --mediumText: calc(var(--bodyFontBase) + 2px);
+    --largeText: calc(var(--bodyFontBase) + 4px);
+    --xlargeText: calc(var(--bodyFontBase) + 6px);
+    --h0: calc(var(--headingFontBase) + 32px);
+    --h1: calc(var(--headingFontBase) + 25px);
+    --h2: calc(var(--headingFontBase) + 4px);
+    --h3: var(--headingFontBase);
+    --h4: calc(var(--headingFontBase) - 4px);
+    --h5: calc(var(--headingFontBase) - 6px);
+    --h6: calc(var(--headingFontBase) - 8px);
+    --imageRatio: 0%;
+    --img-square: 100%;
+    --img-portrait: 130%;
+    --img-landscape: 75%;
+    --imageFit: cover;
+    --marqueeSpeed: 3s;
+    --sliderArrowWidth:52px;
+    --cardRadius:{{settings.card_radius_mobile }}px;
+    --imageRadius:{{settings.images_radius_mobile }}px;
+    --productRadius:{{settings.product_grid_radius_mobile }}px;
+    --inputRadius:{{settings.input_radius_mobile }}px;
+    --instock-text: {{ settings.in_stock }};
+    --outofstock-text: {{ settings.no_stock }};
+    --lowstock-text: {{ settings.low_stock }};
+
+    --overlayBackground: {{ settings.background_overlay_color.red }},{{ settings.background_overlay_color.green }},{{ settings.background_overlay_color.blue }};
+    --overlayOpacity: {{ settings.background_overlay_opacity }};
+    --bg-blur:{% if settings.enable_blur_effect %}20px{% else %}0px{% endif %};
+
+      {% if settings.marquee_text_gr != empty or settings.marquee_text_gr != blank %}
+        --text-gradient-color: {{ settings.marquee_text_gr }};
+      {% else %}
+      --node-color: {{ settings.marquee_text }};
+      {% endif %}
+  }
+  .secondary-header {
+    --headerBg: {{ settings.secondary_background_header }};
+    --headerColor:{{ settings.secondary_header_text }};
+    --headerHoverColor: {{ settings.secondary_header_text_hover }};
+  }
+  #hamburger-menu,
+  #hamburger-menu-wrapper{
+    --headerBg: {{ settings.secondary_background_header }};
+    --headerColor:{{ settings.secondary_header_text }};
+    --headerHoverColor: {{ settings.secondary_header_text_hover }};
+    --hamburgerMenuBackground: {{ settings.secondary_menu_background_hover }};
+    --submenuBorder: {{ settings.secondary_menu_border }};
+  }
+  [color-mode="dark"] body  {
+    --headerBg: #000;
+    --headerColor: #d1d1d1;
+    --headerHoverColor: #ffca10;
+    --headerIconColor:#d1d1d1;
+    --cartCountBg: #ffca10;
+    --cartCountColor: #000000;
+    --submenuBg: #161616;
+    --submenuColor: #d1d1d1;
+    --submenuHoverColor: #ffca10;
+    --submenutwoBg: #161616;
+    --submenutwoColor: #d1d1d1;
+    --submenutwoHoverColor: #fff ;
+    --searchTextColor: #d1d1d1;
+    --searchBackgroundColor: #161616;
+    --overlayColor: #000;
+    --overlayText: #fff;
+    --backToTopBackground: #161616;
+    --backToTopColor: #d1d1d1;
+
+  }
+  [color-mode="dark"] header {
+    --support-content-bg:#000000;
+    --store-detail-dropdown-color: #ffffff;
+    --store-detail-dropdown-link: #ffffff;
+    --store-detail-dropdown-bg: #333333;
+    --store-detail-dropdown-hover: #000000;
+    --store-detail-dropdown-border: #000000;
+  }
+  [color-mode="dark"] .secondary-header {
+    --headerBg:  #0e0e0e;
+    --headerColor: #d1d1d1;
+    --headerHoverColor: #ffca10 ;
+  }
+  @media (min-width:768px){
+    :root {
+      --bodyFontBase: {{ settings.body_scale_desktop }}px;
+      --headingFontBase: {{settings.heading_font_scale_desktop }}px;
+      --cardRadius:{{settings.card_radius_desktop }}px;
+      --imageRadius:{{settings.images_radius_desktop }}px;
+      --productRadius:{{settings.product_grid_radius_desktop }}px;
+      --inputRadius:{{settings.input_radius_desktop }}px;
+      --buttonRadius:{%- if settings.button_radius -%}{{ settings.button_radius_desktop }}px{%- else -%}0{%- endif -%};
+    }
+  }
+
+  @media (max-width:1024px){
+    :root {
+      --sliderArrowWidth:40px;
+    }
+
+  }
+  @media (max-width:767px){
+    :root {
+      --xsmallText: calc(var(--bodyFontBase) - 4px);
+      --smallText: calc(var(--bodyFontBase) - 2px);
+      --text: var(--bodyFontBase);
+      --mediumText: calc(var(--bodyFontBase) + 2px);
+      --largeText: calc(var(--bodyFontBase) + 4px);
+      --xlargeText: calc(var(--bodyFontBase) + 6px);
+      --h0: calc(var(--headingFontBase) + 10px);
+      --h1: calc(var(--headingFontBase) + 8px);
+      --h2: calc(var(--headingFontBase) + 2px);
+      --h3: var(--headingFontBase);
+      --h4: calc(var(--headingFontBase) - 2px);
+      --h5: calc(var(--headingFontBase) - 4px);
+      --h6: calc(var(--headingFontBase) - 6px);
+      --sliderArrowWidth:32px;
+    }
+
+    .navigation-button-icon {
+      width: 12px;
+      height: auto;
+    }
+
+  }
+
+
+  {% assign customColors = settings.custom_colors | newline_to_br %}
+  {% assign customColors = customColors | split: '<br />' %}
+  {% for color in customColors %}
+  {% assign newColor = color | strip | split: ':' %}
+  [data-color="{{- newColor.first -}}"]{
+  {%- if newColor.last contains '#' -%}
+    background-color:
+    {{- newColor.last -}}
+    !important;
+  {%- else -%}
+    background-image:url({{ newColor.last | lstrip | lstrip | file_img_url: 'small' }}) !important;
+  {%- endif -%}
+  }
+  {% endfor %}
+
+  /*marquee*/
+  
+
+{% endstyle %}

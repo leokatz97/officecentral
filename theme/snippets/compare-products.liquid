@@ -1,0 +1,73 @@
+<div class="compare-basket scheme-{{ settings.color_scheme_drawer }}">
+    <span class="compact-view-button">
+    <svg class="angle-down" width="11" height="7" viewBox="0 0 11 7" fill="none">
+        <path d="M5.97864 5.92886L5.9864 5.92119L9.9261 2.03567L9.92615 2.03572L9.9289 2.03282C10.1889 1.75944 10.1927 1.33486 9.92626 1.07115L9.92626 1.07115C9.66198 0.809613 9.21979 0.809625 8.95548 1.07114L8.95548 1.07115L5.5 4.49079L2.04452 1.07115L2.04456 1.07111L2.0418 1.06853C1.76629 0.81189 1.33947 0.80822 1.07375 1.07114L1.07374 1.07115C0.807306 1.33482 0.811084 1.75939 1.07109 2.03281L1.07105 2.03285L1.07374 2.03552L5.00787 5.92885L5.00783 5.92889L5.0106 5.93147C5.28611 6.18811 5.71292 6.19178 5.97864 5.92886Z" fill="currentColor" stroke="currentColor" stroke-width="0.25"></path>
+    </svg>
+  </span>
+  <div class="product-compare-content">
+    <div class="row no-gutters">
+      <div class="col-12 col-sm-12 ">
+        <h6 class="compare-bucket-heading">{{'products.compare.name' | t }}</h6>
+        <div class="compare-bucket-wrapper">
+          <div id="bucketContainer" class="row"></div>
+          <div class="compare-btn-container">
+            <button id="compare_now" class="compare_now button{% if settings.enable_button_shadow %} button-shadow{% endif %}" data-button-compare>{{'products.compare.compare_now' | t }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="product-compare-close-btn" id="closeButton" aria-label="product compare close">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+      <path d="M8.99998 0L9.99998 0.999969L0.999998 9.99969L0 8.99972L8.99998 0Z" fill="currentColor"/>
+      <path d="M2.39302e-05 1.00028L1.00002 0.000307701L10 9.00003L9 10L2.39302e-05 1.00028Z" fill="currentColor"/>
+    </svg>
+  </button>
+</div>
+<style>
+.product-compare-close-btn {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgb(var(--textColor));
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    color: rgb(var(--alternateBackground));
+}
+
+  .product-compare-close-btn:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+    transition: transform 0.2s, opacity 0.2s;
+    background: rgb(var(--textColor));
+    z-index: -1;
+}
+</style>
+  {%- capture popupContent -%}
+    <div class="compare-modal-content-info" compare-model-info>
+    </div>
+  {% endcapture %}
+ 
+    {% render 'popup',
+      id: 'compare-products-content',
+      class: 'compare-modal-content position-center',
+      popupContent: popupContent,
+      compare_true: true,
+      width: false,
+      popupsize:'fullwidth',
+      Popupscheme: true
+    %}
+
+
