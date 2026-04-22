@@ -26,7 +26,7 @@
 - Industry tags pushed: 574 products (541 business, 14 educational, 14 healthcare, 5 daycare)
 - Main nav rebuilt: 8 top-level items, "Other Industries" + "Outdoor (Coming Soon)" removed
 - "Keep every product live" strategy locked — no archive, no clearance
-- Phase 0 branding locked in `docs/icp.md` (2026-04-20)
+- Phase 0 branding locked in `docs/strategy/icp.md` (2026-04-20)
 - Phase 1.0 Hero 100 built + Steve signed off (2026-04-20)
 - Phase 1.3 Layer A confirmed clean — 0 legacy tags across all 645 products
 - Phase 2.2 Breadcrumbs live (collection template + BreadcrumbList JSON-LD)

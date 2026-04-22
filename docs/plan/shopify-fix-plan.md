@@ -149,8 +149,8 @@ BBI is the furniture division of Brant Basics, which is owned by **Office Centra
 | Shopify Admin API + OAuth app | ✅ Done |
 | Full order analysis (Oct 2024 → Apr 2026) | ✅ Done |
 | Product HTML audit (all 650 SKUs) | ✅ Done |
-| ICP + voice sheet locked (`docs/icp.md`) | ✅ Done |
-| 5 approved product description samples (`docs/voice-samples.md`) | ✅ Done |
+| ICP + voice sheet locked (`docs/strategy/icp.md`) | ✅ Done |
+| 5 approved product description samples (`docs/strategy/voice-samples.md`) | ✅ Done |
 | HTML cleanup on 147 top-revenue products | ✅ Done |
 | 9 ™/® product handles renamed + redirect CSV generated | ✅ Done (CSV upload pending — Leo's task) |
 | 11 service pseudo-products unpublished | ✅ Done |
@@ -175,7 +175,7 @@ BBI is the furniture division of Brant Basics, which is owned by **Office Centra
 | W0-2 | **Create BBI Google Business Profile** | 🔴 Critical | ⬜ Not started |
 | W0-2b | **Google Reviews seeding strategy** | 🔴 Critical | ⬜ Not started |
 | W0-3 | **Fix product redirects** | 🔴 Critical | 🔄 CSV at `data/url-redirects.csv` — manual upload in Shopify Admin pending (Leo's task) |
-| W0-4 | **Meta titles + descriptions audit** | 🔴 High | ⬜ Not started — brand identity now locked (`docs/icp.md`), blocked on GSC (W0-1) |
+| W0-4 | **Meta titles + descriptions audit** | 🔴 High | ⬜ Not started — brand identity now locked (`docs/strategy/icp.md`), blocked on GSC (W0-1) |
 | W0-5 | **Confirm Request a Quote CTAs are live** | 🔴 High | ✅ Done — live after April 19 `product-form-buttons.liquid` edit |
 | W0-6 | **Parent domain backlinks** | 🔴 High | ⬜ Not started |
 | W0-7 | **OECM + "Since 1964" trust signals on BBI store** | 🔴 High | ⬜ Not started |
@@ -236,5 +236,5 @@ BBI is the furniture division of Brant Basics, which is owned by **Office Centra
 ### Reference Sites
 - Blog model: btod.com/blog/best-office-chair-reviews/
 - Portfolio model: poi.ca/our-work/
-- Competitor analysis: see `docs/competitor-analysis.md`
+- Competitor analysis: see `docs/strategy/competitor-analysis.md`
 - SEO strategy detail: see memory file `project_seo_strategy_2026.md`

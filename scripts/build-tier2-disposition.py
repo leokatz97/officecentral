@@ -8,7 +8,7 @@ For every active product, apply the 5 decision rules from the plan and propose:
 
 READ-ONLY. Writes:
   data/tier-2-disposition-review.csv   — per-SKU
-  docs/tier-2-disposition-summary.md   — 1-page summary for Steve
+  docs/reviews/tier-2-disposition-summary.md   — 1-page summary for Steve
 
 Re-runnable. Caches the full Orders pull at data/_orders-cache.json so we don't
 re-pull every run during iteration.
@@ -35,7 +35,7 @@ API = f'https://{STORE}/admin/api/2026-04'
 HEADERS = {'X-Shopify-Access-Token': TOKEN}
 
 DATA_DIR = os.path.join(ROOT, 'data')
-DOCS_DIR = os.path.join(ROOT, 'docs')
+DOCS_DIR = os.path.join(ROOT, 'docs', 'reviews')
 ORDERS_CACHE = os.path.join(DATA_DIR, '_orders-cache.json')
 CSV_OUT = os.path.join(DATA_DIR, 'tier-2-disposition-review.csv')
 SUMMARY_OUT = os.path.join(DOCS_DIR, 'tier-2-disposition-summary.md')

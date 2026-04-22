@@ -25,7 +25,7 @@ FAQ blocks on PDPs tailored to each product category (chairs vs. desks vs. acous
 - Notes:
 
 ## 5. Fix shipping info — need timelines
-Surface delivery/installation timelines directly on PDPs and cart. Cross-reference `docs/delivery-installation-shipping-setup.md`.
+Surface delivery/installation timelines directly on PDPs and cart. Cross-reference `docs/workflows/delivery-installation-shipping-setup.md`.
 
 - Notes:
 

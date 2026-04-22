@@ -6,7 +6,7 @@ argparse `default=os.getcwd()` eager-evaluation failure under the
 Claude Code sandbox.
 """
 import os
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'previews'))
 
 import http.server
 import socketserver
