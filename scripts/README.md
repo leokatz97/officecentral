@@ -28,6 +28,7 @@ Scans the live store and writes reports to `data/` or `data/reports/`. Never mod
 | `check-sold-history.py` | Cross-reference broken products against Orders → `data/sold-history-flagged.json`. |
 | `inspect-junk.py` | Drill into a specific set of junk/test products. |
 | `find-liquid-bug.py` | Grep theme `.liquid` files for known divided-by-zero patterns. |
+| `audit-theme-inventory.py` | Pull the full live theme (templates/sections/snippets/pages) → `data/theme-inventory.json` + `data/theme-coverage.md`. |
 | `analyze-orders.py` | Orders API summary (revenue, taxes, regions, payment methods). |
 | `top-sellers.py` | Rank products by units × revenue. |
 | `fetch-sample-products.py` | Pull N random product JSONs to `data/` for schema inspection. |
@@ -84,6 +85,7 @@ Every script here requires `--live` to actually write. Default is dry-run.
 | `push-taxonomy-tags.py` | Push `type:*` / `room:*` tags from `data/reports/taxonomy-tags-proposed.csv`. |
 | `push-industry-tags.py` | Push `industry:*` tags from `data/reports/industry-tags-proposed.csv`. |
 | `push-file.py` | Push one theme file (`python3 scripts/push-file.py <key> [local_path]`). |
+| `bbi-push-landing.py` | Push the BBI landing-page bundle (OECM + brand-dealer assets, sections, templates) into an unpublished theme. Requires `read_content,write_content` scopes. |
 | `update-homepage.py` | Update homepage sections (hero, testimonials). |
 | `update-main-menu.py` | Rebuild the main navigation from the 8-item facet design. |
 | `delete-menu-item.py` | Remove a single menu item by title. |

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero 100 Spec Lookup — BBI</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+
+  header { background: #1a2744; color: white; padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+  header h1 { font-size: 18px; font-weight: 600; }
+  header .subtitle { font-size: 13px; opacity: 0.7; margin-left: auto; }
+
+  .controls { background: white; border-bottom: 1px solid #e0e0e0; padding: 12px 24px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .controls input[type=text] { flex: 1; min-width: 200px; padding: 7px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+  .controls select { padding: 7px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; background: white; }
+  .controls button { padding: 7px 14px; border-radius: 6px; border: 1px solid #ccc; font-size: 13px; cursor: pointer; background: white; }
+  .controls button.primary { background: #1a2744; color: white; border-color: #1a2744; }
+  .controls .count-label { font-size: 13px; color: #666; margin-left: 4px; white-space: nowrap; }
+
+  .progress-bar-wrap { background: white; padding: 8px 24px 12px; border-bottom: 1px solid #e0e0e0; }
+  .progress-meta { font-size: 12px; color: #666; margin-bottom: 4px; }
+  .progress-bar { height: 6px; background: #e0e0e0; border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #22c55e; border-radius: 3px; transition: width 0.3s; }
+
+  table { width: 100%; border-collapse: collapse; background: white; }
+  thead th { background: #f8f8f8; padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; color: #555; border-bottom: 2px solid #e0e0e0; white-space: nowrap; cursor: pointer; user-select: none; }
+  thead th:hover { background: #efefef; }
+  thead th .sort-arrow { opacity: 0.4; font-size: 10px; margin-left: 3px; }
+  thead th.sorted .sort-arrow { opacity: 1; }
+
+  tbody tr { border-bottom: 1px solid #eee; }
+  tbody tr:hover { background: #fafafa; }
+  tbody tr.done-row { background: #f0fdf4; }
+  tbody tr.done-row:hover { background: #e8faf0; }
+
+  td { padding: 9px 12px; font-size: 13px; vertical-align: top; }
+  td.rank { color: #999; font-size: 12px; width: 36px; text-align: right; }
+  td.title { font-weight: 500; max-width: 280px; }
+  td.title small { display: block; font-size: 11px; color: #999; font-weight: 400; margin-top: 2px; font-family: monospace; }
+  td.type { white-space: nowrap; }
+  td.revenue { text-align: right; color: #555; white-space: nowrap; }
+  td.status { text-align: center; width: 70px; }
+  td.notes { width: 360px; }
+  td.links { white-space: nowrap; width: 80px; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge.done { background: #dcfce7; color: #166534; }
+  .badge.todo { background: #fef3c7; color: #92400e; }
+
+  .type-chip { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 11px; background: #e8eaf0; color: #444; }
+
+  /* Structured data entry form */
+  .data-form { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 8px; }
+  .data-form .field { display: flex; flex-direction: column; gap: 2px; }
+  .data-form .field.full { grid-column: 1 / -1; }
+  .data-form label { font-size: 10px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.4px; }
+  .data-form input, .data-form textarea {
+    width: 100%; padding: 4px 6px; border: 1px solid #ddd; border-radius: 4px;
+    font-size: 12px; font-family: inherit; color: #333; background: white;
+  }
+  .data-form textarea { resize: vertical; min-height: 36px; }
+  .data-form input:focus, .data-form textarea:focus {
+    outline: none; border-color: #1a2744; box-shadow: 0 0 0 2px rgba(26,39,68,0.1);
+  }
+  .data-form input.filled { border-color: #86efac; background: #f0fdf4; }
+  .data-form textarea.filled { border-color: #86efac; background: #f0fdf4; }
+  .preview-title { margin-top: 6px; padding: 5px 7px; background: #fffbeb; border: 1px dashed #fbbf24;
+    border-radius: 4px; font-size: 11px; color: #78350f; font-style: italic; }
+  .preview-title strong { font-style: normal; color: #451a03; }
+
+  a.link-btn { display: inline-block; padding: 3px 7px; border-radius: 4px; font-size: 11px; text-decoration: none; border: 1px solid #ddd; color: #333; margin-bottom: 3px; }
+  a.link-btn:hover { background: #eee; }
+  a.link-btn.admin { border-color: #93c5fd; color: #1d4ed8; background: #eff6ff; }
+  a.link-btn.store { border-color: #a7f3d0; color: #065f46; background: #ecfdf5; }
+
+  .table-wrap { overflow-x: auto; }
+  .empty-state { padding: 48px; text-align: center; color: #999; font-size: 14px; }
+
+  footer { padding: 16px 24px; font-size: 12px; color: #999; text-align: center; }
+
+  @media (max-width: 768px) {
+    td.notes { display: none; }
+    td.revenue { display: none; }
+  }
+  .data-form .field.half { min-width: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Hero 100 — Spec Lookup Tracker</h1>
+  <span class="subtitle">Brant Business Interiors · 2026</span>
+</header>
+
+<div class="progress-bar-wrap">
+  <div class="progress-meta" id="progress-meta">Loading…</div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+</div>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="Search by title, handle, or brand…" autofocus>
+  <select id="filter-type">
+    <option value="">All types</option>
+    <option value="type:desks">Desks</option>
+    <option value="type:chairs">Chairs</option>
+    <option value="type:tables">Tables</option>
+    <option value="type:storage">Storage</option>
+    <option value="type:lounge">Lounge</option>
+    <option value="type:accessories">Accessories</option>
+    <option value="type:outdoor">Outdoor</option>
+  </select>
+  <select id="filter-status">
+    <option value="">All statuses</option>
+    <option value="todo">Needs lookup</option>
+    <option value="done">Done (AI scraped)</option>
+    <option value="notes">Has my notes</option>
+  </select>
+  <span class="count-label" id="count-label"></span>
+  <button onclick="clearAllNotes()" style="color:#dc2626;border-color:#fca5a5;">Clear my notes</button>
+  <button class="primary" onclick="exportCSV()">Export CSV</button>
+</div>
+
+<div class="table-wrap">
+<table id="products-table">
+  <thead>
+    <tr>
+      <th onclick="sortBy('rank')" data-col="rank">#<span class="sort-arrow">↕</span></th>
+      <th onclick="sortBy('title')" data-col="title">Product<span class="sort-arrow">↕</span></th>
+      <th onclick="sortBy('type')" data-col="type">Type<span class="sort-arrow">↕</span></th>
+      <th onclick="sortBy('revenue')" data-col="revenue">Revenue<span class="sort-arrow">↕</span></th>
+      <th>Status</th>
+      <th>Links</th>
+      <th>Standardization Data (auto-saved)</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+<div class="empty-state" id="empty-state" style="display:none">No products match your filters.</div>
+</div>
+
+<footer>Notes are saved in your browser (localStorage). Use "Export CSV" to hand off to Claude for processing.</footer>
+
+<script>
+const PRODUCTS = [
+  {rank:1,handle:"u-shape-height-adjustable-desk-suite-zira",title:"U-Shape Height Adjustable Desk Suite Zira",type:"type:desks",revenue:14762.0,admin:"https://admin.shopify.com/store/office-central/products/9688255365433"},
+  {rank:2,handle:"l-shape-desk-hutch",title:"L-Shape Desk & Hutch",type:"type:desks",revenue:12879.92,admin:"https://admin.shopify.com/store/office-central/products/9666764865849"},
+  {rank:3,handle:"height-adjustable-table-5-sizes",title:"Electric Height Adjustable Sit to Stand Desks",type:"type:desks",revenue:11199.86,admin:"https://admin.shopify.com/store/office-central/products/9687458873657"},
+  {rank:4,handle:"obusforme-comfort-high-back-chair-fabric-1240-3",title:"ObusForme Comfort High back Chair 1240-3",type:"type:chairs",revenue:10495.84,admin:"https://admin.shopify.com/store/office-central/products/9039326609721"},
+  {rank:5,handle:"medicine-wheel-table-indigenous",title:"Medicine Wheel Table Indigenous",type:"type:tables",revenue:9795.95,admin:"https://admin.shopify.com/store/office-central/products/9683112067385"},
+  {rank:6,handle:"u-shape-height-adjust-desk",title:"U-Shape Height Adjust Desk",type:"type:desks",revenue:9599.96,admin:"https://admin.shopify.com/store/office-central/products/9499674050873"},
+  {rank:7,handle:"training-flip-top-tables-1",title:"Training Flip Top Tables",type:"type:tables",revenue:9289.79,admin:"https://admin.shopify.com/store/office-central/products/9686674637113"},
+  {rank:8,handle:"premium-series-lateral-file-cabinet-2-3-4-5-drawer-1",title:"Premium Series Lateral File Cabinet (2,3,4 & 5 Drawer)",type:"type:storage",revenue:8879.93,admin:"https://admin.shopify.com/store/office-central/products/9114485391673"},
+  {rank:9,handle:"l-shape-desk-8-sizes-9-colour-options",title:"L-Shape Desk (8 Sizes & 9 Colour options)",type:"type:desks",revenue:7529.92,admin:"https://admin.shopify.com/store/office-central/products/9746797494585"},
+  {rank:10,handle:"premium-height-adjustable-table-1",title:"Premium Height Adjustable Table",type:"type:tables",revenue:6898.95,admin:"https://admin.shopify.com/store/office-central/products/9665360331065"},
+  {rank:11,handle:"l-shape-desk-8-sizes-9-colour-options-1",title:"L-Shape Desk (8 Sizes & 9 Colour options) [2]",type:"type:desks",revenue:6518.95,admin:"https://admin.shopify.com/store/office-central/products/9746754732345"},
+  {rank:12,handle:"roma-1900-nesting-chair",title:"Roma 1900 Nesting Chair",type:"type:chairs",revenue:5399.88,admin:"https://admin.shopify.com/store/office-central/products/9719788732729"},
+  {rank:13,handle:"overtime-high-back-multi-tilter-chair-mvl2756",title:"Overtime | High Back Multi-Tilter Chair MVL2756",type:"type:chairs",revenue:5299.87,admin:"https://admin.shopify.com/store/office-central/products/9666757919033"},
+  {rank:14,handle:"l-shape-height-adjustable-desk-set",title:"L-Shape Height Adjustable Desk Set",type:"type:desks",revenue:5198.0,admin:"https://admin.shopify.com/store/office-central/products/9665339851065"},
+  {rank:15,handle:"loop-leg-table",title:"LOOP Leg Table",type:"type:tables",revenue:5099.87,admin:"https://admin.shopify.com/store/office-central/products/9724647440697"},
+  {rank:16,handle:"ibex-upholstered-seat-mesh-back-multi-tilter-1",title:"Ibex | Upholstered Seat & Mesh Back Multi-Tilter MVL2803",type:"type:chairs",revenue:4869.89,admin:"https://admin.shopify.com/store/office-central/products/9664289014073"},
+  {rank:17,handle:"table-desk-1",title:"Table Desk",type:"type:desks",revenue:4349.9,admin:"https://admin.shopify.com/store/office-central/products/9782640640313"},
+  {rank:18,handle:"format-high-mesh-back-synchro-tilter",title:"Format | High Mesh Back Synchro-Tilter",type:"type:chairs",revenue:3999.9,admin:"https://admin.shopify.com/store/office-central/products/9666761457977"},
+  {rank:19,handle:"mvl11886-caman-high-back-tilter-bonded-leather",title:"MVL11886 Caman | High Back Tilter Bonded Leather",type:"type:chairs",revenue:3899.87,admin:"https://admin.shopify.com/store/office-central/products/9816456495417"},
+  {rank:20,handle:"ashmont-medium-back-guest-chair-mvl2782",title:"Ashmont | Medium Back Guest Chair MVL2782",type:"type:chairs",revenue:3839.88,admin:"https://admin.shopify.com/store/office-central/products/9782581297465"},
+  {rank:21,handle:"executive-u-shape-desk-set",title:"Executive U-Shape Desk Set",type:"type:desks",revenue:3799.98,admin:"https://admin.shopify.com/store/office-central/products/9785152078137"},
+  {rank:22,handle:"sidero-guest-chair-28-colour-options",title:"Sidero Guest Chair 28 Colour Options",type:"type:chairs",revenue:3779.86,admin:"https://admin.shopify.com/store/office-central/products/9699268591929"},
+  {rank:23,handle:"square-table-x-base-3-sizes",title:"Square Table - X-Base 3 Sizes",type:"type:tables",revenue:3499.9,admin:"https://admin.shopify.com/store/office-central/products/9826729656633"},
+  {rank:24,handle:"ergo-boss-high-back-multi-tilter-chair-1",title:"Ergo Boss™ High Back Multi-Tilter Chair",type:"type:chairs",revenue:3479.96,admin:"https://admin.shopify.com/store/office-central/products/9666750906681"},
+  {rank:25,handle:"height-adjustable-l-shape-table",title:"Premium Height Adjustable L-Shape Table",type:"type:tables",revenue:3399.98,admin:"https://admin.shopify.com/store/office-central/products/9687455924537"},
+  {rank:26,handle:"robust-high-back-multi-tilter-chair-500lb-weight-capacity-glb74475",title:"Robust High Back Multi-Tilter Chair 500lb Weight Capacity GLB74475",type:"type:chairs",revenue:3399.98,admin:"https://admin.shopify.com/store/office-central/products/9666742124857"},
+  {rank:27,handle:"ibex-mesh-seat-back-multi-tilter-1",title:"Ibex | Mesh Seat & Back Multi-Tilter",type:"type:chairs",revenue:3119.94,admin:"https://admin.shopify.com/store/office-central/products/9664290455865"},
+  {rank:28,handle:"pneumatic-height-adjustable-table",title:"Pneumatic Height Adjustable Table",type:"type:tables",revenue:3079.96,admin:"https://admin.shopify.com/store/office-central/products/9725753360697"},
+  {rank:29,handle:"chevron-ultra-high-back-multi-tilter-chair-high-back-bao11203-1",title:"Chevron Ultra High Back Multi-Tilter Chair - High Back BAO11203",type:"type:chairs",revenue:2939.95,admin:"https://admin.shopify.com/store/office-central/products/9747444826425"},
+  {rank:30,handle:"outdoor-steel-bench",title:"Outdoor Steel Bench",type:"type:outdoor",revenue:2900.0,admin:"https://admin.shopify.com/store/office-central/products/9676932350265"},
+  {rank:31,handle:"l-shape-desk-8-sizes-9-colour-options-2",title:"L-Shape Desk (8 Sizes & 9 Colour options) [3]",type:"type:desks",revenue:2851.99,admin:"https://admin.shopify.com/store/office-central/products/9746782093625"},
+  {rank:32,handle:"vion-mesh-high-back-chair-1",title:"VION Mesh High Back Chair",type:"type:chairs",revenue:2716.0,admin:"https://admin.shopify.com/store/office-central/products/9499576009017"},
+  {rank:33,handle:"ultra-high-back-tilter-with-arms-mvl11730",title:"Ultra | High Back Tilter with Arms MVL11730",type:"type:chairs",revenue:2699.94,admin:"https://admin.shopify.com/store/office-central/products/9771600707897"},
+  {rank:34,handle:"raven-high-back-heavy-duty-synchro-tilter-chair-otg10703b",title:"Raven High Back Heavy Duty Synchro-Tilter Chair OTG10703B",type:"type:chairs",revenue:2499.95,admin:"https://admin.shopify.com/store/office-central/products/9745595597113"},
+  {rank:35,handle:"innovation-l-shape-curved-corner",title:"Innovation L-Shape Curved Corner",type:"type:desks",revenue:2399.98,admin:"https://admin.shopify.com/store/office-central/products/9840929276217"},
+  {rank:36,handle:"wood-laminate-storage-cabinets",title:"Wood Laminate Storage Cabinets",type:"type:storage",revenue:2399.98,admin:"https://admin.shopify.com/store/office-central/products/9788608184633"},
+  {rank:37,handle:"credenza-scmsu",title:"Credenza SCMSU",type:"type:storage",revenue:2399.98,admin:"https://admin.shopify.com/store/office-central/products/9763442524473"},
+  {rank:38,handle:"bar-leaner-1-span-collaborative",title:"Bar Leaner 1-Span Collaborative",type:"type:tables",revenue:2321.99,admin:"https://admin.shopify.com/store/office-central/products/9666368602425"},
+  {rank:39,handle:"otg13026-safari-medium-mesh-back-tilter-chair",title:"OTG13026 Safari | Medium Mesh Back Tilter Chair",type:"type:chairs",revenue:2249.91,admin:"https://admin.shopify.com/store/office-central/products/9712926556473"},
+  {rank:40,handle:"desk-single-pedestal-bbf",title:"Desk Single Pedestal BBF",type:"type:desks",revenue:2219.97,admin:"https://admin.shopify.com/store/office-central/products/9688139923769"},
+  {rank:41,handle:"ashton-high-back-tilter",title:"Ashton | High Back Tilter",type:"type:chairs",revenue:2214.0,admin:"https://admin.shopify.com/store/office-central/products/9664281542969"},
+  {rank:42,handle:"willow-bariatric-chair",title:"Willow Bariatric Chair",type:"type:chairs",revenue:2100.0,admin:"https://admin.shopify.com/store/office-central/products/9685598110009"},
+  {rank:43,handle:"u-shape-desk-nlp205",title:"U-Shape Desk NLP205",type:"type:desks",revenue:2099.99,admin:"https://admin.shopify.com/store/office-central/products/9468352889145"},
+  {rank:44,handle:"overtime-350-high-back-heavy-duty-multi-tilter-mvl13040",title:"Overtime 350 | High Back Heavy Duty Multi-Tilter MVL13040",type:"type:chairs",revenue:2099.97,admin:"https://admin.shopify.com/store/office-central/products/9667800334649"},
+  {rank:45,handle:"pedestal-box-box-file-with-or-without-wheels",title:"Pedestal - Box/Box/File (With or without wheels)",type:"type:storage",revenue:2019.94,admin:"https://admin.shopify.com/store/office-central/products/9103392276793"},
+  {rank:46,handle:"d-top-table",title:"D-Top Table With or Without Modesty",type:"type:tables",revenue:1999.96,admin:"https://admin.shopify.com/store/office-central/products/9922963079481"},
+  {rank:47,handle:"basics-comfort-time-ultra-multi-tilter-chairs-mvl1873-1",title:"Basics® Comfort-Time™ Ultra Multi-Tilter Chairs MVL1873 MVL1875",type:"type:chairs",revenue:1919.96,admin:"https://admin.shopify.com/store/office-central/products/9815800054073"},
+  {rank:48,handle:"lounge-seating-3-sizes-suburb",title:"Lounge Seating 3 sizes Suburb",type:"type:lounge",revenue:1887.97,admin:"https://admin.shopify.com/store/office-central/products/9682802147641"},
+  {rank:49,handle:"offices-to-go-newland-l-shaped-suite-nlp420",title:"Offices to Go® Newland™ L-Shaped Suite NLP420",type:"type:desks",revenue:1799.99,admin:"https://admin.shopify.com/store/office-central/products/9855824068921"},
+  {rank:50,handle:"brighton-high-back-tilter-mvl2787",title:"Brighton | High Back Tilter MVL2787",type:"type:chairs",revenue:1798.68,admin:"https://admin.shopify.com/store/office-central/products/9782584049977"},
+  {rank:51,handle:"overtime-350-high-back-heavy-duty-multi-tilter",title:"Overtime 350 | High Back Heavy Duty Multi-Tilter",type:"type:chairs",revenue:1788.0,admin:"https://admin.shopify.com/store/office-central/products/9664325615929"},
+  {rank:52,handle:"innovations-double-pedestal-desk-bf-bf-5-sizes-8-colours",title:"INNOVATIONS Double Pedestal Desk bf/bf 5 Sizes, 8 Colours",type:"type:desks",revenue:1719.98,admin:"https://admin.shopify.com/store/office-central/products/9733212438841"},
+  {rank:53,handle:"sirena-lounge-chair-3371",title:"Sirena Lounge Chair",type:"type:lounge",revenue:1653.98,admin:"https://admin.shopify.com/store/office-central/products/9893663277369"},
+  {rank:54,handle:"six-31-medium-back-multi-tilter-glbotg11631b",title:"Six 31 | Medium Back Multi-Tilter GLBOTG11631B",type:"type:chairs",revenue:1619.77,admin:"https://admin.shopify.com/store/office-central/products/9666756935993"},
+  {rank:55,handle:"chair-black-steel-frame-2",title:"Chair Black Steel Frame",type:"type:chairs",revenue:1608.0,admin:"https://admin.shopify.com/store/office-central/products/9100258541881"},
+  {rank:56,handle:"l-shape-reception-72-x-72-x-41-1",title:'L-Shape Reception - 72" x 72" x 41"',type:"type:desks",revenue:1599.99,admin:"https://admin.shopify.com/store/office-central/products/9103183151417"},
+  {rank:57,handle:"citi-lounge-seating-3-sizes-available",title:"Lounge Seating (3 sizes available)",type:"type:lounge",revenue:1569.99,admin:"https://admin.shopify.com/store/office-central/products/10002251514169"},
+  {rank:58,handle:"2600-series-4-drawer-vertical-file-legal-26-451",title:"2600 Series 4 Drawer Vertical File, Legal (26-451)",type:"type:storage",revenue:1484.97,admin:"https://admin.shopify.com/store/office-central/products/10095599190329"},
+  {rank:59,handle:"folding-chair-plastic-4-pack",title:"Folding Chair-Plastic 4/Pack",type:"type:chairs",revenue:1449.95,admin:"https://admin.shopify.com/store/office-central/products/9690426671417"},
+  {rank:60,handle:"napa-boardroom-conference-table",title:"Napa Boardroom Conference Table",type:"type:tables",revenue:1379.98,admin:"https://admin.shopify.com/store/office-central/products/9724981215545"},
+  {rank:61,handle:"newland-box-file-mobile-pedestal",title:"Newland Box/File Mobile Pedestal NLMP23BF",type:"type:storage",revenue:1336.85,admin:"https://admin.shopify.com/store/office-central/products/9103190753593"},
+  {rank:62,handle:"multi-storage-cabinet-93365msl",title:"Multi-Storage Cabinet 93365MSL",type:"type:storage",revenue:1299.99,admin:"https://admin.shopify.com/store/office-central/products/9733021401401"},
+  {rank:63,handle:"l-shape-desk-3-sizes-13-colours",title:'"L" Shape Desk 6 Sizes 13 Colours',type:"type:desks",revenue:1249.99,admin:"https://admin.shopify.com/store/office-central/products/9103190196537"},
+  {rank:64,handle:"l-shape-loop-leg-desk",title:"L-Shape Loop Leg Desk",type:"type:desks",revenue:1199.99,admin:"https://admin.shopify.com/store/office-central/products/9666794258745"},
+  {rank:65,handle:"vertical-file-2-drawer-letter",title:"Vertical File 2 Drawer Letter",type:"type:storage",revenue:1199.96,admin:"https://admin.shopify.com/store/office-central/products/9727967494457"},
+  {rank:66,handle:"innovation-l-shape-set",title:"Innovation L-Shape Set",type:"type:accessories",revenue:1099.99,admin:"https://admin.shopify.com/store/office-central/products/9800714158393"},
+  {rank:67,handle:"mobile-pedestal-drawer-box-file",title:"Mobile Pedestal Drawer Box/File",type:"type:storage",revenue:1089.97,admin:"https://admin.shopify.com/store/office-central/products/9745591533881"},
+  {rank:68,handle:"storage-cabinet-medium-duty-72x18x36w",title:'Storage Cabinet Medium Duty 72"x18"x36"W',type:"type:storage",revenue:1059.98,admin:"https://admin.shopify.com/store/office-central/products/9103385526585"},
+  {rank:69,handle:"kaysee-high-back-tilter-otg12112b",title:"Kaysee | High Back Tilter OTG12112B",type:"type:chairs",revenue:1059.96,admin:"https://admin.shopify.com/store/office-central/products/9760219201849"},
+  {rank:70,handle:"installation1000",title:"Installation1000",type:"",revenue:1000.0,admin:"https://admin.shopify.com/store/office-central/products/9746802016569"},
+  {rank:71,handle:"round-table-42-high-bar-height",title:'Round Table 42" High Bar Height',type:"type:tables",revenue:989.97,admin:"https://admin.shopify.com/store/office-central/products/9103357116729"},
+  {rank:72,handle:"4-drawer-letter-width-vertical-file",title:"4 Drawer Letter Width Vertical File",type:"type:storage",revenue:919.98,admin:"https://admin.shopify.com/store/office-central/products/9727969984825"},
+  {rank:73,handle:"bookcase-15-sizes-available",title:"Bookcase (15 Sizes Available)",type:"type:storage",revenue:919.98,admin:"https://admin.shopify.com/store/office-central/products/9698697576761"},
+  {rank:74,handle:"boat-shaped-conference-table",title:"Boat Shaped Conference Table",type:"type:tables",revenue:899.99,admin:"https://admin.shopify.com/store/office-central/products/9103187345721"},
+  {rank:75,handle:"format-high-back-synchro-tilter-with-adjustable-headrest-chair-mvl3192",title:"Format | High Back Synchro-Tilter with Adjustable Headrest Chair MVL3192",type:"type:chairs",revenue:891.98,admin:"https://admin.shopify.com/store/office-central/products/9666760606009"},
+  {rank:76,handle:"upscale-table-1",title:"UPSCALE Table",type:"type:tables",revenue:869.99,admin:"https://admin.shopify.com/store/office-central/products/9674761797945"},
+  {rank:77,handle:"foundations-sport-splash-quad-strollers",title:"Foundations Sport Splash, Quad Strollers",type:"",revenue:797.99,admin:"https://admin.shopify.com/store/office-central/products/9685440528697"},
+  {rank:78,handle:"caster-options",title:"Caster Options",type:"type:accessories",revenue:735.0,admin:"https://admin.shopify.com/store/office-central/products/9712829890873"},
+  {rank:79,handle:"aeramax-air-purifier-true-hepa-plasmatrue-1",title:"AeraMax® Air Purifier - True HEPA, PlasmaTrue",type:"type:accessories",revenue:239.99,admin:"https://admin.shopify.com/store/office-central/products/9712563487033"},
+  {rank:80,handle:"anti-fatigue-wellness-mat-36-x-24-5",title:'Anti-Fatigue Wellness Mat 36" x 24"',type:"type:accessories",revenue:88.99,admin:"https://admin.shopify.com/store/office-central/products/9103326871865"},
+  {rank:81,handle:"4-person-workstation",title:"4 Person Workstation",type:"type:desks",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9860596138297"},
+  {rank:82,handle:"6-person-workstation-chairs-bridges",title:"6 Person Workstation & Chairs Bridges",type:"type:chairs",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9688261001529"},
+  {rank:83,handle:"aktivity-environ-table",title:"Aktivity Environ Table",type:"type:tables",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9824093798713"},
+  {rank:84,handle:"aktivity-puddle",title:"Aktivity Puddle",type:"type:tables",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9769301311801"},
+  {rank:85,handle:"arlo-lounge-swivel-task-chair-1",title:"Arlo | Lounge Swivel Task Chair",type:"type:lounge",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9759454560569"},
+  {rank:86,handle:"array-stand-as-air-purifier-1",title:"Array™ Stand AS Air Purifier",type:"type:accessories",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9712563224889"},
+  {rank:87,handle:"auditorium-lecture-hall-seating",title:"Auditorium / Lecture Hall Seating",type:"type:chairs",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9699889086777"},
+  {rank:88,handle:"auditorium-lecture-hall-seating-my-space",title:"Auditorium / Lecture Hall Seating My Space",type:"type:chairs",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9699886203193"},
+  {rank:89,handle:"av-stand-sa-81-3016",title:"AV Stand SA-81-3016",type:"type:accessories",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9846115074361"},
+  {rank:90,handle:"casters-2-5-set-1",title:'Casters - 2" 5/Set',type:"type:accessories",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9114164527417"},
+  {rank:91,handle:"casters-5-set-1",title:"Casters - 5/Set",type:"type:accessories",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9103339782457"},
+  {rank:92,handle:"ceiling-baffles-sound-acoustic-dampeners",title:"Ceiling Baffles Sound Acoustic Dampeners",type:"type:accessories",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9833161556281"},
+  {rank:93,handle:"ceiling-grids-sound-acoustic-dampeners-1",title:"Ceiling Grids Sound Acoustic Dampeners",type:"type:accessories",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9832610988345"},
+  {rank:94,handle:"desktop-sit-stand-workstation-mvl5230b0",title:"Desktop Sit-Stand Workstation MVL5230B0",type:"type:desks",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9782589817145"},
+  {rank:95,handle:"gc-comet-bariatric-stacking-armchair-gc2180-1",title:"GC Comet™ Bariatric Stacking Armchair (GC2180)",type:"type:chairs",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9685632909625"},
+  {rank:96,handle:"global-recliner-primacare-gc3608mrc",title:"Global Recliner Primacare GC3608MRC",type:"type:lounge",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9692001993017"},
+  {rank:97,handle:"indestructible-ryno-furniture",title:"Indestructible Ryno Furniture",type:"type:outdoor",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9683488178489"},
+  {rank:98,handle:"nesting-training-table-8-colour-choices",title:"Nesting Training Table (8 Colour Choices)",type:"type:tables",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9729271464249"},
+  {rank:99,handle:"outdoor-park-benches",title:"Outdoor Park Benches",type:"type:outdoor",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9676931039545"},
+  {rank:100,handle:"terina-training-tables-rectangular-table-8-sizes",title:"Terina™ Training Tables Rectangular Table 8 Sizes",type:"type:tables",revenue:0,admin:"https://admin.shopify.com/store/office-central/products/9686654255417"},
+];
+
+const AI_DONE = new Set([
+  "ceiling-grids-sound-acoustic-dampeners-1","d-top-table","height-adjustable-table-5-sizes",
+  "ibex-upholstered-seat-mesh-back-multi-tilter-1","l-shape-desk-hutch","l-shape-height-adjustable-desk-set",
+  "loop-leg-table","medicine-wheel-table-indigenous","obusforme-comfort-high-back-chair-fabric-1240-3",
+  "overtime-350-high-back-heavy-duty-multi-tilter-mvl13040","overtime-high-back-multi-tilter-chair-mvl2756",
+  "pedestal-box-box-file-with-or-without-wheels","robust-high-back-multi-tilter-chair-500lb-weight-capacity-glb74475",
+  "roma-1900-nesting-chair","training-flip-top-tables-1","u-shape-desk-nlp205",
+  "u-shape-height-adjust-desk","u-shape-height-adjustable-desk-suite-zira","willow-bariatric-chair"
+]);
+
+const STORE_BASE = "https://www.brantbusinessinteriors.com/products/";
+const NOTES_KEY = "bbi_hero100_notes_v2";
+
+// Per-product data shape: { brand, product_line, model_code, key_spec, finishes, features, notes }
+const FIELDS = [
+  { key: 'brand',        label: 'Brand / Manufacturer', placeholder: 'e.g. Global, ObusForme', col: 'half' },
+  { key: 'product_line', label: 'Product Line',          placeholder: 'e.g. Zira, Overtime 350', col: 'half' },
+  { key: 'model_code',   label: 'Model Code',            placeholder: 'e.g. MVL2756',           col: 'half' },
+  { key: 'key_spec',     label: 'Key Spec (for title)',  placeholder: 'e.g. 72" Walnut, 500lb', col: 'half' },
+  { key: 'finishes',     label: 'Finishes (comma-sep)',  placeholder: 'e.g. walnut, black, white', col: 'full' },
+  { key: 'features',     label: 'Features (comma-sep)',  placeholder: 'e.g. height-adjustable, mesh-back, lumbar', col: 'full' },
+  { key: 'notes',        label: 'Extra notes',           placeholder: 'Dims, lead time, anything else…', col: 'full', textarea: true },
+];
+
+let notes = {};
+let sortCol = 'rank';
+let sortAsc = true;
+
+function loadNotes() {
+  try { notes = JSON.parse(localStorage.getItem(NOTES_KEY) || '{}'); } catch(e) { notes = {}; }
+}
+
+function saveField(handle, field, val) {
+  if (!notes[handle]) notes[handle] = {};
+  notes[handle][field] = val;
+  localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+  // Refresh the preview title for this row without full re-render
+  const previewEl = document.getElementById('preview-' + handle);
+  if (previewEl) previewEl.innerHTML = buildPreviewTitle(handle);
+}
+
+function hasAnyData(handle) {
+  if (!notes[handle]) return false;
+  return FIELDS.some(f => (notes[handle][f.key] || '').trim().length > 0);
+}
+
+function clearAllNotes() {
+  if (!confirm('Clear all your saved data? This cannot be undone.')) return;
+  notes = {};
+  localStorage.removeItem(NOTES_KEY);
+  render();
+}
+
+function buildPreviewTitle(handle) {
+  const d = notes[handle] || {};
+  const line = (d.product_line || '').trim();
+  const code = (d.model_code || '').trim();
+  const spec = (d.key_spec || '').trim();
+  if (!line && !code && !spec) return '<em style="color:#bbb">Fill Product Line + Model Code + Key Spec to preview…</em>';
+  let title = line || '?';
+  if (code) title += ' ' + code;
+  if (spec) title += ' — ' + spec;
+  return '<strong>Preview:</strong> ' + escHtml(title);
+}
+
+function getFiltered() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  const ft = document.getElementById('filter-type').value;
+  const fs = document.getElementById('filter-status').value;
+  return PRODUCTS.filter(p => {
+    if (q && !p.title.toLowerCase().includes(q) && !p.handle.includes(q)) return false;
+    if (ft && p.type !== ft) return false;
+    if (fs === 'todo' && AI_DONE.has(p.handle)) return false;
+    if (fs === 'done' && !AI_DONE.has(p.handle)) return false;
+    if (fs === 'notes' && !hasAnyData(p.handle)) return false;
+    return true;
+  });
+}
+
+function sortProducts(arr) {
+  return [...arr].sort((a, b) => {
+    let va = a[sortCol], vb = b[sortCol];
+    if (sortCol === 'type') { va = va || ''; vb = vb || ''; }
+    if (sortCol === 'title') { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+    if (va < vb) return sortAsc ? -1 : 1;
+    if (va > vb) return sortAsc ? 1 : -1;
+    return 0;
+  });
+}
+
+function sortBy(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = col === 'rank'; }
+  render();
+}
+
+function fmt(n) {
+  if (!n) return '—';
+  return '$' + n.toLocaleString('en-CA', {minimumFractionDigits:0, maximumFractionDigits:0});
+}
+
+function typeLabel(t) {
+  if (!t) return '';
+  return t.replace('type:', '');
+}
+
+function render() {
+  const filtered = sortProducts(getFiltered());
+  const tbody = document.getElementById('tbody');
+  const doneCount = PRODUCTS.filter(p => AI_DONE.has(p.handle)).length;
+  const noteCount = PRODUCTS.filter(p => hasAnyData(p.handle)).length;
+
+  // Progress bar (AI done)
+  const pct = Math.round(doneCount / 100 * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-meta').textContent =
+    `AI scraped: ${doneCount}/100 · Your data: ${noteCount} products filled · ${100 - doneCount} still need lookup`;
+
+  document.getElementById('count-label').textContent =
+    filtered.length === 100 ? '100 products' : `${filtered.length} of 100`;
+
+  // Sort arrows
+  document.querySelectorAll('thead th[data-col]').forEach(th => {
+    const arrow = th.querySelector('.sort-arrow');
+    th.classList.toggle('sorted', th.dataset.col === sortCol);
+    if (th.dataset.col === sortCol) arrow.textContent = sortAsc ? ' ↑' : ' ↓';
+    else arrow.textContent = ' ↕';
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    document.getElementById('empty-state').style.display = '';
+    return;
+  }
+  document.getElementById('empty-state').style.display = 'none';
+
+  tbody.innerHTML = filtered.map(p => {
+    const isDone = AI_DONE.has(p.handle);
+    const d = notes[p.handle] || {};
+
+    const formFields = FIELDS.map(f => {
+      const val = escHtml(d[f.key] || '');
+      const filled = (d[f.key] || '').trim().length > 0;
+      const cls = filled ? 'filled' : '';
+      const h = escHtml(p.handle);
+      const fk = f.key;
+      if (f.textarea) {
+        return `<div class="field ${f.col}">
+          <label>${f.label}</label>
+          <textarea class="${cls}" placeholder="${f.placeholder}"
+            onblur="saveField('${h}','${fk}',this.value);this.classList.toggle('filled',this.value.trim().length>0)"
+          >${val}</textarea>
+        </div>`;
+      }
+      return `<div class="field ${f.col}">
+        <label>${f.label}</label>
+        <input type="text" class="${cls}" placeholder="${f.placeholder}" value="${val}"
+          onblur="saveField('${h}','${fk}',this.value);this.classList.toggle('filled',this.value.trim().length>0)">
+      </div>`;
+    }).join('');
+
+    return `<tr class="${isDone ? 'done-row' : ''}">
+      <td class="rank">${p.rank}</td>
+      <td class="title">
+        ${p.title}
+        <small>${p.handle}</small>
+      </td>
+      <td class="type">${p.type ? `<span class="type-chip">${typeLabel(p.type)}</span>` : ''}</td>
+      <td class="revenue">${fmt(p.revenue)}</td>
+      <td class="status">
+        <span class="badge ${isDone ? 'done' : 'todo'}">${isDone ? 'AI done' : 'needs lookup'}</span>
+      </td>
+      <td class="links">
+        <a class="link-btn admin" href="${p.admin}" target="_blank">Admin</a><br>
+        <a class="link-btn store" href="${STORE_BASE}${p.handle}" target="_blank">Store</a>
+      </td>
+      <td class="notes">
+        <div class="data-form">${formFields}</div>
+        <div class="preview-title" id="preview-${p.handle}">${buildPreviewTitle(p.handle)}</div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function csvCell(val) {
+  return `"${String(val||'').replace(/"/g,'""').replace(/\n/g,' | ')}"`;
+}
+
+function exportCSV() {
+  const headers = ['rank','handle','title','type','revenue','ai_done',
+    'brand','product_line','model_code','key_spec','finishes','features','notes'];
+  const rows = [headers];
+  PRODUCTS.forEach(p => {
+    const d = notes[p.handle] || {};
+    rows.push([
+      p.rank,
+      csvCell(p.handle),
+      csvCell(p.title),
+      csvCell(p.type),
+      p.revenue,
+      AI_DONE.has(p.handle) ? 'yes' : 'no',
+      csvCell(d.brand),
+      csvCell(d.product_line),
+      csvCell(d.model_code),
+      csvCell(d.key_spec),
+      csvCell(d.finishes),
+      csvCell(d.features),
+      csvCell(d.notes),
+    ]);
+  });
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'hero-100-specs.csv';
+  a.click();
+}
+
+document.getElementById('search').addEventListener('input', render);
+document.getElementById('filter-type').addEventListener('change', render);
+document.getElementById('filter-status').addEventListener('change', render);
+
+loadNotes();
+render();
+</script>
+</body>
+</html>

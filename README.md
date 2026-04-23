@@ -36,6 +36,7 @@ Working repository for the Brant Business Interiors (BBI) Shopify cleanup. BBI i
 │   ├── specs/       Per-product spec JSON from lookup-specs.py (Hero 100)
 │   ├── reports/     Proposal CSVs (tags, industry) — source of truth for pushes
 │   ├── redirects/   URL redirect CSVs for Shopify Admin upload
+│   ├── exports/     Full Shopify product/order exports (reference snapshots)
 │   ├── backups/     Pre-change snapshots (menus, products, collections)
 │   ├── logs/        Push audit trails (timestamped JSON)
 │   └── oci-photos/  48 real project photos scraped from officecentral.com

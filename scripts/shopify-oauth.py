@@ -11,7 +11,7 @@ import os
 CLIENT_ID = os.environ['SHOPIFY_CLIENT_ID']
 CLIENT_SECRET = os.environ['SHOPIFY_CLIENT_SECRET']
 STORE = 'office-central-online.myshopify.com'
-SCOPES = 'read_products,write_products,read_orders,read_all_orders,read_customers,read_themes,write_themes,read_online_store_navigation,write_online_store_navigation'
+SCOPES = 'read_products,write_products,read_orders,read_all_orders,read_customers,read_themes,write_themes,read_online_store_navigation,write_online_store_navigation,read_content,write_content'
 REDIRECT_URI = 'http://localhost:3000/callback'
 
 state = secrets.token_hex(16)

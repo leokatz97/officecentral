@@ -29,6 +29,7 @@ All project documentation, grouped by purpose. Start at the root [README.md](../
 - [delivery-installation-shipping-setup.md](workflows/delivery-installation-shipping-setup.md) — how the 7-tier shipping rate is configured.
 - [tier-2-taxonomy-setup.md](workflows/tier-2-taxonomy-setup.md) — how the `type:*` / `room:*` / `industry:*` tag scheme was built.
 - [design-workflow.md](workflows/design-workflow.md) — how design changes are proposed, previewed, pushed.
+- [pages-to-design.md](workflows/pages-to-design.md) — every distinct page template that needs a design pass.
 
 ## reviews/
 

@@ -1,0 +1,546 @@
+# BBI Shopify Theme — Coverage Checklist
+
+Theme ID: `178274435385` · Generated from live theme inventory
+
+## 1. Page templates (each = a page type)
+Total: **20**
+
+- [ ] `templates/404.json`
+- [ ] `templates/article.json`
+- [ ] `templates/blog.json`
+- [ ] `templates/cart.json`
+- [ ] `templates/collection.json`
+- [ ] `templates/customers/account.json`
+- [ ] `templates/customers/activate_account.json`
+- [ ] `templates/customers/addresses.json`
+- [ ] `templates/customers/login.json`
+- [ ] `templates/customers/order.json`
+- [ ] `templates/customers/register.json`
+- [ ] `templates/customers/reset_password.json`
+- [ ] `templates/gift_card.liquid`
+- [ ] `templates/index.json`
+- [ ] `templates/list-collections.json`
+- [ ] `templates/page.contact.json`
+- [ ] `templates/page.json`
+- [ ] `templates/password.json`
+- [ ] `templates/product.json`
+- [ ] `templates/search.json`
+
+## 2. Sections (reusable blocks)
+Total: **83**
+
+- [ ] `sections/Collapsible-content.liquid`
+- [ ] `sections/accordion-boxes.liquid`
+- [ ] `sections/age-verification.liquid`
+- [ ] `sections/ajax-cart-drawer.liquid`
+- [ ] `sections/announcement-bar.liquid`
+- [ ] `sections/before-after-image.liquid`
+- [ ] `sections/blinking-icons.liquid`
+- [ ] `sections/blog-posts.liquid`
+- [ ] `sections/breadcrumb.liquid`
+- [ ] `sections/cart.liquid`
+- [ ] `sections/categories.liquid`
+- [ ] `sections/collection-carousel.liquid`
+- [ ] `sections/collection-list.liquid`
+- [ ] `sections/collection-tab.liquid`
+- [ ] `sections/compare-products-content.liquid`
+- [ ] `sections/contact-form.liquid`
+- [ ] `sections/countdown.liquid`
+- [ ] `sections/country-list.liquid`
+- [ ] `sections/custom-liquid.liquid`
+- [ ] `sections/featured-collection.liquid`
+- [ ] `sections/featured-content.liquid`
+- [ ] `sections/featured-images.liquid`
+- [ ] `sections/featured-product.liquid`
+- [ ] `sections/featured-products.liquid`
+- [ ] `sections/footer-group.json`
+- [ ] `sections/footer.liquid`
+- [ ] `sections/header-group.json`
+- [ ] `sections/header.liquid`
+- [ ] `sections/image-with-text-carousel.liquid`
+- [ ] `sections/images-banner.liquid`
+- [ ] `sections/images-grid.liquid`
+- [ ] `sections/information-drawer.liquid`
+- [ ] `sections/logo-list.liquid`
+- [ ] `sections/main-404.liquid`
+- [ ] `sections/main-account.liquid`
+- [ ] `sections/main-activate-account.liquid`
+- [ ] `sections/main-addresses.liquid`
+- [ ] `sections/main-article.liquid`
+- [ ] `sections/main-blog.liquid`
+- [ ] `sections/main-collection.liquid`
+- [ ] `sections/main-list-collections.liquid`
+- [ ] `sections/main-login.liquid`
+- [ ] `sections/main-order.liquid`
+- [ ] `sections/main-page.liquid`
+- [ ] `sections/main-password-section.liquid`
+- [ ] `sections/main-product.liquid`
+- [ ] `sections/main-register.liquid`
+- [ ] `sections/main-reset-password.liquid`
+- [ ] `sections/main-search.liquid`
+- [ ] `sections/map.liquid`
+- [ ] `sections/marquee.liquid`
+- [ ] `sections/media-gallery.liquid`
+- [ ] `sections/media-grid.liquid`
+- [ ] `sections/multi-column.liquid`
+- [ ] `sections/multiboxes.liquid`
+- [ ] `sections/newsletter-offer-popup.liquid`
+- [ ] `sections/newsletter.liquid`
+- [ ] `sections/numbers.liquid`
+- [ ] `sections/offer-banner.liquid`
+- [ ] `sections/offer-card.liquid`
+- [ ] `sections/parallax.liquid`
+- [ ] `sections/pickup-availability.liquid`
+- [ ] `sections/predictive-search.liquid`
+- [ ] `sections/product-list.liquid`
+- [ ] `sections/product-menus.liquid`
+- [ ] `sections/product-quick-view.liquid`
+- [ ] `sections/product-short-videos.liquid`
+- [ ] `sections/products-collage.liquid`
+- [ ] `sections/products-with-image.liquid`
+- [ ] `sections/recently-viewed-products.liquid`
+- [ ] `sections/related-posts.liquid`
+- [ ] `sections/related-products.liquid`
+- [ ] `sections/rich-text.liquid`
+- [ ] `sections/shapes.liquid`
+- [ ] `sections/side-bar-categories.liquid`
+- [ ] `sections/slideshow.liquid`
+- [ ] `sections/split-banner.liquid`
+- [ ] `sections/spotlight.liquid`
+- [ ] `sections/stories.liquid`
+- [ ] `sections/tab-media.liquid`
+- [ ] `sections/testimonials.liquid`
+- [ ] `sections/timeline.liquid`
+- [ ] `sections/video-banner.liquid`
+
+## 3. Snippets (smaller reusable pieces)
+Total: **98**
+
+- [ ] `snippets/SEOAnt-SpeedUp.liquid`
+- [ ] `snippets/account-sidebar.liquid`
+- [ ] `snippets/booster-seo.liquid`
+- [ ] `snippets/bundle-products.liquid`
+- [ ] `snippets/carousal-arrow-count.liquid`
+- [ ] `snippets/carousal-arrows.liquid`
+- [ ] `snippets/carousel-shapes.liquid`
+- [ ] `snippets/cart-drawer-content.liquid`
+- [ ] `snippets/cart-drawer.liquid`
+- [ ] `snippets/cart-gift-wrap.liquid`
+- [ ] `snippets/cart-recommendation-popup.liquid`
+- [ ] `snippets/cart-shipping-bar.liquid`
+- [ ] `snippets/category-icons.liquid`
+- [ ] `snippets/category-style-1.liquid`
+- [ ] `snippets/category-style-2.liquid`
+- [ ] `snippets/collage-card-grid.liquid`
+- [ ] `snippets/collection-content.liquid`
+- [ ] `snippets/collection-filters.liquid`
+- [ ] `snippets/collection-grid.liquid`
+- [ ] `snippets/collection-tab-style-1.liquid`
+- [ ] `snippets/collection-tab-style-2.liquid`
+- [ ] `snippets/color-mode.liquid`
+- [ ] `snippets/compare-product-blocks.liquid`
+- [ ] `snippets/compare-products.liquid`
+- [ ] `snippets/complementary-products.liquid`
+- [ ] `snippets/featured-product-card.liquid`
+- [ ] `snippets/gift-card-recipient-form.liquid`
+- [ ] `snippets/hamburger-categories.liquid`
+- [ ] `snippets/hamburger-mega-menu.liquid`
+- [ ] `snippets/hamburger-menu.liquid`
+- [ ] `snippets/header-account.liquid`
+- [ ] `snippets/header-contact-info.liquid`
+- [ ] `snippets/header-icon-star.liquid`
+- [ ] `snippets/header-icons.liquid`
+- [ ] `snippets/header-logo.liquid`
+- [ ] `snippets/header-navigation.liquid`
+- [ ] `snippets/header-promo-badges.liquid`
+- [ ] `snippets/header-search-bar.liquid`
+- [ ] `snippets/header-store-locator-info.liquid`
+- [ ] `snippets/icons.liquid`
+- [ ] `snippets/lazy-image.liquid`
+- [ ] `snippets/localization-form.liquid`
+- [ ] `snippets/marker.liquid`
+- [ ] `snippets/mega-menu.liquid`
+- [ ] `snippets/meta-tags.liquid`
+- [ ] `snippets/mobile-menu.liquid`
+- [ ] `snippets/multiboxes-media-grid.liquid`
+- [ ] `snippets/multiboxes-slideshow.liquid`
+- [ ] `snippets/multiboxes-text-icons.liquid`
+- [ ] `snippets/newsletter.liquid`
+- [ ] `snippets/page-banner.liquid`
+- [ ] `snippets/pagination.liquid`
+- [ ] `snippets/pickup-availability-content.liquid`
+- [ ] `snippets/pickupavailability-list.liquid`
+- [ ] `snippets/popup.liquid`
+- [ ] `snippets/post-grid.liquid`
+- [ ] `snippets/predictive-search-drawer.liquid`
+- [ ] `snippets/predictive-search-suggestions.liquid`
+- [ ] `snippets/price.liquid`
+- [ ] `snippets/product-badge.liquid`
+- [ ] `snippets/product-blocks.liquid`
+- [ ] `snippets/product-card-grid.liquid`
+- [ ] `snippets/product-collage-social-icons.liquid`
+- [ ] `snippets/product-colors-option.liquid`
+- [ ] `snippets/product-countdown.liquid`
+- [ ] `snippets/product-custom-badge.liquid`
+- [ ] `snippets/product-featured-media-popup.liquid`
+- [ ] `snippets/product-featured-media.liquid`
+- [ ] `snippets/product-form-buttons.liquid`
+- [ ] `snippets/product-media.liquid`
+- [ ] `snippets/product-options.liquid`
+- [ ] `snippets/product-page-badge.liquid`
+- [ ] `snippets/product-query-form.liquid`
+- [ ] `snippets/product-search-grid.liquid`
+- [ ] `snippets/product-short-detail.liquid`
+- [ ] `snippets/product-sticky-blocks.liquid`
+- [ ] `snippets/product-thumbnails.liquid`
+- [ ] `snippets/product-variations.liquid`
+- [ ] `snippets/product_quick_view.liquid`
+- [ ] `snippets/quick-nav.liquid`
+- [ ] `snippets/reviews-count.liquid`
+- [ ] `snippets/reviews-without-count.liquid`
+- [ ] `snippets/reviews.liquid`
+- [ ] `snippets/scroll-top.liquid`
+- [ ] `snippets/shapes.liquid`
+- [ ] `snippets/shipping-calculator.liquid`
+- [ ] `snippets/side-drawer.liquid`
+- [ ] `snippets/size-chart.liquid`
+- [ ] `snippets/social-media-icons.liquid`
+- [ ] `snippets/social-sharing-icons.liquid`
+- [ ] `snippets/sticky-product.liquid`
+- [ ] `snippets/style-variables.liquid`
+- [ ] `snippets/support-details.liquid`
+- [ ] `snippets/swatchs-filter.liquid`
+- [ ] `snippets/testimonial-content.liquid`
+- [ ] `snippets/testimonial-style1.liquid`
+- [ ] `snippets/testimonial-style2.liquid`
+- [ ] `snippets/theme-variables.liquid`
+
+## 4. Layout files
+- [ ] `layout/password.liquid`
+- [ ] `layout/theme-backup-booster-seo.liquid`
+- [ ] `layout/theme.liquid`
+
+## 5. Admin pages (content pages in Shopify admin)
+Total: **20** (18 published)
+
+- [ ] `/pages/ergocentric` — ergoCentric (published)
+- [ ] `/pages/frequently-asked-questions` — Frequently Asked Questions (published)
+- [ ] `/pages/history-quotes` — History Quote (published)
+- [ ] `/pages/how-to-adjust-my-new-chair` — How To Adjust My New Chair (published)
+- [ ] `/pages/html-sitemap` — html sitemap (published)
+- [ ] `/pages/html-sitemap-articles` — html sitemap articles (published)
+- [ ] `/pages/html-sitemap-blogs` — html sitemap blogs (published)
+- [ ] `/pages/html-sitemap-collections` — html sitemap collections (published)
+- [ ] `/pages/html-sitemap-pages` — html sitemap pages (published)
+- [ ] `/pages/html-sitemap-products` — html sitemap products (published)
+- [ ] `/pages/oecm` — OECM (published)
+- [ ] `/pages/contact` — Office Spaces Designers & Architects (published)
+- [ ] `/pages/please-click-below` — Please click below (published)
+- [ ] `/pages/quote-history` — Quote history (published)
+- [ ] `/pages/sb-request-quote` — Request a quote (published)
+- [ ] `/pages/request-for-quote` — Request for quote (published)
+- [ ] `/pages/search-results-page` — Search Results (published)
+- [ ] `/pages/shipping-delivery` — Shipping & Delivery (published)
+- [ ] `/pages/suppliers` — Suppliers (DRAFT)
+- [ ] `/pages/win-a-prize-with-brant-basics` — Win a prize with Brant Basics! (DRAFT)
+
+## 6. Collections (category pages)
+Total: **273** (266 published)
+
+- [ ] `/collections/24-hour-seating` — 24 Hour (Seating)
+- [ ] `/collections/accessories` — Accessories
+- [ ] `/collections/adjustable-2-shelf-units` — Adjustable 2 Shelf Units
+- [ ] `/collections/adjustable-block-shelf-units` — Adjustable Block Shelf Units
+- [ ] `/collections/adjustable-hinged-units` — Adjustable Hinged Units
+- [ ] `/collections/air-quality-management` — Air Quality Management
+- [ ] `/collections/all` — Products (DRAFT)
+- [ ] `/collections/anti-fatigue-mats` — Anti-Fatigue Mats
+- [ ] `/collections/art-easel` — Art Easel
+- [ ] `/collections/arts-crafts` — Arts & Crafts
+- [ ] `/collections/audio-visual-equipment` — Audio Visual Equipment
+- [ ] `/collections/av-stand` — AV Stand
+- [ ] `/collections/avada-best-sellers` — AVADA - Best Sellers (DRAFT)
+- [ ] `/collections/bar-height-tables` — Bar Height (Tables)
+- [ ] `/collections/bariatric-seating` — Bariatric Seating
+- [ ] `/collections/bariatric-seating-1` — Bariatric Seating
+- [ ] `/collections/bases` — Bases
+- [ ] `/collections/beds-matresses` — Beds & Mattresses
+- [ ] `/collections/bedside-tables` — Bedside Tables
+- [ ] `/collections/benches` — Benches
+- [ ] `/collections/benching-1` — Benching
+- [ ] `/collections/benching-desks` — Benching (Desks)
+- [ ] `/collections/big-heavy-seating` — Big & Heavy (Seating)
+- [ ] `/collections/bin-storage-tower` — Bin Storage Tower
+- [ ] `/collections/binder-accessories` — Binder & Accessories
+- [ ] `/collections/binder-pockets` — Binder Pockets
+- [ ] `/collections/blinder` — Blinder
+- [ ] `/collections/block-shelf-units` — Block Shelf Units
+- [ ] `/collections/boardroom` — Boardroom
+- [ ] `/collections/boardroom-conference-meeting` — Boardroom / Conference / Meeting
+- [ ] `/collections/boardroom-conference-meeting-1` — Boardroom / Conference / Meeting
+- [ ] `/collections/book-carts` — Book Carts
+- [ ] `/collections/book-carts-easels` — Book Carts & Easels
+- [ ] `/collections/book-display-book-racks` — Book Display & Book Racks
+- [ ] `/collections/book-displays-storage` — Book Displays & Storage
+- [ ] `/collections/bookcases` — Bookcases
+- [ ] `/collections/bookcases-1` — Bookcases
+- [ ] `/collections/bookcases-storage` — Bookcases (Storage)
+- [ ] `/collections/boot-cubby` — Boot Cubby
+- [ ] `/collections/bundle-builder-products` — Bundle Builder Products (DRAFT)
+- [ ] `/collections/buy-canadian` — Buy Canadian
+- [ ] `/collections/cabinets-racks-accessories` — Cabinets & Racks Accessories
+- [ ] `/collections/cafe-lounge-seating` — Cafe/Lounge Seating
+- [ ] `/collections/cafeteria-breakroom-tables` — Cafeteria & Breakroom Tables
+- [ ] `/collections/cafeteria-kitchen-tables` — Cafeteria / Kitchen (Tables)
+- [ ] `/collections/carpet-chair-mats` — Carpet Chair Mats
+- [ ] `/collections/carts` — Carts
+- [ ] `/collections/carts-stands` — Carts & Stands
+- [ ] `/collections/casters` — Casters
+- [ ] `/collections/casters-wheels` — Casters / Wheels
+- [ ] `/collections/castors-seating` — Castors (Seating)
+- [ ] `/collections/chair-accessories` — Chair Accessories
+- [ ] `/collections/chair-mats` — Chair Mats
+- [ ] `/collections/chairmat-accessories` — Chairmat (Accessories)
+- [ ] `/collections/chairmats` — Chairmats
+- [ ] `/collections/chairmats-accessories` — Chairmats (Accessories)
+- [ ] `/collections/chairs` — Chairs
+- [ ] `/collections/change-tables` — Change Tables
+- [ ] `/collections/charging-units` — Charging Units
+- [ ] `/collections/classroom-storage` — Classroom Storage
+- [ ] `/collections/clinician-screens` — Clinician Screens
+- [ ] `/collections/cluster-seating` — Cluster Seating
+- [ ] `/collections/coat-cubbies` — Coat Cubbies
+- [ ] `/collections/coat-cubbies-lockers` — Coat Cubbies & Lockers
+- [ ] `/collections/coat-garment-hooks` — Coat/Garment Hooks
+- [ ] `/collections/coat-racks` — Coat Racks
+- [ ] `/collections/coat-racks-accessories` — Coat Racks (Accessories)
+- [ ] `/collections/coffee-tables` — Coffee Tables
+- [ ] `/collections/combo-units` — Combo Units
+- [ ] `/collections/computer-accessories` — Computer Accessories
+- [ ] `/collections/contemporary-laminate` — Contemporary - Laminate
+- [ ] `/collections/contemporary-veneer` — Contemporary - Veneer
+- [ ] `/collections/convertisseur-de-bureau` — Convertisseur de bureau
+- [ ] `/collections/credenzas` — Credenza's
+- [ ] `/collections/cribs` — Cribs
+- [ ] `/collections/cubby-storage-units` — Cubby Storage Units
+- [ ] `/collections/desk-tables-sit-stand-classroom` — Desk, Tables, Sit Stand & Classroom
+- [ ] `/collections/desk-top-dividers` — Desk Top Dividers
+- [ ] `/collections/desk-top-sit-stand` — Desk Top Sit / Stand
+- [ ] `/collections/desk-top-sit-stand-ergonomic-products` — Desk Top Sit / Stand (Ergonomic Products)
+- [ ] `/collections/desk-top-stand` — DESK TOP / STAND
+- [ ] `/collections/desks` — Desks
+- [ ] `/collections/desks-benching-units` — Desks (Benching Units)
+- [ ] `/collections/desks-straight` — Desks-Straight
+- [ ] `/collections/desktop-risers` — Desktop Risers
+- [ ] `/collections/desktop-sit-stand` — Desktop Sit Stand
+- [ ] `/collections/diagnostic-carts-arms` — Diagnostic Carts/Arms
+- [ ] `/collections/diaper-shelves` — Diaper Shelves
+- [ ] `/collections/dining-room` — dining room
+- [ ] `/collections/dinning-furniture` — Dinning Furniture
+- [ ] `/collections/dinning-seating` — Dinning Seating
+- [ ] `/collections/dinning-tables` — Dinning Tables
+- [ ] `/collections/doll-furniture` — Doll Furniture
+- [ ] `/collections/doors` — Doors
+- [ ] `/collections/dorm-penitentiary-furniture` — Dorm & Penitentiary Furniture
+- [ ] `/collections/drafting-tables` — Drafting Tables
+- [ ] `/collections/dramatic-play` — Dramatic Play
+- [ ] `/collections/dressers` — Dressers
+- [ ] `/collections/educational` — Educational
+- [ ] `/collections/educational-furniture` — Educational Furniture
+- [ ] `/collections/end-tab-file-cabinets-storage-coming-soon` — End Tab File Cabinets (Storage)  Coming Soon
+- [ ] `/collections/end-tab-filing-storage` — End Tab Filing (Storage)
+- [ ] `/collections/end-tables-tables` — End tables (Tables)
+- [ ] `/collections/epson` — Epson
+- [ ] `/collections/ergonomic-products` — Ergonomic Products
+- [ ] `/collections/exam-room-seating` — Exam Room Seating
+- [ ] `/collections/facility-breakroom` — Facility & Breakroom
+- [ ] `/collections/facility-supplies` — Facility Supplies
+- [ ] `/collections/fees-products` — Fees products
+- [ ] `/collections/filing-storage-accessories` — Filing, Storage & Accessories
+- [ ] `/collections/fire-resistant-file-cabinets` — Fire Resistant File Cabinets
+- [ ] `/collections/fire-resistant-file-cabinets-safes` — Fire Resistant File Cabinets & Safes
+- [ ] `/collections/fire-resistant-file-cabinets-storage` — Fire Resistant File Cabinets (Storage)
+- [ ] `/collections/fire-resistant-safes` — Fire Resistant Safes
+- [ ] `/collections/fire-resistant-safes-storage` — Fire Resistant Safes (Storage)
+- [ ] `/collections/fixed-shelf-units` — Fixed Shelf Units
+- [ ] `/collections/floor-mats` — Floor Mats
+- [ ] `/collections/folding-chair-chair` — Folding Chair
+- [ ] `/collections/folding-stacking-chairs-carts` — Folding/Stacking Chairs & Carts
+- [ ] `/collections/folding-tables` — Folding Tables
+- [ ] `/collections/folding-tables-tables` — Folding Tables (Tables)
+- [ ] `/collections/frontpage` — Home page (DRAFT)
+- [ ] `/collections/furniture` — Furniture
+- [ ] `/collections/furniture-accessories` — Furniture Accessories
+- [ ] `/collections/furniture-collections` — Furniture Collections
+- [ ] `/collections/gaming` — Gaming
+- [ ] `/collections/garment-care` — Garment Care
+- [ ] `/collections/guest-seating` — Guest (Seating)
+- [ ] `/collections/headboards-footboards` — Headboards & Footboards
+- [ ] `/collections/healthcare` — Healthcare
+- [ ] `/collections/heaters` — Heaters
+- [ ] `/collections/height-adjustable-tables` — Height Adjustable Tables
+- [ ] `/collections/height-adjustable-tables-1` — Height Adjustable Tables
+- [ ] `/collections/height-adjustable-tables-desks` — Height Adjustable Tables (Desks)
+- [ ] `/collections/higback` — Higback
+- [ ] `/collections/highback-seating` — Highback (Seating)
+- [ ] `/collections/home-page` — Home page
+- [ ] `/collections/hp` — HP
+- [ ] `/collections/hutch` — Hutch
+- [ ] `/collections/industrial-seating` — Industrial Seating
+- [ ] `/collections/infant-toddler` — Infant & Toddler
+- [ ] `/collections/ink-and-toner` — Ink and Toner
+- [ ] `/collections/insulated-file-cabinets` — Insulated File Cabinets
+- [ ] `/collections/interactive-play-funriture` — Interactive Play Funriture
+- [ ] `/collections/ipad-holder` — iPad Holder
+- [ ] `/collections/keyboard-trays` — Keyboard Trays
+- [ ] `/collections/kids-bookcases` — Kids Bookcases
+- [ ] `/collections/kids-chairs` — Kids Chairs
+- [ ] `/collections/kids-couches-coming-soon` — Kids Couches-coming soon
+- [ ] `/collections/kids-desks` — Kids Desks
+- [ ] `/collections/kids-display-stands` — Kids Display Stands
+- [ ] `/collections/kids-play-tables` — Kids Play Tables
+- [ ] `/collections/l-shape` — L-Shape
+- [ ] `/collections/l-shape-desks` — L-Shape Desks
+- [ ] `/collections/l-shape-desks-1` — L-Shape Desks
+- [ ] `/collections/l-shape-desks-desks` — L-Shape Desks
+- [ ] `/collections/laboratory-furniture` — Laboratory Furniture
+- [ ] `/collections/laminate-bookcases` — Laminate Bookcases
+- [ ] `/collections/lateral-file-cabinets-storage` — Lateral File Cabinets (Storage)
+- [ ] `/collections/lateral-files-storage` — Lateral Files (Storage)
+- [ ] `/collections/lateral-storage-combo-storage` — Lateral / Storage Combo (Storage)
+- [ ] `/collections/leather-faux-seating` — Leather / Faux (Seating)
+- [ ] `/collections/lecterns-podiums` — Lecterns / Podiums
+- [ ] `/collections/lecture-hall-seating` — Lecture Hall Seating
+- [ ] `/collections/library-shelving` — Library Shelving
+- [ ] `/collections/library-study-tables` — Library Study Tables
+- [ ] `/collections/lighting` — Lighting
+- [ ] `/collections/lighting-1` — Lighting
+- [ ] `/collections/lockers` — Lockers
+- [ ] `/collections/lounge` — Lounge
+- [ ] `/collections/lounge-chairs` — Lounge Chairs
+- [ ] `/collections/lounge-chairs-seating` — Lounge Chairs (Seating)
+- [ ] `/collections/lounge-seating` — Lounge Seating
+- [ ] `/collections/mandatory-fees` — Mandatory Fees
+- [ ] `/collections/manipulative-play` — Manipulative Play
+- [ ] `/collections/manufacturers-we-support` — Manufacturers we support
+- [ ] `/collections/mattresses` — Mattresses
+- [ ] `/collections/medium-back-seating` — Medium Back (Seating)
+- [ ] `/collections/meeting-conference-room-tables` — Meeting & Conference Room Tables
+- [ ] `/collections/meeting-tables` — Meeting Tables
+- [ ] `/collections/mesh-seating` — Mesh (Seating)
+- [ ] `/collections/metal-frame-adjustable-tables` — Metal Frame Adjustable Tables
+- [ ] `/collections/metal-shelving` — Metal Shelving
+- [ ] `/collections/metal-vertical-files` — Metal Vertical Files
+- [ ] `/collections/mirrors-room-dividers` — Mirrors & Room Dividers
+- [ ] `/collections/mobile-coat-cubby` — Mobile Coat Cubby
+- [ ] `/collections/mobile-files-carts` — Mobile Files & Carts
+- [ ] `/collections/mobile-pedestals` — Mobile Pedestals
+- [ ] `/collections/modesty-panels` — Modesty Panels
+- [ ] `/collections/monitor-arms` — Monitor Arms
+- [ ] `/collections/monitor-machine-stands` — Monitor & Machine Stands
+- [ ] `/collections/monitor-stands-risers` — Monitor Stands/Risers
+- [ ] `/collections/multi-person-workstations` — Multi Person Workstations
+- [ ] `/collections/multi-person-workstations-1` — Multi Person Workstations
+- [ ] `/collections/multi-person-workstations-desks` — Multi Person Workstations (Desks)
+- [ ] `/collections/multi-storage-units` — Multi Storage Units
+- [ ] `/collections/nesting-chairs-chair` — Nesting Chairs (Chair)
+- [ ] `/collections/occasional-tables` — Occasional Tables
+- [ ] `/collections/office-furniture` — Office Furniture
+- [ ] `/collections/office-suites-desks` — Office Suites (Desks)
+- [ ] `/collections/office-supplies` — Office Supplies
+- [ ] `/collections/office-teachers-chairs` — Office / Teachers Chairs
+- [ ] `/collections/orderly-emails-recommended-products` — Orderly Emails - Recommended Products (DRAFT)
+- [ ] `/collections/ottomans` — Ottomans
+- [ ] `/collections/outdoor-seating` — Outdoor Seating
+- [ ] `/collections/outerwear` — Outerwear
+- [ ] `/collections/overbed-tables` — Overbed Tables
+- [ ] `/collections/overhead-storage-cabinets` — Overhead Storage Cabinets
+- [ ] `/collections/paint-dryers` — Paint Dryers
+- [ ] `/collections/panel-systems` — Panel Systems
+- [ ] `/collections/panels-dividers` — Panels/Dividers
+- [ ] `/collections/panels-partitions` — Panels/Partitions
+- [ ] `/collections/panels-room-dividers` — Panels & Room Dividers
+- [ ] `/collections/pedestal-drawers` — Pedestal Drawers
+- [ ] `/collections/pedestal-drawers-1` — Pedestal Drawers
+- [ ] `/collections/pedestal-drawers-storage` — Pedestal / Drawers (Storage)
+- [ ] `/collections/pedestals` — Pedestals
+- [ ] `/collections/picnic-tables` — Picnic Tables
+- [ ] `/collections/planters` — Planters
+- [ ] `/collections/podiums` — Podiums
+- [ ] `/collections/power-modules-accessories` — Power Modules (Accessories)
+- [ ] `/collections/preschool-couches-chairs` — Preschool Couches & Chairs
+- [ ] `/collections/products` — Products
+- [ ] `/collections/products-1` — Products (DRAFT)
+- [ ] `/collections/puzzle-shelf` — Puzzle Shelf
+- [ ] `/collections/quiet-spaces` — Quiet Spaces
+- [ ] `/collections/reception` — Reception
+- [ ] `/collections/reception-area-accent-tables` — Reception Area & Accent Tables
+- [ ] `/collections/reception-desks-desks` — Reception Desks (Desks)
+- [ ] `/collections/reception-low-tables` — Reception / Low (Tables)
+- [ ] `/collections/reception-side-guest-chairs` — Reception, Side & Guest Chairs
+- [ ] `/collections/recliners` — Recliners
+- [ ] `/collections/refreshment-carts-stands` — Refreshment Carts / Stands
+- [ ] `/collections/resident-room-seating` — Resident Room Seating
+- [ ] `/collections/room-accessories` — Room Accessories
+- [ ] `/collections/room-boardroom` — Boardroom
+- [ ] `/collections/room-break-room` — Break Room
+- [ ] `/collections/room-dividers` — Room Dividers
+- [ ] `/collections/room-dividers-panels-dividers` — Room Dividers (Panels / Dividers)
+- [ ] `/collections/room-lounge` — Lounge
+- [ ] `/collections/room-open-plan` — Open Plan
+- [ ] `/collections/room-private-office` — Private Office
+- [ ] `/collections/room-reception` — Reception
+- [ ] `/collections/room-training-room` — Training Room
+- [ ] `/collections/round-square-tables` — Round & Square Tables
+- [ ] `/collections/safes` — Safes
+- [ ] `/collections/samsung` — Samsung
+- [ ] `/collections/sand-water-tables` — Sand & Water Tables
+- [ ] `/collections/seating` — Seating
+- [ ] `/collections/seating-1` — Seating
+- [ ] `/collections/sectionals` — Sectionals
+- [ ] `/collections/shelving` — Shelving
+- [ ] `/collections/side-coffee-table` — Side / Coffee Table
+- [ ] `/collections/side-coffee-table-tables` — Side / Coffee Table (Tables)
+- [ ] `/collections/sit-stand-workstations` — Sit-Stand Workstations
+- [ ] `/collections/small-bin-cubby-storage-units` — Small Bin Cubby Storage Units
+- [ ] `/collections/smart-products-filter-index-do-not-delete` — Smart Products Filter Index - Do not delete (DRAFT)
+- [ ] `/collections/snow-and-ice-melts` — Snow and Ice Melts
+- [ ] `/collections/sound-dampeners` — Sound Dampeners
+- [ ] `/collections/stacking-chairs-chair` — Stacking Chairs (Chair)
+- [ ] `/collections/stacking-seating` — Stacking (Seating)
+- [ ] `/collections/stands` — Stands
+- [ ] `/collections/step-stools` — Step Stools
+- [ ] `/collections/stools` — Stools
+- [ ] `/collections/stools-drafting-chairs` — Stools & Drafting Chairs
+- [ ] `/collections/stools-seating` — Stools (Seating)
+- [ ] `/collections/type-accessories` — Accessories
+- [ ] `/collections/type-chairs` — Chairs
+- [ ] `/collections/type-desks` — Desks
+- [ ] `/collections/type-lounge` — Lounge Seating
+- [ ] `/collections/type-outdoor` — Outdoor
+- [ ] `/collections/type-storage` — Storage
+- [ ] `/collections/type-tables` — Tables
+
+## 7. Blog + articles
+
+### Blog: News (`/blogs/news`)
+- [ ] `/blogs/news/tables` — Tables (DRAFT)
+- [ ] `/blogs/news/how-to-adjust-your-chair` — How to adjust your chair
+
+## 8. Navigation menus
+- [ ] `main-menu` — Main menu (0 items)
+- [ ] `footer` — Footer menu (1 items)
+- [ ] `customer-care` — Customer Care (4 items)
+- [ ] `main-menu-2` — Main menu 2 (5 items)
+- [ ] `customer-account-main-menu` — Customer account main menu (2 items)
+
+---
+## Summary
+- Templates: 20
+- Sections: 83
+- Snippets: 98
+- Admin pages: 20
+- Collections: 273
+- Blog articles: 2
+- Menus: 5
+- Other assets (JS/CSS/images): 82
