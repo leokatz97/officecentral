@@ -1,3 +1,20 @@
 .env
 .env.*
 .DS_Store
+
+# Claude Code worktrees and local settings (may contain API tokens)
+.claude/worktrees/
+.claude/settings.local.json
+
+# Generated script artifacts — regenerate with audit scripts, don't commit
+data/backups/
+data/logs/
+data/exports/
+data/specs.json
+data/specs-run.log
+data/theme-inventory.json
+data/theme-coverage.md
+
+# Liquid backup files — use git history instead
+theme/**/*.backup-*
+theme/**/*-backup-*.liquid

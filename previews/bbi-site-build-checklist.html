@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BBI Site Build Checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: #1a2744;
+    color: white;
+    padding: 22px 32px 18px;
+  }
+  .header h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+  .header .subtitle { font-size: 12px; opacity: 0.65; }
+
+  /* ─── CONTROLS ─── */
+  .controls {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .controls input, .controls select {
+    height: 32px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 12.5px;
+    outline: none;
+    background: white;
+    color: #374151;
+  }
+  .controls input { width: 220px; }
+  .controls input:focus, .controls select:focus { border-color: #1a2744; box-shadow: 0 0 0 2px #1a274420; }
+  .btn {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    color: #374151;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: #f3f4f6; }
+  .count-label { margin-left: auto; font-size: 12px; color: #9ca3af; white-space: nowrap; }
+
+  /* ─── PROGRESS ─── */
+  .progress-wrap {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .progress-track {
+    flex: 1; height: 7px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #22c55e;
+    border-radius: 4px;
+    transition: width 0.35s ease;
+  }
+  .progress-label { font-size: 12px; color: #6b7280; white-space: nowrap; }
+
+  /* ─── GATE BANNER ─── */
+  .gate-banner {
+    background: #fefce8;
+    border-bottom: 1px solid #fde68a;
+    padding: 7px 32px;
+    font-size: 12px;
+    color: #92400e;
+  }
+
+  /* ─── TABLE ─── */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: white; }
+  thead { position: sticky; top: 0; z-index: 10; }
+  thead th {
+    background: #f9fafb;
+    border-bottom: 2px solid #e5e7eb;
+    padding: 9px 14px;
+    text-align: left;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.1s; }
+  tbody tr:hover { background: #f9fafb; }
+  tbody tr.done-row { background: #f0fdf4; }
+  tbody tr.done-row:hover { background: #dcfce7; }
+  tbody tr.in-progress-row { background: #fffbeb; }
+  tbody tr.in-progress-row:hover { background: #fef9c3; }
+
+  td { padding: 10px 14px; vertical-align: top; }
+
+  td.num {
+    width: 38px; text-align: center;
+    color: #9ca3af; font-size: 12px;
+    padding-top: 13px; white-space: nowrap;
+  }
+
+  td.page-cell { min-width: 180px; }
+  td.page-cell .page-name { font-weight: 600; font-size: 13px; color: #111827; margin-bottom: 2px; }
+  td.page-cell .route {
+    display: block;
+    font-family: 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 10.5px;
+    color: #9ca3af;
+    margin-bottom: 0;
+  }
+  .done-row td.page-cell .page-name { color: #166534; }
+
+  /* Phase chips */
+  .phase-chip {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 10px;
+    font-size: 10.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .phase-1 { background: #eff6ff; color: #1d4ed8; }
+  .phase-2 { background: #f0fdf4; color: #166534; }
+  .phase-3 { background: #fdf4ff; color: #7e22ce; }
+  .phase-4 { background: #fff7ed; color: #c2410c; }
+  .phase-5 { background: #f0f9ff; color: #0369a1; }
+
+  /* Status badges */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s, transform 0.1s;
+    user-select: none;
+  }
+  .status-badge:hover { opacity: 0.82; transform: scale(0.97); }
+  .status-badge:active { transform: scale(0.94); }
+  .status-badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .status-not-started { background: #f3f4f6; color: #6b7280; }
+  .status-not-started .dot { background: #d1d5db; }
+  .status-in-progress { background: #fef3c7; color: #92400e; }
+  .status-in-progress .dot { background: #f59e0b; }
+  .status-done { background: #dcfce7; color: #166534; }
+  .status-done .dot { background: #22c55e; }
+
+  /* Notes + Tips cell */
+  td.notes-cell { min-width: 340px; }
+
+  .tips {
+    background: #f8fafc;
+    border-left: 3px solid #1a2744;
+    padding: 8px 11px;
+    margin-bottom: 8px;
+    border-radius: 0 4px 4px 0;
+  }
+  .tips-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #1a2744;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 5px;
+  }
+  .tips ul { list-style: none; padding: 0; margin: 0; }
+  .tips ul li {
+    font-size: 11.5px;
+    color: #374151;
+    padding: 2px 0 2px 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .tips ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #9ca3af;
+    font-size: 10px;
+    top: 3px;
+  }
+  .done-tip { color: #166534 !important; font-style: italic; }
+
+  .notes-input {
+    width: 100%;
+    min-height: 52px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    color: #374151;
+    background: white;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .notes-input:focus { border-color: #1a2744; }
+  .notes-input.has-content { border-color: #22c55e; background: #f0fdf4; }
+
+  /* Empty state */
+  .empty-state { display: none; text-align: center; padding: 48px 32px; color: #9ca3af; font-size: 14px; background: white; }
+
+  /* Footer */
+  .footer { padding: 20px 32px; font-size: 11px; color: #9ca3af; text-align: center; }
+
+  @media print {
+    .controls, .gate-banner, .notes-input, .btn { display: none !important; }
+    body { background: white; font-size: 11pt; }
+    .header { padding: 16px 24px; }
+    td, th { padding: 7px 10px !important; }
+    thead { position: static; }
+    .tips { background: #f8fafc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    tbody tr.done-row { background: #f0fdf4 !important; }
+    tbody tr.in-progress-row { background: #fffbeb !important; }
+    .table-wrap { overflow: visible; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>BBI Site Build Checklist</h1>
+  <div class="subtitle">24 pages &nbsp;·&nbsp; Draft theme: BBI Landing Dev (186373570873) &nbsp;·&nbsp; Updated April 22, 2026 &nbsp;·&nbsp; Progress and notes saved in your browser</div>
+</div>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="Search pages or routes…">
+  <select id="filter-phase">
+    <option value="">All phases</option>
+    <option value="1">Phase 1 — Foundation</option>
+    <option value="2">Phase 2 — Catalog</option>
+    <option value="3">Phase 3 — Services</option>
+    <option value="4">Phase 4 — Verticals</option>
+    <option value="5">Phase 5 — Campaigns</option>
+  </select>
+  <select id="filter-status">
+    <option value="">All statuses</option>
+    <option value="not-started">Not started</option>
+    <option value="in-progress">In progress</option>
+    <option value="done">Done</option>
+  </select>
+  <button class="btn" onclick="exportCSV()">Export CSV</button>
+  <button class="btn" onclick="clearNotes()">Clear notes</button>
+  <span class="count-label" id="count-label"></span>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <span class="progress-label" id="progress-label"></span>
+</div>
+
+<div class="gate-banner">
+  ⚠️ &nbsp;<strong>Publish gate:</strong> Deploy the BBI Landing Dev theme only after all 24 pages reach <em>Done</em>. The live site stays on the current theme until then.
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th style="width:38px">#</th>
+        <th>Page</th>
+        <th style="width:185px">Phase</th>
+        <th style="width:130px">Status</th>
+        <th>Best Practice Tips &amp; Notes</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="empty-state" id="empty-state">No pages match your search.</div>
+</div>
+
+<div class="footer">
+  Brant Business Interiors &nbsp;·&nbsp; brantbasics.com &nbsp;·&nbsp; 1-800-835-9565 &nbsp;·&nbsp; Status &amp; notes stored locally — click status badges to cycle, add notes below each tip block.
+</div>
+
+<script>
+const PAGES = [
+  // ── PHASE 1: FOUNDATION ──────────────────────────────────────────────────
+  {
+    id: 1, phase: 1, name: "Homepage", route: "/",
+    tips: [
+      "Hero photo: Inspiration-Executive-Office.jpg or OCI-Service-Excellence-2.jpg (real Canadian installations from data/oci-photos/)",
+      "Headline: \"Commercial Office Furniture. Canadian-Made.\" — lead with Primary ICP (institutional durability), secondary hook: free design layout",
+      "Trust row below hero: Canadian Owned · Ships Across Canada · PO & NET 30 Accepted · 30+ Years",
+      "Include: OECM badge, 1-800-835-9565 in announcement bar, Free Design Layout as primary CTA, customer logos (health centre / First Nations org / school / municipality)",
+      "Footer: \"Office Central Inc. (OECM Supplier)\" in meta-title — already locked in ICP docs"
+    ]
+  },
+  {
+    id: 2, phase: 1, name: "About / Our Story", route: "/pages/about",
+    tips: [
+      "Photos: About-us-1/2/3.webp from OCI library — real team/location shots",
+      "Narrative: 5 Ontario locations, Canadian supplier moat, 30+ years, commercial-grade pedigree",
+      "Avoid lifestyle fluff — tone from voice.md: \"built for the way offices actually work\", not \"unleash your potential\"",
+      "Call out: OECM verified supplier, Global Furniture Group backing, institutional specialty (health centres, First Nations, schools, municipalities)",
+      "Reference icp.md for approved ICP framing: Primary = institutional procurement, Secondary = SMB office managers"
+    ]
+  },
+  {
+    id: 3, phase: 1, name: "Contact", route: "/pages/contact",
+    tips: [
+      "Phone 1-800-835-9565 must be clickable (tel: link) — appear in header, body, and CTA",
+      "Surface all 5 Ontario location addresses with a map embed",
+      "Form fields: Name, Company, Vertical (Business / Education / Healthcare / Government / Non-Profit), Request Type (Quote / Design Layout / General Question)",
+      "Soft-ask: \"Starting a fit-out? Request a free design layout\" below the form",
+      "Hours + email to: sales@ routing to correct inbox"
+    ]
+  },
+
+  // ── PHASE 2: CATALOG ─────────────────────────────────────────────────────
+  {
+    id: 4, phase: 2, name: "Product Page Template", route: "/products/[any]",
+    tips: [
+      "One template powers all products — build it once, get it right. Reference effydesk.com/products/essential-bundle for layout inspiration (per Claude Design inspo note)",
+      "Open with bold one-line use-case hook, not specs: \"Built for focused solo work...\" — specs go in the tab/accordion below",
+      "Always surface model code / product handle in title — B2B reorders search by code (per voice.md)",
+      "Phone CTA at bottom of every product: \"Questions? Call 1-800-835-9565\"",
+      "Delivery line: \"Ships from Ontario stock · Installation available\" — never promise specific lead times (fallback: call for lead times)",
+      "Add spec table: dimensions, weight, warranty, lead time, country of manufacture",
+      "Quick Ship badge where applicable; Request a Quote CTA for $0-price / sold-out / showcase items (per unbuyable → quote rule)"
+    ]
+  },
+  {
+    id: 5, phase: 2, name: "Task Seating", route: "/collections/task-seating",
+    tips: [
+      "Collection intro: \"Commercial-grade chairs built for heavy institutional use\"",
+      "Feature 3 hero SKUs: ObusForme Comfort High Back (back health), ergonomic mesh (SMB / professional services), bariatric option (healthcare compliance)",
+      "CTAs: \"Delivery across Ontario\" + \"Free Design Layout\"",
+      "ergoCentric is a priority brand here — BBI is an authorized dealer (see /pages/brands-ergocentric)"
+    ]
+  },
+  {
+    id: 6, phase: 2, name: "Desks & Workstations", route: "/collections/desks",
+    tips: [
+      "Intro: \"L-shaped and U-shaped workstations for private offices, executive suites, and multi-person teams\"",
+      "Feature: L-Shape Desk (highest revenue SKU in category, ~$12.9k), U-Shape Height Adjust Zira (~$9.6k), 1–2 sit-stand options",
+      "Copy emphasis: \"commercial-grade steel frame\" + \"takes a decade of institutional use\"",
+      "Upsell: pair desk recommendations with storage/hutch and task seating",
+      "Global & Teknion dealer for premium systems — link to /pages/brands-global-teknion"
+    ]
+  },
+  {
+    id: 7, phase: 2, name: "Storage & Filing", route: "/collections/storage",
+    tips: [
+      "Intro: \"Filing cabinets and shelving that secure your records and organize your space\"",
+      "Feature: Premium Series Lateral File Cabinet 9300 (top revenue in category, lifetime warranty, Made in Canada)",
+      "Highlights: interlock anti-tip system, recessed-front option for busy walkways, 5-drawer options for dense record storage",
+      "\"Heavy-duty institutional use\" framing throughout — avoid residential or home-office language"
+    ]
+  },
+  {
+    id: 8, phase: 2, name: "Collaboration", route: "/collections/collaboration",
+    tips: [
+      "Intro: \"Conference tables and collaboration seating that anchor your meeting space\"",
+      "Feature: Training Flip Top Tables (~$9.3k revenue) — call out 5.25\" nesting for quick room reconfiguration",
+      "Include an 8–10 person boardroom table option and linking to Keilhauer lounge seating",
+      "CTA: \"Planning a full boardroom fit-out? Get a free design layout from our team\"",
+      "Keilhauer dealer relationship is relevant here — link to /pages/brands-keilhauer"
+    ]
+  },
+  {
+    id: 9, phase: 2, name: "Acoustic Pods", route: "/collections/acoustic-pods",
+    tips: [
+      "Lead photo: Inspiration-Privacy-pods.jpg from OCI library (data/oci-photos/)",
+      "Copy: \"Quiet zones and focus spaces built into your open office — without a renovation\"",
+      "SEO keyword: acoustic office pods Canada, office phone booth Ontario",
+      "If SKUs are limited at launch: use 'Coming Soon' or partner-sourced framing with call-to-order CTA",
+      "Hot item per SEO strategy 2026 — \"Workspitality\" and acoustic pods flagged as trending searches"
+    ]
+  },
+
+  // ── PHASE 3: SERVICES ────────────────────────────────────────────────────
+  {
+    id: 10, phase: 3, name: "Free Design Layout", route: "/pages/design-services",
+    tips: [
+      "Primary hook for Secondary ICP (SMB office managers, project leads, fit-outs)",
+      "CTA: \"Plan your space with our team — free renderings included, no obligation\"",
+      "Form: Project type (Office Refresh / New Fit-Out / Single Room), approx. square footage, timeline, budget range",
+      "Link to Our Work portfolio (/pages/our-work) as social proof directly on this page",
+      "Pair with OCI-Planning-Design.jpg or a rendered floor plan example"
+    ]
+  },
+  {
+    id: 11, phase: 3, name: "Delivery + Install", route: "/pages/delivery",
+    tips: [
+      "Lead with: \"Ontario delivery standard. White-glove installation available on orders $2,000+\"",
+      "Link to the live 7-tier shipping rate table — reference Shopify admin for current rates",
+      "Out-of-province: \"Freight quotes available — call 1-800-835-9565 for custom rates\"",
+      "Surface on applicable products via metafield or product tag badge",
+      "Reassurance: BBI is not a drop-shipper — Ontario stock, local logistics"
+    ]
+  },
+  {
+    id: 12, phase: 3, name: "Relocation Management", route: "/pages/relocation",
+    tips: [
+      "Lead photo: OCI-Services-Relocation-management.jpg from OCI library",
+      "Copy: \"From teardown to reinstall — we manage the full office move\"",
+      "Target: Secondary ICP — office managers, operations leads, HR teams planning a move",
+      "Emphasize 5 Ontario locations as a logistics advantage",
+      "Services to list: inventory assessment, disassembly, transport, reinstall, surplus disposal"
+    ]
+  },
+  {
+    id: 13, phase: 3, name: "Space Planning", route: "/pages/space-planning",
+    tips: [
+      "Lead photo: OCI-Planning-Design.jpg from OCI library",
+      "Copy: \"Room-by-room layouts for schools, clinics, open offices, and community spaces\"",
+      "Highlight: free design layouts + CAD renderings, no consultant fee",
+      "Secondary CTA: \"See completed projects → Our Work\"",
+      "Target verticals: education, healthcare, government (map to the Phase 4 vertical pages)"
+    ]
+  },
+  {
+    id: 14, phase: 3, name: "Our Work (Portfolio)", route: "/pages/our-work",
+    tips: [
+      "48 real project photos available in data/oci-photos/catalog.json — use Mattamy-1 through Mattamy-5 as anchor project",
+      "Format: 4–5 case study cards — client name, vertical, problem → solution → outcome",
+      "Link each case study back to relevant product collection (e.g. open-office project → /collections/task-seating)",
+      "Photos available: healthcare, education, government, relocation, executive office, inspiration sets",
+      "\"Request a Free Design Layout\" as the page's closing CTA"
+    ]
+  },
+
+  // ── PHASE 4: VERTICALS ───────────────────────────────────────────────────
+  {
+    id: 15, phase: 4, name: "Healthcare", route: "/pages/healthcare",
+    tips: [
+      "Lead photo: OCI-Healthcare-Furniture-Gallery-Image.jpg",
+      "Emphasize: waiting-room durability, bariatric seating options, infection-control finishes (antimicrobial vinyl, easy-clean), clinical aesthetics",
+      "Buyers: procurement managers at community health centres, long-term care facilities, walk-in clinics",
+      "SEO keywords: healthcare furniture Canada, clinic waiting room chairs, hospital-grade office furniture",
+      "Link to Task Seating (ergoCentric bariatric), Storage, and Contact with healthcare-specific CTA"
+    ]
+  },
+  {
+    id: 16, phase: 4, name: "Education", route: "/pages/education",
+    tips: [
+      "Lead photo: OCI-Education-1.jpg",
+      "Emphasize: daycare safety certifications, classroom durability, modular training tables (quick reconfiguration), teacher/admin ergonomics",
+      "Buyers: school board facilities managers, daycare directors, college procurement officers",
+      "SEO keywords: school furniture Ontario, classroom chairs Canada, daycare furniture supplier",
+      "Mention OECM supplier status — school boards can procure direct under the agreement"
+    ]
+  },
+  {
+    id: 17, phase: 4, name: "Government", route: "/pages/government",
+    tips: [
+      "Lead photo: OCI-Government-Federal-Furniture-Gallery-Image-1.jpg",
+      "Emphasize: compliant procurement, PO / NET 30 accepted, OECM verified supplier status (primary differentiator)",
+      "Buyers: municipal facilities managers, federal real property teams, provincial ministries",
+      "SEO keywords: government office furniture Canada, municipal furniture supplier Ontario, OECM furniture supplier",
+      "Surface OECM badge prominently and link to /pages/oecm for full program details"
+    ]
+  },
+  {
+    id: 18, phase: 4, name: "Non-Profit", route: "/pages/non-profit",
+    tips: [
+      "Lead: \"Canadian-owned. Built for organizations that do more with less.\" + OECM badge",
+      "Emphasize: commercial-grade durability for high-traffic spaces, volume pricing, PO / NET 30 flexibility",
+      "Buyers: Executive Directors, operations leads, community centre facilities managers",
+      "SEO keywords: non-profit office furniture Canada, community organization furniture Ontario",
+      "Historical BBI customers include First Nations organizations, community health centres — use as social proof (anonymized if needed)"
+    ]
+  },
+  {
+    id: 19, phase: 4, name: "Professional Services", route: "/pages/professional-services",
+    tips: [
+      "Lead photo: Inspiration-Executive-Office.jpg or Inspiration-Reception.jpg from OCI library",
+      "Emphasize: client-facing aesthetics (reception, boardroom, executive offices), premium ergonomics, professional look at institutional price",
+      "Buyers: office managers at law firms, accounting firms, medical offices, engineering firms",
+      "SEO keywords: professional office furniture Canada, law firm office chairs Ontario, executive office furniture Toronto",
+      "Keilhauer seating is the hero product here — link to /pages/brands-keilhauer"
+    ]
+  },
+
+  // ── PHASE 5: CAMPAIGNS / LANDING ─────────────────────────────────────────
+  {
+    id: 20, phase: 5, name: "Contract Pricing", route: "/pages/contract-pricing",
+    tips: [
+      "CTA-driven page: \"Volume discounts and contract pricing for institutions, government, and growing businesses\"",
+      "Form: Company name, Vertical (dropdown), Estimated order size, Timeline, Contact name + email",
+      "Route form submissions to sales@ — confirm this routing in Shopify admin",
+      "Surface PO / NET 30 / standing-order options as differentiators",
+      "Phone number prominent: 1-800-835-9565 for buyers who prefer a call"
+    ]
+  },
+  {
+    id: 21, phase: 5, name: "Keilhauer Dealer", route: "/pages/brands-keilhauer",
+    tips: [
+      "Replicate ergoCentric page structure: brand logo, product highlights, lead-gen form, quote CTA",
+      "Keilhauer = premium Canadian seating, made in Toronto — emphasize design pedigree and local manufacturing",
+      "Target: professional services, boardroom, executive seating buyers",
+      "Quote form: Company, Contact, Product Interest, Budget — route to sales@",
+      "Link to Collaboration and Task Seating collections featuring Keilhauer SKUs"
+    ]
+  },
+  {
+    id: 22, phase: 5, name: "Global & Teknion Dealer", route: "/pages/brands-global-teknion",
+    tips: [
+      "Replicate ergoCentric page structure for consistency",
+      "Global Furniture Group: position as the BBI/OCI parent supplier relationship — deepest pricing, full product range access",
+      "Teknion: premium systems furniture for large institutional fit-outs (open plans, modular workstations)",
+      "Buyers for this page: facilities directors, workplace strategy leads, corporate procurement",
+      "Link to Desks & Workstations and Collaboration collections"
+    ]
+  },
+  {
+    id: 23, phase: 5, name: "ergoCentric Dealer", route: "/pages/brands-ergocentric",
+    defaultStatus: "done",
+    tips: [
+      "DONE — use this page as the structural template for Keilhauer (#21) and Global & Teknion (#22)",
+      "Structure: brand logo hero, product feature highlights, authorized dealer badge, lead-gen form (Company / Contact / Budget), quote CTA routing to sales@",
+      "Link back to Task Seating collection showing ergoCentric SKUs",
+      "ergoCentric is a Canadian brand — Made in Mississauga — use as a differentiation point"
+    ]
+  },
+  {
+    id: 24, phase: 5, name: "OECM Supplier Partner", route: "/pages/oecm",
+    defaultStatus: "done",
+    tips: [
+      "DONE — use as reference for institutional trust-page pattern (government, education, healthcare landing pages)",
+      "Key message: \"BBI is a verified OECM supplier — Ontario school boards, hospitals, and municipalities can procure directly under the standing agreement\"",
+      "Surface: OECM program logo, supplier ID, eligible product categories, how to order under the agreement",
+      "Prominent trust badges + phone CTA: 1-800-835-9565 for procurement officers"
+    ]
+  }
+];
+
+// ── LOOKUPS ──────────────────────────────────────────────────────────────────
+const PHASE_LABELS = {
+  1: "Phase 1 — Foundation",
+  2: "Phase 2 — Catalog",
+  3: "Phase 3 — Services",
+  4: "Phase 4 — Verticals",
+  5: "Phase 5 — Campaigns"
+};
+const PHASE_CLASS = { 1: "phase-1", 2: "phase-2", 3: "phase-3", 4: "phase-4", 5: "phase-5" };
+const STATUS_CYCLE = { "not-started": "in-progress", "in-progress": "done", "done": "not-started" };
+const STATUS_LABEL = { "not-started": "Not started", "in-progress": "In progress", "done": "Done" };
+const STATUS_CLASS = { "not-started": "status-not-started", "in-progress": "status-in-progress", "done": "status-done" };
+const ROW_CLASS    = { "not-started": "", "in-progress": "in-progress-row", "done": "done-row" };
+
+// ── STATE (localStorage) ─────────────────────────────────────────────────────
+function load(key, fallback) {
+  try { return JSON.parse(localStorage.getItem(key) || 'null') || fallback; }
+  catch(e) { return fallback; }
+}
+function save(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+}
+
+let statuses = load('bbi_build_status_v1', {});
+let notes    = load('bbi_build_notes_v1', {});
+
+// Seed defaults
+PAGES.forEach(p => { if (statuses[p.id] === undefined) statuses[p.id] = p.defaultStatus || 'not-started'; });
+
+// ── ACTIONS ──────────────────────────────────────────────────────────────────
+function cycleStatus(id) {
+  statuses[id] = STATUS_CYCLE[statuses[id]];
+  save('bbi_build_status_v1', statuses);
+  render();
+}
+
+function saveNote(id, val) {
+  notes[id] = val;
+  save('bbi_build_notes_v1', notes);
+  const el = document.getElementById('note-' + id);
+  if (el) el.classList.toggle('has-content', val.trim().length > 0);
+}
+
+function clearNotes() {
+  if (!confirm('Clear all notes? This cannot be undone.')) return;
+  notes = {};
+  save('bbi_build_notes_v1', notes);
+  render();
+}
+
+function exportCSV() {
+  const rows = [['#', 'Page', 'Route', 'Phase', 'Status', 'Notes']];
+  PAGES.forEach(p => {
+    rows.push([
+      p.id,
+      '"' + p.name.replace(/"/g, '""') + '"',
+      p.route,
+      '"' + PHASE_LABELS[p.phase] + '"',
+      STATUS_LABEL[statuses[p.id]],
+      '"' + (notes[p.id] || '').replace(/"/g, '""').replace(/\n/g, ' ') + '"'
+    ]);
+  });
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'bbi-site-build-checklist.csv';
+  a.click();
+}
+
+// ── RENDER ───────────────────────────────────────────────────────────────────
+function render() {
+  const search       = document.getElementById('search').value.toLowerCase();
+  const phaseFilter  = document.getElementById('filter-phase').value;
+  const statusFilter = document.getElementById('filter-status').value;
+
+  const filtered = PAGES.filter(p => {
+    if (search && !p.name.toLowerCase().includes(search) && !p.route.toLowerCase().includes(search)) return false;
+    if (phaseFilter && String(p.phase) !== phaseFilter) return false;
+    if (statusFilter && statuses[p.id] !== statusFilter) return false;
+    return true;
+  });
+
+  // Count label
+  document.getElementById('count-label').textContent =
+    filtered.length === PAGES.length
+      ? PAGES.length + ' pages'
+      : filtered.length + ' of ' + PAGES.length + ' shown';
+
+  // Empty state
+  document.getElementById('empty-state').style.display = filtered.length === 0 ? 'block' : 'none';
+
+  // Progress (always all pages, not just filtered)
+  const doneCount = PAGES.filter(p => statuses[p.id] === 'done').length;
+  const pct = Math.round(doneCount / PAGES.length * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = doneCount + ' / ' + PAGES.length + ' done (' + pct + '%)';
+
+  // Rows
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+
+  filtered.forEach(p => {
+    const status = statuses[p.id];
+    const note   = notes[p.id] || '';
+    const isDone = status === 'done';
+
+    const tr = document.createElement('tr');
+    tr.className = ROW_CLASS[status];
+
+    const tipsHtml = p.tips
+      .map(t => `<li${isDone ? ' class="done-tip"' : ''}>${t}</li>`)
+      .join('');
+
+    tr.innerHTML = `
+      <td class="num">${p.id}</td>
+      <td class="page-cell">
+        <div class="page-name">${p.name}</div>
+        <small class="route">${p.route}</small>
+      </td>
+      <td><span class="phase-chip ${PHASE_CLASS[p.phase]}">${PHASE_LABELS[p.phase]}</span></td>
+      <td>
+        <span class="status-badge ${STATUS_CLASS[status]}" title="Click to cycle: Not started → In progress → Done" onclick="cycleStatus(${p.id})">
+          <span class="dot"></span>${STATUS_LABEL[status]}
+        </span>
+      </td>
+      <td class="notes-cell">
+        <div class="tips">
+          <div class="tips-label">Best practice tips</div>
+          <ul>${tipsHtml}</ul>
+        </div>
+        <textarea
+          id="note-${p.id}"
+          class="notes-input${note.trim() ? ' has-content' : ''}"
+          placeholder="Add your notes here…"
+          onblur="saveNote(${p.id}, this.value)"
+        >${note}</textarea>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+document.getElementById('search').addEventListener('input', render);
+document.getElementById('filter-phase').addEventListener('change', render);
+document.getElementById('filter-status').addEventListener('change', render);
+render();
+</script>
+
+</body>
+</html>
