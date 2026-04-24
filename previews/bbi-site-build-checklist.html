@@ -257,7 +257,7 @@
 
 <div class="header">
   <h1>BBI Site Build Checklist</h1>
-  <div class="subtitle">24 pages &nbsp;·&nbsp; Draft theme: BBI Landing Dev (186373570873) &nbsp;·&nbsp; Updated April 22, 2026 &nbsp;·&nbsp; Progress and notes saved in your browser</div>
+  <div class="subtitle">27 pages &nbsp;·&nbsp; Draft theme: BBI Landing Dev (186373570873) &nbsp;·&nbsp; Updated April 24, 2026 &nbsp;·&nbsp; Progress and notes saved in your browser</div>
 </div>
 
 <div class="controls">
@@ -287,7 +287,7 @@
 </div>
 
 <div class="gate-banner">
-  ⚠️ &nbsp;<strong>Publish gate:</strong> Deploy the BBI Landing Dev theme only after all 24 pages reach <em>Done</em>. The live site stays on the current theme until then.
+  ⚠️ &nbsp;<strong>Publish gate:</strong> Deploy the BBI Landing Dev theme only after all 27 pages reach <em>Done</em>. The live site stays on the current theme until then.
 </div>
 
 <div class="table-wrap">
@@ -319,7 +319,9 @@ const PAGES = [
       "Hero photo: Inspiration-Executive-Office.jpg or OCI-Service-Excellence-2.jpg (real Canadian installations from data/oci-photos/)",
       "Headline: \"Commercial Office Furniture. Canadian-Made.\" — lead with Primary ICP (institutional durability), secondary hook: free design layout",
       "Trust row below hero: Canadian Owned · Ships Across Canada · PO & NET 30 Accepted · 30+ Years",
-      "Include: OECM badge, 1-800-835-9565 in announcement bar, Free Design Layout as primary CTA, customer logos (health centre / First Nations org / school / municipality)",
+      "Include: OECM badge, 1-800-835-9565 in announcement bar, Free Design Layout as primary CTA, customer logos strip (health centre / First Nations org / school / municipality) — Kawartha Dairy logo ready at data/testimonials/kawartha-dairy-logo.jpg",
+      "Canadian flag icon or 'Canadian-Owned' badge in hero trust row — reinforce local identity visually, not just in text",
+      "Testimonial pull-quote below logo strip: Kawartha Dairy — \"Sharing a successful partnership for more than a decade…\" (see docs/strategy/testimonials.md)"
       "Footer: \"Office Central Inc. (OECM Supplier)\" in meta-title — already locked in ICP docs"
     ]
   },
@@ -330,7 +332,9 @@ const PAGES = [
       "Narrative: 5 Ontario locations, Canadian supplier moat, 30+ years, commercial-grade pedigree",
       "Avoid lifestyle fluff — tone from voice.md: \"built for the way offices actually work\", not \"unleash your potential\"",
       "Call out: OECM verified supplier, Global Furniture Group backing, institutional specialty (health centres, First Nations, schools, municipalities)",
-      "Reference icp.md for approved ICP framing: Primary = institutional procurement, Secondary = SMB office managers"
+      "Reference icp.md for approved ICP framing: Primary = institutional procurement, Secondary = SMB office managers",
+      "Customer testimonials section: Kawartha Dairy pull-quote + logo (data/testimonials/kawartha-dairy-logo.jpg) — see docs/strategy/testimonials.md for copy",
+      "Canadian flag or maple-leaf visual accent near 'Canadian-Owned' copy block — reinforces national identity for institutional buyers"
     ]
   },
   {
@@ -414,7 +418,8 @@ const PAGES = [
       "CTA: \"Plan your space with our team — free renderings included, no obligation\"",
       "Form: Project type (Office Refresh / New Fit-Out / Single Room), approx. square footage, timeline, budget range",
       "Link to Our Work portfolio (/pages/our-work) as social proof directly on this page",
-      "Pair with OCI-Planning-Design.jpg or a rendered floor plan example"
+      "Pair with OCI-Planning-Design.jpg or a rendered floor plan example",
+      "Customer logo strip or testimonial pull-quote as social proof above the form — Kawartha Dairy logo at data/testimonials/kawartha-dairy-logo.jpg (see docs/strategy/testimonials.md)"
     ]
   },
   {
@@ -454,7 +459,8 @@ const PAGES = [
       "Format: 4–5 case study cards — client name, vertical, problem → solution → outcome",
       "Link each case study back to relevant product collection (e.g. open-office project → /collections/task-seating)",
       "Photos available: healthcare, education, government, relocation, executive office, inspiration sets",
-      "\"Request a Free Design Layout\" as the page's closing CTA"
+      "\"Request a Free Design Layout\" as the page's closing CTA",
+      "Include customer logos alongside case study cards — Kawartha Dairy logo at data/testimonials/kawartha-dairy-logo.jpg; add others as they're collected (see docs/strategy/testimonials.md)"
     ]
   },
 
@@ -496,7 +502,9 @@ const PAGES = [
       "Emphasize: commercial-grade durability for high-traffic spaces, volume pricing, PO / NET 30 flexibility",
       "Buyers: Executive Directors, operations leads, community centre facilities managers",
       "SEO keywords: non-profit office furniture Canada, community organization furniture Ontario",
-      "Historical BBI customers include First Nations organizations, community health centres — use as social proof (anonymized if needed)"
+      "Historical BBI customers include First Nations organizations, community health centres — use as social proof (anonymized if needed)",
+      "Kawartha Dairy testimonial + logo (data/testimonials/kawartha-dairy-logo.jpg) works well here — local Canadian business = relatable peer for non-profit orgs",
+      "Canadian flag or maple-leaf accent near 'Canadian-Owned' copy — resonates with locally-rooted non-profit buyers"
     ]
   },
   {
@@ -518,7 +526,8 @@ const PAGES = [
       "Form: Company name, Vertical (dropdown), Estimated order size, Timeline, Contact name + email",
       "Route form submissions to sales@ — confirm this routing in Shopify admin",
       "Surface PO / NET 30 / standing-order options as differentiators",
-      "Phone number prominent: 1-800-835-9565 for buyers who prefer a call"
+      "Phone number prominent: 1-800-835-9565 for buyers who prefer a call",
+      "Customer logos strip above or below the form — institutional logos build credibility for volume buyers; Kawartha Dairy logo at data/testimonials/kawartha-dairy-logo.jpg"
     ]
   },
   {
@@ -551,6 +560,38 @@ const PAGES = [
       "ergoCentric is a Canadian brand — Made in Mississauga — use as a differentiation point"
     ]
   },
+  // ── OVERVIEW / HUB PAGES ─────────────────────────────────────────────────
+  {
+    id: 25, phase: 2, name: "Collections Overview", route: "/collections",
+    tips: [
+      "Hub page — links to all product collections in a single browsable grid: Task Seating, Desks, Storage, Collaboration, Acoustic Pods",
+      "Short category intro copy for each tile (1–2 lines) — pull from collection page intros so copy is consistent",
+      "Visual: use a hero or thumbnail image from data/oci-photos/ for each category tile",
+      "Include a site-wide CTA strip: \"Not sure where to start? Get a free design layout\" — links to /pages/design-services",
+      "Filter/sort not required on this hub — keep it simple, category grid + CTA is enough"
+    ]
+  },
+  {
+    id: 26, phase: 4, name: "Industry Overview", route: "/pages/industries",
+    tips: [
+      "Hub page — links to all vertical landing pages: Healthcare, Education, Government, Non-Profit, Professional Services",
+      "Intro: \"BBI furnishes institutions across Ontario — from school boards to community health centres to municipal offices\"",
+      "Each vertical tile: sector icon or OCI photo, 1-line hook, link to full vertical page",
+      "Surface OECM badge here — institutional buyers land on this page and need to see qualified-supplier status immediately",
+      "Customer logos strip: Kawartha Dairy + any sector-appropriate logos (see docs/strategy/testimonials.md); Canadian flag accent near 'Ontario-based supplier' copy"
+    ]
+  },
+  {
+    id: 27, phase: 5, name: "Brands Overview", route: "/pages/brands",
+    tips: [
+      "Hub page — lists all manufacturer brands BBI carries: Global, Teknion, ergoCentric, Keilhauer, ObusForme, and others from docs/strategy/ brand list",
+      "Each brand tile: logo, 1-line positioning, link to individual brand dealer page (ergoCentric, Keilhauer, Global & Teknion are already in this checklist)",
+      "Intro: \"BBI is an authorized dealer for Canada's leading commercial furniture brands — with direct supplier relationships and full product access\"",
+      "Canadian flag or 'Made in Canada' callout for brands manufactured domestically (ergoCentric → Mississauga, Keilhauer → Toronto, Global → Ontario)",
+      "Link from product pages, collections, and About page — buyers researching a specific brand need a fast path to this hub"
+    ]
+  },
+
   {
     id: 24, phase: 5, name: "OECM Supplier Partner", route: "/pages/oecm",
     defaultStatus: "done",
