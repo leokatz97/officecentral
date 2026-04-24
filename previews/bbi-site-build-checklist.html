@@ -255,9 +255,20 @@
 </head>
 <body>
 
+<div style="background:#eef2f9;border-bottom:2px solid #1a2744;padding:10px 32px;font-size:11.5px;color:#374151;">
+  <strong style="color:#1a2744;">Docs:</strong>
+  &nbsp;
+  <a href="../docs/plan/ideas-backlog.md" style="color:#1a2744;">Ideas &amp; Backlog</a>
+  &nbsp;&middot;&nbsp;
+  <a href="../docs/plan/shopify-fix-plan.md" style="color:#1a2744;">Fix Plan</a>
+  &nbsp;&middot;&nbsp;
+  <a href="../docs/plan/status-snapshot-2026-04-20.md" style="color:#1a2744;">Status Snapshot</a>
+  &nbsp;&middot;&nbsp;
+  <a href="../docs/strategy/icp.md" style="color:#1a2744;">Brand Voice &amp; ICP</a>
+</div>
 <div class="header">
   <h1>BBI Site Build Checklist</h1>
-  <div class="subtitle">24 pages &nbsp;·&nbsp; Draft theme: BBI Landing Dev (186373570873) &nbsp;·&nbsp; Updated April 22, 2026 &nbsp;·&nbsp; Progress and notes saved in your browser</div>
+  <div class="subtitle">25 pages &nbsp;·&nbsp; Draft theme: BBI Landing Dev (186373570873) &nbsp;·&nbsp; Updated April 22, 2026 &nbsp;·&nbsp; Progress and notes saved in your browser</div>
 </div>
 
 <div class="controls">
@@ -287,7 +298,7 @@
 </div>
 
 <div class="gate-banner">
-  ⚠️ &nbsp;<strong>Publish gate:</strong> Deploy the BBI Landing Dev theme only after all 24 pages reach <em>Done</em>. The live site stays on the current theme until then.
+  ⚠️ &nbsp;<strong>Publish gate:</strong> Deploy the BBI Landing Dev theme only after all 25 pages reach <em>Done</em>. The live site stays on the current theme until then.
 </div>
 
 <div class="table-wrap">
@@ -396,7 +407,19 @@ const PAGES = [
     ]
   },
   {
-    id: 9, phase: 2, name: "Acoustic Pods", route: "/collections/acoustic-pods",
+    id: 9, phase: 2, name: "Home Office", route: "/collections/home-office",
+    tips: [
+      "Intro: \"Commercial-quality furniture for professionals who work from home — built to last, not just look good\"",
+      "Target: SMB employees on stipend programs, remote-first companies outfitting staff, individual buyers upgrading from big-box",
+      "Hero SKUs: compact L-shape desk, height-adjustable sit-stand, ergonomic task chair — all from existing BBI catalog",
+      "Differentiate from IKEA/Wayfair: \"Institutional durability, real warranty, Ontario delivery + install\" — no assembly required framing",
+      "SEO keywords: home office furniture Canada, work from home desk Ontario, ergonomic home office chair",
+      "Do NOT use residential or lifestyle language — keep tone commercial and purposeful (per voice.md)",
+      "Quote CTA for $0-price / showcase items; surface \"Free Design Layout\" as soft CTA for buyers furnishing a full home office setup"
+    ]
+  },
+  {
+    id: 10, phase: 2, name: "Acoustic Pods", route: "/collections/acoustic-pods",
     tips: [
       "Lead photo: Inspiration-Privacy-pods.jpg from OCI library (data/oci-photos/)",
       "Copy: \"Quiet zones and focus spaces built into your open office — without a renovation\"",
@@ -408,7 +431,7 @@ const PAGES = [
 
   // ── PHASE 3: SERVICES ────────────────────────────────────────────────────
   {
-    id: 10, phase: 3, name: "Free Design Layout", route: "/pages/design-services",
+    id: 11, phase: 3, name: "Free Design Layout", route: "/pages/design-services",
     tips: [
       "Primary hook for Secondary ICP (SMB office managers, project leads, fit-outs)",
       "CTA: \"Plan your space with our team — free renderings included, no obligation\"",
@@ -418,7 +441,7 @@ const PAGES = [
     ]
   },
   {
-    id: 11, phase: 3, name: "Delivery + Install", route: "/pages/delivery",
+    id: 12, phase: 3, name: "Delivery + Install", route: "/pages/delivery",
     tips: [
       "Lead with: \"Ontario delivery standard. White-glove installation available on orders $2,000+\"",
       "Link to the live 7-tier shipping rate table — reference Shopify admin for current rates",
@@ -428,7 +451,7 @@ const PAGES = [
     ]
   },
   {
-    id: 12, phase: 3, name: "Relocation Management", route: "/pages/relocation",
+    id: 13, phase: 3, name: "Relocation Management", route: "/pages/relocation",
     tips: [
       "Lead photo: OCI-Services-Relocation-management.jpg from OCI library",
       "Copy: \"From teardown to reinstall — we manage the full office move\"",
@@ -438,7 +461,7 @@ const PAGES = [
     ]
   },
   {
-    id: 13, phase: 3, name: "Space Planning", route: "/pages/space-planning",
+    id: 14, phase: 3, name: "Space Planning", route: "/pages/space-planning",
     tips: [
       "Lead photo: OCI-Planning-Design.jpg from OCI library",
       "Copy: \"Room-by-room layouts for schools, clinics, open offices, and community spaces\"",
@@ -448,7 +471,7 @@ const PAGES = [
     ]
   },
   {
-    id: 14, phase: 3, name: "Our Work (Portfolio)", route: "/pages/our-work",
+    id: 15, phase: 3, name: "Our Work (Portfolio)", route: "/pages/our-work",
     tips: [
       "48 real project photos available in data/oci-photos/catalog.json — use Mattamy-1 through Mattamy-5 as anchor project",
       "Format: 4–5 case study cards — client name, vertical, problem → solution → outcome",
@@ -460,7 +483,7 @@ const PAGES = [
 
   // ── PHASE 4: VERTICALS ───────────────────────────────────────────────────
   {
-    id: 15, phase: 4, name: "Healthcare", route: "/pages/healthcare",
+    id: 16, phase: 4, name: "Healthcare", route: "/pages/healthcare",
     tips: [
       "Lead photo: OCI-Healthcare-Furniture-Gallery-Image.jpg",
       "Emphasize: waiting-room durability, bariatric seating options, infection-control finishes (antimicrobial vinyl, easy-clean), clinical aesthetics",
@@ -470,7 +493,7 @@ const PAGES = [
     ]
   },
   {
-    id: 16, phase: 4, name: "Education", route: "/pages/education",
+    id: 17, phase: 4, name: "Education", route: "/pages/education",
     tips: [
       "Lead photo: OCI-Education-1.jpg",
       "Emphasize: daycare safety certifications, classroom durability, modular training tables (quick reconfiguration), teacher/admin ergonomics",
@@ -480,7 +503,7 @@ const PAGES = [
     ]
   },
   {
-    id: 17, phase: 4, name: "Government", route: "/pages/government",
+    id: 18, phase: 4, name: "Government", route: "/pages/government",
     tips: [
       "Lead photo: OCI-Government-Federal-Furniture-Gallery-Image-1.jpg",
       "Emphasize: compliant procurement, PO / NET 30 accepted, OECM verified supplier status (primary differentiator)",
@@ -490,7 +513,7 @@ const PAGES = [
     ]
   },
   {
-    id: 18, phase: 4, name: "Non-Profit", route: "/pages/non-profit",
+    id: 19, phase: 4, name: "Non-Profit", route: "/pages/non-profit",
     tips: [
       "Lead: \"Canadian-owned. Built for organizations that do more with less.\" + OECM badge",
       "Emphasize: commercial-grade durability for high-traffic spaces, volume pricing, PO / NET 30 flexibility",
@@ -500,7 +523,7 @@ const PAGES = [
     ]
   },
   {
-    id: 19, phase: 4, name: "Professional Services", route: "/pages/professional-services",
+    id: 20, phase: 4, name: "Professional Services", route: "/pages/professional-services",
     tips: [
       "Lead photo: Inspiration-Executive-Office.jpg or Inspiration-Reception.jpg from OCI library",
       "Emphasize: client-facing aesthetics (reception, boardroom, executive offices), premium ergonomics, professional look at institutional price",
@@ -512,7 +535,7 @@ const PAGES = [
 
   // ── PHASE 5: CAMPAIGNS / LANDING ─────────────────────────────────────────
   {
-    id: 20, phase: 5, name: "Contract Pricing", route: "/pages/contract-pricing",
+    id: 21, phase: 5, name: "Contract Pricing", route: "/pages/contract-pricing",
     tips: [
       "CTA-driven page: \"Volume discounts and contract pricing for institutions, government, and growing businesses\"",
       "Form: Company name, Vertical (dropdown), Estimated order size, Timeline, Contact name + email",
@@ -522,7 +545,7 @@ const PAGES = [
     ]
   },
   {
-    id: 21, phase: 5, name: "Keilhauer Dealer", route: "/pages/brands-keilhauer",
+    id: 22, phase: 5, name: "Keilhauer Dealer", route: "/pages/brands-keilhauer",
     tips: [
       "Replicate ergoCentric page structure: brand logo, product highlights, lead-gen form, quote CTA",
       "Keilhauer = premium Canadian seating, made in Toronto — emphasize design pedigree and local manufacturing",
@@ -532,7 +555,7 @@ const PAGES = [
     ]
   },
   {
-    id: 22, phase: 5, name: "Global & Teknion Dealer", route: "/pages/brands-global-teknion",
+    id: 23, phase: 5, name: "Global & Teknion Dealer", route: "/pages/brands-global-teknion",
     tips: [
       "Replicate ergoCentric page structure for consistency",
       "Global Furniture Group: position as the BBI/OCI parent supplier relationship — deepest pricing, full product range access",
@@ -542,7 +565,7 @@ const PAGES = [
     ]
   },
   {
-    id: 23, phase: 5, name: "ergoCentric Dealer", route: "/pages/brands-ergocentric",
+    id: 24, phase: 5, name: "ergoCentric Dealer", route: "/pages/brands-ergocentric",
     defaultStatus: "done",
     tips: [
       "DONE — use this page as the structural template for Keilhauer (#21) and Global & Teknion (#22)",
@@ -552,7 +575,7 @@ const PAGES = [
     ]
   },
   {
-    id: 24, phase: 5, name: "OECM Supplier Partner", route: "/pages/oecm",
+    id: 25, phase: 5, name: "OECM Supplier Partner", route: "/pages/oecm",
     defaultStatus: "done",
     tips: [
       "DONE — use as reference for institutional trust-page pattern (government, education, healthcare landing pages)",
