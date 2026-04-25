@@ -35,8 +35,9 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 │   ├── exports/     Full Shopify product/order exports (reference snapshots)
 │   ├── backups/     Pre-change snapshots (menus, products, collections)
 │   ├── logs/        Push audit trails (timestamped JSON)
-│   └── oci-photos/  48 real project photos from officecentral.com
-├── previews/        Browser-viewable HTML — checklist, review pages, before/afters
+│   ├── oci-photos/  48 real project photos from officecentral.com
+│   └── page-images/ AI-generated hero images per page (fal.ai flux/dev)
+├── previews/        Browser-viewable HTML — checklists, review pages, strategy docs
 ├── theme/           Shopify theme code (layouts/sections/snippets/templates)
 └── .claude/         Launch configs + agent tooling
 ```
@@ -187,8 +188,11 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 |---|---|
 | Live task list | [docs/plan/shopify-fix-plan.md](docs/plan/shopify-fix-plan.md) |
 | Status snapshot | [docs/plan/status-snapshot-2026-04-20.md](docs/plan/status-snapshot-2026-04-20.md) |
-| Interactive checklist | [previews/website-fix-checklist.html](previews/website-fix-checklist.html) |
+| Interactive checklist | [docs/plan/website-fix-checklist.html](docs/plan/website-fix-checklist.html) |
+| Site build checklist | [previews/bbi-site-build-checklist.html](previews/bbi-site-build-checklist.html) |
 | Ideas backlog | [docs/plan/ideas-backlog.md](docs/plan/ideas-backlog.md) |
 | Brand voice + ICP | [docs/strategy/icp.md](docs/strategy/icp.md) |
 | Approved copy samples | [docs/strategy/voice-samples.md](docs/strategy/voice-samples.md) |
 | Script reference | [scripts/README.md](scripts/README.md) |
+| Page image generator | [scripts/generate-page-images.py](scripts/generate-page-images.py) |
+| AI image library | [data/page-images/](data/page-images/) |

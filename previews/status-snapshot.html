@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status Snapshot — BBI</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #f5f5f5; color: #1a1a1a; font-size: 13px; line-height: 1.6; }
+.docnav { background: #f8f9fb; border-bottom: 1px solid #d1d5db; padding: 8px 32px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.docnav-label { font-size: 10.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; margin-right: 4px; }
+.docnav a { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 10.5px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.chip-blue { background: #eff6ff; color: #1d4ed8; }
+.chip-green { background: #f0fdf4; color: #166534; }
+.chip-orange { background: #fff7ed; color: #c2410c; }
+.chip-back { background: #f3f4f6; color: #374151; }
+.header { background: #1a2744; color: white; padding: 22px 32px 18px; }
+.header h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+.header .subtitle { font-size: 12px; opacity: 0.65; }
+.content { max-width: 860px; margin: 0 auto; padding: 32px 32px 64px; }
+.section { background: white; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+.section-header { padding: 14px 20px 12px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 10px; }
+.section-header h2 { font-size: 14px; font-weight: 700; color: #111827; }
+.section-body { padding: 16px 20px; }
+.status-icon { font-size: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+thead th { background: #f9fafb; border-bottom: 2px solid #e5e7eb; padding: 8px 12px; text-align: left; font-size: 10.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; }
+tbody td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
+.badge-done { background: #dcfce7; color: #166534; }
+.badge-blocked { background: #fee2e2; color: #991b1b; }
+.badge-progress { background: #fef3c7; color: #92400e; }
+.check-list { list-style: none; padding: 0; }
+.check-list li { padding: 6px 0; border-bottom: 1px solid #f0f0f0; font-size: 12.5px; color: #374151; display: flex; gap: 8px; align-items: flex-start; }
+.check-list li:last-child { border-bottom: none; }
+.check-list .tick { color: #22c55e; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.check-list .sub { font-size: 11.5px; color: #6b7280; display: block; margin-top: 1px; }
+.task-list { list-style: none; padding: 0; counter-reset: tasks; }
+.task-list li { counter-increment: tasks; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 12.5px; color: #374151; display: flex; gap: 10px; align-items: flex-start; }
+.task-list li:last-child { border-bottom: none; }
+.task-num { background: #1a2744; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.task-body strong { color: #111827; }
+.task-body .meta { font-size: 11.5px; color: #6b7280; margin-top: 2px; }
+code { background: #f3f4f6; border: 1px solid #e5e7eb; padding: 1px 5px; border-radius: 3px; font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; }
+.footer { padding: 20px 32px; font-size: 11px; color: #9ca3af; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="docnav">
+  <span class="docnav-label">Docs</span>
+  <a href="ideas-backlog.html" class="chip-blue">Ideas &amp; Backlog</a>
+  <a href="fix-plan.html" class="chip-green">Fix Plan</a>
+  <a href="status-snapshot.html" style="background:#7e22ce;color:white;">Status Snapshot</a>
+  <a href="brand-voice-icp.html" class="chip-orange">Brand Voice &amp; ICP</a>
+  <a href="bbi-site-build-checklist.html" class="chip-back" style="margin-left:auto;">← Checklist</a>
+</div>
+
+<div class="header">
+  <h1>Status Snapshot</h1>
+  <div class="subtitle">BBI Shopify &nbsp;·&nbsp; April 20, 2026</div>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <div class="section-header">
+      <span class="status-icon">✅</span>
+      <h2>Done</h2>
+    </div>
+    <div class="section-body">
+      <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">Tier 1 — Backend / Foundation (100% complete)</p>
+      <ul class="check-list">
+        <li><span class="tick">✓</span><span>Liquid <code>divided by 0</code> bug fixed and pushed live</span></li>
+        <li><span class="tick">✓</span><span>Checkout tested end-to-end (desktop + mobile)</span></li>
+        <li><span class="tick">✓</span><span>645 products scanned: no 404s; 9 ™/® handles renamed + redirect CSV uploaded</span></li>
+        <li><span class="tick">✓</span><span>11 service pseudo-products unpublished</span></li>
+        <li><span class="tick">✓</span><span>Site-wide floating "Request a Quote" button live</span></li>
+        <li><span class="tick">✓</span><span>Sold-out + $0-price variants → Request a Quote CTA (not Sold Out button)</span></li>
+        <li><span class="tick">✓</span><span>Announcement bar: 1-800-835-9565 visible on every page</span></li>
+        <li><span class="tick">✓</span><span>Payment methods verified ($65.7K across 56 paid orders)</span></li>
+        <li><span class="tick">✓</span><span>Tax rates audited (50/50 orders match ON 13% HST, BC 12%, AB 5%, SK 11%)</span></li>
+        <li><span class="tick">✓</span><span>Delivery + Installation 7-tier shipping rate live and incognito-tested</span></li>
+        <li><span class="tick">✓</span><span>Order confirmation emails verified (35/35 recent orders)</span></li>
+        <li><span class="tick">✓</span><span>Admin notification verified (sales@brantbusinessinteriors.com, 50/50 orders)</span></li>
+      </ul>
+
+      <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin:18px 0 10px;">Tier 2 — Catalog &amp; Taxonomy (infrastructure complete; enrichment in progress)</p>
+      <ul class="check-list">
+        <li><span class="tick">✓</span><span>613-row tag CSV built + approved by Steve (2026-04-20)</span></li>
+        <li><span class="tick">✓</span><span>584/613 products tagged: <code>type:*</code>, <code>room:*</code>, <code>industry:*</code></span></li>
+        <li><span class="tick">✓</span><span>14 automated collections built (7 by type, 7 by room) + velocity sort pushed</span></li>
+        <li><span class="tick">✓</span><span>Industry tags pushed: 574 products (541 business, 14 educational, 14 healthcare, 5 daycare)</span></li>
+        <li><span class="tick">✓</span><span>Main nav rebuilt: 8 top-level items, "Other Industries" + "Outdoor (Coming Soon)" removed</span></li>
+        <li><span class="tick">✓</span><span>"Keep every product live" strategy locked — no archive, no clearance</span></li>
+        <li><span class="tick">✓</span><span>Phase 0 branding locked in <code>docs/strategy/icp.md</code> (2026-04-20)</span></li>
+        <li><span class="tick">✓</span><span>Phase 1.0 Hero 100 built + Steve signed off (2026-04-20)</span></li>
+        <li><span class="tick">✓</span><span>Phase 1.3 Layer A confirmed clean — 0 legacy tags across all 645 products</span></li>
+        <li><span class="tick">✓</span><span>Phase 2.2 Breadcrumbs live (collection template + BreadcrumbList JSON-LD)</span></li>
+        <li><span class="tick">✓</span><span>Phase 3.2 Link audit complete — all nav + footer links return 200</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="status-icon">🔄</span>
+      <h2>In Progress</h2>
+    </div>
+    <div class="section-body">
+      <ul class="check-list">
+        <li><span style="color:#f59e0b;font-size:13px;flex-shrink:0;margin-top:1px;">●</span>
+          <span><strong>Phase 1.1 Spec lookup</strong>
+            <span class="sub"><code>lookup-specs.py</code> running in background session (Claude Sonnet 4.6 + web search) · 14/100 done when last checked · ~$4 of $15 budget spent · Output: <code>data/specs/{handle}.json</code> per product → aggregated to <code>data/specs.json</code></span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="status-icon">⛔</span>
+      <h2>Blocked</h2>
+    </div>
+    <div class="section-body">
+      <table>
+        <thead><tr><th>Item</th><th>Blocked by</th></tr></thead>
+        <tbody>
+          <tr><td>Phase 1.2 (normalize titles)</td><td>1.1 spec lookup complete</td></tr>
+          <tr><td>Phase 1.3 Layer B (rich filter tags)</td><td>1.1 spec lookup complete</td></tr>
+          <tr><td>Phase 2.1 (collection filters)</td><td>Layer B tags pushed</td></tr>
+          <tr><td>Phase 3.1 (sitemap resubmit to GSC)</td><td>W0-1 GSC setup</td></tr>
+          <tr><td>All Wave 1 content</td><td>W0-1 GSC setup</td></tr>
+          <tr><td>Tier 9 design overhaul</td><td>Full stack should be live first</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="status-icon">📋</span>
+      <h2>Leo's Manual Tasks (unblocked)</h2>
+    </div>
+    <div class="section-body">
+      <ol class="task-list">
+        <li>
+          <span class="task-num">1</span>
+          <span class="task-body"><strong>W0-1: Set up Google Search Console + GA4</strong> — zero SEO progress measurable without this. <span class="meta">~30 min</span></span>
+        </li>
+        <li>
+          <span class="task-num">2</span>
+          <span class="task-body"><strong>W0-2: Create BBI Google Business Profile</strong> — no GBP exists. <span class="meta">~30 min</span></span>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="status-icon">❓</span>
+      <h2>Open Questions for Steve</h2>
+    </div>
+    <div class="section-body">
+      <ol class="task-list">
+        <li>
+          <span class="task-num">1</span>
+          <span class="task-body"><strong>"Outdoor Coming Soon"</strong> in the main nav — removed from Healthcare dropdown; confirm nothing else to clean up.</span>
+        </li>
+        <li>
+          <span class="task-num">2</span>
+          <span class="task-body"><strong>Phase 1.1 specs:</strong> review <code>data/specs.json</code> when lookup-specs.py finishes — flag any low-confidence entries before titles are normalized.</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Brant Business Interiors &nbsp;·&nbsp; brantbasics.com &nbsp;·&nbsp; 1-800-835-9565</div>
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand Voice & ICP — BBI</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #f5f5f5; color: #1a1a1a; font-size: 13px; line-height: 1.6; }
+.docnav { background: #f8f9fb; border-bottom: 1px solid #d1d5db; padding: 8px 32px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.docnav-label { font-size: 10.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; margin-right: 4px; }
+.docnav a { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 10.5px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.chip-blue { background: #eff6ff; color: #1d4ed8; }
+.chip-green { background: #f0fdf4; color: #166534; }
+.chip-purple { background: #fdf4ff; color: #7e22ce; }
+.chip-back { background: #f3f4f6; color: #374151; }
+.header { background: #1a2744; color: white; padding: 22px 32px 18px; }
+.header h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+.header .subtitle { font-size: 12px; opacity: 0.65; }
+.toc { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px 20px; margin: 28px auto 0; max-width: 860px; }
+.toc-label { font-size: 10.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+.toc ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.toc ul li a { display: inline-block; padding: 3px 10px; border-radius: 8px; background: #f3f4f6; color: #374151; font-size: 11.5px; text-decoration: none; font-weight: 500; }
+.toc ul li a:hover { background: #e5e7eb; }
+.content { max-width: 860px; margin: 0 auto; padding: 28px 32px 64px; }
+h2 { font-size: 16px; font-weight: 700; color: #111827; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 13.5px; font-weight: 700; color: #1a2744; margin: 22px 0 10px; }
+h4 { font-size: 12px; font-weight: 700; color: #374151; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.4px; }
+p { color: #374151; margin-bottom: 10px; font-size: 13px; }
+ul, ol { padding-left: 20px; color: #374151; margin-bottom: 10px; }
+li { margin-bottom: 5px; font-size: 13px; }
+code { background: #f3f4f6; border: 1px solid #e5e7eb; padding: 1px 5px; border-radius: 3px; font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; }
+table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 20px; font-size: 12.5px; }
+thead th { background: #f9fafb; border-bottom: 2px solid #e5e7eb; padding: 9px 14px; text-align: left; font-size: 10.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; }
+tbody td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #f9fafb; }
+.callout { border-left: 3px solid #1a2744; background: #f8fafc; padding: 12px 16px; border-radius: 0 6px 6px 0; margin-bottom: 16px; font-size: 13px; color: #374151; }
+.callout strong { color: #111827; }
+.icp-card { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px 20px; margin-bottom: 16px; }
+.icp-card .icp-label { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: 10.5px; font-weight: 700; margin-bottom: 10px; }
+.icp-primary .icp-label { background: #eff6ff; color: #1d4ed8; }
+.icp-secondary .icp-label { background: #f0fdf4; color: #166534; }
+.icp-sub .icp-label { background: #fdf4ff; color: #7e22ce; }
+.voice-example { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 12px 14px; margin: 8px 0; font-size: 12.5px; font-style: italic; color: #374151; }
+.voice-example.good { border-left: 3px solid #22c55e; }
+.voice-example.bad { border-left: 3px solid #ef4444; }
+.voice-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; display: block; font-style: normal; }
+.voice-label.good { color: #166534; }
+.voice-label.bad { color: #991b1b; }
+.not-list { list-style: none; padding: 0; }
+.not-list li { padding: 5px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; color: #374151; display: flex; gap: 8px; }
+.not-list li:last-child { border-bottom: none; }
+.not-list .x { color: #ef4444; font-weight: 700; flex-shrink: 0; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.stat-box { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; text-align: center; }
+.stat-val { font-size: 22px; font-weight: 800; color: #1a2744; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 11px; color: #6b7280; }
+.footer { padding: 20px 32px; font-size: 11px; color: #9ca3af; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="docnav">
+  <span class="docnav-label">Docs</span>
+  <a href="ideas-backlog.html" class="chip-blue">Ideas &amp; Backlog</a>
+  <a href="fix-plan.html" class="chip-green">Fix Plan</a>
+  <a href="status-snapshot.html" class="chip-purple">Status Snapshot</a>
+  <a href="brand-voice-icp.html" style="background:#c2410c;color:white;">Brand Voice &amp; ICP</a>
+  <a href="bbi-site-build-checklist.html" class="chip-back" style="margin-left:auto;">← Checklist</a>
+</div>
+
+<div class="header">
+  <h1>Brand Voice &amp; ICP</h1>
+  <div class="subtitle">Brant Business Interiors / Office Central &nbsp;·&nbsp; Locked April 20, 2026 &nbsp;·&nbsp; Every copy and keyword decision ladders back to this doc.</div>
+</div>
+
+<div class="toc">
+  <div class="toc-label">Jump to section</div>
+  <ul>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#voice">Voice Rules</a></li>
+    <li><a href="#primary">Primary ICP</a></li>
+    <li><a href="#secondary">Secondary ICP</a></li>
+    <li><a href="#sub">Sub ICP (Rest of Canada)</a></li>
+    <li><a href="#not-targeting">Not Targeting</a></li>
+    <li><a href="#evidence">Evidence</a></li>
+    <li><a href="#branding">Branding Lockup</a></li>
+    <li><a href="#how-to-use">How to Use This Doc</a></li>
+  </ul>
+</div>
+
+<div class="content">
+
+  <h2 id="tldr">TL;DR — Grounded in order data</h2>
+  <p style="font-size:11.5px;color:#6b7280;margin-bottom:14px;">235 orders · Oct 2024–Apr 2026 · 134 named companies</p>
+
+  <div class="stat-grid">
+    <div class="stat-box"><div class="stat-val">~60%</div><div class="stat-label">Institutional / non-profit revenue</div></div>
+    <div class="stat-box"><div class="stat-val">~40%</div><div class="stat-label">SMB private-sector revenue</div></div>
+    <div class="stat-box"><div class="stat-val">$814</div><div class="stat-label">Median order value</div></div>
+    <div class="stat-box"><div class="stat-val">$2,042</div><div class="stat-label">p75 order value</div></div>
+    <div class="stat-box"><div class="stat-val">87%</div><div class="stat-label">Ontario orders</div></div>
+    <div class="stat-box"><div class="stat-val">20%</div><div class="stat-label">Quote channel revenue</div></div>
+  </div>
+
+  <div class="callout">
+    <strong>Primary ICP — Central Ontario institutional / non-profit (~60% of online revenue):</strong> Administrative / operations purchaser at a non-profit, First Nations band office, family health team, small hospital, independent school, municipal office, or community services agency. Based in or near Peterborough, Kawartha Lakes, Northumberland, GTA, North Bay. Places small-to-mid orders (median $814, p75 $2,042), often repeat.
+  </div>
+  <div class="callout">
+    <strong>Secondary ICP — Ontario SMB private-sector (~40% of online revenue, higher AOV):</strong> Office manager, owner-operator, or ops lead at a professional services firm (law, insurance, accounting, medical, design), a manufacturer or industrial supplier, a construction/trades company, or a logistics/services business. Across Ontario. Orders span $500 replenishment to $10k+ multi-desk outfits.
+  </div>
+  <div class="callout">
+    <strong>Sub ICP — Rest of Canada excluding Quebec (~6% revenue, upside via SEO):</strong> Same two buyer archetypes in BC, Alberta, Manitoba, Saskatchewan, Atlantic Canada, and the territories. Treat as SEO upside, not a targeting rewrite. <strong>Quebec is excluded</strong> — language and logistics are a poor fit.
+  </div>
+
+  <h2 id="voice">Voice Calibration Rules</h2>
+  <p style="font-size:11.5px;color:#6b7280;margin-bottom:14px;">Locked April 18, 2026 after reviewing 5 sample rewrites.</p>
+
+  <div class="icp-card">
+    <ul style="list-style:none;padding:0;">
+      <li style="padding:9px 0;border-bottom:1px solid #f0f0f0;"><strong>Phone CTA on every product.</strong> Close every description with <code>Call 1-800-835-9565</code> and a soft ask. 20% of revenue flows through the quote channel.</li>
+      <li style="padding:9px 0;border-bottom:1px solid #f0f0f0;"><strong>Bold one-line hook as the opener.</strong> Every product starts with a use-case or promise sentence. Not a caption, not a spec.</li>
+      <li style="padding:9px 0;border-bottom:1px solid #f0f0f0;"><strong>"Who it's for" paragraph wherever there's a clear archetype.</strong> Apply to task chairs, executive chairs, bariatric seating, training tables, reception desks, and SKUs with an obvious buyer type.</li>
+      <li style="padding:9px 0;border-bottom:1px solid #f0f0f0;"><strong>Lead-time language: never commit to specific windows.</strong> Use <em>ships from Ontario stock</em>, <em>Quick Ship item</em>, or push to the phone. Do not write "5–10 business days" or any concrete number.</li>
+      <li style="padding:9px 0;border-bottom:1px solid #f0f0f0;"><strong>Warmth dial: confident, not lifestyle.</strong> "The chair that keeps your back where it should be" ✓ — "Elevate your workday" ✗</li>
+      <li style="padding:9px 0;border-bottom:1px solid #f0f0f0;"><strong>Delivery language: safe defaults.</strong> <em>Delivery across Ontario</em> and <em>installation available</em> are fine. Do not promise specific carriers, dates, or free shipping unless confirmed per-SKU.</li>
+      <li style="padding:9px 0;"><strong>Keep model codes in product titles.</strong> Format as <code>Product Name Code</code> or <code>Product Name — Code</code>. B2B reorders and procurement teams key off the code.</li>
+    </ul>
+  </div>
+
+  <h4>Voice examples</h4>
+  <div class="voice-example good"><span class="voice-label good">✓ Right tone</span>"A clean, L-shaped desk that anchors a private office or director's workspace — built on a commercial-grade steel frame with a wood-grain laminate top, designed to take a full workday and a decade of them."</div>
+  <div class="voice-example bad"><span class="voice-label bad">✗ Too spec-forward</span>"The L-Shaped Desk with Single Pedestal features a 72" x 30" work surface with return, constructed of 1" thermofused laminate with 3mm PVC edge banding..."</div>
+  <div class="voice-example bad"><span class="voice-label bad">✗ Too flowery</span>"Elevate your workday with the desk that believes in you. Dream bigger. Work bolder."</div>
+
+  <h2 id="primary">Primary ICP — Central Ontario Institutional / Non-Profit</h2>
+  <div class="icp-card icp-primary">
+    <span class="icp-label">Primary · ~60% of online revenue</span>
+    <table>
+      <tbody>
+        <tr><td style="width:140px;font-weight:600;color:#374151;">Role / title</td><td>Office Administrator, Executive Assistant, Program Coordinator, Band Office Administrator, Health Team Office Manager, School Business Manager, Facilities Coordinator</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Org type</td><td>Community services non-profits, family health teams, small/rural hospitals, independent and Catholic schools, municipal offices, religious organizations, housing/social services. Examples: New Canadians Centre, Trinity College School, Woodgreen Community Services, Kawartha North Family Health Team, City of Peterborough</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Geography</td><td><strong>Ontario (87% of orders), Central Ontario dominant.</strong> Top cities: Peterborough (42), Toronto (24), Oshawa (7), North Bay (7), Mississauga (7). <strong>Brantford does not appear in top 25</strong> despite the company name.</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Buying trigger</td><td>Chair/desk broke and needs replacing · Small team addition (1–2 workstations) · Annual refresh against PO budget · Program expansion · Grant-funded purchase</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Order size</td><td>Median $814 · p75 $2,042 · p90 $4,339. 74% of orders under $2k; only 9% over $5k.</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Key objections</td><td>"Will this hold up in a busy waiting room / classroom?" · "Can I get an invoice for accounts payable?" · "Is this the same as the one we ordered before?" · "Is there a warranty I can point procurement to?"</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Competitors</td><td>Staples Business Advantage, Grand &amp; Toy, Amazon Business, Wayfair Professional, local office-supply co-ops</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Keywords — Primary ICP</h3>
+  <table>
+    <thead><tr><th>Type</th><th>Keywords</th></tr></thead>
+    <tbody>
+      <tr><td>Head / category</td><td>office chair Ontario · office furniture Ontario · commercial office furniture Canada · Canadian office furniture supplier</td></tr>
+      <tr><td>Regional long-tail</td><td>office furniture Peterborough · office chair Toronto · office furniture Kawartha Lakes · office furniture GTA</td></tr>
+      <tr><td>Product money queries</td><td>ergonomic mesh task chair Canada · L-shaped desk Canada · height adjustable desk Canada · bariatric waiting room chair Canada · boardroom table 8 person Canada</td></tr>
+      <tr><td>Institutional modifiers</td><td>heavy-duty commercial chair · non-profit office furniture Ontario · healthcare waiting room seating Canada · PO accepted office furniture Canada</td></tr>
+      <tr><td style="color:#991b1b;">Avoid</td><td>cheap office chair · best budget desk · gaming chair · home office chair · [competitor brand name]</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="secondary">Secondary ICP — Ontario SMB Private-Sector</h2>
+  <div class="icp-card icp-secondary">
+    <span class="icp-label">Secondary · ~40% of online revenue · Higher AOV</span>
+    <table>
+      <tbody>
+        <tr><td style="width:140px;font-weight:600;color:#374151;">Role / title</td><td>Office Manager, Owner-Operator, Practice Manager, EA to a partner, HR Coordinator, Operations Manager, Facilities Lead</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Company type</td><td>Manufacturing &amp; industrial · Professional services (law, accounting, insurance, medical, design) · Trades &amp; construction · Services &amp; logistics</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Company size</td><td>Typically 10–200 employees. Orderer usually has authority up to a few thousand dollars without sign-off.</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Geography</td><td>Ontario — Peterborough, Toronto, Mississauga, Markham, Barrie, Richmond Hill, Milton, Pickering, Concord/Vaughan, London</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Order size</td><td>$500–$15k typical online. Very large fit-outs (&gt;$25k) flow through the quote channel.</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Key objections</td><td>"Is this actually commercial-grade or just marked up consumer?" · "How soon can you deliver?" · "Can you install?" · "How does this compare to atWork / IKEA?"</td></tr>
+        <tr><td style="font-weight:600;color:#374151;">Competitors</td><td>atWork Office Furniture, McGowans, Benton Commercial Interiors, Staples Business Advantage, IKEA for Business, Amazon Business</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Keywords — Secondary ICP</h3>
+  <table>
+    <thead><tr><th>Keywords</th></tr></thead>
+    <tbody>
+      <tr><td>commercial office chair Canada · contract-grade office chair · executive desk Canada · boardroom table Canada · reception desk Canada</td></tr>
+      <tr><td>law firm office furniture Canada · medical office furniture Canada · heavy-duty task chair · 24/7 task chair · height adjustable desk Ontario</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Voice tilts for Secondary ICP</h3>
+  <ul>
+    <li><strong>High-ticket SKUs</strong> (multi-person workstations, executive suites, boardroom tables): lean into project partnership language. End with: <em>"Planning a full office refresh? Call us at 1-800-835-9565 for free design layouts and contract pricing."</em></li>
+    <li><strong>Professional-services SKUs</strong> (executive chairs, reception desks, leather seating): lean slightly more aesthetic + client-facing — "the kind of chair your clients sit across from when you close the deal."</li>
+  </ul>
+
+  <h2 id="sub">Sub ICP — Rest of Canada (excluding Quebec)</h2>
+  <div class="icp-card icp-sub">
+    <span class="icp-label">Sub ICP · ~6% revenue · SEO upside</span>
+    <p>Same two buyer archetypes as Primary + Secondary, just outside Ontario. Treat as <strong>SEO upside</strong>, not a targeting rewrite. <strong>Quebec is excluded</strong> — language requirements (Loi 96) and freight/install logistics.</p>
+    <ul style="margin-top:10px;">
+      <li>Lean on generic-Canada head terms, not Ontario-specific ones</li>
+      <li>Use <em>ships across Canada</em> alongside <em>ships from Ontario stock</em></li>
+      <li>Installation language stays Ontario-only: <em>installation available in Ontario</em></li>
+      <li>Do not build per-province landing pages until revenue justifies it</li>
+    </ul>
+  </div>
+
+  <h2 id="not-targeting">Who We Are NOT Targeting</h2>
+  <div class="icp-card">
+    <ul class="not-list">
+      <li><span class="x">✗</span><span><strong>Home office / WFH consumers.</strong> No consumer price-point product, no 2-day shipping promise. Don't chase "home office desk under $500" keywords.</span></li>
+      <li><span class="x">✗</span><span><strong>Gamers / streamers.</strong> Different catalog, different voice, different brand.</span></li>
+      <li><span class="x">✗</span><span><strong>Enterprise / Fortune-500 procurement.</strong> They go to Steelcase/Herman Miller direct or national dealer networks.</span></li>
+      <li><span class="x">✗</span><span><strong>Design/architect specifiers sourcing unbranded product.</strong> Distant tertiary — maybe worth one landing page later.</span></li>
+      <li><span class="x">✗</span><span><strong>Quebec buyers.</strong> Language requirements and freight/install logistics make it the wrong fit. Don't chase Quebec keywords.</span></li>
+    </ul>
+  </div>
+
+  <h2 id="evidence">Evidence This ICP Is Grounded</h2>
+  <div class="stat-grid">
+    <div class="stat-box"><div class="stat-val">235</div><div class="stat-label">Orders analysed (Oct 2024–Apr 2026)</div></div>
+    <div class="stat-box"><div class="stat-val">72%</div><div class="stat-label">Orders with a company name (B2B signal)</div></div>
+    <div class="stat-box"><div class="stat-val">81%</div><div class="stat-label">Corporate email domains</div></div>
+    <div class="stat-box"><div class="stat-val">$670</div><div class="stat-label">Catalog median price (B2B, not consumer)</div></div>
+    <div class="stat-box"><div class="stat-val">94%</div><div class="stat-label">Revenue from Ontario</div></div>
+    <div class="stat-box"><div class="stat-val">58%</div><div class="stat-label">Nameable revenue — institutional/non-profit</div></div>
+  </div>
+
+  <h2 id="branding">Branding Lockup</h2>
+  <p class="callout"><strong>Lead with BBI on the storefront, surface Office Central in the meta-title suffix</strong> — not just the footer. OC needs to be discoverable on first impression because procurement officers Google "Office Central OECM" to verify supplier status before buying.</p>
+  <table>
+    <thead><tr><th>Surface</th><th>Lockup</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Storefront name</strong></td><td>Brant Business Interiors</td></tr>
+      <tr><td><strong>Meta-title suffix</strong> (every product, collection, content page)</td><td><code>| Brant Business Interiors — a division of Office Central Inc. (OECM Supplier)</code></td></tr>
+      <tr><td><strong>Email signature / site footer</strong></td><td><code>Brant Business Interiors, a division of Office Central Inc. | OECM Supplier Partner</code></td></tr>
+    </tbody>
+  </table>
+  <p>Apply to: all Hero 100 product titles + meta titles (Phase 1.2), all 14 collection meta titles (Phase 2.3), homepage + content page meta titles, email footer template.</p>
+
+  <h2 id="how-to-use">How to Use This Doc in SEO / Rewrite Sessions</h2>
+  <ul>
+    <li>For every product description: picture the <strong>Primary ICP</strong> reading it. Would the office administrator at a Peterborough community-services non-profit find the first sentence useful?</li>
+    <li><strong>Meta titles:</strong> include product type + modifier + Canada/Ontario qualifier. <strong>Do not lead with "Brantford"</strong> — the actual customer base is not Brantford-local.</li>
+    <li><strong>Category pages:</strong> write for the head term with a short intro in design-forward premium voice, and surface "Free Design Layouts" + "Delivery Across Ontario" as trust anchors.</li>
+    <li><strong>High-ticket SKUs:</strong> write for the Secondary ICP's fit-out project mindset — end with a quote-channel CTA.</li>
+    <li><strong>Institutional-leaning SKUs</strong> (bariatric, daycare, student chairs, healthcare seating): lean on durability + compliance + "built for high-traffic spaces."</li>
+    <li><strong>Regional SEO pages:</strong> prioritise Peterborough, Toronto/GTA, Kawartha Lakes, Northumberland, Durham Region. A Brantford page is worth keeping for brand-name searches only.</li>
+    <li><strong>National SEO:</strong> generic-Canada head terms only. Use <code>ships across Canada</code> + <code>installation available in Ontario</code> on heavy SKUs.</li>
+  </ul>
+
+</div>
+
+<div class="footer">Brant Business Interiors &nbsp;·&nbsp; brantbasics.com &nbsp;·&nbsp; 1-800-835-9565 &nbsp;·&nbsp; Locked April 20, 2026</div>
+
+</body>
+</html>

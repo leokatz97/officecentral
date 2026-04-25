@@ -111,8 +111,25 @@ a.lb.store { border-color: #a7f3d0; color: #065f46; background: #ecfdf5; }
 footer { padding: 14px 20px; font-size: 11px; color: #999; text-align: center; }
 
 @media (max-width: 900px) {
-  td.form-col, td.variants-col { display: none; }
+  td.form-col, td.variants-col, td.img-upload-col { display: none; }
 }
+
+/* Image upload panel */
+td.img-upload-col { min-width: 200px; max-width: 240px; vertical-align: top; padding: 8px; }
+.img-upload-panel { border: 2px dashed #e0e0e0; border-radius: 6px; padding: 8px; background: #fafafa; }
+.img-upload-panel.has-need { border-color: #fbbf24; background: #fffbeb; }
+.img-upload-panel .up-label { font-size: 9px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+.img-upload-panel .up-label span.cnt { font-size: 9px; padding: 1px 5px; border-radius: 8px; background: #fde68a; color: #92400e; font-weight: 700; }
+.img-upload-panel .up-label span.cnt.none { background: #fee2e2; color: #991b1b; }
+.img-preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 6px; }
+.img-preview-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 3px; border: 1px solid #e0e0e0; cursor: pointer; }
+.img-preview-grid img:hover { border-color: #dc2626; }
+.up-drop-zone { border: 1.5px dashed #ccc; border-radius: 4px; padding: 8px 4px; text-align: center; font-size: 10px; color: #aaa; cursor: pointer; transition: border-color .15s, background .15s; }
+.up-drop-zone:hover, .up-drop-zone.dragover { border-color: #1a2744; background: #e8eaf0; color: #1a2744; }
+.up-drop-zone input[type=file] { display: none; }
+.img-upload-panel.no-need { border: none; background: transparent; }
+.img-upload-panel.no-need .up-drop-zone { display: none; }
+.img-upload-panel.no-need .up-label span.cnt { background: #dcfce7; color: #166534; }
 </style>
 </head>
 <body>
@@ -169,6 +186,7 @@ footer { padding: 14px 20px; font-size: 11px; color: #999; text-align: center; }
   </select>
   <span class="count-label" id="count-label"></span>
   <button onclick="exportCSV()" class="primary" id="export-btn">Export CSV</button>
+  <button onclick="autoFillAll()" style="background:#f0f9ff;border-color:#7dd3fc;color:#0369a1;" title="Pre-fill brand, SKU, SEO, and badges from existing product data">✨ Auto-fill</button>
   <button onclick="clearAllNotes()" style="color:#dc2626;border-color:#fca5a5;">Clear all</button>
 </div>
 
@@ -186,6 +204,7 @@ footer { padding: 14px 20px; font-size: 11px; color: #999; text-align: center; }
       <th>Status</th>
       <th>Store</th>
       <th>Enrichment Data <small style="font-weight:400;opacity:.6">(auto-saved to browser)</small></th>
+      <th>Images <small style="font-weight:400;opacity:.6">upload/drop</small></th>
     </tr>
   </thead>
   <tbody id="tbody"></tbody>
@@ -221,20 +240,15 @@ const FIELDS = [
   { key:'weight_cap',  label:'Weight Capacity',           ph:'e.g. 250 lbs',                     col:'half' },
   { key:'weight',      label:'Product Weight',            ph:'e.g. 78 lbs',                      col:'half' },
   { key:'materials',   label:'Materials / Finishes',      ph:'e.g. Laminate top, powder-coated steel', col:'half' },
-  { key:'warranty',    label:'Warranty',                  ph:'e.g. 5 years, Lifetime frame',     col:'half' },
   { key:'certifs',     label:'Certifications',            ph:'e.g. BIFMA, Greenguard, ANSI',     col:'half' },
   { key:'extra_specs', label:'Other Specs (label: value, label: value…)', ph:'Motor Type: Dual, Speed: 35mm/s', col:'half' },
-  // Description sections
-  { key:'desc_intro',  label:'"Get to Know" paragraph',  ph:'2-3 sentences about what makes this product great…', col:'full', ta:true, section:'Description Copy' },
-  { key:'desc_features',label:'"Explore Further" bullets (one per line)', ph:'Finally organize your cables with our cable management tray.\nGrommet included.', col:'full', ta:true },
-  { key:'desc_care',   label:'Product Care Tips (one per line)', ph:'Avoid abrasive cleaners.\nUse coasters for drinks.', col:'full', ta:true },
-  { key:'considerations',label:'Considerations (label: note, one per line)', ph:'Space Requirements: Measure workspace…\nAdjustability: Alternating sit/stand…', col:'full', ta:true },
+  // Content source — where all copy & specs will be scraped from
+  { key:'content_url', label:'Manufacturer / Source Page URL', ph:'Paste mfr or competitor page — this is where specs & copy will be scraped from', col:'full', section:'Content Source' },
   // SEO
   { key:'seo_title',   label:'SEO Title',                ph:'60 chars max',                     col:'half', section:'SEO' },
   { key:'seo_desc',    label:'SEO Description',          ph:'150 chars max',                    col:'half' },
-  // Research notes
-  { key:'source_url',  label:'Source / Scrape URL',      ph:'Competitor or mfr page used',      col:'full', section:'Research' },
-  { key:'notes',       label:'Notes',                    ph:'Anything else — dims, lead time, open questions…', col:'full', ta:true },
+  // Notes
+  { key:'notes',       label:'Notes',                    ph:'Anything else — dims, lead time, open questions…', col:'full', ta:true, section:'Notes' },
 ];
 
 let currentTab = 'needs-work';
@@ -260,7 +274,7 @@ function filledCount(handle) {
 
 function isEnriched(handle) {
   if (!notes[handle]) return false;
-  const core = ['brand','dims','desc_intro'];
+  const core = ['brand','dims','content_url','seo_title'];
   return core.some(k => (notes[handle][k]||'').trim().length > 0);
 }
 
@@ -413,13 +427,46 @@ function render() {
       const cls = filled ? 'filled' : '';
       const colCls = f.col === 'full' ? 'full' : 'half';
       const onblur = `saveField('${h}','${f.key}',this.value);this.classList.toggle('filled',this.value.trim().length>0)`;
-      if (f.ta) {
+      if (f.key === 'content_url') {
+        const visitLink = filled ? `<a href="${val}" target="_blank" style="font-size:10px;color:#0369a1;text-decoration:none;margin-left:6px;">→ Visit</a>` : '';
+        formHtml += `<div class="ef full"><label>${escHtml(f.label)}${visitLink}</label><input type="url" class="${cls}" placeholder="${escHtml(f.ph)}" value="${val}" onblur="${onblur}" style="font-size:11px;"></div>`;
+      } else if (f.ta) {
         formHtml += `<div class="ef ${colCls}"><label>${escHtml(f.label)}</label><textarea class="${cls}" placeholder="${escHtml(f.ph)}" onblur="${onblur}">${val}</textarea></div>`;
       } else {
         formHtml += `<div class="ef ${colCls}"><label>${escHtml(f.label)}</label><input type="text" class="${cls}" placeholder="${escHtml(f.ph)}" value="${val}" onblur="${onblur}"></div>`;
       }
     });
     formHtml += '</div>';
+
+    // Image upload panel
+    const needsImages = p.fl.includes('no-img') || p.fl.includes('1-img');
+    const uploadedImgs = getUploadedImages(h);
+    const totalImgs = p.imgs + uploadedImgs.length;
+    const panelCls = needsImages ? 'has-need' : 'no-need';
+    const cntCls = p.imgs === 0 ? 'none' : '';
+    const cntLabel = needsImages
+      ? `<span class="cnt ${cntCls}">${p.imgs === 0 ? 'none' : p.imgs + ' live'}</span>`
+      : `<span class="cnt" style="background:#dcfce7;color:#166534">✓ ${totalImgs}</span>`;
+    const previewGrid = uploadedImgs.length
+      ? `<div class="img-preview-grid">${uploadedImgs.map((src, idx) =>
+          `<img src="${src}" title="Click to remove" onclick="removeUploadedImage('${h}',${idx},this)">`
+        ).join('')}</div>`
+      : '';
+    const dropZone = needsImages ? `
+      <div class="up-drop-zone" id="dz-${h}"
+        onclick="document.getElementById('fi-${h}').click()"
+        ondragover="event.preventDefault();this.classList.add('dragover')"
+        ondragleave="this.classList.remove('dragover')"
+        ondrop="handleDrop(event,'${h}')">
+        <input type="file" id="fi-${h}" accept="image/*" multiple onchange="handleFiles(this.files,'${h}')">
+        📁 Drop images or click
+      </div>` : '';
+    const imgUploadHtml = `
+      <div class="img-upload-panel ${panelCls}">
+        <div class="up-label">Images ${cntLabel}</div>
+        ${previewGrid}
+        ${dropZone}
+      </div>`;
 
     return `<tr class="${enriched ? 'done-row' : ''}">
       <td class="num">${i+1}</td>
@@ -440,12 +487,55 @@ function render() {
         <a class="lb store" href="${STORE_BASE}${escHtml(p.h)}" target="_blank">Store ↗</a>
       </td>
       <td class="form-col">${formHtml}</td>
+      <td class="img-upload-col">${imgUploadHtml}</td>
     </tr>`;
   }).join('');
 }
 
 function escHtml(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// --- Image upload helpers ---
+function imgKey(handle) { return 'bbi_imgs_' + handle; }
+
+function getUploadedImages(handle) {
+  try { return JSON.parse(localStorage.getItem(imgKey(handle)) || '[]'); } catch { return []; }
+}
+
+function saveUploadedImages(handle, imgs) {
+  try { localStorage.setItem(imgKey(handle), JSON.stringify(imgs)); } catch(e) {
+    alert('Storage full — images could not be saved. Try removing some first.');
+  }
+}
+
+function handleFiles(files, handle) {
+  const existing = getUploadedImages(handle);
+  let count = 0;
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      existing.push(e.target.result);
+      count++;
+      if (count === files.length) { saveUploadedImages(handle, existing); render(); }
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function handleDrop(event, handle) {
+  event.preventDefault();
+  document.getElementById('dz-' + handle)?.classList.remove('dragover');
+  handleFiles(event.dataTransfer.files, handle);
+}
+
+function removeUploadedImage(handle, idx, el) {
+  if (!confirm('Remove this uploaded image?')) return;
+  const imgs = getUploadedImages(handle);
+  imgs.splice(idx, 1);
+  saveUploadedImages(handle, imgs);
+  render();
 }
 
 function csvCell(v) {
@@ -493,7 +583,140 @@ document.getElementById('filter-type').addEventListener('change', render);
 document.getElementById('filter-flag').addEventListener('change', render);
 document.getElementById('filter-status').addEventListener('change', render);
 
+// --- Auto-fill helpers ---
+function detectBrand(p) {
+  const title = p.t.toLowerCase();
+  const sku   = (p.sku || '').toLowerCase();
+  // SKU prefix → brand
+  if (/^glb/.test(sku) || /^gl-/.test(sku)) return 'Global';
+  if (/^tek/.test(sku))                       return 'Teknion';
+  if (/^ec-|^ergo/.test(sku))                 return 'ergoCentric';
+  if (/^kei/.test(sku))                       return 'Keilhauer';
+  if (/^hmn|^hs-/.test(sku))                  return 'Humanscale';
+  // Known brands — checked both as title substring and as title suffix
+  const kws = [
+    ['global',       'Global'],    ['teknion',       'Teknion'],
+    ['ergocentric',  'ergoCentric'],['keilhauer',    'Keilhauer'],
+    ['humanscale',   'Humanscale'],['haworth',       'Haworth'],
+    ['hon',          'HON'],       ['bestar',         'Bestar'],
+    ['potenza',      'Potenza'],   ['allermuir',      'Allermuir'],
+    ['actiu',        'Actiu'],     ['offices to go',  'Offices To Go'],
+    ['izzy+',        'Izzy+'],     ['izzy',           'Izzy+'],
+    ['safco',        'SAFCO'],     ['mayline',        'Mayline'],
+    ['lorell',       'Lorell'],    ['bush',           'Bush'],
+    ['sauder',       'Sauder'],    ['ofm',            'OFM'],
+    ['regency',      'Regency'],   ['vari',           'Vari'],
+    ['uplift',       'Uplift'],    ['momentum',       'Momentum'],
+    ['nevins',       'Nevins'],    ['safavieh',       'Safavieh'],
+    ['national',     'National'],  ['cherryman',      'Cherryman'],
+    ['eurotech',     'Eurotech'],  ['via seating',    'Via Seating'],
+  ];
+  // Check last 1-3 words of title first (brand often appended at end)
+  const words = p.t.split(/\s+/);
+  for (let n = 1; n <= 3; n++) {
+    const suffix = words.slice(-n).join(' ').toLowerCase();
+    for (const [kw, brand] of kws) {
+      if (suffix === kw) return brand;
+    }
+  }
+  // Then check anywhere in title
+  for (const [kw, brand] of kws) if (title.includes(kw)) return brand;
+  // Vendor only if it's a real brand (not store name)
+  const generic = ['business interiors','office central','brant business'];
+  if (p.v && !generic.some(g => p.v.toLowerCase().includes(g))) return p.v;
+  return '';
+}
+
+function detectBadges(p) {
+  const t = p.t.toLowerCase();
+  const badges = [];
+  if (t.includes('height adjustable') || t.includes('sit-stand') || t.includes('standing desk')) badges.push('Height Adjustable');
+  if (t.includes('electric') || t.includes('motorized'))  badges.push('Electric');
+  if (t.includes('mesh'))                                  badges.push('Mesh Back');
+  if (t.includes('ergonomic') || t.includes(' ergo '))    badges.push('Ergonomic');
+  if (t.includes('mobile') || t.includes('rolling'))      badges.push('Mobile');
+  if (t.includes('modular'))                               badges.push('Modular');
+  if (t.includes('collaborative') || t.includes('collab'))badges.push('Collaborative');
+  if (t.includes('executive'))                             badges.push('Executive');
+  if (t.includes('l-desk') || t.includes('l desk') || t.includes('l-shape')) badges.push('L-Shape');
+  if (t.includes('acoustic') || t.includes('pod'))        badges.push('Acoustic');
+  if (t.includes('lounge'))                                badges.push('Lounge');
+  if (t.includes('training') || t.includes('folding'))    badges.push('Folding');
+  if (t.includes('guest'))                                 badges.push('Guest Seating');
+  if (t.includes('stacking'))                              badges.push('Stackable');
+  if (t.includes('bariatric'))                             badges.push('Bariatric');
+  if (t.includes('24/7') || t.includes('24-7'))           badges.push('24/7 Rated');
+  return badges.join(', ');
+}
+
+function detectDims(p) {
+  const t = p.t;
+  // e.g. 42"W x 30"D x 29"H  or  42"W x 30"D
+  const dimRx = /(\d+(?:\.\d+)?)\s*[""″]?\s*W\s*[×xX]\s*(\d+(?:\.\d+)?)\s*[""″]?\s*D(?:\s*[×xX]\s*(\d+(?:\.\d+)?)\s*[""″]?\s*H)?/i;
+  // e.g. 42" x 30"  (no letter labels)
+  const simpleRx = /(\d+(?:\.\d+)?)[""″]\s*[xX×]\s*(\d+(?:\.\d+)?)[""″]/;
+  let m = t.match(dimRx);
+  if (m) {
+    const h = m[3] ? ` × ${m[3]}"H` : '';
+    return `${m[1]}"W × ${m[2]}"D${h}`;
+  }
+  m = t.match(simpleRx);
+  if (m) return `${m[1]}" × ${m[2]}"`;
+  return '';
+}
+
+const TYPE_LABELS = {
+  chairs: 'seating solution', desks: 'desk solution', tables: 'meeting table',
+  storage: 'storage solution', lounge: 'lounge piece', accessories: 'workspace accessory',
+  outdoor: 'outdoor furniture piece',
+};
+const TYPE_CATEGORY = {
+  chairs: 'ergonomic seating', desks: 'office desks & workstations', tables: 'office tables',
+  storage: 'office storage', lounge: 'lounge & soft seating', accessories: 'office accessories',
+  outdoor: 'outdoor furniture',
+};
+
+function autoFill(p) {
+  const h = p.h;
+  if (!notes[h]) notes[h] = {};
+  const n = notes[h];
+
+  const brand = detectBrand(p);
+  if (!n.brand && brand)       n.brand = brand;
+  if (!n.model_code && p.sku)  n.model_code = p.sku;
+
+  const dims = detectDims(p);
+  if (!n.dims && dims)         n.dims = dims;
+
+  const badges = detectBadges(p);
+  if (!n.badges && badges)     n.badges = badges;
+
+  // SEO — suggest for all products (user can refine)
+  if (!n.seo_title) {
+    const raw = `${p.t} | Brant Business Interiors`;
+    n.seo_title = raw.length <= 60 ? raw : p.t.substring(0, 57) + '…';
+  }
+  if (!n.seo_desc) {
+    const cat = TYPE_CATEGORY[p.ty] || 'office furniture';
+    const s = `Shop ${p.t} at Brant Business Interiors — premium ${cat} for Canadian schools, hospitals & offices. OECM-eligible supplier.`;
+    n.seo_desc = s.substring(0, 150);
+  }
+}
+
+function autoFillAll() {
+  const before = JSON.stringify(notes);
+  PRODUCTS.filter(p => p.fl.length > 0 || !p.pub).forEach(p => autoFill(p));
+  if (JSON.stringify(notes) !== before) {
+    localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+    render();
+    alert('✨ Auto-fill complete — brand, SKU, dimensions, badges, and SEO pre-populated from product titles. Only empty fields were touched.');
+  } else {
+    alert('All auto-fillable fields are already set.');
+  }
+}
+
 loadNotes();
+autoFillAll();
 render();
 </script>
 </body>

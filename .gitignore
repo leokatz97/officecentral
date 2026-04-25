@@ -18,3 +18,11 @@ data/theme-coverage.md
 # Liquid backup files — use git history instead
 theme/**/*.backup-*
 theme/**/*-backup-*.liquid
+
+# AI-generated images — runtime artefacts, regenerate with generate-page-images.py
+data/page-images/
+data/generated-images/
+
+# Raw screenshots dropped into oci-photos — only webp/jpg catalog files are committed
+data/oci-photos/*.png
+data/oci-photos/Screenshot*

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ideas & Backlog — BBI</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #f5f5f5; color: #1a1a1a; font-size: 13px; line-height: 1.6; }
+.docnav { background: #f8f9fb; border-bottom: 1px solid #d1d5db; padding: 8px 32px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.docnav-label { font-size: 10.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; margin-right: 4px; }
+.docnav a { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 10.5px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.docnav a.active { background: #1a2744; color: white; }
+.chip-blue { background: #eff6ff; color: #1d4ed8; }
+.chip-green { background: #f0fdf4; color: #166534; }
+.chip-purple { background: #fdf4ff; color: #7e22ce; }
+.chip-orange { background: #fff7ed; color: #c2410c; }
+.chip-back { background: #f3f4f6; color: #374151; }
+.header { background: #1a2744; color: white; padding: 22px 32px 18px; }
+.header h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+.header .subtitle { font-size: 12px; opacity: 0.65; }
+.content { max-width: 860px; margin: 0 auto; padding: 32px 32px 64px; }
+.idea-card { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px 22px; margin-bottom: 16px; }
+.idea-card:hover { border-color: #1a2744; }
+.idea-num { font-size: 10.5px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+.idea-title { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+.idea-desc { font-size: 13px; color: #374151; line-height: 1.6; margin-bottom: 14px; }
+.notes-label { font-size: 10.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; }
+.notes-input { width: 100%; min-height: 48px; border: 1px solid #e5e7eb; border-radius: 4px; padding: 7px 10px; font-size: 12px; font-family: inherit; resize: vertical; outline: none; color: #374151; background: white; }
+.notes-input:focus { border-color: #1a2744; }
+.notes-input.has-content { border-color: #22c55e; background: #f0fdf4; }
+.intro { font-size: 13px; color: #6b7280; margin-bottom: 28px; padding: 12px 16px; background: white; border-left: 3px solid #1a2744; border-radius: 0 6px 6px 0; }
+.footer { padding: 20px 32px; font-size: 11px; color: #9ca3af; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="docnav">
+  <span class="docnav-label">Docs</span>
+  <a href="ideas-backlog.html" class="docnav a active" style="background:#1a2744;color:white;">Ideas &amp; Backlog</a>
+  <a href="fix-plan.html" class="chip-green docnav">Fix Plan</a>
+  <a href="status-snapshot.html" class="chip-purple docnav">Status Snapshot</a>
+  <a href="brand-voice-icp.html" class="chip-orange docnav">Brand Voice &amp; ICP</a>
+  <a href="bbi-site-build-checklist.html" class="chip-back docnav" style="margin-left:auto;">← Checklist</a>
+</div>
+
+<div class="header">
+  <h1>Ideas &amp; Backlog</h1>
+  <div class="subtitle">Parking lot for Shopify / BBI improvement ideas — not active tasks. Notes saved in your browser.</div>
+</div>
+
+<div class="content">
+  <p class="intro">These are ideas to research and scope when ready. Click any note field to add your thoughts — saved automatically in your browser.</p>
+
+  <div class="idea-card">
+    <div class="idea-num">Idea 1</div>
+    <div class="idea-title">Shopify AI Toolkit</div>
+    <div class="idea-desc">Research what's in Shopify's native AI toolkit (Sidekick, Magic, product description AI, etc.) and which pieces apply to BBI.</div>
+    <div class="notes-label">Notes</div>
+    <textarea class="notes-input" id="idea-1" placeholder="Add your notes here…" onblur="save('idea-1',this.value)" oninput="mark(this)"></textarea>
+  </div>
+
+  <div class="idea-card">
+    <div class="idea-num">Idea 2</div>
+    <div class="idea-title">Add trust badges</div>
+    <div class="idea-desc">Identify where (PDP, cart, checkout) and which badges matter for B2B institutional Canadian buyers — Made in Canada, warranty, secure checkout, BBB, etc.</div>
+    <div class="notes-label">Notes</div>
+    <textarea class="notes-input" id="idea-2" placeholder="Add your notes here…" onblur="save('idea-2',this.value)" oninput="mark(this)"></textarea>
+  </div>
+
+  <div class="idea-card">
+    <div class="idea-num">Idea 3</div>
+    <div class="idea-title">Capture customers on Shopify</div>
+    <div class="idea-desc">Lead-capture mechanisms: quote requests, email capture popups, account creation incentives, exit intent, gated spec sheets.</div>
+    <div class="notes-label">Notes</div>
+    <textarea class="notes-input" id="idea-3" placeholder="Add your notes here…" onblur="save('idea-3',this.value)" oninput="mark(this)"></textarea>
+  </div>
+
+  <div class="idea-card">
+    <div class="idea-num">Idea 4</div>
+    <div class="idea-title">Product-specific FAQs</div>
+    <div class="idea-desc">FAQ blocks on PDPs tailored to each product category (chairs vs. desks vs. acoustic pods vs. storage). Reduces support load and boosts SEO.</div>
+    <div class="notes-label">Notes</div>
+    <textarea class="notes-input" id="idea-4" placeholder="Add your notes here…" onblur="save('idea-4',this.value)" oninput="mark(this)"></textarea>
+  </div>
+
+  <div class="idea-card">
+    <div class="idea-num">Idea 5</div>
+    <div class="idea-title">Fix shipping info — need timelines</div>
+    <div class="idea-desc">Surface delivery/installation timelines directly on PDPs and cart. Cross-reference <code>docs/workflows/delivery-installation-shipping-setup.md</code>.</div>
+    <div class="notes-label">Notes</div>
+    <textarea class="notes-input" id="idea-5" placeholder="Add your notes here…" onblur="save('idea-5',this.value)" oninput="mark(this)"></textarea>
+  </div>
+
+  <div class="idea-card">
+    <div class="idea-num">Idea 6</div>
+    <div class="idea-title">Customer logos, testimonials, photos</div>
+    <div class="idea-desc">Social proof assets — collect logos of institutional clients, written testimonials, and install photos. Cross-reference the OCI photo library (48 real project photos catalogued at <code>data/oci-photos/catalog.json</code>).</div>
+    <div class="notes-label">Notes</div>
+    <textarea class="notes-input" id="idea-6" placeholder="Add your notes here…" onblur="save('idea-6',this.value)" oninput="mark(this)"></textarea>
+  </div>
+
+  <div class="idea-card">
+    <div class="idea-num">Idea 7</div>
+    <div class="idea-title">Anatomy of a high-performing product page</div>
+    <div class="idea-desc">Research task. Audit top B2B furniture PDPs and distill what drives conversion. Competitors already documented in memory (POI, ABCO/Source, Grand &amp; Toy).</div>
+    <div class="notes-label">Notes</div>
+    <textarea class="notes-input" id="idea-7" placeholder="Add your notes here…" onblur="save('idea-7',this.value)" oninput="mark(this)"></textarea>
+  </div>
+</div>
+
+<div class="footer">Brant Business Interiors &nbsp;·&nbsp; brantbasics.com &nbsp;·&nbsp; 1-800-835-9565 &nbsp;·&nbsp; Notes stored locally in your browser</div>
+
+<script>
+function load(k) { try { return localStorage.getItem('bbi_idea_'+k) || ''; } catch(e) { return ''; } }
+function save(k,v) { try { localStorage.setItem('bbi_idea_'+k, v); } catch(e) {} }
+function mark(el) { el.classList.toggle('has-content', el.value.trim().length > 0); }
+document.querySelectorAll('textarea').forEach(el => {
+  const v = load(el.id);
+  el.value = v;
+  el.classList.toggle('has-content', v.trim().length > 0);
+});
+</script>
+</body>
+</html>

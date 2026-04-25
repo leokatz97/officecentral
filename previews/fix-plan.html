@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fix Plan — BBI</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #f5f5f5; color: #1a1a1a; font-size: 13px; line-height: 1.6; }
+.docnav { background: #f8f9fb; border-bottom: 1px solid #d1d5db; padding: 8px 32px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.docnav-label { font-size: 10.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; margin-right: 4px; }
+.docnav a { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 10.5px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.chip-blue { background: #eff6ff; color: #1d4ed8; }
+.chip-green-active { background: #166534; color: white; }
+.chip-purple { background: #fdf4ff; color: #7e22ce; }
+.chip-orange { background: #fff7ed; color: #c2410c; }
+.chip-back { background: #f3f4f6; color: #374151; }
+.header { background: #1a2744; color: white; padding: 22px 32px 18px; }
+.header h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+.header .subtitle { font-size: 12px; opacity: 0.65; }
+.content { max-width: 900px; margin: 0 auto; padding: 32px 32px 64px; }
+h2 { font-size: 15px; font-weight: 700; color: #111827; margin: 32px 0 12px; padding-bottom: 7px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 13px; font-weight: 700; color: #1a2744; margin: 22px 0 10px; }
+p { color: #374151; margin-bottom: 10px; }
+ol, ul { padding-left: 20px; color: #374151; margin-bottom: 10px; }
+li { margin-bottom: 4px; }
+code { background: #f3f4f6; border: 1px solid #e5e7eb; padding: 1px 5px; border-radius: 3px; font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; color: #374151; }
+table { width: 100%; border-collapse: collapse; background: white; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 20px; font-size: 12.5px; }
+thead th { background: #f9fafb; border-bottom: 2px solid #e5e7eb; padding: 9px 14px; text-align: left; font-size: 10.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; white-space: nowrap; }
+tbody td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #f9fafb; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
+.badge-done { background: #dcfce7; color: #166534; }
+.badge-pending { background: #f3f4f6; color: #6b7280; }
+.badge-progress { background: #fef3c7; color: #92400e; }
+.badge-high { background: #fee2e2; color: #991b1b; }
+.badge-medium { background: #fef3c7; color: #92400e; }
+.badge-low { background: #f0fdf4; color: #166534; }
+.badge-critical { background: #dc2626; color: white; }
+.badge-quick { background: #d1fae5; color: #065f46; }
+.step-block { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px 20px; margin-bottom: 14px; }
+.step-block h3 { margin-top: 0; }
+.section-intro { background: white; border-left: 3px solid #1a2744; padding: 10px 14px; border-radius: 0 6px 6px 0; margin-bottom: 20px; font-size: 12.5px; color: #374151; }
+.footer { padding: 20px 32px; font-size: 11px; color: #9ca3af; text-align: center; }
+a { color: #1d4ed8; }
+</style>
+</head>
+<body>
+
+<div class="docnav">
+  <span class="docnav-label">Docs</span>
+  <a href="ideas-backlog.html" class="chip-blue">Ideas &amp; Backlog</a>
+  <a href="fix-plan.html" style="background:#166534;color:white;">Fix Plan</a>
+  <a href="status-snapshot.html" class="chip-purple">Status Snapshot</a>
+  <a href="brand-voice-icp.html" class="chip-orange">Brand Voice &amp; ICP</a>
+  <a href="bbi-site-build-checklist.html" class="chip-back" style="margin-left:auto;">← Checklist</a>
+</div>
+
+<div class="header">
+  <h1>Shopify Fix Plan</h1>
+  <div class="subtitle">brantbusinessinteriors.com &nbsp;·&nbsp; Last updated April 20, 2026</div>
+</div>
+
+<div class="content">
+
+  <h2>Issues Found — Priority Order</h2>
+  <table>
+    <thead><tr><th>#</th><th>Issue</th><th>Impact</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Liquid error — <code>divided by 0</code> crashing product pages</td><td><span class="badge badge-high">High — breaks checkout</span></td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>2</td><td>"Example product" in footer — leftover template junk</td><td><span class="badge badge-medium">Medium — looks unprofessional</span></td><td><span class="badge badge-pending">⬜ Pending (Tier 3)</span></td></tr>
+      <tr><td>3</td><td>No product descriptions — 625 products, most have none</td><td><span class="badge badge-high">High — SEO + conversions</span></td><td><span class="badge badge-progress">🔄 15/50 top products done</span></td></tr>
+      <tr><td>4</td><td>Weak homepage — no hero image, no testimonials</td><td><span class="badge badge-medium">Medium — first impressions</span></td><td><span class="badge badge-pending">⬜ Pending (Tier 3)</span></td></tr>
+      <tr><td>5</td><td>Buried contact info — phone/email not prominent</td><td><span class="badge badge-medium">Medium — losing leads</span></td><td><span class="badge badge-done">✅ Done — announcement bar live</span></td></tr>
+      <tr><td>6</td><td>"Outdoor Coming Soon" — incomplete section showing publicly</td><td><span class="badge badge-low">Low — confusing visitors</span></td><td><span class="badge badge-pending">⬜ Pending (Tier 3)</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Completed Infrastructure</h2>
+  <p class="section-intro">Shipped April 19–20, 2026. Not line items in the Wave plan — this is the groundwork that makes Wave 0+ possible.</p>
+  <table>
+    <thead><tr><th>What</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Shopify Admin API + OAuth app</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>Full order analysis (Oct 2024 → Apr 2026)</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>Product HTML audit (all 650 SKUs)</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>ICP + voice sheet locked (<code>docs/strategy/icp.md</code>)</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>5 approved product description samples (<code>docs/strategy/voice-samples.md</code>)</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>HTML cleanup on 147 top-revenue products</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>9 ™/® product handles renamed + redirect CSV generated</td><td><span class="badge badge-done">✅ Done (CSV upload pending — Leo's task)</span></td></tr>
+      <tr><td>11 service pseudo-products unpublished</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>21 junk/test/draft products archived</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>41 boilerplate duplicates cleaned</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>Taxonomy: 14 automated collections built (7 type × 7 room)</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>584/613 products tagged with <code>type:*</code>, <code>room:*</code>, <code>industry:*</code></td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>Main nav rebuilt around facets (8 top-level items live)</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>Delivery + Installation 7-tier shipping rate live</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>Site-wide floating "Request a Quote" button</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>Sold-out/$0-price variants → Request a Quote CTA</td><td><span class="badge badge-done">✅ Done</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Wave 0 — Technical Foundation</h2>
+  <p class="section-intro">These block everything else. No SEO effort compounds until this layer is solid.</p>
+  <table>
+    <thead><tr><th>#</th><th>Task</th><th>Priority</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>W0-1</td><td><strong>Google Search Console + GA4 setup</strong></td><td><span class="badge badge-critical">🔴 Critical</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W0-2</td><td><strong>Create BBI Google Business Profile</strong></td><td><span class="badge badge-critical">🔴 Critical</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W0-2b</td><td><strong>Google Reviews seeding strategy</strong></td><td><span class="badge badge-critical">🔴 Critical</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W0-3</td><td><strong>Fix product redirects</strong></td><td><span class="badge badge-critical">🔴 Critical</span></td><td><span class="badge badge-progress">🔄 CSV at <code>data/url-redirects.csv</code> — manual upload pending (Leo's task)</span></td></tr>
+      <tr><td>W0-4</td><td><strong>Meta titles + descriptions audit</strong></td><td><span class="badge badge-high">🔴 High</span></td><td><span class="badge badge-pending">⬜ Not started — blocked on GSC (W0-1)</span></td></tr>
+      <tr><td>W0-5</td><td><strong>Confirm Request a Quote CTAs are live</strong></td><td><span class="badge badge-high">🔴 High</span></td><td><span class="badge badge-done">✅ Done</span></td></tr>
+      <tr><td>W0-6</td><td><strong>Parent domain backlinks</strong></td><td><span class="badge badge-high">🔴 High</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W0-7</td><td><strong>OECM + "Since 1964" trust signals on BBI store</strong></td><td><span class="badge badge-high">🔴 High</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Wave 1 — Content</h2>
+  <p class="section-intro">Pre-req: W0-1 (GSC) for measurement, brand identity locked.</p>
+  <table>
+    <thead><tr><th>#</th><th>Task</th><th>Priority</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>W1-1</td><td><strong>OECM landing page</strong></td><td><span class="badge badge-high">🔴 High</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W1-2</td><td><strong>Brand dealer pages</strong></td><td><span class="badge badge-high">🔴 High</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W1-3</td><td><strong>Schools / School Board vertical page</strong></td><td><span class="badge badge-high">🔴 High</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W1-4</td><td><strong>Healthcare / Clinic vertical page</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W1-5</td><td><strong>Government / Municipal vertical page</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W1-6</td><td><strong>FAQ page</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W1-7</td><td><strong>Canadian-made page</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W1-8</td><td><strong>"Our Work" / Project Portfolio page</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started — 48 OCI photos ready</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Wave 2 — Catalog / Product Work</h2>
+  <p class="section-intro">Pre-req: Tier 2 Hero 100 enrichment (Phase 1).</p>
+  <table>
+    <thead><tr><th>#</th><th>Task</th><th>Priority</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>W2-1</td><td><strong>Acoustic Pods / Phone Booths category page</strong></td><td><span class="badge badge-high">🔴 High (once products exist)</span></td><td><span class="badge badge-pending">⬜ Not started — needs products in catalog</span></td></tr>
+      <tr><td>W2-2</td><td><strong>Sit-stand buyer guide + collection</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W2-3</td><td><strong>Hybrid work bundle collection</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W2-4</td><td><strong>Email capture + lead magnet</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W2-5</td><td><strong>Internal linking audit</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started — after Wave 1 content exists</span></td></tr>
+      <tr><td>W2-6</td><td><strong>Co-published content on parent domains</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W2-7</td><td><strong>Schema Markup</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W2-8</td><td><strong>Product title optimization</strong></td><td><span class="badge badge-quick">🟢 Quick win</span></td><td><span class="badge badge-pending">⬜ Not started — covered in Tier 2 Phase 1.2</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Wave 3 — Authority Building</h2>
+  <p class="section-intro">Pre-req: Wave 1 + Wave 2 content live.</p>
+  <table>
+    <thead><tr><th>#</th><th>Task</th><th>Priority</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>W3-1</td><td><strong>City-level SEO pages</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W3-2</td><td><strong>Ergonomics education hub</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W3-3</td><td><strong>Blog — comparison-style content</strong></td><td><span class="badge badge-medium">🟡 Medium</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W3-4</td><td><strong>Sustainability / LEED / BIFMA page</strong></td><td><span class="badge badge-quick">🟢 Lower</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W3-5</td><td><strong>Space planning landing page</strong></td><td><span class="badge badge-quick">🟢 Lower</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W3-6</td><td><strong>Manufacturer dealer locator pages</strong></td><td><span class="badge badge-quick">🟢 Lower</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W3-7</td><td><strong>OECM directory + Chamber + COPA backlinks</strong></td><td><span class="badge badge-quick">🟢 Lower</span></td><td><span class="badge badge-pending">⬜ Not started</span></td></tr>
+      <tr><td>W3-8</td><td><strong>Brand kit + design authority</strong></td><td><span class="badge badge-quick">🟢 Lower</span></td><td><span class="badge badge-pending">⬜ Not started — blocked by Tier 9 design overhaul</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Corporate Context</h2>
+  <div class="step-block">
+    <p>BBI is the furniture division of Brant Basics, owned by <strong>Office Central</strong> (founded 1978, $111M revenue, Richmond Hill ON HQ).</p>
+    <ul style="margin-top:10px;">
+      <li><strong>Both Office Central and Brant Basics are verified OECM supplier partners</strong> — Ontario school boards, hospitals, libraries, universities, and municipalities can buy from BBI through OECM without open tender. No Ontario furniture competitor has this status.</li>
+      <li>BBI can claim: <em>"Backed by Office Central, proudly serving Ontario businesses since 1964."</em></li>
+      <li>Parent backlinks available: officecentral.com (48 yrs, $111M) and brantbasics.com (62 yrs) — highest-value links BBI can get, already owned.</li>
+      <li><strong>BBI has no Google Business Profile yet</strong> — needs to be created.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">Brant Business Interiors &nbsp;·&nbsp; brantbasics.com &nbsp;·&nbsp; 1-800-835-9565</div>
+
+</body>
+</html>

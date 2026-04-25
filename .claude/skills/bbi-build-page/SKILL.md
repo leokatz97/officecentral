@@ -24,7 +24,7 @@ Leo's canonical workflow for building a new BBI Shopify page. Seven steps, alway
 
 Leo invokes: `/bbi-build-page [page name]`
 
-Parse the page name from the arguments. If he didn't include one, ask once: "Which page are we building?" Then go straight to Step 1.
+Parse the page name from the arguments. If he didn't include one, ask once: "Which page are we building?" Then go straight to the Pre-Step.
 
 ---
 
@@ -93,6 +93,12 @@ Reference templates: `theme/templates/page.oecm.json` and `theme/templates/page.
 
 **Photo library:** `data/oci-photos/catalog.json` — 48 real project photos. Use for heroes, Our Work, industry pages.
 
+**AI page-image library:** `data/page-images/{page-slug}/` — pre-generated 16:9 hero images for every BBI landing page, produced by `scripts/generate-page-images.py` (fal.ai flux/schnell). Two files per page:
+- `{slug}-product.jpg` — featured SKU in a polished commercial setting (Type A: product hero)
+- `{slug}-space.jpg` — full room scene capturing the page atmosphere (Type B: space hero)
+Pages where a real OCI photo already covers the space concept are flagged `SOURCE=OCI_PHOTO` in `data/reports/generated-page-images-YYYY-MM-DD.csv` — use the OCI photo for that slot instead.
+To (re)generate: `python3 scripts/generate-page-images.py --live` (or `--limit=3 --live` for a smoke test).
+
 ---
 
 ## Two Page Types
@@ -106,6 +112,22 @@ Reference templates: `theme/templates/page.oecm.json` and `theme/templates/page.
 (homepage, product pages, collection pages, about, contact)
 - Uses: default Shopify templates + Starlite sections
 - Starlite chrome: **active**
+
+---
+
+## Pre-Step — Pull Page Brief (you do this before Step 1)
+
+Before scoping, load every piece of context available for this page:
+
+1. **Read the site build checklist** at `previews/bbi-site-build-checklist.html` — find the entry matching the page name in the `PAGES` array. Extract its `tips` array. These are the pre-agreed best-practice tips for this exact page: ICP target, hero photo, CTA priority, copy angle, SEO keywords, trust signals. They are your primary brief.
+
+2. **Read ICP & voice** at `docs/strategy/icp.md` — confirm which ICP (Primary = institutional Ontario, Secondary = SMB) this page targets and apply the matching voice calibration. Check the keyword lists for any SEO terms relevant to this page.
+
+3. **Read voice samples** at `docs/strategy/voice-samples.md` — reference the 5 approved rewrites so copy tone in the Step 2 brief matches what's already been signed off.
+
+4. **Check photo library** at `data/oci-photos/catalog.json` — the checklist tips usually name specific photos. Confirm the filename exists before citing it in Step 3's Claude Design prompt.
+
+Summarize the loaded brief to Leo in one short block — tips, ICP target, recommended hero photo — and confirm before Step 1. This becomes the source of truth for all copy and design decisions on this page.
 
 ---
 
@@ -134,6 +156,12 @@ Present the brief as a structured block Leo can scan. Wait for his sign-off befo
 ---
 
 ## Step 3 — Claude Design Prompt
+
+**Before writing the prompt:** check `data/page-images/{page-slug}/` for pre-generated hero images:
+- If `{slug}-product.jpg` exists → reference it as the hero/product image in the design prompt and tell Leo to attach it to Claude Design.
+- If `{slug}-space.jpg` exists → use it as the background/space image.
+- If the slot is `SOURCE=OCI_PHOTO` (per the manifest CSV) → use the OCI photo filename from `data/oci-photos/` instead.
+- If neither exists → note "no pre-generated image available — Claude Design will need to generate or you can run `python3 scripts/generate-page-images.py --limit=1 --live` first."
 
 Emit the exact prompt for Leo to paste into claude.ai/design. Use this template — fill in the bracketed parts:
 
@@ -226,5 +254,5 @@ After Leo says "it's live in the draft theme", walk him through these 8 checks. 
 - **Suppress Starlite chrome only on Type A** — Type B uses it
 - **Never publish the dev theme** — everything stays in "BBI Landing Dev" draft
 - **Never delete products** — archive or unpublish; prefer unpublish when sold-history exists
-- **Wait for Leo's go-ahead** between Steps 1, 2, 3, and 5 — don't run the whole flow autonomously
+- **Wait for Leo's go-ahead** between Pre-Step, Steps 1, 2, 3, and 5 — don't run the whole flow autonomously
 - **Flag unbuilt pages** as `[placeholder]` in Step 1 so Leo can decide which to build next
