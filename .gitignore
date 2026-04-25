@@ -27,3 +27,9 @@ data/generated-clean-images/
 # Raw screenshots dropped into oci-photos — only webp/jpg catalog files are committed
 data/oci-photos/*.png
 data/oci-photos/Screenshot*
+
+# Generated logo option PNGs — regenerate with scripts/generate-logo-options.py
+data/logos/options/*.png
+
+# Review screenshots — reference only, not part of source
+docs/reviews/*.png
