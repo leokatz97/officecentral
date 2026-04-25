@@ -779,15 +779,15 @@ const WAVE_TASKS = [
   {id:"W0-5",  wave:0, label:"Confirm Request a Quote CTAs are live",                priority:"high",     relatedPageIds:[4],         defaultStatus:"done",       note:"Live after April 19 product-form-buttons.liquid edit"},
   {id:"W0-6",  wave:0, label:"Parent domain backlinks (officecentral.com, brantbasics.com)", priority:"high", relatedPageIds:[],     defaultStatus:"not-started"},
   {id:"W0-7",  wave:0, label:"OECM + \"Since 1964\" trust signals on BBI store",     priority:"high",     relatedPageIds:[17,18,28], defaultStatus:"not-started"},
-  // Wave 2 — Catalog & Product
-  {id:"W2-4",  wave:2, label:"Email capture + lead magnet",                          priority:"medium",   relatedPageIds:[],          defaultStatus:"not-started"},
-  {id:"W2-5",  wave:2, label:"Internal linking audit",                               priority:"medium",   relatedPageIds:[],          defaultStatus:"not-started", note:"After Wave 1 content exists"},
-  {id:"W2-6",  wave:2, label:"Co-published content on parent domains",               priority:"medium",   relatedPageIds:[],          defaultStatus:"not-started"},
-  {id:"W2-7",  wave:2, label:"Schema Markup",                                        priority:"medium",   relatedPageIds:[4],         defaultStatus:"not-started"},
-  {id:"W2-8",  wave:2, label:"Product title optimization",                           priority:"quick-win",relatedPageIds:[],          defaultStatus:"not-started", note:"Covered in Tier 2 Phase 1.2 (Hero 100 titles)"},
-  // Wave 3 — Authority Building
-  {id:"W3-7",  wave:3, label:"OECM directory + Chamber + COPA backlinks",            priority:"low",      relatedPageIds:[28],        defaultStatus:"not-started"},
-  {id:"W3-8",  wave:3, label:"Brand kit + design authority",                         priority:"low",      relatedPageIds:[],          defaultStatus:"not-started", note:"Blocked by Tier 9 design overhaul"}
+  // Wave 1 — SEO & Catalog Work
+  {id:"W1-1",  wave:1, label:"Email capture + lead magnet",                          priority:"medium",   relatedPageIds:[],          defaultStatus:"not-started"},
+  {id:"W1-2",  wave:1, label:"Internal linking audit",                               priority:"medium",   relatedPageIds:[],          defaultStatus:"not-started"},
+  {id:"W1-3",  wave:1, label:"Co-published content on parent domains",               priority:"medium",   relatedPageIds:[],          defaultStatus:"not-started"},
+  {id:"W1-4",  wave:1, label:"Schema Markup",                                        priority:"medium",   relatedPageIds:[4],         defaultStatus:"not-started"},
+  {id:"W1-5",  wave:1, label:"Product title optimization",                           priority:"quick-win",relatedPageIds:[],          defaultStatus:"not-started", note:"Covered in Tier 2 Phase 1.2 (Hero 100 titles)"},
+  // Wave 2 — Authority Building
+  {id:"W2-1",  wave:2, label:"OECM directory + Chamber + COPA backlinks",            priority:"low",      relatedPageIds:[28],        defaultStatus:"not-started"},
+  {id:"W2-2",  wave:2, label:"Brand kit + design authority",                         priority:"low",      relatedPageIds:[],          defaultStatus:"not-started", note:"Blocked by Tier 9 design overhaul"}
 ];
 
 // ═══════════════════════════════════════════════════════════
@@ -795,8 +795,8 @@ const WAVE_TASKS = [
 // ═══════════════════════════════════════════════════════════
 const PHASE_LABELS = {1:"Phase 1 — Foundation",2:"Phase 2 — Catalog",3:"Phase 3 — Services",4:"Phase 4 — Verticals",5:"Phase 5 — Campaigns"};
 const PHASE_CLASS  = {1:"phase-1",2:"phase-2",3:"phase-3",4:"phase-4",5:"phase-5"};
-const WAVE_LABELS  = {0:"Wave 0 — Technical Foundation",2:"Wave 2 — Catalog & Product",3:"Wave 3 — Authority Building"};
-const WAVE_SUBS    = {0:"Do before any content work — blocks everything else.",2:"Pre-req: Tier 2 Hero 100 enrichment.",3:"Pre-req: Wave 0 + Wave 2 content live."};
+const WAVE_LABELS  = {0:"Wave 0 — Technical Foundation",1:"Wave 1 — SEO & Catalog Work",2:"Wave 2 — Authority Building"};
+const WAVE_SUBS    = {0:"Do before any content work — blocks everything else.",1:"Pre-req: Wave 0 complete + Tier 2 Hero 100 enrichment.",2:"Pre-req: Wave 0 + Wave 1 complete."};
 const STATUS_CYCLE = {"not-started":"in-progress","in-progress":"done","done":"not-started"};
 const STATUS_LABEL = {"not-started":"Not started","in-progress":"In progress","done":"Done"};
 const STATUS_CLASS = {"not-started":"status-not-started","in-progress":"status-in-progress","done":"status-done"};
