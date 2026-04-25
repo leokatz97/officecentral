@@ -19,9 +19,10 @@ data/theme-coverage.md
 theme/**/*.backup-*
 theme/**/*-backup-*.liquid
 
-# AI-generated images — runtime artefacts, regenerate with generate-page-images.py
+# AI-generated images — runtime artefacts, regenerate with generate-*-images.py scripts
 data/page-images/
 data/generated-images/
+data/generated-clean-images/
 
 # Raw screenshots dropped into oci-photos — only webp/jpg catalog files are committed
 data/oci-photos/*.png

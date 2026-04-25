@@ -195,4 +195,5 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | Approved copy samples | [docs/strategy/voice-samples.md](docs/strategy/voice-samples.md) |
 | Script reference | [scripts/README.md](scripts/README.md) |
 | Page image generator | [scripts/generate-page-images.py](scripts/generate-page-images.py) |
+| Page image sharpener | [scripts/sharpen-page-images.py](scripts/sharpen-page-images.py) |
 | AI image library | [data/page-images/](data/page-images/) |
