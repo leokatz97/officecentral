@@ -116,6 +116,23 @@ To (re)generate: `python3 scripts/generate-page-images.py --live` (or `--limit=3
 
 Before scoping, load every piece of context available for this page:
 
+**Wave 0 Gate — check before building any Phase 1+ page**
+
+Read `docs/plan/shopify-fix-plan.md` Wave 0 section and surface the status of these blocking items. If any are ⬜ Not started, flag them to Leo before continuing — SEO won't compound without this foundation in place:
+
+| # | Task | Blocking? |
+|---|------|-----------|
+| W0-1 | GSC + GA4 live | Phase 1 pages (SEO untrackable until live) |
+| W0-2 | Google Business Profile created | Local SEO |
+| W0-3 | Product redirect CSV uploaded | All shop pages |
+| W0-4 | Meta titles + descriptions audited | Blocked on W0-1 |
+| W0-6 | Parent domain backlinks | Authority |
+| W0-7 | OECM + trust signals on BBI store | Trust pages |
+
+If Leo wants to proceed anyway, note which W0 items are outstanding and flag that SEO impact will be limited until they're done. Don't block the build — just make the dependency visible.
+
+---
+
 **0. Inventory pre-generated images** — use the table below to find the exact subfolder for this page, then list the files inside it:
 
 | Page name (as Leo says it) | Image folder |
@@ -133,6 +150,17 @@ Before scoping, load every piece of context available for this page:
 | panels-room-dividers / panels | `data/page-images/panels-room-dividers/` |
 | accessories | `data/page-images/accessories/` |
 | quiet-spaces | `data/page-images/quiet-spaces/` |
+| **"View all" smart collections (no dedicated image folder — use parent category image)** | |
+| all-seating | use `data/page-images/seating/` hero (these are browse pages — no new image generation needed) |
+| all-desks | use `data/page-images/desks/` |
+| all-storage | use `data/page-images/storage/` |
+| all-tables | use `data/page-images/tables/` |
+| all-boardroom | use `data/page-images/boardroom/` |
+| all-ergonomic-products | use `data/page-images/ergonomic-products/` |
+| all-panels | use `data/page-images/panels-room-dividers/` |
+| all-accessories | use `data/page-images/accessories/` |
+| all-quiet-spaces | use `data/page-images/quiet-spaces/` |
+| all-business-furniture | use `data/page-images/business-furniture/` |
 | **Industries** | |
 | industries-hub | `data/page-images/industries-hub/` |
 | healthcare | `data/page-images/healthcare/` |
@@ -373,7 +401,7 @@ After the basic page creation steps, emit a tailored interconnection checklist b
 | Customer Stories (`/pages/customer-stories`) | Landing page template (industry-filter variant — must include Review JSON-LD per testimonial via `/schema-markup-generator`) | Footer + nav About dropdown | None | Homepage (testimonials section: "Read customer stories →"), every industry page ("See [Industry] customer stories →" filtered link), `/pages/quote`, About page, Contract Pricing |
 | FAQ (`/pages/faq`) | Landing page template (FAQ variant — must include FAQPage JSON-LD via `/schema-markup-generator`) | Footer + nav About dropdown | None | Every product page (sticky "Questions?" link), every service page, footer |
 | Request a Quote (`/pages/quote`) | Landing page template (form-heavy variant) | Main nav right-side CTA button | None — it IS the conversion endpoint | Every product page, every category page (phone CTA block), every industry page, every service page, every sub-collection footer |
-| Contract Pricing (`/pages/contract-pricing`) | Landing page template (form-heavy) | Footer / industry-page link | None | Industry pages, OECM page |
+| Contract Pricing (`/pages/contract-pricing`) ⚠️ _not in site-architecture-2026-04-25.md — confirm with Leo before building_ | Landing page template (form-heavy) | Footer / industry-page link | None | Industry pages, OECM page |
 | Blog / Resources hub (`/blogs/news`) | Custom blog template | Main nav (optional "Resources") + footer | None — it IS the hub | Footer link, every article cross-links back |
 | Blog article (`/blogs/news/[handle]`) | Article template (must include Article + FAQPage JSON-LD via `/schema-markup-generator`) | Not in nav — reached via Resources hub | Resources hub | Related category page, related industry page, `/pages/quote` CTA at bottom |
 | Custom 404 (`/404`) | `404.json` | N/A — system page | N/A | (terminal — but links OUT to 4 top categories + search + phone) |
