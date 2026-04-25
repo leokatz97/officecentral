@@ -216,6 +216,117 @@ PAGE_SPECS = [
         "desks, monitor arms, keyboard trays, bright open workspace, motivational ergonomics "
         "poster on the wall. No people, no text overlays.",
     )),
+    ('business-furniture', (
+        "Professional product photography of a curated grouping of Canadian commercial office "
+        "furniture — an executive desk, an ergonomic task chair, and a lateral file cabinet — "
+        "arranged neatly on a clean white studio background, commercial catalogue lighting. "
+        "No people, no text overlays.",
+
+        "Wide-angle photograph of a modern Canadian open-plan business office showing multiple "
+        "furniture zones: a workstation area, a collaboration table, and a private office nook, "
+        "all in a cohesive neutral palette with abundant natural light. "
+        "No people, no text overlays.",
+    )),
+    ('seating', (
+        "Professional product photography of four distinct office seating types — a high-back "
+        "executive chair, a mid-back mesh task chair, an upholstered lounge chair, and a "
+        "stackable guest chair — arranged on a clean white studio background, commercial "
+        "catalogue lighting. No people, no text overlays.",
+
+        "Bright modern Canadian office interior showcasing multiple seating zones: ergonomic "
+        "task chairs at desks, upholstered lounge seating near a window wall, and stackable "
+        "chairs around a training table. Warm natural light, neutral palette. "
+        "No people, no text overlays.",
+    )),
+    ('tables', (
+        "Professional product photography of a rectangular meeting table with a wood-grain "
+        "laminate top and metal legs on a clean white studio background, commercial catalogue "
+        "lighting, slight drop shadow. No people, no text overlays.",
+
+        "Modern corporate training room with flip-top tables configured in a classroom layout, "
+        "bright overhead lighting, neutral grey carpet, clean institutional interior. "
+        "Architectural interior photography. No people, no text overlays.",
+    )),
+    ('boardroom', (
+        "Professional product photography of a large oval conference table with a dark walnut "
+        "veneer finish and integrated cable management on a clean white studio background, "
+        "commercial catalogue lighting. No people, no text overlays.",
+
+        "Formal Canadian corporate boardroom with a long polished conference table, premium "
+        "upholstered chairs, integrated AV credenza with screens, floor-to-ceiling windows "
+        "overlooking a city. Sophisticated neutral decor, warm ambient lighting. "
+        "No people, no text overlays.",
+    )),
+    ('ergonomic-products', (
+        "Professional product photography of a height-adjustable sit-stand desk with a dual "
+        "monitor arm and an ergonomic keyboard tray, clean white studio background, sharp "
+        "commercial catalogue lighting. No people, no text overlays.",
+
+        "Ergonomics-focused modern office with sit-stand desks at standing height, dual monitor "
+        "arms, under-desk keyboard trays, anti-fatigue mats, warm open workspace with large "
+        "windows. Healthy workplace interior photography. No people, no text overlays.",
+    )),
+    ('panels-room-dividers', (
+        "Professional product photography of a freestanding fabric-wrapped room divider panel "
+        "in a neutral grey finish on a clean white studio background, commercial catalogue "
+        "lighting. No people, no text overlays.",
+
+        "Open-plan Canadian office subdivided with full-height fabric room dividers and "
+        "desktop privacy panels creating individual workstation zones, warm neutral palette, "
+        "natural light filtering through. Modern institutional interior. "
+        "No people, no text overlays.",
+    )),
+    ('accessories', (
+        "Professional product photography of a curated grouping of office accessories — a "
+        "clear chairmat, a power module strip, a sleek coat rack, and a modern LED desk lamp — "
+        "arranged on a clean white studio background, catalogue lighting. "
+        "No people, no text overlays.",
+
+        "Well-appointed modern office workstation with a chairmat underfoot, integrated power "
+        "module on the desk surface, coat rack in the corner, and task lighting, all in a "
+        "clean neutral office environment. No people, no text overlays.",
+    )),
+    ('quiet-spaces', (
+        "Professional product photography of a freestanding office phone booth pod with "
+        "acoustic upholstered walls, glass door, and integrated ventilation on a clean white "
+        "studio background, commercial catalogue style. No people, no text overlays.",
+
+        "Modern open-plan office with a standalone acoustic phone booth and a larger "
+        "two-person quiet pod installed among workstations, sound-dampening ceiling baffles "
+        "overhead, warm interior lighting inside the pods. No people, no text overlays.",
+    )),
+    ('industries-hub', (
+        "Professional composite photograph of four Canadian institutional furniture settings: "
+        "a corporate office workstation, a healthcare reception desk, a government "
+        "administrative workspace, and an educational training table, each on a clean white "
+        "studio background arranged in a 2x2 grid. No people, no text overlays.",
+
+        "Split wide-angle interior photograph showing a corporate open-plan office on the left "
+        "and a modern institutional workspace on the right, both featuring Canadian commercial "
+        "furniture, clean neutral environments, bright institutional lighting. "
+        "No people, no text overlays.",
+    )),
+    ('brands-hub', (
+        "Professional product photography showcase of three premium Canadian office chairs — "
+        "a Keilhauer upholstered boardroom chair, a Global Upholstery executive chair, and an "
+        "ergoCentric task chair — on a clean white studio background, editorial catalogue "
+        "lighting. No people, no text overlays.",
+
+        "Elegant office furniture showroom interior with curated displays of premium task "
+        "chairs, executive seating, and ergonomic products on raised platforms, warm accent "
+        "lighting, clean white walls and polished concrete floors. "
+        "No people, no text overlays.",
+    )),
+    ('delivery', (
+        "Professional product photography of neatly flat-packed office furniture boxes and "
+        "hardware kits arranged on a clean white studio background with assembly tools laid "
+        "out precisely, commercial catalogue lighting. No people, no text overlays.",
+
+        "Freshly delivered and installed modern Canadian office — pristine workstations, "
+        "chairs perfectly positioned, desks clear and ready, under warm overhead lighting, "
+        "as if just completed by an installation team. Clean institutional interior. "
+        "No people, no text overlays.",
+    )),
 ]
 
 # Pages where an OCI photo already covers the space concept well enough that
@@ -229,6 +340,7 @@ OCI_SPACE_COVERAGE = {
     'education':      'OCI-Education-1.jpg',
     'government':     'OCI-Government-Federal-Furniture-Gallery-Image-1.jpg',
     'design-services': 'OCI-Planning-Desogn.jpg',
+    'relocation':      'OCI-Services-Relocation-management.jpg',
 }
 
 

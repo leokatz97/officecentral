@@ -264,7 +264,11 @@
 </div>
 <div class="header">
   <h1>BBI Site Build Checklist</h1>
-  <div class="subtitle">27 pages &nbsp;·&nbsp; Draft theme: BBI Landing Dev (186373570873) &nbsp;·&nbsp; Updated April 24, 2026 &nbsp;·&nbsp; Progress and notes saved in your browser</div>
+  <div class="subtitle">33 pages &nbsp;·&nbsp; Draft theme: BBI Landing Dev (186373570873) &nbsp;·&nbsp; Updated April 25, 2026 &nbsp;·&nbsp; Progress and notes saved in your browser</div>
+</div>
+
+<div class="gate-banner" style="background:#fef2f2;border-bottom-color:#fecaca;color:#7f1d1d;">
+  🔵 &nbsp;<strong>Scope change — April 25, 2026:</strong> Shop is <strong>Business Furniture only.</strong> Educational, Daycare &amp; ECE, and Healthcare &amp; Seniors vertical pages are archived. Industry landing pages (Healthcare, Education, Government, etc.) remain — copy now focuses on furnishing <em>workspaces within those sectors</em> using business furniture. No sector-specific equipment (operating tables, lab benches, cribs).
 </div>
 
 <div class="controls">
@@ -272,7 +276,7 @@
   <select id="filter-phase">
     <option value="">All phases</option>
     <option value="1">Phase 1 — Foundation</option>
-    <option value="2">Phase 2 — Catalog</option>
+    <option value="2">Phase 2 — Shop Structure</option>
     <option value="3">Phase 3 — Services</option>
     <option value="4">Phase 4 — Verticals</option>
     <option value="5">Phase 5 — Campaigns</option>
@@ -294,7 +298,7 @@
 </div>
 
 <div class="gate-banner">
-  ⚠️ &nbsp;<strong>Publish gate:</strong> Deploy the BBI Landing Dev theme only after all 27 pages reach <em>Done</em>. The live site stays on the current theme until then.
+  ⚠️ &nbsp;<strong>Publish gate:</strong> Deploy the BBI Landing Dev theme only after all 33 pages reach <em>Done</em>. The live site stays on the current theme until then.
 </div>
 
 <div class="table-wrap">
@@ -325,10 +329,13 @@ const PAGES = [
     tips: [
       "Hero: full-width photo + overlay text — use Inspiration-Executive-Office.jpg or OCI-Service-Excellence-2.jpg (data/oci-photos/). No carousel.",
       "Headline leads with the Primary ICP: 'Commercial Office Furniture. Canadian-Made.' — follow with a one-line sub: 'Serving institutions and businesses across Canada for 30+ years.'",
-      "Primary action = Shop Collections (big button). Secondary actions (Design Layout, Call, Quote) always accessible in nav and announcement bar — don't bury them, but don't compete with the shop CTA.",
+      "Primary action = Shop Business Furniture (big button → /collections/business-furniture). Secondary actions (Design Layout, Call, Quote) always accessible in nav and announcement bar.",
       "Trust row immediately below hero (5 chips): Canadian Owned · 5,000+ Canadian Offices Furnished · OECM Verified Supplier · PO & NET 30 Accepted · 30+ Years in Business. Add Canadian flag icon beside 'Canadian Owned'.",
+      "9 Business Furniture category tiles below trust row — Seating, Desks, Storage, Tables, Boardroom, Ergonomics, Panels, Accessories, Quiet Spaces — each linking to its category page.",
       "Customer logo strip (5 logos): mix institutional + SMB — Kawartha Dairy logo at data/testimonials/kawartha-dairy-logo.jpg. Caption: 'Trusted by organizations across Canada.'",
       "Testimonial pull-quote below logos: Kawartha Dairy — 'Sharing a successful partnership for more than a decade…' (see docs/strategy/testimonials.md)",
+      "5 industry sector thumbnails below testimonials → link to /pages/healthcare, /pages/education, etc.",
+      "Services overview strip: Design Services · Delivery & Installation · Relocation Management.",
       "Meta-title suffix on every page: '| Brant Business Interiors — a division of Office Central Inc. (OECM Supplier)' — per icp.md branding lockup"
     ]
   },
@@ -348,93 +355,159 @@ const PAGES = [
     tips: [
       "Phone 1-800-835-9565 must be clickable (tel: link) — appear in header, page body, and closing CTA. This is 20% of BBI's revenue channel.",
       "List all 6 locations in order: Brantford HQ → Peterborough → Brampton → Toronto → Vancouver → Calgary. Each with address + hours. Map embed for Brantford HQ.",
-      "Contact form fields: Name, Company, Vertical (Business / Education / Healthcare / Government / Non-Profit), Request Type (Quote / Design Layout / General Question). Route to sales@.",
+      "Contact form fields: Name, Company, Sector (Business / Education / Healthcare / Government / Non-Profit), Request Type (Quote / Design Layout / General Question). Route to sales@.",
       "Soft-ask below the form: 'Starting a fit-out? Request a free design layout — no obligation.'",
       "Note: '5 Ontario locations' copy is now outdated — BBI has 6 locations including Vancouver and Calgary. Update all references site-wide."
     ]
   },
 
-  // ── PHASE 2: CATALOG ─────────────────────────────────────────────────────
+  // ── PHASE 2: SHOP STRUCTURE ───────────────────────────────────────────────
+  // SCOPE: Business Furniture only. Educational / Daycare / Healthcare vertical pages ARCHIVED 2026-04-25.
+  // 3 templates: collection.category.json (vertical + 9 category pages), collection.json (~68 sub-collections), landing page template.
   {
     id: 4, phase: 2, name: "Product Page Template", route: "/products/[any]",
     tips: [
-      "One template powers all 600+ products — build it right once. Reference effydesk.com/products/essential-bundle for layout inspiration (per Claude Design inspo note).",
-      "Sections every product page must have: (1) Hero image gallery — main photo + thumbnail strip. (2) Sticky add-to-cart / Request a Quote bar — stays visible on scroll. (3) Bold one-line use-case hook as the opener (not specs). (4) Specs accordion below the fold — dimensions, warranty, materials, country of manufacture. (5) Related products upsell row at the bottom.",
-      "Always keep model code / SKU in the product title — B2B reorders search by code (per voice.md). Format: 'Product Name — Model Code'.",
-      "Delivery + install trust block on every product, always visible: 'Ships from Ontario stock · Installation available — call for quote.' Never promise specific lead times.",
-      "For $0-price / sold-out / showcase items: replace Add to Cart with 'Request a Quote' button that routes to a form. Keep the page live — these are B2B lead-capture pages.",
-      "Phone CTA at the bottom of every product: 'Questions? Call 1-800-835-9565' as a tel: link."
+      "One template powers all 600+ products — build it right once. Reference effydesk.com/products/essential-bundle for layout inspiration.",
+      "Sections every product page must have: (1) Hero image gallery — main photo + thumbnail strip. (2) Sticky add-to-cart / Request a Quote bar. (3) Bold one-line use-case hook as the opener (not specs). (4) Specs accordion below the fold — dimensions, warranty, materials, country of manufacture. (5) Related products upsell row at the bottom.",
+      "Always keep model code / SKU in the product title — B2B reorders search by code. Format: 'Product Name — Model Code'.",
+      "Delivery + install trust block on every product: 'Ships from Ontario stock · Installation available — call for quote.' Never promise specific lead times.",
+      "For $0-price / sold-out / showcase items: replace Add to Cart with 'Request a Quote' button → /pages/quote. Keep the page live — these are B2B lead-capture pages.",
+      "Phone CTA at the bottom of every product: 'Questions? Call 1-800-835-9565' as a tel: link.",
+      "Breadcrumb: Home > Shop Furniture > [Category] > [Sub-collection] > [Product]"
     ]
   },
   {
-    id: 5, phase: 2, name: "Task Seating", route: "/collections/task-seating",
+    id: 5, phase: 2, name: "Business Furniture (Vertical)", route: "/collections/business-furniture",
     tips: [
-      "Primary buyer for this collection: SMB office manager outfitting new hires (1–5 chairs). Write the intro for them — ergonomics, durability, and commercial grade.",
-      "Collection intro: 'Commercial-grade chairs for offices that actually put them to work.' — purposeful, not lifestyle.",
-      "3 hero SKUs to feature prominently: (1) ObusForme Comfort High Back 1240-3 — back health, all-day sitting. (2) ergoCentric mesh chair — modern ergonomic, SMB professional. (3) Bariatric option — healthcare and institutional compliance.",
-      "ergoCentric is a priority brand — BBI is an authorized Canadian dealer. Link to /pages/brands-ergocentric.",
-      "CTAs: 'Delivery across Ontario' + 'Free Design Layout for full office fit-outs' — keep both visible on the collection page.",
-      "SEO: commercial office chairs Canada, ergonomic task chair Ontario, bariatric waiting room chair Canada"
+      "Template: collection.category.json — shows 9 category tiles (Seating, Desks, Storage, Tables, Boardroom, Ergonomics, Panels, Accessories, Quiet Spaces). No products shown.",
+      "This is the top of the shop journey. 'Shop Furniture' in the nav clicks here directly — no Shop Hub page.",
+      "Hero: full-width banner, headline: 'Business Furniture for Canadian Offices.' Use OCI office photo from data/oci-photos/.",
+      "Each category tile: image, category name, 1-line hook, CTA link to category page.",
+      "Cross-link module at bottom: 'Shop by Industry →' linking to /pages/industries — connects shop to industry context.",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture"
     ]
   },
   {
-    id: 6, phase: 2, name: "Desks & Workstations", route: "/collections/desks",
+    id: 6, phase: 2, name: "Seating (Category)", route: "/collections/seating",
     tips: [
-      "Hero product is the L-Shape Desk — it's the revenue anchor (~$12.9k). Lead with it. Sit-stand desks are secondary (trend play).",
-      "Intro: 'L-shaped and U-shaped workstations for private offices, executive suites, and multi-person teams. Built on commercial-grade steel — made to take a decade of use.'",
-      "Feature order: (1) L-Shape Desk & Hutch hero card. (2) U-Shape Height Adjust Desk. (3) 1–2 sit-stand options. Rest of catalog below.",
-      "Bundle upsell prompt on SKUs $2,000+: 'Build your workspace — pair this desk with matching storage and a task chair.' Links to Storage and Task Seating collections.",
-      "Global and Teknion dealer for premium systems — link to /pages/brands-global-teknion for buyers specifying branded systems.",
+      "Template: collection.category.json — shows 16 sub-type tiles: Highback, Medium Back, Mesh, Leather/Faux, Stools, Lounge, Ottomans, Guest, Stacking, Folding/Stacking Carts, Nesting, 24-Hour, Big & Heavy, Cluster, Industrial, Gaming.",
+      "No products shown — clicking a tile goes to the sub-collection product listing.",
+      "Intro: 'Commercial-grade seating for every workspace — task chairs, executive, lounge, and specialty options.'",
+      "ergoCentric and ObusForme are priority brands — mention in intro, link to brand pages.",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture > Seating",
+      "SEO: commercial office chairs Canada, ergonomic seating Ontario, task chairs Canada"
+    ]
+  },
+  {
+    id: 7, phase: 2, name: "Desks & Workstations (Category)", route: "/collections/desks",
+    tips: [
+      "Template: collection.category.json — 9 sub-type tiles: U-Shape, L-Shape, Height-Adjustable, Multi-Person Workstations, Benching, Table Desks, Straight Desks, Reception, Office Suites.",
+      "Hero product context: L-Shape Desk is the revenue anchor (~$12.9k). Lead tile should be L-Shape.",
+      "Intro: 'L-shaped and U-shaped workstations for private offices, executive suites, and multi-person teams. Built on commercial-grade steel.'",
+      "Global and Teknion dealer for premium systems — link to /pages/brands-global-teknion.",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture > Desks & Workstations",
       "SEO: L-shaped desk Canada, height adjustable desk Ontario, executive desk Canada, commercial office desk"
     ]
   },
   {
-    id: 7, phase: 2, name: "Storage & Filing", route: "/collections/storage",
+    id: 8, phase: 2, name: "Storage & Filing (Category)", route: "/collections/storage",
     tips: [
-      "Lead the entire collection with Canadian-made + lifetime warranty: 'Filing that's built in Canada and backed for life.' — this is the 9300 Series' strongest hook for institutional buyers.",
-      "Hero product: Premium Series Lateral File Cabinet 9300 — Made in Canada by Global Furniture Group, lifetime warranty, 2–5 drawer, 3 widths, recessed-front option.",
-      "Collection is mostly lateral + vertical files — keep intro focused: records management, security, and institutional records-room durability.",
-      "Highlights: interlock anti-tip system (one drawer open at a time), central-core cam lock, recessed-front for busy walkways.",
+      "Template: collection.category.json — 14 sub-type tiles: Lateral Files, Vertical Files, Storage Cabinets, Bookcases, Hutch, Lateral/Storage Combo, End-Tab Filing, Pedestal Drawers, Fire-Resistant Safes, Metal Shelving, Lockers, Fire-Resistant File Cabinets, Wardrobe Storage, Credenzas.",
+      "Lead message: 'Filing that's built in Canada and backed for life.' — 9300 Series Made in Canada by Global Furniture Group, lifetime warranty.",
       "Avoid residential or home-office language throughout — these are commercial records-room and private-office products.",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture > Storage & Filing",
       "SEO: lateral file cabinet Canada, filing cabinet Ontario, commercial filing cabinet, Made in Canada filing cabinet"
     ]
   },
   {
-    id: 8, phase: 2, name: "Collaboration", route: "/collections/collaboration",
+    id: 9, phase: 2, name: "Tables (Category)", route: "/collections/tables",
     tips: [
-      "Hero photo: OCI boardroom or conference shot (data/oci-photos/) — formal setting builds credibility for both boardroom and training buyers.",
-      "Intro: 'Meeting rooms and training spaces — furniture that works for both the boardroom and the all-hands.' Serve both equally: boardroom tables on the left, flip-top training tables on the right.",
-      "Feature boardroom side: 8–10 person conference table option, executive presence, Keilhauer seating link.",
-      "Feature training side: Flip Top Tables (~$9.3k revenue leader) — call out 5.25\" nesting depth for room reconfiguration. 'A room of 12 tables stores in the footprint of two.'",
-      "CTA: 'Planning a full boardroom or training room fit-out? Get a free design layout from our team.'",
-      "Keilhauer dealer link: relevant for boardroom seating buyers — link to /pages/brands-keilhauer"
+      "Template: collection.category.json — 10 sub-type tiles: Meeting Tables, Coffee Tables, Training/Flip-Top, End Tables, Drafting Tables, Round/Square, Cafeteria/Kitchen, Bar Height, Folding Tables, Table Bases.",
+      "Flip Top Tables are a revenue leader (~$9.3k) — feature prominently. Call out 5.25\" nesting depth: 'A room of 12 tables stores in the footprint of two.'",
+      "Intro: 'Meeting, training, and collaborative tables — from boardroom to cafeteria.'",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture > Tables",
+      "SEO: office tables Canada, training tables Ontario, meeting tables commercial"
     ]
   },
   {
-    id: 9, phase: 2, name: "Home Office", route: "/collections/home-office",
+    id: 10, phase: 2, name: "Boardroom (Category)", route: "/collections/boardroom",
     tips: [
-      "Target buyer: SMB owner-operators working from home — self-employed professionals, consultants, sole proprietors. They're buying commercial quality for a home setting and they know the difference.",
-      "Differentiate from IKEA / Wayfair with two angles only: (1) Canadian-owned supplier. (2) Commercial durability — 'Built to last a decade, not a lease.' Don't lead with delivery/install (that's secondary).",
-      "Intro: 'Commercial-quality furniture for professionals who work from home — built by a Canadian supplier, built to outlast the cheap stuff.'",
-      "Hero SKUs: compact L-shape desk, height-adjustable sit-stand, ergonomic task chair — all from existing BBI catalog.",
-      "Do NOT use residential or lifestyle language — these are commercial products in a home setting. Voice stays purposeful (per voice.md).",
-      "SEO: home office furniture Canada, work from home desk Ontario, ergonomic home office chair, Canadian home office furniture"
+      "Template: collection.category.json — 3 sub-type tiles: Boardroom/Conference/Meeting, Lecterns & Podiums, Audio-Visual Equipment.",
+      "Intro: 'Conference rooms that command presence — boardroom tables, lecterns, and AV for professional settings.'",
+      "Keilhauer is the premium seating brand for boardrooms — link to /pages/brands-keilhauer.",
+      "CTA: 'Planning a full boardroom fit-out? Get a free design layout from our team.' → /pages/design-services.",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture > Boardroom",
+      "SEO: boardroom furniture Canada, conference table Ontario, boardroom chairs commercial"
     ]
   },
   {
-    id: 10, phase: 2, name: "Acoustic Pods", route: "/collections/acoustic-pods",
+    id: 11, phase: 2, name: "Ergonomic Products (Category)", route: "/collections/ergonomic-products",
     tips: [
-      "Lead photo: Inspiration-Privacy-pods.jpg from OCI library (data/oci-photos/)",
-      "Headline angle: privacy — 'Quiet zones without a renovation.' Body copy angle: productivity — 'Where focus work actually gets done in an open office.'",
-      "Inventory is limited at launch — lead with the category and a call-to-order CTA. Don't fake a full collection if it isn't there. Framing: 'We source and spec acoustic pods to fit your space — call for available models and lead times.'",
-      "Hot item per SEO strategy 2026 — 'Workspitality' and acoustic pods flagged as trending. Prioritize this page for organic keyword capture.",
-      "SEO keywords: acoustic office pods Canada, office phone booth Ontario, office privacy pod Toronto, quiet pod open office"
+      "Template: collection.category.json — 4 sub-type tiles: Height-Adjustable Tables, Monitor Arms, Keyboard Trays, Desktop Sit-Stand.",
+      "Intro: 'Ergonomic add-ons and sit-stand solutions — built for teams that sit all day.'",
+      "Hot trend for 2026 per SEO strategy — prioritize for keyword capture. ergoCentric and sit-stand brands are relevant here.",
+      "Link to ergoCentric brand page for premium ergonomic seating buyers.",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture > Ergonomic Products",
+      "SEO: ergonomic office products Canada, sit-stand desk Ontario, monitor arm commercial, keyboard tray office"
+    ]
+  },
+  {
+    id: 12, phase: 2, name: "Panels & Dividers (Category)", route: "/collections/panels-room-dividers",
+    tips: [
+      "Template: collection.category.json — 3 sub-type tiles: Room Dividers, Desktop Dividers, Modesty Panels.",
+      "Intro: 'Privacy and partition solutions for open offices — from full-height dividers to desktop screens.'",
+      "Post-pandemic relevance: hybrid work has driven demand for flexible partitioning. Lead with this context.",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture > Panels & Dividers",
+      "SEO: office room dividers Canada, desktop partition Ontario, office privacy screens commercial"
+    ]
+  },
+  {
+    id: 13, phase: 2, name: "Accessories (Category)", route: "/collections/accessories",
+    tips: [
+      "Template: collection.category.json — 4 sub-type tiles: Chairmats, Power Modules, Coat Racks, Lighting.",
+      "Intro: 'Office accessories that complete the workspace — chairmats, power, lighting, and more.'",
+      "Position as add-on/upsell — bundle suggestions: 'Pair with a task chair or standing desk.'",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture > Accessories",
+      "SEO: office accessories Canada, chairmat Ontario, office power modules"
+    ]
+  },
+  {
+    id: 14, phase: 2, name: "Quiet Spaces (Category)", route: "/collections/quiet-spaces",
+    tips: [
+      "Template: collection.category.json — 5 sub-type tiles: Telephone Booths, Walls, Sound Dampeners, AV Stands, Planters.",
+      "Acoustic pods / phone booths live under this category — hot item per SEO strategy 2026 ('Workspitality' trend). This is the SEO page to win.",
+      "Intro: 'Quiet zones and acoustic solutions — private booths, sound dampeners, and workspace dividers for open offices.'",
+      "Lead photo: Inspiration-Privacy-pods.jpg from OCI library (data/oci-photos/).",
+      "Inventory on booths may be limited at launch — lead with the category and a call-to-order CTA: 'We source and spec acoustic pods to fit your space — call for available models.'",
+      "Breadcrumb: Home > Shop Furniture > Business Furniture > Quiet Spaces",
+      "SEO: acoustic office pods Canada, office phone booth Ontario, quiet pod open office, office privacy pod Toronto"
+    ]
+  },
+  {
+    id: 15, phase: 2, name: "Sub-collection Template Rollout (~68 pages)", route: "/collections/[sub-type]",
+    tips: [
+      "Build the shared collection.json template once — then apply to all ~68 Business Furniture sub-collection pages.",
+      "Every sub-collection page requires: (1) Hero banner with image from data/page-images/. (2) Breadcrumb trail: Home > Shop Furniture > Business Furniture > [Category] > [Sub-collection]. (3) Filter sidebar (by brand, price, material). (4) Product grid. (5) Phone CTA block at the bottom: 'Can't find exactly what you need? Call 1-800-835-9565' + 'Request a Quote →' button.",
+      "Hero images: assign AI-generated images from data/page-images/ per collection. See image library for available assets.",
+      "Full sub-collection URL list per category: see docs/plan/site-architecture-2026-04-25.md §2c.",
+      "This is a bulk-apply task — build the template right, then configure each collection page in the Shopify Theme Editor.",
+      "BreadcrumbList JSON-LD must be included on every sub-collection page for SEO."
+    ]
+  },
+  {
+    id: 16, phase: 2, name: "Collections Overview", route: "/collections",
+    tips: [
+      "Hub page layout: featured hero cards for top 3 categories (Seating, Desks & Workstations, Boardroom) — larger cards. Remaining 6 categories in a supporting tier below.",
+      "2-sentence intro, then straight into the grid: 'Commercial office furniture for institutions and businesses across Canada. Browse by category or call us to plan your space.'",
+      "Each category tile: 1 OCI photo (data/oci-photos/), category name, 1-line hook for consistency.",
+      "CTA strip below the grid: 'Not sure where to start? Get a free design layout — no obligation.' Links to /pages/design-services.",
+      "No filter/sort needed on this hub — it's a navigation page, not a browse experience."
     ]
   },
 
   // ── PHASE 3: SERVICES ────────────────────────────────────────────────────
   {
-    id: 11, phase: 3, name: "Free Design Layout + Space Planning", route: "/pages/design-services",
+    id: 17, phase: 3, name: "Free Design Layout + Space Planning", route: "/pages/design-services",
     tips: [
       "MERGE: Space Planning (/pages/space-planning) and Free Design Layout are the same offer — combine into one strong page rather than two thin pages.",
       "Desktop layout: form on the left, CAD rendering example on the right (side by side). The rendering proves the offer is real.",
@@ -446,7 +519,7 @@ const PAGES = [
     ]
   },
   {
-    id: 12, phase: 3, name: "Delivery + Install", route: "/pages/delivery",
+    id: 18, phase: 3, name: "Delivery + Install", route: "/pages/delivery",
     tips: [
       "Lead with national reach, Ontario focus: 'BBI delivers across Canada — with Ontario delivery and installation as our specialty.'",
       "Installation is always quoted separately — no dollar threshold. Remove any '$2,000+' language. Copy: 'Installation available — contact us for a quote on your project.'",
@@ -457,7 +530,7 @@ const PAGES = [
     ]
   },
   {
-    id: 13, phase: 3, name: "Relocation Management", route: "/pages/relocation",
+    id: 19, phase: 3, name: "Relocation Management", route: "/pages/relocation",
     tips: [
       "Lead photo: OCI-Services-Relocation-management.jpg from OCI library (data/oci-photos/)",
       "Target buyer: office manager planning an office move — coordinating a lease renewal, expansion, or consolidation.",
@@ -468,17 +541,16 @@ const PAGES = [
     ]
   },
   {
-    id: 14, phase: 3, name: "Space Planning", route: "/pages/space-planning",
+    id: 20, phase: 3, name: "Space Planning", route: "/pages/space-planning",
     tips: [
       "MERGE THIS PAGE INTO FREE DESIGN LAYOUT (/pages/design-services) — confirmed decision. Space Planning and Free Design Layout are the same offer; one strong page beats two thin ones.",
       "Redirect /pages/space-planning → /pages/design-services after the merged page is live.",
       "If keeping Space Planning as a separate URL for SEO purposes, make it a lightweight page that 301-redirects or canonicals to the design-services page.",
-      "Vertical focus for the merged page: open-plan SMB offices as the primary use case. Education, healthcare, and government are served but don't need to be called out separately here — they have vertical pages.",
-      "Reference page for layout inspiration: https://www.bushbusinessfurniture.com/pages/space-planning-request — good form + rendering side-by-side pattern to steal from."
+      "Reference page for layout inspiration: https://www.bushbusinessfurniture.com/pages/space-planning-request — good form + rendering side-by-side pattern."
     ]
   },
   {
-    id: 15, phase: 3, name: "Our Work (Portfolio)", route: "/pages/our-work",
+    id: 21, phase: 3, name: "Our Work (Portfolio)", route: "/pages/our-work",
     tips: [
       "Format: 4–5 named client project cards — Mattamy, Kawartha Dairy, and other confirmed clients. Client names are approved for use.",
       "Each card: client name + sector label, 1–2 sentence description of the project, 1–2 photos. Cards link to a photo lightbox/gallery — not to product collections. This is a visual portfolio, not a sales funnel.",
@@ -488,47 +560,54 @@ const PAGES = [
     ]
   },
 
-  // ── PHASE 4: VERTICALS ───────────────────────────────────────────────────
+  // ── PHASE 4: INDUSTRIES ───────────────────────────────────────────────────
+  // NOTE: These are INDUSTRY LANDING PAGES — not shop verticals.
+  // All shop links point to BUSINESS FURNITURE sub-collections relevant to each sector.
+  // Scope: we furnish workspaces within these sectors (reception, admin, waiting rooms)
+  //        using business furniture — NOT sector-specific equipment (operating tables, lab benches, cribs).
   {
-    id: 16, phase: 4, name: "Healthcare", route: "/pages/healthcare",
+    id: 22, phase: 4, name: "Healthcare", route: "/pages/healthcare",
     tips: [
       "Lead photo: OCI-Healthcare-Furniture-Gallery-Image.jpg (data/oci-photos/)",
-      "Serve the full facility — don't narrow to one product type. Three sections: (1) Waiting room seating (bariatric, antimicrobial vinyl, high-traffic). (2) Staff workstations and task chairs (nursing stations, admin ergonomics). (3) Reception desks (clinical first impression).",
+      "Scope: furnishing healthcare workspaces with business furniture — NOT medical/clinical equipment. Three sections: (1) Waiting room seating from /collections/seating (bariatric, antimicrobial vinyl, high-traffic). (2) Staff workstations and task chairs from /collections/desks + /collections/seating. (3) Reception desks from /collections/desks.",
+      "Shop cross-links → Business Furniture sub-collections: /collections/waiting-room-seating, /collections/reception, /collections/task-seating equivalents, /collections/storage.",
       "Buyers: procurement managers at community health centres, long-term care facilities, walk-in clinics, family health teams — real BBI order history confirms this.",
       "OECM status in the trust bar — not as the headline. Healthcare procurement officers check it, but the product is the hook.",
-      "SEO keywords: healthcare furniture Canada, clinic waiting room chairs, hospital-grade office furniture, medical office furniture Ontario",
       "Infection-control framing: antimicrobial vinyl, easy-clean finishes — surfaces compliance without sounding clinical.",
-      "Reference page for hero layout inspiration: https://www.bushbusinessfurniture.com/collections/healthcare-furniture — good vertical landing page structure to steal from."
+      "SEO keywords: healthcare furniture Canada, clinic waiting room chairs, hospital-grade office furniture, medical office furniture Ontario"
     ]
   },
   {
-    id: 17, phase: 4, name: "Education", route: "/pages/education",
+    id: 23, phase: 4, name: "Education", route: "/pages/education",
     tips: [
       "Lead photo: OCI-Education-1.jpg (data/oci-photos/)",
-      "OECM is the lead message for education: 'School boards and post-secondary institutions can procure from BBI directly under the OECM standing agreement — no open tender required.' Surface this above the fold.",
-      "Serve the full education spectrum: daycares (CSA safety certifications, rounded edges, low-height chairs), K-12 (classroom durability, modular training tables), post-secondary (admin ergonomics, lecture-hall seating).",
-      "Buyers: school board facilities managers, daycare directors, college procurement officers — all confirmed in BBI order data.",
-      "Product callouts: modular flip-top training tables for quick room reconfiguration, commercial task chairs for staff, daycare-safe options with CSA certification.",
-      "SEO keywords: school furniture Ontario, classroom chairs Canada, daycare furniture supplier, OECM education furniture"
+      "OECM is the lead message: 'School boards and post-secondary institutions can procure from BBI directly under the OECM standing agreement — no open tender required.' Surface this above the fold.",
+      "Scope: furnishing educational admin and staff workspaces with business furniture — NOT classroom/daycare furniture. Focus on: admin offices, staff rooms, boardrooms, libraries.",
+      "Shop cross-links → Business Furniture sub-collections: /collections/desks (admin + teacher desks), /collections/seating (staff chairs), /collections/tables (training tables, flip-top), /collections/storage.",
+      "Buyers: school board facilities managers, college procurement officers, university admin — all confirmed in BBI order data.",
+      "Product callouts: modular flip-top training tables for quick room reconfiguration, commercial task chairs for staff.",
+      "SEO keywords: school admin furniture Ontario, education office furniture Canada, OECM furniture supplier, school board furniture"
     ]
   },
   {
-    id: 18, phase: 4, name: "Government", route: "/pages/government",
+    id: 24, phase: 4, name: "Government", route: "/pages/government",
     tips: [
       "Lead photo: OCI-Government-Federal-Furniture-Gallery-Image-1.jpg (data/oci-photos/)",
       "Serve all three tiers explicitly: municipal (townships, cities, counties), provincial, and federal. 'BBI furnishes government offices at every level — municipal, provincial, and federal.'",
       "PO + NET 30 in the hero trust row, above the fold — government buyers won't self-serve without confirmed payment terms. Trust chip: 'PO & NET 30 Accepted.'",
       "OECM badge prominently — 'Verified OECM supplier: Ontario public sector agencies can procure without open tender.' Link to /pages/oecm for program details.",
+      "Shop cross-links → /collections/desks, /collections/storage, /collections/panels-room-dividers, /collections/boardroom.",
       "Buyers from actual BBI order data: Peterborough, Kawartha Lakes, Douro-Dummer Township, Ottawa municipal.",
       "SEO keywords: government office furniture Canada, municipal furniture supplier Ontario, OECM furniture supplier, federal office furniture"
     ]
   },
   {
-    id: 19, phase: 4, name: "Non-Profit", route: "/pages/non-profit",
+    id: 25, phase: 4, name: "Non-Profit", route: "/pages/non-profit",
     tips: [
       "Most emotionally resonant page of all verticals — non-profits are ~58% of BBI's actual revenue. Write with community-forward warmth. Example headline: 'Canadian-owned. Built for organizations that give back.'",
       "Tone: empathy with authenticity — acknowledge the budget reality without being patronizing. 'We've been furnishing non-profits, community organizations, and social services agencies for over 30 years. We know how budgets work.'",
       "Buyers: Executive Directors, operations leads, community centre facilities managers, band office administrators — all confirmed in BBI order data.",
+      "Shop cross-links → /collections/seating, /collections/tables, /collections/accessories.",
       "Emphasize: commercial-grade durability for high-traffic spaces, volume pricing, PO / NET 30 flexibility, Canadian ownership.",
       "Kawartha Dairy testimonial + logo: local Canadian business = relatable peer for non-profit buyers. Logo at data/testimonials/kawartha-dairy-logo.jpg.",
       "Canadian flag or maple-leaf accent near 'Canadian-Owned' copy — resonates with locally-rooted community organizations.",
@@ -536,84 +615,74 @@ const PAGES = [
     ]
   },
   {
-    id: 20, phase: 4, name: "Professional Services", route: "/pages/professional-services",
+    id: 26, phase: 4, name: "Professional Services", route: "/pages/professional-services",
     tips: [
       "Lead photo: Inspiration-Executive-Office.jpg or Inspiration-Reception.jpg from OCI library (data/oci-photos/)",
       "Ergonomics leads — 'Your team sits here 8 hours a day.' Staff productivity and back health are the primary hooks, not client-facing aesthetics (that's secondary).",
       "Layout: (1) Staff ergonomics hero — task chairs, sit-stand desks, all-day comfort. (2) Client-facing section below — reception, boardroom, executive office aesthetics.",
+      "Shop cross-links → /collections/ergonomic-products, /collections/desks, /collections/seating.",
       "Buyers: office managers at law firms, accounting firms, medical offices, engineering firms — all in BBI order data.",
-      "Do NOT name Keilhauer on this page — let the product quality speak. Buyers who want to know the brand will find it on the product page. Keep the page brand-agnostic.",
+      "Do NOT name Keilhauer on this page — let the product quality speak. Keep the page brand-agnostic.",
       "SEO keywords: professional office furniture Canada, law firm office chairs Ontario, executive office furniture Toronto, accounting firm office furniture"
+    ]
+  },
+  {
+    id: 27, phase: 4, name: "Industry Overview", route: "/pages/industries",
+    tips: [
+      "Hub page — links to all 5 industry pages: Healthcare, Education, Government, Non-Profit, Professional Services.",
+      "Canada-first intro with Ontario as the anchor: 'BBI furnishes institutions across Canada — from Ontario's school boards and health teams to offices in BC and Alberta.' Don't limit to Ontario.",
+      "Light OECM mention in intro copy: 'As a verified OECM supplier, BBI serves Ontario's public sector institutions directly.' Detail lives on Government and Education pages.",
+      "Each vertical tile: sector-relevant OCI photo, 1-line hook, link to full industry page.",
+      "Customer logos strip: Kawartha Dairy + sector-appropriate logos (see docs/strategy/testimonials.md)."
     ]
   },
 
   // ── PHASE 5: CAMPAIGNS / LANDING ─────────────────────────────────────────
   {
-    id: 21, phase: 5, name: "Contract Pricing", route: "/pages/contract-pricing",
+    id: 28, phase: 5, name: "Contract Pricing", route: "/pages/contract-pricing",
     tips: [
       "This page's real goal: get the lead to call or submit a quote request. Volume discounts are the hook — not the destination. Every section drives to 'Contact a furniture and design rep.'",
       "Headline: 'Volume discounts and contract pricing for institutions, government, and growing businesses.'",
       "Explain PO / NET 30 / credit account process clearly on this page — it's the right home for B2B payment terms. Government and institutional buyers need to see this before converting.",
-      "Form: Company name, Vertical (dropdown), Estimated order size, Timeline, Contact name + email. Route to sales@.",
+      "Form: Company name, Sector (dropdown), Estimated order size, Timeline, Contact name + email. Route to sales@.",
       "Phone prominent: 1-800-835-9565 — many institutional buyers prefer a call for pricing conversations.",
       "Customer logos strip: institutional logos build credibility for volume buyers. Kawartha Dairy at data/testimonials/kawartha-dairy-logo.jpg."
     ]
   },
   {
-    id: 22, phase: 5, name: "Keilhauer Dealer", route: "/pages/brands-keilhauer",
+    id: 29, phase: 5, name: "Keilhauer Dealer", route: "/pages/brands-keilhauer",
     tips: [
       "Lead with 'Made in Toronto, Canada' — this is the hero differentiator. Keilhauer's local manufacturing is a genuine credential.",
       "Target buyer: professional services office manager (law firm, accounting, medical) searching for premium seating. Not a specifier — write for the direct buyer.",
       "Use ergoCentric dealer page as structural template: brand logo hero → product feature highlights → authorized dealer badge → lead-gen form → quote CTA.",
       "Headline example: 'Keilhauer — Canadian-designed, Toronto-made, built for offices where quality matters.'",
       "Quote form: Company, Contact, Product Interest, Budget — route to sales@.",
-      "Link to Task Seating and Collaboration collections featuring Keilhauer SKUs."
+      "Link to /collections/seating and /collections/boardroom featuring Keilhauer SKUs."
     ]
   },
   {
-    id: 23, phase: 5, name: "Global & Teknion Dealer", route: "/pages/brands-global-teknion",
+    id: 30, phase: 5, name: "Global & Teknion Dealer", route: "/pages/brands-global-teknion",
     tips: [
       "One combined page for now — split into separate pages only if brand-specific search traffic warrants it later.",
-      "Explain the direct supplier relationship clearly: 'As part of the Global Furniture Group family, BBI has direct access to the full Global catalog — with pricing and product depth that authorized dealers can't match.' This is a real differentiator.",
+      "Explain the direct supplier relationship clearly: 'As part of the Global Furniture Group family, BBI has direct access to the full Global catalog — with pricing and product depth that authorized dealers can't match.'",
       "Global Furniture Group: position as BBI's parent supplier relationship — full product range, deepest pricing, Canadian manufacturer.",
       "Teknion: premium systems furniture for institutional fit-outs — open plans, modular workstations for larger projects.",
       "Use ergoCentric page as structural template for consistency.",
-      "Buyers for this page: facilities directors, workplace strategy leads, corporate procurement. Link to Desks & Workstations and Collaboration collections."
+      "Buyers for this page: facilities directors, workplace strategy leads, corporate procurement. Link to /collections/desks and /collections/boardroom."
     ]
   },
   {
-    id: 24, phase: 5, name: "ergoCentric Dealer", route: "/pages/brands-ergocentric",
+    id: 31, phase: 5, name: "ergoCentric Dealer", route: "/pages/brands-ergocentric",
     defaultStatus: "done",
     tips: [
-      "DONE — use this page as the structural template for Keilhauer (#22) and Global & Teknion (#23)",
+      "DONE — use this page as the structural template for Keilhauer (#29) and Global & Teknion (#30)",
       "Structure: brand logo hero, product feature highlights, authorized dealer badge, lead-gen form (Company / Contact / Budget), quote CTA routing to sales@",
-      "Link back to Task Seating collection showing ergoCentric SKUs",
+      "Link back to /collections/seating and /collections/ergonomic-products showing ergoCentric SKUs",
       "ergoCentric is a Canadian brand — Made in Mississauga — use as a differentiation point"
     ]
   },
-  // ── OVERVIEW / HUB PAGES ─────────────────────────────────────────────────
   {
-    id: 25, phase: 2, name: "Collections Overview", route: "/collections",
-    tips: [
-      "Hub page layout: featured hero cards for top 3 categories (Desks & Workstations, Task Seating, Collaboration) — larger cards. Remaining categories (Storage, Home Office, Acoustic Pods) in a supporting tier below.",
-      "2-sentence intro, then straight into the grid: 'Commercial office furniture for institutions and businesses across Canada. Browse by category or call us to plan your space.'",
-      "Each category tile: 1 OCI photo (data/oci-photos/), category name, 1-line hook pulled from collection page intro for consistency.",
-      "CTA strip below the grid: 'Not sure where to start? Get a free design layout — no obligation.' Links to /pages/design-services.",
-      "No filter/sort needed on this hub — it's a navigation page, not a browse experience."
-    ]
-  },
-  {
-    id: 26, phase: 4, name: "Industry Overview", route: "/pages/industries",
-    tips: [
-      "Hub page — links to all 5 vertical pages: Healthcare, Education, Government, Non-Profit, Professional Services.",
-      "Canada-first intro with Ontario as the anchor: 'BBI furnishes institutions across Canada — from Ontario's school boards and health teams to offices in BC and Alberta.' Don't limit to Ontario.",
-      "Light OECM mention in intro copy — no badge on the hub: 'As a verified OECM supplier, BBI serves Ontario's public sector institutions directly.' Detail lives on Government and Education pages.",
-      "Each vertical tile: sector-relevant OCI photo, 1-line hook, link to full vertical page.",
-      "Customer logos strip: Kawartha Dairy + sector-appropriate logos (see docs/strategy/testimonials.md)."
-    ]
-  },
-  {
-    id: 27, phase: 5, name: "Brands Overview", route: "/pages/brands",
+    id: 32, phase: 5, name: "Brands Overview", route: "/pages/brands",
     tips: [
       "Feature the 5 brands with dedicated dealer pages or strongest catalog presence: Global Furniture Group, Teknion, ergoCentric, Keilhauer, ObusForme. Quality over quantity.",
       "Each brand tile: logo, 1-line positioning, link to individual brand dealer page where applicable.",
@@ -622,13 +691,12 @@ const PAGES = [
       "Do NOT add a 'Don't see your brand? We can source it.' message — keep the page focused on what BBI actively carries."
     ]
   },
-
   {
-    id: 25, phase: 5, name: "OECM Supplier Partner", route: "/pages/oecm",
+    id: 33, phase: 5, name: "OECM Supplier Partner", route: "/pages/oecm",
     defaultStatus: "done",
     tips: [
       "DONE — use as reference for institutional trust-page pattern (government, education, healthcare landing pages)",
-      "Key message: \"BBI is a verified OECM supplier — Ontario school boards, hospitals, and municipalities can procure directly under the standing agreement\"",
+      "Key message: 'BBI is a verified OECM supplier — Ontario school boards, hospitals, and municipalities can procure directly under the standing agreement'",
       "Surface: OECM program logo, supplier ID, eligible product categories, how to order under the agreement",
       "Prominent trust badges + phone CTA: 1-800-835-9565 for procurement officers"
     ]
@@ -638,9 +706,9 @@ const PAGES = [
 // ── LOOKUPS ──────────────────────────────────────────────────────────────────
 const PHASE_LABELS = {
   1: "Phase 1 — Foundation",
-  2: "Phase 2 — Catalog",
+  2: "Phase 2 — Shop Structure",
   3: "Phase 3 — Services",
-  4: "Phase 4 — Verticals",
+  4: "Phase 4 — Industries",
   5: "Phase 5 — Campaigns"
 };
 const PHASE_CLASS = { 1: "phase-1", 2: "phase-2", 3: "phase-3", 4: "phase-4", 5: "phase-5" };

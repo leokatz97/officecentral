@@ -240,6 +240,8 @@ Confirm all four items are ready before generating the prompt. Do not proceed if
 
 ---
 
+**Collection page note:** If this page includes a product card grid (desks, seating, storage, any category page), every card **must** have a 16:9 or 4:3 image slot at the top — `object-fit: cover`. Do not build text-only cards. The SECONDARY PRODUCT ROW standard in the prompt enforces this; confirm it is present before submitting.
+
 Emit the exact prompt for Leo to paste into claude.ai/design. Use this template — fill in the bracketed parts:
 
 ```
@@ -276,6 +278,12 @@ Sections (in order):
 Mobile-first. Output clean, self-contained HTML + CSS only.
 Use CSS custom properties matching these names where possible:
 --bbi-ink, --bbi-paper, --bbi-accent, --bbi-gray-200, --bbi-font-sans
+
+SECONDARY PRODUCT ROW (any card grid showing collection products):
+Every product card MUST have an image slot at the top before any text content.
+Image slot: 16:9 or 4:3 aspect ratio, width: 100%, object-fit: cover.
+In this prototype use the attached product image or a solid --bbi-gray-200 placeholder — do NOT generate decorative imagery.
+Card structure (top to bottom): image slot → product name → short descriptor → CTA button.
 ```
 
 End your message with:
