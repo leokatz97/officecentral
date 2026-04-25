@@ -320,6 +320,33 @@ Be explicit — no assumed knowledge. Leo is doing the clicking.
 
 ---
 
+### Step 6 Interconnection Block
+
+After the basic page creation steps, emit a tailored interconnection checklist based on the page type. Look up the page type below and output **only the rows that apply**.
+
+**Page-type interconnection matrix:**
+
+| Page type | Nav location | Hub to update | Cross-links FROM other pages |
+|---|---|---|---|
+| Collection page | Main nav → Catalog dropdown | Collections hub (`/collections`) — add a card | Homepage (featured categories), Product page template |
+| Vertical page | Main nav → Industries dropdown | Industries hub (`/pages/industries`) — add a card | Relevant collection pages (e.g. Healthcare → Desks, Task Seating) |
+| Service page | Main nav → Services dropdown | About page (`/pages/about`) — add a cross-link | Homepage (services strip), relevant vertical pages |
+| Brand dealer page | Main nav → Brands dropdown | Brands hub (`/pages/brands`) — add a card | Relevant collection pages (products that brand supplies) |
+| Campaign / landing | Not in main nav (use footer or CTA) | Homepage — add a banner CTA or seasonal link | OECM page, Contract Pricing page |
+| Hub page | Main nav (top-level) | None — it IS the hub | All child pages must link back to this hub |
+
+**Emit this checklist for every page:**
+
+- [ ] **Template suffix** — assigned correctly in Shopify Admin → Pages → Theme template (e.g. `page.healthcare`)
+- [ ] **Page handle** — matches expected URL slug (e.g. `healthcare` → `/pages/healthcare`). Verify in Pages → Edit URL and handle
+- [ ] **Main nav** — go to Admin → Navigation → Main menu → edit the correct dropdown, add link with label and URL
+- [ ] **Footer nav** — if this is a Services, About, or Contact page: add it to the Footer menu under the right column
+- [ ] **Hub page updated** — go to the hub page (listed above for this page type) in Admin → Pages → edit the page's content/Customizer to add a card or link for this page
+- [ ] **SEO fields** — in Admin → Pages → [this page] → scroll to Search engine listing preview → set Page title and Meta description from Step 2B
+- [ ] **Cross-links wired** — visit 2–3 existing live pages (listed above for this page type) and confirm they contain a link TO this new page; if not, flag for Leo to add
+
+---
+
 ## Step 7 — QA Checklist
 
 After Leo says "it's live in the draft theme", walk him through these 9 checks. Mark the page `[✓]` on the master checklist only when all 9 pass.
@@ -334,7 +361,13 @@ After Leo says "it's live in the draft theme", walk him through these 9 checks. 
 - [ ] Photo alt text meaningful (not empty, not filename)
 - [ ] Run `/on-page-seo-auditor` on the draft theme preview URL — resolve any errors before marking done
 
-Once all 9 checks pass, update `previews/bbi-site-build-checklist.html` — find the entry for this page in the `PAGES` array and set its status to `done`. This keeps the checklist accurate as the source of truth for what's built vs. what's left.
+**Interconnection checks (4 additional — must pass before marking done):**
+- [ ] Nav link — click through the correct main nav dropdown and confirm it lands on this page
+- [ ] Hub page card/link — visit the hub page for this page type and confirm a card or link pointing here is live
+- [ ] Cross-link from at least one existing page — visit one of the cross-link candidates from Step 6 and confirm the link is present and resolves correctly
+- [ ] Collection handle (collection pages only) — confirm URL slug `/collections/{handle}` matches the template suffix `collection.{handle}` exactly
+
+Once all 13 checks pass, update `previews/bbi-site-build-checklist.html` — find the entry for this page in the `PAGES` array and set its status to `done`. This keeps the checklist accurate as the source of truth for what's built vs. what's left.
 
 ---
 
