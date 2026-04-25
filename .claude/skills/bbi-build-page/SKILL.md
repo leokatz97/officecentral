@@ -93,10 +93,7 @@ Reference templates: `theme/templates/page.oecm.json` and `theme/templates/page.
 
 **Photo library:** `data/oci-photos/catalog.json` — 48 real project photos. Use for heroes, Our Work, industry pages.
 
-**AI page-image library:** `data/page-images/{page-slug}/` — pre-generated 16:9 hero images for every BBI landing page, produced by `scripts/generate-page-images.py` (fal.ai flux/schnell). Two files per page:
-- `{slug}-product.jpg` — featured SKU in a polished commercial setting (Type A: product hero)
-- `{slug}-space.jpg` — full room scene capturing the page atmosphere (Type B: space hero)
-Pages where a real OCI photo already covers the space concept are flagged `SOURCE=OCI_PHOTO` in `data/reports/generated-page-images-YYYY-MM-DD.csv` — use the OCI photo for that slot instead.
+**AI page-image library:** pre-generated 16:9 hero images for every BBI landing page, produced by `scripts/generate-page-images.py` (fal.ai flux/schnell). See slug→folder table in Pre-Step.
 To (re)generate: `python3 scripts/generate-page-images.py --live` (or `--limit=3 --live` for a smoke test).
 
 ---
@@ -119,15 +116,48 @@ To (re)generate: `python3 scripts/generate-page-images.py --live` (or `--limit=3
 
 Before scoping, load every piece of context available for this page:
 
-1. **Read the site build checklist** at `previews/bbi-site-build-checklist.html` — find the entry matching the page name in the `PAGES` array. Extract its `tips` array. These are the pre-agreed best-practice tips for this exact page: ICP target, hero photo, CTA priority, copy angle, SEO keywords, trust signals. They are your primary brief.
+**0. Inventory pre-generated images** — use the table below to find the exact subfolder for this page, then list the files inside it:
 
-2. **Read ICP & voice** at `docs/strategy/icp.md` — confirm which ICP (Primary = institutional Ontario, Secondary = SMB) this page targets and apply the matching voice calibration. Check the keyword lists for any SEO terms relevant to this page.
+| Page name (as Leo says it) | Image folder |
+|---|---|
+| homepage | `data/page-images/homepage/` |
+| global-teknion | `data/page-images/global-teknion/` |
+| ergocentric | `data/page-images/ergocentric/` |
+| keilhauer | `data/page-images/keilhauer/` |
+| task-seating | `data/page-images/task-seating/` |
+| desks | `data/page-images/desks/` |
+| storage | `data/page-images/storage/` |
+| collaboration | `data/page-images/collaboration/` |
+| acoustic-pods | `data/page-images/acoustic-pods/` |
+| home-office | `data/page-images/home-office/` |
+| healthcare | `data/page-images/healthcare/` |
+| education | `data/page-images/education/` |
+| government | `data/page-images/government/` |
+| non-profit | `data/page-images/non-profit/` |
+| professional-services | `data/page-images/professional-services/` |
+| design-services | `data/page-images/design-services/` |
+| verticals-hub | `data/page-images/verticals-hub/` |
+| collections-hub | `data/page-images/collections-hub/` |
 
-3. **Read voice samples** at `docs/strategy/voice-samples.md` — reference the 5 approved rewrites so copy tone in the Step 2 brief matches what's already been signed off.
+Pattern inside each folder: `{slug}-product.jpg` (product hero) and `{slug}-space.jpg` (room scene, where it exists). If the page name doesn't match any row above, check `data/page-images/` directly for a matching folder before proceeding.
 
-4. **Check photo library** at `data/oci-photos/catalog.json` — the checklist tips usually name specific photos. Confirm the filename exists before citing it in Step 3's Claude Design prompt.
+Also check the manifest CSV at `data/reports/generated-page-images-YYYY-MM-DD.csv` — if a slot is `SOURCE=OCI_PHOTO`, use the matching OCI photo from `data/oci-photos/catalog.json` for that slot instead.
 
-Summarize the loaded brief to Leo in one short block — tips, ICP target, recommended hero photo — and confirm before Step 1. This becomes the source of truth for all copy and design decisions on this page.
+**1. Read the site build checklist** at `previews/bbi-site-build-checklist.html` — find the entry matching the page name in the `PAGES` array. Extract its `tips` array. These are the pre-agreed best-practice tips for this exact page: ICP target, hero photo, CTA priority, copy angle, SEO keywords, trust signals. They are your primary brief.
+
+**2. Read ICP & voice** at `docs/strategy/icp.md` — confirm which ICP (Primary = institutional Ontario, Secondary = SMB) this page targets and apply the matching voice calibration. Note any SEO keyword lists relevant to this page — you'll use them in Step 2B.
+
+**3. Read voice samples** at `docs/strategy/voice-samples.md` — reference the 5 approved rewrites so copy tone in the Step 2 brief matches what's already been signed off.
+
+**4. Check photo library** at `data/oci-photos/catalog.json` — the checklist tips usually name specific photos. Confirm the filename exists before citing it in Step 3's Claude Design prompt.
+
+**5. Read competitor context** at `docs/strategy/competitor-analysis.md` — note any direct competitors, overlapping SKUs, or positioning gaps relevant to this page. Use to sharpen differentiation in Step 2 copy.
+
+**6. Read testimonials** at `docs/strategy/testimonials.md` — pull 1–2 client quotes that match the ICP for this page. Available for use in trust row, hero sub-copy, or quote CTA.
+
+**7. Read segment analysis** at `docs/strategy/segment-analysis.md` — confirm revenue share and buyer profile for the segment this page targets. Use to calibrate urgency, price anchors, and trust signals in Step 2.
+
+Summarize the loaded brief to Leo in one short block: tips, ICP target, **exact image files to attach in Step 3** (filenames + which slot each covers: hero-product / hero-space / OCI photo), 1 competitor differentiator, 1 client quote if available. Confirm before Step 1.
 
 ---
 
@@ -150,35 +180,93 @@ Write all copy for the page:
 - Written for B2B institutional procurement buyers
 - Outcome-focused ("free design layout included" — not "we offer design services")
 - Pull real BBI facts: OECM agreement number (2025-470), phone, brands carried, Ontario scope
+- Include 1–2 client quotes from testimonials if available (pulled in Pre-Step)
+- Weave in the competitive differentiator identified in Pre-Step
 
-Present the brief as a structured block Leo can scan. Wait for his sign-off before Step 3.
+Present the brief as a structured block Leo can scan. Wait for his sign-off before Step 2B.
+
+---
+
+## Step 2B — SEO & AEO Layer (you do this, ~3 min)
+
+With the content brief approved, generate the full SEO + AEO package for this page before writing the Claude Design prompt.
+
+**2B-1: SEO Title + Meta Description**
+Invoke `/meta-tags-optimizer` with the page name, target keyword (from icp.md keyword lists), and the approved content brief. Output:
+- SEO title: ≤60 chars, ends with `| Brant Business Interiors — a division of Office Central Inc. (OECM Supplier)`
+- Meta description: 150–160 chars, outcome-focused, includes target keyword
+
+**2B-2: Header Hierarchy**
+Define H1, H2, H3 order with target keywords naturally placed. H1 = page hero headline (one only, never duplicate). H2s = section headers.
+
+**2B-3: GEO/AEO Pass**
+Invoke `/geo-content-optimizer` with the approved content brief. Apply its output to:
+- Add 1–2 direct-answer sentences near the top of body copy (answers "what is X" queries that AI tools surface)
+- Ensure OECM status, Ontario scope, and Canadian ownership are stated as facts (not marketing claims) in the first ~200 words — these are the citation anchors for AI engines
+
+**2B-4: Schema Markup (page-type dependent)**
+- All pages: LocalBusiness + Organization JSON-LD is already handled by `ds-structured-data.liquid` — confirm it's wired in.
+- Service pages (Design Services, Delivery & Install, Relocation): invoke `/schema-markup-generator` → generate HowTo or Service JSON-LD.
+- Pages with an FAQ section: invoke `/schema-markup-generator` → generate FAQPage JSON-LD.
+- Product/category pages: invoke `/schema-markup-generator` → generate Product or ItemList JSON-LD.
+
+Present the full SEO + AEO package as a pasteable block. Wait for Leo's go-ahead before Step 3.
 
 ---
 
 ## Step 3 — Claude Design Prompt
 
-**Before writing the prompt:** check `data/page-images/{page-slug}/` for pre-generated hero images:
-- If `{slug}-product.jpg` exists → reference it as the hero/product image in the design prompt and tell Leo to attach it to Claude Design.
-- If `{slug}-space.jpg` exists → use it as the background/space image.
-- If the slot is `SOURCE=OCI_PHOTO` (per the manifest CSV) → use the OCI photo filename from `data/oci-photos/` instead.
-- If neither exists → note "no pre-generated image available — Claude Design will need to generate or you can run `python3 scripts/generate-page-images.py --limit=1 --live` first."
+### Step 3 Readiness Gate
+
+Confirm all four items are ready before generating the prompt. Do not proceed if any are missing.
+
+- [ ] Brand constants block populated (hex codes, font, spacing, border-radius)
+- [ ] All page images identified with exact file paths (from Pre-Step item 0)
+- [ ] SEO title, H1, and meta description from Step 2B ready to paste
+- [ ] Reference page identified (`page.oecm.json` or `page.brand-dealer.json`) for Leo to attach
+
+---
+
+**Before pasting into Claude Design, tell Leo to attach these files:**
+
+1. **Page images** (exact paths from Pre-Step image inventory):
+   - `data/page-images/{slug}/{slug}-product.jpg` → hero / product showcase image
+   - `data/page-images/{slug}/{slug}-space.jpg` → full-room background (if it exists)
+   - Or the OCI photo listed in the Pre-Step summary if that slot is `SOURCE=OCI_PHOTO`
+
+2. **Reference page HTML** — attach the rendered HTML of a completed BBI page as a structural anchor. Use the source of `page.oecm.json` or `page.brand-dealer.json`. Tell Claude Design: "Match the component structure and visual rhythm of the attached reference page — dark header, full-width hero, feature strip, card grid, CTA band."
+
+> These are the images Claude Design must use — do not let it generate placeholder imagery.
+
+---
 
 Emit the exact prompt for Leo to paste into claude.ai/design. Use this template — fill in the bracketed parts:
 
 ```
 Design a [PAGE TYPE] for Brant Business Interiors (BBI).
 
-Brand tokens:
-Background: #F7F8FA | Cards: #FFFFFF | Text: #0B0B0C
-Accent: #D4252A (use sparingly) | Border: #DEE1E6
-Font: system-ui, Geist, Inter — sans-serif only, no serif
+Brand constants (use exactly — do not invent):
+Background: #F7F8FA | Card surface: #FFFFFF | Primary text: #0B0B0C
+Accent (sparingly): #D4252A | Border: #DEE1E6
+Secondary text: #363A42 | Meta/caption: #6F7580
+Font: system-ui, "Geist", "Inter", Helvetica, sans-serif — no serif, no display fonts
+Spacing scale: 8px base unit (8 / 16 / 24 / 32 / 48 / 64 / 96px)
+Border-radius: 4px on cards, 2px on buttons
 
 Tone: B2B institutional. Clean. No fluff. Ontario commercial furniture dealer.
-Reference: Match the structure of the BBI OECM landing page — dark header,
-full-width hero with right-side photo, feature strip, card grid, CTA band.
+Reference: Match the component structure and visual rhythm of the attached reference page —
+dark header, full-width hero, feature strip, card grid, CTA band.
+
+Images: I am attaching [N] image(s). Use them as-is — do NOT generate placeholder imagery.
+- [{slug}-product.jpg] → hero / product showcase image
+- [{slug}-space.jpg] → full-room background / space atmosphere (if attached)
 
 Page: [NAME]
 Purpose: [PURPOSE IN ONE LINE]
+
+SEO title: [TITLE FROM STEP 2B]
+Meta description: [DESCRIPTION FROM STEP 2B]
+H1: [H1 FROM STEP 2B HEADER HIERARCHY]
 
 Sections (in order):
 1. [SECTION] — [CONTENT]
@@ -191,7 +279,7 @@ Use CSS custom properties matching these names where possible:
 ```
 
 End your message with:
-> → Go to claude.ai/design, paste the prompt above, build the page, then paste the HTML output back here.
+> → Go to claude.ai/design, attach the files listed above, paste the prompt, build the page, then paste the HTML output back here.
 
 Then wait. Do not proceed until Leo pastes HTML.
 
@@ -234,7 +322,7 @@ Be explicit — no assumed knowledge. Leo is doing the clicking.
 
 ## Step 7 — QA Checklist
 
-After Leo says "it's live in the draft theme", walk him through these 8 checks. Mark the page `[✓]` on the master checklist only when all 8 pass.
+After Leo says "it's live in the draft theme", walk him through these 9 checks. Mark the page `[✓]` on the master checklist only when all 9 pass.
 
 - [ ] Mobile layout at 375px — nothing broken or overflowing
 - [ ] All links resolve — no `#` placeholders from unbuilt pages
@@ -244,6 +332,9 @@ After Leo says "it's live in the draft theme", walk him through these 8 checks. 
 - [ ] Page title set in Shopify → Pages → SEO section
 - [ ] Meta description set (150–160 chars, outcome-focused)
 - [ ] Photo alt text meaningful (not empty, not filename)
+- [ ] Run `/on-page-seo-auditor` on the draft theme preview URL — resolve any errors before marking done
+
+Once all 9 checks pass, update `previews/bbi-site-build-checklist.html` — find the entry for this page in the `PAGES` array and set its status to `done`. This keeps the checklist accurate as the source of truth for what's built vs. what's left.
 
 ---
 
@@ -254,5 +345,7 @@ After Leo says "it's live in the draft theme", walk him through these 8 checks. 
 - **Suppress Starlite chrome only on Type A** — Type B uses it
 - **Never publish the dev theme** — everything stays in "BBI Landing Dev" draft
 - **Never delete products** — archive or unpublish; prefer unpublish when sold-history exists
-- **Wait for Leo's go-ahead** between Pre-Step, Steps 1, 2, 3, and 5 — don't run the whole flow autonomously
+- **Wait for Leo's go-ahead** between Pre-Step, Steps 1, 2, 2B, 3, and 5 — don't run the whole flow autonomously
 - **Flag unbuilt pages** as `[placeholder]` in Step 1 so Leo can decide which to build next
+- **SEO/AEO is non-negotiable** — Step 2B runs on every page, no skipping even for simple pages
+- **One-shot rule** — the Claude Design prompt must pass all 4 gate items before submission. Never submit a partial prompt intending to revise; credits are spent per generation, not per session

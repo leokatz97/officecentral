@@ -78,7 +78,7 @@ def load_manifest(path=None):
     rows = []
     with open(csv_path, newline='', encoding='utf-8') as f:
         for row in csv.DictReader(f):
-            if row.get('Status') == 'OK':
+            if row.get('Status') in ('OK', 'GENERATED'):
                 rows.append(row)
     print('Found {} OK rows to push.'.format(len(rows)))
     return rows
