@@ -196,4 +196,5 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | Script reference | [scripts/README.md](scripts/README.md) |
 | Page image generator | [scripts/generate-page-images.py](scripts/generate-page-images.py) |
 | Page image sharpener | [scripts/sharpen-page-images.py](scripts/sharpen-page-images.py) |
+| Image reorder (full-product to pos 1) | [scripts/reorder-product-images.py](scripts/reorder-product-images.py) |
 | AI image library | [data/page-images/](data/page-images/) |
