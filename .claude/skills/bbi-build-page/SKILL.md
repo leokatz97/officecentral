@@ -39,7 +39,7 @@ Parse the page name from the arguments. If he didn't include one, ask once: "Whi
 - **Address:** 295 George St N, Peterborough, ON K9J 3H2
 - **Phone:** 1-800-835-9565
 - **Email:** info@brantbusinessinteriors.com
-- **Products:** task seating, desks & workstations, storage & filing, collaboration, acoustic pods
+- **Products:** Business Furniture only (scope change 2026-04-25). 9 categories: Seating, Desks & Workstations, Storage & Filing, Tables, Boardroom, Ergonomic Products, Panels & Dividers, Accessories, Quiet Spaces. Educational, Daycare & ECE, and Healthcare & Seniors verticals were archived.
 
 ---
 
@@ -121,29 +121,52 @@ Before scoping, load every piece of context available for this page:
 | Page name (as Leo says it) | Image folder |
 |---|---|
 | homepage | `data/page-images/homepage/` |
-| global-teknion | `data/page-images/global-teknion/` |
-| ergocentric | `data/page-images/ergocentric/` |
-| keilhauer | `data/page-images/keilhauer/` |
-| task-seating | `data/page-images/task-seating/` |
+| about / about-us | `data/page-images/about-us/` |
+| **Shop — vertical & category pages (post-2026-04-25 architecture)** | |
+| business-furniture / shop-hub | `data/page-images/business-furniture/` |
+| seating | `data/page-images/seating/` |
 | desks | `data/page-images/desks/` |
 | storage | `data/page-images/storage/` |
-| collaboration | `data/page-images/collaboration/` |
-| acoustic-pods | `data/page-images/acoustic-pods/` |
-| home-office | `data/page-images/home-office/` |
+| tables | `data/page-images/tables/` |
+| boardroom | `data/page-images/boardroom/` |
+| ergonomic-products | `data/page-images/ergonomic-products/` |
+| panels-room-dividers / panels | `data/page-images/panels-room-dividers/` |
+| accessories | `data/page-images/accessories/` |
+| quiet-spaces | `data/page-images/quiet-spaces/` |
+| **Industries** | |
+| industries-hub | `data/page-images/industries-hub/` |
 | healthcare | `data/page-images/healthcare/` |
 | education | `data/page-images/education/` |
 | government | `data/page-images/government/` |
 | non-profit | `data/page-images/non-profit/` |
 | professional-services | `data/page-images/professional-services/` |
+| **Brands** | |
+| brands-hub | `data/page-images/brands-hub/` |
+| keilhauer | `data/page-images/keilhauer/` |
+| global-teknion | `data/page-images/global-teknion/` |
+| ergocentric | `data/page-images/ergocentric/` |
+| **Services** | |
 | design-services | `data/page-images/design-services/` |
-| verticals-hub | `data/page-images/verticals-hub/` |
-| collections-hub | `data/page-images/collections-hub/` |
+| delivery | `data/page-images/delivery/` |
+| **Trust & system pages (no image folder yet — generate via `scripts/generate-page-images.py` if needed)** | |
+| faq | _none — text-heavy page, hero from oci-photos optional_ |
+| quote (Request a Quote) | _none — form page, hero from oci-photos optional_ |
+| customer-stories | _none yet — use client logos from `data/testimonials/` + project photos from `data/oci-photos/` (Mattamy, Kawartha Dairy, etc.). Generate hero via script if needed._ |
+| blog-resources | _none — generate if building_ |
+| 404 | _none — uses category thumbnails_ |
+| **Deprecated (do not use — kept for reference only)** | |
+| ~~task-seating~~ | use `seating/` (post-2026-04-25 architecture: `/collections/seating` is the category page; old task-seating is now a sub-collection) |
+| ~~collaboration~~ | use `boardroom/` |
+| ~~acoustic-pods~~ | use `quiet-spaces/` |
+| ~~home-office~~ | page removed in scope change 2026-04-25 |
+| ~~collections-hub~~ | use `business-furniture/` (Shop Hub removed; nav links directly to `/collections/business-furniture`) |
+| ~~verticals-hub~~ | use `industries-hub/` |
 
 Pattern inside each folder: `{slug}-product.jpg` (product hero) and `{slug}-space.jpg` (room scene, where it exists). If the page name doesn't match any row above, check `data/page-images/` directly for a matching folder before proceeding.
 
 Also check the manifest CSV at `data/reports/generated-page-images-YYYY-MM-DD.csv` — if a slot is `SOURCE=OCI_PHOTO`, use the matching OCI photo from `data/oci-photos/catalog.json` for that slot instead.
 
-**1. Read the site build checklist** at `previews/bbi-site-build-checklist.html` — find the entry matching the page name in the `PAGES` array. Extract its `tips` array. These are the pre-agreed best-practice tips for this exact page: ICP target, hero photo, CTA priority, copy angle, SEO keywords, trust signals. They are your primary brief.
+**1. Read the site build checklist** at `previews/bbi-planning-hub.html` — find the entry matching the page name in the `PAGES` array. Extract its `tips` array. These are the pre-agreed best-practice tips for this exact page: ICP target, hero photo, CTA priority, copy angle, SEO keywords, trust signals. They are your primary brief.
 
 **2. Read ICP & voice** at `docs/strategy/icp.md` — confirm which ICP (Primary = institutional Ontario, Secondary = SMB) this page targets and apply the matching voice calibration. Note any SEO keyword lists relevant to this page — you'll use them in Step 2B.
 
@@ -332,24 +355,41 @@ Be explicit — no assumed knowledge. Leo is doing the clicking.
 
 After the basic page creation steps, emit a tailored interconnection checklist based on the page type. Look up the page type below and output **only the rows that apply**.
 
-**Page-type interconnection matrix:**
+**Page-type interconnection matrix** (post-2026-04-25 architecture):
 
-| Page type | Nav location | Hub to update | Cross-links FROM other pages |
-|---|---|---|---|
-| Collection page | Main nav → Catalog dropdown | Collections hub (`/collections`) — add a card | Homepage (featured categories), Product page template |
-| Vertical page | Main nav → Industries dropdown | Industries hub (`/pages/industries`) — add a card | Relevant collection pages (e.g. Healthcare → Desks, Task Seating) |
-| Service page | Main nav → Services dropdown | About page (`/pages/about`) — add a cross-link | Homepage (services strip), relevant vertical pages |
-| Brand dealer page | Main nav → Brands dropdown | Brands hub (`/pages/brands`) — add a card | Relevant collection pages (products that brand supplies) |
-| Campaign / landing | Not in main nav (use footer or CTA) | Homepage — add a banner CTA or seasonal link | OECM page, Contract Pricing page |
-| Hub page | Main nav (top-level) | None — it IS the hub | All child pages must link back to this hub |
+| Page type | Template | Nav location | Hub to update | Cross-links FROM other pages |
+|---|---|---|---|---|
+| BF vertical page (`/collections/business-furniture`) | `collection.category.json` | Main nav → "Shop Furniture" links here directly (no Shop Hub) | None — it IS the shop entry | Homepage (shop entry banner), every category page (footer "See all Business Furniture →") |
+| BF category page (`/collections/seating`, `/collections/desks`, etc. — 9 total) | `collection.category.json` | Main nav → Shop Furniture dropdown (single column, 9 items) | BF Hub (`/collections/business-furniture`) — confirm tile exists | Industry pages (e.g. Government → Desks, Storage), brand pages (e.g. Keilhauer → Seating + Boardroom) |
+| BF sub-collection (`/collections/highback-seating`, `/collections/l-shape-desks-desks`, etc. — ~68 total) | `collection.json` | Not in main nav — reached via category page tile or "View all" smart collection | Parent category page — confirm tile links here | Product pages (related products), "View all [Category]" smart collection |
+| "View all" smart collection (`/collections/all-seating`, etc. — 9 total + 1 vertical) | `collection.json` | Not in nav — accessed via "View all [Category] →" button on category page | Parent category page — confirm "View all" button links here | (no other cross-links — terminal browse view) |
+| Brand-filtered smart collection (`/collections/keilhauer`, `/collections/global`, `/collections/teknion`, `/collections/ergocentric`) | `collection.json` (vendor-filtered) | Not in nav — accessed via brand dealer page button | Parent brand dealer page — confirm "Shop [Brand] products →" button links here | Product pages from that vendor |
+| Industry page (`/pages/healthcare`, `/pages/education`, etc.) | Landing page template | Main nav → Industries dropdown | Industries hub (`/pages/industries`) — add a card | Homepage (industries strip), relevant BF category pages, OECM page |
+| Industries hub (`/pages/industries`) | Landing page template | Main nav (top-level "Industries") | None — it IS the hub | Homepage (industries strip), every industry page (cross-link back) |
+| Brand dealer page (`/pages/brands-keilhauer`, etc.) | Landing page template | Main nav → Brands dropdown | Brands hub (`/pages/brands`) — add a card | Relevant BF category pages (e.g. Keilhauer card on Seating page), brand-filtered smart collection (button) |
+| Brands hub (`/pages/brands`) | Landing page template | Main nav (top-level "Brands") | None — it IS the hub | Homepage (optional brands row), every brand page (cross-link back) |
+| Service page (`/pages/design-services`, `/pages/delivery`, `/pages/relocation`, `/pages/oecm`) | Landing page template | Main nav → Services dropdown | About page or footer | Homepage (services strip), relevant industry pages (OECM linked from Healthcare/Education/Government) |
+| About / Contact / Our Work | Landing page template | Footer + nav About dropdown | None | Homepage, every quote CTA |
+| Customer Stories (`/pages/customer-stories`) | Landing page template (industry-filter variant — must include Review JSON-LD per testimonial via `/schema-markup-generator`) | Footer + nav About dropdown | None | Homepage (testimonials section: "Read customer stories →"), every industry page ("See [Industry] customer stories →" filtered link), `/pages/quote`, About page, Contract Pricing |
+| FAQ (`/pages/faq`) | Landing page template (FAQ variant — must include FAQPage JSON-LD via `/schema-markup-generator`) | Footer + nav About dropdown | None | Every product page (sticky "Questions?" link), every service page, footer |
+| Request a Quote (`/pages/quote`) | Landing page template (form-heavy variant) | Main nav right-side CTA button | None — it IS the conversion endpoint | Every product page, every category page (phone CTA block), every industry page, every service page, every sub-collection footer |
+| Contract Pricing (`/pages/contract-pricing`) | Landing page template (form-heavy) | Footer / industry-page link | None | Industry pages, OECM page |
+| Blog / Resources hub (`/blogs/news`) | Custom blog template | Main nav (optional "Resources") + footer | None — it IS the hub | Footer link, every article cross-links back |
+| Blog article (`/blogs/news/[handle]`) | Article template (must include Article + FAQPage JSON-LD via `/schema-markup-generator`) | Not in nav — reached via Resources hub | Resources hub | Related category page, related industry page, `/pages/quote` CTA at bottom |
+| Custom 404 (`/404`) | `404.json` | N/A — system page | N/A | (terminal — but links OUT to 4 top categories + search + phone) |
+| Policies (`/policies/*`) | Auto-generated, content-only | Footer (Shopify standard) | N/A | Footer link only |
+| Campaign / one-off landing | Landing page template | Not in main nav (use footer or homepage banner) | Homepage — add a banner CTA or seasonal link | OECM page, Contract Pricing page |
 
 **Emit this checklist for every page:**
 
-- [ ] **Template suffix** — assigned correctly in Shopify Admin → Pages → Theme template (e.g. `page.healthcare`)
+- [ ] **Template suffix** — assigned correctly in Shopify Admin → Pages → Theme template (e.g. `page.healthcare`, `collection.category` for category pages, `collection` for sub-collections)
 - [ ] **Page handle** — matches expected URL slug (e.g. `healthcare` → `/pages/healthcare`). Verify in Pages → Edit URL and handle
-- [ ] **Main nav** — go to Admin → Navigation → Main menu → edit the correct dropdown, add link with label and URL
-- [ ] **Footer nav** — if this is a Services, About, or Contact page: add it to the Footer menu under the right column
+- [ ] **Main nav** — go to Admin → Navigation → Main menu → edit the correct dropdown, add link with label and URL (skip for sub-collections, smart collections, and system pages — see matrix)
+- [ ] **Footer nav** — if this is a Services, About, FAQ, Contact, or Policies page: add it to the Footer menu under the right column
 - [ ] **Hub page updated** — go to the hub page (listed above for this page type) in Admin → Pages → edit the page's content/Customizer to add a card or link for this page
+- [ ] **Breadcrumb** — for shop pages: confirm 4-level breadcrumb (Home > Shop Furniture > [Category] > [Sub-collection]) reflects the current path. BreadcrumbList JSON-LD should already be live; just verify.
+- [ ] **"View all" button (category pages only)** — confirm "View all [Category] →" button at top of tile grid links to the smart collection (e.g. `/collections/all-seating`). If the smart collection doesn't exist yet, create it (Admin → Products → Collections → Create collection → Smart, condition: tag equals `category:[name]`).
+- [ ] **Brand-filtered button (brand pages only)** — confirm "Shop [Brand] products →" button links to the vendor-filtered smart collection (`/collections/keilhauer`, `/collections/global`, `/collections/teknion`, `/collections/ergocentric`). If missing, create as smart collection with condition: vendor equals `[Brand]`.
 - [ ] **SEO fields** — in Admin → Pages → [this page] → scroll to Search engine listing preview → set Page title and Meta description from Step 2B
 - [ ] **Cross-links wired** — visit 2–3 existing live pages (listed above for this page type) and confirm they contain a link TO this new page; if not, flag for Leo to add
 
@@ -369,13 +409,17 @@ After Leo says "it's live in the draft theme", walk him through these 9 checks. 
 - [ ] Photo alt text meaningful (not empty, not filename)
 - [ ] Run `/on-page-seo-auditor` on the draft theme preview URL — resolve any errors before marking done
 
-**Interconnection checks (4 additional — must pass before marking done):**
-- [ ] Nav link — click through the correct main nav dropdown and confirm it lands on this page
+**Interconnection checks (must pass before marking done):**
+- [ ] Nav link — click through the correct main nav dropdown and confirm it lands on this page (skip for sub-collections, smart collections, system pages)
 - [ ] Hub page card/link — visit the hub page for this page type and confirm a card or link pointing here is live
 - [ ] Cross-link from at least one existing page — visit one of the cross-link candidates from Step 6 and confirm the link is present and resolves correctly
-- [ ] Collection handle (collection pages only) — confirm URL slug `/collections/{handle}` matches the template suffix `collection.{handle}` exactly
+- [ ] Collection handle (shop pages only) — confirm URL slug `/collections/{handle}` matches the template suffix exactly (`collection.category.{handle}` for category pages, `collection.{handle}` for sub-collections)
+- [ ] Breadcrumb (shop pages only) — for category pages: Home > Shop Furniture > [Category]. For sub-collections: Home > Shop Furniture > [Category] > [Sub-collection]. Confirm BreadcrumbList JSON-LD reflects this.
+- [ ] "View all" button (category pages only) — click "View all [Category] →" and confirm it lands on the populated smart collection (`/collections/all-seating`, etc.) with products visible
+- [ ] Brand-filtered button (brand pages only) — click "Shop [Brand] products →" and confirm it lands on the vendor-filtered smart collection with that brand's products visible
+- [ ] FAQ schema (FAQ + article pages) — view source, search `"@type":"FAQPage"`, confirm structured data matches the visible Q&A content
 
-Once all 13 checks pass, update `previews/bbi-site-build-checklist.html` — find the entry for this page in the `PAGES` array and set its status to `done`. This keeps the checklist accurate as the source of truth for what's built vs. what's left.
+Once all checks pass, update `previews/bbi-planning-hub.html` — find the entry for this page in the `PAGES` array and set its status to `done`. This keeps the planning hub accurate as the source of truth for what's built vs. what's left.
 
 ---
 

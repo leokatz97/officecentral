@@ -189,7 +189,8 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | Live task list | [docs/plan/shopify-fix-plan.md](docs/plan/shopify-fix-plan.md) |
 | Status snapshot | [docs/plan/status-snapshot-2026-04-20.md](docs/plan/status-snapshot-2026-04-20.md) |
 | Interactive checklist | [docs/plan/website-fix-checklist.html](docs/plan/website-fix-checklist.html) |
-| Site build checklist | [previews/bbi-site-build-checklist.html](previews/bbi-site-build-checklist.html) |
+| Planning hub (canonical PAGES + fix items) | [previews/bbi-planning-hub.html](previews/bbi-planning-hub.html) |
+| Site architecture (post-2026-04-25 scope) | [docs/plan/site-architecture-2026-04-25.md](docs/plan/site-architecture-2026-04-25.md) |
 | Ideas backlog | [docs/plan/ideas-backlog.md](docs/plan/ideas-backlog.md) |
 | Brand voice + ICP | [docs/strategy/icp.md](docs/strategy/icp.md) |
 | Approved copy samples | [docs/strategy/voice-samples.md](docs/strategy/voice-samples.md) |

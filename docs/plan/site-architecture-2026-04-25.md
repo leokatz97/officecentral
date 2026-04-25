@@ -19,22 +19,21 @@ This document defines every page to build, the nav bar structure, the template s
 
 ### Hover behaviour (mega menus / dropdowns)
 
-**Shop Furniture** → 4-column mega menu:
+**Shop Furniture** → single-column dropdown (Business Furniture only — scope change 2026-04-25):
 
-| 🪑 Business Furniture | 🎓 Educational | 👶 Daycare & ECE | 🏥 Healthcare & Seniors |
-|---|---|---|---|
-| Seating | Student Chairs | Kids Play Tables | Waiting Room Seating |
-| Desks & Workstations | Tablet Chairs | Classroom Storage | Bariatric Seating |
-| Storage & Filing | Lecture Hall Seating | Arts & Crafts | Recliners |
-| Tables | Student Desks | Manipulative Play | Exam Room Seating |
-| Boardroom | Library Study Tables | Dramatic Play | Bedside & Overbed Tables |
-| Ergonomic Products | Library Shelving | Coat Cubbies & Lockers | Beds & Mattresses |
-| Panels & Dividers | Lab Furniture | Book Display & Storage | Clinician Screens |
-| Accessories | Charging Units | Kids Chairs & Couches | Diagnostic Carts/Arms |
-| Quiet Spaces | Book Carts | Mirrors & Room Dividers | + 10 more → |
-| | + 4 more → | | |
+| 🪑 Business Furniture |
+|---|
+| Seating |
+| Desks & Workstations |
+| Storage & Filing |
+| Tables |
+| Boardroom |
+| Ergonomic Products |
+| Panels & Dividers |
+| Accessories |
+| Quiet Spaces |
 
-Column headers link to the vertical page. Each item below links directly to the sub-collection.
+Header links to `/collections/business-furniture`. Each item links to the corresponding category page.
 
 **Industries** → simple dropdown: Healthcare · Education · Government · Non-Profit · Professional Services
 
@@ -45,8 +44,8 @@ Column headers link to the vertical page. Each item below links directly to the 
 **About** → simple dropdown: Our Work · About Us · Contact · Request a Quote
 
 ### Click behaviour
-- **Clicking** "Shop Furniture" → navigates to `/pages/shop` (the Shop Hub page showing 4 vertical tiles)
-- **Hovering** "Shop Furniture" → opens the mega menu for quick deep-linking
+- **Clicking** "Shop Furniture" → navigates to `/collections/business-furniture` (the Business Furniture vertical page — Shop Hub removed, scope change 2026-04-25)
+- **Hovering** "Shop Furniture" → opens the dropdown for quick deep-linking to category pages
 - All other top-level items: click opens their dropdown
 
 ### Mobile nav
@@ -56,37 +55,31 @@ Hamburger → vertical accordion with identical 5-item structure.
 
 ## 2. Page Inventory & Shop Journey
 
-### 2a. The Shop — 4-Level Hierarchy
+### 2a. The Shop — 3-Level Hierarchy (Business Furniture only)
 
-The shop is structured as a 4-level journey for Business Furniture, and a 3-level journey for Educational, Daycare, and Healthcare.
+The shop is structured as a 3-level journey. (Shop Hub removed — scope change 2026-04-25. Educational, Daycare, and Healthcare verticals archived.)
 
 ```
-Level 0 → Level 1        → Level 2               → Level 3             → Products
-Shop Hub   Vertical page   Category page           Sub-collection
-/pages/shop  (4 options)    (Biz Furn. only)        product listing
+Level 1                   → Level 2               → Level 3             → Products
+Vertical page                Category page           Sub-collection
+/collections/business-      (9 categories)          product listing
+furniture
 ```
 
 **Templates at each level:**
 
 | Level | Page type | Template | Description |
 |---|---|---|---|
-| 0 | Shop Hub | `page.shop-hub.json` | 4 vertical tiles |
-| 1 | Vertical page | `collection.category.json` | Sub-category tile grid |
-| 2 | Category page (Biz Furn.) | `collection.category.json` | Sub-collection tile grid |
+| 1 | Vertical page | `collection.category.json` | 9 category tiles — no products |
+| 2 | Category page | `collection.category.json` | Sub-collection tiles — no products |
 | 3 | Sub-collection | `collection.json` | Product listing with filters |
 | — | Product | `product.json` | Individual product detail |
 
-> ★ Educational, Daycare, and Healthcare skip Level 2 — their vertical page goes directly to sub-collections (3 levels total). Business Furniture needs the extra level because it has 9 categories, each with 3–16 sub-collections.
-
 ---
 
-### 2b. Shop Hub
+### 2b. Shop Hub — ~~Removed~~
 
-| Page | URL | Template | Status |
-|---|---|---|---|
-| Shop Hub | `/pages/shop` | `page.shop-hub.json` | Build needed |
-
-Shows 4 large tiles: Business Furniture · Educational · Daycare & ECE · Healthcare & Seniors. Each tile has: image, vertical name, short descriptor, CTA link.
+> **Removed — scope change 2026-04-25.** The Shop Hub page (`/pages/shop`) and its template (`page.shop-hub.json`) are no longer needed. "Shop Furniture" in the nav links directly to `/collections/business-furniture`. Any existing `/pages/shop` URL should redirect to `/collections/business-furniture`.
 
 ---
 
@@ -145,36 +138,21 @@ All use `collection.category.json` template. No products shown — clicking a ti
 
 ---
 
-### 2d. Educational Furniture — Vertical + 13 Sub-collections
+### ~~2d. Educational Furniture~~ — Removed
 
-| Page | URL | Template |
-|---|---|---|
-| Educational Furniture | `/collections/educational` | `collection.category.json` |
-
-Sub-collections (direct — no category tier):
-`/collections/student-chairs` · `/collections/office-teachers-chairs` · `/collections/tablet-chairs` · `/collections/lecture-hall-seating` · `/collections/cafe-lounge-seating` · `/collections/student-desks` · `/collections/reception-desks-desks` · `/collections/library-study-tables` · `/collections/library-shelving` · `/collections/laboratory-furniture` · `/collections/charging-units` · `/collections/book-carts` · `/collections/dorm-penitentiary-furniture`
+> **Removed — scope change 2026-04-25.** Products archived in Shopify. The `/collections/educational` vertical and its 13 sub-collections are no longer part of the active shop. The `/pages/education` industry landing page remains (see 2g) but now links to relevant Business Furniture sub-collections rather than the educational vertical.
 
 ---
 
-### 2e. Daycare & Early Childhood Education — Vertical + ~11 Categories
+### ~~2e. Daycare & Early Childhood Education~~ — Removed
 
-| Page | URL | Template |
-|---|---|---|
-| Daycare & ECE | `/collections/daycare` | `collection.category.json` |
-
-Sub-collections (direct — no category tier):
-`/collections/kids-play-tables` · `/collections/classroom-storage` · `/collections/manipulative-play` · `/collections/dramatic-play` · `/collections/coat-cubbies-lockers` · `/collections/book-displays-storage` · `/collections/cribs` · `/collections/strollers` · `/collections/kids-chairs` · `/collections/mirrors-room-dividers`
+> **Removed — scope change 2026-04-25.** Products archived in Shopify. The `/collections/daycare` vertical and its ~11 sub-collections are no longer part of the active shop.
 
 ---
 
-### 2f. Healthcare & Seniors — Vertical + 18 Sub-collections
+### ~~2f. Healthcare & Seniors~~ — Removed
 
-| Page | URL | Template |
-|---|---|---|
-| Healthcare & Seniors | `/collections/healthcare` | `collection.category.json` |
-
-Sub-collections (direct — no category tier):
-`/collections/waiting-room-seating` · `/collections/bariatric-seating` · `/collections/recliners` · `/collections/exam-room-seating` · `/collections/lounge-seating` · `/collections/dinning-seating` · `/collections/dinning-tables` · `/collections/occasional-tables` · `/collections/bedside-tables` · `/collections/overbed-tables` · `/collections/beds-matresses` · `/collections/dressers` · `/collections/wardrobes` · `/collections/tv-units` · `/collections/clinician-screens` · `/collections/diagnostic-carts-arms` · `/collections/outdoor-seating` · `/collections/dining-room`
+> **Removed — scope change 2026-04-25.** Products archived in Shopify. The `/collections/healthcare` vertical and its 18 sub-collections are no longer part of the active shop. The `/pages/healthcare` industry landing page remains (see 2g) but now cross-links to relevant Business Furniture sub-collections (waiting room seating, reception desks, etc.).
 
 ---
 
@@ -225,34 +203,71 @@ All use the same landing page template.
 |---|---|---|
 | Homepage | `/` | ⭐ |
 | Our Work & Portfolio | `/pages/our-work` | — |
+| Customer Stories | `/pages/customer-stories` | ⭐ |
 | About Us | `/pages/about` | — |
 | Contact | `/pages/contact` | — |
 | Request a Quote | `/pages/quote` | ⭐ |
+| FAQ | `/pages/faq` | ⭐ |
+
+FAQ covers: ordering & payment (PO, NET 30, credit accounts) · OECM ordering process · delivery & install · returns & warranty · design services. FAQ schema markup (JSON-LD) required for AI Overview readiness.
+
+**Our Work vs Customer Stories** — both are social proof but serve different buyer modes:
+- *Our Work* (`/pages/our-work`) — visual portfolio. Photo-heavy project cards (Mattamy-1 through Mattamy-5 from `data/oci-photos/`). Quick credibility scan.
+- *Customer Stories* (`/pages/customer-stories`) — narrative case studies with industry filter chips. Each story: situation → solution → products used (linked) → outcome → client quote. Required JSON-LD: Review schema per testimonial. Cross-links into industry pages and product categories.
 
 ---
 
-### 2k. System Pages (Shopify auto-generated — template work only)
+### 2k. Blog / Resources
 
-| Page | URL |
-|---|---|
-| Product detail pages (645 SKUs) | `/products/[handle]` |
-| Cart | `/cart` |
-| Search | `/search` |
-| Account / Login | `/account` |
-| Policies | `/policies/*` |
+| Page | URL | Template |
+|---|---|---|
+| Resources Hub | `/blogs/news` | Custom blog template |
+| Articles | `/blogs/news/[handle]` | Article template |
+
+Foundation for the SEO strategy 2026 (outcome-based search, AI Overview citations, Workspitality trend, niche keyword clusters). Content pillars: buying guides · industry insights · trends · procurement how-tos. Every article must include FAQ schema, link to a relevant collection, and a CTA to `/pages/quote`.
+
+---
+
+### 2l. Brand-Filtered Smart Collections
+
+Each brand dealer page links to a vendor-filtered smart collection that lists every product from that brand as a flat list with filters. Required so brand pages don't dead-end.
+
+| Brand page | Brand-filtered collection | Smart-collection rule |
+|---|---|---|
+| `/pages/brands-keilhauer` | `/collections/keilhauer` | vendor = "Keilhauer" |
+| `/pages/brands-global-teknion` | `/collections/global` + `/collections/teknion` | vendor = "Global" / "Teknion" |
+| `/pages/brands-ergocentric` | `/collections/ergocentric` | vendor = "ergoCentric" |
+
+ObusForme also gets `/collections/obusforme` if traffic warrants. All use the standard `collection.json` template.
+
+---
+
+### 2m. System Pages (Shopify auto-generated — template work only)
+
+| Page | URL | Notes |
+|---|---|---|
+| Product detail pages (645 SKUs) | `/products/[handle]` | Custom product template (see Phase 2 build plan) |
+| Cart | `/cart` | Standard Shopify cart |
+| Search | `/search` | Standard, but consider custom no-results page |
+| Account / Login | `/account` | Standard |
+| 404 Not Found | `/404` | **Custom** — replace Shopify default. Show search box + 4 top category tiles + phone CTA. Track 404 hits in GA4 to identify URLs needing 301 redirects. |
+| Policies (Privacy, Returns, Shipping, Terms) | `/policies/*` | Auto-generated URLs; content must be filled in via Admin → Settings → Policies. PIPEDA/CASL compliance required. |
 
 ---
 
 ## 3. Templates to Build
 
-Only **4 templates** need to be built. Everything else is a content/data task.
+**5 templates** to build. (`page.shop-hub.json` is no longer needed — scope change 2026-04-25.)
 
 | Template | Used by | Key sections |
 |---|---|---|
-| `page.shop-hub.json` | Shop Hub page | Hero · 4 vertical tiles with image, name, blurb, CTA |
-| `collection.category.json` | All vertical pages + all Business Furniture category pages (13 total) | Hero · tile grid (section blocks) · breadcrumbs · no product grid |
-| `collection.json` | All ~110 sub-collection pages | Hero banner · breadcrumbs · filter sidebar · product grid · phone CTA block |
-| Landing page template | All industry, brand, service, and about pages (~19 pages) | Hero · intro · featured cards (3–4) · testimonial/photo block · cross-links · CTA |
+| `collection.category.json` | Business Furniture vertical + 9 category pages (10 total) | Hero · "View all [Category] →" button · tile grid (section blocks) · breadcrumbs · no product grid |
+| `collection.json` | ~68 BF sub-collections + 9 "View all" smart collections + 4 brand-filtered smart collections (~81 total) | Hero banner · breadcrumbs · filter sidebar · product grid · phone CTA block |
+| Landing page template | Industry, brand, service, about, FAQ pages (~20 pages) | Hero · intro · featured cards (3–4) · testimonial/photo block · cross-links · CTA. FAQ variant adds JSON-LD schema + accordion. |
+| Blog template (`blog.json` + `article.json`) | Resources hub + articles | Hub: featured + latest + category filter + email capture. Article: H1 + TOC + sections + FAQ schema + related collection CTA. |
+| `404.json` | Custom 404 page | Brief message + search box + 4 top category tiles + phone CTA + Quote button |
+
+Plus the existing `product.json` (custom product detail template) which is in the Phase 2 build plan.
 
 > The `collection.category.json` template renders tiles using section **blocks** (not metafields), so each tile's image, label, blurb, and link are configurable from the Shopify Theme Editor without code changes.
 
@@ -271,10 +286,27 @@ Every `collection.category.json` page must include:
 - Breadcrumb back to the vertical page
 - A "See all [Vertical] furniture →" link at the bottom
 - A "Can't find it? Call 1-800-835-9565" CTA
+- **A "View all [Category] →" button** at the top of the tile grid linking to a tag-based smart collection (e.g. `/collections/all-desks`, `/collections/all-seating`) that shows every product in the category as a flat product list with filters. Lets buyers who want to browse everything skip the sub-type drilldown.
 
-### Rule 3: Industry landing pages cross-link to their shop vertical
+**Smart collections to create** (one per category, tag-based on `category:*`):
+| Category page | "View all" smart collection |
+|---|---|
+| `/collections/seating` | `/collections/all-seating` |
+| `/collections/desks` | `/collections/all-desks` |
+| `/collections/storage` | `/collections/all-storage` |
+| `/collections/tables` | `/collections/all-tables` |
+| `/collections/boardroom` | `/collections/all-boardroom` |
+| `/collections/ergonomic-products` | `/collections/all-ergonomic` |
+| `/collections/panels-room-dividers` | `/collections/all-panels` |
+| `/collections/accessories` | `/collections/all-accessories` |
+| `/collections/quiet-spaces` | `/collections/all-quiet-spaces` |
+
+The Business Furniture vertical page (`/collections/business-furniture`) gets a "View all Business Furniture →" link to `/collections/all` (Shopify auto-generated) or a dedicated smart collection `/collections/all-business-furniture` if more curation is needed.
+
+### Rule 3: Industry landing pages cross-link to their shop vertical + filtered customer stories
 Every industry landing page must include:
 - "Shop [Industry] Furniture →" button linking to the corresponding shop vertical or sub-collections
+- "See [Industry] customer stories →" link to `/pages/customer-stories#[industry-slug]` (filtered view)
 - Example: `/pages/healthcare` links to `/collections/healthcare` and highlights: Waiting Room Seating, Bariatric Seating, Recliners, Exam Room Seating
 
 Mapping:
@@ -300,21 +332,22 @@ Every vertical page (`collection.category.json`) should include a contextual mod
 ### Rule 5: Every sub-collection page has a phone CTA block
 At the bottom of every sub-collection (product listing) page: `"Can't find exactly what you need? Our team can help. Call 1-800-835-9565"` with a secondary "Request a Quote →" button linking to `/pages/quote`.
 
-### Rule 6: Homepage surfaces all 4 verticals + key conversion paths
+### Rule 6: Homepage surfaces the shop entry + key conversion paths
 Homepage sections (in order):
-1. Hero — headline, CTA to Shop or Request Quote
-2. 4 vertical tiles (Business · Educational · Daycare · Healthcare)
+1. Hero — headline, CTA to Shop Furniture or Request Quote
+2. Shop entry — link/banner to `/collections/business-furniture` with 3–4 featured category tiles (Seating, Desks, Storage, Boardroom)
 3. Featured products (3 Hero 100 items)
 4. OECM trust bar — "Verified OECM supplier. Ontario institutions can purchase without open tender."
 5. Industries we serve (5 sector thumbnails → industry landing pages)
 6. Services overview (Design Services · Delivery · Relocation)
-7. Testimonials / Our Work preview
+7. Testimonials / Our Work preview / "Read customer stories →" link to `/pages/customer-stories`
 8. Footer with full nav + phone + quote CTA
 
-### Rule 7: Brand pages link to relevant products
+### Rule 7: Brand pages link to vendor-filtered collections
 Each brand page (`/pages/brands-keilhauer`, etc.) must include:
-- A "Shop [Brand] products →" link to a filtered collection or search
+- A primary "Shop [Brand] products →" button linking to the brand's vendor-filtered smart collection (see section 2l): `/collections/keilhauer`, `/collections/global`, `/collections/teknion`, `/collections/ergocentric`
 - Featured 3–4 products from that brand
+- Secondary cross-links to relevant category pages (e.g. Keilhauer → Seating + Boardroom)
 
 ---
 
@@ -330,9 +363,8 @@ These pages are what institutional buyers search for and what drives leads.
 5. Industries Hub (`/pages/industries`) + 5 industry landing pages
 
 ### Phase 2 — Shop structure (unlocks the full product UX)
-6. Shop Hub page (`/pages/shop`) — 4 vertical tiles
-7. 4 vertical pages (Business Furniture, Educational, Daycare, Healthcare) — `collection.category.json`
-8. 9 Business Furniture category pages (Seating, Desks, Storage…) — same template, different tile data
+6. Business Furniture vertical page (`/collections/business-furniture`) — 9 category tiles
+7. 9 Business Furniture category pages (Seating, Desks, Storage, Tables, Boardroom, Ergonomics, Panels, Accessories, Quiet Spaces) — `collection.category.json`
 
 ### Phase 3 — Collection template rollout (bulk apply)
 9. Build the shared `collection.json` sub-collection template
@@ -362,16 +394,21 @@ Before building any collection page, confirm the collection is populated in Shop
 | Section | Pages | Template |
 |---|---|---|
 | Homepage | 1 | Custom |
-| Shop Hub | 1 | `page.shop-hub.json` |
-| Vertical pages (4) | 4 | `collection.category.json` |
+| Business Furniture vertical | 1 | `collection.category.json` |
 | Business Furniture category pages (9) | 9 | `collection.category.json` |
-| Sub-collection pages | ~110 | `collection.json` |
+| Sub-collection pages | ~68 | `collection.json` |
 | Industry pages (hub + 5) | 6 | Landing page template |
 | Brand pages (hub + 3) | 4 | Landing page template |
+| Brand-filtered smart collections (4) | 4 | `collection.json` |
 | Service pages | 4 | Landing page template |
-| About & Trust pages | 4 | Landing page template |
-| System pages (auto) | ~5 | Template work only |
-| **Total** | **~148** | **4 templates** |
+| About & Trust pages (incl. Request a Quote, FAQ, Customer Stories) | 7 | Landing page template |
+| Blog Resources (hub + articles) | 1 + N | Custom blog template + article template |
+| Custom 404 | 1 | 404 template |
+| System pages (auto, content only) | ~5 | Template work only |
+| "View all" smart collections (1 per category + 1 vertical) | ~10 | `collection.json` |
+| **Total core pages** | **~110** + blog articles | **5 templates** |
+
+> Total grew from ~103 to ~110 after adding FAQ, brand-filtered collections, blog/resources, custom 404, and "View all" smart collections — these were missing for full site interconnection.
 
 ---
 
