@@ -194,6 +194,15 @@ Pattern inside each folder: `{slug}-product.jpg` (product hero) and `{slug}-spac
 
 Also check the manifest CSV at `data/reports/generated-page-images-YYYY-MM-DD.csv` — if a slot is `SOURCE=OCI_PHOTO`, use the matching OCI photo from `data/oci-photos/catalog.json` for that slot instead.
 
+**After identifying the folder, run `ls data/page-images/{slug}/` and report the exact filenames found.** Do not guess filenames from the pattern — confirm they exist before citing them in Step 3's Claude Design prompt.
+
+If neither `{slug}-product.jpg` nor `{slug}-space.jpg` exists in the folder (and no OCI photo is specified in the manifest CSV), **pause here** and ask Leo to choose before continuing:
+- **(a)** Generate: `python3 scripts/generate-page-images.py --limit=1 --live` (add `--slug={slug}` if supported, otherwise run the full script and pull the new file)
+- **(b)** Substitute an OCI photo from `data/oci-photos/catalog.json` — pick the one whose description best matches the page theme
+- **(c)** Proceed with a solid `--bbi-gray-200` placeholder — not ideal for first-impression pages, but acceptable for rough drafts
+
+Do not proceed to Step 1 until image slots are confirmed.
+
 **1. Read the site build checklist** at `previews/bbi-planning-hub.html` — find the entry matching the page name in the `PAGES` array. Extract its `tips` array. These are the pre-agreed best-practice tips for this exact page: ICP target, hero photo, CTA priority, copy angle, SEO keywords, trust signals. They are your primary brief.
 
 **2. Read ICP & voice** at `docs/strategy/icp.md` — confirm which ICP (Primary = institutional Ontario, Secondary = SMB) this page targets and apply the matching voice calibration. Note any SEO keyword lists relevant to this page — you'll use them in Step 2B.
@@ -216,9 +225,27 @@ Summarize the loaded brief to Leo in one short block: tips, ICP target, **exact 
 
 Tell Leo:
 - Page type (A or B)
-- Which sections to use and in what order
+- Which sections to use and in what order — start from the default stack below, then add/remove/reorder based on the page tips from the Pre-Step
 - What content he needs to gather before starting (photos, logos, client names, product specs, etc.)
 - Which links on this page point to pages not yet built — flag as `[placeholder]`
+
+**Default section stacks (starting point — adjust per page):**
+
+**Type A — BBI Custom Landing Page** (industries, brands, services, OECM, campaigns):
+1. `ds-announce-bar` — include only if there's a seasonal promo or OECM-specific message active; omit otherwise
+2. `ds-site-header` — always
+3. `ds-page-hero` — full-width, photo background; H1 goes here
+4. `ds-feature-strip` — 3 key value props (outcome-focused, not feature-list)
+5. `ds-featured-grid` — product/service cards, or sub-category tiles; every card needs an image slot
+6. `ds-trust-row` — client logos, OECM seal, certifications
+7. `ds-quote-cta` — conversion band at bottom
+8. `ds-quote-modal-mount` — always; mounts the quote modal used by all CTAs
+9. `ds-site-footer` — always
+
+Remove `ds-featured-grid` for text-heavy pages (FAQ, Contact, policies) where a card grid doesn't apply. Add a second `ds-feature-strip` or a testimonial block between trust-row and quote-cta on pages where social proof needs more weight.
+
+**Type B — Standard Shopify Page** (homepage, collection pages, product pages, about, contact):
+Type B uses Starlite sections, not ds-*. Start from the closest completed BBI page template as a structural reference (see Step 3 readiness gate for options). Identify which Starlite section handles each piece of the Claude Design output in Step 5.
 
 Wait for Leo to confirm the scope before moving to Step 2.
 
@@ -256,10 +283,25 @@ Invoke `/geo-content-optimizer` with the approved content brief. Apply its outpu
 - Ensure OECM status, Ontario scope, and Canadian ownership are stated as facts (not marketing claims) in the first ~200 words — these are the citation anchors for AI engines
 
 **2B-4: Schema Markup (page-type dependent)**
-- All pages: LocalBusiness + Organization JSON-LD is already handled by `ds-structured-data.liquid` — confirm it's wired in.
-- Service pages (Design Services, Delivery & Install, Relocation): invoke `/schema-markup-generator` → generate HowTo or Service JSON-LD.
-- Pages with an FAQ section: invoke `/schema-markup-generator` → generate FAQPage JSON-LD.
-- Product/category pages: invoke `/schema-markup-generator` → generate Product or ItemList JSON-LD.
+
+`Organization` + `LocalBusiness` JSON-LD is already handled by `ds-structured-data.liquid` — confirm it's wired in (present in `<head>` via `ds-head-assets`). Do not re-emit these for every page.
+
+Use the table below to determine which additional schema to generate via `/schema-markup-generator`:
+
+| Page type | Schema to generate | Notes |
+|---|---|---|
+| Design Services | `HowTo` | Step-by-step design process (consult → space plan → specify → install) |
+| Delivery & Installation | `HowTo` | Step-by-step delivery process |
+| Relocation Management | `Service` | No clear steps — describe the service scope |
+| OECM Procurement (`/pages/oecm`) | `Service` | Use `GovernmentService` as the `@type` subtype |
+| Any page with a visible FAQ section | `FAQPage` | In addition to the page-level schema above |
+| Category pages (Seating, Desks, etc.) | `ItemList` | One `ListItem` per featured product or sub-collection tile |
+| Brand dealer pages (Keilhauer, ergoCentric, etc.) | `LocalBusiness` supplement | Brand already in `Organization`; add `brand` property referencing the manufacturer |
+| Customer Stories | `Review` per testimonial | One `Review` block per client quote shown on the page |
+| Blog articles | `Article` + `FAQPage` (if Q&A section present) | Always include `Article`; add `FAQPage` only when the article has a visible Q&A block |
+| Homepage | `WebSite` + `SiteNavigationElement` | Helps AI engines understand site structure |
+| Request a Quote | `ContactPage` | Standard contact/form page schema |
+| All other landing pages | None beyond base `Organization`/`LocalBusiness` | Don't force schema where it doesn't fit — bad structured data hurts more than none |
 
 Present the full SEO + AEO package as a pasteable block. Wait for Leo's go-ahead before Step 3.
 
@@ -274,7 +316,10 @@ Confirm all four items are ready before generating the prompt. Do not proceed if
 - [ ] Brand constants block populated (hex codes, font, spacing, border-radius)
 - [ ] All page images identified with exact file paths (from Pre-Step item 0)
 - [ ] SEO title, H1, and meta description from Step 2B ready to paste
-- [ ] Reference page identified (`page.oecm.json` or `page.brand-dealer.json`) for Leo to attach
+- [ ] Reference page identified for Leo to attach — pick the most structurally similar completed page:
+  - `page.oecm.json` → service / trust / procurement pages
+  - `page.brand-dealer.json` → dealer / brand showcase pages
+  - As more pages complete QA, add their template handles here so Leo always has the closest match
 
 ---
 
@@ -309,6 +354,12 @@ Border-radius: 4px on cards, 2px on buttons
 Tone: B2B institutional. Clean. No fluff. Ontario commercial furniture dealer.
 Reference: Match the component structure and visual rhythm of the attached reference page —
 dark header, full-width hero, feature strip, card grid, CTA band.
+
+Trust signals (weave into copy naturally — not as a separate section):
+- OECM Supplier Partner, Agreement 2025-470 — Ontario institutional buyers can purchase without open tender
+- Canadian-owned business serving Ontario
+- Authorized dealer: ergoCentric — add 🍁 maple leaf icon near any "Canadian-made" claims
+- Phone: 1-800-835-9565 — must appear in the header and at least one in-body CTA
 
 Images: I am attaching [N] image(s). Use them as-is — do NOT generate placeholder imagery.
 - [{slug}-product.jpg] → hero / product showcase image
@@ -355,9 +406,37 @@ Leo builds the page in claude.ai/design using your prompt and pastes the full HT
 Take the HTML from Claude Design and convert it:
 
 **For Type A:**
-- Break the HTML into a JSON template + Liquid section files
-- Generate paste blocks for each file Leo needs to create in Shopify Admin → Edit Code
-- Include the one-line addition to `theme/layout/theme.liquid`'s `bbi_landing` gate for the new template suffix
+
+Start by emitting the skeleton `page.{suffix}.json` template Leo needs to create in Edit Code. Fill in `heading`, `subheading`, and `image` for `ds-page-hero` from the approved content brief; leave other settings as `{}` — they're set via the Customizer or hardcoded in the section itself.
+
+```json
+{
+  "sections": {
+    "announce-bar":     { "type": "ds-announce-bar",       "settings": {} },
+    "site-header":      { "type": "ds-site-header",        "settings": {} },
+    "page-hero":        { "type": "ds-page-hero",          "settings": { "heading": "[H1 FROM STEP 2B]", "subheading": "[SUB-HEADLINE]", "image": "" } },
+    "feature-strip":    { "type": "ds-feature-strip",      "settings": {} },
+    "featured-grid":    { "type": "ds-featured-grid",      "settings": {} },
+    "trust-row":        { "type": "ds-trust-row",          "settings": {} },
+    "quote-cta":        { "type": "ds-quote-cta",          "settings": {} },
+    "quote-modal-mount":{ "type": "ds-quote-modal-mount",  "settings": {} },
+    "site-footer":      { "type": "ds-site-footer",        "settings": {} }
+  },
+  "order": ["announce-bar","site-header","page-hero","feature-strip","featured-grid","trust-row","quote-cta","quote-modal-mount","site-footer"]
+}
+```
+
+Remove unused sections from the `sections` object AND the `order` array (e.g. omit `announce-bar` if there's no active promo; omit `featured-grid` for text-heavy pages).
+
+Then emit the `theme/layout/theme.liquid` gate addition. Read the current gate block first, then add the new suffix to it:
+
+```liquid
+{%- if template.suffix == 'oecm' or template.suffix == 'brand-dealer' or template.suffix == '[NEW-SUFFIX-HERE]' -%}
+```
+
+Tell Leo: "Open `theme/layout/theme.liquid`, find the `bbi_landing` assignment block, and add `or template.suffix == '[NEW-SUFFIX-HERE]'` to the condition. Do this before the template will render correctly."
+
+Finally, break any custom HTML sections from the Claude Design output into Liquid snippet paste blocks. Generate a separate code block for each file Leo needs to create.
 
 **For Type B:**
 - Identify which Starlite sections to use for each piece of the design
@@ -371,11 +450,24 @@ Take the HTML from Claude Design and convert it:
 Walk Leo through the manual work. Tell him exactly:
 
 1. **What to create** (template, page, collection, or just customize an existing page)
-2. **Where to go** in Shopify Admin (specific menu paths)
+2. **Where to go** — use the direct URLs below, not menu paths
 3. **What to paste and where** (file name → paste block)
 4. **What to fill in the Customizer** (which section, which setting, which value)
 
 Be explicit — no assumed knowledge. Leo is doing the clicking.
+
+**Direct Shopify Admin URLs for this store:**
+
+| Task | URL |
+|---|---|
+| Create a new page | `https://admin.shopify.com/store/office-central-online/pages/new` |
+| Edit pages list | `https://admin.shopify.com/store/office-central-online/pages` |
+| Edit navigation menus | `https://admin.shopify.com/store/office-central-online/menus` |
+| Edit code (theme files) | `https://admin.shopify.com/store/office-central-online/themes/186373570873/editor` → click "Edit code" |
+| Theme Customizer | `https://admin.shopify.com/store/office-central-online/themes/186373570873/editor` |
+| Create a new smart collection | `https://admin.shopify.com/store/office-central-online/collections/new` |
+| Collections list | `https://admin.shopify.com/store/office-central-online/collections` |
+| Files (to upload images) | `https://admin.shopify.com/store/office-central-online/content/files` |
 
 ---
 
