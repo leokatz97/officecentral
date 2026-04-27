@@ -45,12 +45,12 @@ Parse the page name from the arguments. If he didn't include one, ask once: "Whi
 
 ## Brand Design Tokens
 
-Exact CSS variables from `theme/assets/ds-landing.css`. Use these in every Claude Design prompt.
+Source of truth: `docs/strategy/design-system.md` (locked 2026-04-27). Mirrored into `theme/assets/ds-landing.css`. If the two ever disagree, the spec doc wins — flag the drift to Leo.
 
 ```
 --bbi-ink: #0B0B0C           (primary text, button fills)
---bbi-paper: #F7F8FA         (page background)
---bbi-paper-raised: #FFFFFF  (card/panel surface)
+--bbi-paper: #FFFFFF         (page canvas — white-forward)
+--bbi-paper-raised: #FAFAFA  (card/panel surface tier)
 --bbi-accent: #D4252A        (Brant red — use sparingly)
 --bbi-gray-200: #DEE1E6      (default border)
 --bbi-gray-500: #6F7580      (meta/caption text)
@@ -313,7 +313,7 @@ Present the full SEO + AEO package as a pasteable block. Wait for Leo's go-ahead
 
 Confirm all four items are ready before generating the prompt. Do not proceed if any are missing.
 
-- [ ] Brand constants block populated (hex codes, font, spacing, border-radius)
+- [ ] Brand constants block populated AND values match the locked anchors in `docs/strategy/design-system.md`: canvas #FFFFFF, surface #FAFAFA, ink #0B0B0C, accent #D4252A. No beige, no navy, no dark-mode tokens in the prompt.
 - [ ] All page images identified with exact file paths (from Pre-Step item 0)
 - [ ] SEO title, H1, and meta description from Step 2B ready to paste
 - [ ] Reference page identified for Leo to attach — pick the most structurally similar completed page:
@@ -344,21 +344,23 @@ Emit the exact prompt for Leo to paste into claude.ai/design. Use this template 
 Design a [PAGE TYPE] for Brant Business Interiors (BBI).
 
 Brand constants (use exactly — do not invent):
-Background: #F7F8FA | Card surface: #FFFFFF | Primary text: #0B0B0C
-Accent (sparingly): #D4252A | Border: #DEE1E6
+Background: #FFFFFF | Card surface: #FAFAFA | Primary text: #0B0B0C
+Accent: #D4252A — must occupy 5–8% of any rendered screen (primary CTAs, key badges, hover accents only) | Border: #DEE1E6
 Secondary text: #363A42 | Meta/caption: #6F7580
 Font: system-ui, "Geist", "Inter", Helvetica, sans-serif — no serif, no display fonts
 Spacing scale: 8px base unit (8 / 16 / 24 / 32 / 48 / 64 / 96px)
 Border-radius: 4px on cards, 2px on buttons
 
 Tone: B2B institutional. Clean. No fluff. Ontario commercial furniture dealer.
+Body links: charcoal (#0B0B0C) underline, never red. Reserve red for action surfaces (buttons, CTAs, badges, hover-state accents).
+Borders over shadows: prefer 1px borders in --bbi-gray-200 (#DEE1E6) for component separation; shadows ≤ 8% opacity if used at all.
 Reference: Match the component structure and visual rhythm of the attached reference page —
 dark header, full-width hero, feature strip, card grid, CTA band.
 
 Trust signals (weave into copy naturally — not as a separate section):
 - OECM Supplier Partner, Agreement 2025-470 — Ontario institutional buyers can purchase without open tender
 - Canadian-owned business serving Ontario
-- Authorized dealer: ergoCentric — add 🍁 maple leaf icon near any "Canadian-made" claims
+- Authorized dealer: ergoCentric — render an inline SVG maple leaf (not emoji) in --bbi-accent next to any "Canadian-made" or "Canadian-owned" copy
 - Phone: 1-800-835-9565 — must appear in the header and at least one in-body CTA
 
 Images: I am attaching [N] image(s). Use them as-is — do NOT generate placeholder imagery.
@@ -378,8 +380,8 @@ Sections (in order):
 ...
 
 Mobile-first. Output clean, self-contained HTML + CSS only.
-Use CSS custom properties matching these names where possible:
---bbi-ink, --bbi-paper, --bbi-accent, --bbi-gray-200, --bbi-font-sans
+Use ONLY these CSS custom properties — do not invent new ones, do not add beige/tan/cream/navy, do not produce a dark-mode variant:
+--bbi-ink, --bbi-paper, --bbi-paper-raised, --bbi-accent, --bbi-gray-200, --bbi-gray-500, --bbi-gray-700, --bbi-font-sans
 
 SECONDARY PRODUCT ROW (any card grid showing collection products):
 Every product card MUST have an image slot at the top before any text content.
@@ -397,7 +399,7 @@ Then wait. Do not proceed until Leo pastes HTML.
 
 ## Step 4 — Leo Runs Claude Design
 
-Leo builds the page in claude.ai/design using your prompt and pastes the full HTML output back into the session. You do nothing here — just wait.
+Leo builds the page in claude.ai/design using your prompt — following the session protocol in `docs/workflows/claude-design-session-playbook.md` (token names, attach order, audit asks). Then pastes the full HTML output back into the session. You do nothing here — just wait.
 
 ---
 
