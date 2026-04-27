@@ -1,6 +1,6 @@
 # Claude Design Session Playbook — BBI Design System Rebuild
 
-**Goal:** Run three sequential Claude Design chats (Tokens → Components → Screens) in ≤6 prompts each. Pull every output back into Shopify Admin on a duplicate theme. No code refactor required for tokens — the audit confirms it's a settings-configuration job.
+**Goal:** Run three sequential Claude Design chats (Tokens → Components → Screens) in ≤6 prompts each. Pull every output back into **BBI Landing Dev** (`theme/186373570873`). No code refactor required for tokens — the audit confirms it's a settings-configuration job.
 
 **Locked anchors (from [`docs/strategy/design-system.md`](../strategy/design-system.md) — do not relitigate in any chat):**
 - Brand red `#D4252A` (logo "BASICS" + vertical rule)
@@ -17,10 +17,8 @@
 ## 1. Pre-flight checklist
 
 **Theme & settings**
-- [ ] In Shopify Admin → Online Store → Themes → **Live theme → Actions → Duplicate**. Name the dupe `bbi-design-system-v1-WIP`.
-- [ ] `shopify theme pull --theme="bbi-design-system-v1-WIP" --only=config/settings_data.json` to capture today's beige baseline for diffing later. Save the file as `data/backups/settings_data.beige-baseline.2026-04-27.json`.
-- [ ] Verify `.env` has `SHOPIFY_TOKEN` (not used for token entry, but needed if any helper scripts run post-session).
-- [ ] Do NOT touch the live theme until Step 3.B is complete.
+- [ ] Open **BBI Landing Dev** directly: [Theme Editor](https://admin.shopify.com/store/office-central-online/themes/186373570873/editor) — this theme was built specifically for this work; no duplication needed.
+- [ ] Verify `.env` has `SHOPIFY_TOKEN` (only needed if helper scripts run post-session).
 
 **Screenshots to capture from brantbusinessinteriors.com — anti-reference only (1440px desktop)**
 
@@ -43,7 +41,7 @@ Save to `data/design-photos/baseline-2026-04-27/` and label both filenames with 
 - [`docs/strategy/design-system-brief.md`](../strategy/design-system-brief.md) — reference
 - [`docs/reviews/design-system-audit-2026-04-27.md`](../reviews/design-system-audit-2026-04-27.md) — Shopify schema mapping + code hotspots
 - [`docs/plan/site-architecture-2026-04-25.md`](../plan/site-architecture-2026-04-25.md) — nav, templates, page interconnection
-- Shopify Admin → Theme settings → Colors (on the dupe theme)
+- [BBI Landing Dev Theme Editor](https://admin.shopify.com/store/office-central-online/themes/186373570873/editor) → Theme settings → Colors
 - A contrast checker (webaim.org/resources/contrastchecker)
 
 ---
@@ -295,20 +293,19 @@ The skeleton already exists with TBD slots. Walk top-to-bottom and replace TBDs 
 
 Save the Phase 3 PNG exports to `data/design-photos/design-system-v1-2026-XX-XX/` and link from the design-system.md "Implementation notes" section.
 
-### B. Enter values in Shopify Admin (duplicate theme only)
+### B. Enter values in Shopify Admin (BBI Landing Dev)
 
-1. Shopify Admin → Online Store → Themes → **dupe theme** → Customize → Theme settings → Colors.
+1. Open [BBI Landing Dev Theme Editor](https://admin.shopify.com/store/office-central-online/themes/186373570873/editor) → Theme settings → Colors.
 2. For each color scheme in the schema (`scheme-default`, `scheme-inverse`, etc.): paste the per-scheme token values from Phase 1. (Shopify maps the `--camelCase` names to its internal snake_case schema — see [`docs/reviews/design-system-audit-2026-04-27.md`](../reviews/design-system-audit-2026-04-27.md) if you need the mapping.)
 3. Theme settings → Header / Badges / States / Search / Overlay / Marquee: paste global tokens.
 4. Theme settings → Typography: enter the body and heading font + scales.
 5. Theme settings → Layout (radius/shadow): enter the radius and shadow scales.
-6. Save. Open the dupe theme preview URL.
+6. Save. Open the BBI Landing Dev preview URL.
 7. Visual diff against live: homepage, a PDP (unbuyable), collection, contact, footer.
-8. If clean → Actions → Publish.
 
 ### C. One-time code edits (per the audit)
 
-Do these on a feature branch BEFORE publishing the dupe. design-system.md says "no dark mode" — recommended path is **delete**, not recolor.
+Do these on a feature branch targeting BBI Landing Dev BEFORE publishing. design-system.md says "no dark mode" — recommended path is **delete**, not recolor.
 
 | File | Line(s) | Change |
 |---|---|---|
