@@ -160,7 +160,7 @@ To pull current settings before changing them: `shopify theme pull --only=config
 ## Recommended workflow for the rebuild
 
 1. **Pull current settings** from live theme to a dev theme dupe — capture today's beige.
-2. **Generate new tokens in Claude Design** using the constraint brief at `docs/strategy/design-system-brief.md`.
+2. **Generate new tokens in Claude Design** using the constraint brief at `docs/strategy/design-system.md`.
 3. **Validate contrast** — every text/bg pair against AA 4.5:1, every UI/border pair against 3:1.
 4. **Enter new schemes in Shopify Admin** on a duplicate (non-live) theme.
 5. **One-time code edits:**
