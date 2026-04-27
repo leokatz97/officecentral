@@ -317,6 +317,7 @@ Confirm all four items are ready before generating the prompt. Do not proceed if
 - [ ] All page images identified with exact file paths (from Pre-Step item 0)
 - [ ] SEO title, H1, and meta description from Step 2B ready to paste
 - [ ] Reference page identified for Leo to attach — pick the most structurally similar completed page:
+  - **Phase 3 reference screens** (homepage, PDP unbuyable, collection) from `data/design-photos/design-system-v1-*/` — primary visual anchor when the page resembles one of the three; attach the matching PNG alongside any template-based reference
   - `page.oecm.json` → service / trust / procurement pages
   - `page.brand-dealer.json` → dealer / brand showcase pages
   - As more pages complete QA, add their template handles here so Leo always has the closest match
@@ -345,8 +346,9 @@ Design a [PAGE TYPE] for Brant Business Interiors (BBI).
 
 Brand constants (use exactly — do not invent):
 Background: #FFFFFF | Card surface: #FAFAFA | Primary text: #0B0B0C
-Accent: #D4252A — must occupy 5–8% of any rendered screen (primary CTAs, key badges, hover accents only) | Border: #DEE1E6
-Secondary text: #363A42 | Meta/caption: #6F7580
+Accent — red-surface (buttons / banners / badges): #D4252A — must occupy 5–8% of any rendered screen (primary CTAs, key badges, hover accents only)
+Accent — red-text (any red text on white, AA 4.5:1): #A81E22 — never use #D4252A for red text on white (fails AA)
+Border: #DEE1E6 | Secondary text: #363A42 | Meta/caption: #6F7580
 Font: system-ui, "Geist", "Inter", Helvetica, sans-serif — no serif, no display fonts
 Spacing scale: 8px base unit (8 / 16 / 24 / 32 / 48 / 64 / 96px)
 Border-radius: 4px on cards, 2px on buttons
