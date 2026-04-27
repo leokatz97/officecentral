@@ -27,7 +27,7 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 │   ├── strategy/    Brand voice, ICP, segment analysis, competitor research
 │   ├── workflows/   How-to runbooks (shipping tiers, taxonomy, design)
 │   └── reviews/     Auto-generated review artifacts (for Steve's approval)
-├── scripts/         50 Python/Node helpers — read/write Shopify, clean data
+├── scripts/         60+ Python/Node helpers — read/write Shopify, clean data
 ├── data/            Everything scripts read/write (CSVs, JSON, logs, backups)
 │   ├── specs/       Per-product spec JSON from lookup-specs.py (Hero 100)
 │   ├── reports/     Proposal CSVs (tags, industry) — source of truth for pushes

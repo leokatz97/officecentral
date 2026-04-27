@@ -115,3 +115,12 @@ Every script here requires `--live` to actually write. Default is dry-run.
 | `scrape-oci-photos.py` | Scrape 48 real project photos from officecentral.com → `data/oci-photos/` + `catalog.json`. |
 | `before-after.py` | Render a before/after HTML diff for product body changes → `previews/before-after.html`. |
 | `serve-previews.py` | Local static HTTP server for `previews/*.html` at `http://localhost:8080/`. |
+
+---
+
+## 8. Revert / cleanup
+
+| Script | Purpose |
+|---|---|
+| `revert-fal-product-images.py` | Pass 1 of the fal.ai image revert. Reads `data/reports/shopify-images-pushed-2026-04-25.csv` and DELETEs each `Shopify_Image_ID` from its product. Position 1 is never touched — only the AI images logged in the manifest. Idempotent (404s become `already_gone`). |
+| `purge-fal-files-library.py` | Pass 2 of the fal.ai image revert. After Pass 1 detaches the images from products, this finds each file in the Files library by filename (extracted from the manifest's `Shopify_CDN_URL`) and deletes it via the GraphQL `fileDelete` mutation. Requires `write_files` scope on `SHOPIFY_TOKEN`. |
