@@ -198,4 +198,6 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | Page image generator | [scripts/generate-page-images.py](scripts/generate-page-images.py) |
 | Page image sharpener | [scripts/sharpen-page-images.py](scripts/sharpen-page-images.py) |
 | Image reorder (full-product to pos 1) | [scripts/reorder-product-images.py](scripts/reorder-product-images.py) |
+| Logo cleaner (clarity-upscaler) | [scripts/clean-bbi-logo.py](scripts/clean-bbi-logo.py) |
 | AI image library | [data/page-images/](data/page-images/) |
+| Cleaned BBI logo (hi-res) | [data/logos/bbi-logo-hires.png](data/logos/bbi-logo-hires.png) |
