@@ -1,6 +1,6 @@
 # BBI — Pages to Redesign
 
-Every distinct page type on the Brant Business Interiors site that needs a design pass. Use with [claude-design-session-playbook.md](claude-design-session-playbook.md): one shared design system seeds every page; layouts differ per type.
+Every distinct page type on the Brant Business Interiors site that needs a design pass. Use with [design-workflow.md](design-workflow.md): one shared design system seeds every page; layouts differ per type.
 
 ---
 

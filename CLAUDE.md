@@ -194,6 +194,9 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | Ideas backlog | [docs/plan/ideas-backlog.md](docs/plan/ideas-backlog.md) |
 | Brand voice + ICP | [docs/strategy/icp.md](docs/strategy/icp.md) |
 | Approved copy samples | [docs/strategy/voice-samples.md](docs/strategy/voice-samples.md) |
+| **Design system (canonical visual reference)** | [docs/strategy/design-system.md](docs/strategy/design-system.md) |
+| Design system audit (pre-rebuild) | [docs/reviews/design-system-audit-2026-04-27.md](docs/reviews/design-system-audit-2026-04-27.md) |
+| Claude Design constraint brief | [docs/strategy/design-system-brief.md](docs/strategy/design-system-brief.md) |
 | Script reference | [scripts/README.md](scripts/README.md) |
 | Page image generator | [scripts/generate-page-images.py](scripts/generate-page-images.py) |
 | Page image sharpener | [scripts/sharpen-page-images.py](scripts/sharpen-page-images.py) |
