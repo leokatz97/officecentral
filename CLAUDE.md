@@ -200,6 +200,10 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | **Component spec — v1** | [docs/strategy/bbi-component-spec-v1.md](docs/strategy/bbi-component-spec-v1.md) |
 | Component design photos — v1 | [data/design-photos/components-v1-2026-04-27/](data/design-photos/components-v1-2026-04-27/) |
 | Script reference | [scripts/README.md](scripts/README.md) |
+| **AI image pipeline — Phase 1 audit** | [scripts/audit-current-images.py](scripts/audit-current-images.py) |
+| **AI image pipeline — Phase 2 hero audit** | [scripts/audit-hero-images.py](scripts/audit-hero-images.py) |
+| **AI image pipeline — hero review HTML** | [scripts/render-hero-review.py](scripts/render-hero-review.py) |
+| Hero audit report (2026-04-28) | [data/reports/hero-audit-2026-04-28.csv](data/reports/hero-audit-2026-04-28.csv) |
 | Page image generator | [scripts/generate-page-images.py](scripts/generate-page-images.py) |
 | Page image sharpener | [scripts/sharpen-page-images.py](scripts/sharpen-page-images.py) |
 | Image reorder (full-product to pos 1) | [scripts/reorder-product-images.py](scripts/reorder-product-images.py) |
