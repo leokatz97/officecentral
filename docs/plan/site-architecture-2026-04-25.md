@@ -303,31 +303,26 @@ Every `collection.category.json` page must include:
 
 The Business Furniture vertical page (`/collections/business-furniture`) gets a "View all Business Furniture →" link to `/collections/all` (Shopify auto-generated) or a dedicated smart collection `/collections/all-business-furniture` if more curation is needed.
 
-### Rule 3: Industry landing pages cross-link to their shop vertical + filtered customer stories
+### Rule 3: Industry landing pages cross-link to filtered Business Furniture sub-collections
 Every industry landing page must include:
-- "Shop [Industry] Furniture →" button linking to the corresponding shop vertical or sub-collections
+- "Shop [Industry] Furniture →" button linking to a curated set of Business Furniture sub-collections relevant to that industry (the verticals `/collections/healthcare`, `/collections/educational`, `/collections/daycare` no longer exist — scope change 2026-04-25)
 - "See [Industry] customer stories →" link to `/pages/customer-stories#[industry-slug]` (filtered view)
-- Example: `/pages/healthcare` links to `/collections/healthcare` and highlights: Waiting Room Seating, Bariatric Seating, Recliners, Exam Room Seating
+- Example: `/pages/healthcare` highlights: Waiting Room Seating, Reception Desks, Recliners, Exam Room Seating — all linking to the corresponding Business Furniture sub-collections
 
 Mapping:
 
 | Industry page | Links to shop |
 |---|---|
-| `/pages/healthcare` | `/collections/healthcare` + highlight waiting room, bariatric, exam room |
-| `/pages/education` | `/collections/educational` + `/collections/daycare` |
-| `/pages/government` | `/collections/business-furniture` + highlight desks, storage, panels |
-| `/pages/non-profit` | `/collections/business-furniture` + highlight seating, tables |
-| `/pages/professional-services` | `/collections/desks` + `/collections/seating` + ergonomics |
+| `/pages/healthcare` | `/collections/business-furniture` + highlight `/collections/bariatric-seating`, `/collections/recliners`, `/collections/lounge-reception` (waiting room), `/collections/reception-desks`, `/collections/task-chairs`, `/collections/storage` |
+| `/pages/education` | `/collections/business-furniture` + highlight `/collections/training-tables`, `/collections/stack-chairs`, `/collections/storage`, `/collections/panels-room-dividers` |
+| `/pages/government` | `/collections/business-furniture` + highlight `/collections/desks`, `/collections/storage`, `/collections/panels-room-dividers` |
+| `/pages/non-profit` | `/collections/business-furniture` + highlight `/collections/seating`, `/collections/tables` |
+| `/pages/professional-services` | `/collections/desks` + `/collections/seating` + `/collections/ergonomics` |
 
-### Rule 4: Shop vertical pages cross-link to their industry landing page
-Every vertical page (`collection.category.json`) should include a contextual module:
+> **Note:** Sub-collection slugs above are illustrative — confirm against the live taxonomy in section 2c before wiring links. If a needed sub-collection doesn't exist (e.g., dedicated waiting-room seating), either map to the closest parent category or flag for taxonomy follow-up.
 
-| Shop vertical | Cross-links to |
-|---|---|
-| `/collections/healthcare` | `/pages/healthcare` |
-| `/collections/educational` | `/pages/education` |
-| `/collections/daycare` | `/pages/education` |
-| `/collections/business-furniture` | `/pages/industries` (hub) |
+### Rule 4: Business Furniture vertical cross-links to the Industries hub
+The single shop vertical page (`/collections/business-furniture`) should include a contextual module linking to `/pages/industries` (hub) so buyers can pivot from product browsing into industry-specific solution stories. Per-industry sub-collection cross-links live on the industry landing pages (Rule 3), not on the shop vertical.
 
 ### Rule 5: Every sub-collection page has a phone CTA block
 At the bottom of every sub-collection (product listing) page: `"Can't find exactly what you need? Our team can help. Call 1-800-835-9565"` with a secondary "Request a Quote →" button linking to `/pages/quote`.
