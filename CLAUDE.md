@@ -206,3 +206,6 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | AI image library | [data/page-images/](data/page-images/) |
 | Cleaned BBI logo (hi-res) | [data/logos/bbi-logo-hires.png](data/logos/bbi-logo-hires.png) |
 | BBI logo — transparent background | [data/logos/bbi-logo-hires-transparent.png](data/logos/bbi-logo-hires-transparent.png) |
+| **BBI logo v2 (new)** | [data/design-photos/components-v1-2026-04-27/bbi-logo-v2.png](data/design-photos/components-v1-2026-04-27/bbi-logo-v2.png) |
+| Components v1 HTML deliverable | [data/design-photos/components-v1-2026-04-27/Components.html](data/design-photos/components-v1-2026-04-27/Components.html) |
+| Components v1 tokens CSS | [data/design-photos/components-v1-2026-04-27/tokens.css](data/design-photos/components-v1-2026-04-27/tokens.css) |

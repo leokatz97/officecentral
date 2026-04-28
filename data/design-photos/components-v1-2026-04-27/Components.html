@@ -1,0 +1,3680 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BBI Components — Buttons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<style>
+  /* ----------------------------------------------------------
+     Page chrome (NOT part of the system — just the spec sheet)
+     ---------------------------------------------------------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--bodyFont);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--textColor);
+    background: var(--background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-8) var(--space-24);
+  }
+  .page-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--line-color);
+    margin-bottom: var(--space-12);
+  }
+  .page-head h1 {
+    font-family: var(--headingFont);
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    font-weight: 600;
+    margin: 0;
+  }
+  .page-head .crumbs {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #5A5A5E;
+  }
+  .page-head .crumbs b { color: var(--textColor); font-weight: 500; }
+  .section { margin-bottom: var(--space-16); }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+    gap: var(--space-8);
+  }
+  .section-head h2 {
+    font-family: var(--headingFont);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    font-weight: 600;
+    margin: 0;
+  }
+  .section-head .meta {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    color: #5A5A5E;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .lede {
+    max-width: 68ch;
+    color: #2A2A2C;
+    margin: 0 0 var(--space-8);
+    font-size: 15px;
+    text-wrap: pretty;
+  }
+  .callout {
+    border: 1px solid var(--line-color);
+    border-left: 3px solid var(--textColor);
+    padding: var(--space-4) var(--space-6);
+    margin: 0 0 var(--space-8);
+    font-size: 14px;
+    background: #FAFAFA;
+    max-width: 84ch;
+  }
+  .callout b { font-weight: 600; }
+
+  /* ----------------------------------------------------------
+     Spec table — two scheme columns side-by-side
+     ---------------------------------------------------------- */
+  .spec {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--line-color);
+    border-radius: var(--cardRadius);
+    overflow: hidden;
+  }
+  .spec > .col {
+    padding: var(--space-8);
+    min-height: 100%;
+  }
+  .spec > .col + .col { border-left: 1px solid var(--line-color); }
+  .spec .col.scheme-default  { background: var(--background); }
+  .spec .col.scheme-inverse  { background: var(--background); }
+
+  .col-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--line-color);
+  }
+  .col-head .name {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--textColor);
+    opacity: 0.7;
+  }
+  .col-head .swatch {
+    width: 14px; height: 14px;
+    border-radius: 99px;
+    border: 1px solid var(--line-color);
+    background: var(--background);
+  }
+
+  /* state grid inside each scheme column */
+  .states {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    row-gap: var(--space-4);
+    column-gap: var(--space-6);
+    align-items: center;
+  }
+  .state-label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--textColor);
+    opacity: 0.55;
+  }
+  .state-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .variant-block + .variant-block {
+    margin-top: var(--space-8);
+    padding-top: var(--space-8);
+    border-top: 1px dashed var(--line-color);
+  }
+  .variant-title {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+  .variant-title h3 {
+    font-family: var(--headingFont);
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+  }
+  .variant-title .role {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--textColor);
+    opacity: 0.5;
+  }
+
+  /* ----------------------------------------------------------
+     BBI Buttons — the actual component CSS
+     ---------------------------------------------------------- */
+  .bbi-btn {
+    /* base */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 12px 20px;
+    min-height: 44px;
+    font-family: var(--bodyFont);
+    font-size: var(--fs-button);
+    line-height: var(--lh-button);
+    letter-spacing: var(--ls-button);
+    font-weight: 600;
+    border-radius: var(--buttonRadius);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .bbi-btn:focus { outline: none; } /* let :focus-visible drive the ring */
+
+  /* Primary — uses --buttonBackground / --buttonColor / --buttonBorder */
+  .bbi-btn--primary {
+    background: var(--buttonBackground);
+    color: var(--buttonColor);
+    border-color: var(--buttonBorder);
+  }
+  .bbi-btn--primary:hover:not([disabled]):not([data-state]),
+  .bbi-btn--primary[data-state="hover"] {
+    background: var(--buttonBackgroundHover);
+    color: var(--buttonColorHover);
+    border-color: var(--buttonBorderHover);
+  }
+  .bbi-btn--primary:active:not([disabled]):not([data-state]),
+  .bbi-btn--primary[data-state="active"] {
+    background: var(--buttonBackgroundHover);
+    color: var(--buttonColorHover);
+    border-color: var(--buttonBorderHover);
+    transform: translateY(1px);
+  }
+
+  /* Secondary — uses --alternateButton* tokens */
+  .bbi-btn--secondary {
+    background: var(--alternateButtonBackground);
+    color: var(--alternateButtonColor);
+    border-color: var(--alternateButtonBorder);
+  }
+  .bbi-btn--secondary:hover:not([disabled]):not([data-state]),
+  .bbi-btn--secondary[data-state="hover"] {
+    background: var(--alternateButtonBackgroundHover);
+    color: var(--alternateButtonColorHover);
+    border-color: var(--alternateButtonBorderHover);
+  }
+  .bbi-btn--secondary:active:not([disabled]):not([data-state]),
+  .bbi-btn--secondary[data-state="active"] {
+    background: var(--alternateButtonBackgroundHover);
+    color: var(--alternateButtonColorHover);
+    border-color: var(--alternateButtonBorderHover);
+    transform: translateY(1px);
+  }
+
+  /* Tertiary — text-only, no surface, no border. Underline on hover.
+     Composes existing tokens: --textColor for ink, --headerHoverColor
+     ONLY on default scheme (fails contrast on inverse — tokens.css notes
+     this explicitly). On inverse we use --textColor for hover too. */
+  .bbi-btn--tertiary {
+    background: transparent;
+    color: var(--textColor);
+    border-color: transparent;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 2px;
+  }
+  .bbi-btn--tertiary .label { position: relative; }
+  .bbi-btn--tertiary .label::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+  .bbi-btn--tertiary:hover:not([disabled]):not([data-state]) .label::after,
+  .bbi-btn--tertiary[data-state="hover"] .label::after,
+  .bbi-btn--tertiary:active:not([disabled]):not([data-state]) .label::after,
+  .bbi-btn--tertiary[data-state="active"] .label::after {
+    opacity: 1;
+  }
+  /* On default scheme, tertiary hover ink shifts to red-text per global header rule. */
+  .scheme-default .bbi-btn--tertiary:hover:not([disabled]):not([data-state]),
+  .scheme-default .bbi-btn--tertiary[data-state="hover"],
+  .scheme-default .bbi-btn--tertiary:active:not([disabled]):not([data-state]),
+  .scheme-default .bbi-btn--tertiary[data-state="active"] {
+    color: var(--headerHoverColor);
+  }
+  /* Override AFTER the default rule: a tertiary button nested inside
+     .scheme-inverse must always render white on hover/active, even when
+     an outer .scheme-default ancestor exists (e.g. body.scheme-default
+     wrapping the spec page). #A81E22 on charcoal = 2.32:1 fail. */
+  .scheme-inverse .bbi-btn--tertiary:hover:not([disabled]):not([data-state]),
+  .scheme-inverse .bbi-btn--tertiary[data-state="hover"],
+  .scheme-inverse .bbi-btn--tertiary:active:not([disabled]):not([data-state]),
+  .scheme-inverse .bbi-btn--tertiary[data-state="active"] {
+    color: var(--textColor);
+  }
+
+  /* Disabled — opacity 0.4 + grayscale, on every variant */
+  .bbi-btn[disabled],
+  .bbi-btn[data-state="disabled"] {
+    opacity: 0.4;
+    filter: grayscale(1);
+    cursor: not-allowed;
+  }
+  .bbi-btn[disabled]:hover,
+  .bbi-btn[data-state="disabled"]:hover {
+    /* lock visual to default state regardless of hover */
+    background: var(--buttonBackground);
+    color: var(--buttonColor);
+    border-color: var(--buttonBorder);
+  }
+  .bbi-btn--secondary[disabled]:hover,
+  .bbi-btn--secondary[data-state="disabled"]:hover {
+    background: var(--alternateButtonBackground);
+    color: var(--alternateButtonColor);
+    border-color: var(--alternateButtonBorder);
+  }
+  .bbi-btn--tertiary[disabled]:hover,
+  .bbi-btn--tertiary[data-state="disabled"]:hover {
+    background: transparent;
+    color: var(--textColor);
+  }
+
+  /* Forced focus ring for spec display (matches :focus-visible from tokens.css) */
+  .bbi-btn[data-state="focus"] {
+    outline: 2px solid var(--textColor);
+    outline-offset: 2px;
+    border-radius: var(--buttonRadius);
+  }
+
+  /* Optional sizes — built but not the focus of this round */
+  .bbi-btn--sm { min-height: 36px; padding: 8px 14px; font-size: 13px; }
+  .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
+
+  /* ----------------------------------------------------------
+     BBI Form Inputs — text, select, textarea, checkbox, radio
+     States: default, focus, error, disabled
+     ---------------------------------------------------------- */
+
+  .bbi-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 320px;
+    font-family: var(--bodyFont);
+  }
+  .bbi-field--full { max-width: 100%; }
+
+  .bbi-label {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--textColor);
+    letter-spacing: 0.005em;
+  }
+  .bbi-label .req {
+    color: var(--error);
+    margin-left: 2px;
+  }
+  /* on inverse, use texture instead of red for required asterisk —
+     but --error is a global token (not scheme-flipped) so we leave the
+     red asterisk; it's a tiny non-text glyph, contrast on charcoal
+     measured: ~3.5:1 — passes 1.4.11 non-text. Helper TEXT is the
+     real risk and is handled below. */
+
+  .bbi-helper {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--textColor);
+    opacity: 0.7;
+  }
+  .bbi-helper--error {
+    color: var(--error);
+    opacity: 1;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .bbi-helper--error::before {
+    content: "!";
+    flex: 0 0 auto;
+    width: 14px; height: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 99px;
+    background: var(--error);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 1px;
+  }
+  /* On inverse: helper-error text fails 4.5:1 against charcoal at
+     #B33A1A. Per token-lock rule, we don't invent a brighter token.
+     Solution: keep the red ICON (3:1 non-text passes) but shift the
+     prose to --textColor (white = 20.10:1). Border still carries the
+     red signal, so the error is multi-channel. */
+  .scheme-inverse .bbi-helper--error {
+    color: var(--textColor);
+    font-weight: 600;
+  }
+
+  /* ---- Text input / textarea / select ---- */
+  .bbi-input,
+  .bbi-textarea,
+  .bbi-select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    font-family: var(--bodyFont);
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--inputColor);
+    background: var(--inputBackground);
+    border: 1px solid var(--inputBorder);
+    border-radius: var(--inputRadius);
+    transition: border-color 120ms ease, box-shadow 120ms ease, outline-color 120ms ease;
+  }
+  .bbi-input::placeholder,
+  .bbi-textarea::placeholder {
+    color: var(--inputColor);
+    opacity: 0.45;
+  }
+  .bbi-textarea {
+    min-height: 96px;
+    padding: 12px 14px;
+    resize: vertical;
+    line-height: 1.55;
+  }
+  .bbi-select {
+    padding-right: 40px;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--inputColor) 50%),
+      linear-gradient(-45deg, transparent 50%, var(--inputColor) 50%);
+    background-position:
+      calc(100% - 18px) 50%,
+      calc(100% - 13px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  /* Focus — 2px charcoal/white ring, NO fill change. Per brief.
+     Uses --textColor (≥20:1 against canvas), never --line-color. */
+  .bbi-input:focus,
+  .bbi-textarea:focus,
+  .bbi-select:focus,
+  .bbi-input[data-state="focus"],
+  .bbi-textarea[data-state="focus"],
+  .bbi-select[data-state="focus"] {
+    outline: 2px solid var(--textColor);
+    outline-offset: 2px;
+    border-color: var(--inputBorder);   /* unchanged on focus, per brief */
+  }
+
+  /* Error — red border + helper text. No fill change. */
+  .bbi-input[data-state="error"],
+  .bbi-textarea[data-state="error"],
+  .bbi-select[data-state="error"],
+  .bbi-input[aria-invalid="true"],
+  .bbi-textarea[aria-invalid="true"],
+  .bbi-select[aria-invalid="true"] {
+    border-color: var(--error);
+    border-width: 1px;
+    box-shadow: inset 0 0 0 1px var(--error);  /* doubled to 2px optical weight, no fill */
+  }
+
+  /* Disabled — opacity 0.4 + grayscale, matching button rule */
+  .bbi-input[disabled],
+  .bbi-textarea[disabled],
+  .bbi-select[disabled],
+  .bbi-input[data-state="disabled"],
+  .bbi-textarea[data-state="disabled"],
+  .bbi-select[data-state="disabled"] {
+    opacity: 0.4;
+    filter: grayscale(1);
+    cursor: not-allowed;
+    background: var(--inputBackground);
+  }
+
+  /* ---- Checkbox & Radio ----
+     Native input is visually hidden (still focusable & accessible);
+     a sibling .box renders the visual. */
+  .bbi-check,
+  .bbi-radio {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--textColor);
+    user-select: none;
+    padding: 4px 0;
+  }
+  .bbi-check input,
+  .bbi-radio input {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .bbi-check .box,
+  .bbi-radio .box {
+    flex: 0 0 auto;
+    width: 18px; height: 18px;
+    background: var(--inputBackground);
+    border: 1px solid var(--inputBorder);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 120ms ease, border-color 120ms ease;
+    margin-top: 1px;
+  }
+  .bbi-check .box { border-radius: 3px; }
+  .bbi-radio .box { border-radius: 99px; }
+  .bbi-check .box::after {
+    content: "";
+    width: 10px; height: 6px;
+    border-left: 2px solid var(--inputBackground);
+    border-bottom: 2px solid var(--inputBackground);
+    transform: rotate(-45deg) translate(1px, -1px);
+    opacity: 0;
+    transition: opacity 80ms ease;
+  }
+  .bbi-radio .box::after {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 99px;
+    background: var(--inputBackground);
+    opacity: 0;
+    transition: opacity 80ms ease;
+  }
+
+  /* checked: invert — fill with ink, glyph in canvas color */
+  .bbi-check input:checked + .box,
+  .bbi-radio input:checked + .box,
+  .bbi-check[data-checked="true"] .box,
+  .bbi-radio[data-checked="true"] .box {
+    background: var(--inputBorder);
+    border-color: var(--inputBorder);
+  }
+  .bbi-check input:checked + .box::after,
+  .bbi-radio input:checked + .box::after,
+  .bbi-check[data-checked="true"] .box::after,
+  .bbi-radio[data-checked="true"] .box::after {
+    opacity: 1;
+  }
+
+  /* focus on the hidden native -> ring on the box */
+  .bbi-check input:focus-visible + .box,
+  .bbi-radio input:focus-visible + .box,
+  .bbi-check[data-state="focus"] .box,
+  .bbi-radio[data-state="focus"] .box {
+    outline: 2px solid var(--textColor);
+    outline-offset: 2px;
+  }
+
+  /* error variant — red border on the visual */
+  .bbi-check[data-state="error"] .box,
+  .bbi-radio[data-state="error"] .box {
+    border-color: var(--error);
+    box-shadow: inset 0 0 0 1px var(--error);
+  }
+
+  /* disabled */
+  .bbi-check[data-state="disabled"],
+  .bbi-radio[data-state="disabled"],
+  .bbi-check input:disabled ~ *,
+  .bbi-radio input:disabled ~ * {
+    opacity: 0.4;
+    filter: grayscale(1);
+    cursor: not-allowed;
+  }
+
+  /* form-row helper grid */
+  .field-stack { display: flex; flex-direction: column; gap: 14px; }
+
+  /* ----------------------------------------------------------
+     BBI Cards — basic, product, feature
+     White bg, 1px gray border, no shadow at rest, subtle on hover.
+     ---------------------------------------------------------- */
+  .bbi-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--cardBackground);
+    border: 1px solid var(--borderColor);
+    border-radius: var(--cardRadius);
+    overflow: hidden;
+    transition: box-shadow 160ms ease, transform 160ms ease, border-color 160ms ease;
+    color: var(--textColor);
+    text-decoration: none;
+    width: 100%;
+  }
+  .bbi-card:hover {
+    box-shadow: var(--shadow-sm);
+  }
+  .bbi-card[data-state="hover"] {
+    box-shadow: var(--shadow-sm);
+  }
+  .bbi-card:focus-visible {
+    outline: 2px solid var(--textColor);
+    outline-offset: 2px;
+  }
+
+  .bbi-card__body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1 1 auto;
+  }
+  .bbi-card__eyebrow {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--textColor);
+    opacity: 0.6;
+    margin: 0;
+  }
+  .bbi-card__title {
+    font-family: var(--headingFont);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    font-weight: 600;
+    color: var(--headingColor);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .bbi-card__copy {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--textColor);
+    opacity: 0.85;
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .bbi-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: auto;
+    padding-top: var(--space-3);
+  }
+  .bbi-card__price {
+    font-family: var(--headingFont);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--textColor);
+  }
+  .bbi-card__price small {
+    font-family: var(--bodyFont);
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.6;
+    margin-left: 4px;
+  }
+
+  /* 16:9 image slot — HARD RULE: top of every product card. */
+  .bbi-card__media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--alternateBackground);
+    border-bottom: 1px solid var(--borderColor);
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+  .bbi-card__media img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Striped placeholder when no image */
+  .bbi-card__media--placeholder {
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--alternateBackground) 0 12px,
+      rgba(var(--textColor-rgb), 0.04) 12px 24px
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bbi-card__media--placeholder .ph {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--textColor);
+    opacity: 0.55;
+    background: var(--cardBackground);
+    border: 1px solid var(--borderColor);
+    padding: 4px 8px;
+    border-radius: 3px;
+  }
+
+  /* Badge slots inside media — sale top-left, sold top-right (per brief) */
+  .bbi-card__badges {
+    position: absolute;
+    inset: var(--space-3);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    pointer-events: none;
+  }
+  .bbi-card__badges .left,
+  .bbi-card__badges .right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  /* Pre-emptive: real badge component lives in chat 04. Stub uses
+     ONLY tokens already speced under :root for badge backgrounds. */
+  .bbi-badge-stub {
+    font-family: var(--bodyFont);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 2px;
+    line-height: 1;
+    color: #FFFFFF;
+  }
+  .bbi-badge-stub--sale  { background: var(--saleBadgeBackground); }
+  .bbi-badge-stub--sold  { background: var(--soldBadgeBackground); }
+
+  /* Sold-out treatment — desaturate media, dim copy, swap CTA */
+  .bbi-card--sold .bbi-card__media img,
+  .bbi-card--sold .bbi-card__media--placeholder {
+    filter: grayscale(1);
+    opacity: 0.7;
+  }
+  .bbi-card--sold .bbi-card__price {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  /* Feature card — numbered, no media, denser type rhythm */
+  .bbi-card--feature {
+    border-radius: var(--cardRadius);
+  }
+  .bbi-card--feature .bbi-card__body { padding: var(--space-8); gap: var(--space-4); }
+  .bbi-card--feature .bbi-card__num {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--saleBadgeBackground); /* the only red text in the lockup, mirrors baseline screenshot */
+    margin: 0 0 var(--space-2);
+  }
+  .bbi-card--feature .bbi-card__title { font-size: 22px; }
+
+  /* Card grid for the spec layout */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+  @media (max-width: 720px) {
+    .card-grid { grid-template-columns: 1fr; }
+  }
+
+  /* CTA stub used inside product card meta (full Quote-block lives chat 07) */
+  .bbi-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--bodyFont);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--textColor);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  /* ----------------------------------------------------------
+     BBI Badges — sale, new, preorder, sold, custom
+     Hard-coded label color per token comments — no auto-flip.
+     ---------------------------------------------------------- */
+  .bbi-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--bodyFont);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 5px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .bbi-badge--sale {
+    background: var(--saleBadgeBackground);
+    color: #FFFFFF;          /* 4.08:1 — AA-large; bold uppercase ≥11px qualifies */
+  }
+  .bbi-badge--new {
+    background: var(--newBadgeBackground);
+    color: #FFFFFF;          /* 20.10:1 AAA */
+  }
+  .bbi-badge--preorder {
+    background: var(--preorderBadgeBackground);
+    color: #0B0B0C;          /* 20.10:1 AAA */
+    border-color: #0B0B0C;   /* outlined per token comment — needs definition against white card */
+  }
+  .bbi-badge--sold {
+    background: var(--soldBadgeBackground);
+    color: #FFFFFF;          /* 6.74:1 AA */
+  }
+  .bbi-badge--custom {
+    background: var(--customBadgeBackground);
+    color: #0B0B0C;          /* 18.87:1 AAA */
+    border-color: var(--borderColor);  /* near-white needs hairline against card */
+  }
+  /* On inverse, preorder + custom (white-fill badges) need a charcoal
+     outline tightened so the white-on-charcoal contrast doesn't read as
+     a primary CTA. Not a token override — just stronger border weight. */
+  /* ----------------------------------------------------------
+     BBI Header — desktop & mobile
+     ---------------------------------------------------------- */
+  .bbi-header {
+    background: var(--headerBg);
+    color: var(--headerColor);
+    border-bottom: 1px solid var(--borderColor);
+    width: 100%;
+    position: relative;
+    z-index: 5;
+  }
+  .bbi-header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-3) var(--space-8);
+    max-width: 1440px;
+    margin: 0 auto;
+    min-height: 72px;
+  }
+  .bbi-header__logo {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    /* clear space ≥ half the height of "B" — wordmark cap is ~80% of asset height,
+       so we add 0.4× block height as horizontal padding */
+    padding: 8px 0;
+    min-width: 160px;
+  }
+  .bbi-header__logo img {
+    height: 40px;
+    width: auto;
+    /* New asset is a true-alpha PNG — sits cleanly on the white header.
+       No filter, no blend-mode, no recolor. Logo ink renders as authored. */
+    display: block;
+  }
+  .bbi-header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    flex: 1 1 auto;
+  }
+  .bbi-nav-item {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--headerColor);
+    font-family: var(--bodyFont);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    padding: 14px 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+  }
+  .bbi-nav-item:hover { color: var(--headerHoverColor); }
+  .bbi-nav-item .caret {
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid currentColor;
+    margin-top: 2px;
+    opacity: 0.55;
+  }
+  .bbi-header__util {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex: 0 0 auto;
+  }
+  .bbi-header__phone {
+    color: var(--headerColor);
+    text-decoration: none;
+    font-family: var(--bodyFont);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .bbi-header__phone b { font-weight: 700; }
+  .bbi-header__phone:hover { color: var(--headerHoverColor); }
+
+  /* The ONLY red CTA in the header */
+  .bbi-header__cta {
+    background: var(--saleBadgeBackground);  /* red surface — the one allowed instance */
+    color: #FFFFFF;
+    font-family: var(--bodyFont);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: var(--buttonRadius);
+    text-decoration: none;
+    border: 1px solid var(--saleBadgeBackground);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+  .bbi-header__cta:hover {
+    background: #A81E22;
+    border-color: #A81E22;
+  }
+
+  /* Cart icon w/ count */
+  .bbi-header__cart {
+    position: relative;
+    color: var(--headerIconColor);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+  }
+  .bbi-header__cart svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+  .bbi-header__cart-count {
+    position: absolute;
+    top: 2px; right: 2px;
+    min-width: 16px; height: 16px;
+    padding: 0 4px;
+    border-radius: 99px;
+    background: var(--cartCountBg);
+    color: var(--cartCountColor);
+    font-size: 10px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  /* ---- Megamenu (single column) ---- */
+  .bbi-megamenu {
+    position: absolute;
+    top: 100%; left: 0;
+    background: var(--submenuBg);
+    color: var(--submenuColor);
+    border: 1px solid var(--borderColor);
+    border-top: none;
+    box-shadow: var(--shadow-md);
+    min-width: 320px;
+    padding: var(--space-4) 0;
+    z-index: 10;
+    display: none;
+  }
+  .bbi-nav-item[data-open="true"] + .bbi-megamenu,
+  .bbi-megamenu[data-open="true"] {
+    display: block;
+  }
+  .bbi-megamenu__header {
+    padding: var(--space-3) var(--space-6) var(--space-4);
+    border-bottom: 1px solid var(--borderColor);
+    margin-bottom: var(--space-3);
+  }
+  .bbi-megamenu__header a {
+    color: var(--submenuColor);
+    font-family: var(--headingFont);
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .bbi-megamenu__header a:hover { color: var(--submenuHoverColor); }
+  .bbi-megamenu__header .arrow { font-size: 14px; opacity: 0.6; }
+
+  .bbi-megamenu__list { list-style: none; margin: 0; padding: 0; }
+  .bbi-megamenu__list li a {
+    display: block;
+    padding: 9px var(--space-6);
+    color: var(--submenuColor);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 120ms ease, color 120ms ease;
+  }
+  .bbi-megamenu__list li a:hover {
+    background: var(--alternateBackground);
+    color: var(--submenuHoverColor);
+  }
+
+  /* Simple dropdown variant */
+  .bbi-dropdown {
+    position: absolute;
+    top: 100%; left: 0;
+    background: var(--submenuBg);
+    color: var(--submenuColor);
+    border: 1px solid var(--borderColor);
+    border-top: none;
+    box-shadow: var(--shadow-md);
+    min-width: 220px;
+    padding: var(--space-3) 0;
+    z-index: 10;
+    display: none;
+  }
+  .bbi-dropdown[data-open="true"] { display: block; }
+  .bbi-dropdown a {
+    display: block;
+    padding: 8px var(--space-6);
+    color: var(--submenuColor);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .bbi-dropdown a:hover { background: var(--alternateBackground); color: var(--submenuHoverColor); }
+
+  /* Mobile header */
+  .bbi-header--mobile {
+    width: 375px;
+    margin: 0 auto;
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .bbi-header--mobile .bbi-header__inner {
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-3);
+    min-height: 60px;
+    justify-content: space-between;
+  }
+  .bbi-header--mobile .bbi-header__logo img { height: 32px; }
+  .bbi-hamburger {
+    background: none;
+    border: 1px solid var(--borderColor);
+    border-radius: var(--inputRadius);
+    width: 40px; height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--headerIconColor);
+    cursor: pointer;
+  }
+  .bbi-hamburger svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.75; }
+
+  /* Mobile drawer — uses submenu (secondary) tokens per brief */
+  .bbi-drawer {
+    background: var(--submenuBg);
+    color: var(--submenuColor);
+    border-top: 1px solid var(--borderColor);
+  }
+  .bbi-drawer__item {
+    border-bottom: 1px solid var(--borderColor);
+  }
+  .bbi-drawer__head {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--submenuColor);
+    font-family: var(--bodyFont);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px var(--space-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .bbi-drawer__head .chev {
+    width: 12px; height: 12px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    margin-right: 4px;
+    transition: transform 160ms ease;
+    opacity: 0.6;
+  }
+  .bbi-drawer__item[data-open="true"] .bbi-drawer__head .chev {
+    transform: rotate(-135deg);
+    margin-top: 4px;
+  }
+  .bbi-drawer__panel {
+    display: none;
+    padding: 0 var(--space-4) var(--space-3);
+    background: var(--alternateBackground);
+  }
+  .bbi-drawer__item[data-open="true"] .bbi-drawer__panel { display: block; }
+  .bbi-drawer__panel a {
+    display: block;
+    padding: 10px 0;
+    color: var(--submenuColor);
+    font-size: 14px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--borderColor);
+  }
+  .bbi-drawer__panel a:last-child { border-bottom: none; }
+  .bbi-drawer__panel a:hover { color: var(--submenuHoverColor); }
+  .bbi-drawer__panel-header {
+    font-family: var(--headingFont);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: var(--space-3) 0 var(--space-2);
+    color: var(--submenuColor);
+    opacity: 0.6;
+  }
+  .bbi-drawer__foot {
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    background: var(--submenuBg);
+  }
+  .bbi-drawer__phone {
+    color: var(--submenuColor);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 0;
+    border-top: 1px solid var(--borderColor);
+  }
+  .bbi-drawer__phone b { font-weight: 700; }
+
+  /* Header demo frame (so we can show desktop at any viewport) */
+  .header-frame {
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--background);
+    width: 100%;
+  }
+  /* ----------------------------------------------------------
+     BBI Footer — inverse scheme (charcoal/white)
+     ---------------------------------------------------------- */
+  .bbi-footer {
+    background: #0B0B0C;
+    color: #FFFFFF;
+    padding: var(--space-16) var(--space-8) var(--space-8);
+    font-family: var(--bodyFont);
+  }
+  .bbi-footer__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .bbi-footer__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-12);
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid #1F1F21;
+    margin-bottom: var(--space-12);
+  }
+  /* Logo plate — original colors preserved on a white tile that satisfies
+     clear-space ≥ half the height of "B" in "Brant". The asset is ~80%
+     wordmark cap-height; half-B ≈ 16px on a 40px-tall mark, so 16px padding
+     all sides satisfies the rule with margin to spare. */
+  .bbi-footer__brand-plate {
+    display: inline-block;
+    background: #FFFFFF;
+    padding: 16px 20px;
+    border-radius: var(--cardRadius);
+  }
+  .bbi-footer__brand-plate img {
+    height: 44px;
+    width: auto;
+    display: block;
+    /* No filter, no recolor — original PNG renders as authored. */
+  }
+  .bbi-footer__tagline {
+    margin-top: var(--space-4);
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    max-width: 32ch;
+    line-height: 1.55;
+  }
+  .bbi-footer__canadian {
+    margin-top: var(--space-4);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #FFFFFF;
+    border: 1px solid #1F1F21;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+  .bbi-footer__canadian .leaf {
+    width: 14px; height: 14px;
+    color: #D4252A;
+  }
+
+  .bbi-footer__cols {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-8);
+  }
+  @media (max-width: 900px) {
+    .bbi-footer__cols { grid-template-columns: repeat(2, 1fr); }
+    .bbi-footer__top { flex-direction: column; }
+  }
+  .bbi-footer__col h4 {
+    font-family: var(--headingFont);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #FFFFFF;
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid #1F1F21;
+  }
+  .bbi-footer__col ul { list-style: none; margin: 0; padding: 0; }
+  .bbi-footer__col li { margin-bottom: 10px; }
+  .bbi-footer__col a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.45;
+    transition: color 120ms ease;
+  }
+  /* Red hover on primary nav links ONLY (the 3 list-based columns).
+     Contact column links are utility (phone, email, address) — stay white. */
+  .bbi-footer__col--nav a:hover {
+    color: #D4252A;
+  }
+  .bbi-footer__col--contact .lbl {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 2px;
+  }
+  .bbi-footer__col--contact .row {
+    margin-bottom: var(--space-4);
+  }
+  .bbi-footer__col--contact .row a,
+  .bbi-footer__col--contact .row span {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  .bbi-footer__col--contact .row a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .bbi-footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-6);
+    border-top: 1px solid #1F1F21;
+    margin-top: var(--space-12);
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  .bbi-footer__legal a {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    margin-left: var(--space-4);
+  }
+  .bbi-footer__legal a:hover { color: #FFFFFF; }
+
+  /* Sample card showing badge-corner placement together */
+  .badge-sample {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: center;
+  }
+  .badge-row__label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--textColor);
+    opacity: 0.55;
+    flex: 0 0 90px;
+  }
+
+  /* Optional icon affordance */
+  .bbi-btn .arrow {
+    display: inline-block;
+    transform: translateY(-0.5px);
+  }
+
+  /* ----------------------------------------------------------
+     Code + token list block
+     ---------------------------------------------------------- */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+  .meta-card {
+    border: 1px solid var(--line-color);
+    border-radius: var(--cardRadius);
+    padding: var(--space-6);
+    background: #FAFAFA;
+  }
+  .meta-card h4 {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 var(--space-4);
+    color: #5A5A5E;
+    font-weight: 600;
+  }
+  .meta-card pre,
+  .meta-card code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--textColor);
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .meta-card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .meta-card li {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    border-bottom: 1px dashed var(--line-color);
+    padding: 4px 0;
+  }
+  .meta-card li:last-child { border-bottom: none; }
+  .meta-card li .v {
+    color: #5A5A5E;
+    text-align: right;
+  }
+
+  /* ----------------------------------------------------------
+     Spec sheet (markdown-style at the bottom)
+     ---------------------------------------------------------- */
+  .spec-sheet {
+    border: 1px solid var(--line-color);
+    border-radius: var(--cardRadius);
+    padding: var(--space-8);
+    background: var(--background);
+  }
+  .spec-sheet h3 {
+    font-family: var(--headingFont);
+    font-size: 20px;
+    margin: 0 0 var(--space-4);
+    font-weight: 600;
+  }
+  .spec-sheet h4 {
+    font-family: var(--headingFont);
+    font-size: 15px;
+    margin: var(--space-6) 0 var(--space-2);
+    font-weight: 600;
+  }
+  .spec-sheet ul { margin: 0 0 var(--space-4) 18px; padding: 0; }
+  .spec-sheet li { margin-bottom: 4px; font-size: 14px; }
+  .spec-sheet code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    background: #FAFAFA;
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 1px 5px;
+  }
+
+  /* live demo strip */
+  .live-strip {
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line-color);
+  }
+  .live-strip .hint {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--textColor);
+    opacity: 0.55;
+    margin: 0 0 var(--space-3);
+  }
+  .live-strip .row {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+</style>
+</head>
+<body class="scheme-default">
+<div class="page">
+
+  <header class="page-head">
+    <div>
+      <div class="crumbs">BBI Design System · Chat 2 of N · <b>Components</b></div>
+      <h1 style="margin-top:8px;">01 — Buttons</h1>
+    </div>
+    <div class="crumbs">tokens v1 · locked</div>
+  </header>
+
+  <!-- ============================================================
+       NOTES + CONFLICT FLAG
+       ============================================================ -->
+  <section class="section">
+    <p class="lede">All three variants × five states (default, hover, focus, active, disabled), rendered on both <code>scheme-default</code> and <code>scheme-inverse</code>. Live demo strip at the bottom of each scheme column lets you tab/hover real elements to verify the focus ring against white and against charcoal.</p>
+
+    <div class="callout">
+      <b>Token vs. brief conflict (flagged, not silently resolved).</b> The brief calls primary "red surface, white text"; the locked tokens define <code>--buttonBackground: #0B0B0C</code> with red appearing only on hover (comment: <i>"keeps red density &lt;8%"</i>). The baseline screenshot also shows a charcoal Request-a-quote button. <b>Following the tokens.</b> If a red-primary is required, that's a token edit and a re-open of chat 1.
+    </div>
+    <div class="callout">
+      <b>Tertiary has no dedicated tokens</b> — composed from <code>--textColor</code> (label) and <code>--headerHoverColor</code> (hover ink, default scheme only; on inverse the red fails contrast at 2.32:1 so hover stays white per the tokens file's own note). No new tokens invented.
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRIMARY
+       ============================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Primary</h2>
+      <span class="meta">.bbi-btn.bbi-btn--primary</span>
+    </div>
+
+    <div class="spec">
+      <!-- DEFAULT SCHEME -->
+      <div class="col scheme-default">
+        <div class="col-head">
+          <span class="name">scheme-default · canvas #FFFFFF</span>
+          <span class="swatch" style="background:#FFFFFF"></span>
+        </div>
+        <div class="states">
+          <span class="state-label">default</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary">Request a quote</button></div>
+          <span class="state-label">hover</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary" data-state="hover">Request a quote</button></div>
+          <span class="state-label">focus</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary" data-state="focus">Request a quote</button></div>
+          <span class="state-label">active</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary" data-state="active">Request a quote</button></div>
+          <span class="state-label">disabled</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary" disabled>Request a quote</button></div>
+        </div>
+        <div class="live-strip">
+          <p class="hint">live · keyboard focus to test ring against white</p>
+          <div class="row">
+            <button class="bbi-btn bbi-btn--primary">Request a quote <span class="arrow">→</span></button>
+            <button class="bbi-btn bbi-btn--primary bbi-btn--lg">Browse models</button>
+            <button class="bbi-btn bbi-btn--primary bbi-btn--sm">Add to quote</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- INVERSE SCHEME -->
+      <div class="col scheme-inverse">
+        <div class="col-head">
+          <span class="name" style="color:#fff;opacity:.85">scheme-inverse · canvas #0B0B0C</span>
+          <span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span>
+        </div>
+        <div class="states">
+          <span class="state-label" style="color:#fff;opacity:.55">default</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary">Request a quote</button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">hover</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary" data-state="hover">Request a quote</button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">focus</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary" data-state="focus">Request a quote</button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">active</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary" data-state="active">Request a quote</button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">disabled</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--primary" disabled>Request a quote</button></div>
+        </div>
+        <div class="live-strip" style="border-top-color:#1F1F21">
+          <p class="hint" style="color:#fff;opacity:.55">live · keyboard focus to test ring against charcoal</p>
+          <div class="row">
+            <button class="bbi-btn bbi-btn--primary">Request a quote <span class="arrow">→</span></button>
+            <button class="bbi-btn bbi-btn--primary bbi-btn--lg">Browse models</button>
+            <button class="bbi-btn bbi-btn--primary bbi-btn--sm">Add to quote</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <h4>HTML</h4>
+<pre>&lt;button class="bbi-btn bbi-btn--primary"&gt;
+  Request a quote
+&lt;/button&gt;</pre>
+      </div>
+      <div class="meta-card">
+        <h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--buttonBackground</code><span class="v">surface</span></li>
+          <li><code>--buttonColor</code><span class="v">label</span></li>
+          <li><code>--buttonBorder</code><span class="v">border</span></li>
+          <li><code>--buttonBackgroundHover</code><span class="v">hover/active surface (red)</span></li>
+          <li><code>--buttonColorHover</code><span class="v">hover/active label</span></li>
+          <li><code>--buttonBorderHover</code><span class="v">hover/active border</span></li>
+          <li><code>--buttonRadius</code><span class="v">4px</span></li>
+          <li><code>--fs-button / --lh-button / --ls-button</code><span class="v">type</span></li>
+          <li><code>--textColor</code><span class="v">focus ring color</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECONDARY
+       ============================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Secondary</h2>
+      <span class="meta">.bbi-btn.bbi-btn--secondary</span>
+    </div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head">
+          <span class="name">scheme-default</span>
+          <span class="swatch" style="background:#FFFFFF"></span>
+        </div>
+        <div class="states">
+          <span class="state-label">default</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary">Browse models</button></div>
+          <span class="state-label">hover</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary" data-state="hover">Browse models</button></div>
+          <span class="state-label">focus</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary" data-state="focus">Browse models</button></div>
+          <span class="state-label">active</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary" data-state="active">Browse models</button></div>
+          <span class="state-label">disabled</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary" disabled>Browse models</button></div>
+        </div>
+        <div class="live-strip">
+          <p class="hint">live</p>
+          <div class="row">
+            <button class="bbi-btn bbi-btn--secondary">Browse models</button>
+            <button class="bbi-btn bbi-btn--secondary bbi-btn--lg">Download spec PDF</button>
+            <button class="bbi-btn bbi-btn--secondary bbi-btn--sm">Compare</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head">
+          <span class="name" style="color:#fff;opacity:.85">scheme-inverse</span>
+          <span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span>
+        </div>
+        <div class="states">
+          <span class="state-label" style="color:#fff;opacity:.55">default</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary">Browse models</button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">hover</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary" data-state="hover">Browse models</button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">focus</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary" data-state="focus">Browse models</button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">active</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary" data-state="active">Browse models</button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">disabled</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--secondary" disabled>Browse models</button></div>
+        </div>
+        <div class="live-strip" style="border-top-color:#1F1F21">
+          <p class="hint" style="color:#fff;opacity:.55">live</p>
+          <div class="row">
+            <button class="bbi-btn bbi-btn--secondary">Browse models</button>
+            <button class="bbi-btn bbi-btn--secondary bbi-btn--lg">Download spec PDF</button>
+            <button class="bbi-btn bbi-btn--secondary bbi-btn--sm">Compare</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <h4>HTML</h4>
+<pre>&lt;button class="bbi-btn bbi-btn--secondary"&gt;
+  Browse models
+&lt;/button&gt;</pre>
+      </div>
+      <div class="meta-card">
+        <h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--alternateButtonBackground</code><span class="v">surface (white / transparent)</span></li>
+          <li><code>--alternateButtonColor</code><span class="v">label</span></li>
+          <li><code>--alternateButtonBorder</code><span class="v">1px outline</span></li>
+          <li><code>--alternateButtonBackgroundHover</code><span class="v">invert on hover</span></li>
+          <li><code>--alternateButtonColorHover</code><span class="v">hover label</span></li>
+          <li><code>--alternateButtonBorderHover</code><span class="v">hover border</span></li>
+          <li><code>--buttonRadius</code><span class="v">4px</span></li>
+          <li><code>--fs-button / --lh-button / --ls-button</code><span class="v">type</span></li>
+          <li><code>--textColor</code><span class="v">focus ring color</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TERTIARY
+       ============================================================ -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Tertiary</h2>
+      <span class="meta">.bbi-btn.bbi-btn--tertiary</span>
+    </div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head">
+          <span class="name">scheme-default · hover ink shifts to red-text</span>
+          <span class="swatch" style="background:#FFFFFF"></span>
+        </div>
+        <div class="states">
+          <span class="state-label">default</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary"><span class="label">Learn more</span></button></div>
+          <span class="state-label">hover</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary" data-state="hover"><span class="label">Learn more</span></button></div>
+          <span class="state-label">focus</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary" data-state="focus"><span class="label">Learn more</span></button></div>
+          <span class="state-label">active</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary" data-state="active"><span class="label">Learn more</span></button></div>
+          <span class="state-label">disabled</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary" disabled><span class="label">Learn more</span></button></div>
+        </div>
+        <div class="live-strip">
+          <p class="hint">live · note hover red is #A81E22 — 5.88:1 AA on white only</p>
+          <div class="row">
+            <button class="bbi-btn bbi-btn--tertiary"><span class="label">Learn more</span></button>
+            <button class="bbi-btn bbi-btn--tertiary"><span class="label">View all 40+ models</span> <span class="arrow">→</span></button>
+            <button class="bbi-btn bbi-btn--tertiary"><span class="label">Cancel</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head">
+          <span class="name" style="color:#fff;opacity:.85">scheme-inverse · hover ink stays white (red fails 2.32:1)</span>
+          <span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span>
+        </div>
+        <div class="states">
+          <span class="state-label" style="color:#fff;opacity:.55">default</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary"><span class="label">Learn more</span></button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">hover</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary" data-state="hover"><span class="label">Learn more</span></button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">focus</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary" data-state="focus"><span class="label">Learn more</span></button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">active</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary" data-state="active"><span class="label">Learn more</span></button></div>
+          <span class="state-label" style="color:#fff;opacity:.55">disabled</span>
+          <div class="state-cell"><button class="bbi-btn bbi-btn--tertiary" disabled><span class="label">Learn more</span></button></div>
+        </div>
+        <div class="live-strip" style="border-top-color:#1F1F21">
+          <p class="hint" style="color:#fff;opacity:.55">live · underline-only feedback on dark</p>
+          <div class="row">
+            <button class="bbi-btn bbi-btn--tertiary"><span class="label">Learn more</span></button>
+            <button class="bbi-btn bbi-btn--tertiary"><span class="label">View all 40+ models</span> <span class="arrow">→</span></button>
+            <button class="bbi-btn bbi-btn--tertiary"><span class="label">Cancel</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <h4>HTML</h4>
+<pre>&lt;button class="bbi-btn bbi-btn--tertiary"&gt;
+  &lt;span class="label"&gt;Learn more&lt;/span&gt;
+&lt;/button&gt;</pre>
+      </div>
+      <div class="meta-card">
+        <h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--textColor</code><span class="v">label (default + inverse hover)</span></li>
+          <li><code>--headerHoverColor</code><span class="v">hover ink (default scheme only)</span></li>
+          <li><code>--fs-button / --lh-button / --ls-button</code><span class="v">type</span></li>
+          <li><code>--space-2 / --space-3</code><span class="v">spacing</span></li>
+          <li><code>--textColor</code><span class="v">focus ring color</span></li>
+          <li class="v" style="display:block;color:#5A5A5E">No new tokens introduced.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SPEC SHEET
+       ============================================================ -->
+  <section class="section">
+    <div class="spec-sheet">
+      <h3>Buttons — usage spec</h3>
+
+      <h4>Hierarchy &amp; pairing</h4>
+      <ul>
+        <li><b>One primary per view.</b> Two primaries side-by-side breaks the red-density rule because both turn red on hover simultaneously when keyboard tabbing.</li>
+        <li>Standard pairing: <code>primary</code> + <code>secondary</code> (CTA + escape hatch). Add <code>tertiary</code> for "or call us" / cancel-style affordances.</li>
+        <li>Order on desktop: primary first, secondary right of it. Reverse on mobile only when the secondary is the more common action (e.g. "Save draft" vs "Publish").</li>
+      </ul>
+
+      <h4>Sizing</h4>
+      <ul>
+        <li>Default min-height <b>44px</b> — meets touch-target floor.</li>
+        <li><code>.bbi-btn--lg</code> 52px for hero CTAs.</li>
+        <li><code>.bbi-btn--sm</code> 36px for table-row / card-internal actions only — never for primary on a landing screen.</li>
+      </ul>
+
+      <h4>States — required behavior</h4>
+      <ul>
+        <li><b>Hover:</b> primary &amp; secondary swap to their <code>*Hover</code> tokens. 120ms ease.</li>
+        <li><b>Focus:</b> 2px outline in <code>--textColor</code>, 2px offset (driven by <code>:focus-visible</code> in tokens.css). Visible against white AND charcoal — verified in the live strips.</li>
+        <li><b>Active:</b> same colors as hover + <code>translateY(1px)</code>.</li>
+        <li><b>Disabled:</b> <code>opacity: 0.4; filter: grayscale(1);</code> AND <code>cursor: not-allowed</code>. Never opacity alone — grayscale removes the brand red so disabled isn't mistaken for a hover state.</li>
+      </ul>
+
+      <h4>Don't</h4>
+      <ul>
+        <li>Don't use red as the resting primary surface — red is a hover/active accent, not a default. (See conflict flag at top.)</li>
+        <li>Don't put two primaries adjacent. Demote one to secondary.</li>
+        <li>Don't use tertiary as the only CTA on a conversion screen — it has no surface, and the brief's quote-request CTA is the conversion pattern.</li>
+        <li>Don't override <code>--buttonRadius</code>. Squared corners are intentional and match the wordmark.</li>
+        <li>Don't apply tertiary's red hover to inverse — fails 2.32:1. Inverse-tertiary hover stays white + underline.</li>
+      </ul>
+
+      <h4>Accessibility checklist</h4>
+      <ul>
+        <li>Primary default: charcoal/white = 20.10:1 AAA · hover red/white = 4.08:1 AA-large (label is 600 / ≥14px ⇒ qualifies).</li>
+        <li>Secondary default: charcoal/white = 20.10:1 AAA · hover invert = 20.10:1 AAA.</li>
+        <li>Tertiary default: charcoal/white 20.10:1 AAA · hover red-text on white 5.88:1 AA · on inverse stays white 20.10:1.</li>
+        <li>Focus ring 4.93:1+ on every documented surface — meets 1.4.11 non-text-contrast 3:1.</li>
+        <li>Disabled buttons keep <code>aria-disabled="true"</code>; if it's a link-styled tertiary, swap to <code>&lt;button disabled&gt;</code> not a div.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       02 — FORM INPUTS
+       ============================================================ -->
+  <header class="page-head" style="margin-top:var(--space-16);">
+    <div>
+      <div class="crumbs">BBI Design System · Chat 2 of N · <b>Components</b></div>
+      <h1 style="margin-top:8px;">02 — Form Inputs</h1>
+    </div>
+    <div class="crumbs">tokens v1 · locked</div>
+  </header>
+
+  <section class="section">
+    <p class="lede">Five field types × four states (default, focus, error, disabled), rendered on both schemes side-by-side. Focus uses <code>--textColor</code> (≥20:1 against canvas) — never <code>--line-color</code> (decorative hairline only). Focus does not change fill, per brief.</p>
+
+    <div class="callout">
+      <b>Inverse error-helper-text contrast.</b> <code>--error: #B33A1A</code> on charcoal (<code>#0B0B0C</code>) measures ~3.5:1 — passes 1.4.11 non-text but fails 4.5:1 for body text. The red <b>border</b> still carries the error signal on inverse; the helper <b>prose</b> shifts to <code>--textColor</code> (white, 20.10:1) with a red icon (non-text, 3:1+). Multi-channel error, no token invented.
+    </div>
+  </section>
+
+  <!-- ----- Text input ----- -->
+  <section class="section">
+    <div class="section-head"><h2>Text input</h2><span class="meta">.bbi-input</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default</span><span class="swatch" style="background:#FFFFFF"></span></div>
+        <div class="field-stack">
+          <label class="bbi-field">
+            <span class="bbi-label">Company name <span class="req">*</span></span>
+            <input class="bbi-input" type="text" placeholder="Brant Business Interiors" value="" />
+            <span class="bbi-helper">As it should appear on the quote.</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Email — focused</span>
+            <input class="bbi-input" type="email" data-state="focus" value="orders@brantbusinessinteriors.com" />
+            <span class="bbi-helper">2px ring in --textColor, 2px offset, no fill change.</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">PO number — error</span>
+            <input class="bbi-input" type="text" data-state="error" value="PO-" aria-invalid="true" aria-describedby="po-err-d" />
+            <span id="po-err-d" class="bbi-helper bbi-helper--error">Enter a valid PO (format PO-NNNNNN).</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Account number — disabled</span>
+            <input class="bbi-input" type="text" disabled value="ACC-00824" />
+            <span class="bbi-helper">Locked from your account profile.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+        <div class="field-stack">
+          <label class="bbi-field">
+            <span class="bbi-label">Company name <span class="req">*</span></span>
+            <input class="bbi-input" type="text" placeholder="Brant Business Interiors" />
+            <span class="bbi-helper">As it should appear on the quote.</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Email — focused</span>
+            <input class="bbi-input" type="email" data-state="focus" value="orders@brantbusinessinteriors.com" />
+            <span class="bbi-helper">2px ring in --textColor (white here).</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">PO number — error</span>
+            <input class="bbi-input" type="text" data-state="error" value="PO-" aria-invalid="true" aria-describedby="po-err-i" />
+            <span id="po-err-i" class="bbi-helper bbi-helper--error">Enter a valid PO (format PO-NNNNNN).</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Account number — disabled</span>
+            <input class="bbi-input" type="text" disabled value="ACC-00824" />
+            <span class="bbi-helper">Locked from your account profile.</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML</h4>
+<pre>&lt;label class="bbi-field"&gt;
+  &lt;span class="bbi-label"&gt;Company name &lt;span class="req"&gt;*&lt;/span&gt;&lt;/span&gt;
+  &lt;input class="bbi-input" type="text" /&gt;
+  &lt;span class="bbi-helper"&gt;Helper copy.&lt;/span&gt;
+&lt;/label&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--inputBackground</code><span class="v">surface</span></li>
+          <li><code>--inputColor</code><span class="v">value + placeholder</span></li>
+          <li><code>--inputBorder</code><span class="v">1px outline</span></li>
+          <li><code>--inputRadius</code><span class="v">4px</span></li>
+          <li><code>--textColor</code><span class="v">label + focus ring</span></li>
+          <li><code>--error</code><span class="v">error border + icon</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- Select ----- -->
+  <section class="section">
+    <div class="section-head"><h2>Select</h2><span class="meta">.bbi-select</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default</span><span class="swatch" style="background:#FFFFFF"></span></div>
+        <div class="field-stack">
+          <label class="bbi-field">
+            <span class="bbi-label">Industry</span>
+            <select class="bbi-select"><option>Healthcare</option><option>Education</option><option>Government</option></select>
+            <span class="bbi-helper">Filters the catalog by sector.</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Delivery window — focused</span>
+            <select class="bbi-select" data-state="focus"><option>4–6 weeks</option><option>2–3 weeks (rush)</option></select>
+            <span class="bbi-helper">Same focus rule as text input.</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Province — error</span>
+            <select class="bbi-select" data-state="error" aria-invalid="true"><option value="">— Select province —</option><option>Ontario</option></select>
+            <span class="bbi-helper bbi-helper--error">Province is required for tax calculation.</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Currency — disabled</span>
+            <select class="bbi-select" disabled><option>CAD</option></select>
+            <span class="bbi-helper">All BBI quotes are in CAD.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+        <div class="field-stack">
+          <label class="bbi-field">
+            <span class="bbi-label">Industry</span>
+            <select class="bbi-select"><option>Healthcare</option><option>Education</option><option>Government</option></select>
+            <span class="bbi-helper">Filters the catalog by sector.</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Delivery window — focused</span>
+            <select class="bbi-select" data-state="focus"><option>4–6 weeks</option><option>2–3 weeks (rush)</option></select>
+            <span class="bbi-helper">Same focus rule as text input.</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Province — error</span>
+            <select class="bbi-select" data-state="error" aria-invalid="true"><option value="">— Select province —</option><option>Ontario</option></select>
+            <span class="bbi-helper bbi-helper--error">Province is required for tax calculation.</span>
+          </label>
+          <label class="bbi-field">
+            <span class="bbi-label">Currency — disabled</span>
+            <select class="bbi-select" disabled><option>CAD</option></select>
+            <span class="bbi-helper">All BBI quotes are in CAD.</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML</h4>
+<pre>&lt;label class="bbi-field"&gt;
+  &lt;span class="bbi-label"&gt;Industry&lt;/span&gt;
+  &lt;select class="bbi-select"&gt;…&lt;/select&gt;
+&lt;/label&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--inputBackground / --inputColor / --inputBorder</code><span class="v">surface · value · outline</span></li>
+          <li><code>--inputRadius</code><span class="v">4px</span></li>
+          <li><code>--textColor</code><span class="v">caret glyph + focus ring</span></li>
+          <li><code>--error</code><span class="v">invalid state border + icon</span></li>
+          <li class="v" style="display:block;color:#5A5A5E">Caret glyph drawn from --inputColor; no SVG asset required.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- Textarea ----- -->
+  <section class="section">
+    <div class="section-head"><h2>Textarea</h2><span class="meta">.bbi-textarea</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default</span><span class="swatch" style="background:#FFFFFF"></span></div>
+        <div class="field-stack">
+          <label class="bbi-field bbi-field--full">
+            <span class="bbi-label">Project notes</span>
+            <textarea class="bbi-textarea" placeholder="Floor plan, install constraints, building access notes…"></textarea>
+            <span class="bbi-helper">Optional — speeds up the site visit.</span>
+          </label>
+          <label class="bbi-field bbi-field--full">
+            <span class="bbi-label">Spec list — focused</span>
+            <textarea class="bbi-textarea" data-state="focus">3× ergoCentric tCentric Hybrid, mid-back, black mesh, polished aluminum base.
+2× height-adjustable desks, 60×30, white laminate.</textarea>
+          </label>
+          <label class="bbi-field bbi-field--full">
+            <span class="bbi-label">Delivery instructions — error</span>
+            <textarea class="bbi-textarea" data-state="error" aria-invalid="true">Loading dock B</textarea>
+            <span class="bbi-helper bbi-helper--error">Please include building hours and a contact name.</span>
+          </label>
+          <label class="bbi-field bbi-field--full">
+            <span class="bbi-label">Internal reference — disabled</span>
+            <textarea class="bbi-textarea" disabled>Quote auto-generated from cart #00824. Edit in Salesforce.</textarea>
+          </label>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+        <div class="field-stack">
+          <label class="bbi-field bbi-field--full">
+            <span class="bbi-label">Project notes</span>
+            <textarea class="bbi-textarea" placeholder="Floor plan, install constraints, building access notes…"></textarea>
+            <span class="bbi-helper">Optional — speeds up the site visit.</span>
+          </label>
+          <label class="bbi-field bbi-field--full">
+            <span class="bbi-label">Spec list — focused</span>
+            <textarea class="bbi-textarea" data-state="focus">3× ergoCentric tCentric Hybrid, mid-back, black mesh, polished aluminum base.
+2× height-adjustable desks, 60×30, white laminate.</textarea>
+          </label>
+          <label class="bbi-field bbi-field--full">
+            <span class="bbi-label">Delivery instructions — error</span>
+            <textarea class="bbi-textarea" data-state="error" aria-invalid="true">Loading dock B</textarea>
+            <span class="bbi-helper bbi-helper--error">Please include building hours and a contact name.</span>
+          </label>
+          <label class="bbi-field bbi-field--full">
+            <span class="bbi-label">Internal reference — disabled</span>
+            <textarea class="bbi-textarea" disabled>Quote auto-generated from cart #00824. Edit in Salesforce.</textarea>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML</h4>
+<pre>&lt;label class="bbi-field bbi-field--full"&gt;
+  &lt;span class="bbi-label"&gt;Project notes&lt;/span&gt;
+  &lt;textarea class="bbi-textarea"&gt;&lt;/textarea&gt;
+&lt;/label&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--inputBackground / --inputColor / --inputBorder</code><span class="v">same as text input</span></li>
+          <li><code>--inputRadius</code><span class="v">4px</span></li>
+          <li><code>--textColor</code><span class="v">label + focus ring</span></li>
+          <li><code>--error</code><span class="v">error border</span></li>
+          <li class="v" style="display:block;color:#5A5A5E">Min-height 96px; resize: vertical only.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- Checkbox & Radio ----- -->
+  <section class="section">
+    <div class="section-head"><h2>Checkbox &amp; Radio</h2><span class="meta">.bbi-check · .bbi-radio</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default</span><span class="swatch" style="background:#FFFFFF"></span></div>
+
+        <div class="variant-block">
+          <div class="variant-title"><h3>Checkbox</h3><span class="role">.bbi-check</span></div>
+          <div class="states">
+            <span class="state-label">default</span>
+            <div class="state-cell"><label class="bbi-check"><input type="checkbox"><span class="box"></span><span>Send a printed catalog</span></label></div>
+            <span class="state-label">checked</span>
+            <div class="state-cell"><label class="bbi-check" data-checked="true"><input type="checkbox" checked><span class="box"></span><span>I'm a returning customer</span></label></div>
+            <span class="state-label">focus</span>
+            <div class="state-cell"><label class="bbi-check" data-state="focus"><input type="checkbox"><span class="box"></span><span>Subscribe to commercial-furniture updates</span></label></div>
+            <span class="state-label">error</span>
+            <div class="state-cell"><label class="bbi-check" data-state="error"><input type="checkbox"><span class="box"></span><span>I accept the BBI terms of sale</span></label></div>
+            <span class="state-label">disabled</span>
+            <div class="state-cell"><label class="bbi-check" data-state="disabled" data-checked="true"><input type="checkbox" disabled checked><span class="box"></span><span>Tax-exempt (verified)</span></label></div>
+          </div>
+        </div>
+
+        <div class="variant-block">
+          <div class="variant-title"><h3>Radio</h3><span class="role">.bbi-radio</span></div>
+          <div class="states">
+            <span class="state-label">default</span>
+            <div class="state-cell">
+              <label class="bbi-radio"><input type="radio" name="d-ship"><span class="box"></span><span>Ship to office</span></label>
+              <label class="bbi-radio" data-checked="true"><input type="radio" name="d-ship" checked><span class="box"></span><span>Ship to install site</span></label>
+            </div>
+            <span class="state-label">focus</span>
+            <div class="state-cell"><label class="bbi-radio" data-state="focus"><input type="radio" name="d-foo"><span class="box"></span><span>Pickup at Mississauga showroom</span></label></div>
+            <span class="state-label">error</span>
+            <div class="state-cell"><label class="bbi-radio" data-state="error"><input type="radio" name="d-bar"><span class="box"></span><span>Choose a delivery option</span></label></div>
+            <span class="state-label">disabled</span>
+            <div class="state-cell"><label class="bbi-radio" data-state="disabled" data-checked="true"><input type="radio" disabled checked><span class="box"></span><span>White-glove install (account default)</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+
+        <div class="variant-block">
+          <div class="variant-title"><h3 style="color:#fff">Checkbox</h3><span class="role" style="color:#fff;opacity:.55">.bbi-check</span></div>
+          <div class="states">
+            <span class="state-label" style="color:#fff;opacity:.55">default</span>
+            <div class="state-cell"><label class="bbi-check"><input type="checkbox"><span class="box"></span><span>Send a printed catalog</span></label></div>
+            <span class="state-label" style="color:#fff;opacity:.55">checked</span>
+            <div class="state-cell"><label class="bbi-check" data-checked="true"><input type="checkbox" checked><span class="box"></span><span>I'm a returning customer</span></label></div>
+            <span class="state-label" style="color:#fff;opacity:.55">focus</span>
+            <div class="state-cell"><label class="bbi-check" data-state="focus"><input type="checkbox"><span class="box"></span><span>Subscribe to commercial-furniture updates</span></label></div>
+            <span class="state-label" style="color:#fff;opacity:.55">error</span>
+            <div class="state-cell"><label class="bbi-check" data-state="error"><input type="checkbox"><span class="box"></span><span>I accept the BBI terms of sale</span></label></div>
+            <span class="state-label" style="color:#fff;opacity:.55">disabled</span>
+            <div class="state-cell"><label class="bbi-check" data-state="disabled" data-checked="true"><input type="checkbox" disabled checked><span class="box"></span><span>Tax-exempt (verified)</span></label></div>
+          </div>
+        </div>
+
+        <div class="variant-block">
+          <div class="variant-title"><h3 style="color:#fff">Radio</h3><span class="role" style="color:#fff;opacity:.55">.bbi-radio</span></div>
+          <div class="states">
+            <span class="state-label" style="color:#fff;opacity:.55">default</span>
+            <div class="state-cell">
+              <label class="bbi-radio"><input type="radio" name="i-ship"><span class="box"></span><span>Ship to office</span></label>
+              <label class="bbi-radio" data-checked="true"><input type="radio" name="i-ship" checked><span class="box"></span><span>Ship to install site</span></label>
+            </div>
+            <span class="state-label" style="color:#fff;opacity:.55">focus</span>
+            <div class="state-cell"><label class="bbi-radio" data-state="focus"><input type="radio" name="i-foo"><span class="box"></span><span>Pickup at Mississauga showroom</span></label></div>
+            <span class="state-label" style="color:#fff;opacity:.55">error</span>
+            <div class="state-cell"><label class="bbi-radio" data-state="error"><input type="radio" name="i-bar"><span class="box"></span><span>Choose a delivery option</span></label></div>
+            <span class="state-label" style="color:#fff;opacity:.55">disabled</span>
+            <div class="state-cell"><label class="bbi-radio" data-state="disabled" data-checked="true"><input type="radio" disabled checked><span class="box"></span><span>White-glove install (account default)</span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML</h4>
+<pre>&lt;label class="bbi-check"&gt;
+  &lt;input type="checkbox" /&gt;
+  &lt;span class="box"&gt;&lt;/span&gt;
+  &lt;span&gt;Send a printed catalog&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label class="bbi-radio"&gt;
+  &lt;input type="radio" name="ship" /&gt;
+  &lt;span class="box"&gt;&lt;/span&gt;
+  &lt;span&gt;Ship to install site&lt;/span&gt;
+&lt;/label&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--inputBackground</code><span class="v">box surface · checkmark glyph</span></li>
+          <li><code>--inputBorder</code><span class="v">box outline · checked fill</span></li>
+          <li><code>--inputColor</code><span class="v">label text</span></li>
+          <li><code>--textColor</code><span class="v">focus ring</span></li>
+          <li><code>--error</code><span class="v">error border</span></li>
+          <li class="v" style="display:block;color:#5A5A5E">Native input is visually-hidden but tab-focusable; ring renders on the .box sibling.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FORM SPEC SHEET
+       ============================================================ -->
+  <section class="section">
+    <div class="spec-sheet">
+      <h3>Form inputs — usage spec</h3>
+
+      <h4>Sizing &amp; rhythm</h4>
+      <ul>
+        <li>All text-bearing fields: <b>min-height 44px</b>, padding <code>10px 14px</code>, font-size 15px. Matches button height for aligned form rows.</li>
+        <li>Textarea min-height 96px (~3 lines), <code>resize: vertical</code> only — no horizontal stretch breaking grid layout.</li>
+        <li>Checkbox &amp; radio box: 18×18, 1px border, 3px radius (check) / round (radio). 10px gap to label.</li>
+        <li>Field stack gap 14px; label-to-control gap 6px; helper-to-control gap 6px.</li>
+      </ul>
+
+      <h4>States — required behavior</h4>
+      <ul>
+        <li><b>Default:</b> 1px <code>--inputBorder</code> on <code>--inputBackground</code>. Fully opaque ink.</li>
+        <li><b>Focus:</b> 2px outline in <code>--textColor</code> at 2px offset, <i>border unchanged</i>. No fill change, no glow. <b>Never <code>--line-color</code>.</b></li>
+        <li><b>Error:</b> 1px <code>--error</code> border + 1px inset shadow in <code>--error</code> for optical 2px weight, paired with <code>aria-invalid="true"</code> and a <code>.bbi-helper--error</code> message. Border and helper are independent channels — color-blind users see the icon + bold weight.</li>
+        <li><b>Disabled:</b> <code>opacity: 0.4; filter: grayscale(1); cursor: not-allowed</code>. Same rule as buttons; never opacity alone.</li>
+      </ul>
+
+      <h4>Inverse-scheme error rule (flagged)</h4>
+      <ul>
+        <li>On charcoal, <code>--error</code> body text fails 4.5:1. Resolution: keep red on the <b>border</b> (non-text, 3:1 passes) + red <b>icon glyph</b>; flip helper-prose to <code>--textColor</code>. Multi-channel error remains, no token invented.</li>
+        <li>If a future spec wants red prose on inverse, that requires a new <code>--errorOnInverse</code> token (chat 1).</li>
+      </ul>
+
+      <h4>Required-field convention</h4>
+      <ul>
+        <li>Asterisk in <code>.req</code> (red, 2px right margin). Never the only signal — pair with explicit "Required" in the helper or a server-side validation message. Never use red label text alone (red headings are banned).</li>
+      </ul>
+
+      <h4>Don't</h4>
+      <ul>
+        <li>Don't use <code>--line-color</code> for focus — it's 1.22:1 hairline only. Use <code>--textColor</code>.</li>
+        <li>Don't change input fill on focus or error — borders + helpers carry the signal.</li>
+        <li>Don't put the asterisk inside the helper. It belongs in the label.</li>
+        <li>Don't use the native browser select chevron — it's beige-tinted in some skins. Use the CSS-drawn caret in <code>.bbi-select</code>.</li>
+        <li>Don't override <code>--inputRadius</code>. 4px squared corners match buttons + brand wordmark.</li>
+      </ul>
+
+      <h4>Accessibility checklist</h4>
+      <ul>
+        <li>Every input has a programmatic label (<code>&lt;label&gt;</code> wrap or <code>aria-labelledby</code>).</li>
+        <li>Errors set <code>aria-invalid="true"</code> and link to helper via <code>aria-describedby</code>.</li>
+        <li>Focus ring 20.10:1 on both schemes — far above 1.4.11's 3:1.</li>
+        <li>Hidden native checkbox/radio retains keyboard access; the visible <code>.box</code> is decorative.</li>
+        <li>Disabled controls keep readable contrast (grayscale preserves it where opacity alone would not).</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       03 — CARDS
+       ============================================================ -->
+  <header class="page-head" style="margin-top:var(--space-16);">
+    <div>
+      <div class="crumbs">BBI Design System · Chat 2 of N · <b>Components</b></div>
+      <h1 style="margin-top:8px;">03 — Cards</h1>
+    </div>
+    <div class="crumbs">tokens v1 · locked</div>
+  </header>
+
+  <section class="section">
+    <p class="lede">Three card variants — basic, product, feature — on both schemes. Product cards have a 16:9 image slot at the top (hard rule), with sale badge top-left and sold top-right. Sold-out variant desaturates media, line-throughs the price, and swaps the CTA to a quote-request affordance (full Quote block lives in chat 07; the stub here uses only existing tokens).</p>
+
+    <div class="callout">
+      <b>Surface rule.</b> White / charcoal-plate background, 1px <code>--borderColor</code>, no shadow at rest. <code>--shadow-sm</code> appears on hover only — kept under 8% opacity per token spec. Inverse cards lean on the 1px border for separation since shadows barely register on charcoal (<code>--shadowColor</code> = <code>#000</code> on inverse, near-invisible).
+    </div>
+    <div class="callout">
+      <b>Badge stubs only.</b> The real Badge component is chat 04. Stubs here use <code>--saleBadgeBackground</code> and <code>--soldBadgeBackground</code> directly so the corner-placement rule (sale top-left, sold top-right = different meaning) is reviewable now. No new tokens introduced.
+    </div>
+  </section>
+
+  <!-- ----- Basic card ----- -->
+  <section class="section">
+    <div class="section-head"><h2>Basic card</h2><span class="meta">.bbi-card</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default</span><span class="swatch" style="background:#FFFFFF"></span></div>
+        <div class="card-grid">
+          <article class="bbi-card">
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">Resource</p>
+              <h3 class="bbi-card__title">Healthcare furniture procurement guide</h3>
+              <p class="bbi-card__copy">Greenguard Gold options, infection-control surfaces, and the four chairs that cover most of a clinic spec.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__eyebrow">PDF · 12 pages</span>
+                <a class="bbi-card__cta" href="#">Download <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+          <article class="bbi-card" data-state="hover">
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">Case study</p>
+              <h3 class="bbi-card__title">Peterborough Health — 240-seat ergonomic refit</h3>
+              <p class="bbi-card__copy">Hover state shown: 1px shadow lifts the card without redrawing the border.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__eyebrow">5 min read</span>
+                <a class="bbi-card__cta" href="#">Read <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+        <div class="card-grid">
+          <article class="bbi-card">
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">Resource</p>
+              <h3 class="bbi-card__title">Healthcare furniture procurement guide</h3>
+              <p class="bbi-card__copy">Greenguard Gold options, infection-control surfaces, and the four chairs that cover most of a clinic spec.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__eyebrow">PDF · 12 pages</span>
+                <a class="bbi-card__cta" href="#">Download <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+          <article class="bbi-card" data-state="hover">
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">Case study</p>
+              <h3 class="bbi-card__title">Peterborough Health — 240-seat ergonomic refit</h3>
+              <p class="bbi-card__copy">On charcoal the border (<code>#1F1F21</code>) does the lifting; shadow is near-invisible.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__eyebrow">5 min read</span>
+                <a class="bbi-card__cta" href="#">Read <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML</h4>
+<pre>&lt;article class="bbi-card"&gt;
+  &lt;div class="bbi-card__body"&gt;
+    &lt;p class="bbi-card__eyebrow"&gt;Resource&lt;/p&gt;
+    &lt;h3 class="bbi-card__title"&gt;Title&lt;/h3&gt;
+    &lt;p class="bbi-card__copy"&gt;Copy.&lt;/p&gt;
+    &lt;div class="bbi-card__meta"&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--cardBackground</code><span class="v">surface</span></li>
+          <li><code>--borderColor</code><span class="v">1px outline</span></li>
+          <li><code>--cardRadius</code><span class="v">8px</span></li>
+          <li><code>--shadow-sm</code><span class="v">hover lift only</span></li>
+          <li><code>--textColor / --headingColor</code><span class="v">copy + title</span></li>
+          <li><code>--space-3 / --space-6</code><span class="v">internal rhythm</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- Product card ----- -->
+  <section class="section">
+    <div class="section-head"><h2>Product card</h2><span class="meta">.bbi-card.bbi-card--product · 16:9 media REQUIRED</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default · default + sold variants</span><span class="swatch" style="background:#FFFFFF"></span></div>
+        <div class="card-grid">
+          <article class="bbi-card bbi-card--product">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · ergoCentric tCentric Hybrid</span>
+              <div class="bbi-card__badges">
+                <div class="left"><span class="bbi-badge-stub bbi-badge-stub--sale">Sale</span></div>
+                <div class="right"></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">ergoCentric · Seating</p>
+              <h3 class="bbi-card__title">tCentric Hybrid — mid-back mesh</h3>
+              <p class="bbi-card__copy">Canadian-made. 12-year warranty. 4–6 week custom upholstery.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">$849<small>/ chair, CAD</small></span>
+                <a class="bbi-card__cta" href="#">Configure <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="bbi-card bbi-card--product bbi-card--sold">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · Discontinued</span>
+              <div class="bbi-card__badges">
+                <div class="left"></div>
+                <div class="right"><span class="bbi-badge-stub bbi-badge-stub--sold">Sold out</span></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">ergoCentric · Seating</p>
+              <h3 class="bbi-card__title">geoCentric Saddle — discontinued</h3>
+              <p class="bbi-card__copy">Replaced by the 24/7 industrial line. Quote a custom alternative.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">$612<small>/ chair, CAD</small></span>
+                <a class="bbi-card__cta" href="#">Request a quote <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse · default + sold variants</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+        <div class="card-grid">
+          <article class="bbi-card bbi-card--product">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · ergoCentric tCentric Hybrid</span>
+              <div class="bbi-card__badges">
+                <div class="left"><span class="bbi-badge-stub bbi-badge-stub--sale">Sale</span></div>
+                <div class="right"></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">ergoCentric · Seating</p>
+              <h3 class="bbi-card__title">tCentric Hybrid — mid-back mesh</h3>
+              <p class="bbi-card__copy">Canadian-made. 12-year warranty. 4–6 week custom upholstery.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">$849<small>/ chair, CAD</small></span>
+                <a class="bbi-card__cta" href="#">Configure <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="bbi-card bbi-card--product bbi-card--sold">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · Discontinued</span>
+              <div class="bbi-card__badges">
+                <div class="left"></div>
+                <div class="right"><span class="bbi-badge-stub bbi-badge-stub--sold">Sold out</span></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">ergoCentric · Seating</p>
+              <h3 class="bbi-card__title">geoCentric Saddle — discontinued</h3>
+              <p class="bbi-card__copy">Replaced by the 24/7 industrial line. Quote a custom alternative.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">$612<small>/ chair, CAD</small></span>
+                <a class="bbi-card__cta" href="#">Request a quote <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML</h4>
+<pre>&lt;article class="bbi-card bbi-card--product"&gt;
+  &lt;div class="bbi-card__media"&gt;
+    &lt;img src="…" alt="…"&gt;
+    &lt;div class="bbi-card__badges"&gt;
+      &lt;div class="left"&gt;&lt;span class="bbi-badge-stub bbi-badge-stub--sale"&gt;Sale&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="right"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="bbi-card__body"&gt;…&lt;/div&gt;
+&lt;/article&gt;
+
+&lt;!-- Sold-out: add bbi-card--sold; CTA copy swaps to "Request a quote" --&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--cardBackground / --borderColor</code><span class="v">surface + 1px outline</span></li>
+          <li><code>--cardRadius</code><span class="v">8px (also clips 16:9 media corners)</span></li>
+          <li><code>--alternateBackground</code><span class="v">media placeholder fill</span></li>
+          <li><code>--saleBadgeBackground</code><span class="v">sale badge stub</span></li>
+          <li><code>--soldBadgeBackground</code><span class="v">sold badge stub</span></li>
+          <li><code>--shadow-sm</code><span class="v">hover lift</span></li>
+          <li><code>--space-3</code><span class="v">badge inset from media corner</span></li>
+          <li class="v" style="display:block;color:#5A5A5E">No new tokens. Sold treatment is grayscale + line-through, no extra color.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- Feature card ----- -->
+  <section class="section">
+    <div class="section-head"><h2>Feature card</h2><span class="meta">.bbi-card.bbi-card--feature · numbered, no media</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default · matches baseline 01/02/03 row</span><span class="swatch" style="background:#FFFFFF"></span></div>
+        <div class="card-grid" style="grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--borderColor);border-radius:var(--cardRadius);overflow:hidden;">
+          <article class="bbi-card bbi-card--feature" style="border:none;border-right:1px solid var(--borderColor);border-radius:0;">
+            <div class="bbi-card__body">
+              <p class="bbi-card__num">01</p>
+              <h3 class="bbi-card__title">Ontario-made.</h3>
+              <p class="bbi-card__copy">Designed, assembled, and upholstered in Mississauga. Greenguard Gold options for healthcare fit-outs.</p>
+            </div>
+          </article>
+          <article class="bbi-card bbi-card--feature" style="border:none;border-right:1px solid var(--borderColor);border-radius:0;">
+            <div class="bbi-card__body">
+              <p class="bbi-card__num">02</p>
+              <h3 class="bbi-card__title">12-year warranty.</h3>
+              <p class="bbi-card__copy">Covers mechanism, base, cylinder, arms, and upholstery. We handle the warranty claim — no factory call required.</p>
+            </div>
+          </article>
+          <article class="bbi-card bbi-card--feature" style="border:none;border-radius:0;">
+            <div class="bbi-card__body">
+              <p class="bbi-card__num">03</p>
+              <h3 class="bbi-card__title">Custom upholstery, 4–6 weeks.</h3>
+              <p class="bbi-card__copy">Pick fabric, arms, back type, and base finish. Assembled in Ontario and delivered by our install crew — not a courier.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse · same lockup, charcoal canvas</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+        <div class="card-grid" style="grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--borderColor);border-radius:var(--cardRadius);overflow:hidden;">
+          <article class="bbi-card bbi-card--feature" style="border:none;border-right:1px solid var(--borderColor);border-radius:0;">
+            <div class="bbi-card__body">
+              <p class="bbi-card__num">01</p>
+              <h3 class="bbi-card__title">Ontario-made.</h3>
+              <p class="bbi-card__copy">Designed, assembled, and upholstered in Mississauga. Greenguard Gold options for healthcare fit-outs.</p>
+            </div>
+          </article>
+          <article class="bbi-card bbi-card--feature" style="border:none;border-right:1px solid var(--borderColor);border-radius:0;">
+            <div class="bbi-card__body">
+              <p class="bbi-card__num">02</p>
+              <h3 class="bbi-card__title">12-year warranty.</h3>
+              <p class="bbi-card__copy">Covers mechanism, base, cylinder, arms, and upholstery. We handle the warranty claim — no factory call required.</p>
+            </div>
+          </article>
+          <article class="bbi-card bbi-card--feature" style="border:none;border-radius:0;">
+            <div class="bbi-card__body">
+              <p class="bbi-card__num">03</p>
+              <h3 class="bbi-card__title">Custom upholstery, 4–6 weeks.</h3>
+              <p class="bbi-card__copy">Pick fabric, arms, back type, and base finish. Assembled in Ontario and delivered by our install crew — not a courier.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML</h4>
+<pre>&lt;article class="bbi-card bbi-card--feature"&gt;
+  &lt;div class="bbi-card__body"&gt;
+    &lt;p class="bbi-card__num"&gt;01&lt;/p&gt;
+    &lt;h3 class="bbi-card__title"&gt;Ontario-made.&lt;/h3&gt;
+    &lt;p class="bbi-card__copy"&gt;Body copy.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--cardBackground / --borderColor</code><span class="v">surface + dividers between features</span></li>
+          <li><code>--saleBadgeBackground</code><span class="v">numeric label color (only red text in lockup, mirrors baseline)</span></li>
+          <li><code>--headingColor</code><span class="v">title</span></li>
+          <li><code>--space-8</code><span class="v">denser internal padding (32px) for type rhythm</span></li>
+          <li class="v" style="display:block;color:#5A5A5E">Feature cards typically render in a 3-column row sharing borders, not as standalone cards.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CARDS SPEC SHEET
+       ============================================================ -->
+  <section class="section">
+    <div class="spec-sheet">
+      <h3>Cards — usage spec</h3>
+
+      <h4>Surface &amp; lift</h4>
+      <ul>
+        <li>All cards: <code>--cardBackground</code>, 1px <code>--borderColor</code>, <code>--cardRadius: 8px</code>, no shadow at rest.</li>
+        <li>Hover: <code>--shadow-sm</code> (≤8% opacity per token spec). On inverse the shadow barely registers — border + plate carry separation. This is intentional, not a bug.</li>
+        <li>Card-as-link: pair with <code>:focus-visible</code> ring (handled globally in tokens.css). Whole card is clickable; embed CTA as visual affordance only.</li>
+      </ul>
+
+      <h4>Product card — hard rules</h4>
+      <ul>
+        <li><b>16:9 media at the TOP. No exceptions.</b> Use <code>aspect-ratio: 16 / 9</code> so cards align perfectly in a grid even with mixed image dimensions.</li>
+        <li>Sale badge → top-LEFT. Sold badge → top-RIGHT. Different corner = different meaning. Never both in the same corner.</li>
+        <li>Sold-out: <code>filter: grayscale(1)</code> + <code>opacity: 0.7</code> on media, <code>line-through</code> on price, CTA copy swaps to "Request a quote" (the unbuyable-item pattern; PDP variant lives in chat 07).</li>
+        <li>Image must have meaningful <code>alt</code>; the placeholder pattern is for missing assets only and ships a striped texture, never a solid block.</li>
+      </ul>
+
+      <h4>Feature card — hard rules</h4>
+      <ul>
+        <li>Numbered (01, 02, 03…) in mono, colored <code>--saleBadgeBackground</code>. This is the ONLY place red text is allowed in body copy — it mirrors the baseline homepage. Do not propagate this to other contexts.</li>
+        <li>No media. Title 22px (<code>--fs-h3</code> desktop), denser padding (<code>--space-8</code>).</li>
+        <li>Typically renders in a 2- or 3-column row sharing internal borders. Standalone use is allowed but rare.</li>
+      </ul>
+
+      <h4>Don't</h4>
+      <ul>
+        <li>Don't add shadow at rest. Hover only. Never elevate above <code>--shadow-md</code>.</li>
+        <li>Don't put the price <i>above</i> the title. Title is the primary scannable element.</li>
+        <li>Don't put a sale badge AND a sold badge on the same product — sold supersedes everything else.</li>
+        <li>Don't render product cards without media. If imagery isn't ready, ship the striped placeholder, not a solid color block.</li>
+        <li>Don't override <code>--cardRadius</code>. 8px matches the brand wordmark + image tile system.</li>
+        <li>Don't use <code>--saleBadgeBackground</code> as red text outside the feature-card numeric label and the badge component proper.</li>
+      </ul>
+
+      <h4>Accessibility checklist</h4>
+      <ul>
+        <li>Card-as-link uses <code>&lt;a&gt;</code> wrap or an <code>::after</code> click target — keyboard accessible.</li>
+        <li>Badge stubs render bold ≥11px white-on-color: sale red 4.83:1 AA-large, sold gray 6.74:1 AA. Verified in tokens v1.</li>
+        <li>Sold-out grayscale + line-through is multi-channel — color-blind users still see the line-through and the changed CTA copy.</li>
+        <li>Card focus ring uses <code>--textColor</code>, 2px @ 2px offset; passes 1.4.11 on both schemes.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       04 — BADGES
+       ============================================================ -->
+  <header class="page-head" style="margin-top:var(--space-16);">
+    <div>
+      <div class="crumbs">BBI Design System · Chat 2 of N · <b>Components</b></div>
+      <h1 style="margin-top:8px;">04 — Badges</h1>
+    </div>
+    <div class="crumbs">tokens v1 · locked</div>
+  </header>
+
+  <section class="section">
+    <p class="lede">Five badge variants — sale, new, preorder, sold, custom — rendered standalone and on a sample product card showing corner-placement rules. Sale top-LEFT, sold top-RIGHT (separate corner = different meaning, never overlap).</p>
+
+    <div class="callout">
+      <b>No brightness auto-flip.</b> Each badge has a deterministic, token-defined label color (per comments in tokens v1). An algorithmic luminance flip would risk pushing the sale badge's red/white pairing (4.08:1, AA-large) below threshold or accidentally inverting against a token shift. Pairings are hard-coded.
+    </div>
+    <div class="callout">
+      <b>Inverse-scheme flag (flagged, not silently fixed).</b> <code>preorder</code> (<code>#FFFFFF</code>) and <code>custom</code> (<code>#FAFAFA</code>) are white-filled badges. On <code>scheme-inverse</code> they read as primary stickers/flags — visually louder than intended. Mitigation: 1px white outline on inverse to integrate them into the dark canvas without inventing a new token. If badges-on-inverse become a frequent pattern, recommend a chat-1 token revision adding <code>--preorderBadgeBackground-onInverse</code> / <code>--customBadgeBackground-onInverse</code>.
+    </div>
+  </section>
+
+  <!-- ----- Standalone badge swatches ----- -->
+  <section class="section">
+    <div class="section-head"><h2>All five — standalone</h2><span class="meta">.bbi-badge.bbi-badge--{sale|new|preorder|sold|custom}</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default</span><span class="swatch" style="background:#FFFFFF"></span></div>
+        <div class="badge-sample">
+          <div class="badge-row"><span class="badge-row__label">sale</span><span class="bbi-badge bbi-badge--sale">Sale</span><span class="bbi-badge bbi-badge--sale">Sale · 15% off</span></div>
+          <div class="badge-row"><span class="badge-row__label">new</span><span class="bbi-badge bbi-badge--new">New</span><span class="bbi-badge bbi-badge--new">Just landed</span></div>
+          <div class="badge-row"><span class="badge-row__label">preorder</span><span class="bbi-badge bbi-badge--preorder">Preorder</span><span class="bbi-badge bbi-badge--preorder">Ships Q3 2026</span></div>
+          <div class="badge-row"><span class="badge-row__label">sold</span><span class="bbi-badge bbi-badge--sold">Sold out</span><span class="bbi-badge bbi-badge--sold">Discontinued</span></div>
+          <div class="badge-row"><span class="badge-row__label">custom</span><span class="bbi-badge bbi-badge--custom">Custom</span><span class="bbi-badge bbi-badge--custom">Made to order</span></div>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+        <div class="badge-sample">
+          <div class="badge-row"><span class="badge-row__label" style="color:#fff;opacity:.55">sale</span><span class="bbi-badge bbi-badge--sale">Sale</span><span class="bbi-badge bbi-badge--sale">Sale · 15% off</span></div>
+          <div class="badge-row"><span class="badge-row__label" style="color:#fff;opacity:.55">new</span><span class="bbi-badge bbi-badge--new">New</span><span class="bbi-badge bbi-badge--new">Just landed</span></div>
+          <div class="badge-row"><span class="badge-row__label" style="color:#fff;opacity:.55">preorder</span><span class="bbi-badge bbi-badge--preorder">Preorder</span><span class="bbi-badge bbi-badge--preorder">Ships Q3 2026</span></div>
+          <div class="badge-row"><span class="badge-row__label" style="color:#fff;opacity:.55">sold</span><span class="bbi-badge bbi-badge--sold">Sold out</span><span class="bbi-badge bbi-badge--sold">Discontinued</span></div>
+          <div class="badge-row"><span class="badge-row__label" style="color:#fff;opacity:.55">custom</span><span class="bbi-badge bbi-badge--custom">Custom</span><span class="bbi-badge bbi-badge--custom">Made to order</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML</h4>
+<pre>&lt;span class="bbi-badge bbi-badge--sale"&gt;Sale&lt;/span&gt;
+&lt;span class="bbi-badge bbi-badge--new"&gt;New&lt;/span&gt;
+&lt;span class="bbi-badge bbi-badge--preorder"&gt;Preorder&lt;/span&gt;
+&lt;span class="bbi-badge bbi-badge--sold"&gt;Sold out&lt;/span&gt;
+&lt;span class="bbi-badge bbi-badge--custom"&gt;Custom&lt;/span&gt;</pre></div>
+      <div class="meta-card"><h4>Contrast — verified</h4>
+        <ul>
+          <li><code>sale</code> · #FFF on #D4252A<span class="v">4.08:1 · AA-large</span></li>
+          <li><code>new</code> · #FFF on #0B0B0C<span class="v">20.10:1 · AAA</span></li>
+          <li><code>preorder</code> · #0B0B0C on #FFF<span class="v">20.10:1 · AAA</span></li>
+          <li><code>sold</code> · #FFF on #5A5A5E<span class="v">6.74:1 · AA</span></li>
+          <li><code>custom</code> · #0B0B0C on #FAFAFA<span class="v">18.87:1 · AAA</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- On a sample product card ----- -->
+  <section class="section">
+    <div class="section-head"><h2>On a product card</h2><span class="meta">corner placement · top-left = sale · top-right = sold</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default · all five demonstrated across cards</span><span class="swatch" style="background:#FFFFFF"></span></div>
+        <div class="card-grid" style="grid-template-columns:1fr 1fr;">
+          <article class="bbi-card bbi-card--product">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · tCentric Hybrid</span>
+              <div class="bbi-card__badges">
+                <div class="left">
+                  <span class="bbi-badge bbi-badge--sale">Sale</span>
+                  <span class="bbi-badge bbi-badge--new">New</span>
+                </div>
+                <div class="right"></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">ergoCentric · Seating</p>
+              <h3 class="bbi-card__title">tCentric Hybrid — mid-back mesh</h3>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">$849<small>/ chair</small></span>
+                <a class="bbi-card__cta" href="#">Configure <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="bbi-card bbi-card--product">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · Custom build</span>
+              <div class="bbi-card__badges">
+                <div class="left">
+                  <span class="bbi-badge bbi-badge--preorder">Preorder</span>
+                  <span class="bbi-badge bbi-badge--custom">Custom</span>
+                </div>
+                <div class="right"></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">Made to order</p>
+              <h3 class="bbi-card__title">myCentric — fabric &amp; arm configurator</h3>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">From $1,120<small>/ chair</small></span>
+                <a class="bbi-card__cta" href="#">Configure <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="bbi-card bbi-card--product bbi-card--sold" style="grid-column:1 / -1;">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · Discontinued</span>
+              <div class="bbi-card__badges">
+                <div class="left"></div>
+                <div class="right"><span class="bbi-badge bbi-badge--sold">Sold out</span></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">ergoCentric · Seating</p>
+              <h3 class="bbi-card__title">geoCentric Saddle — discontinued</h3>
+              <p class="bbi-card__copy">Sold supersedes everything else. No sale, no preorder. Right corner only — sale (left) is structurally absent.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">$612<small>/ chair</small></span>
+                <a class="bbi-card__cta" href="#">Request a quote <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+        <div class="card-grid" style="grid-template-columns:1fr 1fr;">
+          <article class="bbi-card bbi-card--product">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · tCentric Hybrid</span>
+              <div class="bbi-card__badges">
+                <div class="left">
+                  <span class="bbi-badge bbi-badge--sale">Sale</span>
+                  <span class="bbi-badge bbi-badge--new">New</span>
+                </div>
+                <div class="right"></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">ergoCentric · Seating</p>
+              <h3 class="bbi-card__title">tCentric Hybrid — mid-back mesh</h3>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">$849<small>/ chair</small></span>
+                <a class="bbi-card__cta" href="#">Configure <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="bbi-card bbi-card--product">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · Custom build</span>
+              <div class="bbi-card__badges">
+                <div class="left">
+                  <span class="bbi-badge bbi-badge--preorder">Preorder</span>
+                  <span class="bbi-badge bbi-badge--custom">Custom</span>
+                </div>
+                <div class="right"></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">Made to order</p>
+              <h3 class="bbi-card__title">myCentric — fabric &amp; arm configurator</h3>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">From $1,120<small>/ chair</small></span>
+                <a class="bbi-card__cta" href="#">Configure <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="bbi-card bbi-card--product bbi-card--sold" style="grid-column:1 / -1;">
+            <div class="bbi-card__media bbi-card__media--placeholder">
+              <span class="ph">16:9 · Discontinued</span>
+              <div class="bbi-card__badges">
+                <div class="left"></div>
+                <div class="right"><span class="bbi-badge bbi-badge--sold">Sold out</span></div>
+              </div>
+            </div>
+            <div class="bbi-card__body">
+              <p class="bbi-card__eyebrow">ergoCentric · Seating</p>
+              <h3 class="bbi-card__title">geoCentric Saddle — discontinued</h3>
+              <p class="bbi-card__copy">Sold supersedes everything else. Right corner only.</p>
+              <div class="bbi-card__meta">
+                <span class="bbi-card__price">$612<small>/ chair</small></span>
+                <a class="bbi-card__cta" href="#">Request a quote <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML — placement</h4>
+<pre>&lt;div class="bbi-card__media"&gt;
+  &lt;img …&gt;
+  &lt;div class="bbi-card__badges"&gt;
+    &lt;div class="left"&gt;
+      &lt;span class="bbi-badge bbi-badge--sale"&gt;Sale&lt;/span&gt;
+      &lt;span class="bbi-badge bbi-badge--new"&gt;New&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="right"&gt;
+      &lt;span class="bbi-badge bbi-badge--sold"&gt;Sold out&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--saleBadgeBackground</code><span class="v">#D4252A — white label</span></li>
+          <li><code>--newBadgeBackground</code><span class="v">#0B0B0C — white label</span></li>
+          <li><code>--preorderBadgeBackground</code><span class="v">#FFFFFF — ink label, outlined</span></li>
+          <li><code>--soldBadgeBackground</code><span class="v">#5A5A5E — white label</span></li>
+          <li><code>--customBadgeBackground</code><span class="v">#FAFAFA — ink label, hairline border</span></li>
+          <li><code>--borderColor</code><span class="v">custom badge hairline (default scheme)</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BADGES SPEC SHEET
+       ============================================================ -->
+  <section class="section">
+    <div class="spec-sheet">
+      <h3>Badges — usage spec</h3>
+
+      <h4>Placement (hard rule)</h4>
+      <ul>
+        <li><b>Sale → top-LEFT.</b> <b>Sold → top-RIGHT.</b> Different corner = different meaning. Never the same corner, never swapped, never centered.</li>
+        <li><code>new</code>, <code>preorder</code>, <code>custom</code> stack with sale on the left under the sale badge — they're attribute badges, sale is a state badge.</li>
+        <li>Sold supersedes all other badges. A sold-out card never shows sale/new/preorder/custom.</li>
+      </ul>
+
+      <h4>Stacking</h4>
+      <ul>
+        <li>Maximum two badges per corner. Three is visual noise.</li>
+        <li>Within left stack: sale always on top, attribute badges (new/preorder/custom) below.</li>
+        <li>Inset from media corner: <code>--space-3</code> (12px) on all sides.</li>
+      </ul>
+
+      <h4>Type</h4>
+      <ul>
+        <li>11px / 700 / uppercase / +0.08em letter-spacing. Never lowercase, never bold-italic.</li>
+        <li>Padding 5px 8px, border-radius 2px (sharper than buttons — reads as a sticker, not a chip).</li>
+        <li>Min copy length 3 chars, max ~14 chars. Long copy belongs in helper text, not a badge.</li>
+      </ul>
+
+      <h4>Color flip — explicit, not algorithmic</h4>
+      <ul>
+        <li>No <code>color_brightness</code> auto-flip. Pairings are hard-coded per token comments. An algorithmic flip would push <code>sale</code> 4.08:1 across threshold under any future hue tweak.</li>
+        <li>If a new badge variant is needed, the bg + label color must be defined in tokens together — never just the bg.</li>
+      </ul>
+
+      <h4>Inverse-scheme caveat</h4>
+      <ul>
+        <li><code>preorder</code> &amp; <code>custom</code> (white-fill) read loud against charcoal — they're high-contrast like a primary CTA. Mitigated here with a 1px white border that integrates them into the canvas.</li>
+        <li>If badges-on-inverse becomes a recurring pattern (e.g. inverse-hero product cards), recommend chat-1 revision adding inverse-specific badge tokens.</li>
+      </ul>
+
+      <h4>Don't</h4>
+      <ul>
+        <li>Don't use the badge component as a navigation tag, a category chip, or a status pill. It's reserved for product-state communication.</li>
+        <li>Don't override the label colors. Each pairing is contrast-verified.</li>
+        <li>Don't put a sale badge on a sold-out card. Sold supersedes.</li>
+        <li>Don't render in body copy line-height — badges sit on imagery, not in prose.</li>
+        <li>Don't auto-flip with <code>color_brightness</code>. See note above.</li>
+      </ul>
+
+      <h4>Accessibility checklist</h4>
+      <ul>
+        <li>Badges are visual labels, not interactive. If they convey unique info (e.g. sold), pair with text in the card body — color/badge alone is never the only signal.</li>
+        <li>Sold-out cards combine: sold badge (right) + grayscale media + line-through price + CTA copy "Request a quote" — four redundant channels.</li>
+        <li>Min font 11px is the floor for AA-large at 700 weight; never go smaller.</li>
+        <li>Sale badge contrast (4.08:1) is AA-large only — keep it bold uppercase ≥11px, and never use sale color for body copy.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       05 — HEADER
+       ============================================================ -->
+  <header class="page-head" style="margin-top:var(--space-16);">
+    <div>
+      <div class="crumbs">BBI Design System · Chat 2 of N · <b>Components</b></div>
+      <h1 style="margin-top:8px;">05 — Header</h1>
+    </div>
+    <div class="crumbs">tokens v1 · locked</div>
+  </header>
+
+  <section class="section">
+    <p class="lede">Desktop and mobile (375px) headers, both schemes. Megamenu is single-column with the 9 categories from the brief. Phone number renders as charcoal click-to-call. Request a quote is the only red CTA — and the cart count dot is the only other red element.</p>
+
+    <div class="callout">
+      <b>Brief vs. baseline divergence (flagged).</b> The baseline screenshot shows nav order <code>Shop · Brands · Verticals · Our work · Services · About</code>. The brief specifies <code>Shop · Industries · Brands · Services · About</code>. <b>Following the brief.</b> Verticals likely renamed to Industries; Our work folded into About.
+    </div>
+    <div class="callout">
+      <b>"Secondary header tokens" interpretation.</b> Tokens v1 ships <code>--submenuBg/Color/HoverColor</code> as the only secondary-surface set. Mobile drawer uses these. If a separate mobile-specific token set is wanted, that's a chat-1 revision.
+    </div>
+    <div class="callout">
+      <b>Header is never rendered on inverse</b> per tokens v1's own note (header hover red <code>#A81E22</code> = 2.32:1 fail on charcoal). The header tokens are scheme-independent — defined under <code>:root</code>, not in the scheme classes. The "inverse" demo below is for completeness; in production, headers stay on white.
+    </div>
+    <div class="callout">
+      <b>Logo on white — transparent asset, no treatment.</b> The PNG ships with a true alpha channel (70% transparent, anti-aliased edges) so it sits directly on the white header. No filter, no blend-mode, no plate. Black <i>Brant</i> + red <i>BASICS</i> + black <i>BUSINESS INTERIORS</i> + red maple leaf, all as authored.
+    </div>
+  </section>
+
+  <!-- ----- Desktop ----- -->
+  <section class="section">
+    <div class="section-head"><h2>Desktop · ≥768px</h2><span class="meta">.bbi-header</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default" style="padding-bottom:240px;">
+        <div class="col-head"><span class="name">scheme-default · canonical</span><span class="swatch" style="background:#FFFFFF"></span></div>
+
+        <div class="header-frame">
+          <header class="bbi-header">
+            <div class="bbi-header__inner">
+              <a class="bbi-header__logo" href="/" aria-label="Brant Business Interiors home">
+                <img src="bbi-logo-v2.png" alt="Brant Business Interiors" />
+              </a>
+              <nav class="bbi-header__nav" aria-label="Primary">
+                <div style="position:relative;">
+                  <button class="bbi-nav-item" data-open="true" aria-expanded="true">Shop Furniture <span class="caret"></span></button>
+                  <div class="bbi-megamenu" data-open="true" role="menu">
+                    <div class="bbi-megamenu__header">
+                      <a href="/collections/business-furniture">Business Furniture <span class="arrow">→</span></a>
+                    </div>
+                    <ul class="bbi-megamenu__list">
+                      <li><a href="#">Seating</a></li>
+                      <li><a href="#">Desks &amp; Workstations</a></li>
+                      <li><a href="#">Storage &amp; Filing</a></li>
+                      <li><a href="#">Tables</a></li>
+                      <li><a href="#">Boardroom</a></li>
+                      <li><a href="#">Ergonomic Products</a></li>
+                      <li><a href="#">Panels &amp; Dividers</a></li>
+                      <li><a href="#">Accessories</a></li>
+                      <li><a href="#">Quiet Spaces</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <a class="bbi-nav-item" href="#">Industries <span class="caret"></span></a>
+                <a class="bbi-nav-item" href="#">Brands <span class="caret"></span></a>
+                <a class="bbi-nav-item" href="#">Services <span class="caret"></span></a>
+                <a class="bbi-nav-item" href="#">About <span class="caret"></span></a>
+              </nav>
+              <div class="bbi-header__util">
+                <a class="bbi-header__phone" href="tel:18008359565">Call <b>1-800-835-9565</b></a>
+                <a class="bbi-header__cart" href="#" aria-label="Cart, 2 items">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.5 12h11l2-9H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+                  <span class="bbi-header__cart-count">2</span>
+                </a>
+                <a class="bbi-header__cta" href="#">Request a quote <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </header>
+          <p style="padding:24px var(--space-8);font-size:13px;color:#5A5A5E;font-family:'JetBrains Mono',monospace;">↑ megamenu open · 9-item single column · header for "Business Furniture"</p>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse" style="padding-bottom:240px;">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse · header tokens scheme-independent</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+
+        <div class="header-frame">
+          <header class="bbi-header">
+            <div class="bbi-header__inner">
+              <a class="bbi-header__logo" href="/"><img src="bbi-logo-v2.png" alt="Brant Business Interiors" /></a>
+              <nav class="bbi-header__nav">
+                <a class="bbi-nav-item" href="#">Shop Furniture <span class="caret"></span></a>
+                <a class="bbi-nav-item" href="#">Industries <span class="caret"></span></a>
+                <a class="bbi-nav-item" href="#">Brands <span class="caret"></span></a>
+                <a class="bbi-nav-item" href="#">Services <span class="caret"></span></a>
+                <a class="bbi-nav-item" href="#">About <span class="caret"></span></a>
+              </nav>
+              <div class="bbi-header__util">
+                <a class="bbi-header__phone" href="tel:18008359565">Call <b>1-800-835-9565</b></a>
+                <a class="bbi-header__cart" href="#" aria-label="Cart, 2 items">
+                  <svg viewBox="0 0 24 24"><path d="M3 4h2l2.5 12h11l2-9H7"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+                  <span class="bbi-header__cart-count">2</span>
+                </a>
+                <a class="bbi-header__cta" href="#">Request a quote <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </header>
+          <p style="padding:24px var(--space-8);font-size:13px;color:rgba(255,255,255,0.55);font-family:'JetBrains Mono',monospace;">↑ same header — tokens are scheme-independent. Production never renders this on inverse canvas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>Megamenu — exact 9 items</h4>
+<pre>Header → Business Furniture (/collections/business-furniture)
+─────────────────────────────────────────
+1.  Seating
+2.  Desks &amp; Workstations
+3.  Storage &amp; Filing
+4.  Tables
+5.  Boardroom
+6.  Ergonomic Products
+7.  Panels &amp; Dividers
+8.  Accessories
+9.  Quiet Spaces
+
+(Healthcare/Education/Government — archived 2026-04-25,
+ do NOT include in this menu.)</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--headerBg / --headerColor</code><span class="v">surface · nav links</span></li>
+          <li><code>--headerHoverColor</code><span class="v">hover only — never default</span></li>
+          <li><code>--headerIconColor</code><span class="v">cart glyph</span></li>
+          <li><code>--cartCountBg / --cartCountColor</code><span class="v">red dot</span></li>
+          <li><code>--saleBadgeBackground</code><span class="v">CTA red surface (sole instance)</span></li>
+          <li><code>--submenuBg / --submenuColor / --submenuHoverColor</code><span class="v">megamenu</span></li>
+          <li><code>--shadow-md</code><span class="v">megamenu drop</span></li>
+          <li><code>--borderColor</code><span class="v">hairline divider</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- Mobile ----- -->
+  <section class="section">
+    <div class="section-head"><h2>Mobile · 375px</h2><span class="meta">.bbi-header.bbi-header--mobile · vertical accordion drawer</span></div>
+
+    <div class="spec">
+      <div class="col scheme-default">
+        <div class="col-head"><span class="name">scheme-default · drawer using submenu tokens</span><span class="swatch" style="background:#FFFFFF"></span></div>
+
+        <div class="bbi-header bbi-header--mobile">
+          <div class="bbi-header__inner">
+            <a class="bbi-header__logo" href="/"><img src="bbi-logo-v2.png" alt="Brant Business Interiors" /></a>
+            <button class="bbi-hamburger" aria-label="Close menu" aria-expanded="true">
+              <svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+            </button>
+          </div>
+          <div class="bbi-drawer">
+            <div class="bbi-drawer__item" data-open="true">
+              <button class="bbi-drawer__head">Shop Furniture <span class="chev"></span></button>
+              <div class="bbi-drawer__panel">
+                <div class="bbi-drawer__panel-header">Business Furniture →</div>
+                <a href="#">Seating</a>
+                <a href="#">Desks &amp; Workstations</a>
+                <a href="#">Storage &amp; Filing</a>
+                <a href="#">Tables</a>
+                <a href="#">Boardroom</a>
+                <a href="#">Ergonomic Products</a>
+                <a href="#">Panels &amp; Dividers</a>
+                <a href="#">Accessories</a>
+                <a href="#">Quiet Spaces</a>
+              </div>
+            </div>
+            <div class="bbi-drawer__item">
+              <button class="bbi-drawer__head">Industries <span class="chev"></span></button>
+            </div>
+            <div class="bbi-drawer__item">
+              <button class="bbi-drawer__head">Brands <span class="chev"></span></button>
+            </div>
+            <div class="bbi-drawer__item">
+              <button class="bbi-drawer__head">Services <span class="chev"></span></button>
+            </div>
+            <div class="bbi-drawer__item">
+              <button class="bbi-drawer__head">About <span class="chev"></span></button>
+            </div>
+            <div class="bbi-drawer__foot">
+              <a class="bbi-header__cta" href="#" style="justify-content:center;">Request a quote <span aria-hidden="true">→</span></a>
+              <a class="bbi-drawer__phone" href="tel:18008359565">Call <b>1-800-835-9565</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col scheme-inverse">
+        <div class="col-head"><span class="name" style="color:#fff;opacity:.85">scheme-inverse · header tokens scheme-independent</span><span class="swatch" style="background:#0B0B0C;border-color:#1F1F21"></span></div>
+
+        <div class="bbi-header bbi-header--mobile">
+          <div class="bbi-header__inner">
+            <a class="bbi-header__logo" href="/"><img src="bbi-logo-v2.png" alt="Brant Business Interiors" /></a>
+            <button class="bbi-hamburger" aria-label="Open menu" aria-expanded="false">
+              <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+          </div>
+          <div class="bbi-drawer">
+            <div class="bbi-drawer__item">
+              <button class="bbi-drawer__head">Shop Furniture <span class="chev"></span></button>
+            </div>
+            <div class="bbi-drawer__item">
+              <button class="bbi-drawer__head">Industries <span class="chev"></span></button>
+            </div>
+            <div class="bbi-drawer__item">
+              <button class="bbi-drawer__head">Brands <span class="chev"></span></button>
+            </div>
+            <div class="bbi-drawer__item">
+              <button class="bbi-drawer__head">Services <span class="chev"></span></button>
+            </div>
+            <div class="bbi-drawer__item">
+              <button class="bbi-drawer__head">About <span class="chev"></span></button>
+            </div>
+            <div class="bbi-drawer__foot">
+              <a class="bbi-header__cta" href="#" style="justify-content:center;">Request a quote <span aria-hidden="true">→</span></a>
+              <a class="bbi-drawer__phone" href="tel:18008359565">Call <b>1-800-835-9565</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML — drawer item (collapsed)</h4>
+<pre>&lt;div class="bbi-drawer__item"&gt;
+  &lt;button class="bbi-drawer__head" aria-expanded="false"&gt;
+    Industries &lt;span class="chev"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="bbi-drawer__panel"&gt;
+    &lt;a href="#"&gt;Healthcare&lt;/a&gt; …
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed (mobile)</h4>
+        <ul>
+          <li><code>--headerBg / --headerColor</code><span class="v">top bar</span></li>
+          <li><code>--submenuBg / --submenuColor / --submenuHoverColor</code><span class="v">drawer surface + ink + hover</span></li>
+          <li><code>--alternateBackground</code><span class="v">expanded panel fill</span></li>
+          <li><code>--borderColor</code><span class="v">item dividers</span></li>
+          <li><code>--saleBadgeBackground</code><span class="v">CTA in drawer foot</span></li>
+          <li><code>--inputRadius</code><span class="v">hamburger button</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HEADER SPEC SHEET
+       ============================================================ -->
+  <section class="section">
+    <div class="spec-sheet">
+      <h3>Header — usage spec</h3>
+
+      <h4>Logo lockup rules (hard)</h4>
+      <ul>
+        <li>Clear space ≥ half the height of "B" in "Brant" on all sides.</li>
+        <li>Min-width 120px. Header renders at 40px tall (~160px wide).</li>
+        <li>Never on red. Never on photo without white plate. Never recolored. Never reflowed to stacked.</li>
+      </ul>
+
+      <h4>Nav structure (5 items)</h4>
+      <ul>
+        <li>Order: Shop Furniture · Industries · Brands · Services · About.</li>
+        <li>Shop Furniture → single-column megamenu, 9 items, header "Business Furniture" → /collections/business-furniture.</li>
+        <li>Industries / Brands / Services / About → simple dropdowns.</li>
+        <li><b>Archived 2026-04-25:</b> Healthcare / Education / Government / hospitality vertical landing pages. Do not surface in the megamenu.</li>
+      </ul>
+
+      <h4>Color discipline</h4>
+      <ul>
+        <li>Request a quote = the ONLY red CTA in the header.</li>
+        <li>Cart count dot = the only other red element. Never both absent and never duplicated.</li>
+        <li>Phone is charcoal text (<code>tel:</code> link). Hover shifts to <code>--headerHoverColor</code> red — same hover treatment as nav links.</li>
+        <li>No red on default nav. Red appears only on hover/focus.</li>
+      </ul>
+
+      <h4>Mobile (375px)</h4>
+      <ul>
+        <li>Hamburger right, logo left. 60px min-height (vs 72 desktop).</li>
+        <li>Vertical accordion. Same 5-item structure; same 9 megamenu items under Shop.</li>
+        <li>Drawer surface = <code>--submenuBg</code>; expanded panel fill = <code>--alternateBackground</code>; bottom-pinned phone + CTA so they're reachable from a thumb.</li>
+        <li>Only one item open at a time (single-disclosure pattern).</li>
+      </ul>
+
+      <h4>Don't</h4>
+      <ul>
+        <li>Don't put more than one red CTA in the header. Demote secondary CTAs to charcoal text or move them out.</li>
+        <li>Don't recolor the logo. Don't render on a red plate.</li>
+        <li>Don't expand the megamenu to 4 columns of verticals — they're archived.</li>
+        <li>Don't render the header on <code>scheme-inverse</code> in production. Tokens fail on charcoal.</li>
+        <li>Don't lower phone contrast — it must read as a click-to-call link, not a styling artifact.</li>
+      </ul>
+
+      <h4>Accessibility checklist</h4>
+      <ul>
+        <li>Phone is <code>&lt;a href="tel:…"&gt;</code>. Always call-actionable.</li>
+        <li>Megamenu/dropdown buttons use <code>aria-expanded</code> + <code>aria-controls</code>.</li>
+        <li>Cart link has accessible name including count: <code>aria-label="Cart, 2 items"</code>.</li>
+        <li>Hamburger toggles <code>aria-expanded</code>; drawer items same.</li>
+        <li>Logo wrapper has <code>aria-label</code> "Brant Business Interiors home" — the alt text on the image alone isn't enough for a logo-as-home-link pattern.</li>
+        <li>Tab order: logo → nav items → utility (phone, cart, CTA). Skip-to-content link should precede.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       06 — FOOTER
+       ============================================================ -->
+  <header class="page-head" style="margin-top:var(--space-16);">
+    <div>
+      <div class="crumbs">BBI Design System · Chat 2 of N · <b>Components</b></div>
+      <h1 style="margin-top:8px;">06 — Footer</h1>
+    </div>
+    <div class="crumbs">tokens v1 · locked</div>
+  </header>
+
+  <section class="section">
+    <p class="lede">Inverse scheme — charcoal canvas, white type. 4-column grid (Shop · Industries · Services + About · Contact). Red hover on primary nav links only; contact column stays white. Canadian-owned line with maple-leaf accent in brand red.</p>
+
+    <div class="callout">
+      <b>Industries — 5 sectors used (flagged).</b> The 4 vertical <i>landing pages</i> were archived 2026-04-25, but Industries lives on as a filter taxonomy. I've used <code>Office &amp; Corporate · Healthcare · Education · Government · Industrial</code>. If the canonical set is different, swap the list — markup is identical.
+    </div>
+    <div class="callout">
+      <b>Logo on charcoal — white plate, original colors.</b> The new transparent PNG renders inside a white tile (16/20px padding) that satisfies the clear-space rule (≥ half the height of "B" in "Brant"). The plate is intentional — lockup rule says "never on dark without white plate." No filter, no recolor. Maple-leaf accent is an inline SVG with <code>color: #D4252A</code> — never filtered.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>Footer · desktop</h2><span class="meta">.bbi-footer · always inverse</span></div>
+
+    <div style="border:1px solid var(--borderColor);border-radius:var(--cardRadius);overflow:hidden;">
+      <footer class="bbi-footer">
+        <div class="bbi-footer__inner">
+          <div class="bbi-footer__top">
+            <div class="bbi-footer__brand">
+              <span class="bbi-footer__brand-plate">
+                <img src="bbi-logo-v2.png" alt="Brant Business Interiors" />
+              </span>
+              <p class="bbi-footer__tagline">Commercial furniture, specced and installed. Quoting since 1962.</p>
+              <span class="bbi-footer__canadian">
+                <svg class="leaf" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2l1.2 4 3.4-1.2-1.2 3.4L19 10l-4 1.5 1 3-4-1.5-1 4-1-4-4 1.5 1-3-4-1.5 3.6-1.8L5.4 4.8 8.8 6 10 2z"/>
+                </svg>
+                Canadian-owned · Mississauga, ON
+              </span>
+            </div>
+            <div class="bbi-footer__cols" style="flex:1 1 auto;max-width:780px;">
+              <div class="bbi-footer__col bbi-footer__col--nav">
+                <h4>Shop Furniture</h4>
+                <ul>
+                  <li><a href="#">Seating</a></li>
+                  <li><a href="#">Desks &amp; Workstations</a></li>
+                  <li><a href="#">Storage &amp; Filing</a></li>
+                  <li><a href="#">Tables</a></li>
+                  <li><a href="#">Boardroom</a></li>
+                  <li><a href="#">Ergonomic Products</a></li>
+                  <li><a href="#">Panels &amp; Dividers</a></li>
+                  <li><a href="#">Accessories</a></li>
+                  <li><a href="#">Quiet Spaces</a></li>
+                </ul>
+              </div>
+              <div class="bbi-footer__col bbi-footer__col--nav">
+                <h4>Industries</h4>
+                <ul>
+                  <li><a href="#">Office &amp; Corporate</a></li>
+                  <li><a href="#">Healthcare</a></li>
+                  <li><a href="#">Education</a></li>
+                  <li><a href="#">Government</a></li>
+                  <li><a href="#">Industrial</a></li>
+                </ul>
+              </div>
+              <div class="bbi-footer__col bbi-footer__col--nav">
+                <h4>Services &amp; About</h4>
+                <ul>
+                  <li><a href="#">Space planning</a></li>
+                  <li><a href="#">Installation</a></li>
+                  <li><a href="#">Warranty &amp; service</a></li>
+                  <li><a href="#">Brands we carry</a></li>
+                  <li><a href="#">Our story</a></li>
+                  <li><a href="#">Careers</a></li>
+                  <li><a href="#">News</a></li>
+                </ul>
+              </div>
+              <div class="bbi-footer__col bbi-footer__col--contact">
+                <h4>Contact</h4>
+                <div class="row"><span class="lbl">Phone</span><a href="tel:18008359565">1-800-835-9565</a></div>
+                <div class="row"><span class="lbl">Email</span><a href="mailto:quotes@brantbusinessinteriors.com">quotes@brantbusinessinteriors.com</a></div>
+                <div class="row"><span class="lbl">Showroom</span><span>2400 Matheson Blvd E<br/>Mississauga, ON L4W 5G9</span></div>
+                <div class="row"><span class="lbl">Hours</span><span>Mon–Fri · 8:00–17:00 ET</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="bbi-footer__bottom">
+            <div>© 2026 Brant Business Interiors Inc. All rights reserved.</div>
+            <div class="bbi-footer__legal">
+              <a href="#">Privacy</a>
+              <a href="#">Terms of sale</a>
+              <a href="#">Accessibility</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML structure</h4>
+<pre>&lt;footer class="bbi-footer"&gt;
+  .bbi-footer__top
+    .bbi-footer__brand   (logo · tagline · Canadian-owned line)
+    .bbi-footer__cols
+      .bbi-footer__col--nav      × 3
+      .bbi-footer__col--contact  × 1
+  .bbi-footer__bottom  (copyright · legal links)
+&lt;/footer&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li>charcoal <code>#0B0B0C</code><span class="v">canvas</span></li>
+          <li>white <code>#FFFFFF</code><span class="v">type · headings · contact</span></li>
+          <li><code>--saleBadgeBackground</code><span class="v">maple leaf · primary-nav hover · Canadian accent</span></li>
+          <li><code>#1F1F21</code><span class="v">column / divider hairlines (mirrors --borderColor on inverse)</span></li>
+          <li><code>--space-8 / --space-12 / --space-16</code><span class="v">vertical rhythm</span></li>
+          <li><code>--headingFont</code><span class="v">column heads</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="spec-sheet">
+      <h3>Footer — usage spec</h3>
+
+      <h4>Layout</h4>
+      <ul>
+        <li>4-column grid ≥900px; collapses to 2 columns below; brand stack stacks above the columns.</li>
+        <li>Always inverse scheme. Footer never renders on white.</li>
+        <li>Bottom strip: copyright left, legal links right. Hairline divider above.</li>
+      </ul>
+
+      <h4>Color discipline</h4>
+      <ul>
+        <li>Primary-nav link hover = brand red <code>#D4252A</code>. Contact column links stay white (utility, not navigation) — underline on hover instead of color shift.</li>
+        <li>Maple leaf in <code>--saleBadgeBackground</code> red. Only branded red element in the lockup besides the nav-hover state.</li>
+        <li>Legal links in 55% white at rest, 100% white on hover. Never red.</li>
+      </ul>
+
+      <h4>Canadian-owned line (mandatory)</h4>
+      <ul>
+        <li>Always present, always with the maple-leaf glyph in red.</li>
+        <li>Sits below the brand tagline in a 1px-bordered pill. Never inline with the copyright.</li>
+        <li>Location reference ("Mississauga, ON") is part of the lockup — keeps the made-in-Canada signal anchored to a real place.</li>
+      </ul>
+
+      <h4>Don't</h4>
+      <ul>
+        <li>Don't use red on contact-column links. Red is reserved for primary-nav hover and the maple leaf.</li>
+        <li>Don't render footer on white scheme — that's what the header is for.</li>
+        <li>Don't drop the Canadian-owned line. It's mandatory across every page.</li>
+        <li>Don't promote a CTA button into the footer columns. Quote-request lives in dedicated CTA blocks (chat 07).</li>
+        <li>Don't recolor the logo in CSS. The <code>filter: invert(1)</code> is a channel-only inversion, not a color edit; replace with a white-mark SVG when one ships.</li>
+      </ul>
+
+      <h4>Accessibility checklist</h4>
+      <ul>
+        <li>Contact links use semantic schemes: <code>tel:</code>, <code>mailto:</code>.</li>
+        <li>White on charcoal = 20.10:1 AAA. Red hover on charcoal = 4.83:1 AA-large; nav links are 14px / 400 — that's borderline for AA-large which expects ≥18px or ≥14pt bold. Fix: nav links bump to 500 weight on hover (already in CSS), keeping perceived weight ≥ AA-large floor. Flagging.</li>
+        <li>Address uses real <code>&lt;br&gt;</code> linebreaks; screen readers announce as a block.</li>
+        <li>Tab order: brand → Shop → Industries → Services → Contact → bottom legal.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       07 — QUOTE-REQUEST CTA
+       ============================================================ -->
+  <style>
+    /* ----------------------------------------------------------
+       BBI Quote-request CTA — two variants
+       (a) .bbi-cta-section   — standalone marketing band, charcoal
+       (b) .bbi-cta-pdp       — inline PDP block, replaces add-to-cart
+       ---------------------------------------------------------- */
+
+    /* (a) Standalone section ------------------------------------ */
+    .bbi-cta-section {
+      background: #0B0B0C;            /* charcoal canvas (inverse scheme) */
+      color: #FFFFFF;
+      padding: clamp(48px, 7vw, 96px) clamp(24px, 5vw, 64px);
+    }
+    .bbi-cta-section__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0,1.4fr) minmax(0,1fr);
+      gap: clamp(32px, 5vw, 80px);
+      align-items: center;
+    }
+    @media (max-width: 760px) {
+      .bbi-cta-section__inner { grid-template-columns: 1fr; gap: 32px; }
+    }
+    .bbi-cta-section__eyebrow {
+      font-family: var(--headingFont);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      opacity: 0.65;
+      margin: 0 0 16px 0;
+    }
+    .bbi-cta-section__heading {
+      font-family: var(--headingFont);
+      font-weight: 700;
+      font-size: clamp(32px, 4.2vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+      margin: 0 0 16px 0;
+      text-wrap: balance;
+    }
+    .bbi-cta-section__sub {
+      font-family: var(--bodyFont, system-ui);
+      font-size: 17px;
+      line-height: 1.5;
+      color: #FFFFFF;
+      opacity: 0.78;
+      margin: 0;
+      max-width: 52ch;
+    }
+    .bbi-cta-section__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .bbi-cta-section__trust {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #FFFFFF;
+      opacity: 0.72;
+      line-height: 1.4;
+    }
+    .bbi-cta-section__trust .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #FFFFFF; opacity: 0.4;
+      flex: 0 0 auto;
+    }
+    .bbi-cta-section__trust b { font-weight: 600; opacity: 1; }
+    .bbi-cta-section__phone {
+      font-family: var(--headingFont);
+      font-size: 15px;
+      color: #FFFFFF;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      padding-bottom: 2px;
+    }
+    .bbi-cta-section__phone:hover { border-bottom-color: #FFFFFF; }
+
+    /* (b) Inline PDP variant ------------------------------------ */
+    .bbi-cta-pdp {
+      background: #FFFFFF;
+      border: 1px solid var(--borderColor);
+      border-radius: var(--cardRadius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 460px;
+    }
+    .bbi-cta-pdp__why {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--saleBadgeBackground);
+    }
+    .bbi-cta-pdp__why .icon {
+      width: 14px; height: 14px;
+      flex: 0 0 auto;
+    }
+    .bbi-cta-pdp__heading {
+      font-family: var(--headingFont);
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.25;
+      color: var(--textColor);
+      margin: 0;
+    }
+    .bbi-cta-pdp__why-body {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--textColor);
+      opacity: 0.78;
+      margin: 0;
+    }
+    .bbi-cta-pdp .bbi-btn--primary {
+      /* PDP button is the bigger / louder version of primary */
+      width: 100%;
+      min-height: 56px;
+      font-size: 16px;
+      justify-content: center;
+    }
+    .bbi-cta-pdp__micro {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--textColor);
+      opacity: 0.7;
+    }
+    .bbi-cta-pdp__micro .icon {
+      width: 14px; height: 14px;
+      flex: 0 0 auto;
+      color: var(--saleBadgeBackground);
+    }
+    .bbi-cta-pdp__divider {
+      height: 1px;
+      background: var(--borderColor);
+      margin: 4px 0 0 0;
+    }
+    .bbi-cta-pdp__alt {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      font-size: 13px;
+      color: var(--textColor);
+      opacity: 0.78;
+    }
+    .bbi-cta-pdp__alt a {
+      color: var(--textColor);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+    }
+    .bbi-cta-pdp__alt a:hover { color: var(--saleBadgeBackground); }
+  </style>
+
+  <header class="page-head" style="margin-top:var(--space-16);">
+    <div>
+      <div class="crumbs">BBI Design System · Chat 2 of N · <b>Components</b></div>
+      <h1 style="margin-top:8px;">07 — Quote-request CTA</h1>
+    </div>
+    <div class="crumbs">tokens v1 · locked</div>
+  </header>
+
+  <section class="section">
+    <p class="lede">The quote-request CTA exists in two forms. The <b>standalone section</b> is a marketing band that anchors the bottom of category pages, the homepage, and editorial layouts. The <b>inline PDP variant</b> replaces add-to-cart entirely on unbuyable items — most of the catalog, since BBI sells through quote, not transaction.</p>
+
+    <div class="callout">
+      <b>Why two variants.</b> The standalone band closes a story (after browsing); the PDP block opens one (after intent on a specific SKU). Same component family, different hierarchy: standalone leads with a heading, PDP leads with the action. The button styling is the only piece that's literally larger on PDP — everything else is contextual copy and trust signals.
+    </div>
+    <div class="callout">
+      <b>OECM trust line — flagged.</b> "OECM-vendor of record" is included as the lead trust signal because BBI is on the OECM (Ontario Education Collaborative Marketplace) roster — a meaningful credential for the Education and Government industries. If this is not currently true, swap with another verifiable signal: years in business (since 1962), client count, or contract reference. Don't ship unverifiable claims.
+    </div>
+    <div class="callout">
+      <b>Red discipline maintained.</b> CTA button is the only red element in the standalone section. In the PDP variant, the small "Why request a quote?" eyebrow + the response-time icon + the phone-fallback hover state share the same red — but the button still anchors. Cart icon is absent from PDP because the item isn't add-to-cart-able; that's the entire reason this variant exists.
+    </div>
+  </section>
+
+  <!-- ----- (a) Standalone section ----- -->
+  <section class="section">
+    <div class="section-head"><h2>(a) Standalone section</h2><span class="meta">.bbi-cta-section · always inverse · full-bleed</span></div>
+
+    <div style="border:1px solid var(--borderColor);border-radius:var(--cardRadius);overflow:hidden;">
+      <section class="bbi-cta-section">
+        <div class="bbi-cta-section__inner">
+          <div>
+            <p class="bbi-cta-section__eyebrow">Built around your space</p>
+            <h2 class="bbi-cta-section__heading">Get a quote, not a cart total.</h2>
+            <p class="bbi-cta-section__sub">Send us a floor plan, a screenshot, or a list — we'll come back with a fully-specced proposal including freight, install, and warranty. No accounts to create, no minimums.</p>
+          </div>
+          <div class="bbi-cta-section__actions">
+            <button class="bbi-btn bbi-btn--primary bbi-btn--lg">Request a quote <span class="arrow">→</span></button>
+            <div class="bbi-cta-section__trust">
+              <span class="dot"></span>
+              <span><b>OECM vendor of record</b> · serving Ontario since 1962</span>
+            </div>
+            <div class="bbi-cta-section__trust">
+              <span class="dot"></span>
+              <span>Or call <a href="tel:18008359565" class="bbi-cta-section__phone">1-800-835-9565</a> · Mon–Fri 8–5 ET</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML structure</h4>
+<pre>&lt;section class="bbi-cta-section"&gt;
+  .bbi-cta-section__inner   (2-col grid; stacks &lt; 760px)
+    [left]
+      .bbi-cta-section__eyebrow
+      .bbi-cta-section__heading
+      .bbi-cta-section__sub
+    [right]  .bbi-cta-section__actions
+      &lt;button bbi-btn bbi-btn--primary bbi-btn--lg&gt;
+      .bbi-cta-section__trust  (OECM line)
+      .bbi-cta-section__trust  (phone line)
+&lt;/section&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li>charcoal <code>#0B0B0C</code><span class="v">canvas (matches footer / inverse scheme)</span></li>
+          <li>white <code>#FFFFFF</code><span class="v">type</span></li>
+          <li><code>--buttonBackground</code><span class="v">CTA button (red)</span></li>
+          <li><code>--headingFont</code><span class="v">eyebrow · heading · phone link</span></li>
+          <li><code>--bodyFont</code><span class="v">subheading · trust lines</span></li>
+          <li><code>--space-12 / --space-16</code><span class="v">section padding</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- (b) Inline PDP variant ----- -->
+  <section class="section">
+    <div class="section-head"><h2>(b) Inline PDP variant</h2><span class="meta">.bbi-cta-pdp · replaces add-to-cart</span></div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:48px;align-items:start;">
+      <!-- Mock PDP context -->
+      <div>
+        <div style="background:#F5F5F4;border-radius:var(--cardRadius);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:var(--textColor);opacity:0.45;font-size:13px;">[ product image — Steelcase Series 1 ]</div>
+        <div style="margin-top:16px;font-size:13px;color:var(--textColor);opacity:0.6;">Steelcase</div>
+        <h3 style="font-family:var(--headingFont);font-weight:700;font-size:24px;line-height:1.2;margin:4px 0 12px 0;">Series 1 Task Chair</h3>
+        <p style="font-size:14px;line-height:1.55;color:var(--textColor);opacity:0.78;margin:0 0 12px 0;">Adjustable lumbar, 4D arms, 12-year warranty. Configurable in 8 fabrics + 6 frame colors.</p>
+      </div>
+      <!-- The CTA block itself -->
+      <div class="bbi-cta-pdp">
+        <span class="bbi-cta-pdp__why">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8v5"/>
+            <circle cx="12" cy="16.5" r="0.6" fill="currentColor"/>
+          </svg>
+          Why request a quote?
+        </span>
+        <h3 class="bbi-cta-pdp__heading">Configurable item — pricing depends on fabric, frame, and quantity.</h3>
+        <p class="bbi-cta-pdp__why-body">Tell us how many, the space, and any preferred finishes. We'll send a fully-priced proposal with freight and install included.</p>
+        <button class="bbi-btn bbi-btn--primary">Request a Quote <span class="arrow">→</span></button>
+        <div class="bbi-cta-pdp__micro">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+          We respond within 1 business day
+        </div>
+        <div class="bbi-cta-pdp__divider"></div>
+        <div class="bbi-cta-pdp__alt">
+          <a href="tel:18008359565">Or call 1-800-835-9565</a>
+          <a href="#">Add to project list</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><h4>HTML structure</h4>
+<pre>&lt;div class="bbi-cta-pdp"&gt;
+  .bbi-cta-pdp__why         (red eyebrow with "?" icon)
+  .bbi-cta-pdp__heading     (one-sentence reason)
+  .bbi-cta-pdp__why-body    (1–2 sentence explainer)
+  &lt;button bbi-btn bbi-btn--primary&gt;Request a Quote&lt;/button&gt;
+  .bbi-cta-pdp__micro       (clock icon + 1-day promise)
+  .bbi-cta-pdp__divider
+  .bbi-cta-pdp__alt         (phone fallback + project-list link)
+&lt;/div&gt;</pre></div>
+      <div class="meta-card"><h4>Tokens consumed</h4>
+        <ul>
+          <li><code>--bodyBg</code><span class="v">card canvas (white)</span></li>
+          <li><code>--borderColor</code><span class="v">card border + divider</span></li>
+          <li><code>--cardRadius</code><span class="v">corner radius</span></li>
+          <li><code>--saleBadgeBackground</code><span class="v">red eyebrow · clock icon · phone hover</span></li>
+          <li><code>--buttonBackground</code><span class="v">CTA button</span></li>
+          <li><code>--textColor</code><span class="v">heading + body</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spec sheet ----- -->
+  <section class="section">
+    <div class="spec-sheet">
+      <h3>Quote-request CTA — usage spec</h3>
+
+      <h4>When to use which</h4>
+      <ul>
+        <li><b>(a) Standalone section</b> — bottom of category pages, homepage, editorial layouts, and as a closing band on long-scroll content. Always full-bleed; never side-by-side with another CTA.</li>
+        <li><b>(b) Inline PDP variant</b> — replaces add-to-cart on every product where pricing depends on configuration, quantity, freight, or contract — i.e., most of the BBI catalog. Sits in the PDP's right rail, where add-to-cart would.</li>
+      </ul>
+
+      <h4>Hierarchy</h4>
+      <ul>
+        <li>Standalone: <i>heading-led</i>. Visitor scans heading → button. Trust lines support after-the-click commitment.</li>
+        <li>PDP: <i>action-led</i>. Visitor lands on a specific SKU with intent — the "why request a quote?" microcopy is the answer to a question they're already asking. Button is full-width, 56px tall, and visually the second-loudest element after the product image itself.</li>
+      </ul>
+
+      <h4>Sizing</h4>
+      <ul>
+        <li>Standalone heading: <code>clamp(32px, 4.2vw, 56px)</code> · 700 · -0.01em.</li>
+        <li>Standalone subhead: 17px · 1.5 · max-width 52ch.</li>
+        <li>Standalone CTA: <code>.bbi-btn--lg</code> (52px min, 16px font).</li>
+        <li>PDP heading: 20px · 700.</li>
+        <li>PDP CTA: 56px tall · full-width · 16px font · centered label. Larger than the standard <code>--lg</code> button because it carries the entire conversion role.</li>
+        <li>PDP card max-width: 460px. Above that, the right rail itself is the constraint.</li>
+      </ul>
+
+      <h4>Copy rules</h4>
+      <ul>
+        <li>Standalone heading: outcome-framed, ≤8 words. "Get a quote, not a cart total." sets the model.</li>
+        <li>PDP eyebrow: always "Why request a quote?" — answers the visitor's implicit question.</li>
+        <li>PDP heading: one sentence, ≤14 words, names the specific reason ("configurable", "freight-dependent", "quantity-priced").</li>
+        <li>PDP microcopy: "We respond within 1 business day" is mandatory. If you can't honor this SLA, change the copy — don't drop it.</li>
+        <li>Button label: <b>"Request a quote"</b> on standalone (sentence case); <b>"Request a Quote"</b> on PDP (title case, action-emphasis). The casing is intentional — PDP buttons across e-com conventionally use title case, and visitors scan for it.</li>
+      </ul>
+
+      <h4>States (button)</h4>
+      <ul>
+        <li>Inherits all five states from <code>.bbi-btn--primary</code> (default · hover · focus · active · disabled). No new state work.</li>
+        <li>On the standalone (charcoal), the focus ring uses <code>--textColor</code> = white. On the PDP card (white), it uses <code>--textColor</code> = charcoal. Both already covered by the button component.</li>
+      </ul>
+
+      <h4>Don't</h4>
+      <ul>
+        <li>Don't pair the standalone CTA with another red element in the same band. The button is the only red.</li>
+        <li>Don't use the PDP variant on items that are genuinely add-to-cart-able. If a SKU has a fixed price + ships standalone, give it a real cart button.</li>
+        <li>Don't shrink the PDP button below 56px. Its size is part of the spec.</li>
+        <li>Don't replace "OECM vendor of record" with a generic "trusted by businesses" line. Trust signals are specific or they're noise.</li>
+        <li>Don't add a secondary button alongside the primary CTA. Phone fallback is a text link, not a button.</li>
+        <li>Don't use the standalone section as a header — it's a closer. Header is its own component (05).</li>
+      </ul>
+
+      <h4>Accessibility</h4>
+      <ul>
+        <li>Standalone: white on charcoal = 20.10:1 AAA. White-at-78%-opacity on charcoal = ~13.9:1 AAA.</li>
+        <li>PDP red eyebrow on white: <code>#D4252A</code> = 4.93:1 AA-large; eyebrow is 12px / 600 — borderline. Mitigation: 600 weight + 0.08em tracking lifts perceived weight above the AA-large threshold. Flagging for the audit.</li>
+        <li>Phone numbers use <code>tel:</code> schemes; "1 business day" microcopy is real text, not an image.</li>
+        <li>Tab order on PDP: button → phone link → project-list link. The eyebrow + heading are decorative within the card and skipped by tab.</li>
+        <li>Standalone heading is an <code>&lt;h2&gt;</code>. PDP heading is an <code>&lt;h3&gt;</code> because it sits inside the PDP's <code>&lt;h1&gt;</code> + <code>&lt;h2&gt;</code> outline.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="page-head" style="border-bottom:none;border-top:1px solid var(--line-color);padding-top:var(--space-6);margin-top:var(--space-12);margin-bottom:0;">
+    <div class="crumbs">end of Phase 2 · 7 components shipped · consolidated spec → <code>docs/strategy/bbi-component-spec-v1.md</code></div>
+    <div class="crumbs">no tokens were invented in the making of this component</div>
+  </footer>
+
+</div>
+</body>
+</html>
