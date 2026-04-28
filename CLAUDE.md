@@ -197,7 +197,8 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | **Design system (canonical visual reference)** | [docs/strategy/design-system.md](docs/strategy/design-system.md) |
 | Design system audit (pre-rebuild) | [docs/reviews/design-system-audit-2026-04-27.md](docs/reviews/design-system-audit-2026-04-27.md) |
 | Claude Design constraint brief | [docs/strategy/design-system-brief.md](docs/strategy/design-system-brief.md) |
-| **Component spec v1 (7 components, Phase 2)** | [docs/strategy/bbi-component-spec-v1.md](docs/strategy/bbi-component-spec-v1.md) |
+| **Component spec — v1** | [docs/strategy/bbi-component-spec-v1.md](docs/strategy/bbi-component-spec-v1.md) |
+| Component design photos — v1 | [data/design-photos/components-v1-2026-04-27/](data/design-photos/components-v1-2026-04-27/) |
 | Script reference | [scripts/README.md](scripts/README.md) |
 | Page image generator | [scripts/generate-page-images.py](scripts/generate-page-images.py) |
 | Page image sharpener | [scripts/sharpen-page-images.py](scripts/sharpen-page-images.py) |
