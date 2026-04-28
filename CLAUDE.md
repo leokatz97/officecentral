@@ -204,3 +204,4 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | Logo cleaner (clarity-upscaler) | [scripts/clean-bbi-logo.py](scripts/clean-bbi-logo.py) |
 | AI image library | [data/page-images/](data/page-images/) |
 | Cleaned BBI logo (hi-res) | [data/logos/bbi-logo-hires.png](data/logos/bbi-logo-hires.png) |
+| BBI logo — transparent background | [data/logos/bbi-logo-hires-transparent.png](data/logos/bbi-logo-hires-transparent.png) |
