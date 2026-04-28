@@ -2,825 +2,575 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Brant Business Interiors — Website Fix Checklist</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BBI Master Build Plan — April 2026</title>
 <style>
-  @page {
-    size: Letter;
-    margin: 0.6in 0.7in;
-  }
+@page { size: Letter; margin: 0.6in 0.7in; }
+* { box-sizing: border-box; }
+body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1a1a1a; line-height: 1.5; font-size: 11pt; margin: 0; padding: 0; }
 
-  * { box-sizing: border-box; }
+/* ── PROGRESS BAR ── */
+.prog-bar { position: sticky; top: 0; z-index: 100; background: #1a4d80; color: white; padding: 8px 24px; display: flex; align-items: center; gap: 14px; font-size: 10pt; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+.prog-track { flex: 1; height: 5px; background: rgba(255,255,255,0.25); border-radius: 3px; overflow: hidden; }
+.prog-fill { height: 100%; background: #22c55e; border-radius: 3px; transition: width 0.3s ease; }
+.prog-txt { white-space: nowrap; font-size: 9pt; opacity: 0.9; }
 
-  body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #1a1a1a;
-    line-height: 1.5;
-    font-size: 11pt;
-    margin: 0;
-    padding: 0;
-  }
+/* ── COVER ── */
+.cover { text-align: center; padding: 1.2in 0 0.6in; border-bottom: 3px solid #1a4d80; margin-bottom: 0.4in; page-break-after: always; }
+.cover .eyebrow { font-size: 9pt; letter-spacing: 3px; text-transform: uppercase; color: #6b7280; margin-bottom: 14px; }
+.cover h1 { font-size: 28pt; color: #1a4d80; margin: 0 0 8px; font-weight: 700; }
+.cover .subtitle { font-size: 12pt; color: #374151; margin: 0 0 32px; }
+.cover .meta { display: inline-block; text-align: left; font-size: 10pt; color: #4b5563; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; padding: 12px 28px; }
+.cover .meta div { margin: 3px 0; }
+.cover .meta strong { color: #1a1a1a; display: inline-block; width: 100px; }
 
-  .cover {
-    text-align: center;
-    padding: 1.5in 0 0.8in;
-    border-bottom: 3px solid #1a4d80;
-    margin-bottom: 0.5in;
-    page-break-after: always;
-  }
+/* ── SCOPE CALLOUT ── */
+.scope-note { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 13px 18px; margin: 0.2in 0; border-radius: 0 4px 4px 0; font-size: 10.5pt; }
+.scope-note strong { color: #92400e; }
 
-  .cover .eyebrow {
-    font-size: 10pt;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #6b7280;
-    margin-bottom: 18px;
-  }
+/* ── SECTION ── */
+.section { margin: 0.3in 0 0; page-break-inside: avoid; }
+.sec-head { background: #1a4d80; color: white; padding: 11px 18px; border-radius: 3px 3px 0 0; display: flex; align-items: baseline; gap: 12px; }
+.sec-tag { font-size: 8pt; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; white-space: nowrap; }
+.sec-title { font-size: 13pt; font-weight: 700; margin: 0; }
+.sec-sub { font-size: 9pt; opacity: 0.82; font-style: italic; margin-left: auto; white-space: nowrap; }
+.sec-body { border: 1px solid #d6dfe8; border-top: none; border-radius: 0 0 3px 3px; background: white; overflow: hidden; }
 
-  .cover h1 {
-    font-size: 32pt;
-    color: #1a4d80;
-    margin: 0 0 12px;
-    line-height: 1.15;
-    font-weight: 700;
-  }
+/* ── SUBSECTION ── */
+.subsec { background: #f3f6fa; border-bottom: 1px solid #d6dfe8; padding: 7px 14px; font-size: 9pt; font-weight: 700; color: #374151; text-transform: uppercase; letter-spacing: 0.8px; }
 
-  .cover .subtitle {
-    font-size: 14pt;
-    color: #374151;
-    margin: 0 0 40px;
-    font-weight: 400;
-  }
+/* ── TABLES ── */
+table { width: 100%; border-collapse: collapse; }
+th { background: #f9fafb; border-bottom: 2px solid #e5e7eb; padding: 7px 12px; text-align: left; font-size: 8.5pt; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; font-size: 10.5pt; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafafa; }
+.tk { font-family: 'Courier New', monospace; font-size: 9pt; color: #6b7280; white-space: nowrap; width: 72px; }
+.tn { font-weight: 600; }
+.tnote { display: block; font-size: 9pt; color: #9ca3af; font-style: italic; margin-top: 2px; }
+.turl { display: block; font-family: 'Courier New', monospace; font-size: 9pt; color: #9ca3af; margin-top: 2px; }
+.row-done td { color: #6b7280; }
+.row-done .tn { color: #4b5563; }
 
-  .cover .meta {
-    display: inline-block;
-    text-align: left;
-    font-size: 10.5pt;
-    color: #4b5563;
-    border-top: 1px solid #e5e7eb;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 14px 30px;
-    margin-top: 40px;
-  }
+/* ── STATUS BADGE ── */
+.sb { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 12px; font-size: 9pt; font-weight: 700; cursor: pointer; white-space: nowrap; border: none; background: none; transition: opacity 0.15s, transform 0.1s; user-select: none; }
+.sb:hover { opacity: 0.8; transform: scale(0.97); }
+.sb:active { transform: scale(0.94); }
+.sb .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.s0 { background: #f3f4f6; color: #6b7280; }
+.s0 .dot { background: #d1d5db; }
+.s1 { background: #fef3c7; color: #92400e; }
+.s1 .dot { background: #f59e0b; }
+.s2 { background: #dcfce7; color: #166534; }
+.s2 .dot { background: #22c55e; }
 
-  .cover .meta div {
-    margin: 3px 0;
-  }
+/* ── STATIC DONE BADGE ── */
+.done-tag { display: inline-block; background: #1a4d80; color: white; padding: 2px 8px; border-radius: 3px; font-size: 8pt; font-weight: 700; white-space: nowrap; }
 
-  .cover .meta strong {
-    color: #1a1a1a;
-    display: inline-block;
-    width: 110px;
-  }
+/* ── PRIORITY CHIP ── */
+.pri { font-size: 9pt; white-space: nowrap; }
 
-  .intro {
-    padding: 0.3in 0;
-    page-break-after: always;
-  }
+/* ── INFO LIST ── */
+.ilist { padding: 12px 18px; }
+.ilist ol, .ilist ul { padding-left: 20px; margin: 0; }
+.ilist li { padding: 4px 0; font-size: 10.5pt; line-height: 1.5; }
+.ilist li strong { color: #1a4d80; }
+.ilist p { margin: 0; font-size: 10pt; color: #6b7280; }
 
-  .intro h2 {
-    font-size: 18pt;
-    color: #1a4d80;
-    border-bottom: 2px solid #1a4d80;
-    padding-bottom: 6px;
-    margin-top: 0;
-  }
+/* ── QA CHECKLIST ── */
+.qa { padding: 10px 18px; }
+.qa ul { list-style: none; padding: 0; margin: 0; }
+.qa li { padding: 5px 0 5px 22px; position: relative; border-bottom: 1px dotted #e5e7eb; font-size: 10.5pt; }
+.qa li:last-child { border-bottom: none; }
+.qa li::before { content: ""; position: absolute; left: 0; top: 9px; width: 13px; height: 13px; border: 1.5px solid #1a4d80; border-radius: 2px; }
 
-  .intro p {
-    margin: 12px 0;
-  }
+/* ── FOOTER ── */
+.doc-footer { margin-top: 0.4in; padding-top: 14px; border-top: 1px solid #d6dfe8; font-size: 9pt; color: #6b7280; text-align: center; padding-bottom: 0.5in; }
 
-  .stats {
-    display: table;
-    width: 100%;
-    margin: 20px 0;
-    border-collapse: collapse;
-  }
-
-  .stats .row {
-    display: table-row;
-  }
-
-  .stats .cell {
-    display: table-cell;
-    padding: 12px 16px;
-    background: #f3f6fa;
-    border: 1px solid #d6dfe8;
-    width: 25%;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .stats .num {
-    font-size: 18pt;
-    color: #1a4d80;
-    font-weight: 700;
-    display: block;
-  }
-
-  .stats .label {
-    font-size: 9pt;
-    color: #4b5563;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 4px;
-    display: block;
-  }
-
-  .tier {
-    margin: 0.25in 0 0.3in;
-    page-break-inside: avoid;
-  }
-
-  .tier-header {
-    background: #1a4d80;
-    color: white;
-    padding: 14px 18px;
-    margin-bottom: 0;
-    border-radius: 3px 3px 0 0;
-  }
-
-  .tier-header .tier-label {
-    font-size: 9pt;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    opacity: 0.85;
-  }
-
-  .tier-header h3 {
-    font-size: 14pt;
-    margin: 2px 0 4px;
-    font-weight: 700;
-  }
-
-  .tier-header .tagline {
-    font-size: 10pt;
-    opacity: 0.9;
-    font-style: italic;
-    margin: 0;
-  }
-
-  .tier-body {
-    border: 1px solid #d6dfe8;
-    border-top: none;
-    padding: 14px 18px;
-    border-radius: 0 0 3px 3px;
-  }
-
-  .tier-body ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .tier-body li {
-    padding: 6px 0 6px 26px;
-    position: relative;
-    border-bottom: 1px dotted #e5e7eb;
-    page-break-inside: avoid;
-  }
-
-  .tier-body li:last-child {
-    border-bottom: none;
-  }
-
-  .tier-body li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 9px;
-    width: 14px;
-    height: 14px;
-    border: 1.5px solid #1a4d80;
-    border-radius: 2px;
-    background: white;
-  }
-
-  .tier-body li.done::before,
-  .tier-body li.rollup::before {
-    background: #1a4d80;
-    border-color: #1a4d80;
-  }
-
-  .tier-body li.done {
-    color: #6b7280;
-  }
-
-  .tier-body li.done strong {
-    color: #4b5563;
-  }
-
-  .tier-body li.partial::before {
-    background: linear-gradient(90deg, #1a4d80 50%, white 50%);
-    border-color: #1a4d80;
-  }
-
-  .tier-body li .status {
-    display: inline-block;
-    margin-left: 6px;
-    padding: 1px 7px;
-    border-radius: 3px;
-    font-size: 7.5pt;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    vertical-align: middle;
-    white-space: nowrap;
-  }
-
-  .tier-body li .status.done-tag {
-    background: #1a4d80;
-    color: white;
-  }
-
-  .tier-body li .status.partial-tag {
-    background: #d97706;
-    color: white;
-  }
-
-  .tier-body li strong {
-    color: #1a4d80;
-  }
-
-  .progress {
-    background: #eef4fb;
-    border: 1px solid #c6d7e8;
-    border-radius: 3px;
-    padding: 16px 20px;
-    margin: 0.25in 0 0.35in;
-    page-break-inside: avoid;
-  }
-
-  .progress h3 {
-    margin: 0 0 6px;
-    color: #1a4d80;
-    font-size: 13pt;
-  }
-
-  .progress .subtitle {
-    font-size: 10pt;
-    color: #4b5563;
-    margin: 0 0 12px;
-  }
-
-  .progress ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    column-count: 2;
-    column-gap: 24px;
-  }
-
-  .progress li {
-    padding: 4px 0 4px 22px;
-    position: relative;
-    font-size: 10pt;
-    break-inside: avoid;
-  }
-
-  .progress li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 6px;
-    width: 14px;
-    height: 14px;
-    background: #1a4d80;
-    border-radius: 2px;
-  }
-
-  .plan {
-    background: #f3f6fa;
-    border-left: 4px solid #1a4d80;
-    padding: 18px 22px;
-    margin: 0.3in 0;
-    page-break-inside: avoid;
-  }
-
-  .plan h3 {
-    margin-top: 0;
-    font-size: 14pt;
-    color: #1a4d80;
-  }
-
-  .plan .week-row {
-    display: table;
-    width: 100%;
-    padding: 6px 0;
-    border-bottom: 1px solid #d6dfe8;
-  }
-
-  .plan .week-row:last-child {
-    border-bottom: none;
-  }
-
-  .plan .week {
-    display: table-cell;
-    font-weight: 700;
-    color: #1a4d80;
-    width: 110px;
-    vertical-align: top;
-    padding: 4px 0;
-  }
-
-  .plan .focus {
-    display: table-cell;
-    vertical-align: top;
-    padding: 4px 0;
-  }
-
-  .footer {
-    margin-top: 0.4in;
-    padding-top: 16px;
-    border-top: 1px solid #d6dfe8;
-    font-size: 9.5pt;
-    color: #6b7280;
-    text-align: center;
-  }
-
-  .page-break { page-break-after: always; }
-
-  h4.section {
-    font-size: 13pt;
-    color: #1a4d80;
-    margin: 0.3in 0 10px;
-    padding-bottom: 4px;
-    border-bottom: 1.5px solid #d6dfe8;
-  }
-
-  @media print {
-    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  }
+/* ── PRINT ── */
+@media print {
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .prog-bar { display: none; }
+  .sec-head, .subsec { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  table { page-break-inside: avoid; }
+}
 </style>
 </head>
 <body>
 
+<!-- PROGRESS BAR -->
+<div class="prog-bar">
+  <span class="prog-txt" id="prog-text">Loading…</span>
+  <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  <span class="prog-txt" id="prog-pct">0%</span>
+</div>
+
+<!-- COVER -->
 <section class="cover">
-  <div class="eyebrow">Website Improvement Roadmap</div>
-  <h1>Brant Business Interiors</h1>
-  <div class="subtitle">Complete Website Fix Checklist — In Execution Order</div>
+  <div class="eyebrow">Brant Business Interiors · brantbusinessinteriors.com</div>
+  <h1>Master Build Plan</h1>
+  <div class="subtitle">Phases · Waves · Blog · AI Search Readability</div>
   <div class="meta">
-    <div><strong>Prepared for:</strong> Steve Katz</div>
-    <div><strong>Prepared by:</strong> Leo Katz</div>
     <div><strong>Store:</strong> brantbusinessinteriors.com</div>
-    <div><strong>Created:</strong> April 18, 2026 &middot; <strong>Updated:</strong> April 21, 2026</div>
+    <div><strong>Admin:</strong> office-central-online</div>
+    <div><strong>Created:</strong> April 18, 2026 &middot; <strong>Updated:</strong> April 28, 2026</div>
+    <div><strong>Scope:</strong> Business Furniture only (April 25 scope change)</div>
+    <div><strong>Templates:</strong> collection.category.json · collection.json · landing page</div>
+    <div><strong>Total pages:</strong> ~102 across 3 templates</div>
   </div>
 </section>
 
-<section class="intro">
-  <h2>Status Summary</h2>
-  <p><strong>Tier 1 is complete. Tier 2's backbone is live and enrichment is in progress. Tiers 3–9 are ahead.</strong> This document is organized so remaining work is the focus — completed work is rolled up into summary blocks so what's left is easy to see at a glance.</p>
-
-  <div class="stats">
-    <div class="row">
-      <div class="cell"><span class="num">&#10003;</span><span class="label">Tier 1 Done</span></div>
-      <div class="cell"><span class="num">~60%</span><span class="label">Tier 2 Progress</span></div>
-      <div class="cell"><span class="num">17 / 100</span><span class="label">Hero 100 Specs</span></div>
-      <div class="cell"><span class="num">3 &rarr; 9</span><span class="label">Tiers Ahead</span></div>
-    </div>
-  </div>
-
-  <h3 style="margin-top:0.3in; color:#1a4d80; font-size:13pt;">The Business Reality</h3>
-  <p>$414K revenue across 235 orders (Oct 2024 &rarr; Apr 2026), $1,763 AOV, 183 customers. <strong>B2B institutional procurement</strong> — Ontario community health centres, First Nations organizations, engineering firms, non-profits, schools, small government. Not consumer e-commerce. Three structural findings shape the plan:</p>
-  <ul>
-    <li><strong>42% of historical orders never completed</strong> — tied to the Liquid bug, now fixed.</li>
-    <li><strong>69% of 650 products have never sold</strong> — strategy: keep every product live, tag cleanly, surface the winners.</li>
-    <li><strong>Only 17% of customers return</strong>, top 10 = 30% of revenue — concentration risk + retention opportunity.</li>
-  </ul>
-
-  <p>The checklist is organized in <strong>execution order</strong>. Each tier builds on the one before it — start at Tier 1, work down.</p>
-</section>
-
-<section class="progress">
-  <h3>What&apos;s Already Shipped</h3>
-  <p class="subtitle">Everything from Tier 1 and most of Tier 2's backbone. Listed here so the tiered checklist below can focus on what's left.</p>
-  <ul>
-    <li><strong>Tier 1 complete</strong> — Liquid bug fixed, checkout tested on desktop + mobile, 645 products scanned (0 404s), 9 &trade;/&reg; handles renamed + redirects live, 11 service SKUs unpublished, sold-out + $0-price swapped to Request-a-Quote CTA</li>
-    <li><strong>Site-wide quote CTA</strong> — sticky "Request a Quote" floating button + 1-800-835-9565 in announcement bar on every page</li>
-    <li><strong>Payments + tax verified</strong> — $65.7K across 56 paid orders; 50/50 orders match ON 13%, BC 12%, AB 5%, SK 11%</li>
-    <li><strong>Shipping + emails verified</strong> — 7-tier Delivery + Installation rate live; 35/35 customer confirmations + 50/50 admin notifications</li>
-    <li><strong>Tier 2 backbone live</strong> — 613-row tag CSV approved, 584 products tagged (type + room), 14 automated collections built + velocity-sorted, 574 industry tags pushed, main nav rebuilt (8 items)</li>
-    <li><strong>Keep-live strategy locked</strong> — no archiving, no clearance; velocity is a sort order, not a visibility signal</li>
-    <li><strong>Branding locked (Phase 0)</strong> — Lead BBI on storefront; "Office Central Inc. (OECM Supplier)" in meta-title + footer</li>
-    <li><strong>Hero 100 list approved</strong> — 100 products across all 7 type categories, 91.4% revenue coverage, Steve signed off 2026-04-20</li>
-    <li><strong>Tag vocabulary (Layer A) clean</strong> — 0 legacy tags across all 613 active products</li>
-    <li><strong>Breadcrumbs live</strong> — collection template + BreadcrumbList JSON-LD schema</li>
-    <li><strong>Link audit complete</strong> — all nav + footer links return 200; 9 handle redirects live</li>
-    <li><strong>Pre-work shipped</strong> — Shopify OAuth app, helper scripts, order + revenue analysis, ICP + voice sheet, 147 HTML cleanups, 41 boilerplate cleaned, 21 test/draft archived, shipping SKUs consolidated</li>
-  </ul>
-</section>
-
-<section class="tier">
-  <div class="tier-header">
-    <div class="tier-label">Tier 1</div>
-    <h3>Fix the Backend</h3>
-    <p class="tagline">Stop the bleeding. Traffic is already arriving — make sure the orders it generates actually complete.</p>
-  </div>
-  <div class="tier-body">
-    <p style="margin:0; padding:14px 18px; background:#eef4fb; border-left:4px solid #1a4d80; color:#1a4d80; font-weight:600;">&#10003; All 11 foundation tasks complete. Checkout fixed, site scanned, quote CTAs live, payments / tax / shipping / confirmation emails verified. Rollup on the previous page.</p>
-  </div>
-</section>
-
-<section class="tier">
-  <div class="tier-header">
-    <div class="tier-label">Tier 2</div>
-    <h3>Clean the Catalog &amp; Rebuild the Taxonomy</h3>
-    <p class="tagline">Cut the 449 dead products — but don't do it in isolation. Rebuild the site's taxonomy at the same time so the remaining ~200 products are easy to find, filter, and buy.</p>
-  </div>
-  <div class="tier-body">
-    <ul>
-      <li style="background:#e6f2ff; padding:10px 14px 10px 40px; border-left:3px solid #1a4d80; list-style:none;"><strong style="color:#1a4d80;">Strategy (updated 2026-04-20, pivoted later same day):</strong> <strong>Keep every product live</strong>, no archive, no clearance. Sales velocity is a <em>sort order</em>, not a visibility signal. <strong>Industry (Business / Educational / Healthcare / Daycare) is the primary navigation axis</strong> — the existing hand-built industry hierarchy in main-menu-2 is preserved. <em>Room</em> and <em>type</em> are secondary filter facets within industries. <em>Other Industries</em> has been removed from the nav.</li>
-      <li class="rollup" style="background:#eef4fb; border-left:3px solid #1a4d80; padding:10px 14px 10px 34px; color:#1a4d80; margin-top:10px;"><strong>Pre-phase backbone complete (11 items):</strong> Tag CSV built + approved (613 rows), 584 products tagged (type + room), 14 automated collections built + velocity-sorted, 574 industry tags pushed, main nav rebuilt (8 top-level items), "Other Industries" removed.</li>
-
-      <li style="background:#fff7ed; padding:10px 14px 10px 14px; border-left:3px solid #d97706; list-style:none; margin-top:12px;"><strong style="color:#92400e;">What's left — re-sequenced 2026-04-20:</strong> Remaining Tier 2 work is re-ordered around one insight: <em>filters are useless without enriched products to filter on.</em> Four phases below — (0) blocking brand decision, (1) enrich a curated <strong>Hero 100</strong>, (2) surface the data, (3) housekeeping. <strong>Scope cut:</strong> enrichment (titles, descriptions, rich tags, POI specs) targets ~100 hero products — highest-velocity SKUs with every type/room category represented — instead of all 613. Cuts ~3 weeks off timeline; the other 513 stay live and discoverable via collections, just not finely filterable until a later batch. Total revised estimate: ~2 weeks.</li>
-
-      <li class="rollup" style="background:#eef4fb; border-left:2px solid #1a4d80; padding:6px 14px 6px 34px; color:#1a4d80; font-size:10pt; margin-top:10px;"><strong>Phase 0 done</strong> — BBI branding on storefront; "Office Central Inc. (OECM Supplier)" in meta-title + footer (docs/icp.md).</li>
-
-      <li style="background:#f9fafb; padding:8px 14px 8px 14px; border-left:2px solid #6b7280; list-style:none; margin-top:10px;"><strong style="color:#374151; text-transform:uppercase; letter-spacing:1.2px; font-size:9.5pt;">Phase 1 — Enrichment (Hero 100 only, unless noted)</strong></li>
-      <li class="rollup" style="background:#eef4fb; border-left:2px solid #1a4d80; padding:6px 14px 6px 34px; color:#1a4d80; font-size:10pt;"><strong>1.0 Hero 100 list built</strong> — 100 products across 7 type categories, 91.4% revenue coverage. Steve signed off 2026-04-20.</li>
-      <li class="partial"><strong>1.1 Spec lookup</strong> (Hero 100) — <code>scripts/lookup-specs.py</code> running in background (Claude Sonnet 4.6 + web search, resumable, structured JSON per product &rarr; <code>data/specs.json</code>). <span class="status partial-tag">In progress &middot; 17 / 100 done</span></li>
-      <li><strong>1.2 Standardize Hero 100 titles</strong> — format <code>{Product Line} {Model Code} — {Key Spec}</code> (e.g. <em>Zira U-Shape Desk MVL2756 — 72" Walnut</em>). Never strip model codes — B2B reorders search by code. <code>scripts/normalize-titles.py</code> to be built: reads Hero 100 + specs JSON, Claude API strict-format prompt → CSV → Steve review → push. Other 513 keep existing titles for now. <span class="status" style="background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:3px;font-size:8.5pt;font-weight:600;">⬜ Not started — after 1.1 complete</span></li>
-      <li class="partial"><strong>1.3 Standardize the tag vocabulary</strong> — <strong>Layer A (all 613): done</strong> &mdash; 0 legacy tags confirmed across catalog. <strong>Layer B (Hero 100):</strong> rich filter tags (<code>finish:*</code>, <code>brand:*</code>, <code>feature:*</code>, <code>price-band:*</code>) &mdash; script to be built. <span class="status partial-tag">Layer B not started</span></li>
-      <li><strong>1.4 Write Hero 100 product descriptions</strong> — 4 batches × 25, highest-revenue first, Steve review per batch. Voice enforced from <code>voice-samples.md</code> + <code>icp.md</code>. Batch description script to be built (separate from the old Tier-1 <code>write-review-descriptions.py</code> which handled 6 empty products). <span class="status" style="background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:3px;font-size:8.5pt;font-weight:600;">⬜ Not started — after 1.1 + 1.2 complete</span></li>
-      <li><strong>1.5 Wire internal links to the Hero 100</strong> — tag the 100 with <code>hero:true</code>. Homepage carousels, footer "popular products," related-products module, blog inline links — all source from this tag. <span class="status" style="background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:3px;font-size:8.5pt;font-weight:600;">⬜ Not started — after 1.4 complete</span></li>
-
-      <li style="background:#f9fafb; padding:8px 14px 8px 14px; border-left:2px solid #6b7280; list-style:none; margin-top:10px;"><strong style="color:#374151; text-transform:uppercase; letter-spacing:1.2px; font-size:9.5pt;">Phase 2 — Surface the data (worthwhile only after Phase 1)</strong></li>
-      <li><strong>2.1 Add filters on every collection page</strong> — Shopify admin → Online Store → Themes → Customize → Collection template. Enable: <code>price</code>, <code>availability</code>, <code>type:*</code>, <code>room:*</code>, <code>industry:*</code>, <code>finish:*</code>, <code>brand:*</code>, <code>feature:*</code>. Sort stays "Manually" (velocity sort already pushed). Verify incognito on chairs, desks, private-office. <span class="status" style="background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:3px;font-size:8.5pt;font-weight:600;">⬜ Not started — after Layer B tags pushed (1.3)</span></li>
-      <li class="rollup" style="background:#eef4fb; border-left:2px solid #1a4d80; padding:6px 14px 6px 34px; color:#1a4d80; font-size:10pt;"><strong>2.2 Breadcrumbs live</strong> — <code>Home &rsaquo; Industry &rsaquo; Type/Room &rsaquo; Product</code> + BreadcrumbList JSON-LD schema.</li>
-      <li><strong>2.3 Short category intro copy</strong> — 14 collections × ~3 lines each. What the category is, the institutional/SMB ICP it serves, soft CTA. Voice from <code>icp.md</code>. New <code>scripts/write-collection-intros.py</code> → review file → push. ~30 min batch. <span class="status" style="background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:3px;font-size:8.5pt;font-weight:600;">⬜ Not started</span></li>
-
-      <li style="background:#f9fafb; padding:8px 14px 8px 14px; border-left:2px solid #6b7280; list-style:none; margin-top:10px;"><strong style="color:#374151; text-transform:uppercase; letter-spacing:1.2px; font-size:9.5pt;">Phase 3 — Housekeeping (parallelizable, do anytime)</strong></li>
-      <li><strong>3.1 Update + resubmit sitemap to Google Search Console</strong> — nav + 14 new collections already live. Resubmit <code>https://brantbusinessinteriors.com/sitemap.xml</code> in GSC. <span class="status" style="background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:3px;font-size:8.5pt;font-weight:600;">⬜ Not started — blocked on GSC setup (W0-1)</span></li>
-      <li class="rollup" style="background:#eef4fb; border-left:2px solid #1a4d80; padding:6px 14px 6px 34px; color:#1a4d80; font-size:10pt;"><strong>3.2 Link audit done</strong> — all nav + footer links return 200; 9 &trade;/&reg; handle redirects live.</li>
-      <li><strong>3.3 Delete the 15+ backup/duplicate themes</strong> in Shopify admin (<em>Online Store → Themes → Theme library</em>). Confirm none published, none referenced by an active app or webhook; delete in batches of 5 with a screenshot before each batch. <span class="status" style="background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:3px;font-size:8.5pt;font-weight:600;">⬜ Not started</span></li>
-
-      <li style="background:#f5f5f5; padding:6px 0 6px 40px; color:#9ca3af; list-style:none; text-decoration:line-through;"><strong>301 redirects for every archived product URL</strong> — <em>dropped: keep-live strategy means no URLs are retiring</em></li>
-    </ul>
-  </div>
-</section>
-
-<section class="tier">
-  <div class="tier-header">
-    <div class="tier-label">Tier 3</div>
-    <h3>Content, Imagery &amp; Design Overhaul</h3>
-    <p class="tagline">Content first, then the imagery it needs, then the design system that presents both — executed across three phases on an unpublished duplicate theme so nothing breaks in front of customers.</p>
-  </div>
-  <div class="tier-body">
-    <ul>
-      <li style="background:#e6f2ff; padding:10px 14px 10px 40px; border-left:3px solid #1a4d80; list-style:none;"><strong style="color:#1a4d80;">Preview &amp; staging — how this ships without breaking the live site:</strong> Duplicate the live theme in Shopify Admin (<em>Online Store → Themes → "..." → Duplicate</em>), rename the copy <em>BBI Redesign — WIP</em>, and do every Phase 1 / 2 / 3 edit on the duplicate. Preview via the unpublished-theme URL (<em>Actions → Preview</em>) — the public site keeps showing the old theme. Share the preview URL with Steve for sign-off, then <em>Actions → Publish</em>. The old theme stays in the library as a one-click rollback. For content (About, Contact, product copy), draft in Google Docs / markdown first, review with Steve, then paste into Shopify. For iterative CSS/template work, use Shopify CLI (<code>shopify theme dev</code>) — local dev server with hot reload pushing to the duplicate, not live.</li>
-
-      <li style="background:#fff7ed; padding:10px 14px 10px 40px; border-left:3px solid #d97706; list-style:none; margin-top:12px;"><strong style="color:#92400e;">🎯 Input checkpoints:</strong> To save guesswork, Claude pauses at marked checkpoints below to ask Leo for references — sample imagery, competitor URLs to copy, style direction, existing brand assets, customer photos/quotes. Every checkpoint gives 2–4 concrete options plus an escape hatch. No open-ended "what do you want?" prompts — Claude always provides starting options so replying is fast.</li>
-
-      <li style="background:#f9fafb; padding:8px 14px 8px 14px; border-left:2px solid #6b7280; list-style:none; margin-top:14px;"><strong style="color:#374151; text-transform:uppercase; letter-spacing:1.2px; font-size:9.5pt;">Phase 1 — Convert More of the Visitors You Already Have</strong><span style="display:block; font-size:9.5pt; color:#6b7280; margin-top:3px; font-style:italic;">People are arriving; most leave. Fix what makes them leave.</span></li>
-
-      <li style="background:#fff7ed; padding:8px 14px 8px 40px; border-left:2px solid #d97706; list-style:none;"><strong style="color:#92400e;">🎯 Input needed — Phase 1 kickoff (before any work):</strong>
-        <ul style="margin:6px 0 0 18px; padding:0; list-style:disc;">
-          <li><strong>Hero scene reference</strong> — 1–3 photos or URLs capturing the homepage hero vibe (e.g. "make it feel like poi.ca" or "use OCI installation photo X from <code>data/oci-photos/catalog.json</code>")</li>
-          <li><strong>Customer logos + quotes</strong> — which 3–5 institutional customers for the homepage? Any logos/photos on hand?</li>
-          <li><strong>About Us tone</strong> — reference "About" page Leo likes (POI? Grand &amp; Toy? Brant Basics?) so Claude matches voice</li>
-          <li><strong>Contact page info</strong> — confirm phone, email, hours, physical address, Google Maps link</li>
-        </ul>
-      </li>
-
-      <li>Homepage hero banner with a <strong>Claude Design-generated office scene</strong> and clear headline: <em>"Canadian Business Furniture. Free Design Layouts."</em></li>
-      <li>Primary CTA button: <strong>"Get a Free Design Layout"</strong></li>
-      <li>Add logos and quotes from 3–5 real institutional customers (health centre, First Nations org, engineering firm, school, government)</li>
-      <li>Trust row on homepage: <em>"Canadian Owned • Ships Across Canada • PO &amp; NET 30 Accepted • 30+ Years"</em></li>
-      <li class="partial">Write proper descriptions for the remaining top-50 revenue products <span class="status partial-tag">15 of 50 done</span></li>
-      <li>Add spec table to every top-50 product: dimensions, weight, warranty, lead time, country of manufacture</li>
-      <li>Rewrite descriptions for the next 200 products (after top-50 is done)</li>
-      <li>Clean up footer — remove "Example product" and other template placeholders</li>
-      <li>Rewrite "About Us" to emphasize 30+ years, Canadian ownership, institutional specialty</li>
-      <li>Contact page: phone, email, hours, physical address, map, contact form</li>
-      <li>Add customer reviews widget on top-50 products</li>
-
-      <li style="background:#fff7ed; padding:8px 14px 8px 40px; border-left:2px solid #d97706; list-style:none;"><strong style="color:#92400e;">🎯 Input needed — every 10 products during description writing:</strong> Claude shares 10 draft descriptions, Leo approves / redirects voice before the next 10. No silent batches of 50.</li>
-
-      <li style="background:#f9fafb; padding:8px 14px 8px 14px; border-left:2px solid #6b7280; list-style:none; margin-top:14px;"><strong style="color:#374151; text-transform:uppercase; letter-spacing:1.2px; font-size:9.5pt;">Phase 2 — Better Product Imagery (Claude Design)</strong><span style="display:block; font-size:9.5pt; color:#6b7280; margin-top:3px; font-style:italic;">For furniture, images do half the selling. No photo shoots, no studio, no budget — use Claude Design for consistent, professional imagery at scale.</span></li>
-
-      <li style="background:#fff7ed; padding:8px 14px 8px 40px; border-left:2px solid #d97706; list-style:none;"><strong style="color:#92400e;">🎯 Input needed — Phase 2 kickoff (before generating anything):</strong>
-        <ul style="margin:6px 0 0 18px; padding:0; list-style:disc;">
-          <li><strong>Imagery style reference</strong> — 2–3 competitor sites whose product photos look right (e.g. "match Teknion," "between poi.ca and Herman Miller")</li>
-          <li><strong>Lifestyle scene references</strong> — photos or URLs showing the Canadian office aesthetic (OCI installation photos at <code>data/oci-photos/catalog.json</code> are a starting point — which are closest?)</li>
-          <li><strong>Background / setting input</strong> — white seamless for hero? Warm wood floor for lifestyle? Leo picks the baseline before Claude generates 400+ images wrong</li>
-          <li><strong>Pilot product sign-off</strong> — Claude generates the full 5–8 image set for ONE product, Leo approves, then the locked prompt template applies to the remaining 49</li>
-        </ul>
-      </li>
-
-      <li><strong>Audit every top-50 product</strong> — flag ones with only one image, low-resolution files, catalog-only angles, or no lifestyle scene</li>
-      <li>For every top-50 product, generate <strong>5–8 images minimum with Claude Design</strong>:
-        <ul style="margin-top:6px;">
-          <li>One clean white-background hero render (the "catalog" image)</li>
-          <li>Three-quarter angle render</li>
-          <li>Side profile render</li>
-          <li>Back view render (buyers often ask about cable management, finishes, etc.)</li>
-          <li>Close-up detail renders — edges, hardware, upholstery, wood grain, drawer interiors</li>
-          <li>At least one <strong>in-situ lifestyle render</strong> — the product staged in a realistic Canadian office environment (shows scale and feel)</li>
-          <li>A render with a human figure for scale where useful (desks, meeting tables, seating)</li>
-        </ul>
-      </li>
-      <li>Standardize all hero renders to the same white background, lighting, and crop ratio using a <strong>consistent Claude Design prompt template</strong> so the catalog looks uniform</li>
-      <li>Generate all available <strong>colour / finish variants</strong> with Claude Design and wire them to Shopify variants so the image changes when a buyer picks a colour</li>
-      <li>Generate <strong>dimension diagrams</strong> for desks, tables, workstations — clean line drawings with measurements produced via Claude Design. Institutional buyers need to know if it fits the space before they request a quote</li>
-      <li>Generate all renders at <strong>high resolution</strong> (minimum 2000px on the long edge) so Shopify's zoom feature actually works</li>
-      <li>Compress every image with a tool like TinyPNG so pages stay fast (high quality + small file size)</li>
-      <li>Set descriptive <strong>alt text</strong> on every image (e.g. "Height-adjustable L-shape desk in walnut, three-quarter view") — helps SEO and accessibility</li>
-      <li>Rename image files with descriptive names before upload (e.g. <em>zira-u-shape-desk-walnut-angle.jpg</em> instead of <em>render_4821.jpg</em>) — helps Google Image search</li>
-      <li>Remove any remaining <strong>placeholder or stock images</strong> from the store (e.g. generic office photos used as stand-ins)</li>
-      <li>Build a <strong>Claude Design prompt library</strong> — documented, reusable prompts for each image type (hero, angle, lifestyle, detail, variant) so every new product is generated consistently and the whole catalog looks like it came from one studio</li>
-      <li>Generate <strong>3–5 signature lifestyle "installation" scenes</strong> with Claude Design — Canadian community health centre, First Nations boardroom, engineering firm, school, government office. These become hero images on the homepage and industry landing pages</li>
-      <li>Ensure every image is <strong>mobile-optimized</strong> — 60%+ of B2B browsing now happens on phones</li>
-
-      <li style="background:#fff7ed; padding:8px 14px 8px 40px; border-left:2px solid #d97706; list-style:none;"><strong style="color:#92400e;">🎯 Input needed — per-batch + signature scenes:</strong> Every 10 products, Claude posts hero + lifestyle renders to a preview page; Leo green-lights before the next batch. For the 5 signature installation scenes (health centre, First Nations boardroom, engineering firm, school, government), Leo supplies 1–2 reference photos each before generation.</li>
-
-      <li style="background:#f9fafb; padding:8px 14px 8px 14px; border-left:2px solid #6b7280; list-style:none; margin-top:14px;"><strong style="color:#374151; text-transform:uppercase; letter-spacing:1.2px; font-size:9.5pt;">Phase 3 — Design Overhaul</strong><span style="display:block; font-size:9.5pt; color:#6b7280; margin-top:3px; font-style:italic;">With content written and imagery generated, make the site look as credible as the 30-year business behind it. Design comes after the plumbing works.</span></li>
-
-      <li style="background:#fff7ed; padding:8px 14px 8px 40px; border-left:2px solid #d97706; list-style:none;"><strong style="color:#92400e;">🎯 Input needed — Phase 3 kickoff (before any design work):</strong>
-        <ul style="margin:6px 0 0 18px; padding:0; list-style:disc;">
-          <li><strong>Design inspiration boards</strong> — 3–5 competitor or out-of-category sites Leo wants to copy the look of (e.g. "headers like linear.app, grids like herman miller, footer like shopify.com")</li>
-          <li><strong>Brand colour direction</strong> — pick: (a) match Brant Basics theme, (b) deep navy like poi.ca, (c) forest green like modern B2B SaaS, (d) supply hex codes</li>
-          <li><strong>Typography direction</strong> — pick: (a) Inter (default modern), (b) Söhne (editorial), (c) Work Sans (friendly), (d) supply a font</li>
-          <li><strong>Logo status</strong> — does Claude mock logo options, or is Steve supplying a finished logo? If mock: 2–3 reference logos to echo in style</li>
-        </ul>
-      </li>
-
-      <li class="rollup" style="background:#eef4fb; border-left:2px solid #1a4d80; padding:6px 14px 6px 34px; color:#1a4d80; font-size:10pt;"><strong>Brand identity locked</strong> (Phase 0) &mdash; Lead BBI; "Office Central Inc. (OECM Supplier)" in meta-title + footer. Apply consistently to every logo, header, footer, favicon, email template, invoice, packing slip below.</li>
-      <li><strong>Design a real logo system</strong> — primary horizontal lockup, stacked version for square crops, monochrome version for invoices and receipts, minimum-size rules, clear-space rules</li>
-      <li><strong>Lock a colour palette</strong> — one primary brand colour (deep navy or forest green reads as trusted B2B), one accent signal colour for CTAs, three neutral greys, one success/error pair. Hex codes documented so nothing drifts</li>
-      <li><strong>Pick a single sans-serif typeface</strong> — one family across the entire site (headings, body, forms, emails). Fonts like Inter, Söhne, or Work Sans read as modern, credible B2B. No mixing four Google fonts like the current theme does</li>
-      <li><strong>Establish a type scale</strong> — H1 / H2 / H3 / body / small with consistent sizes, line heights, and weights. Kill the one-off styles sprinkled across the theme</li>
-      <li><strong>Redesign the global header</strong> — brand mark, clean primary nav, search, phone number, Request Quote CTA, account link. Sticky on scroll. Mobile hamburger with a proper drawer, not a cluttered dropdown</li>
-      <li><strong>Redesign the announcement bar</strong> — phone + "Free Design Layouts" CTA, dismissible, brand-colour background. Always visible on every page</li>
-      <li><strong>Polish the main navigation visually</strong> — the taxonomy was rebuilt in Tier 2; this phase makes it look great. Mega-menu on desktop with category images. Collapsible accordion on mobile</li>
-      <li><strong>Redesign the homepage</strong> — hero with a Claude Design-generated installed-office scene and one-line value prop, three-tile trust row, featured categories grid, industry landing-page CTAs, featured top-sellers row, testimonial row, closing CTA block ("Get a Free Design Layout"). No more default theme hero</li>
-      <li><strong>Redesign the product card</strong> — consistent image crop ratio, title, price or "Starting from" language for variants, clear "View Details" affordance, subtle hover state. Uniform across every collection page</li>
-      <li><strong>Redesign the collection / category page</strong> — filters rail on the left (industry, product type, price band, stock status), sort dropdown, clean product grid, pagination or infinite scroll, short category hero intro copy at the top</li>
-      <li><strong>Redesign the product detail page (PDP)</strong> — two-column layout: images on the left with a thumbnail strip, details on the right (title, price, variants, quantity, primary CTA = Add to Cart, secondary CTA = Request a Quote). Below the fold: tabbed spec table, description, dimensions diagram, warranty, FAQ, related products</li>
-      <li><strong>Sticky PDP sidebar on desktop</strong> — price + Request Quote button stays visible while the buyer scrolls long spec tables</li>
-      <li><strong>Redesign the cart and checkout</strong> — clear line items with thumbnails, tax and shipping line visibility, PO-number field, shipping estimate, trust signals below the total (<em>Canadian owned • Ships from Ontario stock • 30+ years</em>)</li>
-      <li><strong>Redesign the footer</strong> — four columns (Shop, Industries, Company, Contact), phone number prominent, physical address, hours, trust-badge row, policy links. Not the current default-theme wall of links</li>
-      <li><strong>Redesign the forms</strong> — Request a Quote, Free Design Layout, Contact. Labels above fields, clear inline validation, large tap targets, progress indicators on multi-step, mobile-friendly spacing</li>
-      <li><strong>Build a mobile-first layout system</strong> — 60%+ of B2B browsing is on phones. Every page tested at 375px, 768px, 1024px, and 1440px widths. No horizontal scroll. No text smaller than 14px</li>
-      <li><strong>Establish spacing rules</strong> — 4px / 8px grid, consistent section padding (64px desktop / 32px mobile), minimum 24px margin around any card. Breathing room is what separates a cheap theme from a premium site</li>
-      <li><strong>Button and link system</strong> — one primary button style (solid brand colour), one secondary (outline), one tertiary (text link), plus disabled and loading states. Identical across the entire site</li>
-      <li><strong>Icon system</strong> — pick one library (Lucide or Heroicons), use a single weight and consistent size (20px or 24px). No emoji, no mixing line and filled icons</li>
-      <li><strong>Empty states and error pages</strong> — custom 404, empty cart, empty search, empty collection — each branded, each with a clear next action (back to top sellers, contact us, request a quote)</li>
-      <li><strong>Loading states</strong> — skeleton screens for collection pages, spinners on form submit, disable buttons while posting so nobody double-submits a quote request</li>
-      <li><strong>Email template redesign</strong> — order confirmation, shipping notification, quote response — all styled to match the brand. Don't ship a beautiful site and then send a default Shopify email</li>
-      <li><strong>Cross-browser and device QA</strong> — Chrome, Safari, Firefox, Edge. iPhone SE, iPhone 15, Pixel, iPad, desktop. Fix layout breakage before launch, not after Steve hears about it from a customer</li>
-
-      <li style="background:#fff7ed; padding:8px 14px 8px 40px; border-left:2px solid #d97706; list-style:none;"><strong style="color:#92400e;">🎯 Input needed — per-page review + final QA:</strong> Before each major page (homepage, PDP, collection, header, footer, cart, forms), Claude shows 2 Claude Design mockups and asks Leo to pick direction A vs B vs hybrid. Before publishing the redesign, Claude sends the unpublished-theme preview URL with a shortlist of screens to click through; Leo signs off, then publish.</li>
-    </ul>
-  </div>
-</section>
-
-<section class="tier">
-  <div class="tier-header">
-    <div class="tier-label">Tier 4</div>
-    <h3>Build a Real B2B Quote and Sales Funnel</h3>
-    <p class="tagline">Institutional buyers don't self-serve a $5K desk. They request quotes.</p>
-  </div>
-  <div class="tier-body">
-    <ul>
-      <li>Build a proper "Request a Quote" form (product, quantity, organization, delivery address, timeline)</li>
-      <li>Add "Request a Quote" button alongside "Add to Cart" on every product</li>
-      <li>Build a "Free Design Layout" request form (floor size, staff count, photo upload)</li>
-      <li><strong>"Envision Your Space" landing page</strong> — dedicated page for prospects who want a full design engagement (not just a product quote). Pitches a full layout + product-selection consultation, with a CTA that opens <code>/pages/contact?subject=Design+engagement+request</code> (same prefill pattern as the per-product quote links, e.g. <code>/pages/contact?subject=Quote+request%3A+Indestructible+Ryno+Furniture</code>). Link to it from the homepage hero CTA, the main nav, and a "Not sure what you need? Let us design the space" callout on collection pages</li>
-      <li>Dedicated landing page: <strong>Furniture for Community Health Centres</strong></li>
-      <li>Dedicated landing page: <strong>Furniture for First Nations Organizations</strong> (Medicine Wheel Table is a top-10 product — lean in)</li>
-      <li style="padding-top:12px; border-top:1.5px solid #d6dfe8; margin-top:8px;"><strong>Own the First Nations / Indigenous market — nobody else is doing this</strong> — the landing page above is the start; the real opportunity is a full ownership play before any competitor notices the gap. No major Canadian office furniture vendor is specifically serving band offices, Indigenous health authorities, or First Nations organizations with tailored product curation, culturally sensitive copy, and purpose-built procurement support. Steps to own the space:
-        <ul style="margin-top:6px;">
-          <li><strong>Product curation</strong> — build a dedicated First Nations collection with the Medicine Wheel Table as the anchor, plus curated seating, storage, and meeting room products selected for communal and multi-purpose spaces common in band office layouts. Tag products with an "Indigenous Community" tag so the collection auto-populates</li>
-          <li><strong>Culturally sensitive copy</strong> — the language, imagery, and framing on the landing page and collection should reflect respect for Indigenous spaces. Avoid generic corporate office photography. Use Claude Design to generate boardroom and meeting scenes that feel like Indigenous community spaces, not Bay Street offices. Have the copy reviewed before publishing</li>
-          <li><strong>Tax-exempt workflow</strong> — many First Nations organizations are tax-exempt purchasers. The tax-exempt workflow (already in Tier 4) should be called out explicitly on this page with a simple path: <em>"Are you a First Nations organization? Apply for a tax-exempt account in 2 minutes."</em> This is a direct procurement barrier for most band offices — remove it visibly</li>
-          <li><strong>RFP / procurement support</strong> — band offices and Indigenous health authorities often procure through formal RFP or quote processes. Offer a one-page "procurement support" note on the landing page: BBI will provide spec sheets, certifications, insurance documents, and pricing in any format required. Nobody in the market offers this proactively</li>
-          <li><strong>AEO / AI ownership</strong> — write a long-form buyer guide: <em>"Office Furniture for First Nations Band Offices and Indigenous Organizations in Canada."</em> Target queries no competitor has touched: "band office furniture Canada," "Indigenous community furniture Ontario," "tax-exempt furniture procurement First Nations." First mover owns these indefinitely — LLMs will cite the only authoritative page that exists</li>
-          <li><strong>Community connection</strong> — if Steve has any existing First Nations customers (check order history), ask for a quote or case study. One real testimonial from an Indigenous organization is worth more than 10 pages of copy for this audience</li>
-        </ul>
-      </li>
-      <li>Dedicated landing page: <strong>Furniture for Engineering Firms</strong></li>
-      <li>Dedicated landing page: <strong>Furniture for Schools</strong></li>
-      <li>Dedicated landing page: <strong>Government Procurement</strong></li>
-      <li>Add Purchase Order (PO) checkout option</li>
-      <li>Add NET 30 terms workflow for verified repeat accounts</li>
-      <li>Tax-exempt workflow for eligible buyers (First Nations, government, non-profit)</li>
-      <li style="padding-top:12px; border-top:1.5px solid #d6dfe8; margin-top:8px;"><strong>Procurement documentation hub at /pages/procurement-resources</strong> — institutional buyers need BIFMA certifications, CAD drawings, spec sheets, and sustainability data to justify purchases internally or respond to RFPs. Nobody in the Canadian mid-market provides this cleanly. BBI becomes the default vendor for RFP-driven buyers the moment this page exists:
-        <ul style="margin-top:6px;">
-          <li><strong>Per-product spec packages</strong> — for every top-50 product, compile a downloadable PDF containing: full dimensions, weight capacity, materials/finishes, BIFMA certification status, warranty terms, lead time, country of manufacture, and any environmental/sustainability certifications. Buyers can attach this directly to an internal procurement request</li>
-          <li><strong>CAD / BIM files</strong> — request 2D CAD and BIM files from manufacturers (Global, Teknion, ergoCentric, etc.) for top products. Facility managers and designers need these to confirm fit before approving a purchase. Hosting them on BBI's site is a lead capture opportunity — gate them behind a simple email form</li>
-          <li><strong>BIFMA compliance page</strong> — a plain-English explainer of what BIFMA certification means, why Ontario institutional buyers should require it, and which BBI products carry it. This page ranks for "BIFMA certified office furniture Canada" and positions BBI as the expert</li>
-          <li><strong>Sustainability / EPD data</strong> — government and health centre buyers increasingly need Environmental Product Declarations (EPDs) or recycled-content data for procurement scoring. Collect whatever manufacturers provide and surface it here. Even partial data is a differentiator</li>
-          <li><strong>Insurance and vendor documents</strong> — host BBI's certificate of insurance, HST registration number, and WSIB clearance certificate. Procurement officers at hospitals and municipalities need these before issuing a PO. Proactively providing them removes a common delay and signals professionalism</li>
-          <li><strong>CTA on every product page</strong> — add a quiet link below the spec table: <em>"Need spec sheets or certifications for procurement? Download from our Procurement Hub."</em> Routes to the hub. Captures buyers in RFP mode who wouldn't otherwise ask</li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<section class="tier">
-  <div class="tier-header">
-    <div class="tier-label">Tier 5</div>
-    <h3>Get More of the Right Visitors (SEO)</h3>
-    <p class="tagline">Right now the store is invisible to Canadian procurement searches.</p>
-  </div>
-  <div class="tier-body">
-    <ul>
-      <li>Rewrite all page titles and meta descriptions around B2B Canadian keywords</li>
-      <li>Target phrases: <em>"office furniture Ontario," "institutional furniture Canada," "First Nations office furniture," "health centre furniture Canada," "government office furniture Ontario"</em></li>
-      <li>Add product schema markup (price, availability, ratings) for Google rich results</li>
-      <li>Add breadcrumb schema for category pages</li>
-      <li>Submit an updated sitemap to Google Search Console</li>
-      <li>Optimize Google Business Profile — photos, hours, services, reviews</li>
-      <li>Set up Google Merchant Center so products appear in Google Shopping</li>
-      <li>Write blog posts and buyer guides — e.g. <em>"How to Furnish a Community Health Centre," "Ergonomic Desk Procurement Guide for Ontario Non-Profits," "Designing an Indigenous-Respectful Boardroom"</em></li>
-      <li>Internal linking from blog posts to product categories</li>
-      <li style="padding-top:12px; border-top:1.5px solid #d6dfe8; margin-top:8px;"><strong>AODA-compliant furniture positioning — own the Ontario institutional procurement niche</strong> — Ontario government agencies, school boards, hospitals, and municipalities are legally required under the <em>Accessibility for Ontarians with Disabilities Act</em> to procure accessible products. No Canadian mid-market furniture vendor is positioning around this explicitly. BBI can own the space:
-        <ul style="margin-top:6px;">
-          <li><strong>AODA buyer guide</strong> — long-form page: <em>"How to Procure AODA-Compliant Office Furniture in Ontario."</em> Covers what AODA requires, what to look for in seating and workstations (adjustability, reach ranges, clear floor space), and how to document compliance for audits. This page answers a real procurement question nobody else has answered online — LLMs will cite it</li>
-          <li><strong>AODA-compliant collection</strong> — build a filtered collection of products that meet common AODA criteria: height-adjustable desks, ergonomic seating with lumbar and armrest adjustability, clear under-desk knee clearance, lever-handle storage. Tag them "AODA-compliant" so the collection auto-populates. This is a purchasing shortcut for compliance officers</li>
-          <li><strong>Product page compliance callouts</strong> — for every eligible product, add a short compliance note in the spec table: <em>"Meets AODA ergonomic workstation criteria — adjustable height range, clear floor space, forward reach compliant."</em> Gives procurement officers the language they need for their justification documents</li>
-          <li><strong>Target the query</strong> — rewrite page titles and meta descriptions for the collection and guide around: <em>"AODA compliant office furniture Ontario," "accessible office furniture for Ontario government," "ergonomic furniture AODA requirements."</em> These are low-competition, high-intent institutional queries with zero strong results currently</li>
-          <li><strong>Pair with BIFMA</strong> — link the AODA guide to the BIFMA compliance page from the Procurement Hub (Tier 4). Buyers evaluating compliance need both. Being the only vendor that explains both in plain English is a lasting authority signal</li>
-        </ul>
-      </li>
-      <li>Compress all product images (faster pages rank higher)</li>
-      <li>Confirm redirects for archived products (from Tier 2) are still intact after new content is added</li>
-      <li style="padding-top:12px; border-top:1.5px solid #d6dfe8; margin-top:8px;"><strong>Stand up an Airops-style content engine</strong> — when blog writing kicks off, don't write one post at a time. Build the same kind of AI-assisted content system Airops sells to mid-market brands:
-        <ul style="margin-top:6px;">
-          <li><strong>Lock a brand kit</strong> — the ICP, voice sheet, approved product descriptions, and top-customer case studies become the source of truth every piece of content gets generated against. No generic AI slop</li>
-          <li><strong>Insights pass first</strong> — before writing anything, pull the gap analysis: what Canadian B2B furniture queries rank on Google, what's showing up in ChatGPT / Perplexity / Google AI Overviews, what competitors are cited for. Pick topics where we can realistically win citations, not the most-searched terms</li>
-          <li><strong>Programmatic SEO (pSEO) landing pages</strong> — generate <em>hundreds</em> of targeted pages from a template + dataset. Matrices to build: <em>[Product Type] for [Industry]</em> (e.g. ergonomic chairs for community health centres), <em>Office Furniture [Ontario City]</em> (Brantford, Hamilton, London, Kitchener, Waterloo, Guelph, Cambridge, Burlington, Oakville, Mississauga, etc.), <em>[Industry] Procurement Guide [Province]</em>. Each page AI-generated from brand kit + local data + real product inventory</li>
-          <li><strong>Answer Engine Optimization (AEO)</strong> — structure every new page to be <em>cited by LLMs</em>, not just ranked by Google. Clear question-format H2s, short factual answers above the fold, definition lists, comparison tables, FAQ schema. Airops data: fresh content earns 70% more AI citations, rich schema drives +13% citations</li>
-          <li><strong>Aggressive schema markup</strong> — Product, FAQPage, HowTo, LocalBusiness, BreadcrumbList, Article on every page type. Structured data is the single highest-leverage AEO lever</li>
-          <li><strong>Content refresh workflow</strong> — every existing page re-evaluated quarterly; AI rewrites any page with dropping rankings or stale data. Refresh beats net-new for most mature pages</li>
-          <li><strong>Offsite citation play</strong> — Reddit (r/smallbusiness, r/ontario, r/sysadmin for IT furniture, r/nonprofit), Quora, industry directories, trade publications. LLMs cite third-party mentions heavily — plant them deliberately</li>
-          <li><strong>Content velocity target</strong> — 20–30 pages/month once the pipeline is running. Mix of pSEO pages, buyer guides, and refreshes. Airops customer benchmark is 25+/month</li>
-          <li><strong>Measurement</strong> — track both classic SEO (Google rankings, GA4 organic sessions) <em>and</em> AI-search visibility (how often the brand is cited by ChatGPT / Perplexity / Google AI Overviews for target queries). Weekly dashboard</li>
-          <li><strong>Human review gate</strong> — every AI-generated page reviewed by Leo / Steve before publish. Brand voice and factual accuracy matter more than speed. No un-reviewed content goes live</li>
-        </ul>
-      </li>
-      <li style="padding-top:12px; border-top:1.5px solid #d6dfe8; margin-top:8px;"><strong>Blog playbook — piggyback existing demand, spiderweb the site</strong> — the content engine above tells you <em>how</em> to publish at volume; this is the opinionated <em>what to write</em> playbook distilled from the Spiritbird / YouTube walkthroughs (<a href="https://youtu.be/8-9WLx16QEs">video 1</a>, <a href="https://youtu.be/SjdB6RuLris">video 2</a>, <a href="https://spiritbird.kit.com/1a794afd9d">resource</a>):
-        <ul style="margin-top:6px;">
-          <li><strong>Anatomy-of-a-high-performing-product-page PDF</strong> — turn the PDF reference into a one-page template and audit every money page against it. Same checklist applied to every product, every collection, every landing page</li>
-          <li><strong>Real-time SEO data as the source</strong> — don't guess topics. Pull live search data (Ahrefs / SEMrush / Google Search Console + ChatGPT / Perplexity citations) and feed it directly into the content brief. Topics come from what people are <em>actually</em> searching this week, not a static keyword list</li>
-          <li><strong>Keyword variation mining</strong> — for every money page, generate the long-tail variations people search for and spin up a dedicated sub-page for each one. Don't let one page try to rank for 20 phrasings — give each phrasing its own home</li>
-          <li><strong>Ask Claude for an authority-safe SEO plan</strong> — explicit prompt requirement: build the content map <em>without diluting the site's topical authority</em>. No random off-topic posts. Every page has to reinforce the core money pages</li>
-          <li><strong>Four blog formats — piggyback on demand that already exists</strong>:
-            <ol style="margin-top:4px;">
-              <li><em>You vs. [Competitor]</em> — direct comparisons (Office Central vs. Staples Business Advantage, vs. Grand &amp; Toy, vs. Global Industrial Canada)</li>
-              <li><em>Alternatives to [Competitor]</em> — literally use the competitor's name in the blog title. People already search this</li>
-              <li><em>Best [Product Type] for [Use Case]</em> — e.g. "Best Ergonomic Chairs for Long Clinical Shifts," "Best Boardroom Tables for Indigenous Community Spaces"</li>
-              <li><em>Buying Guides</em> — long-form procurement guides targeted at the ICP (health centre procurement, Indigenous band office procurement, Ontario non-profit procurement)</li>
-            </ol>
-            Plug Office Central's own products and packages into every comparison / alternatives post. Piggyback on demand that <em>already</em> exists instead of trying to create new demand
-          </li>
-          <li><strong>Internal linking as the ranking signal</strong> — internal links tell Google which page on the site should rank for a given term. Support every product page with links from collections, blogs, and related products pointing <em>to</em> it. The most-linked-to page wins</li>
-          <li><strong>Link-to-money-pages rule — first 100–200 words</strong> — every blog post links to the relevant money page (product or collection) inside the first 100–200 words. Related-blog links go later in the article. Top-of-article link equity is load-bearing</li>
-          <li><strong>Collections → sub-collections → products</strong> — build the taxonomy so every collection links into its sub-collections, every sub-collection links back up <em>and</em> across to siblings, and every product links back to its collection(s). No orphan pages</li>
-          <li><strong>Repeat until the entire site is a spiderweb</strong> — the end state: you can pick any page on the site at random and reach any money page in ≤2 clicks. That's the definition of "done" for internal linking</li>
-          <li><strong>Blog-publisher skill</strong> — build a dedicated Claude skill that takes a topic + target money page + format (one of the four above) and outputs a fully-linked, schema-marked, brand-voiced post ready for human review. Feeds the content velocity target above</li>
-        </ul>
-      </li>
-      <li style="padding-top:12px; border-top:1.5px solid #d6dfe8; margin-top:8px;"><strong>AI search infrastructure — the six things missing from most Shopify sites that LLMs actually use to decide who to cite</strong>
-        <ul style="margin-top:6px;">
-          <li><strong>Allow AI crawlers in robots.txt</strong> — Shopify's default robots.txt may block GPTBot (ChatGPT), PerplexityBot, ClaudeBot, and Amazonbot. If they can't crawl, they can't cite. Explicitly whitelist all four in the Shopify robots.txt liquid file. Check monthly — new bots launch and default to blocked</li>
-          <li><strong>Entity establishment — build a NAP footprint</strong> — LLMs recognize businesses as named entities, not just websites. Get consistent Name / Address / Phone citations on 10+ Canadian directories: YellowPages.ca, Canada411, BBB Canada, Yelp Canada, Houzz Pro, local Chamber of Commerce, Ontario office furniture trade directories. Consistency is the signal — if "Brant Business Interiors" and "Office Central" are mixed across listings, LLMs see two entities, not one. Pick the brand name (Tier 2 / Tier 9) and scrub all citations to match</li>
-          <li><strong>Bing Webmaster Tools + sitemap submission</strong> — Microsoft Copilot, ChatGPT's Browse mode, and Edge AI all run on Bing's index. Zero Bing coverage means zero Copilot citations. Submit the sitemap at <code>bingwebmaster.com</code>, verify ownership, and submit the sitemap the same day the Google sitemap is submitted (Tier 2 and Tier 5)</li>
-          <li><strong>LinkedIn company page</strong> — ChatGPT and Perplexity pull from LinkedIn heavily for B2B company lookups. A complete LinkedIn page (About, services, 30+ years, Ontario B2B, institutional specialty, link to site) is a real citation source. Publish 2–4 posts at launch so there's fresh content for crawlers to index. This is a one-day setup, not a content program</li>
-          <li><strong>SpeakableSpecification schema on key pages</strong> — Google's official schema for "surface this content in AI answers and voice search." Add to: homepage, About Us, and every industry landing page (health centres, First Nations, government, etc.). Each SpeakableSpecification block should point at the 1–3 sentences on the page that best answer a procurement question. This is the single highest-signal thing a page can do to attract AI Overview citations</li>
-          <li><strong>Standalone FAQ hub at /pages/faq</strong> — the checklist adds FAQPage schema on product pages, but there's no dedicated FAQ page covering procurement-level questions LLMs are asked constantly: <em>"Does Brant Business accept purchase orders?" "Do you deliver to First Nations reserves?" "What is the lead time for institutional furniture in Ontario?" "Is there tax exemption for non-profits?"</em> One page, 15–20 Q&amp;As, full FAQPage schema. This is the page most likely to be quoted verbatim in an AI Overview. Write answers in one or two plain sentences — no jargon, no hedging</li>
-          <li><strong>Manufacturer dealer directory listings</strong> — LLMs treat manufacturer-sourced dealer pages as authoritative citations. Get BBI listed on: Global Furniture Group's dealer locator, Teknion's dealer finder, ergoCentric's dealer map, and any other brand carried where a public dealer directory exists. Each listing is a credibility signal + a backlink + an entity co-occurrence with a trusted brand</li>
-        </ul>
-      </li>
-      <li style="padding-top:12px; border-top:1.5px solid #d6dfe8; margin-top:8px;"><strong>Footer resources — traffic drivers + internal-link backbone</strong> — the footer template (<code>theme/sections/footer.liquid</code>) supports 3 link columns + contact + newsletter, all unpopulated today. Every link added here appears on <em>every page</em> of the site, so this is the single highest-leverage internal-linking move. Local-SEO weighted (per Leo's direction):
-        <ul style="margin-top:6px;">
-          <li><strong>Service-area pages (P0)</strong> — dedicated pages for Hamilton, Cambridge, Kitchener-Waterloo, Brantford, Peterborough, and the GTA. Each with unique copy (not templated boilerplate), LocalBusiness + Service schema, local project photos from the OCI library, and embedded Google Map. Targets "office furniture [city]" — low competition, high commercial intent</li>
-          <li><strong>Our Work gallery (P0)</strong> — project portfolio page using the 48 OCI photos already cataloged in <code>data/oci-photos/catalog.json</code>. Segment by city and industry so it doubles as local proof ("Our recent Hamilton projects," "Community health centre installs")</li>
-          <li><strong>Showroom / Visit Us page (P0)</strong> — hours, directions, embedded Google Map, parking info, "book a visit" CTA. Pairs with Google Business Profile for local-pack ranking</li>
-          <li><strong>FAQ page (P1)</strong> — standalone <code>/pages/faq</code> with FAQPage schema; include local questions ("Do you deliver to Hamilton?," "Assembly in K-W?," "OECM purchasing?," "Net-30 terms?"). Most likely page to be quoted verbatim in an AI Overview</li>
-          <li><strong>OECM / Education landing page (P1)</strong> — pair with local school board names (Grand Erie DSB, Brant Haldimand Norfolk Catholic DSB, Waterloo Region DSB)</li>
-          <li><strong>Acoustic Pod Buyer's Guide (P1)</strong> — hot item per 2026 SEO strategy; low-competition, high-margin category</li>
-          <li><strong>Brands We Carry page (P2)</strong> — Global, Teknion, ergoCentric, Keilhauer, etc. Emphasize Canadian-made and local-dealer status. Captures brand-name searches</li>
-          <li><strong>Healthcare / Legal / Government verticals (P2)</strong> — tie each to the regions BBI actually serves (e.g. "Healthcare furniture for Hamilton-area clinics")</li>
-          <li><strong>Footer configuration</strong> — wire 3 link columns (Shop · Resources · Company), populate Contact block with NAP + hours + map + "Book a Design Consultation" CTA, replace the default Newsletter with a lead-magnet capture ("2026 Office Design Trends Report" PDF). Add LinkedIn social icon (skip Instagram/TikTok — B2B doesn't need them)</li>
-          <li><strong>Trust strip above the copyright line</strong> — Canadian-made badge, dealer certifications (Global, Teknion), years in business, AODA-compliance badge, OECM vendor status if applicable</li>
-          <li><strong>Local SEO infrastructure</strong> — LocalBusiness + Service schema on every service-area page, NAP consistency (exact-match name/address/phone between footer, GBP, and all directory listings per the entity-establishment work above), Google Map embed in footer contact block, GBP review snippet in the footer (pulls live star rating)</li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<section class="tier">
-  <div class="tier-header">
-    <div class="tier-label">Tier 6</div>
-    <h3>Increase Repeat Purchases (17% → Target 30%)</h3>
-    <p class="tagline">Every 1% is nearly free revenue. Top 10 customers = 30% of revenue — protect them.</p>
-  </div>
-  <div class="tier-body">
-    <ul>
-      <li><strong>Non-completion email flows — recover the people who didn't finish</strong> — Shopify already captures the email on most of these events. Set up a distinct automated sequence for each drop-off point, because they mean different things and need different asks:
-        <ul style="margin-top:6px;">
-          <li><strong>Abandoned cart</strong> — added to cart, never checked out. 3-email series over 7 days:
-            <ol style="margin-top:4px;">
-              <li><em>+1 hour</em> — "You left this in your cart" — product image, one-click return-to-cart link, trust signals (30-year-old Canadian business, free design layout)</li>
-              <li><em>+24 hours</em> — add social proof + objection handling ("not sure about delivery? we handle install across Ontario / we can also quote it if you need a PO")</li>
-              <li><em>+72 hours</em> — soft CTA: <em>"Want a human to spec this for your space? Reply and we'll build a free layout."</em> Route replies to Steve</li>
-            </ol>
-          </li>
-          <li><strong>Abandoned checkout</strong> — entered checkout, didn't pay. Treat separately from cart — intent is much higher. 2-email series:
-            <ol style="margin-top:4px;">
-              <li><em>+30 min</em> — "Need a PO number or invoice instead? Reply and we'll switch it to a quote" — the #1 reason B2B buyers bail at checkout is procurement red tape</li>
-              <li><em>+24 hours</em> — last-nudge return link + phone number</li>
-            </ol>
-          </li>
-          <li><strong>Abandoned quote request (B2B — highest value)</strong> — quote form submitted or quote emailed, no reply after N days. Auto-follow-up sequence off the quote (Tier 4):
-            <ol style="margin-top:4px;">
-              <li><em>+3 days</em> — "Did you get our quote? Any questions on specs or lead time?"</li>
-              <li><em>+7 days</em> — offer an alternative (cheaper SKU, in-stock swap, smaller package)</li>
-              <li><em>+14 days</em> — "Still timing this in? Happy to hold the pricing for 30 days"</li>
-              <li><em>+30 days</em> — "Closing this quote — want me to reopen it?" Keeps the door open without nagging</li>
-            </ol>
-          </li>
-          <li><strong>Browse abandonment</strong> — logged-in or identified visitor viewed a product / collection 2+ times but never added to cart. Single email at +48h: <em>"Still looking at [product]? Here are 3 similar options + a free design layout offer."</em> Only fire on high-intent pages (chairs, desks, boardroom tables), not blog or about</li>
-          <li><strong>Post-quote-accepted no-order</strong> — quote was accepted or marked "approved by procurement" but order never placed. +5 days: <em>"Ready to go? Reply with the PO and we'll kick off fulfillment."</em> Route to Steve</li>
-          <li><strong>Plumbing</strong> — all of the above run in Shopify Email or Klaviyo (Klaviyo is worth it once volume justifies — better B2B segmentation). Suppress anyone who's purchased or replied. Brand-match every template to the design system from Tier 3. Measure open / click / recovered-revenue per flow monthly</li>
-        </ul>
-      </li>
-      <li>Post-purchase email at 30 days: <em>"How's the install?"</em></li>
-      <li>Post-purchase email at 6 months: <em>"Time to refresh?"</em></li>
-      <li>Post-purchase email at 12 months: <em>"Growing team? Free design layout on us"</em></li>
-      <li>Build a "Procurement Account" login with saved addresses, POs, and invoices</li>
-      <li>Case studies with top 3 customers (with logo + permission) — used as trust content on the site, not outbound</li>
-    </ul>
-  </div>
-</section>
-
-<section class="tier">
-  <div class="tier-header">
-    <div class="tier-label">Tier 7</div>
-    <h3>Increase Average Order Value ($1,763 → Target $2,200)</h3>
-    <p class="tagline">The same customer, buying more per order.</p>
-  </div>
-  <div class="tier-body">
-    <ul>
-      <li>"Frequently Bought Together" bundles on top-50 products (desk + chair + file cabinet)</li>
-      <li>"Complete the Room" cross-sells on product pages</li>
-      <li>Pre-built room packages: <em>5-Person Open Office Starter Kit, Executive Office Package, Boardroom Package</em></li>
-      <li>Volume discount tiers on chairs, desks, tables (e.g. buy 5+ save 10%)</li>
-      <li>Warranty upgrade upsell at checkout</li>
-      <li>Delivery &amp; installation add-on at checkout</li>
-    </ul>
-  </div>
-</section>
-
-<section class="tier">
-  <div class="tier-header">
-    <div class="tier-label">Tier 8</div>
-    <h3>Polish &amp; Professional Signals</h3>
-    <p class="tagline">Signal trust at every touchpoint — important for institutional and government procurement buyers.</p>
-  </div>
-  <div class="tier-body">
-    <ul>
-      <li>Shipping policy page (clear, written specifically for B2B)</li>
-      <li>Returns policy page</li>
-      <li>Warranty policy page</li>
-      <li>Privacy policy and Terms of Service updated for Canadian law</li>
-      <li>AODA accessibility compliance (important for Ontario government / institutional buyers)</li>
-      <li>Custom 404 page that routes people to top products or contact form</li>
-      <li>Favicon and Open Graph images for social sharing</li>
-      <li>Consistent product imagery style across top-50 (Claude Design prompt library)</li>
-    </ul>
-  </div>
-</section>
-
-<section class="tier">
-  <div class="tier-header">
-    <div class="tier-label">Tier 9</div>
-    <h3>Scale and Automate</h3>
-    <p class="tagline">Big levers, but only worth pulling after the foundation is solid.</p>
-  </div>
-  <div class="tier-body">
-    <ul>
-      <li>AI-generated descriptions for all remaining ~400 live products</li>
-      <li>AI-powered search on the store</li>
-      <li>Multi-user business accounts (buyer + approver workflow)</li>
-      <li>Integration with QuickBooks or accounting system</li>
-      <li>Automated invoice and PO document generation</li>
-      <li>Shopify Flow automations for quote-to-order handoff</li>
-    </ul>
-  </div>
-</section>
-
-<div class="plan">
-  <h3>How to Work Through This</h3>
-  <p style="margin:0 0 10px; font-size:10.5pt; color:#4b5563;">The tier order above <strong>is</strong> the execution order. Work top to bottom. Don't jump ahead — each tier assumes the previous one is done.</p>
-  <p style="margin:0; font-size:10.5pt; color:#4b5563;">Tiers that can safely run in parallel once their predecessors are complete: <strong>Tier 5 + Tier 6</strong> (SEO and retention emails don't depend on each other), and <strong>Tier 8 + Tier 9</strong> (trust polish and automation are independent finishing work). Everything else is strictly sequential.</p>
+<!-- SCOPE NOTE -->
+<div class="scope-note">
+  <p><strong>Scope change — April 25, 2026:</strong> The shop is narrowed to <strong>Business Furniture only.</strong> Educational, Daycare &amp; ECE, and Healthcare &amp; Seniors vertical pages have been removed and products archived in Shopify. The Industries section (Healthcare, Education, Government, etc.) remains — copy now focuses on furnishing <em>workspaces within those sectors</em> using business furniture. Active templates reduced from 4 to 3 (<code>page.shop-hub.json</code> no longer needed).</p>
 </div>
 
-<div class="footer">
-  Brant Business Interiors &nbsp;&middot;&nbsp; brantbusinessinteriors.com &nbsp;&middot;&nbsp; 1-800-835-9565 &nbsp;&middot;&nbsp; Updated April 21, 2026
+<!-- ═══════════════════════════════════ CORPORATE CONTEXT ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Context</span><h3 class="sec-title">Corporate Context</h3></div>
+  <div class="sec-body">
+    <div class="ilist"><ul>
+      <li>BBI is the furniture division of Brant Basics, owned by <strong>Office Central</strong> (founded 1978, $111M revenue, Richmond Hill ON HQ).</li>
+      <li><strong>Both Office Central and Brant Basics are verified OECM supplier partners</strong> — Ontario school boards, hospitals, libraries, universities, and municipalities can buy from BBI through OECM without open tender. No Ontario furniture competitor has this status.</li>
+      <li>BBI can claim: <em>"Backed by Office Central, proudly serving Ontario businesses since 1964."</em></li>
+      <li><strong>Parent backlinks:</strong> officecentral.com and brantbasics.com — highest-value links BBI can get, already owned.</li>
+      <li><strong>⚠ BBI has no Google Business Profile yet</strong> — needs to be created (W0-2).</li>
+      <li><strong>Phone:</strong> 1-800-835-9565 &nbsp;·&nbsp; <strong>Email:</strong> furnorders@officecentral.com</li>
+      <li><strong>6 Locations:</strong> Brantford HQ · Peterborough · Brampton · Toronto · Vancouver · Calgary</li>
+    </ul></div>
+  </div>
 </div>
 
+<!-- ═══════════════════════════════ COMPLETED INFRASTRUCTURE ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Shipped</span><h3 class="sec-title">Completed Infrastructure</h3><span class="sec-sub">April 19–20, 2026</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th>What</th><th style="width:180px">Status</th></tr></thead>
+      <tbody>
+        <tr><td>Shopify Admin API + OAuth app</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>Full order analysis (Oct 2024 → Apr 2026)</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>Product HTML audit (all 650 SKUs)</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>ICP + voice sheet locked (<code>docs/strategy/icp.md</code>)</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>5 approved product description samples (<code>docs/strategy/voice-samples.md</code>)</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>HTML cleanup on 147 top-revenue products</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>9 ™/® product handles renamed + redirect CSV generated</td><td><span class="done-tag">✓ Done (CSV upload pending)</span></td></tr>
+        <tr><td>11 service pseudo-products unpublished</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>21 junk/test/draft products archived</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>41 boilerplate duplicates cleaned</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>Taxonomy: 14 automated collections built (7 type × 7 room)</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>584/613 products tagged with <code>type:*</code>, <code>room:*</code>, <code>industry:*</code></td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>Main nav rebuilt (8 top-level items live)</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>Delivery + Installation 7-tier shipping rate live</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>Site-wide floating "Request a Quote" button</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>Sold-out/$0-price variants → Request a Quote CTA</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>Liquid error <code>divided by 0</code> on product pages — fixed</td><td><span class="done-tag">✓ Done</span></td></tr>
+        <tr><td>Announcement bar with phone number</td><td><span class="done-tag">✓ Done</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ PRE-BUILD CHECKLIST ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Pre-Build</span><h3 class="sec-title">Pre-Build Checklist</h3><span class="sec-sub">Run once before any Phase work</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">PB-1</td><td><span class="tn">Archive task</span><span class="tnote">Run <code>scripts/archive-non-biz-products.py</code> — archive all products with sector-specific type tags (educational furniture, daycare, healthcare equipment). Dry-run first, confirm output, then <code>--live</code>.</span></td><td><button class="sb s0" data-key="PB-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PB-2</td><td><span class="tn">Archive collections</span><span class="tnote">Unpublish/archive <code>/collections/educational</code>, <code>/collections/daycare</code>, <code>/collections/healthcare</code> and all sub-collections in Shopify Admin.</span></td><td><button class="sb s0" data-key="PB-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PB-3</td><td><span class="tn">Update nav</span><span class="tnote">Remove Educational, Daycare, Healthcare columns from mega menu; update "Shop Furniture" click to go directly to <code>/collections/business-furniture</code> (no Shop Hub).</span></td><td><button class="sb s0" data-key="PB-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PB-4</td><td><span class="tn">Redirect /pages/shop</span><span class="tnote">Set <code>/pages/shop</code> → <code>/collections/business-furniture</code> in Shopify Admin → Navigation → URL Redirects.</span></td><td><button class="sb s0" data-key="PB-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PB-5</td><td><span class="tn">Audit Business Furniture sub-collections</span><span class="tnote">Verify product count &gt; 0 for all ~68 sub-collections. Convert empty collections to smart collections with appropriate rules.</span></td><td><button class="sb s0" data-key="PB-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PB-6</td><td><span class="tn">Upload redirect CSV</span><span class="tnote"><code>data/url-redirects.csv</code> — upload in Shopify Admin → Navigation → URL Redirects (Leo's task, was W0-3).</span></td><td><button class="sb s0" data-key="PB-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PB-7</td><td><span class="tn">GSC + GA4 setup (W0-1)</span><span class="tnote">Must be live before Phase 1 pages launch so SEO progress is measurable.</span></td><td><button class="sb s0" data-key="PB-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ WAVE 0 ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Wave 0</span><h3 class="sec-title">Technical Foundation</h3><span class="sec-sub">Blocks all Phase work — no SEO compounds until solid</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:130px">Priority</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">W0-1</td><td class="tn">Google Search Console + GA4 setup</td><td><span class="pri">🔴 Critical</span></td><td><button class="sb s0" data-key="W0-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W0-2</td><td class="tn">Create BBI Google Business Profile</td><td><span class="pri">🔴 Critical</span></td><td><button class="sb s0" data-key="W0-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W0-2b</td><td class="tn">Google Reviews seeding strategy</td><td><span class="pri">🔴 Critical</span></td><td><button class="sb s0" data-key="W0-2b" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W0-3</td><td><span class="tn">Fix product redirects</span><span class="tnote">CSV at <code>data/url-redirects.csv</code> — manual upload in Shopify Admin pending (Leo's task)</span></td><td><span class="pri">🔴 Critical</span></td><td><button class="sb s1" data-key="W0-3" onclick="cycle(this)"><span class="dot"></span>In progress</button></td></tr>
+        <tr><td class="tk">W0-4</td><td><span class="tn">Meta titles + descriptions audit</span><span class="tnote">Blocked on W0-1 (GSC setup)</span></td><td><span class="pri">🔴 High</span></td><td><button class="sb s0" data-key="W0-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W0-5</td><td class="tn">Confirm Request a Quote CTAs are live</td><td><span class="pri">🔴 High</span></td><td><button class="sb s2" data-key="W0-5" onclick="cycle(this)"><span class="dot"></span>Done</button></td></tr>
+        <tr><td class="tk">W0-6</td><td class="tn">Parent domain backlinks (officecentral.com, brantbasics.com)</td><td><span class="pri">🔴 High</span></td><td><button class="sb s0" data-key="W0-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W0-7</td><td class="tn">OECM + "Since 1964" trust signals on BBI store</td><td><span class="pri">🔴 High</span></td><td><button class="sb s0" data-key="W0-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ PHASE 1 ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Phase 1</span><h3 class="sec-title">Conversion &amp; SEO Pages</h3><span class="sec-sub">Build first. Pre-req: W0-1 live</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Page</th><th style="width:220px">URL</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">P1-1</td><td class="tn">Homepage</td><td><code>/</code></td><td><button class="sb s0" data-key="P1-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-2</td><td class="tn">OECM Supplier Partner</td><td><code>/pages/oecm</code></td><td><button class="sb s0" data-key="P1-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-3</td><td class="tn">Design Services</td><td><code>/pages/design-services</code></td><td><button class="sb s0" data-key="P1-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-4</td><td class="tn">Request a Quote</td><td><code>/pages/quote</code></td><td><button class="sb s0" data-key="P1-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-5</td><td class="tn">Industries Hub</td><td><code>/pages/industries</code></td><td><button class="sb s0" data-key="P1-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-6</td><td class="tn">Healthcare industry page</td><td><code>/pages/healthcare</code></td><td><button class="sb s0" data-key="P1-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-7</td><td class="tn">Education industry page</td><td><code>/pages/education</code></td><td><button class="sb s0" data-key="P1-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-8</td><td class="tn">Government industry page</td><td><code>/pages/government</code></td><td><button class="sb s0" data-key="P1-8" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-9</td><td class="tn">Non-Profit industry page</td><td><code>/pages/non-profit</code></td><td><button class="sb s0" data-key="P1-9" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-10</td><td class="tn">Professional Services industry page</td><td><code>/pages/professional-services</code></td><td><button class="sb s0" data-key="P1-10" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+    <div class="subsec">Homepage sections (build in this order)</div>
+    <div class="ilist"><ol>
+      <li>Hero — headline, CTA to <code>/collections/business-furniture</code> or <code>/pages/quote</code></li>
+      <li>Business Furniture category grid (9 tiles → each category page)</li>
+      <li>Featured products (3 Hero 100 items)</li>
+      <li>OECM trust bar — "Verified OECM supplier. Ontario institutions can purchase without open tender."</li>
+      <li>Industries we serve (5 sector thumbnails → industry landing pages)</li>
+      <li>Services overview (Design Services · Delivery · Relocation)</li>
+      <li>Testimonials / Our Work preview</li>
+      <li>Footer with full nav + phone + quote CTA</li>
+    </ol></div>
+    <div class="subsec">Industry page cross-links (all point to Business Furniture)</div>
+    <div class="ilist"><ul>
+      <li><strong>/pages/healthcare</strong> → Reception desks, task seating, waiting room chairs, storage</li>
+      <li><strong>/pages/education</strong> → Admin seating, staff desks, boardroom tables, storage</li>
+      <li><strong>/pages/government</strong> → Desks, storage, panels, boardroom</li>
+      <li><strong>/pages/non-profit</strong> → Seating, tables, accessories</li>
+      <li><strong>/pages/professional-services</strong> → Ergonomic products, desks, seating</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ PHASE 1b ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Phase 1b</span><h3 class="sec-title">Product Page Enrichment</h3><span class="sec-sub">Runs in parallel with Phase 1. Pre-req: voice sheet + data/specs/</span></div>
+  <div class="sec-body">
+    <div class="subsec">Hero 100 — Priority batch (top-revenue products)</div>
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">PE-1</td><td><span class="tn">Rewrite descriptions</span><span class="tnote">3–5 sentences using BBI voice; lead with use case + OECM/Canadian angle where applicable</span></td><td><button class="sb s0" data-key="PE-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PE-2</td><td><span class="tn">Populate specs block</span><span class="tnote">Dimensions, weight capacity, materials, colour options, certifications (BIFMA, GREENGUARD, Made in Canada flag) pulled from <code>data/specs/{handle}.json</code></span></td><td><button class="sb s0" data-key="PE-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PE-3</td><td><span class="tn">Normalize product titles</span><span class="tnote">Sentence case, no trademark symbols in handle, format: <code>[Brand] [Product Name] — [Key Spec]</code></span></td><td><button class="sb s0" data-key="PE-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PE-4</td><td><span class="tn">Per-product SEO meta titles + descriptions</span><span class="tnote">Unique title tag (&lt;60 chars) + meta description (&lt;160 chars) for all Hero 100</span></td><td><button class="sb s0" data-key="PE-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+    <div class="subsec">Full Catalog — 503 remaining products</div>
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">PE-5</td><td><span class="tn">Batch description cleanup</span><span class="tnote">Strip boilerplate HTML, remove duplicate paragraphs, ensure every product has at least 2 sentences of real copy</span></td><td><button class="sb s0" data-key="PE-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PE-6</td><td><span class="tn">Specs block rollout</span><span class="tnote">Apply specs template to all products that have <code>data/specs/{handle}.json</code> entries</span></td><td><button class="sb s0" data-key="PE-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">PE-7</td><td><span class="tn">Meta titles + descriptions bulk generate</span><span class="tnote">Remaining 503 using title + type tag as inputs</span></td><td><button class="sb s0" data-key="PE-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+    <div class="subsec">Scripts</div>
+    <div class="ilist"><ul>
+      <li><code>scripts/push-descriptions.py</code> — reads enriched copy from CSV, pushes via API (dry-run first)</li>
+      <li><code>scripts/push-meta.py</code> — pushes SEO title + description fields</li>
+      <li>Source CSVs: <code>data/reports/descriptions-hero100.csv</code>, <code>data/reports/meta-hero100.csv</code></li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ PHASE 2 ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Phase 2</span><h3 class="sec-title">Shop Structure</h3><span class="sec-sub">Unlocks full product UX. Pre-req: Phase 1 complete</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Page</th><th style="width:240px">URL</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">P2-1</td><td class="tn">Business Furniture vertical</td><td><code>/collections/business-furniture</code></td><td><button class="sb s0" data-key="P2-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-2</td><td class="tn">Seating</td><td><code>/collections/seating</code></td><td><button class="sb s0" data-key="P2-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-3</td><td class="tn">Desks &amp; Workstations</td><td><code>/collections/desks</code></td><td><button class="sb s0" data-key="P2-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-4</td><td class="tn">Storage &amp; Filing</td><td><code>/collections/storage</code></td><td><button class="sb s0" data-key="P2-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-5</td><td class="tn">Tables</td><td><code>/collections/tables</code></td><td><button class="sb s0" data-key="P2-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-6</td><td class="tn">Boardroom</td><td><code>/collections/boardroom</code></td><td><button class="sb s0" data-key="P2-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-7</td><td class="tn">Ergonomic Products</td><td><code>/collections/ergonomic-products</code></td><td><button class="sb s0" data-key="P2-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-8</td><td class="tn">Panels &amp; Dividers</td><td><code>/collections/panels-room-dividers</code></td><td><button class="sb s0" data-key="P2-8" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-9</td><td class="tn">Accessories</td><td><code>/collections/accessories</code></td><td><button class="sb s0" data-key="P2-9" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-10</td><td class="tn">Quiet Spaces</td><td><code>/collections/quiet-spaces</code></td><td><button class="sb s0" data-key="P2-10" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+    <div class="ilist" style="background:#f9fafb;border-top:1px solid #e5e7eb"><p>All 10 pages use <code>collection.category.json</code>: hero banner · tile grid (section blocks) · breadcrumb back to vertical · "See all Business Furniture" link · phone CTA.</p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ PHASE 3 ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Phase 3</span><h3 class="sec-title">Collection Template Rollout</h3><span class="sec-sub">~68 sub-collections. Pre-req: collection.json template built</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Step</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">P3-1</td><td><span class="tn">Build <code>collection.json</code> template</span><span class="tnote">Filter sidebar + product grid + breadcrumbs (<code>Home &gt; Shop Furniture &gt; [Category] &gt; [Sub-collection]</code>) + phone CTA block at bottom</span></td><td><button class="sb s0" data-key="P3-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P3-2</td><td><span class="tn">Apply to all ~68 Business Furniture sub-collections</span><span class="tnote">Assign hero images from <code>data/page-images/</code> — see sub-collection list: <code>docs/plan/site-architecture-2026-04-25.md</code> §2c</span></td><td><button class="sb s0" data-key="P3-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P3-3</td><td><span class="tn">Assign hero images per collection from AI-generated image library</span><span class="tnote">Library at <code>data/page-images/</code></span></td><td><button class="sb s0" data-key="P3-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+    <div class="ilist" style="background:#f9fafb;border-top:1px solid #e5e7eb"><p><strong>Phone CTA block (required on every sub-collection page):</strong> "Can't find exactly what you need? Our team can help. Call 1-800-835-9565" + "Request a Quote →" button → <code>/pages/quote</code></p></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ PHASE 4 ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Phase 4</span><h3 class="sec-title">Remaining Landing Pages</h3></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Page</th><th style="width:240px">URL</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">P4-1</td><td class="tn">Brands Hub</td><td><code>/pages/brands</code></td><td><button class="sb s0" data-key="P4-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P4-2</td><td class="tn">Keilhauer dealer page</td><td><code>/pages/brands-keilhauer</code></td><td><button class="sb s0" data-key="P4-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P4-3</td><td class="tn">Global / Teknion dealer page</td><td><code>/pages/brands-global-teknion</code></td><td><button class="sb s0" data-key="P4-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P4-4</td><td class="tn">ergoCentric dealer page</td><td><code>/pages/brands-ergocentric</code></td><td><button class="sb s0" data-key="P4-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P4-5</td><td class="tn">About Us</td><td><code>/pages/about</code></td><td><button class="sb s0" data-key="P4-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P4-6</td><td><span class="tn">Our Work / Portfolio</span><span class="tnote">48 OCI photos ready at <code>data/oci-photos/catalog.json</code></span></td><td><code>/pages/our-work</code></td><td><button class="sb s0" data-key="P4-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P4-7</td><td class="tn">Contact</td><td><code>/pages/contact</code></td><td><button class="sb s0" data-key="P4-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P4-8</td><td class="tn">Delivery &amp; Installation</td><td><code>/pages/delivery</code></td><td><button class="sb s0" data-key="P4-8" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P4-9</td><td class="tn">Relocation Management</td><td><code>/pages/relocation</code></td><td><button class="sb s0" data-key="P4-9" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═════════════════════════════ PAGE INTERCONNECTION RULES ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Rules</span><h3 class="sec-title">Page Interconnection Rules</h3><span class="sec-sub">Apply when building or editing any page</span></div>
+  <div class="sec-body">
+    <div class="ilist"><ol>
+      <li><strong>Breadcrumbs on all sub-collection pages:</strong> <code>Home &gt; Shop Furniture &gt; [Category] &gt; [Sub-collection]</code> — BreadcrumbList JSON-LD included.</li>
+      <li><strong>Category pages link back and across:</strong> breadcrumb to vertical + "See all Business Furniture →" + "Can't find it? Call 1-800-835-9565"</li>
+      <li><strong>Industry pages cross-link to Business Furniture:</strong> each industry page has "Shop [Sector] Furniture →" button linking to relevant sub-collections (see Phase 1 cross-link mapping above)</li>
+      <li><strong>Shop vertical cross-links to industry pages:</strong> <code>/collections/business-furniture</code> includes contextual module linking to <code>/pages/industries</code></li>
+      <li><strong>Every sub-collection page has a phone CTA block</strong> — "Can't find exactly what you need? Call 1-800-835-9565" + "Request a Quote →"</li>
+      <li><strong>Homepage surfaces Business Furniture categories</strong> (9 tiles) + OECM trust bar + 5 industry thumbnails</li>
+      <li><strong>Brand pages link to relevant products:</strong> each <code>/pages/brands-*</code> includes "Shop [Brand] products →" + 3–4 featured products</li>
+    </ol></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ WAVE 2 ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Wave 2</span><h3 class="sec-title">Requires Catalog or Product Work</h3><span class="sec-sub">Pre-req: Phase 3 (Hero 100 product enrichment)</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:130px">Priority</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">W2-1</td><td><span class="tn">Acoustic Pods / Phone Booths sub-collection</span><span class="tnote">Under /collections/quiet-spaces — needs products in catalog</span></td><td><span class="pri">🔴 High</span></td><td><button class="sb s0" data-key="W2-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W2-2</td><td class="tn">Sit-stand buyer guide + collection</td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="W2-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W2-3</td><td class="tn">Hybrid work bundle collection</td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="W2-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W2-4</td><td class="tn">Email capture + lead magnet</td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="W2-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W2-5</td><td><span class="tn">Internal linking audit</span><span class="tnote">After Phase 1 content exists</span></td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="W2-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W2-6</td><td class="tn">Co-published content on parent domains</td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="W2-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W2-7</td><td class="tn">Schema Markup (Product, FAQPage, Organization, BreadcrumbList)</td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="W2-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W2-8</td><td><span class="tn">Product title optimization</span><span class="tnote">Covered in Phase 1b PE-3 (Hero 100 titles)</span></td><td><span class="pri">🟢 Quick win</span></td><td><button class="sb s0" data-key="W2-8" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ WAVE 3 ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Wave 3</span><h3 class="sec-title">Authority Building</h3><span class="sec-sub">Pre-req: Wave 1 + Wave 2 content live (ongoing)</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:130px">Priority</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">W3-1</td><td class="tn">City-level SEO pages (Hamilton, Cambridge, Kitchener-Waterloo, Brantford, Peterborough, GTA)</td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="W3-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W3-2</td><td class="tn">Ergonomics education hub</td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="W3-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W3-3</td><td class="tn">Blog — see Blog section below</td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="W3-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W3-4</td><td class="tn">Sustainability / LEED / BIFMA page</td><td><span class="pri">🟢 Lower</span></td><td><button class="sb s0" data-key="W3-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W3-5</td><td class="tn">Space planning landing page</td><td><span class="pri">🟢 Lower</span></td><td><button class="sb s0" data-key="W3-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W3-6</td><td class="tn">Manufacturer dealer locator pages (Global, Teknion, ergoCentric, Keilhauer)</td><td><span class="pri">🟢 Lower</span></td><td><button class="sb s0" data-key="W3-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W3-7</td><td class="tn">OECM directory + Chamber + COPA backlinks</td><td><span class="pri">🟢 Lower</span></td><td><button class="sb s0" data-key="W3-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">W3-8</td><td class="tn">Brand kit + design authority</td><td><span class="pri">🟢 Lower</span></td><td><button class="sb s0" data-key="W3-8" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ BLOG ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Blog</span><h3 class="sec-title">Build + QA</h3><span class="sec-sub">Pre-req: Wave 0 complete, ≥5 Phase 1 pages live</span></div>
+  <div class="sec-body">
+    <div class="subsec">Template &amp; Infrastructure</div>
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">BL-1</td><td><span class="tn">Verify blog list page</span><span class="tnote"><code>/blogs/news</code> returns 200, pagination works, posts display with featured image + excerpt</span></td><td><button class="sb s0" data-key="BL-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">BL-2</td><td><span class="tn">Verify blog post template</span><span class="tnote">Individual post pages render; title, body, author, date, featured image all output. Check <code>article.liquid</code> or OS 2.0 JSON template.</span></td><td><button class="sb s0" data-key="BL-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">BL-3</td><td><span class="tn">Blog nav link</span><span class="tnote">Confirm "Blog" or "Resources" appears in footer/main nav, links to correct URL</span></td><td><button class="sb s0" data-key="BL-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">BL-4</td><td><span class="tn">Article schema markup</span><span class="tnote">Add <code>Article</code> JSON-LD (headline, datePublished, author, image) to post template</span></td><td><button class="sb s0" data-key="BL-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">BL-5</td><td><span class="tn">Related products block</span><span class="tnote">"Shop related products" at bottom of each post (3–4 product cards, manually curated via metafield or tag)</span></td><td><button class="sb s0" data-key="BL-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">BL-6</td><td><span class="tn">Internal link audit</span><span class="tnote">Every post links to at least 2 relevant collection or product pages</span></td><td><button class="sb s0" data-key="BL-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+    <div class="subsec">QA Checklist — run before each post goes live</div>
+    <div class="qa"><ul>
+      <li>Page returns 200 (no 404/redirect loop)</li>
+      <li>Featured image loads, has <code>alt</code> text, is not stretched/cropped wrong</li>
+      <li>Title renders in <code>&lt;h1&gt;</code>, correct font/colour from design tokens</li>
+      <li>Body copy renders correctly — headers, bullets, bold all display</li>
+      <li>Mobile layout — text readable, image not overflowing</li>
+      <li>CTA block at end of post ("Request a Quote" or relevant collection link) is present</li>
+      <li>Meta title + description set (not defaulting to post title alone)</li>
+    </ul></div>
+    <div class="subsec">Content Pipeline — First 10 Posts</div>
+    <table>
+      <thead><tr><th style="width:60px">ID</th><th>Title</th><th style="width:200px">Target keyword</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">B1</td><td><span class="tn">Best ergonomic office chairs for Canadian workplaces 2026</span><span class="tnote">Links to /collections/seating, /collections/ergonomic-products</span></td><td><code>ergonomic office chairs canada</code></td><td><button class="sb s0" data-key="B1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">B2</td><td><span class="tn">Acoustic pods vs. phone booths: which is right for your office?</span><span class="tnote">Links to /collections/quiet-spaces</span></td><td><code>acoustic pods canada</code></td><td><button class="sb s0" data-key="B2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">B3</td><td><span class="tn">How to furnish a school board admin office on an OECM contract</span><span class="tnote">Links to /pages/oecm, /collections/desks</span></td><td><code>oecm office furniture</code></td><td><button class="sb s0" data-key="B3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">B4</td><td><span class="tn">Standing desk buyer guide: what to look for in 2026</span><span class="tnote">Links to /collections/desks, /collections/ergonomic-products</span></td><td><code>standing desk canada</code></td><td><button class="sb s0" data-key="B4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">B5</td><td><span class="tn">Office furniture for healthcare reception areas</span><span class="tnote">Links to /pages/healthcare, /collections/seating</span></td><td><code>healthcare office furniture ontario</code></td><td><button class="sb s0" data-key="B5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">B6</td><td><span class="tn">How much does office furniture cost in Canada? (2026 pricing guide)</span><span class="tnote">Links to /pages/quote, /collections/business-furniture</span></td><td><code>office furniture cost canada</code></td><td><button class="sb s0" data-key="B6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">B7</td><td><span class="tn">5 office layouts that maximize collaboration (with furniture recs)</span><span class="tnote">Links to /collections/tables, /collections/seating</span></td><td><code>office layout ideas</code></td><td><button class="sb s0" data-key="B7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">B8</td><td><span class="tn">BIFMA vs. non-certified office chairs: why it matters</span><span class="tnote">Links to /collections/seating</span></td><td><code>bifma certified office chairs</code></td><td><button class="sb s0" data-key="B8" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">B9</td><td><span class="tn">Office relocation checklist for Ontario businesses</span><span class="tnote">Links to /pages/relocation, /pages/contact</span></td><td><code>office relocation ontario</code></td><td><button class="sb s0" data-key="B9" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">B10</td><td><span class="tn">Why Canadian-made office furniture is worth the investment</span><span class="tnote">Links to /collections/business-furniture, /pages/about</span></td><td><code>canadian made office furniture</code></td><td><button class="sb s0" data-key="B10" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ AI SEARCH ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">AI Search</span><h3 class="sec-title">AI Search Readability Audit</h3><span class="sec-sub">Make BBI citable by ChatGPT, Perplexity, Claude, Google AI Overviews</span></div>
+  <div class="sec-body">
+    <div class="subsec">Technical layer — structured data + crawlability</div>
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">AI-1</td><td><span class="tn"><code>llms.txt</code> file</span><span class="tnote">Create at store root listing key pages, their purpose, and BBI's entity summary. Format: plain-text markdown. Allows LLM crawlers to orient quickly. 30 min, pure upside.</span></td><td><button class="sb s0" data-key="AI-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-2</td><td><span class="tn"><code>robots.txt</code> audit</span><span class="tnote">Confirm no <code>Disallow</code> rules blocking GPTBot, ClaudeBot, PerplexityBot, or Googlebot. Shopify default allows all; verify no custom overrides.</span></td><td><button class="sb s0" data-key="AI-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-3</td><td><span class="tn">Product schema (JSON-LD)</span><span class="tnote">Verify <code>Product</code> structured data on every product page: name, description, image, offers (price, availability, currency), brand, sku. Missing schema = invisible to AI Overviews.</span></td><td><button class="sb s0" data-key="AI-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-4</td><td><span class="tn">Organization schema</span><span class="tnote">Add <code>Organization</code> JSON-LD to homepage + About page: name, url, logo, telephone, address (Richmond Hill ON), areaServed (Ontario, Canada), sameAs (officecentral.com, brantbasics.com). 1 hour — makes BBI a named entity.</span></td><td><button class="sb s0" data-key="AI-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-5</td><td><span class="tn">FAQ schema on key pages</span><span class="tnote">Add <code>FAQPage</code> JSON-LD to OECM page, Design Services page, and top 3 blog posts. Q&amp;A format is the most-cited content type in AI Overviews.</span></td><td><button class="sb s0" data-key="AI-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-6</td><td><span class="tn">BreadcrumbList JSON-LD</span><span class="tnote">Confirm breadcrumb schema on all collection + product pages (partially done in Phase 2 — verify on product pages too).</span></td><td><button class="sb s0" data-key="AI-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+    <div class="subsec">Content layer — AI-readable copy</div>
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">AI-7</td><td><span class="tn">Entity clarity on homepage</span><span class="tnote">Answer in plain text within the first 200 words: who BBI is, what they sell, who they serve, and where they operate. AI models extract entity facts from above-the-fold content.</span></td><td><button class="sb s0" data-key="AI-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-8</td><td><span class="tn">OECM page copy</span><span class="tnote">Write a clear, factual paragraph: "Brant Business Interiors is a verified OECM supplier partner. Ontario school boards, hospitals, libraries, universities, and municipalities can purchase through BBI without open tender under the OECM framework." Highest-value AI citation target. 30 min.</span></td><td><button class="sb s0" data-key="AI-8" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-9</td><td><span class="tn">FAQ blocks on product category pages</span><span class="tnote">Add 3–5 Q&amp;A blocks per category page (e.g. "What is the best ergonomic chair for a school board?" on /collections/seating). Write answers in 2–3 sentences citing specific products or specs.</span></td><td><button class="sb s0" data-key="AI-9" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-10</td><td><span class="tn">Spec completeness on product pages</span><span class="tnote">Ensure all Hero 100 have: dimensions, weight capacity, materials, warranty, lead time. Ties into Phase 1b PE-2.</span></td><td><button class="sb s0" data-key="AI-10" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-11</td><td><span class="tn">"Best of" and comparison copy</span><span class="tnote">At least one page or blog post per major category that directly answers "best [category] in Ontario/Canada" with named products + reasons. Highest-citation format for ChatGPT shopping queries.</span></td><td><button class="sb s0" data-key="AI-11" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+    <div class="subsec">Audit + Testing</div>
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">AI-12</td><td><span class="tn">Run <code>scripts/audit-ai-readability.py</code> (to build)</span><span class="tnote">Crawl key pages, check: Product/Organization/FAQ schema present, meta description set, &lt;h1&gt; present, word count ≥ 300, no noindex, image alt text coverage. Output CSV to <code>data/reports/ai-readability-audit.csv</code>.</span></td><td><button class="sb s0" data-key="AI-12" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-13</td><td><span class="tn">Manual ChatGPT/Perplexity spot-check</span><span class="tnote">Search: "OECM office furniture supplier Ontario", "ergonomic office chairs Ontario Canada", "buy acoustic pods Canada". Confirm BBI appears or is cited. Screenshot results to <code>data/reports/ai-search-spot-check-[date]/</code>.</span></td><td><button class="sb s0" data-key="AI-13" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">AI-14</td><td><span class="tn">Google AI Overview check</span><span class="tnote">Search the same queries in Google with AI Overview enabled. If BBI is not cited, identify which competing page is being cited and what they have that BBI's page is missing.</span></td><td><button class="sb s0" data-key="AI-14" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+    <div class="subsec">Quick wins — do first (highest ROI)</div>
+    <div class="ilist"><ol>
+      <li><strong>AI-1 — llms.txt</strong> (30 min, pure upside, no risk)</li>
+      <li><strong>AI-4 — Organization schema</strong> (1 hour, makes BBI a named entity AI models can reference)</li>
+      <li><strong>AI-8 — OECM page copy</strong> (30 min, highest-value citation anchor in all of BBI's content)</li>
+      <li><strong>AI-5 — FAQ schema on OECM + top blog post</strong> (1 hour, directly feeds AI Overview answer boxes)</li>
+    </ol></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ REFERENCE ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Reference</span><h3 class="sec-title">Key Reference Files</h3></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th>Need</th><th>File / URL</th></tr></thead>
+      <tbody>
+        <tr><td>Site architecture (page map, URLs, sub-collections)</td><td><code>docs/plan/site-architecture-2026-04-25.md</code></td></tr>
+        <tr><td>Interactive planning hub</td><td><code>previews/bbi-planning-hub.html</code></td></tr>
+        <tr><td>Brand voice + ICP</td><td><code>docs/strategy/icp.md</code></td></tr>
+        <tr><td>Approved copy samples</td><td><code>docs/strategy/voice-samples.md</code></td></tr>
+        <tr><td>Design system (canonical visual reference)</td><td><code>docs/strategy/design-system.md</code></td></tr>
+        <tr><td>Component spec v1</td><td><code>docs/strategy/bbi-component-spec-v1.md</code></td></tr>
+        <tr><td>Script reference</td><td><code>scripts/README.md</code></td></tr>
+        <tr><td>Ideas backlog</td><td><code>docs/plan/ideas-backlog.md</code></td></tr>
+        <tr><td>Blog model</td><td>btod.com/blog/best-office-chair-reviews/</td></tr>
+        <tr><td>Portfolio model</td><td>poi.ca/our-work/</td></tr>
+        <tr><td>Product page inspiration</td><td>effydesk.com/products/essential-bundle</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="doc-footer">
+  Brant Business Interiors &nbsp;·&nbsp; brantbusinessinteriors.com &nbsp;·&nbsp; 1-800-835-9565 &nbsp;·&nbsp; Updated April 28, 2026 &nbsp;·&nbsp; Click status badges to cycle &nbsp;·&nbsp; Progress saved in your browser
+</div>
+
+<script>
+const STORE_KEY = 'bbi_fix_plan_v2';
+const NEXT = {s0:'s1', s1:'s2', s2:'s0'};
+const LABEL = {s0:'Not started', s1:'In progress', s2:'Done'};
+
+// Seeded defaults (from markdown statuses)
+const SEEDS = {
+  'W0-3': 's1',
+  'W0-5': 's2'
+};
+
+let state = {};
+try { state = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch(e) {}
+
+function getClass(key) {
+  return state[key] !== undefined ? state[key] : (SEEDS[key] || 's0');
+}
+
+function cycle(btn) {
+  const key = btn.dataset.key;
+  const cur = getClass(key);
+  const next = NEXT[cur];
+  state[key] = next;
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch(e) {}
+  btn.className = 'sb ' + next;
+  btn.innerHTML = '<span class="dot"></span>' + LABEL[next];
+  const row = btn.closest('tr');
+  if (row) row.className = next === 's2' ? 'row-done' : '';
+  updateProgress();
+}
+
+function updateProgress() {
+  const btns = document.querySelectorAll('[data-key]');
+  let done = 0;
+  btns.forEach(b => { if (getClass(b.dataset.key) === 's2') done++; });
+  const total = btns.length;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('prog-text').textContent = done + ' / ' + total + ' tasks complete';
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+}
+
+// Initialize all badges from persisted + seeded state
+document.querySelectorAll('[data-key]').forEach(btn => {
+  const cls = getClass(btn.dataset.key);
+  if (cls !== 's0') {
+    btn.className = 'sb ' + cls;
+    btn.innerHTML = '<span class="dot"></span>' + LABEL[cls];
+    const row = btn.closest('tr');
+    if (row && cls === 's2') row.className = 'row-done';
+  }
+});
+
+updateProgress();
+</script>
 </body>
 </html>
