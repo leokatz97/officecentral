@@ -23,27 +23,27 @@
 ### Variants
 
 #### `.bbi-btn--primary` — solid red, white type. Single allowed CTA per band.
-```html
+````html
 <button class="bbi-btn bbi-btn--primary">Request a quote</button>
 <button class="bbi-btn bbi-btn--primary bbi-btn--lg">Request a quote <span class="arrow">→</span></button>
-```
+````
 
 #### `.bbi-btn--secondary` — outlined charcoal, transparent fill. Pairs with primary; never the conversion action alone.
-```html
+````html
 <button class="bbi-btn bbi-btn--secondary">Browse models</button>
-```
+````
 
 #### `.bbi-btn--tertiary` — text-only with animated underline. Inline-text density.
-```html
+````html
 <button class="bbi-btn bbi-btn--tertiary"><span class="label">View details</span></button>
-```
+````
 
 ### Sizes
-```html
+````html
 <button class="bbi-btn bbi-btn--primary bbi-btn--sm">Add to quote</button>
 <button class="bbi-btn bbi-btn--primary">Request a quote</button>
 <button class="bbi-btn bbi-btn--primary bbi-btn--lg">Browse models</button>
-```
+````
 
 ### Tokens consumed
 - Primary: `--buttonBackground`, `--buttonColor`, `--buttonBorder`, `--buttonBackgroundHover`, `--buttonColorHover`, `--buttonBorderHover`
@@ -83,24 +83,24 @@ None.
 ### Variants
 
 #### `.bbi-input` — single-line text input.
-```html
+````html
 <div class="bbi-field">
   <label class="bbi-field__label" for="email">Work email</label>
   <input class="bbi-input" id="email" type="email" placeholder="you@company.com" />
   <p class="bbi-field__helper">We'll only use this for the quote.</p>
 </div>
-```
+````
 
 #### `.bbi-input--textarea` — multi-line.
-```html
+````html
 <div class="bbi-field">
   <label class="bbi-field__label" for="notes">Project notes</label>
   <textarea class="bbi-input bbi-input--textarea" id="notes" rows="4"></textarea>
 </div>
-```
+````
 
 #### `.bbi-select` — native select with custom caret.
-```html
+````html
 <div class="bbi-field">
   <label class="bbi-field__label" for="industry">Industry</label>
   <select class="bbi-select" id="industry">
@@ -111,34 +111,34 @@ None.
     <option>Industrial</option>
   </select>
 </div>
-```
+````
 
 #### `.bbi-checkbox` — square 18×18.
-```html
+````html
 <label class="bbi-checkbox">
   <input type="checkbox" />
   <span class="bbi-checkbox__box"></span>
   <span class="bbi-checkbox__label">Subscribe to BBI updates</span>
 </label>
-```
+````
 
 #### `.bbi-radio` — round 18×18.
-```html
+````html
 <label class="bbi-radio">
   <input type="radio" name="freight" value="standard" />
   <span class="bbi-radio__dot"></span>
   <span class="bbi-radio__label">Standard freight</span>
 </label>
-```
+````
 
 #### Error state
-```html
+````html
 <div class="bbi-field" data-state="error">
   <label class="bbi-field__label" for="qty">Quantity</label>
   <input class="bbi-input" id="qty" aria-invalid="true" />
   <p class="bbi-field__error">Please enter a number ≥ 1.</p>
 </div>
-```
+````
 
 ### Tokens consumed
 - `--inputBg`, `--inputBorder`, `--inputBorderHover`, `--inputBorderFocus`, `--inputColor`, `--inputPlaceholder`
@@ -178,7 +178,7 @@ Placeholder contrast: `--inputPlaceholder` #6B6B6E on white = 4.55:1, just barel
 ### Variants
 
 #### `.bbi-card--product` — image + brand + title + price-or-quote-cta.
-```html
+````html
 <article class="bbi-card bbi-card--product">
   <div class="bbi-card__media">
     <img src="..." alt="Steelcase Series 1 Task Chair" />
@@ -190,10 +190,10 @@ Placeholder contrast: `--inputPlaceholder` #6B6B6E on white = 4.55:1, just barel
     <p class="bbi-card__price">From $649</p>
   </div>
 </article>
-```
+````
 
 #### `.bbi-card--feature` — editorial; large image, headline, kicker, body, link.
-```html
+````html
 <article class="bbi-card bbi-card--feature">
   <div class="bbi-card__media">
     <img src="..." alt="Open-plan office install at ABC Corp" />
@@ -205,10 +205,10 @@ Placeholder contrast: `--inputPlaceholder` #6B6B6E on white = 4.55:1, just barel
     <a class="bbi-btn bbi-btn--tertiary" href="..."><span class="label">Read the story</span></a>
   </div>
 </article>
-```
+````
 
 #### `.bbi-card--collection` — category tile; full-bleed image with overlay heading.
-```html
+````html
 <a class="bbi-card bbi-card--collection" href="...">
   <div class="bbi-card__media">
     <img src="..." alt="Task chairs" />
@@ -217,17 +217,17 @@ Placeholder contrast: `--inputPlaceholder` #6B6B6E on white = 4.55:1, just barel
     </div>
   </div>
 </a>
-```
+````
 
 #### `.bbi-card--testimonial` — quote-led, no image.
-```html
+````html
 <article class="bbi-card bbi-card--testimonial">
   <blockquote>
     "BBI quoted, delivered, and installed 220 workstations in 11 weeks. On budget."
   </blockquote>
   <p class="bbi-card__attribution">Maria L. — Facilities, ABC Corp</p>
 </article>
-```
+````
 
 ### Tokens consumed
 - `--cardBg`, `--cardBorder`, `--cardRadius`, `--cardShadow` (subtle, on product cards only)
@@ -266,32 +266,32 @@ Card shadow on `--cardBg` works on default scheme but disappears on tinted backg
 ### Variants
 
 #### `.bbi-badge--sale` — solid red, white type.
-```html
+````html
 <span class="bbi-badge bbi-badge--sale">Sale</span>
-```
+````
 
 #### `.bbi-badge--new` — solid charcoal, white type.
-```html
+````html
 <span class="bbi-badge bbi-badge--new">New</span>
-```
+````
 
 #### `.bbi-badge--canadian` — outlined charcoal with maple-leaf glyph.
-```html
+````html
 <span class="bbi-badge bbi-badge--canadian">
   <svg class="leaf" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.2 4 3.4-1.2-1.2 3.4L19 10l-4 1.5 1 3-4-1.5-1 4-1-4-4 1.5 1-3-4-1.5 3.6-1.8L5.4 4.8 8.8 6 10 2z"/></svg>
   Canadian-owned
 </span>
-```
+````
 
 #### `.bbi-badge--low-stock` — solid amber.
-```html
+````html
 <span class="bbi-badge bbi-badge--low-stock">Low stock</span>
-```
+````
 
 #### `.bbi-badge--oem` — outlined gray.
-```html
+````html
 <span class="bbi-badge bbi-badge--oem">Ships from Steelcase</span>
-```
+````
 
 ### Tokens consumed
 - `--saleBadgeBackground` (sale fill, maple-leaf color)
@@ -327,7 +327,7 @@ Static. No hover, no focus, no active. Badges are labels, not controls.
 ### Variants
 
 #### `.bbi-header` — desktop, ≥768px.
-```html
+````html
 <header class="bbi-header">
   <div class="bbi-header__inner">
     <a class="bbi-header__logo" href="/" aria-label="Brant Business Interiors home">
@@ -350,10 +350,10 @@ Static. No hover, no focus, no active. Badges are labels, not controls.
     </div>
   </div>
 </header>
-```
+````
 
 #### `.bbi-header--mobile` — single bar with hamburger.
-```html
+````html
 <div class="bbi-header bbi-header--mobile">
   <div class="bbi-header__inner">
     <a class="bbi-header__logo" href="/"><img src="bbi-logo-v2.png" alt="Brant Business Interiors" /></a>
@@ -362,10 +362,10 @@ Static. No hover, no focus, no active. Badges are labels, not controls.
     </button>
   </div>
 </div>
-```
+````
 
 #### `.bbi-megamenu` — single-column 9-category panel beneath nav item.
-```html
+````html
 <div class="bbi-megamenu" role="menu">
   <a class="bbi-megamenu__link" href="#">Seating</a>
   <a class="bbi-megamenu__link" href="#">Desks &amp; Workstations</a>
@@ -377,7 +377,7 @@ Static. No hover, no focus, no active. Badges are labels, not controls.
   <a class="bbi-megamenu__link" href="#">Accessories</a>
   <a class="bbi-megamenu__link" href="#">Quiet Spaces</a>
 </div>
-```
+````
 
 ### Tokens consumed
 - `--headerBg`, `--headerColor`, `--headerHoverColor`, `--headerBorder`
@@ -422,7 +422,7 @@ Cart count badge appears only when count > 0.
 ### Variants
 
 #### `.bbi-footer` — single variant, always inverse, always full-bleed, never on white.
-```html
+````html
 <footer class="bbi-footer">
   <div class="bbi-footer__inner">
     <div class="bbi-footer__top">
@@ -492,7 +492,7 @@ Cart count badge appears only when count > 0.
     </div>
   </div>
 </footer>
-```
+````
 
 ### Tokens consumed
 - `charcoal #0B0B0C` (canvas — matches inverse scheme)
@@ -542,7 +542,7 @@ Legal links: 55% white at rest, 100% on hover. Never red.
 ### Variants
 
 #### (a) `.bbi-cta-section` — standalone marketing band. Charcoal canvas, white heading, red CTA, OECM trust line.
-```html
+````html
 <section class="bbi-cta-section">
   <div class="bbi-cta-section__inner">
     <div>
@@ -563,10 +563,10 @@ Legal links: 55% white at rest, 100% on hover. Never red.
     </div>
   </div>
 </section>
-```
+````
 
 #### (b) `.bbi-cta-pdp` — inline PDP block, replaces add-to-cart on unbuyable items.
-```html
+````html
 <div class="bbi-cta-pdp">
   <span class="bbi-cta-pdp__why">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
@@ -589,7 +589,7 @@ Legal links: 55% white at rest, 100% on hover. Never red.
     <a href="#">Add to project list</a>
   </div>
 </div>
-```
+````
 
 ### Tokens consumed
 - (a) `charcoal #0B0B0C`, `white #FFFFFF`, `--buttonBackground`, `--headingFont`, `--bodyFont`, `--space-12` / `--space-16`
