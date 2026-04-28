@@ -318,7 +318,7 @@ Static. No hover, no focus, no active. Badges are labels, not controls.
 - Contrast: red on white = 4.93:1 (AA-large pass; AA-normal would require 14px+); charcoal on white = 18.7:1 AAA.
 
 ### Flagged
-`--warningBackground` is defined in tokens v1 but not specified as amber-yellow vs. BBI-red-tinted. Used #E8A317 (amber) as a placeholder. Confirm or replace before launch.
+~~`--warningBackground` placeholder~~ **Resolved 2026-04-27.** #E8A317 (amber) approved. Token added to tokens.css with ink label contrast 7.71:1 AA.
 
 ---
 
@@ -532,7 +532,7 @@ Legal links: 55% white at rest, 100% on hover. Never red.
 - Tab order: brand → Shop → Industries → Services → Contact → bottom legal.
 
 ### Flagged
-- Industries — 5 sectors used. Office & Corporate · Healthcare · Education · Government · Industrial. Vertical landing pages were archived 2026-04-25, but Industries lives on as a filter taxonomy. Confirm canonical sector list.
+- ~~Industries sector list~~ **Resolved 2026-04-27.** Canonical 5 sectors confirmed: Office & Corporate · Healthcare · Education · Government · Industrial.
 - AA-large hover ink for 14px nav links — mitigated by 500-weight bump, but flag for the audit.
 
 ---
@@ -626,7 +626,7 @@ Focus ring on standalone (charcoal) = white. On PDP card (white) = charcoal. Bot
 - Standalone heading is `<h2>`. PDP heading is `<h3>` (sits inside the PDP's `<h1>` + `<h2>` outline).
 
 ### Flagged
-OECM trust line. Used "OECM vendor of record" as the lead trust signal. If BBI is not currently on the OECM (Ontario Education Collaborative Marketplace) roster, swap with another verifiable signal (since 1962, client count, contract reference). Don't ship unverifiable claims.
+~~OECM trust line~~ **Resolved 2026-04-27.** BBI confirmed on the OECM roster. "OECM vendor of record" copy is accurate and ships as written.
 
 ---
 
@@ -636,12 +636,12 @@ OECM trust line. Used "OECM vendor of record" as the lead trust signal. If BBI i
 |---|---|---|---|
 | 1 | 02 Form Inputs | `--inputPlaceholder` contrast 4.55:1 — barely AA-normal | Acceptable; flag if users enlarge text |
 | 2 | 03 Cards | Card shadow disappears on tinted backgrounds | Hairline-border fallback exists |
-| 3 | 04 Badges | `--warningBackground` not specified in tokens v1; used #E8A317 placeholder | Confirm or replace before launch |
+| 3 | 04 Badges | `--warningBackground` not specified in tokens v1; used #E8A317 placeholder | ✅ #E8A317 approved 2026-04-27; token added to tokens.css |
 | 4 | 05 Header | Brief vs. baseline nav-order divergence | Following brief: Shop · Industries · Brands · Services · About |
 | 5 | 05 Header | Submenu tokens reused for mobile drawer | Acceptable; chat-1 revision if separate set wanted |
-| 6 | 06 Footer | Industries — 5 sectors assumed (Office & Corporate · Healthcare · Education · Government · Industrial) | Confirm canonical sector list |
+| 6 | 06 Footer | Industries — 5 sectors assumed (Office & Corporate · Healthcare · Education · Government · Industrial) | ✅ Confirmed canonical 2026-04-27 |
 | 7 | 06 Footer | 14px nav-link AA-large hover ink borderline | Mitigated by 500-weight on hover |
-| 8 | 07 CTA | OECM trust line — used as lead signal | Confirm BBI is on OECM roster, or swap signal |
+| 8 | 07 CTA | OECM trust line — used as lead signal | ✅ BBI confirmed on OECM roster 2026-04-27; copy ships as written |
 
 ---
 
@@ -660,4 +660,4 @@ These are Phase 3+ work. Tokens v1 should already cover them; if any require new
 
 ---
 
-**Phase 2 complete.** Three flags need owner sign-off before screen work: OECM roster confirmation, Industries sector list, and `--warningBackground` token value. Ping me in a fresh chat for screens.
+**Phase 2 complete. All three flags resolved 2026-04-27.** OECM confirmed, Industries sectors confirmed, `--warningBackground` #E8A317 approved. Ready for Phase 3 screen work.
