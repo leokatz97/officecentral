@@ -204,6 +204,12 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | **AI image pipeline — Phase 2 hero audit** | [scripts/audit-hero-images.py](scripts/audit-hero-images.py) |
 | **AI image pipeline — hero review HTML** | [scripts/render-hero-review.py](scripts/render-hero-review.py) |
 | Hero audit report (2026-04-28) | [data/reports/hero-audit-2026-04-28.csv](data/reports/hero-audit-2026-04-28.csv) |
+| **AI image pipeline — Phase 3a img2img generator** | [scripts/generate-img2img-product-images.py](scripts/generate-img2img-product-images.py) |
+| **AI image pipeline — Phase 3b vision QA** | [scripts/qa-vision-check.py](scripts/qa-vision-check.py) |
+| **AI image pipeline — Phase 3c review HTML** | [scripts/render-image-review.py](scripts/render-image-review.py) |
+| **AI image pipeline — Phase 3c approval server** | [scripts/serve-review.py](scripts/serve-review.py) |
+| **AI image pipeline — Phase 3d push (approved only)** | [scripts/push-img2img-images.py](scripts/push-img2img-images.py) |
+| Wave 0 pilot manifest (2026-04-28) | [data/reports/generated-img2img-2026-04-28.csv](data/reports/generated-img2img-2026-04-28.csv) |
 | Page image generator | [scripts/generate-page-images.py](scripts/generate-page-images.py) |
 | Page image sharpener | [scripts/sharpen-page-images.py](scripts/sharpen-page-images.py) |
 | Image reorder (full-product to pos 1) | [scripts/reorder-product-images.py](scripts/reorder-product-images.py) |
