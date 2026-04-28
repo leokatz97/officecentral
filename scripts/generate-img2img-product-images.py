@@ -1,10 +1,11 @@
 """
-Generate two AI office-context images per product using fal-ai/flux-pro/kontext,
+Generate three AI images per product using fal-ai/flux-pro/kontext,
 conditioned on the product's live position-1 hero image (img2img anchoring).
 
-Replaces the deprecated text-to-image pipeline (generate-product-images.py /
-generate-clean-product-images.py), which produced hallucinated products. By
-anchoring on the real Shopify hero, the model preserves form/colour/material.
+Images generated per product:
+  pos 2 — Scene A: mix of Ontario institutional/community setting (attractive)
+  pos 3 — Scene B: SMB private-sector professional office (attractive)
+  pos 4 — White background: clean studio product shot
 
 Pipeline:
   1. For each handle, GET /admin/api/2026-04/products.json?handle={h} to fetch
@@ -12,11 +13,11 @@ Pipeline:
   2. SKIP_NO_HERO if image_count == 0.
   3. Build per-product prompt; spec JSON used when present (only ~19 of ~540 —
      img2img conditioning carries the accuracy load, prompts add scene flavor).
-  4. Call fal-ai/flux-pro/kontext twice with paired office contexts by category
-     (gen-2 / gen-3). Save to data/generated-img2img-images/{handle}-gen-{2,3}.jpg.
+  4. Call fal-ai/flux-pro/kontext three times (pos 2, 3, 4).
+     Save to data/generated-img2img-images/{handle}-gen-{2,3,4}.jpg.
   5. Append to data/reports/generated-img2img-{date}.csv.
 
-Pos-1 is NEVER regenerated. Only positions 2 and 3.
+Pos-1 is NEVER regenerated. Only positions 2, 3, and 4.
 
 Usage:
   python3 scripts/generate-img2img-product-images.py --pilot=5 --handles="h1,h2,h3,h4,h5"
@@ -65,24 +66,60 @@ MANIFEST_PATH = os.path.join(RPT_DIR, 'generated-img2img-{}.csv'.format(TODAY))
 
 # ---------------------------------------------------------------------------
 # Office context pairs by category (drives prompt variation)
+# Scene A: aspirational Ontario institutional/community setting
+# Scene B: aspirational SMB private-sector professional office
 # ---------------------------------------------------------------------------
 CONTEXT_PAIRS = {
-    'seating':      ('a modern open-plan office with neutral tones',
-                     'a quiet executive private office with warm wood accents'),
-    'desk':         ('a collaborative bench setup with several workstations',
-                     'a private corner office with large windows and natural light'),
-    'storage':      ('an organized administrative bay with filing cabinets',
-                     'a professional reception area with clean lines'),
-    'conference':   ('a modern boardroom with a city view',
-                     'a small huddle room with acoustic panels'),
-    'healthcare':   ('a hospital waiting room with calm, neutral colours',
-                     'a wellness clinic lobby with soft lighting'),
-    'education':    ('a modern university study lounge',
-                     'a K-12 administrative office'),
-    'lounge':       ('a contemporary office lounge with plants',
-                     'a hotel-style hospitality area'),
-    'default':      ('a modern Canadian office with neutral tones and natural light',
-                     'a professional meeting space with contemporary decor'),
+    'seating': (
+        'a bright, beautifully styled Ontario health team or community services office — '
+        'light oak surfaces, lush green plants, large windows flooding the room with natural light, '
+        'warm and welcoming atmosphere',
+        'a polished private office at a professional services firm — '
+        'rich walnut desk, warm ambient lighting, curated bookshelves, '
+        'premium finishes, law firm or consulting studio aesthetic',
+    ),
+    'desk': (
+        'a warmly lit, well-designed administrative office at a Canadian non-profit or family health team — '
+        'clean surfaces, fresh plants, natural light, calm and professional',
+        'a sleek private office at a law firm or financial services company — '
+        'dark wood tones, statement pendant lighting, premium leather accessories, polished and refined',
+    ),
+    'storage': (
+        'a clean, well-organised administrative office at a small Ontario hospital or municipal office — '
+        'neutral warm tones, natural light from large windows, tidy and professional',
+        'a stylish professional office with curated storage and upscale finishes — '
+        'accounting firm or insurance brokerage, warm lighting, sophisticated and put-together',
+    ),
+    'conference': (
+        'a bright, modern boardroom at a community health centre or non-profit — '
+        'large windows, natural light, clean contemporary lines, welcoming and collaborative',
+        'a polished executive boardroom at a professional services firm — '
+        'warm wood table, leather chairs, city skyline view, sophisticated and impressive',
+    ),
+    'healthcare': (
+        'a calm, welcoming waiting area at a beautifully designed family health team or community clinic — '
+        'soft neutral tones, natural light, green plants, warm and reassuring',
+        'a premium medical or wellness clinic with contemporary finishes — '
+        'clean white walls, warm wood accents, tasteful art, upscale and professional',
+    ),
+    'education': (
+        'a bright, modern school or university administrative office — '
+        'clean surfaces, natural light, plants, organised and inviting',
+        'a contemporary corporate training room or professional development space — '
+        'premium furnishings, warm lighting, polished and motivating',
+    ),
+    'lounge': (
+        'a beautifully designed reception or lounge area at a Canadian non-profit or health centre — '
+        'plants, warm natural light, comfortable and inviting, tasteful modern decor',
+        'a stylish corporate lobby or breakout lounge at a professional services firm — '
+        'premium upholstery, ambient lighting, curated art, sophisticated and welcoming',
+    ),
+    'default': (
+        'a bright, beautifully styled Ontario office with abundant natural light, lush plants, '
+        'and warm neutral tones — welcoming, calm, and professional',
+        'a polished private office at a professional services firm — '
+        'warm wood tones, curated decor, premium finishes, refined and impressive',
+    ),
 }
 
 CATEGORY_KEYWORDS = [
@@ -226,6 +263,19 @@ def build_prompt(title, context_phrase, spec):
     ).format(desc=desc[:120], context=context_phrase)
 
 
+def build_prompt_white_bg(title, spec):
+    qualifier = spec_phrase(spec)
+    base = title or 'product'
+    desc = '{} {}'.format(qualifier, base).strip() if qualifier else base
+    return (
+        'The exact {desc} from the reference image on a pure white background. '
+        'Professional studio product photography, soft even lighting, subtle drop shadow, '
+        'sharp focus on every detail. '
+        'Match the reference exactly: same form, colour, material, hardware, and proportions. '
+        'No background objects. No people. No text overlays. No watermarks.'
+    ).format(desc=desc[:120])
+
+
 # ---------------------------------------------------------------------------
 # fal.ai call
 # ---------------------------------------------------------------------------
@@ -313,8 +363,8 @@ def main():
     ))
     print('Manifest: ' + MANIFEST_PATH)
     print('Outputs:  ' + IMG_DIR)
-    print('Estimated cost: ~${:.2f} ({} products x 2 images x ~$0.04)'.format(
-        len(rows) * 2 * 0.04, len(rows),
+    print('Estimated cost: ~${:.2f} ({} products x 3 images x ~$0.04)'.format(
+        len(rows) * 3 * 0.04, len(rows),
     ))
     print()
 
@@ -355,10 +405,15 @@ def main():
         ctx_a, ctx_b = CONTEXT_PAIRS.get(category, CONTEXT_PAIRS['default'])
         spec = load_spec(handle)
 
-        for position, ctx in [(2, ctx_a), (3, ctx_b)]:
-            prompt = build_prompt(title, ctx, spec)
+        jobs = [
+            (2, build_prompt(title, ctx_a, spec), 'scene-A'),
+            (3, build_prompt(title, ctx_b, spec), 'scene-B'),
+            (4, build_prompt_white_bg(title, spec), 'white-bg'),
+        ]
+
+        for position, prompt, label in jobs:
             local_path = os.path.join(IMG_DIR, '{}-gen-{}.jpg'.format(handle, position))
-            print('  pos {}: [{}] {}'.format(position, category, ctx[:60]))
+            print('  pos {} [{}]: {}'.format(position, label, prompt[:70]))
 
             fal_url, err = call_fal(prompt, pos1_src)
             if not fal_url:

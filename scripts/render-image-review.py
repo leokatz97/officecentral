@@ -110,6 +110,7 @@ def cell_html(row, position):
         '<div class="score {sc}">score: {score} ({status})</div>'
         '<div class="reason">{reason}</div>'
         '<label class="approve"><input type="checkbox" name="approve-{pos}"{checked}>Approve gen-{pos}</label>'
+        '<textarea name="comment-{pos}" placeholder="Leave a comment (optional)..." rows="3"></textarea>'
         '</div>'
     ).format(
         img=img_tag, score=score, sc=score_cls, status=html.escape(status),
@@ -120,7 +121,7 @@ def cell_html(row, position):
 def source_cell_html(row):
     src = html.escape(row.get('Source_Hero_URL') or '')
     if src:
-        return '<div class="cell src"><img src="{}" alt="source" loading="lazy"><div class="label">source hero (live)</div></div>'.format(src)
+        return '<div class="cell src"><img src="{}" alt="source" loading="lazy"><div class="label">source hero (live — not uploaded)</div></div>'.format(src)
     return '<div class="cell src"><div class="missing">no hero</div></div>'
 
 
@@ -128,16 +129,14 @@ def product_html(handle, info):
     title = html.escape(info['title'] or '(untitled)')
     pos2  = info['positions'].get(2)
     pos3  = info['positions'].get(3)
+    pos4  = info['positions'].get(4)
 
-    if pos2:
-        src_cell = source_cell_html(pos2)
-    elif pos3:
-        src_cell = source_cell_html(pos3)
-    else:
-        src_cell = '<div class="cell src"><div class="missing">no data</div></div>'
+    ref_row = pos2 or pos3 or pos4
+    src_cell = source_cell_html(ref_row) if ref_row else '<div class="cell src"><div class="missing">no data</div></div>'
 
-    pos2_cell = cell_html(pos2, 2) if pos2 else '<div class="cell ai"><div class="missing">no gen-2</div></div>'
-    pos3_cell = cell_html(pos3, 3) if pos3 else '<div class="cell ai"><div class="missing">no gen-3</div></div>'
+    pos2_cell = cell_html(pos2, 2) if pos2 else '<div class="cell ai"><div class="missing">no scene-A</div></div>'
+    pos3_cell = cell_html(pos3, 3) if pos3 else '<div class="cell ai"><div class="missing">no scene-B</div></div>'
+    pos4_cell = cell_html(pos4, 4) if pos4 else '<div class="cell ai"><div class="missing">no white-bg</div></div>'
 
     return (
         '<section class="product" data-handle="{handle}">'
@@ -145,9 +144,13 @@ def product_html(handle, info):
         '<h2>{title}</h2>'
         '<code>{handle}</code>'
         '</header>'
-        '<div class="row">{src_cell}{pos2_cell}{pos3_cell}</div>'
+        '<div class="col-headers"><span>Source hero</span><span>Scene A — Institutional</span><span>Scene B — SMB Office</span><span>White Background</span></div>'
+        '<div class="row">{src}{p2}{p3}{p4}</div>'
         '</section>'
-    ).format(handle=html.escape(handle), title=title, src_cell=src_cell, pos2_cell=pos2_cell, pos3_cell=pos3_cell)
+    ).format(
+        handle=html.escape(handle), title=title,
+        src=src_cell, p2=pos2_cell, p3=pos3_cell, p4=pos4_cell,
+    )
 
 
 CSS = """
@@ -161,11 +164,15 @@ h1 { margin: 0; font-size: 22px; }
 .product header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
 .product h2 { margin: 0; font-size: 16px; }
 .product code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 12px; color: #555; }
-.row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
 .cell { display: flex; flex-direction: column; gap: 6px; }
 .cell img { width: 100%; aspect-ratio: 4/3; object-fit: contain;
             background: #fafafa; border: 1px solid #eee; border-radius: 4px; }
 .cell .label { font-size: 12px; color: #666; text-align: center; }
+.col-headers { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px;
+               margin-bottom: 4px; }
+.col-headers span { font-size: 11px; font-weight: 700; text-transform: uppercase;
+                    letter-spacing: 0.05em; color: #888; text-align: center; }
 .cell .missing { width: 100%; aspect-ratio: 4/3;
                  display: flex; align-items: center; justify-content: center;
                  background: #fff5f5; color: #c00; font-weight: 600;
@@ -179,6 +186,10 @@ h1 { margin: 0; font-size: 22px; }
 .reason { font-size: 12px; color: #555; line-height: 1.4; }
 .approve { font-size: 13px; cursor: pointer; user-select: none; }
 .approve input { margin-right: 6px; transform: translateY(1px); }
+.cell textarea { width: 100%; font-size: 12px; font-family: inherit; border: 1px solid #ddd;
+                 border-radius: 4px; padding: 6px 8px; resize: vertical; color: #333;
+                 background: #fafafa; line-height: 1.4; }
+.cell textarea:focus { outline: none; border-color: #0a64c4; background: #fff; }
 #submit-bar { position: sticky; bottom: 0; background: white; padding: 12px 16px;
               border-top: 2px solid #0a64c4; display: flex; gap: 12px; align-items: center;
               margin: 24px -24px -24px; }
@@ -200,9 +211,17 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
     const handle = p.dataset.handle;
     const g2 = p.querySelector('input[name=approve-2]');
     const g3 = p.querySelector('input[name=approve-3]');
+    const g4 = p.querySelector('input[name=approve-4]');
+    const c2 = p.querySelector('textarea[name=comment-2]');
+    const c3 = p.querySelector('textarea[name=comment-3]');
+    const c4 = p.querySelector('textarea[name=comment-4]');
     approvals[handle] = {
-      gen2: g2 ? g2.checked : false,
-      gen3: g3 ? g3.checked : false,
+      gen2:     g2 ? g2.checked : false,
+      gen3:     g3 ? g3.checked : false,
+      gen4:     g4 ? g4.checked : false,
+      comment2: c2 ? c2.value.trim() : '',
+      comment3: c3 ? c3.value.trim() : '',
+      comment4: c4 ? c4.value.trim() : '',
     };
   });
   const status = document.getElementById('status');

@@ -1,0 +1,100 @@
+<!doctype html><meta charset="utf-8">
+<title>Image review 2026-04-28 pilot-5</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: #f6f6f6; margin: 0; padding: 24px; color: #1a1a1a; }
+h1 { margin: 0; font-size: 22px; }
+.summary { color: #555; font-size: 14px; margin: 8px 0 24px; }
+.product { background: white; border: 1px solid #e0e0e0; border-radius: 8px;
+           padding: 16px; margin-bottom: 24px; }
+.product header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.product h2 { margin: 0; font-size: 16px; }
+.product code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: 12px; color: #555; }
+.row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+.cell { display: flex; flex-direction: column; gap: 6px; }
+.cell img { width: 100%; aspect-ratio: 4/3; object-fit: contain;
+            background: #fafafa; border: 1px solid #eee; border-radius: 4px; }
+.cell .label { font-size: 12px; color: #666; text-align: center; }
+.col-headers { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px;
+               margin-bottom: 4px; }
+.col-headers span { font-size: 11px; font-weight: 700; text-transform: uppercase;
+                    letter-spacing: 0.05em; color: #888; text-align: center; }
+.cell .missing { width: 100%; aspect-ratio: 4/3;
+                 display: flex; align-items: center; justify-content: center;
+                 background: #fff5f5; color: #c00; font-weight: 600;
+                 border: 1px solid #fdd; border-radius: 4px; }
+.score { font-size: 13px; font-weight: 600; padding: 4px 8px; border-radius: 4px;
+         display: inline-block; align-self: flex-start; }
+.score-good { background: #e6f5ea; color: #0a6b1f; }
+.score-ok   { background: #fff7e6; color: #9a4a00; }
+.score-bad  { background: #fbeaea; color: #b00020; }
+.score-na   { background: #eee; color: #555; }
+.reason { font-size: 12px; color: #555; line-height: 1.4; }
+.approve { font-size: 13px; cursor: pointer; user-select: none; }
+.approve input { margin-right: 6px; transform: translateY(1px); }
+.cell textarea { width: 100%; font-size: 12px; font-family: inherit; border: 1px solid #ddd;
+                 border-radius: 4px; padding: 6px 8px; resize: vertical; color: #333;
+                 background: #fafafa; line-height: 1.4; }
+.cell textarea:focus { outline: none; border-color: #0a64c4; background: #fff; }
+#submit-bar { position: sticky; bottom: 0; background: white; padding: 12px 16px;
+              border-top: 2px solid #0a64c4; display: flex; gap: 12px; align-items: center;
+              margin: 24px -24px -24px; }
+#submit-bar button { background: #0a64c4; color: white; border: 0; padding: 10px 20px;
+                     border-radius: 6px; font-size: 14px; cursor: pointer; }
+#submit-bar button:hover { background: #084e9b; }
+#status { font-size: 13px; color: #555; }
+</style>
+<h1>Image review &mdash; 2026-04-28 batch pilot-5</h1>
+<p class="summary">5 products &middot; 15 image pairs. Approve checkboxes default to ticked when vision score &ge; 7. Click Submit when done &mdash; make sure <code>scripts/serve-review.py --batch=pilot-5 --port=8765</code> is running.</p>
+<section class="product" data-handle="otg13026-safari-medium-mesh-back-tilter-chair"><header><h2>OTG13026 Safari | Medium Mesh Back Tilter Chair</h2><code>otg13026-safari-medium-mesh-back-tilter-chair</code></header><div class="col-headers"><span>Source hero</span><span>Scene A — Institutional</span><span>Scene B — SMB Office</span><span>White Background</span></div><div class="row"><div class="cell src"><img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/OTG13026-Safari-_-Medium-Mesh-Back-Tilter-Chair-Business-Interiors-16740482.jpg?v=1750123153" alt="source" loading="lazy"><div class="label">source hero (live — not uploaded)</div></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814e9/zU19Sbn5Otl-XQttGSZht_3c0d59a1197844579ace899bec76d97b.jpg" alt="gen-2" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-2">Approve gen-2</label><textarea name="comment-2" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814eb/QEQT_XCA8wAfjYzBeLGTd_1550895632d44203baeea475d1b53c71.jpg" alt="gen-3" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-3">Approve gen-3</label><textarea name="comment-3" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814ec/3Clv1UdBDtSwtHAdMRS-H_458c6decbe2e427db05ed3844f206450.jpg" alt="gen-4" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-4">Approve gen-4</label><textarea name="comment-4" placeholder="Leave a comment (optional)..." rows="3"></textarea></div></div></section>
+<section class="product" data-handle="u-shape-d-top-workstation"><header><h2>U-Shape D-Top Workstation</h2><code>u-shape-d-top-workstation</code></header><div class="col-headers"><span>Source hero</span><span>Scene A — Institutional</span><span>Scene B — SMB Office</span><span>White Background</span></div><div class="row"><div class="cell src"><img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/U-Shape-D-Top-Workstation-Business-Interiors-16741545.png?v=1750123386" alt="source" loading="lazy"><div class="label">source hero (live — not uploaded)</div></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814ee/SJkRT68AJKI5dNCR-0AlC_8068b869812640cf88baa851f9376bb7.jpg" alt="gen-2" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-2">Approve gen-2</label><textarea name="comment-2" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814ef/w00BpE6WIsMhlLLhpPaLh_1d02e93c350c4f128e439b5f9821c408.jpg" alt="gen-3" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-3">Approve gen-3</label><textarea name="comment-3" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814f0/s4jfj5Kg1-8fwYE3TW-fE_191ce8a486704165b53d37f1710812b7.jpg" alt="gen-4" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-4">Approve gen-4</label><textarea name="comment-4" placeholder="Leave a comment (optional)..." rows="3"></textarea></div></div></section>
+<section class="product" data-handle="institutional-series-lateral-file-cabinet-2-3-4-5-drawer"><header><h2>Institutional Series Lateral File Cabinet (2,3,4 &amp; 5 Drawer)</h2><code>institutional-series-lateral-file-cabinet-2-3-4-5-drawer</code></header><div class="col-headers"><span>Source hero</span><span>Scene A — Institutional</span><span>Scene B — SMB Office</span><span>White Background</span></div><div class="row"><div class="cell src"><img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/Institutional-Series-Lateral-File-Cabinet-_2_3_4-_-5-Drawer_-Business-Interiors-16777185.jpg?v=1750130655" alt="source" loading="lazy"><div class="label">source hero (live — not uploaded)</div></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814f1/-9MLeJFnRthBKkuGbc7o2_2dc817a6d22f43c7a0f4562694a96e98.jpg" alt="gen-2" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-2">Approve gen-2</label><textarea name="comment-2" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814f3/GY_HxBYV4J5M4B2RhBspp_5f0432f98e934f03bf97800f1e6c1833.jpg" alt="gen-3" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-3">Approve gen-3</label><textarea name="comment-3" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814f4/l2kEO4X7FLNhCseRerUPA_a6f3d117a0374d5aa56e20879d9c6d35.jpg" alt="gen-4" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-4">Approve gen-4</label><textarea name="comment-4" placeholder="Leave a comment (optional)..." rows="3"></textarea></div></div></section>
+<section class="product" data-handle="teknion-boardroom"><header><h2>Teknion &quot;Boardroom&quot;</h2><code>teknion-boardroom</code></header><div class="col-headers"><span>Source hero</span><span>Scene A — Institutional</span><span>Scene B — SMB Office</span><span>White Background</span></div><div class="row"><div class="cell src"><img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/Teknion-_Boardroom_-Business-Interiors-16758665.png?v=1750126990" alt="source" loading="lazy"><div class="label">source hero (live — not uploaded)</div></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814f5/Vk6gyEjQuZL-TOLmCj7M4_57972c8c6f8b4da28aefcee3d0663dc9.jpg" alt="gen-2" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-2">Approve gen-2</label><textarea name="comment-2" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814f7/CmKd_ibOVpbNrCLjsfo3z_95c83ba5394341f396d8a5574532096b.jpg" alt="gen-3" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-3">Approve gen-3</label><textarea name="comment-3" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814f8/J0wLY-R9USjzseYHY-F41_ed7f24a11bb94bcb9e1b77a16cc102cc.jpg" alt="gen-4" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-4">Approve gen-4</label><textarea name="comment-4" placeholder="Leave a comment (optional)..." rows="3"></textarea></div></div></section>
+<section class="product" data-handle="vitrola-lounge-seating-4-size-options"><header><h2>Vitrola Lounge Seating (4 Size options)</h2><code>vitrola-lounge-seating-4-size-options</code></header><div class="col-headers"><span>Source hero</span><span>Scene A — Institutional</span><span>Scene B — SMB Office</span><span>White Background</span></div><div class="row"><div class="cell src"><img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/DB_8271_Y72K_ECM_Reg_2400x2400_b1f3421c-8b96-43e9-bdcc-c9af6019fe08.jpg?v=1776794856" alt="source" loading="lazy"><div class="label">source hero (live — not uploaded)</div></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814f9/hlkCwOuGMWRyvF6DwJ2kt_001f124411644ef8948976d12ad0dfc2.jpg" alt="gen-2" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-2">Approve gen-2</label><textarea name="comment-2" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814fa/fSPN-aHC6F717Y_N8WOSQ_bf0a95a257a0478dbbc7e343620ef4c1.jpg" alt="gen-3" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-3">Approve gen-3</label><textarea name="comment-3" placeholder="Leave a comment (optional)..." rows="3"></textarea></div><div class="cell ai"><img src="https://v3b.fal.media/files/b/0a9814fc/RiYq2wnD9i1C6u3vG8kYr_33bd184c810947ef87ca4b8ae172ad42.jpg" alt="gen-4" loading="lazy"><div class="score score-na">score:  (FLAG_HUMAN)</div><div class="reason">http 400: {&quot;type&quot;:&quot;error&quot;,&quot;error&quot;:{&quot;type&quot;:&quot;invalid_request_error&quot;,&quot;message&quot;:&quot;Your credit balance is too low to</div><label class="approve"><input type="checkbox" name="approve-4">Approve gen-4</label><textarea name="comment-4" placeholder="Leave a comment (optional)..." rows="3"></textarea></div></div></section>
+<div id="submit-bar"><button id="submit-btn">Submit approvals</button><span id="status">Awaiting submit&hellip;</span></div>
+<script>
+const PORT  = 8765;
+const BATCH = "pilot-5";
+const SUBMIT_URL = `http://localhost:${PORT}/submit`;
+
+document.getElementById('submit-btn').addEventListener('click', async () => {
+  const approvals = {};
+  document.querySelectorAll('.product').forEach(p => {
+    const handle = p.dataset.handle;
+    const g2 = p.querySelector('input[name=approve-2]');
+    const g3 = p.querySelector('input[name=approve-3]');
+    const g4 = p.querySelector('input[name=approve-4]');
+    const c2 = p.querySelector('textarea[name=comment-2]');
+    const c3 = p.querySelector('textarea[name=comment-3]');
+    const c4 = p.querySelector('textarea[name=comment-4]');
+    approvals[handle] = {
+      gen2:     g2 ? g2.checked : false,
+      gen3:     g3 ? g3.checked : false,
+      gen4:     g4 ? g4.checked : false,
+      comment2: c2 ? c2.value.trim() : '',
+      comment3: c3 ? c3.value.trim() : '',
+      comment4: c4 ? c4.value.trim() : '',
+    };
+  });
+  const status = document.getElementById('status');
+  status.textContent = 'Submitting...';
+  try {
+    const resp = await fetch(SUBMIT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ batch: BATCH, approvals }),
+    });
+    if (resp.ok) {
+      status.textContent = 'Submitted. You can close this tab.';
+      status.style.color = '#0a6b1f';
+    } else {
+      status.textContent = 'Submit failed (HTTP ' + resp.status + ').';
+      status.style.color = '#b00020';
+    }
+  } catch (e) {
+    status.textContent = 'Submit failed: ' + e.message + ' — is serve-review.py running on port ' + PORT + '?';
+    status.style.color = '#b00020';
+  }
+});
+</script>

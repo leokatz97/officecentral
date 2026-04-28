@@ -8,7 +8,7 @@ with shape:
   {
     "batch": "<batch>",
     "submitted_at": "<iso ts>",
-    "approvals": { "<handle>": {"gen2": bool, "gen3": bool}, ... }
+    "approvals": { "<handle>": {"gen2": bool, "gen3": bool, "gen4": bool, "comment2": str, "comment3": str, "comment4": str}, ... }
   }
 
 Then shuts itself down.
