@@ -87,12 +87,27 @@ tr:hover td { background: #fafafa; }
 /* ── FOOTER ── */
 .doc-footer { margin-top: 0.4in; padding-top: 14px; border-top: 1px solid #d6dfe8; font-size: 9pt; color: #6b7280; text-align: center; padding-bottom: 0.5in; }
 
+/* ── PROMPT DROPDOWN ── */
+.tk { user-select: none; }
+.tk[data-has-prompt] { cursor: pointer; transition: color 0.15s; }
+.tk[data-has-prompt]:hover { color: #1a4d80; }
+.tk[data-has-prompt]::before { content: "▸ "; display: inline-block; transition: transform 0.15s; color: #9ca3af; }
+.tk[data-expanded="1"]::before { content: "▾ "; color: #1a4d80; }
+.prompt-row td { background: #f7f9fc; border-top: 1px dashed #c7d2e0; padding: 12px 18px 14px; }
+.prompt-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 9pt; color: #6b7280; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700; }
+.copy-btn { background: #1a4d80; color: white; border: none; border-radius: 3px; padding: 4px 12px; font-size: 9pt; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+.copy-btn:hover { background: #163d66; }
+.copy-btn.copied { background: #22c55e; }
+.prompt-body { font-family: 'Menlo', 'Courier New', monospace; font-size: 9.5pt; line-height: 1.55; color: #1f2937; background: white; border: 1px solid #d6dfe8; border-radius: 3px; padding: 12px 14px; margin: 0; max-height: 360px; overflow: auto; white-space: pre-wrap; word-wrap: break-word; }
+
 /* ── PRINT ── */
 @media print {
   body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .prog-bar { display: none; }
   .sec-head, .subsec { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   table { page-break-inside: avoid; }
+  .prompt-row { display: none !important; }
+  .tk[data-has-prompt]::before { content: ""; }
 }
 </style>
 </head>
@@ -571,6 +586,213 @@ document.querySelectorAll('[data-key]').forEach(btn => {
 });
 
 updateProgress();
+
+// ── PROMPT DROPDOWNS ────────────────────────────────────────────
+const PRE = (id, name, refs, deliverable, extra) => `You're starting a fresh Claude Code session to complete task ${id} from the BBI Master Build Plan.
+
+Task: ${name}
+
+Before doing anything:
+1. Read CLAUDE.md at the repo root — BBI-specific rules override defaults (never delete products, dry-run push scripts, OECM differentiator).
+2. Open docs/plan/website-fix-checklist.html and read the row + dropdown for ${id} plus surrounding context in that section.
+3. Read these task-specific references: ${refs}
+
+Deliverable: ${deliverable}
+${extra ? '\n' + extra + '\n' : ''}
+When done:
+- Test on a real Shopify preview URL where applicable (not just localhost).
+- Run \`shopify theme check\` and resolve all errors if you touched theme files.
+- Tell me to run the update-checklist skill to mark ${id} done.`;
+
+const DRY = "Dry-run any `push-*` or `archive-*` script first (\`--dry-run\` or no flag). Share the output and wait for confirmation before passing \`--live\`.";
+const VOICE = "docs/strategy/icp.md, docs/strategy/voice-samples.md, docs/strategy/design-system.md, docs/strategy/bbi-component-spec-v1.md";
+const ARCH = "docs/plan/site-architecture-2026-04-25.md";
+
+const PROMPTS = {
+  // ─── Pre-Build ───
+  "PB-1": PRE("PB-1", "Archive non-business products", `scripts/README.md, scripts/archive-non-biz-products.py, ${ARCH}`, "Run scripts/archive-non-biz-products.py to archive every product whose type tag is sector-specific (educational furniture, daycare, healthcare equipment). Verify count by tag before and after.", `${DRY}\nNever delete — archive only. Log output to data/logs/.`),
+  "PB-2": PRE("PB-2", "Archive sector collections", ARCH, "In Shopify Admin, unpublish/archive /collections/educational, /collections/daycare, /collections/healthcare and every sub-collection beneath them.", "This is an Admin UI task — no script. Confirm before archiving each parent. Capture before/after URLs."),
+  "PB-3": PRE("PB-3", "Rebuild main nav for Business-Furniture-only scope", `${ARCH}, theme/config/settings_data.json (read-only), Shopify Admin Navigation`, "Remove Educational, Daycare, Healthcare columns from the mega menu. Update 'Shop Furniture' top-level link to go directly to /collections/business-furniture (Shop Hub is gone).", "Back up current menu JSON to data/backups/ before editing. This is a Shopify Admin Navigation task."),
+  "PB-4": PRE("PB-4", "Redirect /pages/shop → /collections/business-furniture", "Shopify Admin → Navigation → URL Redirects", "Add a single 301 redirect in Shopify Admin: /pages/shop → /collections/business-furniture. Verify with curl -I.", ""),
+  "PB-5": PRE("PB-5", "Audit Business Furniture sub-collections", `${ARCH}, scripts/audit-collections.py if present, scripts/README.md`, "Verify product count > 0 for all ~68 sub-collections under /collections/business-furniture. For any empty collection, convert to a smart collection with the appropriate tag rule (type:* / room:*).", "Output a CSV to data/reports/subcollection-audit-<date>.csv listing handle, product count, and recommended fix."),
+  "PB-6": PRE("PB-6", "Upload redirect CSV (W0-3 carryover)", "data/url-redirects.csv, Shopify Admin → Navigation → URL Redirects", "This is a Leo manual task — Shopify Admin only allows bulk redirect upload via the UI (no API write_content scope). Walk Leo through the upload steps.", "Do not attempt scripted upload. Just guide Leo through the Admin UI."),
+  "PB-7": PRE("PB-7", "GSC + GA4 setup (W0-1 alias)", "Google Search Console docs, GA4 setup docs", "Create GSC property for brantbusinessinteriors.com (DNS verification), submit sitemap, set up GA4 property with Measurement ID, paste tag into theme.liquid.", "Must be live before any Phase 1 page launch so SEO impact is measurable."),
+
+  // ─── Wave 0 ───
+  "W0-1": PRE("W0-1", "Google Search Console + GA4 setup", "Google Search Console docs, GA4 setup docs, theme/layout/theme.liquid", "Create GSC property (DNS verification), submit sitemap.xml, set up GA4 property, install GA4 measurement tag in theme.liquid, verify events flow.", "🔴 Critical. Blocks SEO measurement for everything downstream."),
+  "W0-2": PRE("W0-2", "Create BBI Google Business Profile", "Google Business Profile, data/oci-photos/catalog.json (for hero photo)", "Create new GBP for Brant Business Interiors. Use Brantford HQ address, 1-800-835-9565 phone, brantbusinessinteriors.com website, hero photo from data/oci-photos/. Add Office Central as related business.", "🔴 Critical. BBI has no GBP today — biggest local-SEO gap."),
+  "W0-2b": PRE("W0-2b", "Google Reviews seeding strategy", "docs/strategy/icp.md (existing customer list)", "Draft a 5-step plan to seed BBI's GBP with first 10–15 reviews from existing OECM and institutional customers. Include email template and timing.", "Output a doc to docs/strategy/reviews-seeding-plan.md."),
+  "W0-3": PRE("W0-3", "Fix product redirects (CSV upload)", "data/url-redirects.csv, Shopify Admin", "Walk Leo through uploading data/url-redirects.csv via Shopify Admin → Navigation → URL Redirects → Import. Verify a sampled 10 redirects with curl -I after.", "Do not attempt scripted upload — write_content scope not granted."),
+  "W0-4": PRE("W0-4", "Meta titles + descriptions audit", `scripts/audit-meta.py if present, ${VOICE}`, "Audit every collection and page for missing/duplicate meta title and description. Output CSV to data/reports/meta-audit-<date>.csv with columns: handle, current_title, current_desc, recommended_title, recommended_desc.", "Blocked on W0-1 (need GSC live for impressions data). Confirm with Leo before running if W0-1 not done."),
+  "W0-5": PRE("W0-5", "Confirm Request a Quote CTAs are live", "theme/snippets/quote-cta.liquid, theme/sections/floating-quote.liquid", "Already done — verify on production: floating button visible site-wide, sold-out variants show RFQ CTA, $0-price products show RFQ CTA.", "If verification passes, no edit needed. If something regressed, fix and report."),
+  "W0-6": PRE("W0-6", "Parent domain backlinks", "officecentral.com, brantbasics.com — Leo has admin access", "Add 'Furniture division' link block on officecentral.com and brantbasics.com pointing to brantbusinessinteriors.com. Coordinate with Leo for site access.", "Highest-value links BBI can get; already owned domains."),
+  "W0-7": PRE("W0-7", "OECM + 'Since 1964' trust signals", `theme/sections/, theme/snippets/, ${VOICE}`, "Add OECM verified-supplier badge + 'Backed by Office Central, since 1964' trust strip to header, footer, and homepage hero. Use approved logo at data/logos/.", "Pull copy from voice-samples.md. Add Canadian flag accent per feedback memory (canadian flag whenever Canadian-Owned / Made in Canada copy appears)."),
+
+  // ─── Phase 1 ───
+  "P1-1": PRE("P1-1", "Build Homepage", `${ARCH}, ${VOICE}, data/oci-photos/catalog.json, data/page-images/, data/design-photos/components-v1-2026-04-27/Components.html`, "Build new homepage at / using collection.category.json template OR a dedicated index.json. Sections in order: hero · 9-tile category grid → category pages · 3 featured Hero 100 products · OECM trust bar · 5 industry thumbnails · services overview · testimonials/Our Work preview · footer.", "Use design-photos library and OCI photos. Match component spec v1 styling. Bolt Canadian flag onto Canadian-Owned copy."),
+  "P1-2": PRE("P1-2", "Build OECM Supplier Partner page", `${ARCH}, ${VOICE}, scripts/README.md`, "Build /pages/oecm using landing-page template. Lead with OECM differentiator paragraph (highest-value AI-citation copy block). Include FAQ block (6+ Q&A) for AI Overview citation, Organization schema, BreadcrumbList JSON-LD, and CTA to /pages/quote.", "Pull OECM-verified language from icp.md. This is the #1 page for institutional buyer SEO."),
+  "P1-3": PRE("P1-3", "Build Design Services page", `${ARCH}, ${VOICE}, data/oci-photos/catalog.json`, "Build /pages/design-services. Cover: space planning, 3D rendering, furniture spec, project management. Include 3–4 portfolio thumbnails from OCI photos linking to /pages/our-work. End with quote CTA.", ""),
+  "P1-4": PRE("P1-4", "Build Request a Quote page", `${ARCH}, ${VOICE}, theme/sections/contact-form.liquid`, "Build /pages/quote with project-scoped quote form: company, sector dropdown, headcount, project type, budget range, timeline, message. Submit to furnorders@officecentral.com. Confirmation page with phone CTA.", ""),
+  "P1-5": PRE("P1-5", "Build Industries Hub", `${ARCH}, ${VOICE}`, "Build /pages/industries — landing page that links out to all 5 industry pages (Healthcare, Education, Government, Non-Profit, Professional Services) with one-paragraph teaser + thumbnail each.", "Re-emphasize Business-Furniture-only scope: industries describe workspaces *within* those sectors, not sector-specific furniture lines."),
+  "P1-6": PRE("P1-6", "Build Healthcare industry page", `${ARCH}, ${VOICE}`, "Build /pages/healthcare focused on healthcare workplace furnishing (admin offices, reception, waiting rooms, staff rooms — NOT clinical equipment). Cross-link to: reception desks, task seating, waiting room chairs, storage sub-collections.", "Lead with OECM angle for hospitals + LHIN buyers."),
+  "P1-7": PRE("P1-7", "Build Education industry page", `${ARCH}, ${VOICE}`, "Build /pages/education for school board / university administrative furnishing. Cross-link to: admin seating, staff desks, boardroom tables, storage. Lead with OECM angle.", ""),
+  "P1-8": PRE("P1-8", "Build Government industry page", `${ARCH}, ${VOICE}`, "Build /pages/government for municipal, provincial, federal office furnishing. Cross-link to: desks, storage, panels, boardroom. Lead with OECM + 'Since 1964' trust + 6 locations across Canada.", ""),
+  "P1-9": PRE("P1-9", "Build Non-Profit industry page", `${ARCH}, ${VOICE}`, "Build /pages/non-profit. Cross-link to: seating, tables, accessories. Tone: budget-conscious + community-focused.", ""),
+  "P1-10": PRE("P1-10", "Build Professional Services industry page", `${ARCH}, ${VOICE}`, "Build /pages/professional-services for law firms, accounting, consulting. Cross-link to: ergonomic products, desks, seating. Tone: premium, ergonomics-led.", ""),
+
+  // ─── Phase 1b — Product Enrichment ───
+  "PE-1": PRE("PE-1", "Rewrite Hero 100 product descriptions", `${VOICE}, data/specs/, scripts/push-descriptions.py, data/reports/descriptions-hero100.csv`, "Rewrite descriptions for Hero 100: 3–5 sentences each, lead with use case, weave OECM/Canadian-Made angle where applicable. Output to data/reports/descriptions-hero100.csv, then push via scripts/push-descriptions.py.", DRY),
+  "PE-2": PRE("PE-2", "Populate spec block on Hero 100", "data/specs/{handle}.json, theme/snippets/spec-block.liquid (build if missing), scripts/push-specs.py if present", "For every Hero 100 product, populate the spec block (dimensions, weight capacity, materials, colour options, BIFMA / GREENGUARD certs, Made-in-Canada flag) from data/specs/{handle}.json into a product metafield consumed by theme/snippets/spec-block.liquid.", DRY),
+  "PE-3": PRE("PE-3", "Normalize Hero 100 product titles", `${VOICE}, scripts/push-titles.py if present`, "Normalize all Hero 100 titles: sentence case, no trademark symbols in handle, format `[Brand] [Product Name] — [Key Spec]`. Output diff CSV before pushing.", DRY),
+  "PE-4": PRE("PE-4", "Per-product SEO meta for Hero 100", `${VOICE}, scripts/push-meta.py, data/reports/meta-hero100.csv`, "Generate unique meta title (<60 chars) and description (<160 chars) for all Hero 100. Output to data/reports/meta-hero100.csv, then push.", DRY),
+  "PE-5": PRE("PE-5", "Batch description cleanup — 503 remaining", "scripts/clean-descriptions.py if present, scripts/push-descriptions.py", "Strip boilerplate HTML, remove duplicate paragraphs, ensure every remaining product has at least 2 sentences. Output report of products with <2 sentences for manual triage.", DRY),
+  "PE-6": PRE("PE-6", "Spec block rollout — full catalog", "data/specs/, theme/snippets/spec-block.liquid", "Apply the spec block template to every product that has a data/specs/{handle}.json entry. Skip products with no spec data and report them.", DRY),
+  "PE-7": PRE("PE-7", "Bulk meta generate — 503 remaining", "scripts/push-meta.py", "Generate meta title + description for the 503 non-Hero products using title + type tag as inputs. Output CSV first, then push.", DRY),
+
+  // ─── Phase 2 — Category collections ───
+  "P2-1": PRE("P2-1", "Build Business Furniture vertical page", `${ARCH}, theme/templates/collection.category.json, ${VOICE}`, "Build /collections/business-furniture using collection.category.json: hero banner · 9-category tile grid · breadcrumb · phone CTA. Hero copy frames BBI's full Business Furniture range under one roof.", "All 9 sub-category tiles link to P2-2..P2-10."),
+  "P2-2": PRE("P2-2", "Build Seating category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/seating with collection.category.json template. Hero · sub-category tiles (task, executive, conference, lounge, stools) · phone CTA · breadcrumb.", ""),
+  "P2-3": PRE("P2-3", "Build Desks & Workstations category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/desks: hero, sub-category tiles, sit-stand call-out tile, phone CTA, breadcrumb.", ""),
+  "P2-4": PRE("P2-4", "Build Storage & Filing category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/storage: hero, sub-category tiles (filing, lockers, shelving, bookcases, mobile pedestals), phone CTA, breadcrumb.", ""),
+  "P2-5": PRE("P2-5", "Build Tables category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/tables: hero, sub-category tiles (training, conference, café, occasional), phone CTA, breadcrumb.", ""),
+  "P2-6": PRE("P2-6", "Build Boardroom category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/boardroom: hero, sub-category tiles, AV-integration call-out, phone CTA, breadcrumb.", ""),
+  "P2-7": PRE("P2-7", "Build Ergonomic Products category page", `${ARCH}, theme/templates/collection.category.json, ${VOICE}`, "Build /collections/ergonomic-products: hero, sub-category tiles (sit-stand, monitor arms, keyboard trays, seating support), phone CTA, breadcrumb. Lead with ergonomic-authority tone.", ""),
+  "P2-8": PRE("P2-8", "Build Panels & Dividers category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/panels-room-dividers: hero, sub-category tiles (cubicle panels, freestanding, acoustic dividers), phone CTA.", ""),
+  "P2-9": PRE("P2-9", "Build Accessories category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/accessories: hero, sub-category tiles (lighting, mats, organizers, signage), phone CTA, breadcrumb.", ""),
+  "P2-10": PRE("P2-10", "Build Quiet Spaces category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/quiet-spaces: hero, sub-category tiles (acoustic pods, phone booths, focus rooms), phone CTA, breadcrumb. Acoustic pods are a 'hot' SEO term — write hero copy for them.", ""),
+
+  // ─── Phase 3 — collection.json template + sub-collection rollout ───
+  "P3-1": PRE("P3-1", "Build collection.json template", `theme/templates/collection.json, theme/sections/, ${VOICE}, ${ARCH}`, "Build collection.json template: filter sidebar (room, brand, price, certifications) · product grid (image slot top, 16:9/4:3) · breadcrumb (Home > Shop Furniture > [Category] > [Sub-collection]) · phone CTA at bottom · BreadcrumbList JSON-LD.", "Apply standard product card with image slot at top per feedback memory."),
+  "P3-2": PRE("P3-2", "Apply collection.json to ~68 sub-collections", `${ARCH} §2c, theme/templates/collection.json, scripts/push-collection-templates.py if present`, "Assign collection.json template to all ~68 sub-collections under Business Furniture. Generate a script to bulk-set template via Admin API; dry-run first.", DRY),
+  "P3-3": PRE("P3-3", "Assign hero images per sub-collection", "data/page-images/, scripts/push-collection-heroes.py if present", "For each sub-collection, pick the best matching hero image from data/page-images/ and assign as collection image via metafield or collection.image. Output mapping CSV before pushing.", DRY),
+
+  // ─── Phase 4 — Landing pages ───
+  "P4-1": PRE("P4-1", "Build Brands Hub", `${ARCH}, ${VOICE}, reference_canadian_brands memory`, "Build /pages/brands listing every manufacturer BBI carries (Global, Teknion, ergoCentric, Keilhauer, etc.) grouped by category. Each brand tile links to its dealer page (P4-2..P4-4) when one exists.", ""),
+  "P4-2": PRE("P4-2", "Build Keilhauer dealer page", `${ARCH}, ${VOICE}`, "Build /pages/brands-keilhauer: brand intro · 'Authorized Keilhauer Dealer' badge · 3–4 featured Keilhauer products · 'Shop all Keilhauer →' button · contact CTA.", ""),
+  "P4-3": PRE("P4-3", "Build Global / Teknion dealer page", `${ARCH}, ${VOICE}`, "Build /pages/brands-global-teknion: dual-brand intro · authorized dealer badges · 3–4 featured products from each · shop links · contact CTA.", ""),
+  "P4-4": PRE("P4-4", "Build ergoCentric dealer page", `${ARCH}, ${VOICE}`, "Build /pages/brands-ergocentric: brand intro · ergonomic-authority tone · 3–4 featured products · shop link · contact CTA.", ""),
+  "P4-5": PRE("P4-5", "Build About Us page", `${ARCH}, ${VOICE}, project_brand_kit memory`, "Build /pages/about: BBI story (since 1964, Office Central parent), 6 locations, OECM verified, leadership, values. Add Organization JSON-LD.", ""),
+  "P4-6": PRE("P4-6", "Build Our Work / Portfolio page", `${ARCH}, data/oci-photos/catalog.json (48 photos), poi.ca/our-work/ as model`, "Build /pages/our-work using all 48 OCI project photos. Filter by sector. Each project tile = photo + client (anonymized OK) + 1-line description + furniture used.", ""),
+  "P4-7": PRE("P4-7", "Build Contact page", `${ARCH}, ${VOICE}`, "Build /pages/contact: phone (1-800-835-9565), email (furnorders@officecentral.com), 6 location cards with addresses + Google Maps embeds, contact form.", ""),
+  "P4-8": PRE("P4-8", "Build Delivery & Installation page", `${ARCH}, docs/workflows/shipping-tiers.md, ${VOICE}`, "Build /pages/delivery explaining the 7-tier shipping/installation model already live. Tier table, what's included, lead times, install scope.", ""),
+  "P4-9": PRE("P4-9", "Build Relocation Management page", `${ARCH}, ${VOICE}`, "Build /pages/relocation: full-service office relocation offering (planning, packing, install, decommission). End with quote CTA.", ""),
+
+  // ─── Wave 2 ───
+  "W2-1": PRE("W2-1", "Acoustic Pods / Phone Booths sub-collection", `${ARCH}, scripts/`, "Acoustic pods are a hot SEO term. Build sub-collection under /collections/quiet-spaces, source 4–6 SKUs from existing brands (Framery, Loop, etc.), add to catalog.", "Coordinate with Steve on which brands BBI actually stocks/can quote."),
+  "W2-2": PRE("W2-2", "Sit-stand buyer guide + collection", `${ARCH}, ${VOICE}`, "Build a buyer-guide blog post + dedicated collection /collections/sit-stand-desks. Comparison table of brands BBI carries.", ""),
+  "W2-3": PRE("W2-3", "Hybrid work bundle collection", `${ARCH}, ${VOICE}`, "Build /collections/hybrid-work bundle of 6–8 products curated for hybrid-office setups (sit-stand + task chair + monitor arm + acoustic divider).", ""),
+  "W2-4": PRE("W2-4", "Email capture + lead magnet", `${ARCH}, ${VOICE}`, "Add email capture (footer + exit-intent) tied to a lead magnet — e.g. 'Ontario Office Furniture Buyer Guide' PDF. Use Klaviyo or Shopify forms.", ""),
+  "W2-5": PRE("W2-5", "Internal linking audit", "scripts/audit-internal-links.py if present", "After Phase 1 is live, audit internal links: every page has 3+ contextual links to relevant collections, every collection has 1+ link to its parent industry page.", "Output CSV of orphan pages and pages with <3 outbound internal links."),
+  "W2-6": PRE("W2-6", "Co-published content on parent domains", "officecentral.com, brantbasics.com", "Co-publish 2–3 articles on parent domains linking back to BBI. Coordinate with Leo for posting access.", ""),
+  "W2-7": PRE("W2-7", "Schema Markup rollout", "theme/snippets/schema-*.liquid (build), AI-3..AI-6 in checklist", "Add Product / FAQPage / Organization / BreadcrumbList JSON-LD across all relevant templates. Validate with Google Rich Results Test.", ""),
+  "W2-8": PRE("W2-8", "Product title optimization", "scripts/push-titles.py, PE-3 in checklist", "Quick-win: extend Hero 100 title normalization (PE-3) to all 600+ products using same format.", DRY),
+
+  // ─── Wave 3 ───
+  "W3-1": PRE("W3-1", "City-level SEO pages", `${ARCH}, ${VOICE}`, "Build /pages/office-furniture-[city] for Hamilton, Cambridge, Kitchener-Waterloo, Brantford, Peterborough, GTA. Each: hero, local trust signals, products, contact, LocalBusiness schema.", ""),
+  "W3-2": PRE("W3-2", "Ergonomics education hub", `${ARCH}, ${VOICE}`, "Build /pages/ergonomics-guide hub linking to 6+ blog posts on ergonomics topics. Position BBI as ergo authority.", ""),
+  "W3-3": PRE("W3-3", "Blog rollout", "Blog section of checklist (BL-1..6, B1..B10)", "Coordinate the blog template build (BL-*) and first 10 posts (B1..B10). Run in priority order.", ""),
+  "W3-4": PRE("W3-4", "Sustainability / LEED / BIFMA page", `${ARCH}, ${VOICE}`, "Build /pages/sustainability: LEED contribution, BIFMA-certified products, GREENGUARD, recycled content, take-back programs.", ""),
+  "W3-5": PRE("W3-5", "Space planning landing page", `${ARCH}, ${VOICE}`, "Build /pages/space-planning targeting 'office space planning' keyword. Tie to Design Services CTA.", ""),
+  "W3-6": PRE("W3-6", "Manufacturer dealer locator pages", `${ARCH}, P4-2..P4-4 already done`, "Extend brand pages with locator-friendly copy ('Authorized [Brand] Dealer in Ontario'). Submit to manufacturer dealer-locator pages where possible.", ""),
+  "W3-7": PRE("W3-7", "OECM directory + Chamber + COPA backlinks", "OECM directory, local chambers, Canadian Office Products Association", "Submit BBI to OECM supplier directory, local chambers (Brantford, Hamilton, Peterborough), COPA member directory. Track each backlink.", ""),
+  "W3-8": PRE("W3-8", "Brand kit + design authority", "project_brand_kit memory, docs/strategy/design-system.md", "Finalize and publish BBI brand kit + style guide matching brantbasics.com theme. Use as design authority for all future work.", ""),
+
+  // ─── Blog — Template & Infra ───
+  "BL-1": PRE("BL-1", "Verify blog list page", "/blogs/news, theme/templates/blog.json or blog.liquid", "Confirm /blogs/news returns 200, pagination works, posts display with featured image + excerpt. Fix any rendering bugs.", ""),
+  "BL-2": PRE("BL-2", "Verify blog post template", "theme/templates/article.json or article.liquid", "Verify individual post pages render correctly: title, body, author, date, featured image. Check OS 2.0 vs legacy template usage.", ""),
+  "BL-3": PRE("BL-3", "Wire Blog into nav", "theme/sections/header.liquid, theme/sections/footer.liquid", "Add 'Blog' or 'Resources' link to footer (and main nav if appropriate). Confirm correct URL.", ""),
+  "BL-4": PRE("BL-4", "Article schema markup", "theme/snippets/schema-article.liquid (build)", "Add Article JSON-LD (headline, datePublished, dateModified, author, image, mainEntityOfPage) to article template. Validate with Rich Results Test.", ""),
+  "BL-5": PRE("BL-5", "Related products block on posts", "theme/sections/article-related-products.liquid (build)", "Add 'Shop related products' block at bottom of each post: 3–4 product cards, manually curated via metafield (article.metafields.custom.related_products) or tag.", ""),
+  "BL-6": PRE("BL-6", "Internal link audit on posts", "scripts/audit-blog-links.py if present", "Confirm every blog post links to at least 2 relevant collection or product pages. Output CSV of posts that don't.", ""),
+
+  // ─── Blog — First 10 posts ───
+  "B1": PRE("B1", "Post: Best ergonomic office chairs for Canadian workplaces 2026", `${VOICE}, /collections/seating, /collections/ergonomic-products`, "Write SEO blog post targeting `ergonomic office chairs canada`. Lead with named products BBI carries. Include FAQ block. Link to /collections/seating and /collections/ergonomic-products.", ""),
+  "B2": PRE("B2", "Post: Acoustic pods vs. phone booths", `${VOICE}, /collections/quiet-spaces`, "Comparison post targeting `acoustic pods canada`. Compare 3+ named products. FAQ block. Link to /collections/quiet-spaces.", ""),
+  "B3": PRE("B3", "Post: How to furnish a school board admin office on an OECM contract", `${VOICE}, /pages/oecm, /collections/desks`, "Targeting `oecm office furniture`. Step-by-step OECM purchasing guide for school board admin offices. Link to /pages/oecm and /collections/desks.", ""),
+  "B4": PRE("B4", "Post: Standing desk buyer guide 2026", `${VOICE}, /collections/desks, /collections/ergonomic-products`, "Targeting `standing desk canada`. Buyer guide format with named products, motor-type comparison, certifications. FAQ.", ""),
+  "B5": PRE("B5", "Post: Office furniture for healthcare reception areas", `${VOICE}, /pages/healthcare, /collections/seating`, "Targeting `healthcare office furniture ontario`. Focus on reception, waiting room, admin areas (NOT clinical). Link to /pages/healthcare.", ""),
+  "B6": PRE("B6", "Post: How much does office furniture cost in Canada? (2026 pricing guide)", `${VOICE}, /pages/quote, /collections/business-furniture`, "Targeting `office furniture cost canada`. Price ranges by category, ROI framing, OECM angle. End with quote CTA.", ""),
+  "B7": PRE("B7", "Post: 5 office layouts that maximize collaboration", `${VOICE}, /collections/tables, /collections/seating`, "Targeting `office layout ideas`. 5 layouts with diagrams, furniture recommendations per layout.", ""),
+  "B8": PRE("B8", "Post: BIFMA vs. non-certified office chairs", `${VOICE}, /collections/seating`, "Targeting `bifma certified office chairs`. Why BIFMA matters for institutional buyers, what tests cover, named BIFMA products BBI carries.", ""),
+  "B9": PRE("B9", "Post: Office relocation checklist for Ontario businesses", `${VOICE}, /pages/relocation, /pages/contact`, "Targeting `office relocation ontario`. Step-by-step checklist with downloadable PDF. Link to /pages/relocation.", ""),
+  "B10": PRE("B10", "Post: Why Canadian-made office furniture is worth the investment", `${VOICE}, /collections/business-furniture, /pages/about`, "Targeting `canadian made office furniture`. Lead with BBI's Canadian-Made angle, named Canadian brands (Global, Teknion, ergoCentric, Keilhauer). Add Canadian flag accents.", ""),
+
+  // ─── AI Search ───
+  "AI-1": PRE("AI-1", "Create llms.txt", `theme/assets/llms.txt or theme/templates/page.llms.liquid, ${ARCH}`, "Create llms.txt at store root listing key pages (Homepage, OECM, Industries, Categories), BBI's entity summary (since 1964, OECM verified, Ontario, parent: Office Central), and contact. Plain-text markdown.", "30 min, pure upside, no risk."),
+  "AI-2": PRE("AI-2", "robots.txt audit", "Shopify default robots.txt, theme/templates/robots.txt.liquid (if customized)", "Confirm no Disallow rules block GPTBot, ClaudeBot, PerplexityBot, Googlebot, Google-Extended. Check for custom robots.txt.liquid overrides.", ""),
+  "AI-3": PRE("AI-3", "Product schema (JSON-LD) on every product", "theme/snippets/schema-product.liquid", "Verify Product JSON-LD on every product page: name, description, image, offers (price, availability, currency, priceValidUntil), brand, sku, mpn. Validate top 10 products with Rich Results Test.", ""),
+  "AI-4": PRE("AI-4", "Organization schema", "theme/snippets/schema-organization.liquid (build), theme/layout/theme.liquid", "Add Organization JSON-LD to homepage + About page: name, url, logo, telephone (1-800-835-9565), address (Brantford ON HQ), areaServed (Ontario, Canada), sameAs (officecentral.com, brantbasics.com).", "1 hour. Makes BBI a named entity AI models can reference."),
+  "AI-5": PRE("AI-5", "FAQ schema on key pages", "theme/snippets/schema-faq.liquid (build)", "Add FAQPage JSON-LD to OECM page, Design Services page, top 3 blog posts. Q&A format is most-cited content type in AI Overviews.", ""),
+  "AI-6": PRE("AI-6", "BreadcrumbList JSON-LD", "theme/snippets/schema-breadcrumbs.liquid", "Confirm BreadcrumbList schema on all collection AND product pages. Validate with Rich Results Test.", ""),
+  "AI-7": PRE("AI-7", "Entity clarity on homepage", `${VOICE}, theme/sections/homepage-hero.liquid`, "Within first 200 words above the fold, plainly state: who BBI is, what they sell, who they serve, where they operate. AI models extract entity facts from above-the-fold copy.", ""),
+  "AI-8": PRE("AI-8", "OECM page copy (highest-citation anchor)", `${VOICE}, /pages/oecm`, "Write a clear factual paragraph: 'Brant Business Interiors is a verified OECM supplier partner. Ontario school boards, hospitals, libraries, universities, and municipalities can purchase through BBI without open tender under the OECM framework.' This is the highest-value AI-citation block in all of BBI's content.", "30 min."),
+  "AI-9": PRE("AI-9", "FAQ blocks on category pages", `${VOICE}, theme/sections/category-faq.liquid (build)`, "Add 3–5 Q&A blocks per category page (e.g. 'What is the best ergonomic chair for a school board?' on /collections/seating). Answer in 2–3 sentences citing specific products or specs. Wire FAQPage schema (AI-5).", ""),
+  "AI-10": PRE("AI-10", "Spec completeness on product pages", `data/specs/, PE-2 in checklist`, "Ensure all Hero 100 have dimensions, weight capacity, materials, warranty, lead time. Ties into PE-2.", DRY),
+  "AI-11": PRE("AI-11", "'Best of' / comparison content", `${VOICE}, blog template`, "At least one page or blog post per major category that directly answers 'best [category] in Ontario/Canada' with named products + reasons. Highest-citation format for ChatGPT shopping queries.", ""),
+  "AI-12": PRE("AI-12", "Build scripts/audit-ai-readability.py", "scripts/README.md, existing audit scripts as model (audit-current-images.py)", "Build scripts/audit-ai-readability.py: crawl key pages, check Product/Organization/FAQ schema present, meta description set, <h1> present, word count ≥ 300, no noindex, alt-text coverage. Output CSV to data/reports/ai-readability-audit.csv.", DRY),
+  "AI-13": PRE("AI-13", "Manual ChatGPT/Perplexity spot-check", "ChatGPT, Perplexity", "Search: 'OECM office furniture supplier Ontario', 'ergonomic office chairs Ontario Canada', 'buy acoustic pods Canada'. Confirm BBI appears or is cited. Screenshot results to data/reports/ai-search-spot-check-<date>/.", ""),
+  "AI-14": PRE("AI-14", "Google AI Overview check", "Google Search with AI Overview", "Same queries as AI-13 in Google with AI Overview enabled. If BBI not cited, identify which competing page is being cited and what they have that BBI's page is missing. Document gaps.", "")
+};
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function togglePrompt(td) {
+  const key = td.dataset.key;
+  if (!key || !PROMPTS[key]) return;
+  const row = td.closest('tr');
+  const next = row.nextElementSibling;
+  if (next && next.classList.contains('prompt-row') && next.dataset.for === key) {
+    next.remove();
+    td.dataset.expanded = '0';
+    return;
+  }
+  // collapse any other expanded prompt rows in the same table (optional — keep multiple open? allow multiple)
+  const colCount = row.children.length;
+  const promptRow = document.createElement('tr');
+  promptRow.className = 'prompt-row';
+  promptRow.dataset.for = key;
+  promptRow.innerHTML = `<td colspan="${colCount}">
+    <div class="prompt-head">
+      <span>Kickoff prompt — paste into a new Claude Code session</span>
+      <button class="copy-btn" data-key="${key}" onclick="copyPrompt(this)">Copy</button>
+    </div>
+    <pre class="prompt-body" id="prompt-${key.replace(/[^a-zA-Z0-9]/g,'_')}">${escHtml(PROMPTS[key])}</pre>
+  </td>`;
+  row.parentNode.insertBefore(promptRow, row.nextSibling);
+  td.dataset.expanded = '1';
+}
+
+function copyPrompt(btn) {
+  const key = btn.dataset.key;
+  const text = PROMPTS[key];
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.textContent = 'Copied ✓';
+    setTimeout(() => { btn.classList.remove('copied'); btn.textContent = 'Copy'; }, 1500);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); btn.textContent = 'Copied ✓'; setTimeout(()=>btn.textContent='Copy',1500); } catch(e) { btn.textContent='Copy failed'; }
+    document.body.removeChild(ta);
+  });
+}
+
+// Wire up: find each <td class="tk"> whose row has a data-key button, mark it as a prompt trigger.
+document.querySelectorAll('tr').forEach(tr => {
+  const btn = tr.querySelector('button[data-key]');
+  if (!btn) return;
+  const key = btn.dataset.key;
+  if (!PROMPTS[key]) return;
+  const tk = tr.querySelector('td.tk');
+  if (!tk) return;
+  tk.dataset.key = key;
+  tk.dataset.hasPrompt = '1';
+  tk.dataset.expanded = '0';
+  tk.setAttribute('title', 'Click to view kickoff prompt');
+  tk.addEventListener('click', () => togglePrompt(tk));
+});
 </script>
 </body>
 </html>
