@@ -317,7 +317,7 @@ Confirm all four items are ready before generating the prompt. Do not proceed if
 - [ ] All page images identified with exact file paths (from Pre-Step item 0)
 - [ ] SEO title, H1, and meta description from Step 2B ready to paste
 - [ ] Reference page identified for Leo to attach — pick the most structurally similar completed page:
-  - **Phase 3 reference screens** (homepage, PDP unbuyable, collection) from `data/design-photos/design-system-v1-*/` — primary visual anchor when the page resembles one of the three; attach the matching PNG alongside any template-based reference
+  - **Phase 3 reference screens** (homepage, collection.category, collection sub, OECM landing, PDP unbuyable) from `data/design-photos/screens-v1-*/` — primary visual anchor; attach the closest-match screen alongside any template-based reference
   - `page.oecm.json` → service / trust / procurement pages
   - `page.brand-dealer.json` → dealer / brand showcase pages
   - As more pages complete QA, add their template handles here so Leo always has the closest match
