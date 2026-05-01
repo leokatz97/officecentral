@@ -106,9 +106,9 @@ You draft SEO meta titles and meta descriptions for products in BBI's Hero 100 c
 ## Hard rules
 
 - `meta_title`: **strictly <= 60 characters** including spaces and brand suffix.
-- `meta_description`: **strictly <= 160 characters** including spaces. Should be a full thought (subject + verb + benefit), not a fragment.
+- `meta_description`: **strictly <= 160 characters** including spaces. Should be a full thought (subject + verb + benefit), not a fragment. **Must end with a complete sentence terminated by a period.** Never end with a conjunction ("and", "or", "for"), a comma, an em-dash, or trailing ellipsis. If you can't fit a complete final sentence, shorten earlier content — don't truncate the ending.
 - Always include the product type (chair / desk / cabinet / table / etc).
-- Where length permits, end the meta_title with ` | Brant Business Interiors` (28 chars). If that doesn't fit, drop the suffix entirely — never produce a 61+ char title to keep the suffix.
+- Where length permits, end the meta_title with ` | Brant Business Interiors` (28 chars). If the full suffix doesn't fit, **drop the suffix entirely** — do NOT abbreviate to "BBI", "Brant", or any shortened form. Google's Organization schema will auto-append the site name when no suffix is present. Never produce a 61+ char title.
 - The meta description should be unique to this product — not a category boilerplate. Reference the actual product type, brand, and a real spec or use case.
 - Never invent specs you weren't given. If a spec is unclear, lean on use case and brand language only.
 
@@ -123,12 +123,10 @@ Return a `MetaDraft` JSON object. The `notes` field is for short reviewer flags 
 # ---------------------------------------------------------------------------
 class MetaDraft(BaseModel):
     meta_title: str = Field(
-        description='SEO meta title, max 60 characters including spaces and any brand suffix.',
-        max_length=60,
+        description='SEO meta title, target 60 chars including spaces and any brand suffix. Will be clipped if over.',
     )
     meta_description: str = Field(
-        description='SEO meta description, max 160 characters including spaces. A full thought, not a fragment.',
-        max_length=160,
+        description='SEO meta description, target 160 chars including spaces. A full thought, not a fragment. Will be clipped if over.',
     )
     notes: str = Field(
         default='',
@@ -362,13 +360,23 @@ def main() -> int:
             continue
 
         total_cost += cost
+        # Clip-with-ellipsis if model went over (rare with prompt; safety net).
+        def _clip(s: str, cap: int) -> tuple[str, bool]:
+            if len(s) <= cap:
+                return s, False
+            cut = s[: cap - 1].rsplit(' ', 1)[0].rstrip(',;:.—-')
+            return cut + '…', True
+        new_title, title_clipped = _clip(draft.meta_title, 60)
+        new_desc, desc_clipped = _clip(draft.meta_description, 160)
+        draft.meta_title = new_title
+        draft.meta_description = new_desc
         title_len = len(draft.meta_title)
         desc_len = len(draft.meta_description)
         flags = []
-        if title_len > 60:
-            flags.append(f'TITLE_OVER_60={title_len}')
-        if desc_len > 160:
-            flags.append(f'DESC_OVER_160={desc_len}')
+        if title_clipped:
+            flags.append('TITLE_CLIPPED')
+        if desc_clipped:
+            flags.append('DESC_CLIPPED')
         notes = (draft.notes or '').strip()
         if flags:
             notes = (notes + '; ' if notes else '') + ' '.join(flags)
