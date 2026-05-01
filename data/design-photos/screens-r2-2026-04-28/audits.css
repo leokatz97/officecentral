@@ -1,0 +1,173 @@
+/* Audit panel styling — sits beside the artboards on the design canvas */
+.audits {
+  display: grid;
+  gap: 24px;
+  padding: 32px;
+  background: #FFFFFF;
+  width: 100%;
+  max-width: 1320px;
+  font-family: var(--bodyFont);
+  color: #0B0B0C;
+}
+.audit-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E7;
+  border-radius: 8px;
+  padding: 24px 24px 8px;
+}
+.audit-card__head { margin-bottom: 16px; }
+.audit-card__eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5A5A5E;
+  margin: 0 0 6px;
+}
+.audit-card__head h3 {
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-size: 22px;
+  letter-spacing: -0.005em;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.audit-card__sub {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #2A2A2C;
+  max-width: 84ch;
+  margin: 0;
+}
+.audit-card__sub code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  background: #FAFAFA;
+  border: 1px solid #E5E5E7;
+  border-radius: 3px;
+  padding: 1px 5px;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0;
+}
+.audit-table th, .audit-table td {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid #E5E5E7;
+  vertical-align: middle;
+}
+.audit-table th {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5A5A5E;
+  font-weight: 600;
+  background: #FAFAFA;
+}
+.audit-mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  color: #2A2A2C;
+}
+.audit-on { opacity: 0.55; padding: 0 4px; }
+.audit-pair {
+  display: flex; align-items: center; gap: 10px;
+}
+.audit-swatch {
+  flex: 0 0 auto;
+  width: 28px; height: 28px;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  border-radius: 4px;
+  border: 1px solid rgba(11,11,12,0.1);
+  font-family: "Inter Tight";
+  font-size: 13px;
+  font-weight: 600;
+}
+.audit-role { color: #5A5A5E; }
+.audit-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 99px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.audit-pill--pass { background: #1F6F3F; color: #FFFFFF; }
+.audit-pill--fail { background: #B33A1A; color: #FFFFFF; }
+.audit-row--fail td { background: #FCF1ED; }
+.audit-row--total td { background: #FAFAFA; font-weight: 600; }
+
+.audit-coverage {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 8px 0 16px;
+}
+.audit-coverage__group {
+  background: #FAFAFA;
+  border: 1px solid #E5E5E7;
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.audit-coverage__group h4 {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5A5A5E;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.audit-coverage__group ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.audit-coverage__group li {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 12px;
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 4px 0;
+  border-bottom: 1px dashed #E5E5E7;
+}
+.audit-coverage__group li:last-child { border-bottom: none; }
+.audit-coverage__group code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: #0B0B0C;
+}
+.audit-reserved {
+  background: #FAFAFA;
+  border: 1px solid #E5E5E7;
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.audit-reserved h4 {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5A5A5E;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.audit-reserved p { margin: 0; line-height: 1.9; }
+.audit-reserved code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  background: #FFFFFF;
+  border: 1px solid #E5E5E7;
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: #0B0B0C;
+}

@@ -1,0 +1,734 @@
+/* ============================================================
+   collection.css — template 3 scoped styles
+   /collections/{category} (canonical example: seating)
+
+   Composes ONLY tokens from tokens.css and patterns from
+   bbi-components.css. No new tokens. No invented bbi-* classes.
+
+   New template-scoped classes (cn- prefix):
+     .cn-page          — page wrapper
+     .cn-crumb-band    — breadcrumbs band (reuses .bbi-crumbs)
+     .cn-intro         — intro band (heading + 3 stat dl)
+     .cn-filter-band   — sticky-ish filter strip (sub-chips, filters, sort)
+     .cn-subchips      — sub-category chip rail (folded-in sub-cat facet)
+     .cn-filter        — generic filter trigger (Brand · Height · Fabric · Warranty)
+     .cn-toggle        — Canadian-made toggle
+     .cn-result-strip  — count + active filter chip + sort
+     .cn-grid-section  — product grid wrapper
+     .cn-grid          — 3-up product grid
+     .cn-product       — composes .bbi-card--product with overlay extras
+     .cn-pagination    — numeric pagination
+     .cn-brand-strip   — brand list scoped to this category
+     .cn-oecm          — OECM bar (mirrors .cc-oecm composition)
+   ============================================================ */
+
+/* ---- breadcrumb band ---- */
+.cn-crumb-band {
+  border-bottom: 1px solid var(--borderColor);
+}
+.cn-crumb-band__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 16px 32px;
+}
+
+/* ---- intro band (smaller + tighter than template-2) ---------------- */
+.cn-intro {
+  padding: 56px 0 40px;
+}
+.cn-intro__grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 64px;
+  align-items: end;
+}
+.cn-intro__copy { max-width: 60ch; }
+.cn-intro__eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--textColor);
+  opacity: 0.6;
+  margin: 0 0 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.cn-intro__eyebrow::before {
+  content: "";
+  width: 24px; height: 1px;
+  background: var(--saleBadgeBackground);
+}
+.cn-intro__title {
+  font-family: var(--headingFont);
+  font-size: clamp(36px, 4.6vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.018em;
+  font-weight: 600;
+  margin: 0 0 16px;
+  color: var(--headingColor);
+  text-wrap: balance;
+}
+.cn-intro__deck {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--textColor);
+  margin: 0;
+  max-width: 56ch;
+}
+
+/* What's-inside spec stack — 3 mini-stats */
+.cn-intro__stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 24px 24px;
+  border: 1px solid var(--borderColor);
+  border-radius: var(--cardRadius);
+  background: var(--alternateBackground);
+}
+.cn-intro__stat {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+.cn-intro__stat dt {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.55);
+  margin: 0;
+}
+.cn-intro__stat dd {
+  font-family: var(--headingFont);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--textColor);
+  margin: 0;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+
+/* ---- filter band --------------------------------------------------- */
+.cn-filter-band {
+  border-top: 1px solid var(--borderColor);
+  border-bottom: 1px solid var(--borderColor);
+  background: var(--background);
+}
+.cn-filter-band__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* sub-category chip rail */
+.cn-subchips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cn-subchip {
+  appearance: none;
+  font: inherit;
+  font-family: var(--headingFont);
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  background: var(--background);
+  color: var(--textColor);
+  border: 1px solid var(--borderColor);
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+.cn-subchip:hover { border-color: var(--textColor); }
+.cn-subchip.is-active {
+  background: var(--textColor);
+  color: var(--background);
+  border-color: var(--textColor);
+}
+.cn-subchip__count {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+.cn-subchip.is-active .cn-subchip__count { opacity: 0.85; }
+
+/* filter triggers row */
+.cn-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.cn-filter-triggers {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.cn-filter {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--borderColor);
+  border-radius: var(--inputRadius);
+  background: var(--background);
+  overflow: hidden;
+}
+.cn-filter:hover { border-color: var(--textColor); }
+.cn-filter.is-set { border-color: var(--textColor); }
+.cn-filter__btn {
+  appearance: none;
+  font: inherit;
+  font-family: var(--bodyFont);
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  background: transparent;
+  border: 0;
+  color: var(--textColor);
+  cursor: pointer;
+}
+.cn-filter__label { font-weight: 500; }
+.cn-filter__value {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.7);
+  padding-left: 6px;
+  border-left: 1px solid var(--borderColor);
+}
+.cn-filter__chev {
+  font-size: 10px;
+  opacity: 0.6;
+  transform: translateY(-1px);
+}
+.cn-filter__x {
+  appearance: none;
+  font: inherit;
+  width: 28px;
+  background: transparent;
+  border: 0;
+  border-left: 1px solid var(--borderColor);
+  color: rgba(var(--textColor-rgb), 0.7);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+.cn-filter__x:hover { color: var(--textColor); }
+
+/* canadian-made toggle */
+.cn-toggle {
+  appearance: none;
+  font: inherit;
+  font-family: var(--bodyFont);
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px 0 8px;
+  background: var(--background);
+  color: var(--textColor);
+  border: 1px solid var(--borderColor);
+  border-radius: var(--inputRadius);
+  cursor: pointer;
+  margin-left: auto;
+}
+.cn-toggle:hover { border-color: var(--textColor); }
+.cn-toggle.is-on { border-color: var(--textColor); background: var(--alternateBackground); }
+.cn-toggle__dot {
+  width: 22px; height: 22px;
+  border: 1px solid var(--borderColor);
+  border-radius: 99px;
+  background: var(--background);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--saleBadgeBackground);
+}
+.cn-toggle.is-on .cn-toggle__dot { border-color: var(--textColor); }
+.cn-toggle__label { font-weight: 500; }
+
+/* result strip + sort */
+.cn-result-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 4px;
+  border-top: 1px dashed var(--borderColor);
+  margin-top: 4px;
+  padding-top: 12px;
+}
+.cn-result-strip__count {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(var(--textColor-rgb), 0.78);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.cn-result-strip__count b {
+  font-weight: 600;
+  color: var(--textColor);
+}
+.cn-result-strip__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.cn-result-strip__filter-name {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 2px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--alternateBackground);
+  border: 1px solid var(--borderColor);
+  color: var(--textColor);
+}
+.cn-result-strip__filter-x {
+  appearance: none;
+  font: inherit;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: rgba(var(--textColor-rgb), 0.7);
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 2px;
+}
+.cn-result-strip__filter-x:hover { color: var(--textColor); }
+.cn-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--textColor);
+}
+.cn-sort__label { color: rgba(var(--textColor-rgb), 0.65); }
+.cn-sort__select {
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--borderColor);
+  border-radius: var(--inputRadius);
+  cursor: pointer;
+  background: var(--background);
+}
+.cn-sort__select:hover { border-color: var(--textColor); }
+.cn-sort__chev { font-size: 10px; opacity: 0.6; }
+
+/* ---- product grid -------------------------------------------------- */
+.cn-grid-section {
+  padding: 48px 0 32px;
+}
+.cn-grid-section__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.cn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.cn-grid--mobile {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* product card overlays — composes .bbi-card--product */
+.cn-product .bbi-card__media {
+  /* keep 16:9 from token; just tag the local pattern */
+}
+.cn-product__subcat {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* white literal — same overlay-system justification as
+     .bbi-card--collection .bbi-card__overlay .count in bbi-components.css */
+  color: rgba(255,255,255,0.85);
+  background: rgba(var(--shadowColor-rgb), 0.55);
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+.cn-product__badges {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  z-index: 1;
+}
+.cn-product .cn-product__badges .bbi-badge {
+  /* bbi-components.css line 350 sets .bbi-card__media .bbi-badge to
+     position: absolute; top: 12px; left: 12px — which would pull badges
+     OUT of our flex container and stack them at top-left, overlapping
+     the sub-cat chip. We're inside .bbi-card__media, so that rule wins
+     unless we bump specificity. (0,3,0) vs (0,2,0). */
+  position: static;
+  top: auto;
+  left: auto;
+  background: rgba(255,255,255,0.92);
+  border-color: rgba(var(--textColor-rgb), 0.15);
+}
+.cn-product__low {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 10px;
+  font-family: var(--headingFont);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  /* low-stock uses --warningBackground (token) — ink label, 7.71:1 AA */
+  background: var(--warningBackground);
+  color: var(--textColor);
+}
+.cn-product__low-dot {
+  width: 6px; height: 6px;
+  border-radius: 99px;
+  background: var(--textColor);
+}
+
+.cn-product__body {
+  gap: 8px;
+  padding: 18px 18px 18px;
+}
+.cn-product__spec {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(var(--textColor-rgb), 0.7);
+}
+.cn-product__foot {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--borderColor);
+}
+.cn-product__price {
+  font-family: var(--headingFont);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--textColor);
+  letter-spacing: -0.005em;
+}
+
+/* ---- pagination ---------------------------------------------------- */
+.cn-pagination {
+  padding: 8px 0 64px;
+}
+.cn-pagination__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px 32px 0;
+  border-top: 1px solid var(--borderColor);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.cn-pagination__count {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(var(--textColor-rgb), 0.7);
+}
+.cn-pagination__pages {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.cn-pagination__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--borderColor);
+  border-radius: var(--inputRadius);
+  font-family: var(--bodyFont);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--textColor);
+  text-decoration: none;
+  background: var(--background);
+}
+.cn-pagination__page:hover { border-color: var(--textColor); }
+.cn-pagination__page.is-current {
+  background: var(--textColor);
+  color: var(--background);
+  border-color: var(--textColor);
+}
+.cn-pagination__sep {
+  padding: 0 8px;
+  color: rgba(var(--textColor-rgb), 0.55);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+.cn-pagination__page--next {
+  gap: 6px;
+  padding: 0 14px;
+  font-weight: 600;
+}
+
+/* ---- brand strip --------------------------------------------------- */
+.cn-brand-strip {
+  background: var(--alternateBackground);
+  padding: 80px 0;
+  border-top: 1px solid var(--borderColor);
+}
+.cn-brand-strip__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.cn-brand-strip__head { margin-bottom: 32px; max-width: 60ch; }
+.cn-brand-strip__title {
+  font-family: var(--headingFont);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: -0.012em;
+  font-weight: 600;
+  margin: 0;
+  color: var(--textColor);
+}
+.cn-brand-strip__list {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--textColor);
+  border-left: 1px solid var(--borderColor);
+}
+.cn-brand-strip__item { display: contents; }
+.cn-brand-strip__link {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 18px;
+  border-right: 1px solid var(--borderColor);
+  border-bottom: 1px solid var(--borderColor);
+  text-decoration: none;
+  color: var(--textColor);
+  background: var(--background);
+  min-height: 100px;
+  transition: background-color 120ms ease;
+}
+.cn-brand-strip__link:hover { background: var(--alternateBackground); }
+.cn-brand-strip__name {
+  font-family: var(--headingFont);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--textColor);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cn-brand-strip__name .leaf {
+  width: 11px; height: 11px;
+  color: var(--saleBadgeBackground);
+}
+.cn-brand-strip__tier {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.7);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+}
+.cn-brand-strip__dot {
+  width: 6px; height: 6px;
+  border-radius: 99px;
+}
+.cn-brand-strip__dot--auth { background: var(--saleBadgeBackground); }
+.cn-brand-strip__dot--stocked { background: rgba(var(--textColor-rgb), 0.4); }
+.cn-brand-strip__foot {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--borderColor);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 14px;
+  color: rgba(var(--textColor-rgb), 0.7);
+}
+
+/* ---- OECM bar (mirrors .cc-oecm composition) ----------------------- */
+.cn-oecm {
+  padding: 56px 0;
+  background: var(--background);
+  border-top: 1px solid var(--borderColor);
+  border-bottom: 1px solid var(--borderColor);
+}
+.cn-oecm__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.cn-oecm__lead { display: flex; flex-direction: column; gap: 16px; }
+.cn-oecm__copy {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--textColor);
+  margin: 0;
+  max-width: 60ch;
+}
+.cn-oecm__meta { justify-self: end; }
+
+/* ---- footer separator (template-3 scope only)
+   Same justification as .cc-page .bbi-footer in collection-category.css —
+   CTA closer + footer are both .scheme-inverse and would merge into one
+   slab without a hairline. Inverse --borderColor resolves to #1F1F21. */
+.cn-page .bbi-footer { border-top: 1px solid var(--borderColor); }
+
+/* ============================================================
+   Mobile (375) overrides
+   ============================================================ */
+.cn-page--mobile .cn-crumb-band__inner { padding: 12px 16px; }
+
+.cn-page--mobile .cn-intro { padding: 32px 0 24px; }
+.cn-page--mobile .cn-intro__grid {
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding: 0 16px;
+}
+.cn-page--mobile .cn-intro__title { font-size: 32px; }
+.cn-page--mobile .cn-intro__deck { font-size: 15px; }
+.cn-page--mobile .cn-intro__stats { padding: 16px; }
+.cn-page--mobile .cn-intro__stat { grid-template-columns: 80px 1fr; gap: 12px; }
+.cn-page--mobile .cn-intro__stat dd { font-size: 14px; }
+
+.cn-page--mobile .cn-filter-band__inner {
+  padding: 16px;
+  gap: 12px;
+}
+.cn-page--mobile .cn-subchips {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+  /* hide scrollbar for the chip rail */
+  scrollbar-width: none;
+}
+.cn-page--mobile .cn-subchips::-webkit-scrollbar { display: none; }
+.cn-page--mobile .cn-subchip { flex: 0 0 auto; }
+.cn-page--mobile .cn-filter-row {
+  /* On mobile, collapse all filter triggers behind a single 'Filters' button
+     with a count badge — true to the brief's 'horizontal bar collapses to a
+     single trigger button + drawer'. */
+}
+.cn-page--mobile .cn-filter-triggers {
+  /* Show a single combined Filters trigger; hide the per-facet buttons */
+  position: relative;
+}
+.cn-page--mobile .cn-filter-triggers .cn-filter:not(:first-child),
+.cn-page--mobile .cn-filter-triggers .cn-toggle {
+  display: none;
+}
+.cn-page--mobile .cn-filter-triggers .cn-filter:first-child .cn-filter__label::before {
+  content: "Filters · ";
+  color: rgba(var(--textColor-rgb), 0.55);
+}
+.cn-page--mobile .cn-filter-triggers .cn-filter:first-child .cn-filter__label::after {
+  content: " · Brand · Height · Fabric · Warranty · Made-in";
+  color: rgba(var(--textColor-rgb), 0.55);
+  font-weight: 400;
+}
+.cn-page--mobile .cn-filter-triggers .cn-filter:first-child .cn-filter__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60vw;
+}
+.cn-page--mobile .cn-result-strip {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.cn-page--mobile .cn-grid-section { padding: 24px 0 24px; }
+.cn-page--mobile .cn-grid-section__inner { padding: 0 16px; }
+
+.cn-page--mobile .cn-pagination__inner {
+  padding: 16px 16px 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.cn-page--mobile .cn-pagination__pages { flex-wrap: wrap; }
+
+.cn-page--mobile .cn-brand-strip { padding: 56px 0; }
+.cn-page--mobile .cn-brand-strip__inner { padding: 0 16px; }
+.cn-page--mobile .cn-brand-strip__list { grid-template-columns: repeat(2, 1fr); }
+.cn-page--mobile .cn-brand-strip__foot {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.cn-page--mobile .cn-oecm { padding: 32px 0; }
+.cn-page--mobile .cn-oecm__inner {
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 0 16px;
+}
+.cn-page--mobile .cn-oecm__meta { justify-self: start; }
+
+.cn-page--mobile .bbi-cta-section__inner {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding: 56px 16px;
+}
+.cn-page--mobile .bbi-cta-section__heading { font-size: 30px; }

@@ -1,0 +1,165 @@
+.ap-root {
+  background: var(--background);
+  color: var(--textColor);
+  font-family: var(--bodyFont);
+  padding: 64px;
+  width: 1280px;
+}
+.ap-root__head { margin-bottom: 48px; max-width: 70ch; }
+.ap-root__kicker {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.7);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.ap-root__kicker::before {
+  content: "";
+  width: 24px; height: 1px;
+  background: var(--saleBadgeBackground);
+  display: inline-block;
+}
+.ap-root__title {
+  font-family: var(--headingFont);
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.05;
+  margin: 12px 0 16px;
+  color: var(--headingColor);
+}
+.ap-root__sub {
+  font-size: 15px;
+  color: rgba(var(--textColor-rgb), 0.7);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 70ch;
+}
+.ap-panel {
+  margin-top: 48px;
+  border: 1px solid var(--borderColor);
+  border-radius: var(--cardRadius);
+  background: var(--background);
+  overflow: hidden;
+}
+.ap-panel__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--borderColor);
+  background: var(--alternateBackground);
+}
+.ap-panel__num {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(var(--textColor-rgb), 0.6);
+  font-weight: 600;
+  padding-top: 4px;
+}
+.ap-panel__title {
+  font-family: var(--headingFont);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px;
+  color: var(--textColor);
+}
+.ap-panel__sub {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(var(--textColor-rgb), 0.7);
+  line-height: 1.5;
+}
+.ap-panel__body { padding: 8px 0; }
+
+.ap-table { width: 100%; }
+.ap-row {
+  display: grid;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--borderColor);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.ap-table .ap-row:last-child { border-bottom: 0; }
+.ap-row--head {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.55);
+  background: var(--alternateBackground);
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.ap-row--head + .ap-row { border-top: 0; }
+/* 5-col contrast / 3-col red+links — auto-grid by cell count */
+.ap-row:not(.ap-row--head) .ap-cell--5,
+.ap-row:not(.ap-row--head) .ap-cell--4 { font-weight: 500; }
+.ap-row { grid-template-columns: 1.4fr 1.4fr 1fr 1fr 2fr; }
+.ap-row.ap-row-3 { grid-template-columns: 1fr 2fr 1fr; }
+/* Heuristic: rows with only 3 children should use a 3-col grid */
+.ap-row > .ap-cell:nth-last-child(3):first-child ~ .ap-cell:last-child { /* no-op marker */ }
+.ap-table .ap-row:has(> .ap-cell:nth-child(3):last-child) {
+  grid-template-columns: 1.5fr 2fr 1fr;
+}
+.ap-cell { color: var(--textColor); }
+.ap-cell--1 { font-weight: 500; }
+.ap-row--pass .ap-cell--4 { color: var(--success); font-weight: 600; }
+.ap-row--fail .ap-cell--4 { color: var(--error); font-weight: 600; }
+.ap-row--na .ap-cell--4 { color: rgba(var(--textColor-rgb), 0.5); }
+
+.ap-foot {
+  font-size: 12px;
+  color: rgba(var(--textColor-rgb), 0.6);
+  padding: 12px 24px 16px;
+  margin: 0;
+}
+.ap-cov {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.ap-cov > div {
+  padding: 20px 24px;
+}
+.ap-cov > div + div { border-left: 1px solid var(--borderColor); }
+.ap-cov h4 {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(var(--textColor-rgb), 0.7);
+  margin: 0 0 12px;
+}
+.ap-cov__list {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ap-cov__list li {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--borderColor);
+}
+.ap-cov__list li:last-child { border-bottom: 0; }
+.ap-cov__list code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--textColor);
+}
+.ap-cov__list span { color: rgba(var(--textColor-rgb), 0.7); }
+.ap-cov__list--reserve code { opacity: 0.7; }

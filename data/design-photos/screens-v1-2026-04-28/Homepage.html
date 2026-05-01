@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BBI · Homepage — desktop + mobile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<link rel="stylesheet" href="bbi-components.css" />
+<link rel="stylesheet" href="homepage.css" />
+<link rel="stylesheet" href="audits.css" />
+<style>
+  /* Canvas chrome — sits OUTSIDE the page artboards. The artboards
+     themselves use only --tokens. */
+  body { background: #EDEDEE; }
+  .dc-section--header { font-family: "Inter Tight", system-ui; }
+  .hp-mobile { width: 375px; }
+  .hp-desktop { width: 1440px; }
+  /* Reset font-size baseline at 1440 since the system's media query
+     uses 768px+ — already handled by tokens.css. */
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="Homepage.jsx"></script>
+<script type="text/babel" src="Audits.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+  const { Homepage, Audits, DesignCanvas, DCSection, DCArtboard } = window;
+
+  const App = () => (
+    <DesignCanvas>
+      <DCSection
+        id="homepage"
+        title="01 — Homepage"
+        subtitle="scheme-default · template = index. Hero · Shop entry · Featured products · OECM · Industries · Services · Our work · Footer."
+      >
+        <DCArtboard id="hp-1440" label="Homepage · 1440 desktop" width={1440} height={4900}>
+          <div className="hp-desktop"><Homepage mobile={false} /></div>
+        </DCArtboard>
+        <DCArtboard id="hp-375" label="Homepage · 375 mobile" width={375} height={5800}>
+          <div className="hp-mobile"><Homepage mobile={true} /></div>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection
+        id="audits"
+        title="Audits — Homepage"
+        subtitle="Red density · Contrast · Token coverage · Cross-links"
+      >
+        <DCArtboard id="audits-card" label="Audit panels" width={1320} height={2800}>
+          <Audits />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+
+  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+</body>
+</html>

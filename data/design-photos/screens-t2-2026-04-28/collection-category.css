@@ -1,0 +1,458 @@
+/* ============================================================
+   collection-category.css — template 2 scoped styles
+   /collections/business-furniture (the catalogue map)
+
+   Composes ONLY tokens from tokens.css and patterns from
+   bbi-components.css. No new tokens. No invented bbi-* classes.
+
+   New template-scoped classes (cc- prefix):
+     .cc-page          — page wrapper
+     .cc-crumb-band    — breadcrumbs band (reuses .bbi-crumbs)
+     .cc-intro         — intro band (heading + spec plate)
+     .cc-cat-grid      — 9-up category grid (reuses .bbi-card--collection)
+     .cc-industry      — industry shortcut tile (compact)
+     .cc-brand-index   — tiered text-list brand index
+     .cc-oecm          — OECM bar (mirrors locked homepage .hp-oecm)
+   ============================================================ */
+
+/* ---- breadcrumb band ---- */
+.cc-crumb-band {
+  border-bottom: 1px solid var(--borderColor);
+}
+.cc-crumb-band__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 16px 32px;
+}
+
+/* ---- intro band ----------------------------------------------------- */
+.cc-intro {
+  padding: 80px 0 64px;
+}
+.cc-intro__grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 64px;
+  align-items: end;
+}
+.cc-intro__copy {
+  max-width: 60ch;
+}
+.cc-intro__eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--textColor);
+  opacity: 0.6;
+  margin: 0 0 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.cc-intro__eyebrow::before {
+  content: "";
+  width: 24px; height: 1px;
+  background: var(--saleBadgeBackground);
+}
+.cc-intro__title {
+  font-family: var(--headingFont);
+  font-size: clamp(40px, 5.4vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.018em;
+  font-weight: 600;
+  margin: 0 0 24px;
+  color: var(--headingColor);
+  text-wrap: balance;
+}
+.cc-intro__deck {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--textColor);
+  margin: 0 0 12px;
+  max-width: 56ch;
+}
+.cc-intro__sub {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(var(--textColor-rgb), 0.7);
+  margin: 0;
+  max-width: 52ch;
+}
+
+/* spec plate — small data table on the right */
+.cc-intro__plate {
+  border-top: 1px solid var(--textColor);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cc-intro__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--borderColor);
+}
+.cc-intro__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.cc-intro__row .lbl {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.6);
+}
+.cc-intro__row .val {
+  font-family: var(--headingFont);
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: var(--textColor);
+}
+.cc-intro__row .val .unit {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(var(--textColor-rgb), 0.55);
+  margin-left: 4px;
+  letter-spacing: 0;
+}
+
+/* ---- 9-up category grid ------------------------------------------- */
+.cc-cat-section { padding: 32px 0 96px; }
+.cc-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.cc-cat-grid--mobile {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+/* Slight overrides on .bbi-card--collection for this template — taller
+   tile, descriptor line below the count. Composes the homepage card. */
+.cc-cat-grid .bbi-card--collection { aspect-ratio: 5 / 4; }
+.cc-cat-grid .bbi-card--collection .bbi-card__overlay {
+  padding: 24px 20px 18px;
+}
+.cc-cat-grid .bbi-card--collection .bbi-card__overlay h3 {
+  font-size: 22px;
+  letter-spacing: -0.012em;
+}
+.cc-cat-grid .bbi-card--collection .bbi-card__overlay .desc {
+  /* Direct white literal — same justification as bbi-card__overlay .count
+     in bbi-components.css: white on a dark gradient is not a token of any
+     scheme; this matches that pattern exactly. */
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  line-height: 1.4;
+  margin-top: 4px;
+  display: block;
+}
+.cc-cat-grid .bbi-card--collection .bbi-card__num {
+  position: absolute;
+  top: 16px; left: 16px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* White literal — same overlay-system justification as above. */
+  color: rgba(255,255,255,0.85);
+  background: rgba(11,11,12,0.55);
+  padding: 4px 8px;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+/* ---- industry shortcut row ---------------------------------------- */
+.cc-industry-section {
+  padding: 80px 0;
+  border-top: 1px solid var(--borderColor);
+  border-bottom: 1px solid var(--borderColor);
+}
+.cc-industry-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border-left: 1px solid var(--borderColor);
+}
+.cc-industry-grid--mobile {
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--borderColor);
+  border-left: 1px solid var(--borderColor);
+}
+.cc-industry {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 24px;
+  border-right: 1px solid var(--borderColor);
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+  color: var(--textColor);
+  background: var(--background);
+  transition: background-color 120ms ease;
+  min-height: 168px;
+}
+.cc-industry-grid--mobile .cc-industry { border-bottom: 1px solid var(--borderColor); }
+.cc-industry:hover { background: var(--alternateBackground); }
+.cc-industry__num {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.55);
+}
+.cc-industry__title {
+  font-family: var(--headingFont);
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  font-weight: 600;
+  margin: 0;
+  color: var(--textColor);
+}
+.cc-industry__note {
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(var(--textColor-rgb), 0.7);
+  margin: 0;
+}
+.cc-industry__arrow {
+  margin-top: auto;
+  font-size: 13px;
+  color: var(--textColor);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cc-industry__arrow .arrow {
+  transition: transform 160ms ease;
+}
+.cc-industry:hover .cc-industry__arrow .arrow { transform: translateX(3px); }
+
+/* ---- brand index --------------------------------------------------- */
+.cc-brand-index {
+  padding: 96px 0;
+  background: var(--alternateBackground);
+}
+.cc-brand-index__head {
+  max-width: 1320px;
+  margin: 0 auto 48px;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: end;
+}
+.cc-brand-index__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.cc-brand-tier {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--textColor);
+}
+.cc-brand-tier__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cc-brand-tier__num {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.55);
+}
+.cc-brand-tier__name {
+  font-family: var(--headingFont);
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  margin: 0;
+  color: var(--textColor);
+}
+.cc-brand-tier__count {
+  font-size: 13px;
+  color: rgba(var(--textColor-rgb), 0.7);
+}
+.cc-brand-tier__rows {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.cc-brand-row {
+  display: grid;
+  grid-template-columns: 1.4fr 2fr 0.7fr;
+  gap: 24px;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--borderColor);
+  text-decoration: none;
+  color: var(--textColor);
+  transition: padding-left 160ms ease, background-color 160ms ease;
+}
+.cc-brand-row:last-child { border-bottom: 0; }
+.cc-brand-row:hover {
+  padding-left: 8px;
+  background-color: rgba(var(--textColor-rgb), 0.02);
+}
+.cc-brand-row__name {
+  font-family: var(--headingFont);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--textColor);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.cc-brand-row__name .leaf {
+  width: 12px; height: 12px;
+  color: var(--saleBadgeBackground);
+}
+.cc-brand-row__cats {
+  font-size: 13px;
+  color: rgba(var(--textColor-rgb), 0.65);
+  line-height: 1.4;
+}
+.cc-brand-row__status {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.7);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: end;
+}
+.cc-brand-row__status .dot {
+  width: 6px; height: 6px;
+  border-radius: 99px;
+  background: var(--saleBadgeBackground);
+}
+.cc-brand-row__status--stocked .dot {
+  background: rgba(var(--textColor-rgb), 0.4);
+}
+
+.cc-brand-index__foot {
+  max-width: 1320px;
+  margin: 32px auto 0;
+  padding: 24px 32px 0;
+  border-top: 1px solid var(--borderColor);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  font-size: 14px;
+  color: rgba(var(--textColor-rgb), 0.7);
+}
+
+/* ---- OECM bar (mirrors locked homepage .hp-oecm composition) ------- */
+.cc-oecm {
+  padding: 56px 0;
+  background: var(--background);
+  border-top: 1px solid var(--borderColor);
+  border-bottom: 1px solid var(--borderColor);
+}
+.cc-oecm__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.cc-oecm__lead { display: flex; flex-direction: column; gap: 16px; }
+.cc-oecm__copy {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--textColor);
+  margin: 0;
+  max-width: 60ch;
+}
+.cc-oecm__meta { justify-self: end; }
+
+/* ---- mobile (375) overrides ---------------------------------------- */
+.cc-page--mobile .cc-intro { padding: 40px 0 32px; }
+.cc-page--mobile .cc-intro__grid {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding: 0 16px;
+}
+.cc-page--mobile .cc-intro__title {
+  font-size: 36px;
+}
+.cc-page--mobile .cc-cat-section { padding: 16px 0 56px; }
+.cc-page--mobile .cc-cat-section .bbi-container { padding: 0 16px; }
+.cc-page--mobile .cc-industry-section { padding: 48px 0; }
+.cc-page--mobile .cc-industry-section .bbi-container { padding: 0 16px; }
+.cc-page--mobile .cc-brand-index { padding: 56px 0; }
+.cc-page--mobile .cc-brand-index__head {
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding: 0 16px;
+  margin-bottom: 32px;
+}
+.cc-page--mobile .cc-brand-index__inner { padding: 0 16px; gap: 32px; }
+.cc-page--mobile .cc-brand-tier {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.cc-page--mobile .cc-brand-row {
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+.cc-page--mobile .cc-brand-row__status { justify-self: start; }
+.cc-page--mobile .cc-brand-index__foot {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 16px 0;
+}
+.cc-page--mobile .cc-oecm { padding: 32px 0; }
+.cc-page--mobile .cc-oecm__inner {
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 0 16px;
+}
+.cc-page--mobile .cc-oecm__meta { justify-self: start; }
+.cc-page--mobile .cc-crumb-band__inner { padding: 12px 16px; }
+
+/* mobile section-head reflow */
+.cc-page--mobile .bbi-section-head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.cc-page--mobile .bbi-section-head__title {
+  font-size: 28px;
+}
+
+/* ---- CTA closer reflow on mobile ----------------------------------- */
+.cc-page--mobile .bbi-cta-section__inner {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding: 56px 16px;
+}
+.cc-page--mobile .bbi-cta-section__heading {
+  font-size: 32px;
+}

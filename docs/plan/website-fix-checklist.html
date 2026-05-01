@@ -502,6 +502,24 @@ tr:hover td { background: #fafafa; }
   </div>
 </div>
 
+<!-- ═══════════════════════════════ SMART COLLECTIONS ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Smart Collections</span><h3 class="sec-title">Manual → Smart Collection Migration</h3><span class="sec-sub">Convert every collection to rule-based (smart) so new products auto-populate</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:72px">ID</th><th>Task</th><th style="width:130px">Priority</th><th style="width:160px">Status</th></tr></thead>
+      <tbody>
+        <tr><td class="tk">SC-1</td><td><span class="tn">Audit all existing collections</span><span class="tnote">Export current collections via Admin API. List manual vs smart, member counts, and tag patterns. Output to <code>data/reports/collection-audit.csv</code>.</span></td><td><span class="pri">🔴 High</span></td><td><button class="sb s0" data-key="SC-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">SC-2</td><td><span class="tn">Define rule schema per collection</span><span class="tnote">For each collection, define the tag/type/vendor rules that select its products. Document in <code>data/reports/collection-rules.csv</code>. Reuse Hero 100 + sector tags wherever possible.</span></td><td><span class="pri">🔴 High</span></td><td><button class="sb s0" data-key="SC-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">SC-3</td><td><span class="tn">Backfill product tags to match rules</span><span class="tnote">Where rule = tag-based, push tags to products so smart collection populates 1:1 with current manual membership. Dry-run first via <code>scripts/push-collection-tags.py</code>.</span></td><td><span class="pri">🔴 High</span></td><td><button class="sb s0" data-key="SC-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">SC-4</td><td><span class="tn">Convert manual → smart in Admin</span><span class="tnote">Per collection: snapshot member list, switch to "Automated", apply rules, diff before/after. Investigate any drop-offs before saving live.</span></td><td><span class="pri">🔴 High</span></td><td><button class="sb s0" data-key="SC-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">SC-5</td><td><span class="tn">Verify navigation + theme references</span><span class="tnote">Confirm collection handles unchanged so menu links, theme sections, and redirects keep working post-conversion.</span></td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="SC-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">SC-6</td><td><span class="tn">Document tag taxonomy</span><span class="tnote">Once stable, add the canonical tag list + meaning to <code>docs/workflows/collection-taxonomy.md</code> so future product onboarding stays consistent.</span></td><td><span class="pri">🟡 Medium</span></td><td><button class="sb s0" data-key="SC-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════ AI SEARCH ═══ -->
 <div class="section">
   <div class="sec-head"><span class="sec-tag">AI Search</span><h3 class="sec-title">AI Search Readability Audit</h3><span class="sec-sub">Make BBI citable by ChatGPT, Perplexity, Claude, Google AI Overviews</span></div>
@@ -650,6 +668,29 @@ document.querySelectorAll('[data-key]').forEach(btn => {
 updateProgress();
 
 // ── PROMPT DROPDOWNS ────────────────────────────────────────────
+const KEY_REFS = `Key Reference Files (always check what's relevant before writing):
+  • Site architecture (page map, URLs, sub-collections) — docs/plan/site-architecture-2026-04-25.md
+  • Interactive planning hub — previews/bbi-planning-hub.html
+  • Brand voice + ICP — docs/strategy/icp.md
+  • Approved copy samples — docs/strategy/voice-samples.md
+  • Design system (canonical visual reference) — docs/strategy/design-system.md
+  • Component spec v1 — docs/strategy/bbi-component-spec-v1.md
+  • Script reference — scripts/README.md
+  • Ideas backlog — docs/plan/ideas-backlog.md
+  • Blog model — btod.com/blog/best-office-chair-reviews/
+  • Portfolio model — poi.ca/our-work/`;
+
+const INTERCONNECT_RULES = `Page Interconnection Rules (apply when this task touches links, navigation, or cross-references between pages):
+  • Every industry page must cross-link to 3+ Business Furniture sub-collections (never to archived sector collections).
+  • Every category page must link up to /collections/business-furniture (parent) and down to its sub-collections.
+  • Every product page must surface its parent collection in breadcrumbs and a "back to category" link.
+  • Every blog post must link to 2+ relevant collection or product pages (per W2-5 audit rule).
+  • Every brand/dealer page must link to that brand's products via tag-based smart collection.
+  • Verify the target URL resolves before wiring a link — Shopify rejects redirects to non-existent targets and broken internal links tank SEO.
+  • Confirm slugs against the live taxonomy in site-architecture-2026-04-25.md §2c.`;
+
+const SCRIPTS_NOTE = `Scripts: check scripts/README.md before writing any new helper. Reuse existing push-*/audit-*/generate-* scripts where possible. New scripts go in scripts/ following the dry-run-by-default pattern (--live flag mutates, default prints intent). Back up to data/backups/ and log to data/logs/ before any write.`;
+
 const PRE = (id, name, refs, deliverable, extra) => `You're starting a fresh Claude Code session to complete task ${id} from the BBI Master Build Plan.
 
 Task: ${name}
@@ -658,6 +699,12 @@ Before doing anything:
 1. Read CLAUDE.md at the repo root — BBI-specific rules override defaults (never delete products, dry-run push scripts, OECM differentiator).
 2. Open docs/plan/website-fix-checklist.html and read the row + dropdown for ${id} plus surrounding context in that section.
 3. Read these task-specific references: ${refs}
+
+${KEY_REFS}
+
+${INTERCONNECT_RULES}
+
+${SCRIPTS_NOTE}
 
 Deliverable: ${deliverable}
 ${extra ? '\n' + extra + '\n' : ''}

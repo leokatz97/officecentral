@@ -27,7 +27,6 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RPT_DIR = os.path.join(ROOT, 'data', 'reports')
-TODAY   = datetime.now().strftime('%Y-%m-%d')
 
 DEFAULT_PORT = 8765
 
@@ -87,12 +86,12 @@ def make_handler(batch):
             }
 
             os.makedirs(RPT_DIR, exist_ok=True)
-            out_path = os.path.join(RPT_DIR, 'approval-{}-batch-{}.json'.format(TODAY, batch))
+            out_path = os.path.join(RPT_DIR, 'approval-{}.json'.format(batch))
             with open(out_path, 'w', encoding='utf-8') as f:
                 json.dump(output, f, indent=2)
 
             n = len(output['approvals'])
-            approved = sum(1 for v in output['approvals'].values() for k in ('gen2', 'gen3') if v.get(k))
+            approved = sum(1 for v in output['approvals'].values() for k in ('pos2', 'pos3', 'pos4') if v.get(k))
             print()
             print('=' * 60)
             print('Approval received: batch={}, products={}, approved={}'.format(batch, n, approved))

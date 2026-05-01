@@ -1,32 +1,24 @@
 """
-Push approved img2img images to Shopify (Phase 3d).
+Push approved img2img images to Shopify.
 
-Fork of push-generated-images.py with these deltas:
-  1. Reads data/reports/generated-img2img-{date}.csv joined with the approval
-     JSON (data/reports/approval-{date}-batch-{N}.json). Only pushes rows where
-     the approval JSON says true for that position.
-  2. HARD-FAILS on SKIP_NOT_FOUND in the main loop (the original logged and
-     continued — see scripts/push-generated-images.py:203-217). Reconcile handles
-     before re-running.
-  3. PRE-PUSH HERO-INTEGRITY CHECK: re-fetches the product, confirms pos-1 src
-     still equals Source_Hero_URL from the manifest. If the hero was changed
-     between generation and push, that product is aborted (the AI was conditioned
-     on a now-stale reference).
-  4. ALT-TEXT TAGGED with '[AI office context]' so future audit scripts can
-     identify these images in bulk.
+Reads:
+  data/reports/generated-img2img-<batch>.csv  (the new lowercase schema)
+  data/reports/approval-<batch>.json
+    {"batch": "...", "approvals": {handle: {pos2: bool, pos3: bool, pos4: bool, ...}}}
 
-Reuses fetch_product_id and push_image (retry/backoff) by copy-adapt — does not
-modify the original push-generated-images.py.
+Pushes each row where the matching pos<N> is true.
+
+Guards:
+  - Hard-fail on SKIP_NOT_FOUND.
+  - Pre-push hero-integrity: re-fetch product, confirm pos-1 still equals
+    source_hero_url from manifest. Abort the product if hero changed.
+  - Alt-text tagged with "[AI office context]" for future audit.
 
 Usage:
-  python3 scripts/push-img2img-images.py --batch=pilot-5                    # DRY RUN
-  python3 scripts/push-img2img-images.py --batch=pilot-5 --live             # write
-  python3 scripts/push-img2img-images.py --batch=pilot-5 \
-          --manifest=data/reports/generated-img2img-2026-04-28.csv \
-          --approval=data/reports/approval-2026-04-28-batch-pilot-5.json --live
+  python3 scripts/push-img2img-images.py --batch=batch-pilot                    # DRY RUN
+  python3 scripts/push-img2img-images.py --batch=batch-pilot --live             # write
 """
 import csv
-import glob
 import json
 import os
 import sys
@@ -36,9 +28,6 @@ import urllib.parse
 import urllib.request
 from datetime import datetime
 
-# ---------------------------------------------------------------------------
-# Paths & credentials (mirrors push-generated-images.py:30-41)
-# ---------------------------------------------------------------------------
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 with open(os.path.join(ROOT, '.env')) as f:
@@ -59,6 +48,12 @@ TS      = datetime.now().strftime('%Y%m%d-%H%M%S')
 
 ALT_TAG = '[AI office context]'
 
+CONTEXT_LABELS = {
+    2: 'Studio white background',
+    3: 'Office context A',
+    4: 'Office context B',
+}
+
 
 def parse_args():
     live     = '--live' in sys.argv
@@ -73,22 +68,15 @@ def parse_args():
         elif arg.startswith('--approval='):
             approval = arg.split('=', 1)[1]
     if not batch:
-        sys.exit('Required: --batch=<name>  (e.g. --batch=pilot-5)')
+        sys.exit('Required: --batch=<name>  (e.g. --batch=batch-pilot)')
     return live, batch, manifest, approval
-
-
-def latest_manifest():
-    matches = sorted(glob.glob(os.path.join(RPT_DIR, 'generated-img2img-*.csv')))
-    if not matches:
-        sys.exit('No generated-img2img-*.csv found.')
-    return matches[-1]
 
 
 def load_manifest(path):
     rows = []
     with open(path, newline='', encoding='utf-8') as f:
         for row in csv.DictReader(f):
-            if row.get('Status') == 'OK':
+            if row.get('status') == 'OK':
                 rows.append(row)
     return rows
 
@@ -102,26 +90,21 @@ def load_approval(path):
 def filter_approved(manifest_rows, approvals):
     out = []
     for row in manifest_rows:
-        handle = row['Handle']
+        handle = row['handle']
         try:
-            pos = int(row['Image_Position'])
+            pos = int(row['position'])
         except (ValueError, KeyError):
             continue
         a = approvals.get(handle) or {}
-        key = 'gen2' if pos == 2 else ('gen3' if pos == 3 else None)
-        if key and a.get(key) is True:
+        key = 'pos{}'.format(pos)
+        if a.get(key) is True:
             out.append(row)
     return out
 
 
-# ---------------------------------------------------------------------------
-# Shopify API helpers (copy-adapted from push-generated-images.py:90-139)
-# ---------------------------------------------------------------------------
 def fetch_product(handle, cache):
-    """Return (product_id, pos1_src) for handle, using cache."""
     if handle in cache:
         return cache[handle]
-
     encoded = urllib.parse.quote(handle)
     url = '{}/products.json?handle={}&fields=id,images&limit=1'.format(API, encoded)
     req = urllib.request.Request(url, headers={'X-Shopify-Access-Token': TOKEN})
@@ -141,14 +124,12 @@ def fetch_product(handle, cache):
         print('  FETCH-ERR {}: {}'.format(e.code, e.read().decode()[:120]))
     except Exception as e:
         print('  FETCH-ERR: {}'.format(e))
-
     cache[handle] = (pid, pos1_src)
     time.sleep(0.5)
     return pid, pos1_src
 
 
 def push_image(product_id, fal_url, position, alt_text, retries=3):
-    """POST image to Shopify. Retries on socket/network errors. Raises on HTTP error."""
     url = '{}/products/{}/images.json'.format(API, product_id)
     payload = json.dumps({
         'image': {
@@ -174,32 +155,25 @@ def push_image(product_id, fal_url, position, alt_text, retries=3):
     raise last_err
 
 
-# ---------------------------------------------------------------------------
-# Alt-text builder
-# ---------------------------------------------------------------------------
-CONTEXT_LABELS = {
-    2: 'Office context A',
-    3: 'Office context B',
-}
-
-
 def build_alt(title, position):
     label = CONTEXT_LABELS.get(int(position), 'Office context')
     return '{} - {} {}'.format(title or 'Product', label, ALT_TAG).strip()
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
+def resolve_paths(batch, manifest_arg, approval_arg):
+    manifest = manifest_arg or os.path.join(RPT_DIR, 'generated-img2img-{}.csv'.format(batch))
+    approval = approval_arg or os.path.join(RPT_DIR, 'approval-{}.json'.format(batch))
+    if not os.path.exists(manifest):
+        sys.exit('Manifest not found: {}'.format(manifest))
+    if not os.path.exists(approval):
+        sys.exit('Approval JSON not found: {}\nRun render-image-review.py + serve-review.py first.'.format(approval))
+    return manifest, approval
+
+
 def main():
     live, batch, manifest_arg, approval_arg = parse_args()
     mode = 'LIVE' if live else 'DRY RUN'
-
-    manifest_path = manifest_arg or latest_manifest()
-    approval_path = approval_arg or os.path.join(RPT_DIR, 'approval-{}-batch-{}.json'.format(TODAY, batch))
-
-    if not os.path.exists(approval_path):
-        sys.exit('Approval JSON not found: {}\nRun render-image-review.py + serve-review.py first.'.format(approval_path))
+    manifest_path, approval_path = resolve_paths(batch, manifest_arg, approval_arg)
 
     print('Mode:     ' + mode)
     print('Manifest: ' + manifest_path)
@@ -213,7 +187,7 @@ def main():
 
     by_handle = {}
     for row in rows:
-        by_handle.setdefault(row['Handle'], []).append(row)
+        by_handle.setdefault(row['handle'], []).append(row)
 
     print('{} approved images for {} products.\n'.format(len(rows), len(by_handle)))
 
@@ -226,19 +200,38 @@ def main():
     errors = []
     result_rows = []
 
+    # Title cache for alt text — manifest doesn't carry title, fetch lazily.
+    title_cache = {}
+
+    def get_title(handle, pid):
+        if handle in title_cache:
+            return title_cache[handle]
+        encoded = urllib.parse.quote(handle)
+        url = '{}/products.json?handle={}&fields=title&limit=1'.format(API, encoded)
+        req = urllib.request.Request(url, headers={'X-Shopify-Access-Token': TOKEN})
+        title = ''
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode())
+                products = data.get('products') or []
+                if products:
+                    title = products[0].get('title') or ''
+        except Exception:
+            pass
+        title_cache[handle] = title
+        return title
+
     for i, (handle, img_rows) in enumerate(by_handle.items(), 1):
         print('[{}/{}] {}'.format(i, len(by_handle), handle))
 
         pid, live_pos1 = fetch_product(handle, cache)
 
-        # Hard-fail on SKIP_NOT_FOUND (replaces log-and-continue at
-        # scripts/push-generated-images.py:203-217 in the original).
         if not pid:
             print('  HARD-FAIL: product handle not found in Shopify.')
             print('  Reconcile {} before re-running this batch.'.format(handle))
             sys.exit(1)
 
-        manifest_hero = img_rows[0].get('Source_Hero_URL') or ''
+        manifest_hero = img_rows[0].get('source_hero_url') or ''
         if manifest_hero and live_pos1 and manifest_hero != live_pos1:
             print('  ABORT: hero changed between generation and push.')
             print('    manifest: {}'.format(manifest_hero[:100]))
@@ -248,11 +241,11 @@ def main():
                 result_rows.append({
                     'Handle':           handle,
                     'Product_ID':       pid,
-                    'Image_Position':   row['Image_Position'],
+                    'Image_Position':   row['position'],
                     'Shopify_Image_ID': '',
                     'Shopify_CDN_URL':  '',
                     'Alt_Text':         '',
-                    'FAL_Source_URL':   row.get('FAL_URL', ''),
+                    'FAL_Source_URL':   row.get('fal_url', ''),
                     'Source_Hero_URL':  manifest_hero,
                     'Live_Pos1_URL':    live_pos1 or '',
                     'Status':           'ABORT_HERO_CHANGED',
@@ -266,21 +259,22 @@ def main():
                 result_rows.append({
                     'Handle':           handle,
                     'Product_ID':       pid,
-                    'Image_Position':   row['Image_Position'],
+                    'Image_Position':   row['position'],
                     'Shopify_Image_ID': '',
                     'Shopify_CDN_URL':  '',
                     'Alt_Text':         '',
-                    'FAL_Source_URL':   row.get('FAL_URL', ''),
+                    'FAL_Source_URL':   row.get('fal_url', ''),
                     'Source_Hero_URL':  manifest_hero,
                     'Live_Pos1_URL':    '',
                     'Status':           'ABORT_NO_HERO',
                 })
             continue
 
-        for row in sorted(img_rows, key=lambda r: int(r['Image_Position'])):
-            pos      = row['Image_Position']
-            fal_url  = row['FAL_URL']
-            title    = row.get('Title', '')
+        title = get_title(handle, pid)
+
+        for row in sorted(img_rows, key=lambda r: int(r['position'])):
+            pos      = row['position']
+            fal_url  = row['fal_url']
             alt_text = build_alt(title, pos)
 
             if not live:

@@ -1,0 +1,9 @@
+
+  /* Canvas chrome — sits OUTSIDE the page artboards. The artboards
+     themselves use only --tokens. */
+  body { background: #EDEDEE; }
+  .dc-section--header { font-family: "Inter Tight", system-ui; }
+  .hp-mobile { width: 375px; }
+  .hp-desktop { width: 1440px; }
+  /* Reset font-size baseline at 1440 since the system's media query
+     uses 768px+ — already handled by tokens.css. */

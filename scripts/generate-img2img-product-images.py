@@ -1,28 +1,29 @@
 """
 Generate three AI images per product using fal-ai/flux-pro/kontext,
-conditioned on the product's live position-1 hero image (img2img anchoring).
+conditioned on the product's live position-1 hero (img2img anchoring).
 
-Images generated per product:
-  pos 2 — Scene A: mix of Ontario institutional/community setting (attractive)
-  pos 3 — Scene B: SMB private-sector professional office (attractive)
-  pos 4 — White background: clean studio product shot
+Layout (strict — push script keys off the filename):
+  data/img2img/<phase>/<batch>/<handle>__pos<N>__<scene>.jpg
 
-Pipeline:
-  1. For each handle, GET /admin/api/2026-04/products.json?handle={h} to fetch
-     the LIVE pos-1 image URL (do not trust stale exports).
-  2. SKIP_NO_HERO if image_count == 0.
-  3. Build per-product prompt; spec JSON used when present (only ~19 of ~540 —
-     img2img conditioning carries the accuracy load, prompts add scene flavor).
-  4. Call fal-ai/flux-pro/kontext three times (pos 2, 3, 4).
-     Save to data/generated-img2img-images/{handle}-gen-{2,3,4}.jpg.
-  5. Append to data/reports/generated-img2img-{date}.csv.
+  pos 2 = studio-white            white-background product shot
+  pos 3 = sceneA-institutional    Ontario institutional / community office
+  pos 4 = sceneB-smb              private-sector polished SMB office
 
-Pos-1 is NEVER regenerated. Only positions 2, 3, and 4.
+Pos-1 is NEVER touched.
+
+Manifest:
+  data/reports/generated-img2img-<batch>.csv
+  columns: handle, product_id, position, scene, filename, prompt, generation_id, status
+
+Pre-flight:
+  Each handle is fetched from Shopify. Mismatches are logged and skipped
+  (status=SKIP_NOT_FOUND). Products with no pos-1 image skipped (SKIP_NO_HERO).
 
 Usage:
-  python3 scripts/generate-img2img-product-images.py --pilot=5 --handles="h1,h2,h3,h4,h5"
-  python3 scripts/generate-img2img-product-images.py --pilot=20
-  python3 scripts/generate-img2img-product-images.py --input=data/reports/some-handle-list.json
+  python3 scripts/generate-img2img-product-images.py --batch=batch-pilot --handles="h1,h2"
+  python3 scripts/generate-img2img-product-images.py --batch=batch-01 --pilot=20
+  python3 scripts/generate-img2img-product-images.py --batch=batch-01 \
+          --input=data/reports/clean-products-handles.json
 """
 import csv
 import json
@@ -35,7 +36,7 @@ import urllib.request
 from datetime import datetime
 
 # ---------------------------------------------------------------------------
-# Paths & credentials (mirrors push-generated-images.py:30-41)
+# Paths & credentials
 # ---------------------------------------------------------------------------
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -54,20 +55,24 @@ FAL_HEADERS  = {
     'Content-Type':  'application/json',
 }
 
-IMG_DIR  = os.path.join(ROOT, 'data', 'generated-img2img-images')
 RPT_DIR  = os.path.join(ROOT, 'data', 'reports')
 SPEC_DIR = os.path.join(ROOT, 'data', 'specs')
 LOG_DIR  = os.path.join(ROOT, 'data', 'logs')
-TODAY    = datetime.now().strftime('%Y-%m-%d')
+IMG_ROOT = os.path.join(ROOT, 'data', 'img2img')
 TS       = datetime.now().strftime('%Y%m%d-%H%M%S')
 
 DEFAULT_INPUT = os.path.join(RPT_DIR, 'clean-products-handles.json')
-MANIFEST_PATH = os.path.join(RPT_DIR, 'generated-img2img-{}.csv'.format(TODAY))
+
+# Position → scene token (used in filename + manifest)
+# Pos 2 = white studio shot (clean), then context scenes follow.
+SCENES = {
+    2: 'studio-white',
+    3: 'sceneA-institutional',
+    4: 'sceneB-smb',
+}
 
 # ---------------------------------------------------------------------------
-# Office context pairs by category (drives prompt variation)
-# Scene A: aspirational Ontario institutional/community setting
-# Scene B: aspirational SMB private-sector professional office
+# Office context pairs by category
 # ---------------------------------------------------------------------------
 CONTEXT_PAIRS = {
     'seating': (
@@ -166,6 +171,8 @@ def parse_args():
     pilot    = None
     handles  = None
     input_p  = DEFAULT_INPUT
+    phase    = 'phase1'
+    batch    = None
     for arg in sys.argv[1:]:
         if arg.startswith('--pilot='):
             pilot = int(arg.split('=', 1)[1])
@@ -173,23 +180,27 @@ def parse_args():
             handles = [h.strip() for h in arg.split('=', 1)[1].split(',') if h.strip()]
         elif arg.startswith('--input='):
             input_p = arg.split('=', 1)[1]
-    return pilot, handles, input_p
+        elif arg.startswith('--phase='):
+            phase = arg.split('=', 1)[1].strip()
+        elif arg.startswith('--batch='):
+            batch = arg.split('=', 1)[1].strip()
+    if not batch:
+        sys.exit('Required: --batch=<name>  (e.g. --batch=batch-01)')
+    if phase not in ('phase1', 'phase2'):
+        sys.exit('Invalid --phase=. Must be phase1 or phase2.')
+    return pilot, handles, input_p, phase, batch
 
 
 def load_handle_list(input_path, explicit_handles, pilot_n):
-    """Resolve to a list of {handle, title} dicts."""
     if explicit_handles:
         rows = [{'handle': h, 'title': ''} for h in explicit_handles]
         if pilot_n and len(rows) > pilot_n:
             rows = rows[:pilot_n]
         return rows
-
     if not os.path.exists(input_path):
         sys.exit('Input not found: ' + input_path)
-
     with open(input_path, encoding='utf-8') as f:
         data = json.load(f)
-
     rows = [{'handle': r['handle'], 'title': r.get('title', '')} for r in data]
     if pilot_n:
         rows = rows[:pilot_n]
@@ -197,10 +208,9 @@ def load_handle_list(input_path, explicit_handles, pilot_n):
 
 
 # ---------------------------------------------------------------------------
-# Shopify: fetch live pos-1 image
+# Shopify
 # ---------------------------------------------------------------------------
 def fetch_product(handle):
-    """Return (product_id, title, pos1_src) or (None, None, None)."""
     encoded = urllib.parse.quote(handle)
     url = '{}/products.json?handle={}&fields=id,title,images&limit=1'.format(SHOPIFY_API, encoded)
     req = urllib.request.Request(url, headers=SHOPIFY_HEADERS)
@@ -222,7 +232,7 @@ def fetch_product(handle):
 
 
 # ---------------------------------------------------------------------------
-# Prompt builder
+# Prompts
 # ---------------------------------------------------------------------------
 def load_spec(handle):
     path = os.path.join(SPEC_DIR, handle + '.json')
@@ -251,6 +261,12 @@ def spec_phrase(spec):
     return ' '.join(bits).strip()
 
 
+NEGATIVES = (
+    'No people, no hands. No text, no logos, no signage, no readable writing on any surface. '
+    'Any computer or TV screen must be off / blank black. No watermarks, no captions.'
+)
+
+
 def build_prompt(title, context_phrase, spec):
     qualifier = spec_phrase(spec)
     base = title or 'product'
@@ -258,9 +274,8 @@ def build_prompt(title, context_phrase, spec):
     return (
         'The exact {desc} from the reference image, placed in {context}. '
         'Match the reference exactly: same form, colour, material, hardware, and proportions. '
-        'Wide shot, mid-distance, eye-level, photorealistic. '
-        'No people. No text overlays. No watermarks.'
-    ).format(desc=desc[:120], context=context_phrase)
+        'Wide shot, mid-distance, eye-level, photorealistic. {neg}'
+    ).format(desc=desc[:120], context=context_phrase, neg=NEGATIVES)
 
 
 def build_prompt_white_bg(title, spec):
@@ -268,16 +283,16 @@ def build_prompt_white_bg(title, spec):
     base = title or 'product'
     desc = '{} {}'.format(qualifier, base).strip() if qualifier else base
     return (
-        'The exact {desc} from the reference image on a pure white background. '
+        'The exact {desc} from the reference image on a pure white seamless background. '
         'Professional studio product photography, soft even lighting, subtle drop shadow, '
         'sharp focus on every detail. '
         'Match the reference exactly: same form, colour, material, hardware, and proportions. '
-        'No background objects. No people. No text overlays. No watermarks.'
-    ).format(desc=desc[:120])
+        'No background objects, no props. {neg}'
+    ).format(desc=desc[:120], neg=NEGATIVES)
 
 
 # ---------------------------------------------------------------------------
-# fal.ai call
+# fal.ai
 # ---------------------------------------------------------------------------
 def call_fal(prompt, image_url, max_retries=3):
     body = json.dumps({
@@ -297,14 +312,14 @@ def call_fal(prompt, image_url, max_retries=3):
                 data = json.loads(resp.read().decode())
                 imgs = data.get('images') or []
                 if not imgs:
-                    return None, 'no images returned'
+                    return None, None, 'no images returned'
                 time.sleep(0.5)
-                return imgs[0]['url'], None
+                return imgs[0]['url'], data.get('request_id') or '', None
         except urllib.error.HTTPError as e:
             code = e.code
             msg  = e.read().decode()[:200]
             if code in (400, 401, 403):
-                return None, 'http {}: {}'.format(code, msg[:100])
+                return None, None, 'http {}: {}'.format(code, msg[:100])
             last_err = 'http {}: {}'.format(code, msg[:80])
             wait = 2 ** (attempt + 1)
             print('    fal.ai {} (attempt {}/{}), retrying in {}s'.format(code, attempt + 1, max_retries, wait))
@@ -314,7 +329,7 @@ def call_fal(prompt, image_url, max_retries=3):
             wait = 2 ** (attempt + 1)
             print('    fal.ai network error (attempt {}/{}): {} — retrying in {}s'.format(attempt + 1, max_retries, e, wait))
             time.sleep(wait)
-    return None, last_err or 'unknown error'
+    return None, None, last_err or 'unknown error'
 
 
 def download(url, dest_path):
@@ -328,14 +343,14 @@ def download(url, dest_path):
 # Manifest
 # ---------------------------------------------------------------------------
 MANIFEST_FIELDS = [
-    'Handle', 'Title', 'Image_Position', 'FAL_URL', 'Local_Path',
-    'Source_Hero_URL', 'Prompt', 'Status', 'Timestamp',
+    'handle', 'product_id', 'position', 'scene', 'filename',
+    'source_hero_url', 'fal_url', 'prompt', 'generation_id', 'status', 'timestamp',
 ]
 
 
-def append_manifest(row):
-    new_file = not os.path.exists(MANIFEST_PATH)
-    with open(MANIFEST_PATH, 'a', newline='', encoding='utf-8') as f:
+def append_manifest(path, row):
+    new_file = not os.path.exists(path)
+    with open(path, 'a', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=MANIFEST_FIELDS)
         if new_file:
             writer.writeheader()
@@ -346,23 +361,26 @@ def append_manifest(row):
 # Main
 # ---------------------------------------------------------------------------
 def main():
-    pilot, explicit_handles, input_path = parse_args()
-
+    pilot, explicit_handles, input_path, phase, batch = parse_args()
     rows = load_handle_list(input_path, explicit_handles, pilot)
     if not rows:
         sys.exit('No handles to process.')
 
-    os.makedirs(IMG_DIR, exist_ok=True)
+    img_dir       = os.path.join(IMG_ROOT, phase, batch)
+    manifest_path = os.path.join(RPT_DIR, 'generated-img2img-{}.csv'.format(batch))
+    os.makedirs(img_dir, exist_ok=True)
     os.makedirs(RPT_DIR, exist_ok=True)
     os.makedirs(LOG_DIR, exist_ok=True)
 
     print('Mode:     img2img via fal-ai/flux-pro/kontext')
+    print('Phase:    {}'.format(phase))
+    print('Batch:    {}'.format(batch))
     print('Input:    {} ({} handle{})'.format(
         'CLI handles' if explicit_handles else input_path,
         len(rows), '' if len(rows) == 1 else 's',
     ))
-    print('Manifest: ' + MANIFEST_PATH)
-    print('Outputs:  ' + IMG_DIR)
+    print('Manifest: ' + manifest_path)
+    print('Outputs:  ' + img_dir)
     print('Estimated cost: ~${:.2f} ({} products x 3 images x ~$0.04)'.format(
         len(rows) * 3 * 0.04, len(rows),
     ))
@@ -379,11 +397,11 @@ def main():
         product_id, live_title, pos1_src = fetch_product(handle)
         if product_id is None:
             print('  SKIP_NOT_FOUND')
-            append_manifest({
-                'Handle': handle, 'Title': row.get('title', ''),
-                'Image_Position': '', 'FAL_URL': '', 'Local_Path': '',
-                'Source_Hero_URL': '', 'Prompt': '',
-                'Status': 'SKIP_NOT_FOUND', 'Timestamp': TS,
+            append_manifest(manifest_path, {
+                'handle': handle, 'product_id': '',
+                'position': '', 'scene': '', 'filename': '',
+                'source_hero_url': '', 'fal_url': '', 'prompt': '',
+                'generation_id': '', 'status': 'SKIP_NOT_FOUND', 'timestamp': TS,
             })
             skipped += 1
             continue
@@ -392,11 +410,11 @@ def main():
 
         if not pos1_src:
             print('  SKIP_NO_HERO ({})'.format(title[:60]))
-            append_manifest({
-                'Handle': handle, 'Title': title,
-                'Image_Position': '', 'FAL_URL': '', 'Local_Path': '',
-                'Source_Hero_URL': '', 'Prompt': '',
-                'Status': 'SKIP_NO_HERO', 'Timestamp': TS,
+            append_manifest(manifest_path, {
+                'handle': handle, 'product_id': product_id,
+                'position': '', 'scene': '', 'filename': '',
+                'source_hero_url': '', 'fal_url': '', 'prompt': '',
+                'generation_id': '', 'status': 'SKIP_NO_HERO', 'timestamp': TS,
             })
             skipped += 1
             continue
@@ -406,23 +424,25 @@ def main():
         spec = load_spec(handle)
 
         jobs = [
-            (2, build_prompt(title, ctx_a, spec), 'scene-A'),
-            (3, build_prompt(title, ctx_b, spec), 'scene-B'),
-            (4, build_prompt_white_bg(title, spec), 'white-bg'),
+            (2, build_prompt_white_bg(title, spec)),
+            (3, build_prompt(title, ctx_a, spec)),
+            (4, build_prompt(title, ctx_b, spec)),
         ]
 
-        for position, prompt, label in jobs:
-            local_path = os.path.join(IMG_DIR, '{}-gen-{}.jpg'.format(handle, position))
-            print('  pos {} [{}]: {}'.format(position, label, prompt[:70]))
+        for position, prompt in jobs:
+            scene = SCENES[position]
+            filename = '{handle}__pos{pos}__{scene}.jpg'.format(handle=handle, pos=position, scene=scene)
+            local_path = os.path.join(img_dir, filename)
+            print('  pos {} [{}]: {}'.format(position, scene, prompt[:70]))
 
-            fal_url, err = call_fal(prompt, pos1_src)
+            fal_url, gen_id, err = call_fal(prompt, pos1_src)
             if not fal_url:
                 print('    FAIL: {}'.format(err))
-                append_manifest({
-                    'Handle': handle, 'Title': title,
-                    'Image_Position': position, 'FAL_URL': '', 'Local_Path': '',
-                    'Source_Hero_URL': pos1_src, 'Prompt': prompt,
-                    'Status': 'FAIL_GENERATION', 'Timestamp': TS,
+                append_manifest(manifest_path, {
+                    'handle': handle, 'product_id': product_id,
+                    'position': position, 'scene': scene, 'filename': filename,
+                    'source_hero_url': pos1_src, 'fal_url': '', 'prompt': prompt,
+                    'generation_id': '', 'status': 'FAIL_GENERATION', 'timestamp': TS,
                 })
                 failed += 1
                 continue
@@ -431,20 +451,20 @@ def main():
                 download(fal_url, local_path)
             except Exception as e:
                 print('    DOWNLOAD-FAIL: {}'.format(e))
-                append_manifest({
-                    'Handle': handle, 'Title': title,
-                    'Image_Position': position, 'FAL_URL': fal_url, 'Local_Path': '',
-                    'Source_Hero_URL': pos1_src, 'Prompt': prompt,
-                    'Status': 'FAIL_DOWNLOAD', 'Timestamp': TS,
+                append_manifest(manifest_path, {
+                    'handle': handle, 'product_id': product_id,
+                    'position': position, 'scene': scene, 'filename': filename,
+                    'source_hero_url': pos1_src, 'fal_url': fal_url, 'prompt': prompt,
+                    'generation_id': gen_id, 'status': 'FAIL_DOWNLOAD', 'timestamp': TS,
                 })
                 failed += 1
                 continue
 
-            append_manifest({
-                'Handle': handle, 'Title': title,
-                'Image_Position': position, 'FAL_URL': fal_url, 'Local_Path': local_path,
-                'Source_Hero_URL': pos1_src, 'Prompt': prompt,
-                'Status': 'OK', 'Timestamp': TS,
+            append_manifest(manifest_path, {
+                'handle': handle, 'product_id': product_id,
+                'position': position, 'scene': scene, 'filename': filename,
+                'source_hero_url': pos1_src, 'fal_url': fal_url, 'prompt': prompt,
+                'generation_id': gen_id, 'status': 'OK', 'timestamp': TS,
             })
             ok += 1
 
@@ -453,7 +473,7 @@ def main():
     print('Generated: {}'.format(ok))
     print('Skipped:   {}'.format(skipped))
     print('Failed:    {}'.format(failed))
-    print('Manifest:  {}'.format(MANIFEST_PATH))
+    print('Manifest:  {}'.format(manifest_path))
     print('=' * 60)
 
 

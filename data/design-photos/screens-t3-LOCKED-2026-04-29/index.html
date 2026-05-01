@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BBI · Templates 1–3 · desktop + mobile</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Tokens + components + template-scoped styles -->
+<link rel="stylesheet" href="src/tokens.css">
+<link rel="stylesheet" href="src/bbi-components.css">
+<link rel="stylesheet" href="src/homepage.css">
+<link rel="stylesheet" href="src/collection-category.css">
+<link rel="stylesheet" href="src/collection.css">
+
+<!-- Audit panel styling -->
+<link rel="stylesheet" href="src/audits.css">
+
+<!-- Force bundler to embed logo asset (referenced from JSX strings).
+     The CSS url() forces the bundler to inline the PNG into its manifest.
+     The runtime patch below redirects <img src="assets/bbi-logo-v2.png">
+     to the blob URL of the embedded copy. -->
+<style>
+.__bundle-logo-dep { background-image: url("assets/bbi-logo-v2.png"); display: none; }
+</style>
+<script>
+(function(){
+  // Run after bundler unpacks: it injects window.__resources after <head>,
+  // but our resources don't use ext-resource-dependency meta tags, so
+  // window.__resources won't have the logo. Instead, we sniff the
+  // background-image of our hidden marker class to recover the blob: URL
+  // the bundler created for assets/bbi-logo-v2.png, then rewrite every
+  // <img src="assets/bbi-logo-v2.png"> on the page (and in JSX-rendered
+  // components, via a MutationObserver).
+  function recoverLogoBlobUrl(){
+    var el = document.createElement('div');
+    el.className = '__bundle-logo-dep';
+    document.body.appendChild(el);
+    var bg = getComputedStyle(el).backgroundImage || '';
+    el.remove();
+    var m = bg.match(/url\(["']?(blob:[^"')]+)["']?\)/);
+    return m ? m[1] : null;
+  }
+  function patchImgs(blobUrl){
+    if (!blobUrl) return;
+    Array.from(document.querySelectorAll('img')).forEach(function(img){
+      if ((img.getAttribute('src')||'').indexOf('bbi-logo-v2') !== -1) {
+        img.src = blobUrl;
+      }
+    });
+  }
+  function start(){
+    // Bundler injects window.__resources after head; wait for body so
+    // computed style of our marker class works.
+    var blobUrl = null;
+    var tryFix = function(){
+      if (!blobUrl) blobUrl = recoverLogoBlobUrl();
+      if (blobUrl) patchImgs(blobUrl);
+    };
+    tryFix();
+    var mo = new MutationObserver(function(muts){
+      for (var i = 0; i < muts.length; i++) {
+        var m = muts[i];
+        for (var j = 0; j < m.addedNodes.length; j++) {
+          var n = m.addedNodes[j];
+          if (!n || n.nodeType !== 1) continue;
+          if (n.tagName === 'IMG' || (n.querySelectorAll && n.querySelectorAll('img').length)) {
+            tryFix();
+            return;
+          }
+        }
+      }
+    });
+    if (document.body) mo.observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+</head>
+<body>
+
+<div id="root"></div>
+
+<template id="__bundler_thumbnail" data-bg-color="#0B0B0C">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect x="120" y="160" width="420" height="480" rx="8" fill="#FAFAFA" stroke="#FFFFFF" stroke-width="2"/>
+    <rect x="160" y="200" width="180" height="14" rx="2" fill="#0B0B0C"/>
+    <rect x="160" y="230" width="340" height="40" rx="2" fill="#0B0B0C"/>
+    <rect x="160" y="290" width="340" height="120" rx="4" fill="#E5E5E7"/>
+    <rect x="160" y="430" width="80" height="22" rx="11" fill="#0B0B0C"/>
+    <rect x="250" y="430" width="80" height="22" rx="11" fill="#FFFFFF" stroke="#E5E5E7" stroke-width="1"/>
+    <rect x="340" y="430" width="80" height="22" rx="11" fill="#FFFFFF" stroke="#E5E5E7" stroke-width="1"/>
+    <rect x="160" y="480" width="100" height="80" rx="4" fill="#E5E5E7"/>
+    <rect x="270" y="480" width="100" height="80" rx="4" fill="#E5E5E7"/>
+    <rect x="380" y="480" width="100" height="80" rx="4" fill="#E5E5E7"/>
+    <rect x="600" y="160" width="120" height="480" rx="8" fill="#FAFAFA" stroke="#FFFFFF" stroke-width="2"/>
+    <rect x="615" y="180" width="90" height="8" rx="2" fill="#0B0B0C"/>
+    <rect x="615" y="210" width="90" height="60" rx="4" fill="#E5E5E7"/>
+    <rect x="615" y="290" width="90" height="60" rx="4" fill="#E5E5E7"/>
+    <rect x="615" y="370" width="90" height="60" rx="4" fill="#E5E5E7"/>
+    <rect x="780" y="160" width="300" height="480" rx="8" fill="#FFFFFF"/>
+    <rect x="800" y="190" width="40" height="8" rx="1" fill="#D4252A"/>
+    <rect x="800" y="210" width="180" height="20" rx="2" fill="#0B0B0C"/>
+    <rect x="800" y="250" width="260" height="60" rx="4" fill="#FAFAFA"/>
+    <rect x="800" y="320" width="260" height="60" rx="4" fill="#FAFAFA"/>
+    <rect x="800" y="390" width="260" height="60" rx="4" fill="#FAFAFA"/>
+    <rect x="800" y="460" width="260" height="60" rx="4" fill="#FAFAFA"/>
+    <text x="600" y="720" text-anchor="middle" font-family="Inter Tight,system-ui,sans-serif" font-size="28" font-weight="600" fill="#FFFFFF">BBI · Templates 1–3</text>
+  </svg>
+</template>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Component scripts (load order matters) -->
+<script type="text/babel" src="src/design_canvas.jsx"></script>
+<script type="text/babel" src="src/Homepage.jsx"></script>
+<script type="text/babel" src="src/CollectionCategory.jsx"></script>
+<script type="text/babel" src="src/Collection.jsx"></script>
+<script type="text/babel" src="src/Audits.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const { DesignCanvas, DCSection, DCArtboard, Homepage, CollectionCategory, Collection, Audits } = window;
+
+const App = () => (
+  <DesignCanvas>
+    <DCSection id="hp" title="01 — Homepage (locked)" subtitle="Round 2 reference. Tokens, components, header, footer, OECM bar, CTA closer all originate here.">
+      <DCArtboard id="hp-1440" label="Desktop · 1440" width={1440} height={5400}>
+        <Homepage mobile={false} />
+      </DCArtboard>
+      <DCArtboard id="hp-375" label="Mobile · 375" width={375} height={6400}>
+        <Homepage mobile={true} />
+      </DCArtboard>
+      <DCArtboard id="hp-audits" label="Audit panels" width={1280} height={2700}>
+        <Audits template="homepage" />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection id="cc" title="02 — Collection · category (locked)" subtitle="/collections/business-furniture · the catalogue map. Header → Shop and homepage 'Browse all' both resolve here.">
+      <DCArtboard id="cc-1440" label="Desktop · 1440" width={1440} height={5500}>
+        <CollectionCategory mobile={false} />
+      </DCArtboard>
+      <DCArtboard id="cc-375" label="Mobile · 375" width={375} height={7100}>
+        <CollectionCategory mobile={true} />
+      </DCArtboard>
+      <DCArtboard id="cc-audits" label="Audit panels" width={1280} height={2780}>
+        <Audits template="collection-category" />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection id="cn" title="03 — Collection · seating (round 4)" subtitle="/collections/seating · a single category page. Sub-cat chip rail folds in the sub-category facet; horizontal filter bar collapses to a single Filters trigger on mobile. Shape generalizes to all 9 categories.">
+      <DCArtboard id="cn-1440" label="Desktop · 1440" width={1440} height={4000}>
+        <Collection mobile={false} />
+      </DCArtboard>
+      <DCArtboard id="cn-375" label="Mobile · 375" width={375} height={6900}>
+        <Collection mobile={true} />
+      </DCArtboard>
+      <DCArtboard id="cn-audits" label="Audit panels" width={1280} height={3000}>
+        <Audits template="collection" />
+      </DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+</body>
+</html>
