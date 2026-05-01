@@ -103,6 +103,9 @@ You draft SEO meta titles and meta descriptions for products in BBI's Hero 100 c
 - **Surface OECM or Canadian-made where it lands naturally.** Do NOT force them on every product. OECM matters most on institutional-leaning SKUs (waiting room seating, bariatric, training tables, big-and-heavy chairs, fire-resistant filing). Canadian-made matters most on Global Furniture Group, Teknion, Keilhauer, ergoCentric, ObusForme products. If neither fits cleanly, omit them.
 - **Avoid lifestyle puffery.** No "unleash", "elevate", "transform", "discover", "dream", "boldly".
 - **Avoid ALL-CAPS, emojis, and clickbait.**
+- **Brand name rule — universal.** Never write "BBI" or bare "Brant" in any
+  output a customer could read. Always write the full name "Brant Business
+  Interiors" or omit the brand reference entirely. No abbreviations, ever.
 
 ## Hard rules
 
@@ -115,7 +118,14 @@ You draft SEO meta titles and meta descriptions for products in BBI's Hero 100 c
 
 ## Output
 
-Return a `MetaDraft` JSON object. The `notes` field is for short reviewer flags ("OECM-leaning", "code preserved", "no brand suffix — title at cap"). Empty string is fine.
+Return a `MetaDraft` JSON object.
+
+- **notes** (string, optional): one short clean tag describing the row — e.g.
+  "OECM-leaning", "Indigenous", "no brand suffix possible due to length",
+  "capacity spec sourced from description". Empty string is fine. NEVER include
+  your own reasoning, recounts, self-corrections, or running commentary. No
+  phrases like "let me recount", "recalculating", "verify on save", "wait",
+  "actually". If you have nothing meta to flag, return "".
 """
 
 
@@ -363,24 +373,88 @@ def main() -> int:
             continue
 
         total_cost += cost
-        # Clip-with-ellipsis if model went over (rare with prompt; safety net).
-        def _clip(s: str, cap: int) -> tuple[str, bool]:
-            if len(s) <= cap:
-                return s, False
-            cut = s[: cap - 1].rsplit(' ', 1)[0].rstrip(',;:.—-')
-            return cut + '…', True
-        new_title, title_clipped = _clip(draft.meta_title, 60)
-        new_desc, desc_clipped = _clip(draft.meta_description, 160)
-        draft.meta_title = new_title
-        draft.meta_description = new_desc
-        title_len = len(draft.meta_title)
-        desc_len = len(draft.meta_description)
+        import re as _re
+
+        # Bug 2 fix: drop brand suffix as a unit before any char-clipping.
+        # Naive clip was truncating the suffix mid-word (e.g. "Brant Business…").
+        raw_title = (draft.meta_title or '').strip()
+        for _suffix in (' | Brant Business Interiors', ' – Brant Business Interiors',
+                        ' | Office Central'):
+            if raw_title.endswith(_suffix) and len(raw_title) > 60:
+                raw_title = raw_title[:-len(_suffix)].rstrip()
+                break
+        # Bug 4 fix: strip any trailing partial brand fragment the model emitted
+        # ("| Brant", "– Brant Business", "- Brant", etc.)
+        # Lookahead preserves the full "| Brant Business Interiors" suffix intact.
+        raw_title = _re.sub(
+            r'\s*[|\-–]\s*Brant(?!\s+Business\s+Interiors\b).*$',
+            '',
+            raw_title,
+        ).rstrip()
+        # Hard cap at 60 (fallback only — should not fire after suffix drop)
+        title_clipped = False
+        if len(raw_title) > 60:
+            raw_title = raw_title[:59].rstrip() + '…'
+            title_clipped = True
+
+        # Desc: plain clip at 160
+        raw_desc = (draft.meta_description or '').strip()
+        desc_clipped = False
+        if len(raw_desc) > 160:
+            cut = raw_desc[:159].rsplit(' ', 1)[0].rstrip(',;:.—-')
+            raw_desc = cut + '…'
+            desc_clipped = True
+
+        # Regex post-passes (spelling / brand name)
+        raw_title = _re.sub(r'\bBBI\b', 'Brant Business Interiors', raw_title)
+        raw_desc  = _re.sub(r'\bBBI\b', 'Brant Business Interiors', raw_desc)
+        raw_title = _re.sub(r'\borganised\b', 'organized', raw_title)
+        raw_desc  = _re.sub(r'\borganised\b', 'organized', raw_desc)
+        raw_title = _re.sub(r'\borganisation', 'organization', raw_title)
+        raw_desc  = _re.sub(r'\borganisation', 'organization', raw_desc)
+
+        title_len = len(raw_title)
+        desc_len  = len(raw_desc)
+
         flags = []
         if title_clipped:
             flags.append('TITLE_CLIPPED')
         if desc_clipped:
             flags.append('DESC_CLIPPED')
-        notes = (draft.notes or '').strip()
+
+        # Bug 1 fix: hard-error on empty title or desc — mark NEEDS_RERUN, skip row.
+        if title_len == 0 or desc_len == 0:
+            empty_field = 'meta_title' if title_len == 0 else 'meta_desc'
+            print(f'      → NEEDS_RERUN: empty {empty_field} — skipping row')
+            append_row(OUT_CSV, {
+                'handle': r['handle'],
+                'current_title': cur['title'],
+                'current_meta_title': cur['seo_title'],
+                'current_meta_desc': cur['seo_description'],
+                'draft_meta_title': raw_title,
+                'draft_title_chars': title_len,
+                'draft_meta_desc': raw_desc,
+                'draft_desc_chars': desc_len,
+                'notes': f'NEEDS_RERUN: empty {empty_field}',
+            })
+            failed += 1
+            continue
+
+        # Strip banned CoT phrases from notes (model still leaks them
+        # despite prompt instruction).
+        COT_PATTERNS = [
+            r'\blet me recount\b[^;.]*[;.]?',
+            r'\brecalculating\b[^;.]*[;.]?',
+            r'\bverify on save\b[^;.]*[;.]?',
+            r'\bmust drop suffix\b[^;.]*[;.]?',
+            r'\bwait\b[^;.]*[;.]?',
+        ]
+        _draft_notes = (draft.notes or '').strip()
+        for _pat in COT_PATTERNS:
+            _draft_notes = _re.sub(_pat, '', _draft_notes, flags=_re.IGNORECASE)
+        _draft_notes = _re.sub(r'\s*;\s*;', ';', _draft_notes).strip(' ;.,')
+
+        notes = _draft_notes
         if flags:
             notes = (notes + '; ' if notes else '') + ' '.join(flags)
 
@@ -389,9 +463,9 @@ def main() -> int:
             'current_title': cur['title'],
             'current_meta_title': cur['seo_title'],
             'current_meta_desc': cur['seo_description'],
-            'draft_meta_title': draft.meta_title,
+            'draft_meta_title': raw_title,
             'draft_title_chars': title_len,
-            'draft_meta_desc': draft.meta_description,
+            'draft_meta_desc': raw_desc,
             'draft_desc_chars': desc_len,
             'notes': notes,
         })
