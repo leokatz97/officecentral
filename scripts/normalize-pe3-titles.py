@@ -70,7 +70,6 @@ BRANDS_CANONICAL: list[tuple[str, str]] = [
     # (match_pattern_lowercase, canonical_casing)
     ('global furniture group', 'Global Furniture Group'),
     ('groupe lacasse', 'Groupe Lacasse'),
-    ('business interiors', 'Business Interiors'),
     ('heartwood manufacturing', 'Heartwood Manufacturing'),
     ('spec furniture', 'Spec Furniture'),
     ('borgo seating', 'Borgo Seating'),
@@ -93,6 +92,7 @@ BRANDS_CANONICAL: list[tuple[str, str]] = [
     ('krug', 'Krug'),
     ('borgo', 'Borgo Seating'),
     ('ofgo', 'OFGO Studio'),
+    ('offices to go', 'Offices to Go'),
     ('global', 'Global'),
 ]
 
@@ -100,7 +100,6 @@ BRANDS_CANONICAL: list[tuple[str, str]] = [
 VENDOR_TO_BRAND: dict[str, str] = {
     'global': 'Global',
     'global furniture group': 'Global Furniture Group',
-    'business interiors': 'Business Interiors',
     'teknion': 'Teknion',
     'keilhauer': 'Keilhauer',
     'krug': 'Krug',
