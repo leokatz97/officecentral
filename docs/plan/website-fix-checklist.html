@@ -195,7 +195,6 @@ tr:hover td { background: #fafafa; }
       <tbody>
         <tr><td class="tk">PB-1</td><td><span class="tn">Archive task</span><span class="tnote">Run <code>scripts/archive-non-biz-products.py</code> — archive all products with sector-specific type tags (educational furniture, daycare, healthcare equipment). Dry-run first, confirm output, then <code>--live</code>.</span></td><td><button class="sb s0" data-key="PB-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
         <tr><td class="tk">PB-2</td><td><span class="tn">Archive collections</span><span class="tnote">Unpublish/archive <code>/collections/educational</code>, <code>/collections/daycare</code>, <code>/collections/healthcare</code> and all sub-collections in Shopify Admin.</span></td><td><button class="sb s0" data-key="PB-2" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
-        <tr><td class="tk">PB-3</td><td><span class="tn">Update nav</span><span class="tnote">Remove Educational, Daycare, Healthcare columns from mega menu; update "Shop Furniture" click to go directly to <code>/collections/business-furniture</code> (no Shop Hub).</span></td><td><button class="sb s0" data-key="PB-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
         <tr><td class="tk">PB-4</td><td><span class="tn">Redirect /pages/shop</span><span class="tnote">Set <code>/pages/shop</code> → <code>/collections/business-furniture</code> in Shopify Admin → Navigation → URL Redirects.</span></td><td><button class="sb s0" data-key="PB-4" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
         <tr><td class="tk">PB-5</td><td><span class="tn">Audit Business Furniture sub-collections</span><span class="tnote">Verify product count &gt; 0 for all ~68 sub-collections. Convert empty collections to smart collections with appropriate rules.</span></td><td><button class="sb s0" data-key="PB-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
         <tr><td class="tk">PB-6</td><td><span class="tn">Upload redirect CSV</span><span class="tnote"><code>data/url-redirects.csv</code> — upload in Shopify Admin → Navigation → URL Redirects (Leo's task, was W0-3).</span></td><td><button class="sb s0" data-key="PB-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
@@ -334,6 +333,7 @@ tr:hover td { background: #fafafa; }
         <tr><td class="tk">P2-8</td><td class="tn">Panels &amp; Dividers</td><td><code>/collections/panels-room-dividers</code></td><td><button class="sb s0" data-key="P2-8" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
         <tr><td class="tk">P2-9</td><td class="tn">Accessories</td><td><code>/collections/accessories</code></td><td><button class="sb s0" data-key="P2-9" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
         <tr><td class="tk">P2-10</td><td class="tn">Quiet Spaces</td><td><code>/collections/quiet-spaces</code></td><td><button class="sb s0" data-key="P2-10" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P2-11</td><td class="tn">Rebuild main nav (Business-Furniture-only)</td><td><code>Shopify Admin → Navigation</code></td><td><button class="sb s0" data-key="P2-11" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
       </tbody>
     </table>
     <div class="ilist" style="background:#f9fafb;border-top:1px solid #e5e7eb"><p>All 10 pages use <code>collection.category.json</code>: hero banner · tile grid (section blocks) · breadcrumb back to vertical · "See all Business Furniture" link · phone CTA.</p></div>
@@ -603,6 +603,23 @@ tr:hover td { background: #fafafa; }
   </div>
 </div>
 
+<!-- ═══════════════════════════════════ APPENDIX — DEFERRED / FOLDED TASKS ═══ -->
+<div class="section">
+  <div class="sec-head"><span class="sec-tag">Appendix</span><h3 class="sec-title">Deferred / Folded Tasks</h3><span class="sec-sub">Tasks closed without standalone execution. Logged here so the trail isn't lost.</span></div>
+  <div class="sec-body">
+    <table>
+      <thead><tr><th style="width:96px">ID</th><th>Task</th><th>Disposition</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="tk">W0-4</td>
+          <td><span class="tn">Meta titles + descriptions audit</span></td>
+          <td>Closed 2026-05-02. Hero 100 SEO meta already pushed under PE-4 (commit <code>a2118f3</code>), so a standalone audit pass would duplicate that work. Audit lens (length checks, duplicates, blanks, voice misses) is being folded into <strong>PE-7</strong> — bulk meta generation for the remaining 503 products — where it provides direct input rather than a separate report. Collection / page-level meta gaps will be picked up there too.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <div class="doc-footer">
   Brant Business Interiors &nbsp;·&nbsp; brantbusinessinteriors.com &nbsp;·&nbsp; 1-800-835-9565 &nbsp;·&nbsp; Updated April 28, 2026 &nbsp;·&nbsp; Click status badges to cycle &nbsp;·&nbsp; Progress saved in your browser
 </div>
@@ -617,7 +634,9 @@ const SEEDS = {
   'PB-1': 's2',
   'PB-2': 's2',
   'PB-4': 's2',
-  'W0-3': 's1',
+  'PB-6': 's2',
+  'W0-3': 's2',
+  'W0-4': 's2',
   'W0-5': 's2',
   'DS-0': 's1',
   'PB-8': 's2',
@@ -627,7 +646,20 @@ const SEEDS = {
   'AI-1': 's2',
   'PE-4': 's2',
   'PE-2': 's1',
-  'PE-3': 's1'
+  'PE-3': 's1',
+  'PE-1': 's1',
+  'PE-7': 's1',
+  'IMG-P1-B1': 's2',
+  'IMG-P1-B2': 's2',
+  'IMG-P1-B3': 's2',
+  'IMG-P1-B4': 's2',
+  'IMG-P1-B5': 's2',
+  'IMG-P1-B6': 's2',
+  'IMG-P1-B7': 's2',
+  'IMG-P1-B8': 's2',
+  'IMG-P1-B9': 's2',
+  'IMG-P1-B10': 's2',
+  'IMG-P1-B11': 's2'
 };
 
 let state = {};
@@ -729,7 +761,6 @@ const PROMPTS = {
   // ─── Pre-Build ───
   "PB-1": PRE("PB-1", "Archive (27) + Unpublish (2) sector-tagged products", `data/reports/sector-products-disposition-2026-04-28.csv, scripts/README.md, ${ARCH}`, "Read data/reports/sector-products-disposition-2026-04-28.csv (29 rows, columns: handle, title, status, disposition, orders, qty, revenue, last_sold). For each row, branch by the `disposition` column:\n  • disposition=ARCHIVE → set product status to 'archived' (27 products with zero sold history)\n  • disposition=UNPUBLISH → set published=false but keep status='active' (2 products with sold history: willow-bariatric-chair $2,100 last sold 2026-04-07, foundations-sport-splash-quad-strollers $798 last sold 2025-05-01)\nWrite a thin script at scripts/archive-non-biz-products.py that reads the CSV and calls the Shopify Admin API per row. Default to dry-run (print intended action per handle); only mutate when --live is passed.", `${DRY}\n🚧 Never delete. Archive vs unpublish split is driven by the CSV — do NOT blanket-archive. The 2 UNPUBLISH products keep their pages live so prior buyers can re-find them; they just disappear from collections/search.\n📝 Log every API response (success + error) to data/logs/archive-sector-<timestamp>.json with handle, action taken, before/after status, and HTTP code.`),
   "PB-2": PRE("PB-2", "Archive sector collections", ARCH, "In Shopify Admin, unpublish/archive /collections/educational, /collections/daycare, /collections/healthcare and every sub-collection beneath them.", "This is an Admin UI task — no script. Confirm before archiving each parent. Capture before/after URLs."),
-  "PB-3": PRE("PB-3", "Rebuild main nav for Business-Furniture-only scope", `${ARCH}, theme/config/settings_data.json (read-only), Shopify Admin Navigation`, "Remove Educational, Daycare, Healthcare columns from the mega menu. Update 'Shop Furniture' top-level link to go directly to /collections/business-furniture (Shop Hub is gone).", "Back up current menu JSON to data/backups/ before editing. This is a Shopify Admin Navigation task."),
   "PB-4": PRE("PB-4", "Redirect /pages/shop + archived sector collections → /collections/business-furniture", "Shopify Admin → Navigation → URL Redirects, data/redirects/sector-collections-redirects-2026-04-28.csv", "Add a 301 for /pages/shop → /collections/business-furniture, then bulk-import data/redirects/sector-collections-redirects-2026-04-28.csv (15 sector collection redirects). Verify with curl -I on a sampled 5.", "⚠️ BLOCKED until P2-1 builds /collections/business-furniture — Shopify rejects redirects whose target doesn't resolve. Strip the leading `#` comment lines from the CSV before upload."),
   "PB-5": PRE("PB-5", "Audit Business Furniture sub-collections", `${ARCH}, scripts/audit-collections.py if present, scripts/README.md`, "Verify product count > 0 for all ~68 sub-collections under /collections/business-furniture. For any empty collection, convert to a smart collection with the appropriate tag rule (type:* / room:*).", "Output a CSV to data/reports/subcollection-audit-<date>.csv listing handle, product count, and recommended fix."),
   "PB-6": PRE("PB-6", "Upload redirect CSV (W0-3 carryover)", "data/url-redirects.csv, Shopify Admin → Navigation → URL Redirects", "This is a Leo manual task — Shopify Admin only allows bulk redirect upload via the UI (no API write_content scope). Walk Leo through the upload steps.", "Do not attempt scripted upload. Just guide Leo through the Admin UI."),
@@ -785,6 +816,7 @@ const PROMPTS = {
   "P2-8": PRE("P2-8", "Build Panels & Dividers category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/panels-room-dividers: hero, sub-category tiles (cubicle panels, freestanding, acoustic dividers), phone CTA.", ""),
   "P2-9": PRE("P2-9", "Build Accessories category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/accessories: hero, sub-category tiles (lighting, mats, organizers, signage), phone CTA, breadcrumb.", ""),
   "P2-10": PRE("P2-10", "Build Quiet Spaces category page", `${ARCH}, theme/templates/collection.category.json`, "Build /collections/quiet-spaces: hero, sub-category tiles (acoustic pods, phone booths, focus rooms), phone CTA, breadcrumb. Acoustic pods are a 'hot' SEO term — write hero copy for them.", ""),
+  "P2-11": PRE("P2-11", "Rebuild main nav for Business-Furniture-only scope", `${ARCH}, theme/config/settings_data.json (read-only), Shopify Admin Navigation`, "Remove archived Educational, Daycare, Healthcare columns from the mega menu. Point 'Shop Furniture' top-level link to /collections/business-furniture (Shop Hub is gone). Rebuild mega menu around the 9 new categories (P2-2..P2-10).", "⚠️ BLOCKED until P2-1 builds /collections/business-furniture — pointing nav at a 404 will tank crawl health. Back up current menu JSON to data/backups/ before editing. Shopify Admin Navigation task; no script."),
 
   // ─── Phase 3 — collection.json template + sub-collection rollout ───
   "P3-1": PRE("P3-1", "Build collection.json template", `theme/templates/collection.json, theme/sections/, ${VOICE}, ${ARCH}`, "Build collection.json template: filter sidebar (room, brand, price, certifications) · product grid (image slot top, 16:9/4:3) · breadcrumb (Home > Shop Furniture > [Category] > [Sub-collection]) · phone CTA at bottom · BreadcrumbList JSON-LD.", "Apply standard product card with image slot at top per feedback memory."),
