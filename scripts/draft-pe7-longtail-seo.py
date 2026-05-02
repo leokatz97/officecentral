@@ -453,6 +453,17 @@ def main() -> int:
             _draft_notes = _re.sub(_pat, '', _draft_notes, flags=_re.IGNORECASE)
         _draft_notes = _re.sub(r'\s*;\s*;', ';', _draft_notes).strip(' ;.,')
 
+        # Belt-and-suspenders gate: if any chatty/CoT word still survives
+        # the targeted scrub above (e.g. model used a phrase not anchored
+        # by ; or .), nuke the notes entirely and log the original.
+        CHATTY = _re.compile(
+            r"\b(let me|recalculating|wait|actually|must|verify on save|recount)\b",
+            _re.IGNORECASE,
+        )
+        if CHATTY.search(_draft_notes):
+            print(f"      → notes scrubbed (CoT leak): {_draft_notes!r}")
+            _draft_notes = '(notes scrubbed)'
+
         notes = _draft_notes
         if flags:
             notes = (notes + '; ' if notes else '') + ' '.join(flags)
