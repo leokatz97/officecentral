@@ -376,11 +376,16 @@ def main() -> int:
 
         # Bug 2 fix: drop brand suffix as a unit before any char-clipping.
         # Naive clip was truncating the suffix mid-word (e.g. "Brant Business…").
+        # Belt-and-suspenders: don't trust the model to self-enforce the 60-char
+        # cap when it includes the suffix. 25/495 last batch said "drop suffix"
+        # in notes but kept it in the field.
         raw_title = (draft.meta_title or '').strip()
+        suffix_dropped = False
         for _suffix in (' | Brant Business Interiors', ' – Brant Business Interiors',
                         ' | Office Central'):
             if raw_title.endswith(_suffix) and len(raw_title) > 60:
                 raw_title = raw_title[:-len(_suffix)].rstrip()
+                suffix_dropped = True
                 break
         # Bug 4 fix: strip any trailing partial brand fragment the model emitted
         # ("| Brant", "– Brant Business", "- Brant", etc.)
@@ -420,6 +425,8 @@ def main() -> int:
             flags.append('TITLE_CLIPPED')
         if desc_clipped:
             flags.append('DESC_CLIPPED')
+        if suffix_dropped:
+            flags.append('suffix dropped per cap')
 
         # Bug 1 fix: hard-error on empty title or desc — mark NEEDS_RERUN, skip row.
         if title_len == 0 or desc_len == 0:
