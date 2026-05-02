@@ -331,9 +331,15 @@ def main():
         if wc > 500: flags.append(f'LONG_{wc}w')
         # Sanity: must contain <ul> or it broke structure
         if '<ul' not in body.lower(): flags.append('NO_BULLETS')
-        # Mid-thought check on each <p> ending
+        # Mid-thought check on each <p> ending. Strip nested tags first —
+        # the bold-hook paragraph wraps its sentence in <strong>...</strong>,
+        # so the inner-<p> content ends with "</strong>" not the period
+        # inside it. Without strip_html, this flag fired on every row.
         paragraphs = re.findall(r'<p[^>]*>(.*?)</p>', body, flags=re.DOTALL | re.IGNORECASE)
-        bad_endings = [p.strip() for p in paragraphs if p.strip() and not re.search(r'[.!?][\"\')\s]*$', p.strip())]
+        bad_endings = [
+            t for t in (strip_html(p) for p in paragraphs)
+            if t and not re.search(r'[.!?][\"\')\s]*$', t)
+        ]
         if bad_endings: flags.append(f'BAD_ENDING_{len(bad_endings)}')
         notes = (draft.notes or '').strip()
         if flags: notes = (notes + '; ' if notes else '') + ' '.join(flags)
