@@ -120,12 +120,11 @@ You draft SEO meta titles and meta descriptions for products in BBI's Hero 100 c
 
 Return a `MetaDraft` JSON object.
 
-- **notes** (string, optional): one short clean tag describing the row — e.g.
-  "OECM-leaning", "Indigenous", "no brand suffix possible due to length",
-  "capacity spec sourced from description". Empty string is fine. NEVER include
-  your own reasoning, recounts, self-corrections, or running commentary. No
-  phrases like "let me recount", "recalculating", "verify on save", "wait",
-  "actually". If you have nothing meta to flag, return "".
+- **notes** (string, optional): Output only terminal flags (≤8 words). Do not
+  narrate reasoning. Acceptable: "code preserved", "no brand surfaced",
+  "OECM-leaning", "suffix dropped per cap". Reject any phrase containing: "let
+  me", "recalculating", "wait", "actually", "must", "verify on save", "recount".
+  If you have nothing to flag, return "".
 """
 
 
