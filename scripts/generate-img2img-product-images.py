@@ -173,6 +173,7 @@ def parse_args():
     input_p  = DEFAULT_INPUT
     phase    = 'phase1'
     batch    = None
+    whitebg  = False
     for arg in sys.argv[1:]:
         if arg.startswith('--pilot='):
             pilot = int(arg.split('=', 1)[1])
@@ -184,11 +185,13 @@ def parse_args():
             phase = arg.split('=', 1)[1].strip()
         elif arg.startswith('--batch='):
             batch = arg.split('=', 1)[1].strip()
+        elif arg == '--whitebg-only':
+            whitebg = True
     if not batch:
         sys.exit('Required: --batch=<name>  (e.g. --batch=batch-01)')
     if phase not in ('phase1', 'phase2'):
         sys.exit('Invalid --phase=. Must be phase1 or phase2.')
-    return pilot, handles, input_p, phase, batch
+    return pilot, handles, input_p, phase, batch, whitebg
 
 
 def load_handle_list(input_path, explicit_handles, pilot_n):
@@ -361,7 +364,7 @@ def append_manifest(path, row):
 # Main
 # ---------------------------------------------------------------------------
 def main():
-    pilot, explicit_handles, input_path, phase, batch = parse_args()
+    pilot, explicit_handles, input_path, phase, batch, whitebg = parse_args()
     rows = load_handle_list(input_path, explicit_handles, pilot)
     if not rows:
         sys.exit('No handles to process.')
@@ -423,11 +426,14 @@ def main():
         ctx_a, ctx_b = CONTEXT_PAIRS.get(category, CONTEXT_PAIRS['default'])
         spec = load_spec(handle)
 
-        jobs = [
-            (2, build_prompt_white_bg(title, spec)),
-            (3, build_prompt(title, ctx_a, spec)),
-            (4, build_prompt(title, ctx_b, spec)),
-        ]
+        if whitebg:
+            jobs = [(2, build_prompt_white_bg(title, spec))]
+        else:
+            jobs = [
+                (2, build_prompt_white_bg(title, spec)),
+                (3, build_prompt(title, ctx_a, spec)),
+                (4, build_prompt(title, ctx_b, spec)),
+            ]
 
         for position, prompt in jobs:
             scene = SCENES[position]

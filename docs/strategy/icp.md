@@ -279,3 +279,43 @@ Plus **67 orders ($79k)** with NO company name on the shipping address — likel
 **Why this matters:** Office Central's OECM status is BBI's biggest competitive moat (no other Ontario furniture dealer has it). If OC only lives in the footer, the "Office Central OECM" verification search won't match BBI pages and the moat is invisible on first SERP impression. The meta-title suffix is the right surface — visible in Google results, present on every page, doesn't crowd the storefront brand.
 
 **Apply this to:** all Hero 100 product titles + meta titles (Phase 1.2), all 14 collection meta titles (Phase 2.3), homepage + content page meta titles, email footer template.
+
+---
+
+## Microcopy lockup (locked 2026-05-03)
+
+Site-wide microcopy rules. These are non-negotiable across every page, email, and form. Pulled into the `bbi-build-page` skill (Step 2.2 Microcopy Inventory) as the source of truth — never invent alternatives.
+
+| Element | Locked wording | Never use |
+|---|---|---|
+| Quote CTA (button, link, anywhere) | **Request a Quote** | "Get a Quote", "Get Pricing", "Contact Sales", "Inquire", "Get in Touch" |
+| Phone CTA (button or text) | **Call 1-800-835-9565** | "Call us", "Call now", "Get in touch by phone" — full number always |
+| Phone link in header | `tel:1-800-835-9565` with aria-label "Call Brant Business Interiors at 1-800-835-9565" | Bare digits without `tel:` |
+| Form submit button | **Send request** | "Submit", "Send", "Submit form" |
+| Form helper text (after submit) | **We respond within 1 business day.** | "Within 24 hours", "ASAP", "Shortly", "Soon" |
+| Brand name in customer copy | **Brant Business Interiors** (full name on first mention every page) | "BBI" — never publish to customers (internal-only abbreviation) |
+| Division reference | **a division of Office Central Inc.** | "part of Office Central", "by Office Central" |
+| OECM reference (full) | **OECM Supplier Partner, Agreement 2025-470** | "OECM-approved", "OECM-listed" — use exact partner language |
+| OECM reference (short) | **OECM Supplier** or **OECM-eligible** (when describing buyer benefit) | "OECM vendor", "OECM-certified" |
+| Canadian-owned line | **Canadian-owned. Ontario-based.** (with 🍁 maple leaf) | "Proudly Canadian", "Made in Canada" (unless product is genuinely Canadian-made) |
+| "View all" link (category pages) | **View all [Category] →** (chevron arrow) | "See more", "Browse all", "Show all" |
+| "Shop [Brand] products" link (brand pages) | **Shop [Brand] products →** | "View [Brand] catalog", "See all [Brand]" |
+| Card CTA (product / sub-collection tile) | **Request a Quote** (NEVER "Add to cart" — no checkout) | "Buy now", "Add to cart", "Order now" |
+| Breadcrumb separator | `>` (chevron, not slash) | `/`, `›`, `»` |
+| Empty state (filtered results) | **No products match this filter. [Reset filters]** | "Nothing here", "No results found" |
+| Modal close button | aria-label "Close" + visible × glyph | Text "Close" only |
+
+**Voice anchors per ICP** (apply on top of the locked microcopy above):
+
+| Anchor | Primary ICP (institutional Ontario) | Secondary ICP (SMB private-sector) |
+|---|---|---|
+| Headline tone | Outcome + procurement-grade trust | Outcome + speed-of-quote |
+| Subheading anchor | OECM line + phone | "Free space plan included" + phone |
+| Body voice | Direct, fact-led, formal-but-warm | Direct, fact-led, slightly more conversational |
+| Forbidden words | "innovative", "cutting-edge", "synergy", "world-class", "best-in-class", "leverage" (verb), "solutions" (as noun fluff) | Same forbidden list applies |
+| CTA voice | Imperative ("Request a Quote", "Call 1-800-835-9565") | Same imperative voice |
+| Pronouns | "We" for BBI, "you" for the buyer, "your team / your space / your school / your facility" | "We" for BBI, "you" for the buyer, "your office / your team / your space" |
+
+**Why locked here, not just in the skill:** these rules apply outside `/bbi-build-page` too — email templates, sales follow-ups, product descriptions, blog posts, ad copy. Anyone writing customer-facing BBI copy reads this section first.
+
+**Add a new microcopy element here** before using it on the site — don't let one-off variants leak in via Claude Design output or ad-hoc edits.
