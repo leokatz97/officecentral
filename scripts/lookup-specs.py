@@ -47,7 +47,7 @@ MODEL = 'claude-sonnet-4-6'  # ~60% cheaper than Opus 4.7; spec extraction doesn
 # call burns ~30k input tokens, so we must wait between calls. SDK auto-retry
 # handles transient 429s with backoff.
 SDK_MAX_RETRIES = 10
-COST_HARD_CAP = 15.00  # remaining budget after ~$4 already spent; aborts before breach
+COST_HARD_CAP = 10_000.00  # effectively disabled — run until API funds exhausted
 # Tier 1 rate limit: 30,000 input tokens / minute.
 # Dynamic throttle: wait ceil(last_input_tokens / 30000) * 60 + 5s buffer.
 # Minimum 30s, so short calls still get a breathing gap.
