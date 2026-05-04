@@ -1,0 +1,131 @@
+{% liquid
+  assign compare_at_price = cardProduct.compare_at_price_min
+  assign price = cardProduct.price_min
+  assign price_min = cardProduct.price_min | default: 1899 | money
+  assign money_price = price | money
+%}
+
+{% liquid
+    assign quotify_enabled = shop.metafields.quotify.enabled
+    assign quotify_hide_price = shop.metafields.quotify.hide_price
+    assign quotify_hide_zero_price = shop.metafields.quotify.hide_zero_price
+    assign quotify_logged_in_customers_only = shop.metafields.quotify.logged_in_customer_only
+    assign quotify_market_selection = shop.metafields.quotify.market_selection.value
+    assign quotify_product_in_collection = 0
+
+    assign quotify_show = 0
+
+    if quotify_enabled == 1
+        # Show button for all products if no selection is active
+        if shop.metafields.quotify.mode != 'selection'
+            assign quotify_show = 1
+        endif
+
+        if shop.metafields.quotify.mode == 'selection'
+            for collection in cardProduct.collections
+                if collection.metafields.quotify.enabled == 1 and quotify_product_in_collection == 0
+                    assign quotify_product_in_collection = 1
+                endif
+            endfor
+
+            # Show button if selection is active and product is within selection
+            if cardProduct.metafields.quotify.enabled == 1
+                assign quotify_show = 1
+            endif
+
+            # Show button if selection is active and product is within collection
+            if quotify_product_in_collection == 1
+                assign quotify_show = 1
+            endif
+        endif
+
+        if template == 'cart'
+            assign quotify_show = 1
+        endif
+
+        # If a market selection is made we hide the button unless the current market is active
+        if quotify_market_selection.size > 0 and quotify_show == 1
+            assign quotify_show = 0
+            for market in quotify_market_selection
+                if market == localization.market.id
+                    assign quotify_show = 1
+                endif
+            endfor
+        endif
+
+        if quotify_show == 1 and quotify_logged_in_customers_only == 1 and customer == blank
+            assign quotify_show = 0
+        endif
+    endif
+%}
+
+{% if quotify_show == 1 %}
+    {%- style -%}
+        {% if quotify_hide_cart == 1 %}
+            .quotify-hide-cart-{{ cardProduct.id }} {
+                display: none !important;
+            }
+        {% endif %}
+        {% if quotify_hide_price == 1 %}
+            .quotify-hide-price-{{ cardProduct.id }} {
+                display: none !important;
+            }
+        {% endif %}
+    {%- endstyle -%}
+{% endif %}
+
+{% if quotify_enabled and quotify_hide_zero_price == 1 and cardProduct.price == 0 %}
+    {%- style -%}
+    .quotify-hide-price-{{ cardProduct.id }} {
+        display: none !important;
+    }
+    {%- endstyle -%}
+{% endif %}
+
+{% if settings.product_price and cardProduct.price_min %}
+  <div class="product-price quotify-hide-price-{{ cardProduct.id }} {{ customClass }}">
+    {%- if cardProduct.price_varies -%}
+      <span class="price-item actual-price price-varies">
+        {{- 'products.product.price.from_price_html' | t: price: price_min -}}
+      </span>
+    {%- else -%}
+      <span class="price-item actual-price ">{{ money_price }}</span>
+    {%- endif -%}
+  {% unless hideComparePrice %}
+    {% if compare_at_price > price %}
+      <span class="price-item compare-price">{{- compare_at_price | money -}}</span>
+    {% endif %}
+    <span class="hidden">{{ 'products.product.badges.preorder' | t }}</span>
+    <span
+      class="product-unit-price {% unless current_variant.unit_price_measurement %} hidden{% endunless %}"
+      data-unit-price
+    >
+      {{ current_variant.unit_price | money }} /
+      {% if current_variant.unit_price_measurement.reference_value != 1 -%}
+        {{- current_variant.unit_price_measurement.reference_value -}}
+      {%- endif %}
+      {{ current_variant.unit_price_measurement.reference_unit }}
+    </span>
+    {% if savePercentoff != false %}
+      {% if  settings.show_savings  and cardProduct.compare_at_price_min > cardProduct.price_min %}
+        {% assign offText = 'Off' %}
+        <span class="product-percent-off">
+          {% if settings.sale_label_type == 'percent-off' %}
+            {{
+              cardProduct.compare_at_price_min
+              | minus: cardProduct.price_min
+              | times: 100
+              | divided_by: cardProduct.compare_at_price_min
+              | append: '% '
+              | append: offText
+            -}}
+          {% else %}
+            {{ cardProduct.compare_at_price_min | minus: cardProduct.price_min | money }}
+            {{ offText }}
+          {% endif %}
+        </span>
+      {% endif %}
+    {% endif %}
+    {% endunless %}
+  </div>
+{% endif %}

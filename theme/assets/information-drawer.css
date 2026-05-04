@@ -1,0 +1,132 @@
+
+.need-help {
+    padding-bottom: 20px;
+}
+
+.need-help-text {
+    display: flex;
+    align-items: center;
+    color: rgb(var(--textColor));
+}
+
+.need-help .need-help-text svg {
+    display: block;
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+}
+
+.help-drawer-header,
+.need-help-drawer .side-drawer-content-head,
+.help-list {
+    padding: 20px;
+}
+
+.need-help-drawer .drawer-close {
+    top: 20px;
+}
+
+.need-help-drawer .side-drawer-inner {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.help-list {
+    padding-top: 30px!important;
+}
+
+.help-drawer-header {
+    border-bottom: 1px solid rgb(var(--borderColor));
+}
+
+.need-help-drawer .side-drawer-content {
+    overflow: auto;
+}
+
+.help-list-tabs {
+    display: grid;
+    grid-template-columns: repeat(var(--blockCount), minmax(0px, 1fr));
+    gap: 15px;
+}
+
+.help-list-tab-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    color: rgb(var(--blockHeading, #000));
+    background: var(--blockBackground, #ddd);
+    border: 1px solid transparent;
+    border-radius: var(--cardRadius);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+}
+
+.help-list-tab-item.active .help-list-tab-link {
+    border-color: var(--blockBorder);
+}
+
+.help-list-tab-content-item {
+    width: 100%;
+    background: var(--blockBackground, #ddd);
+    padding: 30px 40px;
+    border-radius: var(--cardRadius);
+    color: rgb(var(--blockColor, #757575));
+    overflow: hidden;
+}
+
+.help-list-tab-content-item-img {
+    border-radius: var(--imageRadius);
+    overflow: hidden;
+}
+
+.help-list-tab-content {
+    padding-top: 30px;
+}
+
+.help-list-tab-content-item-inner {
+    display: grid;
+    gap: 20px;
+}
+
+.help-list-desc-body * {
+    color: rgb(var(--blockColor, #757575));
+}
+
+.help-list-desc-body h1,
+.help-list-desc-body h2 .help-list-desc-body h3 .help-list-desc-body h4 .help-list-desc-body h5 .help-list-desc-body h6 {
+    color: rgb(var(--blockHeading, #000));
+}
+
+.help-list-tab-link-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.help-list-tab-link-icon svg {
+    width: 100%;
+    height: 100%;
+}
+button.need-help-text {
+    background: transparent;
+}
+@media screen and (min-width:768px) {
+    .help-drawer-header,
+    .need-help-drawer .side-drawer-content-head,
+    .help-list {
+        padding: 20px 30px;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .help-drawer-header,
+    .need-help-drawer .side-drawer-content-head,
+    .help-list {
+        padding: 20px 40px;
+    }
+    .help-list {
+        padding-top: 35px!important;
+    }
+}

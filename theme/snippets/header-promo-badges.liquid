@@ -1,0 +1,14 @@
+{%- if block.settings.title != blank and block.settings.link != blank -%}
+  <li
+    id="promoBadge-{{ block.id }}"
+    class="header-custom-links-item"
+    style="--customLinkBg:{{block.settings.text_bg}};--customLinkColor:{{block.settings.text_color}}"
+  >
+    <a class="header-custom-link" href="{{ block.settings.link }}"{% if device == 'mobile' %} tabindex="-1"{% endif %}>
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+        <path d="M10.6755 5.269L5.7255 0.319C5.5275 0.121 5.2525 0 4.95 0H1.1C0.495 0 0 0.495 0 1.1V4.95C0 5.2525 0.121 5.5275 0.3245 5.731L5.2745 10.681C5.4725 10.879 5.7475 11 6.05 11C6.3525 11 6.6275 10.879 6.8255 10.6755L10.6755 6.8255C10.879 6.6275 11 6.3525 11 6.05C11 5.7475 10.8735 5.467 10.6755 5.269ZM1.925 2.75C1.4685 2.75 1.1 2.3815 1.1 1.925C1.1 1.4685 1.4685 1.1 1.925 1.1C2.3815 1.1 2.75 1.4685 2.75 1.925C2.75 2.3815 2.3815 2.75 1.925 2.75Z" fill="currentColor"/>
+      </svg>
+      {{ block.settings.title }}
+    </a>
+  </li>
+{%- endif -%}

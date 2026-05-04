@@ -1,0 +1,211 @@
+.accordion-box-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.accordion-box-item {
+    background: rgb(var(--alternateBackground));
+    padding: 20px;
+    border-radius: var(--cardRadius);
+    overflow: hidden;
+    transition: .3s ease;
+    box-shadow: 0px 1px 8px #00000021;
+}
+
+.accordion-box-img {
+    position: relative;
+    background: rgb(var(--background));
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--cardRadius);
+}
+
+.accordion-box-content {
+    padding-top: 20px;
+}
+
+.accordion-box-desc {
+    width: 90%;
+    padding-top: 10px;
+    color: var(--accordion-box-text);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.icon-card-modal-button {
+    text-align: right;
+    width: max-content;
+    margin: 7px 0 0 auto;
+    color: rgb(var(--textColor));
+}
+
+.icon-card-modal-button circle {
+    color: rgb(var(--textColor));
+    transition: .2s ease;
+}
+
+.icon-card-modal-button path {
+    fill: rgb(var(--alternateBackground));
+    transition: .3s ease;
+}
+
+
+/* Modal Content */
+
+.accordion-box-wrapper .modal {
+    position: fixed;
+    padding: 40px 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 5;
+}
+
+.accordion-box-wrapper .modal-content {
+    background-color: rgb(var(--background));
+    margin: auto;
+    padding: 30px;
+    width: 90%;
+    overflow-y: auto;
+    max-width: 800px;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 2%);
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 0.3s ease-out;
+}
+
+.accordion-box-wrapper .open-model .modal-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%);
+}
+
+.accordion-box-wrapper .modal.open-model {
+    opacity: 1;
+    visibility: visible;
+}
+
+.accordion-box-popup-desc {
+    padding-top: 10px;
+}
+
+.accordion-box-image img {
+    width: 100%;
+    display: block;
+}
+
+
+/* The Close Button */
+
+.accordion-box-wrapper .close {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: rgb(var(--alternateBackground));
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: rgb(var(--textColor));
+}
+
+.accordion-box-popup-content.image-position-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion-box-popup-content.image-position-bottom .accordion-box-image {
+    margin-top: 15px;
+}
+
+.accordion-box-popup-content.image-position-top .accordion-box-image {
+    order: 1;
+    margin-bottom: 15px;
+    border-radius: var(--cardRadius);
+    overflow: hidden;
+}
+
+.accordion-box-popup-content.image-position-top .accordion-box-popup-heading {
+    order: 2;
+}
+
+.accordion-box-popup-content.image-position-top .accordion-box-popup-desc {
+    order: 3;
+}
+
+.accordion-box-wrapper .close svg {
+    width: 12px;
+    height: auto;
+}
+
+@media screen and (min-width:576px) {
+    .accordion-box-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media screen and (min-width:992px) {
+    .accordion-box-wrapper {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+}
+
+@media screen and (min-width:1025px) {
+    .accordion-box-item:hover {
+        box-shadow: 6px 15px 15px #24283526;
+    }
+    .accordion-box-item:hover .icon-card-modal-button circle {
+        color: rgb(var(--line-color));
+    }
+    .accordion-box-item:hover .icon-card-modal-button path {
+        fill: rgb(var(--textColor));
+    }
+}
+
+@media screen and (max-width:1199px) {
+    .accordion-box-item {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .accordion-box-wrapper {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(calc(90vw - 30px), 1fr);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        grid-template-columns: unset;
+        padding-bottom: 20px;
+    }
+    .accordion-box-item {
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+    .popup-open .accordion-box-wrapper {
+          overflow: unset;
+      }
+      .popup-open .accordion-box-section {
+          overflow: hidden;
+      }
+}

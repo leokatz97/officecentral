@@ -1,0 +1,77 @@
+  <div class="localization-form{% if position == 'header-desktop' %} d-none d-lg-flex{% elsif position == 'header-mobile' %} d-block d-lg-none{% endif %}">
+    {% if section.settings.enable_currency_selector %}
+      {% assign formID = 'localization_form_language_currency-' | append: position %}
+      {% form 'localization', id: formID, class: 'shopify-localization-form' %}
+        <div class="detail-box custom-select custom-select-currency ">
+          <div class="detail-summary custom-select-button" tabindex="0">
+            <span class="custom-select-text">
+              <span class="countryflags countryflag__{{ localization.country.iso_code }}"> </span>
+              {{- localization.country.currency.iso_code }}</span
+            >
+            <span class="custom-select-arrow">
+              <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 1L4 4L1 1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="detail-expand custom-select-content">
+            <ul class="custom-select-list">
+              {% comment %}  {% for country in localization.available_countries %}
+                <li class="custom-select-item">
+                  <button
+                    type="submit"
+                    name="country_code"
+                    id="country-{{ section.id }}-{{ forloop.index }}"
+                    value="{{ country.iso_code }}"
+                    class="custom-select-item-active"
+                    title="{{ country.name }}"
+                  >
+                    <span class="countryflags countryflag__{{ country.iso_code }}"> </span>
+                    <span>
+                     {{ country.currency.iso_code }}
+                      {{ country.currency.symbol }}</span>
+                  </button>
+                </li>
+              {% endfor %}  {% endcomment %}
+            </ul>
+          </div>
+        </div>
+      {% endform %}
+    {% endif %}
+    {% if section.settings.enable_language_selector %}
+      {% assign formID = 'localization_form_language_language-' | append: position %}
+      {% form 'localization', id: formID, class: 'shopify-localization-form' %}
+        <div class="detail-box custom-select custom-select-language">
+          <div class="detail-summary custom-select-button" tabindex="0">
+            <span class="custom-select-text"
+              >
+                {{- localization.language.iso_code | upcase }}
+              </span
+            >
+            <span class="custom-select-arrow">
+              <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 1L4 4L1 1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="detail-expand custom-select-content">
+            <ul class="custom-select-list">
+              {% for language in localization.available_languages %}
+                <li class="custom-select-item">
+                  <button
+                    type="submit"
+                    name="language_code"
+                    id="language-{{ section.id }}-{{ forloop.index }}"
+                    value="{{ language.iso_code }}"
+                    class="custom-select-item-active"
+                  >
+                    {{ language.endonym_name | capitalize }}
+                  </button>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endform %}
+    {% endif %}
+  </div>

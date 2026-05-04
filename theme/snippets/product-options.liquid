@@ -1,0 +1,441 @@
+{%- liquid
+  assign variants_available_arr = product.variants | map: 'available'
+  assign variants_option1_arr = product.variants | map: 'option1'
+  assign variants_option2_arr = product.variants | map: 'option2'
+  assign variants_option3_arr = product.variants | map: 'option3'
+  assign isCombinedListingProduct = false
+%}
+{%- comment -%} BBI swatch overrides — square swatches + visible border on light colours {%- endcomment -%}
+<style data-bbi-swatch-overrides>
+  .product_variant_options .color-swatches .variant-card-option .color-swatch {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.22);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
+  .product_variant_options .color-swatches .variant-card-option .color-swatch.color-swatch-img {
+    background-size: cover;
+    background-position: center;
+  }
+</style>
+<div
+  class="product_variant_options"
+  {% if product != blank %}
+  data-product_variant_options
+    {%if stickyid %}
+      data-product_variant_options-sticky
+      {% endif %}
+  {% endif %}
+  data-button-type="{%- for block in section.blocks -%}{{- block.settings.picker_type -}}{%- endfor -%}"
+  {{ block.shopify_attributes }}
+>
+  {% assign min = 1 %}
+{% assign max = 100 %}
+{% assign diff = max | minus: min %}
+{% assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min %}
+  {% assign colorOptions = settings.custom_colors_options | downcase %}
+  {%- comment -%}
+    BBI hex lookup — fallback when an option value isn't a CSS named colour and no
+    native variant-swatch metaobject is set. Source of truth: data/reports/bbi-swatch-hex-map.json
+    (case ladder generated from CSV; keep in sync if you add new colour values).
+  {%- endcomment -%}
+  {% if product != blank %}
+    {% for option in product.options_with_values %}
+      {% assign optionTitle = option.name | downcase %}
+      {% if block.settings.picker_type == 'button' %}
+        <div
+          class="product-selector-option no-js-hidden select-{{ optionTitle }} {% if colorOptions != blank and colorOptions contains optionTitle %} color-option{% endif %}"
+        >
+          {% assign index = forloop.index %}
+          
+          {% if block.settings.show_varaint_labels %}
+            <span class="variant-title heading-font">
+              {%- if colorOptions contains optionTitle -%}
+                {{- 'products.product.select' | t }}
+                {{ optionTitle -}}
+              {%- else %}
+                {{ option.name -}}
+              {%- endif -%}
+              : {% if colorOptions contains optionTitle %}
+                <span class="color-name" selected-option-name>{{ option.selected_value }}</span>{% endif %}
+            </span>
+          {% endif %}
+
+          <ul
+            class="unstylish-list {% if colorOptions contains optionTitle %}color-swatches{% endif %} product-selector-option-list"
+            data-index="option{{forloop.index }}" {%if stickyid %}data-sticky-product-loop-variants{% else %}data-product-loop-variants {% endif %}
+          >
+            {% for value in option.values %}
+              {% liquid
+                assign variantOption = 'option' | append: option.position
+                assign colorVariant = product.variants | where: variantOption, value | first
+                assign variantValue = product.variants | where: variantOption, value | compact: 'featured_media' | first
+                if product.url contains '?'
+                  assign productUrl = product.url | split: '&variant=' | first | append: '&variant=' | append: colorVariant.id
+                else
+                  assign productUrl = product.url | append: '?variant=' | append: colorVariant.id
+                endif
+
+
+                  if value.swatch.image
+                    assign image_url = value.swatch.image | image_url: width: 50
+                    assign swatch_value = 'background-image: url(' | append: image_url | append: ')'
+                    assign swatch_focal_point = value.swatch.image.presentation.focal_point
+
+                  elsif value.swatch.color
+                    assign swatch_value = 'background-color: rgb(' | append: value.swatch.color.rgb | append: ')'
+                  else
+                    assign value_key = '' | append: value | strip
+                    assign bbi_hex = ''
+                    case value_key
+                      when 'Black'
+                        assign bbi_hex = '#000000'
+                      when 'White'
+                        assign bbi_hex = '#FFFFFF'
+                      when 'Silver'
+                        assign bbi_hex = '#C0C0C0'
+                      when 'Grey'
+                        assign bbi_hex = '#808080'
+                      when 'Gray'
+                        assign bbi_hex = '#808080'
+                      when 'Charcoal'
+                        assign bbi_hex = '#36454F'
+                      when 'White Oak'
+                        assign bbi_hex = '#DDC9A3'
+                      when 'Continental Walnut'
+                        assign bbi_hex = '#4E3A2C'
+                      when 'Natural Rift Oak'
+                        assign bbi_hex = '#C8AB81'
+                      when 'Stone Grey'
+                        assign bbi_hex = '#A8A8A8'
+                      when 'Carbon Black'
+                        assign bbi_hex = '#1A1A1A'
+                      when 'Cloud White'
+                        assign bbi_hex = '#F2EFE9'
+                      when 'Chrome'
+                        assign bbi_hex = '#C5CDD3'
+                      when 'Blue'
+                        assign bbi_hex = '#0033A0'
+                      when 'Chrome & White'
+                        assign bbi_hex = '#E0E5E8'
+                      when 'Chrome & Black'
+                        assign bbi_hex = '#3A3A3A'
+                      when 'Chrome & Espresso'
+                        assign bbi_hex = '#5C4033'
+                      when 'Platinum'
+                        assign bbi_hex = '#E5E4E2'
+                      when 'Red'
+                        assign bbi_hex = '#C8102E'
+                      when 'Green'
+                        assign bbi_hex = '#1B5E20'
+                      when 'Brown'
+                        assign bbi_hex = '#5C4033'
+                      when 'Tan'
+                        assign bbi_hex = '#D2B48C'
+                      when 'Oak'
+                        assign bbi_hex = '#B07F44'
+                      when 'Black Base 36" Round'
+                        assign bbi_hex = '#000000'
+                      when 'Silver Base 36" Round'
+                        assign bbi_hex = '#C0C0C0'
+                      when 'Black Base 42" Round'
+                        assign bbi_hex = '#000000'
+                      when 'Silver Base 42" Round'
+                        assign bbi_hex = '#C0C0C0'
+                      when 'White/Silver'
+                        assign bbi_hex = '#F2F2F2'
+                      when 'Flat Black'
+                        assign bbi_hex = '#1A1A1A'
+                      when 'Orange 77ORN'
+                        assign bbi_hex = '#E96E2A'
+                      when 'Yellow 77YEL'
+                        assign bbi_hex = '#F4C430'
+                      when 'Red 77RED'
+                        assign bbi_hex = '#C8102E'
+                      when 'Linen 77LNN'
+                        assign bbi_hex = '#E8DCC4'
+                      when 'Charcoal 77CHA'
+                        assign bbi_hex = '#36454F'
+                      when 'Sky Blue 77SKY'
+                        assign bbi_hex = '#7EC0EE'
+                      when 'White 77WHT'
+                        assign bbi_hex = '#FFFFFF'
+                      when 'Black 77BLK'
+                        assign bbi_hex = '#000000'
+                      when 'Beige (Nevada)'
+                        assign bbi_hex = '#C8B79E'
+                      when 'Black Top'
+                        assign bbi_hex = '#0F0F0F'
+                      when 'Rustic Wood Top'
+                        assign bbi_hex = '#8B5A2B'
+                      when 'Black Mesh'
+                        assign bbi_hex = '#2A2A2A'
+                      when 'Grey Mesh'
+                        assign bbi_hex = '#6E6E6E'
+                    endcase
+                    if bbi_hex != ''
+                      assign swatch_value = 'background-color: ' | append: bbi_hex
+                    else
+                      assign swatch_value = null
+                    endif
+                  endif
+                
+
+                  if variantValue and settings.show_variant_image
+                    assign swatchImgClass = 'swatch-img-enabled'
+                  else
+                     assign swatchImgClass = ''
+                  endif
+              
+              -%}
+
+              <li class="{% if settings.show_swatch_label and colorOptions contains optionTitle %}variant-card-option{% else %}variant-option{% endif %} {{ swatchImgClass }}{% if swatch_focal_point %} variant-image-focal{% endif %}">
+                <input
+                  id="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{  optionTitle }}-{{ forloop.index }}-{{ current_variant.id }}-{{ section.id}}-{{ randomNumber }}"
+                  data-id="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{  optionTitle }}-{{ forloop.index }}-{{ current_variant.id }}-{{ section.id}}"
+                  name="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{  optionTitle }}{{ current_variant.id }}-{{ section.id}}"
+                  type="radio"
+                  value="{{- value | escape -}}"
+                  title="{{ value | escape }}"
+                  class="product-option productOption{% if value.selected %} active{% endif %}{% if value.available == false %} not-available{% endif %}"
+                  data-val="{{- option.selected_value | escape -}}"
+                  {% if value.selected %}
+                    checked="checked"
+                  {% endif %}
+                  data-option
+                  {% if value.product_url != blank %} data-product-url="{{ value.product_url }}"{% assign isCombinedListingProduct = true %}{% endif %} data-value-product-id="{{ value.id }}"
+                >
+
+        
+                {% if settings.show_swatch_label and colorOptions contains optionTitle %}
+                  
+                    <label for="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{  optionTitle }}-{{ forloop.index }}-{{ current_variant.id }}-{{ section.id}}-{{ randomNumber }}"  class="option">
+                      <span class="swatch-label">{{ value }}</span>
+                      {% if variantValue and settings.show_variant_image %}
+                        <span class="color-swatch color-swatch-img" style="background-image:url({{ variantValue.featured_media.preview_image | image_url: width: 40 }});"></span>
+                      {% else %}
+                        <span class="color-swatch" {% if swatch_value != null %}style="{{ swatch_value }}; {% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}" {% else %}
+                          data-color="{{ value }}"
+                          style="background-color: {{ value }}"
+                        {% endif %}
+                      ></span>
+                      {% endif %}
+                    </label>
+                {% else %}
+                  <label
+                      for="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{  optionTitle }}-{{ forloop.index }}-{{ current_variant.id }}-{{ section.id}}-{{ randomNumber }}"
+                      {% if colorOptions contains optionTitle %}
+                        {% if variantValue and settings.show_variant_image %}
+                          style="background-image:url({{ variantValue.featured_media.preview_image | image_url: width: 40 }});"
+                        {% else %}
+                          {% if swatch_value != null %}style="{{ swatch_value }}; {% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}" {% else %}
+                            data-color="{{ value }}"
+                            style="background-color: {{ value }}"
+                          {% endif %}
+                        {% endif %}
+                        class="option"
+                      {% else %}
+                        class="option"
+                      {% endif %}
+                    >
+                      {% unless colorOptions contains optionTitle %}
+                        {{ value }}
+                      {% endunless %}
+                    </label>
+                {% endif %}
+              </li>
+              
+            {% endfor %}
+          </ul>
+        </div>
+      {% else %}
+        <div class="options product-selector-option">
+          <span class="variant-title heading-font">
+            {%- if colorOptions contains optionTitle -%}
+              {{- 'products.product.select' | t }}
+              {{ optionTitle -}}
+            {%- else %}
+              {{ option.name -}}
+            {%- endif -%}
+            :
+          </span>
+          <select id="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{  optionTitle }}-{{ forloop.index }}-{{ current_variant.id }}-{{ section.id}}-{{ randomNumber }}"
+            data-id="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{  optionTitle }}-{{ forloop.index }}-{{ current_variant.id }}-{{ section.id}}-{{ randomNumber }}"
+            class="form-control product-variants {{ option.name | handleize }} option-{{option.position}} productOption"
+            data-url="{{ product.url }}" aria-label="Choose option"
+            {%if stickyid %}data-sticky-product-loop-variants{% else %}data-product-loop-variants {% endif %}
+          >
+            {% for value in option.values %}
+              {% liquid
+                assign variantOption = 'option' | append: option.position
+                assign colorVariant = product.variants | where: variantOption, value | first
+                assign variantValue = product.variants | where: variantOption, value | compact: 'featured_media' | first
+                if product.url contains '?'
+                  assign productUrl = product.url | split: '&variant=' | first | append: '&variant=' | append: colorVariant.id
+                else
+                  assign productUrl = product.url | append: '?variant=' | append: colorVariant.id
+                endif
+              -%}
+              <option
+                value="{{ value }}"
+                {% if value.selected %}
+                  selected
+                {% endif %}
+                data-option
+                {% if value.product_url != blank %} data-product-url="{{ value.product_url }}"{% assign isCombinedListingProduct = true %}{% endif %} data-value-product-id="{{ value.id }}"
+              >
+                {{ value }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+    {% endfor %}
+    {% if isCombinedListingProduct %}
+      <input type="hidden" name="isCombinedListingProduct" data-combined-listing-product>
+      {% endif %}
+    <noscript>
+      <div
+        class="product-selector-option js-hidden"
+      >
+        <span for="productOptions-{{ formid }}" class="variant-title heading-font js-hidden">
+          {{- 'products.product.options' | t -}}
+        </span>
+        <select name="id" id="productOptions-{{ formid }}" form="{{ formid }}" class="js-hidden form-control">
+          {% for variant in product.variants %}
+            <option
+              data-prices="{{variant.price | money }}"
+              data-title="{{ variant.title }}"
+              {% if variant.image != blank %}
+                data-img="{{variant.image | img_url:"master"}}"
+              {% endif %}
+              value="{{variant.id}}"
+              {% unless variant.available %}
+                disabled="disabled"
+              {% endunless %}
+            >
+              {{ variant.title }} - {{ variant.price | money -}}
+              {%- unless variant.available %} - {{ 'products.product.soldout' | t }}{% endunless %}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </noscript>
+  {% else %}
+    {%- for i in (1..2) -%}
+      {%- liquid
+        assign OptionName = 'products.product.onboarding.options.option' | append: i | append: '.label' | t
+        assign downOption = OptionName | downcase
+        assign optionIndex = forloop.index
+      -%}
+      {% if block.settings.picker_type == 'button' %}
+        <div
+          class="product-selector-option no-js-hidden select-{{ downOption }} {% if colorOptions != blank and colorOptions contains downOption %} color-option{% endif %}"
+        >
+          {% assign index = forloop.index %}
+          <span class="variant-title heading-font">
+            {%- if colorOptions contains downOption -%}
+              {{- 'products.product.select' | t }}
+              {{ downOption -}}
+            {%- else -%}
+              {{- OptionName -}}
+            {%- endif -%}
+            :</span
+          >
+          <ul
+            class="unstylish-list {% if colorOptions contains downOption %}color-swatches{% endif %} product-selector-option-list" data-index="option{{forloop.index }}"
+            {%if stickyid %}data-sticky-product-loop-variants{% else %}data-product-loop-variants {% endif %}
+          >
+            {%- for i in (1..5) -%}
+              {%- assign optionValue = 'products.product.onboarding.options.option'| append: optionIndex| append: '.value'| append: i | t
+              -%}
+              <li class="variant-option">
+                <input
+                  id="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{ downOption }}-{{ forloop.index }}-{{ section.id}}-{{ randomNumber }}"
+                  data-id="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{  downOption }}-{{ forloop.index }}-{{ current_variant.id }}-{{ section.id}}"
+                  name="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{ downOption }}-{{ section.id}}"
+                  type="radio"
+                  value="{{- optionValue | escape -}}"
+                  title="{{ optionValue }}"
+                  class="product-option"
+                  {% if forloop.first %}
+                    checked="checked"
+                  {% endif %}
+                  data-option
+                >
+                <label
+                  for="{%if stickyid %}{{ stickyid }}{% else %}option{% endif %}-{{ downOption }}-{{ forloop.index }}-{{ section.id}}-{{ randomNumber }}"
+                  {% if colorOptions contains downOption %}
+                    data-color="{{ optionValue }}"
+                    style="background-color: {{ optionValue }}"
+                    class="option"
+                  {% else %}
+                    class="option"
+                  {% endif %}
+                >
+                  {% unless colorOptions contains downOption %}
+                    {{ optionValue }}
+                  {% endunless %}
+                </label>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% else %}
+        <div class="product-selector-option options">
+          <span class="variant-title heading-font">
+            {%- if colorOptions contains downOption -%}
+              {{- 'products.product.select' | t }}
+              {{ downOption -}}
+            {%- else -%}
+              {{- OptionName -}}
+            {%- endif -%}
+            :
+          </span>
+          <select
+            class="form-control product-variants {{ option.name | handleize }} option-{{ forloop.index }}"
+            data-url="{{ product.url }}"
+            {%if stickyid %}data-sticky-product-loop-variants{% else %}data-product-loop-variants {% endif %}
+          >
+            {%- for i in (1..5) -%}
+              {%- assign optionValue = 'products.product.onboarding.options.option'
+                | append: optionIndex
+                | append: '.value'
+                | append: i
+                | t
+              -%}
+              <option
+                {% if forloop.first %}
+                  selected
+                {% endif %}
+                data-option
+              >
+                {{ optionValue }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</div>
+<script type="application/json" data-name="main-product">
+  {{ product.variants | json }}
+</script>
+  <script type="application/json" data-name="main-product-options">
+    {{ product.options_with_values | json }}
+  </script>
+  <script type="application/json" data-name="main-product-inventories">
+    [
+    {% for variant in product.variants %}
+      {
+        "id": {{- variant.id -}},
+        "inventory_management": "{{- variant.inventory_management -}}",
+        "inventory_policy": "{{- variant.inventory_policy -}}",
+        "inventory_quantity": "{{- variant.inventory_quantity -}}"
+      }{%- unless forloop.last -%},{%- endunless -%}
+    {% endfor %}
+    ]
+  </script>

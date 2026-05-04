@@ -1,0 +1,74 @@
+{% capture testimonailDetails %} 
+    <div class="testimonial-details image-position-{{ section.settings.image_position }}">
+        {% if block.settings.image != blank %}
+        <div class="testimonial-image">
+                {% render 'lazy-image' image: block.settings.image, imageSize: 210 %}
+          </div>
+        {% endif %}
+        {% if block.settings.author != blank or block.settings.country_name != blank %}
+        <div class="testimonial-details-credentials">
+            {% if block.settings.author != blank %}
+            <p class="author-name">{{ block.settings.author }}</p>
+            {% endif %}
+            {% if block.settings.country_name != blank %}
+            <p class="country-name">{{ block.settings.country_name }}</p> 
+            {% endif %}
+        </div>
+         {% endif %}
+    </div>
+{% endcapture %}
+<div class="testimonial-item-inner{% if section.settings.testimonial_style == 'image-with-text-carousal' or section.settings.testimonial_style == 'carousal-with-image-bottom' %}{% unless section.settings.enlargen_slide %}{% if section.settings.enable_card_border %} card-border-enabled{% endif %}{% if section.settings.enable_card_shadow %} card-shadow-enabled{% endif %}{% endunless %}{% endif %}" {% if settings.enable_animation and aos_delay %}data-aos="fade-up" data-aos-delay="{{ aos_delay }}" {% endif %}>
+{% if section.settings.testimonial_style == 'carousal-with-image-bottom' %}
+    <div class="quote">
+        <svg viewBox="0 0 84 84" fill="none">
+            <path d="M49.9077 72.1875L81.5391 72.1875C82.8983 72.1875 84 71.0858 84 69.7266L84 38.0952C84 36.7359 82.8983 35.6342 81.5391 35.6342L68.1846 35.6342L68.1846 14.3715C68.1846 13.0128 67.083 11.9106 65.7237 11.9106L57.8154 11.9106C56.756 11.9106 55.8159 12.5886 55.4813 13.5935L47.5736 37.3172C47.4897 37.5678 47.4467 37.8305 47.4467 38.0952L47.4468 69.7266C47.4468 71.0858 48.5484 72.1875 49.9077 72.1875Z" fill="currentcolor"/>
+            <path d="M2.4614 72.1875L34.0928 72.1875C35.4521 72.1875 36.5537 71.0858 36.5537 69.7266L36.5537 38.0952C36.5537 36.7359 35.4521 35.6342 34.0928 35.6342L20.7377 35.6342L20.7377 14.3715C20.7377 13.0128 19.636 11.9106 18.2768 11.9106L10.3691 11.9106C9.30972 11.9106 8.36956 12.5886 8.03439 13.5935L0.12671 37.3172C0.0433968 37.5678 0.000458575 37.8305 0.000458598 38.0952L0.000461363 69.7266C0.000461482 71.0858 1.10212 72.1875 2.4614 72.1875Z" fill="currentcolor"/>
+            
+        </svg>
+    </div>
+{% endif %}
+    {% if block.settings.show_rating %}
+    <div class="testimonial-star-rating">
+        {% for i in (1..block.settings.rating) %}
+        {% render 'icons',icon:'star',class:'icon-star' %}
+        {% endfor %}
+    </div>
+    {% endif %} 
+    {% if block.settings.author_title != blank %}
+        <h6 class="testimonial-title">{{ block.settings.author_title }} </h6>
+    {% endif %}
+    {% if block.settings.message != blank %}
+        {% liquid 
+            assign isHeadingFont = false
+            if section.settings.enlargen_slide and section.settings.testimonial_style == 'image-with-text-carousal'
+                assign isHeadingFont = true
+            elsif section.settings.testimonial_style == 'carousal-with-image-bottom'
+                assign isHeadingFont = true
+            endif
+        %}
+        <p class="testimonial-text {{ section.settings.font_type }} {{ section.settings.enlargen_message_font_size }}">{{ block.settings.message }} </p>
+    {% endif %}
+    {% unless section.settings.testimonial_style == 'carousal-with-image-bottom' %}
+        {{ testimonailDetails }}
+    {% endunless %}
+    {% comment %} <div class="testimonial-details image-position-{{ section.settings.image_position }}">
+        {% if block.settings.image != blank %}
+        <div class="testimonial-image">
+                {% render 'lazy-image' image: block.settings.image, imageSize: 210 %}
+          </div>
+        {% endif %}
+        {% if block.settings.author != blank or block.settings.country_name != blank %}
+        <div class="testimonial-details-credentials">
+            {% if block.settings.author != blank %}
+            <p class="author-name">{{ block.settings.author }}</p>
+            {% endif %}
+            {% if block.settings.country_name != blank %}
+            <p class="country-name">{{ block.settings.country_name }}</p> 
+            {% endif %}
+        </div>
+         {% endif %}
+    </div> {% endcomment %}
+</div>
+{% if section.settings.testimonial_style == 'carousal-with-image-bottom' %}
+    {{ testimonailDetails }}
+{% endif %}

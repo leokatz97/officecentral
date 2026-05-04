@@ -1,0 +1,68 @@
+<div
+  id="block-{{ block.id }}"
+  class="categories-media-grid-item categories-media-grid-item-{{ loopIndex }}"
+  {{ block.shopify_attributes }}
+>
+  {% if blockColumn > 3 %}
+    <div class="categories-block-top">
+  {% endif %}
+  <div
+    class="categories-block {% if block.settings.enabled_background %}categories-background-enabled{% endif %} {% if block.settings.bg_image != blank and block.settings.enabled_background %}categories-bg-image{% else %}categories-bg-color{% endif %}"
+  >
+    {% if block.settings.bg_image != blank and block.settings.enabled_background %}
+      {% render 'lazy-image', image: block.settings.bg_image, imageSize: 1920 %}
+    {% endif %}
+    <div class="categories-block-inner">
+      {% if block.settings.heading != blank %}
+        <div class="section-title title {{ block.settings.heading_alignment }}">
+          {%- comment -%}
+            <h2 class="{{ block.settings.heading_size }}">
+              {{ block.settings.heading }}
+            </h2>
+          {%- endcomment -%}
+
+          <{{ block.settings.seo_heading }} class="{{ block.settings.heading_size }} section-heading">
+            {{ block.settings.heading }}
+          </{{ block.settings.seo_heading }}>
+        </div>
+      {% endif %}
+      <ul class="categories-list">
+     
+        {% for i in (1..12) %}
+          {% liquid
+            assign customimageCount = 'image_' | append: i
+            assign custonImage = block.settings[customimageCount]
+            assign linkCount = 'icon_link_' | append: i
+            assign custonLink = block.settings[linkCount]
+            assign iconTextCount = 'icon_text_' | append: i
+            assign iconText = block.settings[iconTextCount]
+           
+          -%}
+          {% if custonImage != blank or custonSvgicon != blank or Iconlist or iconText != blank %}
+            <li>
+              <{% if custonLink != blank %}a href="{{ custonLink }}"{% else %}span{% endif %}
+                title="{{ iconText }}"
+                class="logo-link"
+              >
+                {%- if custonImage != blank %}
+                  <span class="category-img {% if block.settings.icon_background %}icon-background-enabled{% endif %}">
+                    {% render 'lazy-image', image: custonImage, imageSize: 33 %}
+                  </span>
+                {% endif %}
+                {%- if iconText != blank %}
+                  <span class="category-title">{{ iconText }} </span>
+                {% endif -%}
+              </a>
+              <div class="multibox-icon-bg-effect" >
+                <div class="multibox-icon-bg-effect-inner"></div>
+              </div>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% if blockColumn > 3 %}
+    </div>
+  {% endif %}
+</div>

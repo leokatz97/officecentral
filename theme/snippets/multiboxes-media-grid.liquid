@@ -1,0 +1,138 @@
+{% liquid
+  assign Cardshadow = block.settings.enable_shadow
+  assign Contentonhover = block.settings.enable_hover_content
+%}
+{% capture mediaGridContent %}
+{% assign count = 0 %}
+{% for i in (1..3) %}
+  {% capture GridimageCount %}media_image{{ i }}{% endcapture %}
+  {% assign Gridimage = block.settings[GridimageCount] %}
+  {% liquid
+    assign imageSize = 300 | times:block.settings.column | divided_by:2
+    if forloop.first
+    assign imageSize = 300 | times:block.settings.column
+    endif
+    if Gridimage != blank
+  assign gridImageRatio = 1 | divided_by: Gridimage.aspect_ratio | times: 100 | append: '%'
+else
+  assign gridImageRatio = 100 | append: '%'
+endif
+  %}
+  {% capture GridvideoCount %}video{{ i }}{% endcapture %}
+  {% assign Gridvideo = block.settings[GridvideoCount] %}
+  {% capture GridheadingCount %}heading{{ i }}{% endcapture %}
+  {% assign Gridheading = block.settings[GridheadingCount] %}
+  {% capture GriddescriptionCount %}description{{ i }}{% endcapture %}
+  {% assign Griddescription = block.settings[GriddescriptionCount] %}
+  {% capture GridcontentAlignmentCount %}content_alignment{{ i }}{% endcapture %} 
+  {% assign GridcontentAlignment = block.settings[GridcontentAlignmentCount] %}
+  {% capture GridcontentPositionCount %}content_position{{ i }}{% endcapture %}
+  {% assign GridcontentPosition = block.settings[GridcontentPositionCount] %}
+  {% capture GridSEOheadingCount %}seo_heading{{ i }}{% endcapture %}
+  {% assign GridSEOheading = block.settings[GridSEOheadingCount] %}
+  {% capture GridheadingSizeCount %}heading_size{{ i }}{% endcapture %}
+  {% assign GridheadingSize = block.settings[GridheadingSizeCount] %}
+  {% capture GridbtnTextCount %}btn_text{{ i }}{% endcapture %}
+  {% assign GridbtnText = block.settings[GridbtnTextCount] %}
+  {% capture GridbtnLinkCount %}btn_link{{ i }}{% endcapture %}
+  {% assign GridbtnLink = block.settings[GridbtnLinkCount] %}
+  {% capture GridbuttonaslinkCount %}button_as_link{{ i }}{% endcapture %}
+  {% assign Gridbuttonaslink = block.settings[GridbuttonaslinkCount] %}
+  {% capture GridbtnsizeCount %}button_size{{ i }}{% endcapture %}
+  {% assign Gridbtnsize = block.settings[GridbtnsizeCount] %}
+  {% capture GridlinksizeCount %}grid_as_link{{ i }}{% endcapture %}
+  {% assign Gridlink = block.settings[GridlinksizeCount] %}
+  <div class="banner-block-item">
+    {% if GridbtnLink != blank  and  Gridlink == true %}
+      <a class="grid-media-link" href="{{ GridbtnLink }}" title="Media link">
+        {% else %}
+        <div class="grid-media-link">
+    {% endif %}
+    <div class="banner-block-item-image">
+      <div class="media media-fixed" {% if Gridimage != blank %}style="--imageRatio:{{ gridImageRatio }}"{% endif %}>  
+        {% if Gridvideo != blank or Gridimage != blank %}
+        {% if Gridvideo != blank %}
+          <deferred-media class="deferred-media">
+              <template>
+                <video class="banner-collage-video" autoPlay muted loop playsinline>
+                  <source src="{{ Gridvideo.sources[0].url }}" type="video/mp4">
+                  <source src="{{ Gridvideo.sources[1].url }}">
+                </video>
+              </template>
+              <div class="deferred-media-placeholder">
+                    {% render 'lazy-image', image: Gridvideo.preview_image, imageSize: 1920 %}
+                </div>
+               <noscript>
+                    <a
+                      href="{{ Gridvideo | external_video_url }}"
+                      target="_blank"
+                      class="unstyled-link"
+                      aria-label="{{ Gridvideo.alt | default: product.title | strip_html }}"
+                    >
+                      {% comment %}theme-check-disable ImgWidthAndHeight{% endcomment %}
+                      <img
+                        src="{{ Gridvideo.preview_image | image_url: width: 2048 }}"
+                        alt="{{ Gridvideo.preview_image.alt | escape }}"
+                        loading="lazy"
+                      >
+                      {% comment %}theme-check-enable ImgWidthAndHeight{% endcomment %}
+                    </a>
+                </noscript>
+            </deferred-media>
+          {% else Gridimage != blank %}
+          {%liquid
+          if section.index < 3
+            assign height = Gridimage.width | divided_by: Gridimage.aspect_ratio | round
+            assign sizes = '100vw'
+            assign widths = imageSize | append: ""
+            echo Gridimage | image_url: width: 3840 | image_tag: height: height,class: 'media_image', sizes: sizes, widths: widths
+          else
+            render 'lazy-image', image: Gridimage, class: 'media_image',imageSize:imageSize
+          endif
+          %}
+        {% endif %}
+        {% else %}
+        {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+      </div>
+    </div>
+    <div class="banner-block-content {{ GridcontentPosition }} text-{{ GridcontentAlignment }}">
+      <{{ GridSEOheading }} class="media-content-heading {{ GridheadingSize }}">{{ Gridheading }}</{{ GridSEOheading }}>
+      {% if Griddescription != blank %}
+        <div class="banner-media-content-description rte">{{ Griddescription | replace: '<p></p>', '<br/>'
+          | replace: '<h1></h1>', '<br/>'
+          | replace: '<h2></h2>', '<br/>'
+          | replace: '<h3></h3>', '<br/>'
+          | replace: '<h4></h4>', '<br/>'
+          | replace: '<h5></h5>', '<br/>'
+          | replace: '<h6></h6>', '<br/>' }}</div>
+      {% endif %}
+      {% if Gridlink == false %}
+      {% if GridbtnLink != blank and GridbtnText != blank %}
+        <div class="media-content-button">
+        <a href="{{ GridbtnLink }}" class="{% if Gridbuttonaslink %}hyperlink {% else %} button {{ Gridbtnsize }}-btn{% if settings.enable_button_shadow %} button-shadow{% endif %}{% endif %} " aria-label="{{ GridbtnText }} " title="{{ GridbtnText }}">{{ GridbtnText }}</a>
+        </div>
+      {% endif %} 
+    {% endif %}
+    </div>
+      {% if GridbtnLink != blank and  Gridlink == true%}
+      </a>
+      {% else %}
+    </div>
+  {% endif %}
+  
+  </div>
+  {% assign count = count | plus:1 %}
+{% endfor %}
+{% endcapture %}
+<div
+  id="block-{{ block.id }}"
+  class="categories-media-grid-item categories-media-grid-item-{{ loopIndex }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="banner-blocks">
+    <div class="banner-blocks-inner {% if Cardshadow %} shadow{% endif %}{% if Contentonhover %} content-on-hover{% endif %} banner-block{{ count }} ">
+      {{ mediaGridContent }}
+    </div>
+  </div>
+</div>

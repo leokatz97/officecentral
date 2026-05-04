@@ -1,0 +1,48 @@
+<div class="products-collage-item product-card product-background-enabled product-border-enabled{% if section.settings.enable_card_shadow %} product-shadow-enabled{% endif %}" {% if settings.enable_animation %}data-aos="fade-up" data-aos-duration="2000"{% endif %}>
+  <div class="products-collage-image-wrapper">
+     <{% if cardProduct.url != blank %}a href="{{ cardProduct.url }}" title="{{cardProduct.title}}"  {%else %}div{% endif %}>
+    <div
+      class="media"
+      style="--imageRatio:{% if cardProduct.featured_media != blank %}{{ 1 | divided_by : cardProduct.featured_media.preview_image.aspect_ratio | times: 100 }}{% else %}100{% endif %}%"
+    >
+      {% liquid
+        if cardProduct.featured_media != blank
+          render 'lazy-image', image: cardProduct.featured_media.preview_image, class: 'product-img', imageSize: imageSize
+        else
+          echo 'product-apparel-' | append: cycleIndex | placeholder_svg_tag: 'placeholder-svg'
+        endif
+      %}
+    </div>
+  </{% if cardProduct.url != blank %}a{%else %}div{% endif %}>
+  </div>
+  <div class="products-collage-content {{ textAlignment}}">
+    {% if cardProduct.url != blank %}
+    <a href="{{ cardProduct.url }}" class="product-title" aria-label="{{ cardProduct.title }}">{{ cardProduct.title }}</a>
+    {% else %}
+    <div class="product-title">{{ 'onboarding.product_title' | t }}</div>
+    {% endif %}
+    {% render 'reviews-without-count', cardProduct: cardProduct %}
+    {% liquid
+      assign compare_at_price = cardProduct.compare_at_price
+      assign price = cardProduct.price | default: 1999
+      assign money_price = price | money
+    %}
+    <div class="product-price">
+      <span class="price-item actual-price">{{- money_price -}}</span>
+      {% if compare_at_price %}
+        <span class="price-item compare-price">{{- compare_at_price | money -}}</span>
+      {% endif %}
+      <span class="hidden">{{ 'products.product.price.unit_price' | t }}</span>
+      <span
+        class="product-unit-price {% unless cardProduct.unit_price_measurement %} hidden{% endunless %}"
+        data-unit-price
+      >
+        {{ cardProduct.unit_price | money }} /
+        {% if cardProduct.unit_price_measurement.reference_value != 1 -%}
+          {{- cardProduct.unit_price_measurement.reference_value -}}
+        {%- endif %}
+        {{ cardProduct.unit_price_measurement.reference_unit }}
+      </span>
+    </div>
+  </div>
+</div>

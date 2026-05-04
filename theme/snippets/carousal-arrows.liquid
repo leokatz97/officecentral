@@ -1,0 +1,16 @@
+<button
+  class="{%if settings.arrow_shadow_enabled %}arrow-shadow-enabled {%endif  %}custom-navigation-button flickity-button flickity-prev-next-button previous no-js-hidden"
+  type="button"
+  aria-label="Previous"
+  data-slideshow-navigation-button
+>
+  {% render 'icons', icon: 'previous', class: class %}
+</button>
+<button
+  class="{%if settings.arrow_shadow_enabled %}arrow-shadow-enabled {%endif  %} custom-navigation-button flickity-button flickity-prev-next-button next no-js-hidden"
+  type="button"
+  aria-label="Next"
+  data-slideshow-navigation-button
+>
+  {% render 'icons', icon: 'next', class: class %}
+</button>

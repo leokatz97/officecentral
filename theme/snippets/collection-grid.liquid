@@ -1,0 +1,46 @@
+{%- liquid
+    assign featuredImage = collection.featured_image
+    if gridImageSize == 'landscape'
+      assign collectionImageRatio = 'var(--img-landscape)'
+    elsif gridImageSize == 'square'
+      assign collectionImageRatio = 'var(--img-square)'
+    elsif gridImageSize == 'portrait' 
+      assign collectionImageRatio = 'var(--img-portrait)'
+    else
+      if featuredImage != blank
+        assign collectionImageRatio = 1 | divided_by: featuredImage.aspect_ratio | times: 100 | append: '%'
+      else
+        assign collectionImageRatio = 100 | append: '%'
+      endif
+    endif
+    if settings.enable_animation 
+    assign aosAnimation = 'data-aos="zoom-in"'
+  else
+    assign aosAnimation =''
+  endif
+  -%}
+
+  <div class="collection-list-item">
+    <a {% if collection != blank %} href="{{ collection.url }}"  {% else %} role="link" aria-disabled="true" {% endif %} aria-label="{% if collection != blank %}{{- collection.title -}}{% else %}{{'sections.collection_template.name' | t }}{% endif %}" class="unstyled-link collection-img animate-hover" >
+        {%- if featuredImage != blank -%}
+        <div class="media" style="--imageRatio:{{ collectionImageRatio }}">
+          {% render 'lazy-image', image: featuredImage %}
+        </div>
+        {% else %}
+        <div class="media" style="--imageRatio:{{ collectionImageRatio }}" >
+          {{ 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {% endif %}
+    </a>
+    <div class="collection-info text-{{ section.settings.title_alignment }} text-{{ section.settings.title_position }}">
+      
+      <a class="collection-title heading-font h6" href="{{ collection.url }}" aria-label="{{- collection.title -}}">
+        {% if collection != blank %}
+          {{- collection.title -}}
+        {% else %}
+        {{'sections.collection_template.name' | t }}
+        {% endif %}
+      </a>
+    
+    </div>
+  </div>

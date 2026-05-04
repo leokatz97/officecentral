@@ -1,0 +1,356 @@
+{{ 'blog-posts.css' | asset_url | stylesheet_tag }}
+{%- liquid
+    assign related_posts = ''
+    assign count = 0
+    assign currentArticle = article.handle
+    assign Colorscheme = section.settings.color_scheme
+
+    assign gridImageSize = section.settings.grid_image_size
+
+    if gridImageSize == 'landscape'
+      assign postImageRatio = '70%'
+    elsif gridImageSize == 'square'
+      assign postImageRatio = '100%'
+    elsif gridImageSize == 'portrait'
+      assign postImageRatio = '130%'
+    endif
+  -%}
+      {%- for newArticle in blog.articles limit: 5 -%}
+        {%- unless newArticle.handle == currentArticle -%}
+            {%- assign count = count | plus: 1 -%}
+          {%- capture post -%}
+
+          {% liquid 
+            if gridImageSize == 'auto'
+              if newArticle.image != blank
+                assign postImageRatio = 1 | divided_by: newArticle.image.aspect_ratio | times: 100 | append: '%'
+              else
+                assign postImageRatio = 100 | append: '%'
+              endif
+            endif
+          %}
+          {%- assign placeholder_image_index = forloop.index0 | modulo: 3 | plus: 1 -%}
+                     {%- assign placeholder_image = 'blog-apparel-' | append: placeholder_image_index -%}
+      {% render 'post-grid', article: newArticle, section:section, block:section, show_excerpt: true, gridImageSize:section.settings.related_article_image_size, class: 'blog-list-item', placeholder_image: placeholder_image, postImageRatio:postImageRatio %}
+      {%- endcapture -%}
+      {%- assign related_posts = related_posts | append: post -%}
+    {%- endunless -%}
+    {% if count == 4 %}
+      {% break %}
+    {% endif %}
+  {%- endfor -%}
+  
+  {% if count > 0 %}
+  <div class="scheme-{{ Colorscheme }} section-padding {% if section.settings.enable_gradient %} gradiant{% endif %}">
+    <div class="{{ settings.layout_style }}">
+       {% if section.settings.heading != blank %}
+          {%- capture highlightPrefix -%}
+          <span class="line-marker {% if section.settings.highlight_style == 'background' %}highlight-background {% if section.settings.bg__color == 'gradient' %}highlight-background-gradient{% else %}highlight-background-solid{% endif %}{% endif %}">
+             {%- endcapture -%}
+             {%- capture highlightSuffix -%}
+             {% if section.settings.highlight_style != 'background' %}
+              {% render 'marker', marker: section.settings.highlight_style %}
+           {% endif %}
+   
+          </span>
+          {%- endcapture -%}
+          <div class="section-title {{ section.settings.heading_alignment }}">
+             <{{ section.settings.seo_heading }} class="{{ section.settings.heading_size }} section-heading {% if section.settings.heading_animation %} linear-animation{% endif %}">
+              {% if section.settings.heading_animation %}
+                {{ section.settings.heading }}
+              {% else %}
+                {{ section.settings.heading | replace:"[", highlightPrefix | replace:"]",highlightSuffix }}
+              {% endif %}
+             </{{ section.settings.seo_heading }}>
+          </div>
+       {% endif %}
+       <div class="blog-articles blog-post-wrapper">
+       {{- related_posts -}}
+    </div>
+ </div>
+</div>
+{% endif %}
+
+<style>
+    #shopify-section-{{ section.id }}{
+    --padding-top: {{ section.settings.top_space_desktop}}px;
+    --padding-bottom: {{ section.settings.bottom_space_desktop}}px;
+    } 
+    @media only screen and (max-width:767px) {
+    #shopify-section-{{ section.id }}{
+    --padding-top: {{ section.settings.top_space_mobile }}px !important;
+    --padding-bottom: {{ section.settings.bottom_space_mobile }}px !important;
+    }
+    }
+ </style>
+{% schema %}
+{
+  "name": "t:sections.related-posts.name",
+  "class": "related-posts-section",
+  "tag": "section",
+  "templates": ["article"],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:global.general_labels.general"
+    },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "default": true,
+        "label": "t:sections.related-posts.settings.show_date.label"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "label": "t:sections.related-posts.settings.show_author.label",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_excerpt",
+        "default": true,
+        "label": "t:sections.related-posts.settings.show_excerpt.label"
+      },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:global.heading.label",
+      "info": "t:global.heading.info",
+      "default": "Heading here"
+    },
+    {
+      "type": "select",
+      "id": "highlight_style",
+      "label": "t:global.highlight_style.label",
+      "default": "underline",
+      "options": [
+        {
+          "value": "underline",
+          "label": "t:global.highlight_style.options.underline.label"
+        },
+        {
+          "value": "shape_2",
+          "label": "t:global.highlight_style.options.shape_2.label"
+        },
+        {
+          "value": "shape_3",
+          "label": "t:global.highlight_style.options.shape_3.label"
+        },
+        {
+          "value": "shape_4",
+          "label": "t:global.highlight_style.options.shape_4.label"
+        },
+        {
+          "value": "shape_5",
+          "label": "t:global.highlight_style.options.shape_5.label"
+        },
+        {
+          "value": "shape_6",
+          "label": "t:global.highlight_style.options.shape_6.label"
+        },
+        {
+          "value": "background",
+          "label": "t:global.highlight_style.options.background.label"
+        },
+          {
+            "value": "no_shape",
+            "label": "t:global.highlight_style.options.no_shape.label"
+          }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bg__color",
+      "label": "t:global.bg__color.label",
+      "default": "gradient",
+      "options": [
+        {
+          "value": "gradient",
+          "label": "t:global.bg__color.options.gradient.label"
+        },
+        {
+          "value": "solid",
+          "label": "t:global.bg__color.options.solid.label"
+        }
+      ]
+    },
+    {
+      "type":"checkbox",
+      "id":"heading_animation",
+      "label":"t:global.heading_animation.label",
+      "info":"t:global.heading_animation.info"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:global.heading.heading_size.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "seo_heading",
+      "default": "h2",
+      "label": "t:global.heading.heading_tag.label",
+      "info": "t:global.heading.heading_tag.info",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "t:global.heading_alignment.label",
+      "default": "text-left",
+      "options": [
+        {
+          "label": "t:global.heading_alignment.options.left.label",
+          "value": "text-left"
+        },
+        {
+          "label": "t:global.heading_alignment.options.center.label",
+          "value": "text-center"
+        },
+        {
+          "label": "t:global.heading_alignment.options.right.label",
+          "value": "text-right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "grid_image_size",
+      "label": "t:global.grid_image_size.label",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "t:global.grid_image_size.options.auto.label"
+        },
+        {
+          "value": "landscape",
+          "label": "t:global.grid_image_size.options.landscape.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:global.grid_image_size.options.portrait.label"
+        },
+        {
+          "value": "square",
+          "label": "t:global.grid_image_size.options.square.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:global.general_labels.text"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.general_labels.text"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "t:global.general_labels.gradient",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:global.section_padding.label"
+    },
+    {
+      "type": "range",
+      "id": "top_space_desktop",
+      "label": "t:global.section_padding.options.top_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_desktop",
+      "label": "t:global.section_padding.options.bottom_space_desktop.label",
+      "default": 70,
+      "min": 0,
+      "max": 150,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "top_space_mobile",
+      "label": "t:global.section_padding.options.top_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    },
+    {
+      "type": "range",
+      "id": "bottom_space_mobile",
+      "label": "t:global.section_padding.options.bottom_space_mobile.label",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.related-posts.name"
+    }
+  ]
+}
+{% endschema %}

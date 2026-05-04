@@ -1,0 +1,47 @@
+{% assign formid = 'productForm' | append: section.id | append: featuredProduct.id %}
+{% assign current_variant = featuredProduct.selected_or_first_available_variant %}
+<div class="featured-product-card{% if section.settings.enable_box_shadow %} card-shadow-enabled{% endif %}" data-product-card data-product-wrapper>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-7">
+      <div class="product-gallery-img-wrapper" data-product-media data-type="slider" 
+        {% if featuredProduct.media.size < 1  %}
+          featured-product-image-width 
+        {% endif %} 
+        {% if featuredProduct.media.size < 2  or featuredProduct == blank %}
+          style="--thumbnail-width: 0;"
+        {% endif %} 
+      {% if settings.enable_animation %}
+        data-aos="fade-up" data-aos-duration="500" 
+      {% endif %} >
+        <div class="product-gallery-img {% if featuredProduct.media.size < 2 or featuredProduct == blank %} no-thumbnails{% endif %}">
+          {% render 'product-custom-badge' %}
+          {% liquid
+            if featuredProduct.featured_media != blank
+              render 'product-media', product: featuredProduct, rating_badge: section.settings.rating_badge, custom_icon: section.settings.crown_badge, main_slider: true, gridImageSize: section.settings.grid_image_size, section: section, fixed_height: true, featuredProduct: true
+            else
+              echo 'product-apparel-' | append: cycleIndex | placeholder_svg_tag: 'placeholder-svg'
+            endif
+          %}
+        </div>
+        {% if featuredProduct.media.size > 1 %}
+          <div class="featured-product-thumbnails-wrapper product-gallery-thumbnail-img">
+            {% render 'product-thumbnails', product: featuredProduct, thumbnails_slider: true %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-5">
+      <div class="featured-product-content" {% if settings.enable_animation %}data-aos="fade-up" data-aos-duration="1000"{% endif %}>
+        <div class="product-content-wrapper" data-featured-content>
+          {% render 'product-blocks',
+            product: featuredProduct,
+            current_variant: current_variant,
+            section: section,
+            block: block,
+            formid: formid
+          %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

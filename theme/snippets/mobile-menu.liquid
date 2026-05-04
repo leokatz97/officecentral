@@ -1,0 +1,347 @@
+{% capture mobileAccount %}
+  {% if section.settings.enable_account and shop.customer_accounts_enabled %}
+    <div class="menu-btn {{ section.settings.menu_font_size}}-font">
+      <a
+        class="button{% if settings.enable_button_shadow %} button-shadow{% endif %}"
+        href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+        aria-label=" {%- if customer -%}{{ 'customer.account_fallback' | t }}{%- else -%}{{ 'customer.log_in' | t }}{%- endif -%}" tabindex="-1"
+      >
+        {%- if customer -%}
+          {{ 'customer.account_fallback' | t }}
+        {%- else -%}
+          {{ 'customer.log_in' | t }}
+        {%- endif -%}
+      </a>
+    </div>
+  {% endif %}
+{% endcapture %}
+{% liquid
+  assign badgeBlocks = section.blocks | where: 'type', 'promo_badge'
+  capture badgesData
+    for block in badgeBlocks
+      render 'header-promo-badges', block: block,device:'mobile'
+    endfor
+  endcapture
+%}
+<button href="#mobileMenu" class="mobileMenu no-js-hidden cursor-pointer" title="mobileMenu" data-mobile-menu>
+  <div class="menu-toggler-icon">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+  </div>
+</button>
+<div id="mobileMenu" class="side-menu" tabindex="-1">
+  {% liquid
+    assign menuStatus = false
+    assign menuCount = 0
+    if section.settings.menu != blank
+      assign menuStatus = true
+      assign menuCount = menuCount | plus: 1
+    endif
+    if section.settings.category_heading != blank and section.settings.category_menu != blank
+      assign menuStatus = true
+      assign menuCount = menuCount | plus: 1
+    endif
+    assign mainMenuStatus = false
+    if section.settings.menu != blank or badgesData != blank
+      assign mainMenuStatus = true
+    endif
+  %}
+  {% if menuStatus %}
+    <div class="inner-side-outer">
+    {% if menuCount > 1 %}
+      <ul class="list-unstyled mobile-tabs-wrapper">
+        {% if mainMenuStatus %}
+          <li class="menu-tab active" data-tab="side-menu-wrapper">Menu</li>
+        {% endif %}
+        {% if section.settings.category_heading != blank and section.settings.category_menu != blank %}
+          <li
+            class="menu-tab{% if mainMenuStatus == false %} active{% endif %}"
+            data-tab="mobile-category-menu-bar"
+          >
+            {{ section.settings.category_heading }}
+          </li>
+        {% endif %}
+      </ul>
+    {% endif %}
+
+
+    {% capture quickMenuLables %} 
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'menu_label' %}
+          {% if block.settings.link != blank and block.settings.title != blank  %}
+              <li class="nav-menu-item nav-quick-links-item">
+                <a class="nav-menu-link nav-quick-links-link" href="{{ block.settings.link }}">
+                  <span class="nav-quick-links-icon">
+                    {% render 'icons', icon: block.settings.icon %}
+                  </span>
+                  <span class="nav-quick-links-text"> 
+                    {{ block.settings.title }}
+                  </span>
+                </a>
+              </li>
+            {% endif %}
+          {% endcase %}
+        {% endfor %}
+    {% endcapture %}
+    
+    <div class="inner-side">
+      {% if mainMenuStatus %}
+        <div class="side-menu-wrapper tabcontent active">
+          {% if section.settings.menu != blank %}
+            <ul class="list-unstyled">
+              {%- for link in section.settings.menu.links -%}
+                {%- liquid
+                  assign megaMenuBlocks = section.blocks | where: 'type', 'mega_menu'
+                  assign megaMenuStatus = false
+                  assign megaMenuData = ''
+                  assign linkTitle = link.title | handleize
+                  capture megaMenuData
+                    for block in megaMenuBlocks
+                      assign blockLabel = block.settings.title | handleize
+                      if blockLabel == linkTitle
+                        render 'mega-menu', block: block, menuType: 'main'
+                      endif
+                    endfor
+                  endcapture
+                -%}
+                <li class="nav-item">
+                  <div class="nav-item-header {{ section.settings.menu_font_size}}-font 2">
+                    <a href="{{ link.url }}" title="{{- link.title }}" tabindex="-1">
+                      {{- link.title -}}
+                    </a>
+                    {% assign index = forloop.index %}
+                    {% if link.links.size > 0 or megaMenuData != blank %}
+                      <span data-submenu-trigger="child{{index}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="7" viewBox="0 0 13 7" fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.06434 6.77601L12.7665 1.32535C13.0778 1.00806 13.0778 0.522702 12.7665 0.223992C12.4551 -0.074664 11.9297 -0.074664 11.6182 0.223992L6.5 5.13331L1.38175 0.223992C1.05096 -0.074664 0.544947 -0.074664 0.233525 0.223992C-0.0778416 0.522648 -0.0778416 1.00799 0.233525 1.32535L5.91616 6.77601C6.24695 7.07466 6.75296 7.07466 7.06438 6.77601H7.06434Z" fill="#393939"/>
+                        </svg>
+                      </span>
+                    {% endif %}
+                  </div>
+                  {% if link.links.size > 0 or megaMenuData != blank %}
+                    <div
+                      class="inner-child child {{ section.settings.sub_menu_font}}-font {{ section.settings.submenu_font_size}}-font"
+                      data-inner-item="child{{index}}"
+                    >
+                      {% if link.links.size > 0 %}
+                        <ul class="list-unstyled ">
+                          {% for childlink in link.links %}
+                            <li>
+                              <div class="nav-item-header 3">
+                                <a
+                                  href="{{ childlink.url }}"
+                                  title="{{- childlink.title }}"
+                                  role="menuitem" tabindex="-1"
+                                >
+                                  {{- childlink.title -}}
+                                </a>
+                                {% if childlink.links.size > 0 %}
+                                  <span data-submenu-trigger="grandChild{{index}}{{forloop.index}}">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="13"
+                                      height="7"
+                                      viewBox="0 0 13 7"
+                                      fill="none"
+                                    >
+                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M7.06434 6.77601L12.7665 1.32535C13.0778 1.00806 13.0778 0.522702 12.7665 0.223992C12.4551 -0.074664 11.9297 -0.074664 11.6182 0.223992L6.5 5.13331L1.38175 0.223992C1.05096 -0.074664 0.544947 -0.074664 0.233525 0.223992C-0.0778416 0.522648 -0.0778416 1.00799 0.233525 1.32535L5.91616 6.77601C6.24695 7.07466 6.75296 7.07466 7.06438 6.77601H7.06434Z" fill="#393939"/>
+                                    </svg>
+                                  </span>
+                                {% endif %}
+                              </div>
+                              {% if childlink.links.size > 0 %}
+                                <ul class="child" role="menu" data-inner-item="grandChild{{index}}{{forloop.index}}">
+                                  {% for grandchild in childlink.links %}
+                                    <li>
+                                      <a
+                                        href="{{ grandchild.url }}"
+                                        title="{{- grandchild.title }}"
+                                        role="menuitem" tabindex="-1"
+                                      >
+                                        {{- grandchild.title -}}
+                                      </a>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                      {% if megaMenuData != blank %}
+                        <ul class="sidebar-menu-promotion">
+                          {{ megaMenuData }}
+                        </ul>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if quickMenuLables != blank and section.settings.header_style == "logo_with_search_bar" %}
+            <ul class="list-unstyled nav-mobile-quick-links">
+                {{ quickMenuLables }}
+            </ul>
+          {% endif %}
+
+          {% if badgesData != blank %}
+            <ul class="mobile-badges list-unstyled">
+              {{ badgesData }}
+            </ul>
+          {% endif %}
+         {{ mobileAccount }}
+        </div>
+      {% endif %}
+      {% if section.settings.category_heading != blank and section.settings.category_menu != blank %}
+        <div class="mobile-category-menu-bar tabcontent{% if section.settings.menu != blank %} hidden{% else %} active{% endif %}">
+          <ul class="list-unstyled">
+            {%- for link in section.settings.category_menu.links -%}
+              {% liquid
+                assign indexForIcon = forloop.index 
+                assign imageSrc = ''
+                if link.type == 'product_link'
+                  assign imageSrc = link.object.featured_image
+                elsif link.type == 'collection_link'
+                  assign imageSrc = link.object.featured_image
+                endif
+              %}
+              {%- liquid
+                assign categoryMegaMenuBlocks = section.blocks | where: 'type', 'category_mega_menu'
+                assign categoryMegaMenuData = ''
+                assign linkTitle = link.title | handleize
+                capture categoryMegaMenuData
+                  for block in categoryMegaMenuBlocks
+                    assign blockLabel = block.settings.title | handleize
+                    if blockLabel == linkTitle
+                      render 'mega-menu', block: block, menuType: 'category',device:'mobile'
+                    endif
+                  endfor
+                endcapture
+              -%}
+              <li class="nav-item">
+                <div class="nav-item-header {{ section.settings.menu_font_size}}-font 4">
+                  <a
+                    href="{{ link.url }}"
+                    title="{{- link.title }}"
+                    role="menuitem" tabindex="-1"
+                  >
+                    {% if section.settings.enable_icons_category_menu %}
+                      {% for block in section.blocks %}
+                        {% case block.type %}
+                          {% when 'categories_icon' %}
+                            {% assign selected_icon_id = 'icon_' | append: indexForIcon %}
+                            {% assign icon_id = block.settings[selected_icon_id] %}
+
+                            {% assign selected_svg_id = 'svg_code_' | append: indexForIcon %}
+                            {% assign svg_id = block.settings[selected_svg_id] %}
+
+                            {% if svg_id != blank %}
+                              <span class="categories-mobile-submenu-icon">{{ svg_id }}</span>
+                            {% else %}
+                              {% if icon_id != 'none' %}
+                                <span class="categories-mobile-submenu-icon">{% render 'category-icons', icon: icon_id %}</span>
+                              {% endif %}
+                            {% endif %}
+                        {% endcase %}
+                      {% endfor %}
+                    {% endif %}
+
+
+                    {{- link.title -}}
+                  </a>
+                  {% assign index = forloop.index %}
+                  {% if link.links.size > 0 or categoryMegaMenuData != blank %}
+                    <span data-submenu-trigger="categoryChild{{index}}">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="7" viewBox="0 0 13 7" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.06434 6.77601L12.7665 1.32535C13.0778 1.00806 13.0778 0.522702 12.7665 0.223992C12.4551 -0.074664 11.9297 -0.074664 11.6182 0.223992L6.5 5.13331L1.38175 0.223992C1.05096 -0.074664 0.544947 -0.074664 0.233525 0.223992C-0.0778416 0.522648 -0.0778416 1.00799 0.233525 1.32535L5.91616 6.77601C6.24695 7.07466 6.75296 7.07466 7.06438 6.77601H7.06434Z" fill="#393939"/>
+                      </svg>
+                    </span>
+                  {% endif %}
+                </div>
+                {% if link.links.size > 0 or categoryMegaMenuData != blank %}
+                  <div
+                    class="inner-child child {{ section.settings.sub_menu_font}}-font {{ section.settings.submenu_font_size}}-font"
+                    data-inner-item="categoryChild{{index}}"
+                  >
+                    {% if link.links.size > 0 %}
+                      <ul class="list-unstyled ">
+                        {% for childlink in link.links %}
+                          <li>
+                            <div class="nav-item-header 1">
+                              <a
+                                href="{{ childlink.url }}"
+                                title="{{- childlink.title }}"
+                                role="menuitem" tabindex="-1"
+                              >
+                                {{- childlink.title -}}
+                              </a>
+                              {% if childlink.links.size > 0 %}
+                                <span data-submenu-trigger="categoryGrandChild{{index}}{{forloop.index}}">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="13"
+                                    height="7"
+                                    viewBox="0 0 13 7"
+                                    fill="none"
+                                  >
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.06434 6.77601L12.7665 1.32535C13.0778 1.00806 13.0778 0.522702 12.7665 0.223992C12.4551 -0.074664 11.9297 -0.074664 11.6182 0.223992L6.5 5.13331L1.38175 0.223992C1.05096 -0.074664 0.544947 -0.074664 0.233525 0.223992C-0.0778416 0.522648 -0.0778416 1.00799 0.233525 1.32535L5.91616 6.77601C6.24695 7.07466 6.75296 7.07466 7.06438 6.77601H7.06434Z" fill="#393939"/>
+                                  </svg>
+                                </span>
+                              {% endif %}
+                            </div>
+                            {% if childlink.links.size > 0 %}
+                              <ul
+                                class="child"
+                                role="menu"
+                                data-inner-item="categoryGrandChild{{index}}{{forloop.index}}"
+                              >
+                                {% for grandchild in childlink.links %}
+                                  <li>
+                                    <a
+                                      href="{{ grandchild.url }}"
+                                      title="{{- grandchild.title }}"
+                                      role="menuitem" tabindex="-1"
+                                    >
+                                      {{- grandchild.title -}}
+                                    </a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+
+                    {% if categoryMegaMenuData != blank %}
+                      <ul class="sidebar-menu-promotion">
+                        {{ categoryMegaMenuData }}
+                      </ul>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+          {{ mobileAccount }}
+        </div>
+      {% endif %}
+      
+    </div>
+    </div>
+    <div class="color__mode-wrapper">
+      {%  if section.settings.store_content != blank and section.settings.store_detail != blank and section.settings.enable_store_details %}
+        {% render 'support-details', section:section %}
+      {% endif %}
+    {% liquid
+        if settings.enable_dl_mode_toggle
+          render 'color-mode', section: section, device:'mobile' 
+        endif
+      %}
+    </div>
+  {% endif %}
+</div>

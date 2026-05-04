@@ -1,0 +1,59 @@
+<div
+  class="complimentory-product {% if block.settings.sticky_form and section.settings.sticky_type == 'stickyform' and leftbar == true %}d-xl-none{% endif %}"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.products_count }}&intent=complementary"
+  product-recommendations
+  {{ block.shopify_attributes }}
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <h6 class="complimentory-heading text">{{ block.settings.heading }}</h6>
+    <div
+      id="complementary-products-{{ section.id }}"
+      class="complimentory-wrapper"
+      tabindex="0"
+    >
+      <div
+        class="complimentory-slider slider"
+        {% if recommendations.products_count > 2 %}
+          data-slideshow='
+            {
+             "cellAlign": "left",
+            "wrapAround": false,
+            "contain": true,
+            "resize": true,
+            "pageDots": false,
+            "draggable": true,
+            "groupCells": true,
+            "prevNextButtons": false,
+             "cellSelector":".complementary-product-item"
+             }
+          '
+        {% endif %}
+      >
+        {% if recommendations.products_count > 2 %}
+          {% render 'carousal-arrows', class: 'custom-navigation-button-icon' %}
+        {% endif %}
+        {%- for product in recommendations.products limit: block.settings.products_count -%}
+          {% liquid
+            capture placeholderIndex
+              cycle cycleGroup: '1', '2', '3', '4'
+            endcapture
+          %}
+          <div class="col-md-6 col-lg-6 col-6 complementary-product-item">
+            {% render 'product-card-grid', section: section, cardProduct: product, cycleIndex: placeholderIndex, complementary:true  %}
+          </div>
+        {% else %}
+          {% for i in (1..section.settings.products_to_show) %}
+            {% liquid
+              capture placeholderIndex
+                cycle cycleGroup: '1', '2', '3', '4'
+              endcapture
+            %}
+            <div class="col-md-6 col-lg-6 complementary-product-item">
+              {% render 'product-card-grid', cycleIndex: placeholderIndex,complementary:true %}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  {%- endif -%}
+</div>

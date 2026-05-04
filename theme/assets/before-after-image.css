@@ -1,0 +1,173 @@
+.before-after-image {
+    --cursorBgColor: #fff;
+}
+
+.before-after-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--imageRadius);
+}
+
+.before-after-main-image {
+    background: rgb(var(--background));
+    position: relative;
+    z-index: 2;
+    clip-path: polygon(0px 0px, var(--position) 0px, var(--position) 100%, 0% 100%);
+}
+
+.before-after-label {
+    position: absolute;
+    z-index: 1;
+    color: rgb(var(--textColor));
+}
+
+.before-after-label.top-text {
+    top: 15px;
+    left: 15px;
+}
+
+.before-after-label.center-text {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px;
+}
+
+.before-after-label.bottom-text {
+    bottom: 15px;
+    left: 15px;
+}
+
+.before-after-label.text-top {
+    top: 15px;
+    right: 15px;
+}
+
+.before-after-label.text-center {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+}
+
+.before-after-label.text-bottom {
+    bottom: 15px;
+    right: 15px;
+}
+
+.before-after-overlay-image {
+    background: rgb(var(--background));
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.before-after-wrapper .before-after-overlay-image {
+    clip-path: inset(0px 0px 0px var(--position));
+}
+
+.before-after-wrapper.animating .before-after-overlay-image,
+.before-after-wrapper.animating .before-after-main-image {
+    transition: clip-path .7s cubic-bezier(.7, 0, .3, 1);
+}
+
+.slider-button {
+    position: absolute;
+    z-index: 1;
+}
+
+.slider-button .icon-new {
+    width: 12px;
+    height: 12px;
+}
+
+.slider-button .icon-new svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.slider-button-arrow-before {
+    transform: rotate(90deg);
+}
+
+.slider-button-arrow-after {
+    transform: rotate(-90deg);
+}
+
+.before-after-wrapper.animating .slider-button,
+.before-after-wrapper.animating .slider-bar:before {
+    transition: .7s cubic-bezier(.7, 0, .3, 1) all;
+    /* transition-property: inset-block-start, inset-inline-start; */
+}
+
+.slider-bar {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.slider-bar:before {
+    content: "";
+    background: rgb(var(--alternateBackground));
+    width: 2px;
+    height: 100%;
+    position: absolute;
+    left: var(--position, 50%);
+}
+
+.slider-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 44px;
+    height: 100vh;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 0;
+    opacity: 0;
+}
+
+.slider-bar::-moz-range-thumb {
+    -moz-appearance: none;
+    width: 44px;
+    height: 100vh;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 0;
+    opacity: 0;
+}
+
+.slider-button {
+    position: absolute;
+    background-color: rgb(var(--alternateBackground));
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(var(--borderColor));
+    padding: 5px;
+    border-radius: 50%;
+    top: 50%;
+    left: var(--position, 50%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 2;
+    box-shadow: 1px 1px 1px #08030380;
+}
