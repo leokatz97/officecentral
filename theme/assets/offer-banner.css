@@ -1,0 +1,107 @@
+.offer-banner-item {
+    background: var(--offer-banner-bg);
+    padding: 8px;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.18);
+    width: 100%;
+    border-radius: var(--cardRadius);
+}
+
+.offer-banner-item-inner {
+    width: 100%;
+    background: var(--promotionalbanner);
+    border-radius: calc(var(--cardRadius) / 2);
+}
+
+.show_border .offer-banner-item-inner {
+    border: 1px dashed var(--border-dashed);
+}
+
+.offer-banner-item-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 10px;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.offer-sale-code {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: 20px;
+}
+
+.offer-banner-heading {
+    padding-bottom: 10px;
+}
+
+.code-text {
+    background: var(--offer-banner-bg);
+    padding: 14px 17px 12px 17px;
+    position: relative;
+}
+
+.code-text p {
+    font-size: var(--mediumText);
+}
+
+.code-text p span {
+    color: var(--offer-code-text);
+}
+
+.offer-banner-wrapper .slider-pagination {
+    justify-content: flex-end;
+    column-gap: 3px;
+    position: absolute;
+    top: -22px;
+    right: 0;
+}
+
+.offer-banner-wrapper .flickity-prev-next-button.previous {
+    left: 25px;
+}
+
+.offer-banner-wrapper .flickity-prev-next-button.next {
+    right: 25px;
+}
+
+.offer-sale-image img {
+    height: 100%;
+    width: 100%;
+}
+
+@media (min-width:768px) {
+    .offer-banner-item-block {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width:1025px) {
+    .offer-banner-wrapper .flickity-prev-next-button.next,
+    .offer-banner-wrapper .flickity-prev-next-button.previous {
+        opacity: 0;
+    }
+    .offer-banner-wrapper:hover .flickity-prev-next-button.next,
+    .offer-banner-wrapper:hover .flickity-prev-next-button.previous {
+        opacity: 1;
+    }
+}
+
+@media (max-width:767px) {
+    .offer-banner-wrapper .flickity-prev-next-button {
+        bottom: 0;
+        top: unset;
+        transform: unset
+    }
+    .offer-banner-wrapper.flickity-enabled {
+        padding-bottom: 35px;
+    }
+    .offer-banner-wrapper .flickity-prev-next-button.previous {
+        left: calc(49% - var(--sliderArrowWidth));
+    }
+    .offer-banner-wrapper .flickity-prev-next-button.next {
+        right: calc(49% - var(--sliderArrowWidth));
+    }
+}

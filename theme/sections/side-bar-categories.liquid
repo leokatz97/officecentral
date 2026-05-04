@@ -1,0 +1,355 @@
+{% liquid
+  assign Colorscheme = section.settings.color_scheme
+%}
+{% if section.blocks.size >= 1 %}
+<div class="scheme-{{ Colorscheme }}{% if section.settings.enable_gradient %} gradiant{% endif %}">
+  <div class="sidebar-category-wrapper pos-{{ section.settings.sibarTop_position }}" data-categories-wrapper style="--vertical-position:{{ section.settings.sidebar_position_vertical }}px">
+    {% if section.settings.icon_upload != blank or section.settings.heading != blank %}
+    <div class="sidebar-category-btn{% if section.settings.heading == blank %} icon-only{% endif %}" data-categories-btn>
+      {% if section.settings.icon_upload != blank %}
+        <div class="sidebar-category-img">
+        {% render 'lazy-image',image: section.settings.icon_upload %}
+        </div>
+      {% endif %} 
+      {% if section.settings.heading != blank %}
+        <p>{{ section.settings.heading }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+    <div class="category-close" aria-label="close" data-categories-close>
+        <svg x="0px" y="0px" viewBox="0 0 11.8 11.8" style="enable-background:new 0 0 11.8 11.8;" fill="currentColor">
+          <path d="M11.5,10.6L6.7,5.9l4.7-4.7c0.2-0.2,0.2-0.6,0-0.8c-0.1-0.1-0.3-0.2-0.4-0.2c0,0,0,0,0,0c-0.2,0-0.3,0.1-0.4,0.2L5.9,5.1
+          L1.2,0.3c-0.2-0.2-0.6-0.2-0.8,0c-0.2,0.2-0.2,0.6,0,0.8l4.7,4.7l-4.7,4.7c-0.1,0.1-0.2,0.3-0.2,0.4c0,0.3,0.3,0.6,0.6,0.6
+          c0.2,0,0.3-0.1,0.4-0.2l4.7-4.7l4.7,4.7c0.1,0.1,0.3,0.2,0.4,0.2s0.3-0.1,0.4-0.2C11.7,11.3,11.7,10.9,11.5,10.6z"></path>
+        </svg>
+      </div>
+    <div class="sidebar-category-content">
+      <div class="sidebar-category-content-inner">
+        {% for block in section.blocks %}
+          {%- case block.type -%}
+            {% when 'collection-list' %}
+            <div class="sidebar-category-item-outer">
+              {% if block.settings.collection_heading != blank %}
+                <p class="heading-font sidebar-category-heading">{{ block.settings.collection_heading }}</p>
+              {% endif %}
+              <div class="sidebar-category-item">
+                {% liquid
+                  for collect in block.settings.list_collections
+                    render 'collection-grid', collection: collect, section: section, gridImageSize: 'square'
+                  else
+                    for i in (1..3)
+                      render 'collection-grid', section: section, gridImageSize: 'square'
+                    endfor
+                  endfor
+                %}
+              </div>
+            </div>
+            {% when 'images-grid' %}
+              {% assign count = 0 %}
+              {%liquid
+                assign gridImageSize = block.settings.grid_image_size
+                if gridImageSize == 'landscape'
+                assign ImageRatio = 'var(--img-landscape)'
+                 elsif gridImageSize == 'square'
+                assign ImageRatio = 'var(--img-square)'
+                elsif gridImageSize == 'portrait'
+                assign ImageRatio = 'var(--img-portrait)'
+                endif
+            %}
+              {% capture gridData %}
+                  {% for i in (1..4) %}
+                    {% capture countImages %}image{{ i }}{% endcapture %}
+                    {% assign imagesCount = block.settings[countImages] %}
+                    {% capture countText %}images_text{{ i }}{% endcapture %}
+                    {% assign textCount = block.settings[countText] %}
+                    {% capture linkId %}images_url{{ i }}{% endcapture %}
+                    {% assign linkUrl = block.settings[linkId] %}
+                    {% capture linkTextId %}images_url_text{{ i }}{% endcapture %}
+                    {% assign linkText = block.settings[linkTextId] %}
+                    {% if imagesCount != blank or textCount != blank %}
+                      {% assign count = count | plus : 1 %}
+                      <{% if linkUrl != blank and linkText == blank %}a href="{{ linkUrl }}"{% else %}div{% endif %} class="unstyled-link sidebar-category-item-inner">
+                        <div class="sidebar-category-item-img">
+                          {% if imagesCount != blank %}
+                            <div class="media" style="--imageRatio:{% if block.settings.grid_image_size == 'auto' %}{{ 1 | divided_by: imagesCount.aspect_ratio | times: 100 | append: '%' }};{% else %}{{ ImageRatio }}{% endif %}" {% if settings.enable_animation %}data-aos="zoom-out" data-aos-duration="1000"{% endif %}>
+                              {% render 'lazy-image', image: imagesCount %}
+                            </div>
+                          {% endif %}
+                        </div>
+                        {%- capture linkContent -%}
+                        {%- if linkUrl != blank and linkText != blank -%}
+                          <a href="{{ linkUrl }}" title="{{ linkText }}">{{ linkText }}</a>
+                        {%- endif -%}
+                        {%- endcapture -%}
+                        {% if textCount != blank or linkContent != blank %}
+                          <div class="sidebar-category-title">
+                              {% if textCount != blank %}
+                              <p> 
+                                  {{- textCount -}}
+                              </p>
+                            {% endif %}
+                            {% if linkContent != blank %}
+                              {{linkContent }}
+                            {% endif %}
+                          </div>
+                        {% endif %}                        
+                      </{% if linkUrl != blank and linkText == blank %}a{% else %}div{% endif %}>
+                    
+                    {% endif %}
+                  {% endfor %}
+            {% endcapture %}
+              <div id="images_grid{{ block.id }}" class="sidebar-category-content-item" style="--gridCount:{{ count }};" {% if block.settings.choose_layout == 'grid' %}data-categories-grid{% else %}data-categories-list{% endif %}>
+                {% if block.settings.images_heading != blank %}
+                  <p class="heading-font sidebar-category-heading">{{ block.settings.images_heading }}</p>
+                {% endif %}
+                <div class="sidebar-category-item sidebar-custom-category">
+                  {% if gridData != blank %}
+                  {{ gridData }}
+                    {% else %}
+                      {% for i in (1..2) %}
+                      <div class="unstyled-link sidebar-category-item-inner">
+                          <div class="sidebar-category-item-img">
+                              <div class="media" style="--imageRatio:100%" {% if settings.enable_animation %}data-aos="zoom-out" data-aos-duration="1000"{% endif %}>
+                                {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                              </div>
+                          </div>              
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+     
+    </div>
+    </div>
+  </div>
+    <div class="sidebar-overlay" data-sidebar-overlay></div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.sidebar-categories.name",
+  "tag": "section",
+  "enabled_on":{
+    "groups":["footer"]
+  },
+  "class": "collection-box",
+  "settings": [
+     {
+       "type":"text",
+       "id": "heading",
+       "label": "t:sections.sidebar-categories.settings.heading.label",
+       "info": "t:sections.sidebar-categories.settings.heading.info"
+     },
+     {
+      "type":"image_picker",
+      "id": "icon_upload",
+      "label": "t:sections.sidebar-categories.settings.icon_upload.label"
+    },
+     {
+      "type":"header",
+      "content": "t:global.general_labels.position"
+     },
+     {
+      "type": "text_alignment",
+      "id": "sibarTop_position",
+      "label": "t:sections.sidebar-categories.settings.sibarTop_position.label",
+      "default": "right"
+     },
+    {
+        "type": "range",
+        "id": "sidebar_position_vertical",
+        "min": 10,
+        "max": 150,
+        "step": 10,
+        "unit": "px",
+        "label": "t:sections.sidebar-categories.settings.sidebar_position_vertical.label",
+        "default": 80
+    },
+     {
+      "type": "header",
+      "content": "t:global.general_labels.color"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "t:global.general_labels.gradient",
+      "default": false
+    }
+  ],
+  "blocks": [
+   {
+      "type": "collection-list",
+      "name": "t:sections.sidebar-categories.blocks.collection-list.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "collection_heading",
+          "label": "t:sections.sidebar-categories.blocks.collection-list.settings.collection_heading.label"
+        },
+        {
+          "type": "collection_list",
+          "id": "list_collections",
+          "label": "t:sections.sidebar-categories.blocks.collection-list.settings.list_collections.label"
+        }
+      ]
+    },
+    {
+      "type": "images-grid",
+      "name": "t:sections.sidebar-categories.blocks.images-grid.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "images_heading",
+          "label": "t:sections.sidebar-categories.blocks.images-grid.settings.images_heading.label"
+        },
+        {
+          "type": "select",
+          "id": "choose_layout",
+          "label": "t:sections.sidebar-categories.blocks.images-grid.settings.choose_layout.label",
+          "default": "grid",
+          "options": [
+            {
+              "value": "grid",
+              "label": "t:sections.sidebar-categories.blocks.images-grid.settings.choose_layout.options.grid.label"
+            }, {
+              "value": "list",
+              "label": "t:sections.sidebar-categories.blocks.images-grid.settings.choose_layout.options.list.label"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_image_size",
+          "label": "t:sections.sidebar-categories.blocks.images-grid.settings.grid_image_size.label",
+          "default": "square",
+          "options": [
+            {
+              "value": "auto",
+              "label": "t:global.grid_image_size.options.auto.label"
+            }, {
+              "value": "landscape",
+              "label": "t:global.grid_image_size.options.landscape.label"
+            }, {
+              "value": "portrait",
+              "label": "t:global.grid_image_size.options.portrait.label"
+            }, {
+              "value": "square",
+              "label": "t:global.grid_image_size.options.square.label"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "t:sections.sidebar-categories.blocks.images-grid.settings.grid1.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "t:global.general_labels.image"
+        },
+        {
+          "type": "text",
+          "id": "images_text1",
+          "label": "t:global.general_labels.text"
+        },
+        {
+          "type": "url",
+          "id": "images_url1",
+          "label": "t:global.general_labels.link"
+        },
+        {
+          "type": "text",
+          "id": "images_url_text1",
+          "label": "t:sections.sidebar-categories.blocks.images-grid.settings.link_text.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.sidebar-categories.blocks.images-grid.settings.grid2.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "t:global.general_labels.image"
+        },
+        {
+          "type": "text",
+          "id": "images_text2",
+          "label": "t:global.general_labels.text"
+        },
+        {
+          "type": "url",
+          "id": "images_url2",
+          "label": "t:global.general_labels.link"
+        },
+        {
+          "type": "text",
+          "id": "images_url_text2",
+          "label": "t:sections.sidebar-categories.blocks.images-grid.settings.link_text.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.sidebar-categories.blocks.images-grid.settings.grid3.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image3",
+          "label": "t:global.general_labels.image"
+        },
+        {
+          "type": "text",
+          "id": "images_text3",
+          "label": "t:global.general_labels.text"
+        },
+        {
+          "type": "url",
+          "id": "images_url3",
+          "label": "t:global.general_labels.link"
+        },
+        {
+          "type": "text",
+          "id": "images_url_text3",
+          "label": "t:sections.sidebar-categories.blocks.images-grid.settings.link_text.label"
+        },
+        {
+          "type": "header", 
+          "content": "t:sections.sidebar-categories.blocks.images-grid.settings.grid4.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image4",
+          "label": "t:global.general_labels.image"
+        },
+        {
+          "type": "text",
+          "id": "images_text4",
+          "label": "t:global.general_labels.text"
+        },
+        {
+          "type": "url",
+          "id": "images_url4",
+          "label": "t:global.general_labels.link"
+        },
+        {
+          "type": "text",
+          "id": "images_url_text4",
+          "label": "t:sections.sidebar-categories.blocks.images-grid.settings.link_text.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.sidebar-categories.presets.name"
+    }
+  ]
+}
+{% endschema %}

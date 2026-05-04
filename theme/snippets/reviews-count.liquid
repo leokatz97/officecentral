@@ -1,0 +1,67 @@
+{% assign pr = product.metafields.reviews.rating_count | plus: 0  %}
+{%- if pr > 0 -%}
+  <div class="rating-star">
+    {% liquid
+       assign productRating = product.metafields.reviews.rating.value.rating | floor
+       assign decimalProductRating = 0
+       assign maxRating = 5
+       assign decimal = product.metafields.reviews.rating.value.rating | modulo: 1
+       if decimal >= 0.3 and decimal <= 0.7
+       assign decimalProductRating = 0.5
+       endif
+       -%}
+    {% for i in (1..5) %}
+      {% if i <= productRating %}
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.72984 1.32209C5.90885 0.768015 6.69276 0.76804 6.87174 1.32213L7.74859 4.03679C7.8286 4.2845 8.05923 4.45236 8.31954 4.45236H11.1631C11.7434 4.45236 11.9857 5.19415 11.5173 5.53669L9.21012 7.22384C9.00114 7.37665 8.91375 7.64627 8.99334 7.89262L9.87302 10.6155C10.0518 11.1689 9.41751 11.6276 8.94797 11.2843L6.65499 9.60794C6.44408 9.45374 6.15762 9.45376 5.94672 9.60798L3.65426 11.2844C3.1848 11.6277 2.55044 11.1692 2.7291 10.6157L3.60848 7.89153C3.68799 7.64521 3.60059 7.37567 3.39166 7.22289L1.08438 5.53567C0.615963 5.19314 0.858248 4.45135 1.43854 4.45135H4.28217C4.54247 4.45135 4.77308 4.28351 4.85311 4.03581L5.72984 1.32209Z" fill="#F4B95E" />
+        </svg>
+      {% elsif productRating < i and decimalProductRating == 0.5 %}
+        <svg class="half-fill-review" viewBox="0 0 19.89 19.01">
+          <defs>
+            <style>
+              .d {
+                fill: none;
+              }
+              .e {
+                fill: currentcolor;
+              }
+            </style>
+          </defs>
+          <g/>
+          <g>
+            <g>
+              <g>
+                <path class="e" d="M9.18,.56l-1.97,6.09-6.35-.02c-.8-.05-1.19,.99-.53,1.46l5.19,3.75-1.94,5.92c-.29,.89,.48,1.58,1.19,1.07l5.17-3.77V0c-.32,0-.65,.19-.76,.56Z" />
+                <path class="d" d="M19.08,6.63l-6.4,.02L10.71,.56C10.59,.19,10.27,0,9.94,0V15.07h0l5.12,3.73c.61,.52,1.55-.09,1.29-.87l-1.99-6.08,5.12-3.7c.71-.51,.4-1.52-.4-1.52Z" />
+              </g>
+            </g>
+          </g>
+        </svg>
+      {% else %}
+        <svg
+          class="unfill-star"
+          width="13"
+          height="12"
+          viewBox="0 0 13 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M6.8999 0.817483L8.13381 4.65898L8.18956 4.83252H8.37184H12.1579L9.01889 7.21844L8.87842 7.32522L8.93196 7.49334L10.1515 11.3226L7.05119 8.96602L6.8999 8.85103L6.74862 8.96602L3.6483 11.3226L4.86784 7.49334L4.92139 7.32522L4.78092 7.21844L1.64194 4.83252H5.42797H5.61025L5.66599 4.65898L6.8999 0.817483Z"
+            fill="#CCCCCC"
+            stroke="#CCCCCC"
+            stroke-width="0.5" />
+        </svg>
+
+
+      {% endif %}
+    {% endfor %}
+    <span>
+      {{- product.metafields.reviews.rating.value.rating | remove: '.0' | append: '/' }}{{ maxRating }}
+    </span>
+  </div>
+{% endif %}

@@ -1,0 +1,329 @@
+{%  if settings.style_type == 'button' %}
+    {% capture buttonStyle %}    
+    <span class="sun-icon-wrapper cursor-pointer">
+        <svg
+        aria-hidden="true"
+        focusable="false"
+        width="1em"
+        height="1em"
+        style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 24 24"
+        class="iconify sun-icon"
+        data-icon="feather-sun"
+        data-inline="false"
+        >
+        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></g>
+        </svg>
+    </span>
+    <span class="moon-icon-wrapper cursor-pointer">
+        <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M10 7C10 10.866 13.134 14 17 14C18.9584 14 20.729 13.1957 21.9995 11.8995C22 11.933 22 11.9665 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C12.0335 2 12.067 2 12.1005 2.00049C10.8043 3.27098 10 5.04157 10 7ZM4 12C4 16.4183 7.58172 20 12 20C15.0583 20 17.7158 18.2839 19.062 15.7621C18.3945 15.9187 17.7035 16 17 16C12.0294 16 8 11.9706 8 7C8 6.29648 8.08133 5.60547 8.2379 4.938C5.71611 6.28423 4 8.9417 4 12Z" fill="currentColor"></path>
+        </svg>
+    </span>
+    {% endcapture %}
+    {% if device == 'mobile' %} 
+        <div class="mobile-dark-mode">
+            <span>Dark mode</span>
+            <div class="dark-mode-toggle-inner">
+            <input type="checkbox" class="toggle-checkbox" id="chk-mobile"  title="light dark" data-dark-toggle tabindex="-1">
+            <label for="chk-mobile"  class="toggle-slot">
+                {{ buttonStyle }}
+            </label>
+            </div>
+        </div>
+        {% comment %} {% render 'support-details',section: section %} {% endcomment %}
+    {% elsif device == 'desktop' %}
+        <div class="dark-mode-toggle d-none d-lg-flex">
+            <div class="dark-mode-toggle-inner">
+                <input type="checkbox" class="toggle-checkbox" id="chk" data-dark-toggle title="light dark" tabindex="0">
+                <label for="chk"  class="toggle-slot">
+                    {{ buttonStyle }}
+                </label>
+            </div>
+        </div>
+        <style>
+            .dark-mode-toggle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .dark-mode-toggle-inner {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                width: auto;
+                align-items: center;
+                margin: 0 auto;
+            }
+
+            .dark-mode-toggle-inner label {
+                margin: 0;
+            }
+
+            .toggle-checkbox {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+                left: 0;
+                top: 0;
+                right: 0;
+                width: 100%;
+                min-height: auto;
+                height: 100%;
+            }
+
+            .toggle-slot {
+                position: relative;
+                height: 26px;
+                width: 26px;
+                border: 2px solid var(--switchBorder);
+                border-radius: 30px;
+                background-color: var(--switchBackground);
+                transition: background-color .15s cubic-bezier(.4, 0, .2, 1) 0ms, border-color .15s cubic-bezier(.4, 0, .2, 1) 0ms;
+            }
+
+            .toggle-checkbox:checked~.toggle-slot {
+                background-color: var(--switchActiveBackground);
+                border-color: var(--switchActiveBorder);
+            }
+
+            .toggle-button {
+                transform: translate(2.1em, .27em);
+                position: absolute;
+                height: 13px;
+                width: 13px;
+                border-radius: 50%;
+                background-color: transparent;
+                box-shadow: inset 0 0 0 2px var(--switchColor);
+                transition: background-color .25s, border-color .25s, transform .5s cubic-bezier(.26, 2, .46, .71);
+            }
+
+            .toggle-slot:hover {
+                background-color: var(--switchActiveBackground);
+                border-color: var(--switchActiveBorder);
+            }
+
+            .toggle-checkbox:checked~.toggle-slot:hover {
+                background-color: var(--switchBackground);
+                border-color: var(--switchBorder);
+            }
+
+            .toggle-checkbox:checked~.toggle-slot .toggle-button {
+                background-color: var(--switchActiveBackground);
+                box-shadow: inset 0px 0px 0px 2px var(--switchActiveColor);
+                transform: translate(0.5em, 0.3em);
+            }
+
+
+            .sun-icon-wrapper,
+            .moon-icon-wrapper {
+                position: absolute;
+                height: 24px;
+                width: 24px;
+                transform-origin: 50% 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .sun-icon-wrapper {
+                opacity: 0;
+            }
+
+            .sun-icon,
+            .moon-icon {
+                height: 24px;
+                width: 24px;
+                display: block;
+            }
+
+            .sun-icon {
+                color: var(--switchActiveColor);
+            }
+
+            .toggle-checkbox:checked~.toggle-slot .sun-icon-wrapper {
+                opacity: 1;
+            }
+
+            .moon-icon {
+                color: var(--switchColor);
+            }
+
+            .toggle-checkbox:checked~.toggle-slot .moon-icon-wrapper {
+                opacity: 0;
+            }
+
+            @media (max-width:991px) {
+            .dark-mode-toggle-inner {
+                margin: 0 0 0 10px;
+            }
+    }
+        </style>
+    {% endif %}
+{% else %}
+    {% capture toggleStyle %}
+        <span class="sun-icon-wrapper cursor-pointer">
+            <svg aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="iconify sun-icon" data-icon="feather-sun" data-inline="false">
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></g>
+            </svg>
+        </span>
+        <span class="toggle-button cursor-pointer"></span>
+        <span class="moon-icon-wrapper cursor-pointer">
+            <svg aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" class="iconify moon-icon" data-icon="feather-moon" data-inline="false">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </span>
+    {% endcapture %}
+    {% if device == 'mobile' %} 
+    <div class="mobile-dark-mode">
+        <span>Dark mode</span>
+        <div class="dark-mode-toggle-inner">
+        <input type="checkbox" class="toggle-checkbox" id="chk-mobile"  title="light dark" data-dark-toggle  tabindex="-1">
+        <label for="chk-mobile"  class="toggle-slot">
+            {{ toggleStyle }}
+        </label>
+        </div>
+    </div>
+    {% elsif device == 'desktop' %}
+        <div class="dark-mode-toggle d-none d-lg-flex">
+            <div class="dark-mode-toggle-inner">
+                <input type="checkbox" class="toggle-checkbox" id="chk" data-dark-toggle="" title="light dark" tabindex="0">
+                <label for="chk" class="toggle-slot">
+                    {{ toggleStyle }}
+                </label>
+            </div>
+        </div>
+        <style>
+            .dark-mode-toggle-inner {
+                position: relative;
+                display: flex;
+            }
+            .dark-mode-toggle-inner label {
+                margin: 0;
+            }
+            .toggle-checkbox {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+                left: 0;
+                top: 0;
+                right: 0;
+                width: auto;
+                min-height: auto;
+                height: 100%;
+            }
+
+            .toggle-slot {
+                position: relative;
+                height: 25px;
+                width: 52px;
+                border: 2px solid var(--switchBorder);
+                border-radius: 30px;
+                background-color: var(--switchBackground);
+                transition: background-color .25s;
+            }
+
+            .toggle-checkbox:checked~.toggle-slot {
+                background-color: var(--switchActiveBackground);
+                border-color: var(--switchActiveBorder);
+            }
+
+            .toggle-button {
+                transform: translate(2.1em, .27em);
+                position: absolute;
+                height: 13px;
+                width: 13px;
+                border-radius: 50%;
+                background-color: transparent;
+                box-shadow: inset 0 0 0 2px var(--switchColor);
+                transition: background-color .25s, border-color .25s, transform .5s cubic-bezier(.26, 2, .46, .71);
+            }
+
+            .toggle-checkbox:checked~.toggle-slot .toggle-button {
+                background-color: var(--switchActiveBackground);
+                box-shadow: inset 0px 0px 0px 2px var(--switchActiveColor);
+                transform: translate(0.5em, 0.3em);
+            }
+
+            .sun-icon-wrapper,
+            .moon-icon-wrapper {
+                position: absolute;
+                height: 13px;
+                width: 13px;
+                transform-origin: 50% 50%;
+            }
+
+            .sun-icon-wrapper {
+                opacity: 1;
+                transform: translate(0.3em, 0.4em) rotate(15deg);
+                transition: opacity 150ms, transform 500ms cubic-bezier(.26, 2, .46, .71);
+            }
+
+            .sun-icon,
+            .moon-icon {
+                position: absolute;
+                height: 14px;
+                width: 14px;
+            }
+
+            .sun-icon {
+                color: var(--switchColor);
+            }
+
+            .sun-icon-wrapper .sun-icon {
+                left: 2px;
+                top: -3px;
+            }
+
+            .toggle-checkbox:checked~.toggle-slot .sun-icon-wrapper {
+                opacity: 0;
+                transform: translate(0.5em, .4em) rotate(0deg);
+            }
+
+            .moon-icon-wrapper {
+                opacity: 0;
+                transform: translate(2.3em, 0.35em) rotate(0deg);
+                transition: opacity 150ms, transform 500ms cubic-bezier(.26, 2.5, .46, .71);
+            }
+
+            .moon-icon {
+                color: var(--switchActiveColor);
+            }
+
+            .toggle-checkbox:checked~.toggle-slot .moon-icon-wrapper {
+                opacity: 1;
+                transform: translate(2.1em, .25em) rotate(-15deg);
+            }
+            .dark-mode-toggle {
+                margin-right: 10px;
+            }
+
+            @media (max-width:991px) {
+                #mobileMenu .dark-mode-toggle-inner {
+                margin-left: 10px;
+                }
+                .toggle-checkbox:checked~.toggle-slot .moon-icon-wrapper {
+                    transform: translate(1.9em, 0.19em) rotate(-15deg);
+                }
+                .toggle-checkbox:checked~.toggle-slot .toggle-button {
+                    transform: translate(0.5em, 0.24em);
+                }
+                .toggle-button {
+                    transform: translate(1.9em, .25em);
+                }
+                .sun-icon-wrapper {
+                    transform: translate(0.2em, 0.34em) rotate(15deg);
+                }
+                .dark-mode-toggle {
+                    margin-right: 0px;
+                }
+            }
+        </style>
+{% endif %}
+{% endif %}
+

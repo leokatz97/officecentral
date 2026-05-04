@@ -1,0 +1,174 @@
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "3662be65-1456-4efb-9962-82869e8f19b0": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "Free Design Layouts & Renderings",
+            "enable": false,
+            "toggle_button": "",
+            "subheading": "",
+            "heading": "",
+            "content_description": "",
+            "text_style": "text-center",
+            "button_label": "",
+            "button_link": "",
+            "button_size": "extra-large"
+          }
+        },
+        "announcement_NJH7py": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "<strong>Call us for more information<\/strong>",
+            "enable": false,
+            "toggle_button": "",
+            "subheading": "",
+            "heading": "",
+            "content_description": "",
+            "text_style": "text-center",
+            "button_label": "",
+            "button_link": "",
+            "button_size": "large"
+          }
+        },
+        "announcement_3VCjjR": {
+          "type": "announcement",
+          "settings": {
+            "announcement_text": "<strong>5 Ontario  Locations to serve you<\/strong>",
+            "enable": false,
+            "toggle_button": "",
+            "subheading": "",
+            "heading": "",
+            "content_description": "",
+            "text_style": "text-center",
+            "button_label": "",
+            "button_link": "",
+            "button_size": "large"
+          }
+        }
+      },
+      "block_order": [
+        "3662be65-1456-4efb-9962-82869e8f19b0",
+        "announcement_NJH7py",
+        "announcement_3VCjjR"
+      ],
+      "settings": {
+        "home_page_only": false,
+        "auto_rotate": true,
+        "change_slides_speed": 3,
+        "image_style": "adapt",
+        "show_contact_info": true,
+        "link_with_information_drawer": false,
+        "contact_text": "<strong>Need help - <\/strong><a href=\"tel:18008359565\"><strong>1-800-835-9565<\/strong><\/a>",
+        "social_icons": false,
+        "enable_language_selector": true,
+        "enable_currency_selector": true,
+        "bg_style": "gradient",
+        "background": "{{ shop.brand.colors.primary[0].background }}",
+        "background_gradient": "linear-gradient(36deg, rgba(255, 255, 255, 1) 10%, rgba(0, 0, 0, 1) 100%)",
+        "fontcolor": "#000000",
+        "toggle_bg": "#ffffff",
+        "toggle_color": "#aaaaaa",
+        "link_color": "#ffffff",
+        "link_hover_color": "#e52424",
+        "background_right": "#5c5c5c",
+        "fontcolor2": "#ffffff",
+        "drawer_background": "#e7e7e7",
+        "drawer_text_color": "#e7e7e7",
+        "link_color2": "#ffffff",
+        "link_hover_color2": "#a3a3a3",
+        "color_scheme": "primary",
+        "enable_gradient": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega_menu_f7VaCj": {
+          "type": "mega_menu",
+          "settings": {
+            "title": "",
+            "text_overlay": false,
+            "content_title_1": "",
+            "content_link_1": "",
+            "content_overlay_opacity_1": 50,
+            "content_title_2": "",
+            "content_link_2": "",
+            "content_overlay_opacity_2": 50,
+            "content_title_3": "",
+            "content_link_3": "",
+            "content_overlay_opacity_3": 50,
+            "content_title_4": "",
+            "content_link_4": "",
+            "content_overlay_opacity_4": 50,
+            "content_title_5": "",
+            "content_link_5": "",
+            "content_overlay_opacity_5": 50
+          }
+        }
+      },
+      "block_order": [
+        "mega_menu_f7VaCj"
+      ],
+      "custom_css": [
+        ".nav-menu-link a,.nav-menu-link a * {font-size: 19px !important;}",
+        ".nav-submenu.nav-megamenu-container li a.megamenu-columns-heading {font-size: 20px !important; color: red !important;}"
+      ],
+      "settings": {
+        "header_style": "logo_with_search_bar",
+        "enable_sticky_header": true,
+        "transparent_header": false,
+        "header_shadow": true,
+        "sticky_header_type": "always",
+        "logo": "shopify:\/\/shop_images\/OCBBI-logo_c4bb0dfc-1176-46f2-abec-6d8a78b7b5c5.svg",
+        "logo_width": 300,
+        "logo_alignment": "center",
+        "show_top_corner_radius": false,
+        "top_corner_color": "#000000",
+        "menu": "main-menu-2",
+        "menu_type": "dropdown",
+        "menu_items_alignment": "space-between",
+        "menu_font": "heading",
+        "menu_font_bold": false,
+        "sub_menu_font": "body",
+        "menu_font_size": "medium",
+        "submenu_font_size": "regular",
+        "category_heading": "",
+        "category_menu": "",
+        "enable_icons_category_menu": true,
+        "category_style": "style_2",
+        "enable_account": true,
+        "enable_cart": true,
+        "cart_icon_options": "both",
+        "enable_cart_border": true,
+        "enable_cart_rounded": false,
+        "account_type": "dropdown",
+        "enable_search": true,
+        "search_border_enabled": true,
+        "search_size": "small",
+        "enable_store_details": false,
+        "store_detail": "",
+        "icon": "shipping",
+        "store_content": "",
+        "support_content_text": "#e52424",
+        "support_content_bg": "#ffffff",
+        "store_details_text_color": "#000000",
+        "store_details_dropdown_bg": "#062143",
+        "store_details_link_color": "#000000",
+        "store_details_border_color": "#eeeeee",
+        "enable_header_shape": true,
+        "select_shape": "shape9",
+        "svg_color": "#e7e7e7",
+        "svg_stroke": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}

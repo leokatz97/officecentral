@@ -1,0 +1,63 @@
+ {% if  settings.custom_badge_pdp_qv == true  %}
+        {% if settings.custom_tag_label != blank or settings.custom_tag_label_1 != blank or  settings.custom_tag_label_2 != blank %}
+          <div class="product-media-badges">
+          {% if settings.custom_tag_label != blank %}
+              {% liquid
+                assign custom_tags = settings.custom_tag | downcase | split:','
+                  assign tagStatus = false
+                  for tag in custom_tags 
+                      for productTag in product.tags 
+                          assign productTagnew = productTag | downcase 
+                          if productTagnew == tag 
+                              assign tagStatus = true
+                          endif 
+                      endfor
+                  endfor
+              %}
+               {% if tagStatus == true %}
+                  <span class="product-media-badge custom-badge">
+                      {{ settings.custom_tag_label }}
+                  </span>
+              {% endif %}
+          {% endif %}
+           {% if settings.custom_tag_label_1 != blank %}
+              {% liquid
+                assign custom_tags_1  = settings.custom_tag_1  | downcase | split:','
+                  assign tagStatus_1  = false
+                  for tag in custom_tags_1  
+                      for productTag in product.tags 
+                          assign productTagnew_1  = productTag | downcase 
+                          if productTagnew_1  == tag 
+                              assign tagStatus_1  = true
+                          endif 
+                      endfor
+                  endfor
+              %}
+               {% if tagStatus_1  == true %}
+                  <span class="product-media-badge custom-badge">
+                      {{ settings.custom_tag_label_1  }}
+                  </span>
+              {% endif %}
+          {% endif %}
+            {% if settings.custom_tag_label_2 != blank %}
+              {% liquid
+                assign custom_tags_2  = settings.custom_tag_2  | downcase | split:','
+                  assign tagStatus_2  = false
+                  for tag in custom_tags_2  
+                      for productTag in product.tags 
+                          assign productTagnew_2  = productTag | downcase 
+                          if productTagnew_2  == tag 
+                              assign tagStatus_2  = true
+                          endif 
+                      endfor
+                  endfor
+              %}
+               {% if tagStatus_2  == true %}
+                  <span class="product-media-badge custom-badge">
+                      {{ settings.custom_tag_label_2  }}
+                  </span>
+              {% endif %}
+          {% endif %}
+          </div>
+      {% endif %}
+    {% endif %}

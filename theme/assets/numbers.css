@@ -1,0 +1,122 @@
+.numbers-content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(var(--column-count), 1fr);
+    gap: 20px;
+}
+
+.numbers-content-wrapper.bg-enabled .numbers-card {
+    background: rgb(var(--cardBackground));
+    border-radius: var(--cardRadius);
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+}
+
+.numbers-card-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.numbers-card-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: auto;
+}
+
+.numbers-card-icon.icon-bg-enabled {
+    background: var(--icon-background);
+    border-radius: var(--cardRadius);
+}
+
+.numbers-card-icon svg {
+    width: 30px;
+    height: auto;
+    display: block;
+}
+
+.numbers-card-number {
+    margin: 10px 0;
+}
+
+.numbers-card-count {
+    color: var(--line-color);
+    font-size: var(--count-font-size);
+}
+
+.numbers-card-heading {
+    margin-bottom: 12px;
+}
+
+.numbers-card-button {
+    margin-top: 20px;
+}
+
+
+/* grid style */
+
+.numbers-content-wrapper.numbers-grid-wrapper {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.numbers-grid-wrapper .numbers-card {
+    min-height: 320px;
+}
+
+.numbers-card-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.numbers-card-background::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(var(--imageOverlay), var(--imageOverlayOpacity));
+}
+
+@media (min-width:576px) {
+    .numbers-content-wrapper.numbers-grid-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width:768px) {
+    .numbers-content-wrapper.bg-enabled .numbers-card {
+        padding: 40px;
+    }
+}
+
+@media (min-width:992px) {
+    .numbers-content-wrapper.numbers-grid-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width:1200px) {
+    .numbers-content-wrapper.numbers-grid-wrapper {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .numbers-grid-wrapper .numbers-card:first-child {
+        grid-column-start: span 2;
+        grid-row-start: span 2;
+    }
+}
+
+@media (max-width:767px) {
+    .numbers-content-wrapper {
+        gap: 15px;
+    }
+}

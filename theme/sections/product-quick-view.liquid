@@ -1,0 +1,252 @@
+{% liquid
+  if request.design_mode and section.settings.product != blank
+    assign product = section.settings.product
+  endif
+  assign colorScheme = section.settings.color_scheme
+  assign formid = 'productForm' | append: section.id | append: forloop.index
+  assign current_variant = product.selected_or_first_available_variant
+%}
+{% render 'product_quick_view',
+  product: product,
+  current_variant: current_variant,
+  section: section,
+  colorScheme: colorScheme,
+  block: block,
+  formid: formid,
+  discountPercent: true
+%}
+<script type="application/json" id="product3DModel-{{ product.id }}">
+  {{ product.media | where: 'media_type', 'model' | json }}
+</script>
+{% schema %}
+{
+  "name": "t:sections.product-quickview.name",
+  "tag": "section",
+  "class": "section product-section product-quickview-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:global.general_labels.color"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "primary",
+      "label": "t:global.color_scheme.label"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.product-quickview.settings.product.label",
+      "info": "t:sections.product-quickview.settings.product.info"
+    },
+    {
+      "type": "select",
+      "id": "product_image_size",
+      "label": "t:global.product_image_size.label",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "t:global.product_image_size.options.auto.label"
+        }, {
+          "value": "landscape",
+          "label": "t:global.product_image_size.options.landscape.label"
+        }, {
+          "value": "portrait",
+          "label": "t:global.product_image_size.options.portrait.label"
+        }, {
+          "value": "square",
+          "label": "t:global.product_image_size.options.square.label"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "t:global.general_labels.title",
+      "limit": 1
+    },
+    {
+      "type": "sku",
+      "name": "t:global.product_block.sku.name",
+      "limit": 1
+    },
+    {
+      "type": "vendor",
+      "name": "t:global.product_block.vendor.name",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "t:global.product_block.price.name",
+      "limit": 1
+    },
+    {
+      "type": "rating",
+      "name": "t:global.product_block.rating.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:sections.product-quickview.blocks.rating.settings.content"
+        }
+      ]
+    },
+    {
+      "type": "social_icons",
+      "name": "t:sections.product.blocks.shareicons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "facebook",
+          "label": "t:sections.product.blocks.shareicons.options.facebook",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "twitter",
+          "label": "t:sections.product.blocks.shareicons.options.twitter",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "linkedin",
+          "label": "t:sections.product.blocks.shareicons.options.linkedin",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "pininterest",
+          "label": "t:sections.product.blocks.shareicons.options.pinterest",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "quantity_selector",
+      "name": "t:global.product_block.quantity_selector.name",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "variant_picker",
+      "name": "t:global.product_block.variant_picker.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "t:global.product_block.variant_picker.settings.picker_type.options.dropdown.label"
+            },
+            {
+              "value": "button",
+              "label": "t:global.product_block.variant_picker.settings.picker_type.options.button.label"
+            }
+          ],
+          "default": "button",
+          "label": "t:global.product_block.variant_picker.settings.picker_type.label"
+        }
+      ]
+    },
+    {
+      "type": "payment-icons",
+      "name": "t:sections.product.blocks.payment-icons.name",
+      "limit": 1,
+      "settings": [
+         {
+          "type":"checkbox",
+          "id":"enable_payment_icons",
+          "label":"t:sections.product.blocks.payment-icons.settings.enable_payment_icons.label",
+          "default":true
+         }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "t:global.product_block.buttons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "default": true,
+          "label": "t:global.product_block.buttons.settings.show_dynamic_checkout.label"
+        },
+        {
+          "type": "text",
+          "id": "add_multipliers",
+          "label": "t:global.product_block.buttons.settings.add_multipliers.label",
+          "info": "t:global.product_block.buttons.settings.add_multipliers.info"
+        }
+      ]
+    },
+      {
+      "type": "description",
+      "name": "t:global.general_labels.description",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "select",
+          "id": "description_visibility",
+          "label": "t:global.general_labels.description_visibility",
+          "default": "always",
+          "options": [
+            {
+              "label": "t:global.section_visibility.options.always.label",
+              "value": "always"
+            },
+            {
+              "label": "t:global.section_visibility.options.small.label",
+              "value": "small"
+            },
+            {
+              "label": "t:global.section_visibility.options.large.label",
+              "value": "large"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "title"
+      },
+      {
+        "type": "sku"
+      },
+      {
+        "type": "rating"
+      },
+      {
+        "type": "price"
+      },
+      {
+        "type": "quantity_selector"
+      },
+      {
+        "type": "variant_picker"
+      },
+      {
+        "type": "buttons",
+        "settings": {
+          "show_dynamic_checkout": true
+        }
+      },
+      {
+        "type": "social_icons"
+      }
+    ]
+  }
+}
+{% endschema %}

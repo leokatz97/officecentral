@@ -1,0 +1,146 @@
+{% capture quantitySelectorBlock %}
+{% assign quantityBlock = section.blocks | where: 'type', 'quantity_selector' %}
+{% for block in quantityBlock %}
+<div class="product-add-to-cart-sticky-quantity product-quantity-wrapper">
+    {% if block.settings.show_quantity_label %}
+      <span class="variant-title heading-font">{{ 'products.product.quantity.label' | t }}</span>
+    {% endif %}
+    <div class="product-quantity-inner" data-quantity-wrapper>
+      <button
+        type="button"
+        class="quantity-button no-js-hidden"
+        data-quantity-decrement
+        {% if section.settings.enable_sticky_product and section.settings.sticky_type != 'onscroll' %} data-qty-decrement {% endif %}
+        title="{{ 'products.product.quantity.decrease' | t }}"
+      >
+        <span class="hidden">{{ 'products.product.quantity.decrease' | t }}</span>
+        <svg x="0px" y="0px" width="10px" height="10px" viewBox="0 0 14 14">
+          <rect x="6" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0 14)" width="2.1" height="14"></rect>
+        </svg>
+      </button>
+      <input
+        type="number"
+        class="quantity-input product-quantity"
+        name="quantity"
+        min="1"
+        step="1"
+        value="1"
+        data-quantity-input
+        data-sticky-quantity-input
+        {% if section.settings.enable_sticky_product and section.settings.sticky_type != 'onscroll' %} data-qty-input {% endif %}
+        placeholder="1"
+        form="{{formid}}"
+      >
+      <button
+        type="button"
+        class="quantity-button no-js-hidden"
+        data-quantity-increment
+         {% if section.settings.enable_sticky_product and section.settings.sticky_type != 'onscroll' %} data-qty-increment {% endif %}
+        title="{{ 'products.product.quantity.increase' | t }}"
+      >
+        <span class="hidden">{{ 'products.product.quantity.increase' | t }}</span>
+        <svg x="0px" y="0px" width="10px" height="10px" viewBox="0 0 14 14">
+          <polygon points="14,6 8,6 8,0 6,0 6,6 0,6 0,8 6,8 6,14 8,14 8,8 14,8 "></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+{% endfor %}
+{% endcapture %}
+
+{%- if product.selected_or_first_available_variant.featured_media != null -%}
+    {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
+{% else %}
+    {%- assign featured_media = product.featured_media -%}
+{% endif %}
+<div class="product-add-to-cart-sticky scheme-{{ settings.color_scheme_drawer }} {% if section.settings.enable_sticky_product and section.settings.sticky_type != 'onscroll' %}d-xl-none{% endif %}" data-sticky-products>
+    <a href="#" class="unstyled-link sticky-product-close" data-sticky-product-close>
+        <svg width="8" viewBox="0 0 10 10" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.44916 0.532147C9.69542 0.77403 9.69896 1.16974 9.45708 1.416L5.91999 5.01698L9.52098 8.55406C9.76723 8.79594 9.77077 9.19166 9.52889 9.43791C9.287 9.68416 8.89129 9.68771 8.64504 9.44582L5.0415 5.90623L1.43797 9.44582C1.19172 9.68771 0.796003 9.68416 0.55412 9.43791C0.312237 9.19166 0.315779 8.79594 0.562032 8.55406L4.16301 5.01698L0.625931 1.416C0.384048 1.16974 0.387591 0.77403 0.633843 0.532147C0.880096 0.290264 1.27581 0.293807 1.51769 0.54006L5.0415 4.12753L8.56532 0.54006C8.8072 0.293807 9.20291 0.290264 9.44916 0.532147Z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="product-add-to-cart-sticky-inner">
+        <div class="product-add-to-cart-sticky-image">
+            <div class="media" style="--imageRatio:100%">
+              {% comment %}theme-check-disable ImgWidthAndHeight{% endcomment %}
+                {% if featured_media != blank %}
+                    <img src="{{ featured_media | image_url:width: 100 }}" loading="lazy" data-sticky-image>
+                {% else %}
+                    {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              {% comment %}theme-check-enable ImgWidthAndHeight{% endcomment %}
+            </div>
+        </div>
+        <div class="product-add-to-cart-sticky-info">
+            <p class="product-title"> {{ product.title | escape }}</p>
+            {% liquid
+                assign compare_at_price = current_variant.compare_at_price
+                assign price = current_variant.price
+                assign money_price = price | money
+                assign offText = 'Off'
+            %}
+            <div
+                class="product-price no-js-hidden"
+                data-saving-status="{{ discountPercent }}"
+                data-saving-type="{{ settings.sale_label_type }}"
+                data-price  >
+                <span class="price-item actual-price " data-regular-price>
+                {{- money_price -}}
+                </span>
+                <span
+                class="price-item compare-price {% unless compare_at_price > price  %} hidden{% endunless %}"
+                data-compare-price
+                >
+                {{ compare_at_price | money }}
+                </span>
+                {% if discountPercent %}
+                <span
+                    class="product-percent-off {% unless compare_at_price > price %}hidden{% endunless %}"
+                    data-price-saving
+                >
+                    {% if settings.sale_label_type == 'percent-off' %}
+                    {{ compare_at_price | minus: price | times: 100 | divided_by: compare_at_price | append: '% ' }}
+                    {{ offText }}
+                    {% else %}
+                    {{ compare_at_price | minus: price | money }}
+                    {{ offText }} 
+                    {% endif %}
+                </span>
+                {% endif %}
+                <span class="hidden">{{ 'products.product.price.unit_price' | t }}</span>
+                <span
+                class="product-unit-price {% if unitSize %}text-xsmall{% else %}text-small{% endif %} {% unless current_variant.unit_price_measurement %} hidden{% endunless %}"
+                data-unit-price
+                >
+                {{ current_variant.unit_price | money }} /
+                {% if current_variant.unit_price_measurement.reference_value != 1 -%}
+                    {{- current_variant.unit_price_measurement.reference_value -}}
+                {%- endif %}
+                {{ current_variant.unit_price_measurement.reference_unit }}
+                </span>
+                <span data-soldout-text class="text-small hidden">
+                {%- unless current_variant.available -%}{{ 'products.product.sold_out' | t }}{%- endunless -%}
+                </span>
+            </div>
+        </div>
+        <div class="sticky-product-arrow" data-sticky-options-btn>
+            <svg class="sticky-product-arrow-btn" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg>
+        </div>
+    </div>
+    <div class="product-add-to-cart-sticky-content" data-sticky-options style="display:none">
+      
+        {% unless product.has_only_default_variant %}
+            {% assign productoption = section.blocks | where: 'type', 'variant_picker' %}
+            {% for block in productoption %}
+                {% render 'product-options', product: product, block: block, formid: formid, current_variant: current_variant, stickyid: 'sticky-option', source: 'sticky-form' %}
+            {% endfor %}
+        {% endunless %}
+       
+        {% assign productButtons = section.blocks | where: 'type', 'buttons' %}
+        {% for block in productButtons %}
+            <div class="form-message error hidden" data-form-error></div>
+            {% render 'product-form-buttons' product: product, section: section, block: block, current_variant: current_variant, formid: formid, stickyProduct: true, quantitySelectorBlock: quantitySelectorBlock, source:'sticky-product' %}
+        {% endfor %}
+       
+    </div>
+</div>

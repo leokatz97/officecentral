@@ -1,0 +1,121 @@
+{%- if menuType == 'main' -%}
+  {%- for i in (1..5) -%}
+    {%- liquid
+      assign headingSetting = 'content_title_' | append: i
+      assign linkSetting = 'content_link_' | append: i
+      assign imageSetting = 'content_image_' | append: i
+      assign overlaySetting = 'content_overlay_opacity_' | append: i
+    -%}
+    {%- if block.settings[headingSetting] != blank or block.settings[imageSetting] != blank -%}
+      <li style="--overlayOpacity:{{ block.settings[overlaySetting] | divided_by: 100.0}}">
+        <div class="megamenu-promotion{% if block.settings.text_overlay %} content-overlay{% endif %}">
+          {%- if block.settings[imageSetting] != blank -%}
+            {% assign mega_imageratio = 1
+              | divided_by: block.settings[imageSetting].aspect_ratio
+              | times: 100
+              | append: '%'
+            %}
+            <div class="megamenu-promotion-img">
+              <div class="media" style="--imageRatio: {{mega_imageratio}}">
+                {% render 'lazy-image', image: block.settings[imageSetting],sizes:'[400]' %}
+              </div>
+            </div>
+          {%- endif -%}
+          {%- if block.settings[headingSetting] != blank -%}
+            <div class="megamenu-promotion-content">
+              <h6 class="megamenu-promotion-title">{{ block.settings[headingSetting] }}</h6>
+            </div>
+          {%- endif -%}
+          {%- if block.settings[linkSetting] != blank -%}
+            <a href="{{ block.settings[linkSetting] }}" class="megamenu-promotion-link"{% if device == 'mobile' %} tabindex="-1"{% endif %}></a>
+          {%- endif -%}
+        </div>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- elsif menuType == 'category' -%}
+    {% comment %} {%- if block.settings.content_title != blank
+        or block.settings.content_image != blank
+        or block.settings.content_desc != blank
+        or block.settings.content_link != blank
+    -%}
+    {%- if block.settings.content_link != blank -%}
+        <a href="{{ block.settings.content_link }}"{% if device == 'mobile' %} tabindex="-1"{% endif %}>
+    {%- endif -%}
+            <div class="categories-inner-submenu-img content-overlay" style="--overlayOpacity:{{ block.settings.content_overlay_opacity | divided_by: 100.0}};" >
+                {%- if block.settings.content_image != blank -%}
+                    <div class="media hdgh" style="--imageRatio:{{ 1 | divided_by:block.settings.content_image.aspect_ratio | times: 100}}%" >
+                        {% render 'lazy-image', image: block.settings.content_image, sizes: '[400,500,600]' %}
+                    </div>
+                {%- endif -%}
+                {%- if block.settings.content_title != blank or block.settings.content_desc != blank -%}
+                    <div class="categories-inner-submenu-img-content ">
+                        {%- if block.settings.content_title != blank -%}
+                            <h3>{{ block.settings.content_title }}</h3>
+                        {%- endif -%}
+                        {%- if block.settings.content_desc != blank -%}
+                            <p>{{ block.settings.content_desc }}</p>
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+            </div>
+        {%- if block.settings.content_link != blank -%}
+            </a>
+        {%- endif -%}
+    {%- endif -%} {% endcomment %}
+
+    {%- for i in (1..3) -%}
+        {%- liquid
+            assign catHeadingSetting = 'content_title_' | append: i
+            assign catLinkSetting = 'content_link_' | append: i
+            assign catImageSetting = 'content_image_' | append: i
+            assign catDescriptionSetting = 'content_desc_' | append: i
+
+
+            assign isLinkAndCont = false
+            if block.settings[catLinkSetting] != blank and block.settings[catHeadingSetting] != blank
+              assign isLinkAndCont = true
+            elsif block.settings[catLinkSetting] != blank and block.settings[catDescriptionSetting] != blank
+              assign isLinkAndCont = true
+            endif
+        -%}
+        {%- if block.settings[catHeadingSetting] != blank or block.settings[catImageSetting] != blank or block.settings[catDescriptionSetting] != blank or block.settings[catLinkSetting] != blank -%}
+            {% comment %} <li class="category-mega-menu-item"> {% endcomment %}
+            {%- if isLinkAndCont -%}
+                <a href="{{ block.settings[catLinkSetting] }}"{% if device == 'mobile' %} tabindex="-1"{% endif %}>
+            {%- endif -%}
+              {% liquid
+                if block.settings.show_content_below_image 
+                  assign contentStyleClass = 'text-below-image'
+                else
+                  assign contentStyleClass = 'text-over-image'
+                endif 
+              %}
+
+                <div class="categories-inner-submenu-list-item {{ contentStyleClass }}" style="--overlayOpacity:{{ block.settings.content_overlay_opacity | divided_by: 100.0}};" >
+                    {%- if block.settings[catImageSetting] != blank -%}
+                      <div class="categories-inner-submenu-img">
+                        <div class="media" style="--imageRatio:{{ 1 | divided_by:block.settings[catImageSetting].aspect_ratio | times: 100}}%" >
+                            {% render 'lazy-image', image: block.settings[catImageSetting], sizes: '[400,500,600]' %}
+                        </div>
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings[catHeadingSetting] != blank or block.settings[catDescriptionSetting] != blank -%}
+                        <div class="categories-inner-submenu-img-content ">
+                            {%- if block.settings[catHeadingSetting] != blank -%}
+                                <h6>{{ block.settings[catHeadingSetting] }}</h6>
+                            {%- endif -%}
+                            {%- if block.settings[catDescriptionSetting] != blank -%}
+                                <p>{{ block.settings[catDescriptionSetting] }}</p>
+                            {%- endif -%}
+                        </div>
+                    {%- endif -%}
+                </div>
+
+            {%- if isLinkAndCont -%}
+                </a>
+            {%- endif -%}
+            {% comment %} </li> {% endcomment %}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}

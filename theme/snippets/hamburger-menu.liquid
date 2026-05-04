@@ -1,0 +1,136 @@
+
+<button href="#hamburger-menu-wrapper" class="unstyled-link hamburger-menu no-js-hidden cursor-pointer" data-hamburger-menu>
+    <div class="hamburger-menu-icon">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+</button>
+<noscript id="hamburger-menu">
+    <a href="#hamburger-menu" class="unstyled-link hamburger-menu">
+        <div class="hamburger-menu-icon">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </a>
+</noscript>
+{% assign limit =18 %}
+{% if section.settings.menu != blank or badgesData != blank %}
+<div id="hamburger-menu-wrapper" class="full-menu-sidebar" data-humburger-body>
+    <div  class="close-fullwidth cursor-pointer"  aria-label="Close"  data-hamburger-menu-close></div>
+    <div class="full-menu-sidebar-inner">
+        <div class="full-menu-sidebar-header">
+            <a href="#" class="close-menu" data-hamburger-menu-close>
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path d="M35.6706 34.079L19.5907 17.9931L35.6706 1.90722C36.0918 1.47117 36.0918 0.779726 35.6706 0.343539C35.239 -0.103501 34.5268 -0.115866 34.0799 0.315925L18 16.4018L1.92016 0.316063C1.48427 -0.10515 0.793086 -0.10515 0.35706 0.316063C-0.0898146 0.747853 -0.102174 1.46031 0.329457 1.90735L16.4093 17.9931L0.329457 34.0789C0.118517 34.2899 2.81332e-08 34.576 2.81332e-08 34.8744C-0.000137449 35.4959 0.503592 35.9999 1.12488 36C1.4233 36.0003 1.70949 35.8816 1.92016 35.6701L18 19.5844L34.0799 35.6703C34.2906 35.8817 34.5769 36.0004 34.8753 36C35.1735 35.9999 35.4594 35.8814 35.6703 35.6706C36.1098 35.2311 36.1099 34.5185 35.6706 34.079Z" fill="currentColor"></path>
+                </svg>
+            </a>
+        </div>
+    <div class="menu-outer-main">
+        <div class="menu-outer">
+            <ul class="main-menu list-unstyled">
+                {%- for link in linklists[section.settings.menu].links -%}
+                    {%- liquid
+                        assign megaMenuBlocks = section.blocks | where: 'type', 'mega_menu'
+                        assign linkTitle = link.title | handleize
+                        capture megaMenuData
+                          for block in megaMenuBlocks
+                            assign blockLabel = block.settings.title | handleize
+                            if blockLabel == linkTitle
+                              render 'hamburger-mega-menu', block: block, menuType: 'main'
+                            endif
+                          endfor
+                        endcapture
+                      -%}
+                    {% if link.links.size > 0 or megaMenuData != blank %}
+                        <li class="menu-item" data-menu-items>
+                            <a href="{{- link.url -}}" class="menu-item-link {% if link.levels > 1 %} has-submenu{% endif %} heading-font">
+                                <span class="menu-item-link-text">{{- link.title | escape -}}</span>
+                                <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </a>
+                            <div class="dropdown-menus-main">
+                                {%- for childlink in link.links -%}
+                                    <div class="dropdown-menus-inner">
+                                        <div class="submenu-title-outer">
+                                            <a href="{{- childlink.url -}}" class="unstyled-link submenu-title heading-font h5" {% if childlink.links != blank  %}data-has-submenu{% endif %}>{{ childlink.title | escape }}</a> 
+                                        </div>
+                                        {% if childlink.links != blank  %}
+                                        <ul class="list-unstyled dropdown-menus">
+                                            {%- for grandchildlink in childlink.links -%}
+                                                <li class="dropdown-menu-item">
+                                                    <a class="dropdown-menu-item-link" href="{{ grandchildlink.url }}">{{ grandchildlink.title | escape }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif  %}
+                                    </div> 
+                                {% endfor %}
+                                {% if megaMenuData != blank  %} 
+                                    {{ megaMenuData }} 
+                                {% endif  %}
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="menu-item" data-menu-items>
+                            <a href="{{- link.url -}}" class="menu-item-link {% if link.levels > 1 %} has-submenu{% endif %} heading-font">
+                                <span class="menu-item-link-text">{{- link.title | escape -}}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% assign badgeBlocks = section.blocks | where: 'type', 'promo_badge' %}
+                {% if badgeBlocks != blank  %}
+                    <li class="hamburger-promo-bades-item" data-menu-items>
+                    {% for block in badgeBlocks %}
+                        {%- if block.settings.title != blank and block.settings.link != blank -%}
+                                <a class="header-custom-link" href="{{ block.settings.link }}"  style="--customLinkBg:{{block.settings.text_bg}};--customLinkColor:{{block.settings.text_color}}">
+                                <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                                    <path d="M10.6755 5.269L5.7255 0.319C5.5275 0.121 5.2525 0 4.95 0H1.1C0.495 0 0 0.495 0 1.1V4.95C0 5.2525 0.121 5.5275 0.3245 5.731L5.2745 10.681C5.4725 10.879 5.7475 11 6.05 11C6.3525 11 6.6275 10.879 6.8255 10.6755L10.6755 6.8255C10.879 6.6275 11 6.3525 11 6.05C11 5.7475 10.8735 5.467 10.6755 5.269ZM1.925 2.75C1.4685 2.75 1.1 2.3815 1.1 1.925C1.1 1.4685 1.4685 1.1 1.925 1.1C2.3815 1.1 2.75 1.4685 2.75 1.925C2.75 2.3815 2.3815 2.75 1.925 2.75Z" fill="currentColor"/>
+                                </svg>
+                                {{ block.settings.title }}
+                                </a>
+                            {%- endif -%}
+                    {% endfor %}
+                    </li>
+                {% endif  %}
+            </ul>
+        </div>
+    </div>
+    </div>
+</div>
+{% endif %}
+{%- if section.settings.menu != blank -%}
+ <style>   
+    {%- assign transitionDelay = 0.25 -%}
+    {%- assign itemCount = 1 -%}
+    {%- assign initalDelay =  0.5 -%}
+    {%- for link in linklists[section.settings.menu].links -%}
+        #hamburger-menu .menu-item.animation:nth-child({{ forloop.index }}) .menu-item-link .menu-item-link-text{
+          transition-delay: {{ transitionDelay }}s;
+        }
+        #hamburger-menu .menu-item.animation:nth-child({{ forloop.index }}) .menu-item-link .feather-chevron-right{
+            transition-delay: {{ transitionDelay }}s;
+        }
+        #hamburger-menu .menu-item.animated:nth-child({{ forloop.index }}) .menu-item-link .feather-chevron-right{
+            transition-delay: 0s;
+        }
+        #hamburger-menu .menu-item.animated:nth-child({{ forloop.index }}) .menu-item-link .menu-item-link-text{
+            transition-delay:0s;
+          }
+     {%- assign transitionDelay = transitionDelay | plus : 0.05 -%}
+     {%- assign initalDelay = initalDelay | plus : 0.05 -%}
+     {% assign itemCount = itemCount | plus:1 %}
+    {%- endfor -%}
+
+    #hamburger-menu .hamburger-promo-bades-item.animation:nth-child({{ itemCount }}) .header-custom-link{
+        transition-delay: {{ initalDelay }}s;
+    }
+    
+  </style> 
+{%- endif -%}
+
+
+
+

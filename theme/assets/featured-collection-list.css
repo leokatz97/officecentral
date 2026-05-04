@@ -1,0 +1,44 @@
+.featured-collection-list-section {
+    --featured-collection-height:550px;
+    --featured-collection-text:rgba(255,255,255,1)
+}
+
+.featured-collection-list-wrapper {
+    position: relative;
+    height: var(--featured-collection-height);
+}
+
+.featured-collection-list-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.featured-collection-list-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.featured-collection-list-content a {
+    color: var(--featured-collection-text);
+    z-index: 9;
+}
+
+.featured-collection-list-bg img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    object-fit: cover;
+    opacity: 1;
+    transform: scale(1.05);
+    will-change: transform,opacity;
+}

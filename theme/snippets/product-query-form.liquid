@@ -1,0 +1,94 @@
+{% if formTrigger %}
+    {%- capture popupContent -%}
+          <div class="product-query-body">
+            <h6 class="product-query-title">{{ block.settings.title }} </h6>
+            {% assign formId = 'productQueryForm' | append:product.id | append :'_' | append:section.id %}
+            {%- form 'contact', id: formId, class: 'get-in-touch-form' -%}
+              <input type="hidden" name="contact[form title]" value="{{ block.settings.title }}">
+              <input type="hidden" name="contact[product]" value="{{ product.title | strip_html | escape }}">
+              <input type="hidden" name="contact[product url]" value="{{ shop.url }}{{ product.url }}">
+              <div class="form-group">
+                <label class="hidden" for="ContactName">{{'general.form.name' | t }}</label>
+                <input
+                  type="text"
+                  class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+                  name="contact[name]"
+                  id="ContactName"
+                  autocomplete="email"
+                  autocapitalize="off"
+                  placeholder="{{'general.form.name' | t }}"
+                  required
+                >
+              </div>
+              <div class="form-group">
+                <label class="hidden" for="ContactEmail">{{'general.form.email' | t }}</label>
+                <input
+                  type="email"
+                  class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+                  name="contact[email]"
+                  id="ContactEmail"
+                  autocomplete="email"
+                  autocapitalize="off"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  aria-required="true"
+                  spellcheck="false"
+                  {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                    aria-describedby="ContactForm-email-error"
+                  {% endif %}
+                  placeholder="{{'general.form.email' | t }}"
+                  pattern="^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
+                  required
+                >
+              </div>
+              <div class="form-group">
+                <label class="hidden" for="ContactNumber">{{'general.form.phone' | t }}</label>
+                <input
+                  type="number"
+                  class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+                  name="contact[number]"
+                  id="ContactNumber"
+                  autocomplete="phone"
+                  autocapitalize="off"
+                  placeholder="{{'general.form.phone' | t }}"
+                  required
+                >
+              </div>
+              <div class="form-group">
+                <label class="hidden" for="ContactForm-body">{{'general.form.message' | t }}</label>
+                <textarea
+                  id="ContactForm-body"
+                  name="contact[message]"
+                  rows="3"
+                  placeholder="{{'general.form.message' | t }}"
+                  class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="button btn-block{% if settings.enable_button_shadow %} button-shadow{% endif %}">{{'general.form.send' | t }}</button>
+              {%- if form.errors -%}
+                <div  class="form-message error " autofocus >
+                  <div class="form-message-title" tabindex="-1">
+                    {{'general.form.correct_email' | t }}
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if form.posted_successfully? -%}
+                <div class="form-message success" role="status" tabindex="-1" autofocus>
+                  <p class="form-message-title" tabindex="-1">
+                    {{'general.form.submit_message' | t }}
+                  </p>
+                </div>
+              {%- endif -%}
+            {%- endform -%}
+          </div>
+      {%- endcapture -%}
+    {% if popupContent != blank %}
+      {% render 'popup', id: 'productQueryForm', class: 'product-query-popup small-width position-bottom-right', popupContent: popupContent, colorScheme: block.settings.color_scheme
+        Popupscheme: true,
+        popupsize:'small'
+        
+       %}
+    {% endif %}
+  {% endif %}
+  

@@ -1,0 +1,391 @@
+.customer {
+    max-width: 530px;
+    margin: 0 auto;
+    background: rgb(var(--alternateBackground));
+    padding: 40px;
+    border-radius: var(--cardRadius);
+    box-shadow: 0px 0px 14px 0px #00000008;
+}
+
+.account-form-heading {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.account-form-heading-desc {
+    padding-top: 10px;
+}
+
+.customer .account-form .form-group label {
+    margin-bottom: 8px;
+}
+
+.create-account-text {
+    margin-top: 30px;
+}
+
+.create-account-text-info {
+    opacity: 0.6;
+}
+
+div#recover {
+    display: none;
+}
+
+#recover:target+#login {
+    display: none;
+}
+
+#recover:target {
+    display: block;
+}
+
+#recover,
+#login {
+    scroll-margin-top: 20rem;
+}
+
+.forgot-password-text {
+    margin-bottom: 12px;
+}
+
+.account-header {
+    margin-bottom: 50px;
+}
+
+.account-sidebar li a {
+    color: var(--textColor);
+    font-weight: var(--headingFontWeight);
+}
+
+.account-content.empty-order {
+    text-align: center;
+}
+
+.order-header-heading {
+    margin-bottom: 12px;
+}
+
+.order-icon {
+    margin: 30px 0;
+}
+
+.account-sidebar li a span {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(var(--alternateBackground));
+    border-radius: 80px;
+    margin-left: 10px;
+    opacity: 0;
+}
+
+.account-sidebar li a.active {
+    text-decoration: underline;
+}
+
+.account-sidebar li a.active span {
+    opacity: 1;
+}
+
+.product-history-box table tr th {
+    background: rgb(var(--alternateBackground));
+    border: 0;
+    font-size: var(--mediumText);
+}
+
+.product-history-box table tr td {
+    border: 0;
+    padding: 30px 20px;
+}
+
+.product-history-box table {
+    border: 0;
+}
+
+.product-history-box table thead {
+    border: 0;
+}
+
+.product-history-box table tr {
+    border-bottom: 1px solid rgb(var(--borderColor));
+}
+
+.product-history-box table thead tr {
+    border: 0;
+}
+
+.payment-status span {
+    background: rgb(var(--alternateBackground));
+    padding: 3px 14px;
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.14);
+    border-radius: 3px;
+}
+
+.account-content.order-details .order-header-heading {
+    margin: 0 0 25px;
+}
+
+.order-header-detail {
+    margin-bottom: 25px;
+}
+
+.account-price-total-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.account-price-total-box p {
+    font-size: var(--mediumText);
+}
+
+.order-total-prize-wrapper {
+    margin-top: 25px;
+}
+
+.order-footer-box {
+    margin: 50px 0;
+}
+
+.address-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 35px;
+    grid-row-gap: 35px;
+}
+
+.address-box-inner {
+    background: rgb(var(--alternateBackground));
+    padding: 12px;
+    border-radius: var(--cardRadius);
+    scroll-margin-top: 150px;
+}
+
+.address-box-content {
+    padding: 16px 16px 28px;
+}
+
+.address-box-content .address-title {
+    margin-bottom: 20px;
+}
+
+.payment-status-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(var(--textColor));
+    padding: 20px;
+    border-radius: 10px;
+    color: rgb(var(--alternateBackground));
+}
+
+.payment-status-text span {
+    min-height: 25px;
+    border: 1px solid rgb(var(--alternateBackground));
+    border-radius: 50px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+}
+
+.saved-edit-address-box {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 12px;
+    padding: 0 16px 16px;
+}
+
+.address-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    scroll-margin-top: 150px;
+}
+
+.add-address {
+    display: flex;
+    align-items: center;
+    color: rgb(var(--textColor));
+}
+
+.add-address svg {
+    margin-right: 10px;
+}
+
+.add-address-input {
+    column-count: 2;
+}
+
+.name-fields {
+    column-count: 2;
+}
+
+.city-inputs {
+    column-count: 2;
+}
+
+.add-address-wrapper {
+    background: rgb(var(--alternateBackground));
+}
+
+.add-address-wrapper {
+    background: rgb(var(--alternateBackground));
+    padding: 30px;
+    border-radius: var(--cardRadius);
+    border: 2px solid rgb(var(--borderColor));
+    margin-top: 18px;
+    scroll-margin-top: 150px;
+}
+
+.country-field select {
+    display: block;
+    width: 100%;
+    background-color: rgb(var(--inputBackground));
+    border: 1px solid rgb(var(--inputBorder));
+    padding: 12px 20px;
+    min-height: 50px;
+    color: rgb(var(--inputColor), 0.7);
+    font-family: var(--bodyFont);
+    line-height: 1;
+    font-size: var(--text);
+    border-radius: var(--inputRadius);
+}
+
+.add-address-input .form-field {
+    margin-bottom: 16px;
+}
+
+.add-address-wrapper h6 {
+    margin-bottom: 28px;
+}
+
+.default-address-checkbox input {
+    width: 18px;
+    height: 18px;
+    min-height: 20px;
+    margin: 0 10px 0 0;
+    border: 1px sold rgb(var(--borderColor));
+}
+
+.cancel-btn {
+    color: rgb(var(--textColor));
+    margin-left: 17px;
+    text-transform: uppercase;
+}
+
+.add-address-btn {
+    margin-top: 30px;
+}
+
+.default-address-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.account-sidebar ul li+li {
+    margin-top: 25px;
+}
+
+.default-address-checkbox label {
+    margin: 0;
+}
+
+.table-main {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.address-text p {
+    line-height: 28px;
+}
+
+.order-detail-heading {
+    display: inline-block;
+    text-decoration: underline;
+    padding-bottom: 8px;
+}
+
+.product-history-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.product-history-box table tr th:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.product-history-box table tr th:last-child {
+    border-radius: 0px 4px 4px 0px;
+}
+
+.order-product-info-wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 15px;
+    align-items: center;
+}
+
+.small-product-img {
+    display: block;
+    width: 55px;
+    background-color: rgb(var(--background));
+}
+
+@media screen and (max-width:991px) {
+    .account-content.order-details,
+    .address-content {
+        margin-top: 40px;
+    }
+    .create-account-text {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .account-header {
+        margin-bottom: 30px;
+    }
+    .account-sidebar ul li+li {
+        margin-top: 20px;
+    }
+    .account-content.order-details {
+        margin-top: 40px;
+    }
+    .product-history-box table tr td {
+        border: 0;
+        padding: 20px 15px;
+    }
+    .product-history-box table tr th {
+        font-size: var(--text);
+    }
+    .address-box {
+        grid-template-columns: 1fr;
+        grid-row-gap: 20px;
+    }
+    .add-address-input,
+    .name-fields,
+    .city-inputs {
+        column-count: 1;
+    }
+    .add-address-wrapper {
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .add-address-wrapper h6 {
+        margin-bottom: 15px;
+    }
+    .account-price-total-box p {
+        font-size: var(--text);
+    }
+    .order-total-prize-wrapper .account-price-total-box:last-child p {
+        font-size: var(--largeText);
+    }
+    .customer {
+        padding: 25px;
+    }
+}

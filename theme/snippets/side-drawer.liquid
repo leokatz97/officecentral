@@ -1,0 +1,46 @@
+<div  
+    {% liquid
+       if colorScheme
+            assign colorScheme = colorScheme
+        else 
+            assign colorScheme = settings.color_scheme_drawer 
+        endif
+        
+ %}
+    class="{{ class }} side-drawer  scheme-{{ colorScheme }}{% if class == 'cart-drawer' %}{% if cartRecommendationpopup == blank %} no-recommendation{% endif %}{% endif %}"
+    id="{{ id }}"  data-side-drawer {% if quick_attr %}data-quick-drawer{% endif %}>
+    <div  class="close-fullwidth cursor-pointer"  aria-label="Close"  data-side-drawer-close></div>
+    <div class="side-drawer-panel">
+        <div class="side-drawer-inner">
+            {% if id == 'need-help-side-drawer' and drawerHeading != blank %}
+                <div class="help-drawer-header">
+                    {{ drawerHeading }}              
+                    <button class="drawer-close"  title="close drawer" aria-label="close" data-side-drawer-close>
+                        <svg x="0px" y="0px" viewBox="0 0 11.8 11.8" style="enable-background:new 0 0 11.8 11.8;" fill="currentColor">
+                            <path d="M11.5,10.6L6.7,5.9l4.7-4.7c0.2-0.2,0.2-0.6,0-0.8c-0.1-0.1-0.3-0.2-0.4-0.2c0,0,0,0,0,0c-0.2,0-0.3,0.1-0.4,0.2L5.9,5.1
+                            L1.2,0.3c-0.2-0.2-0.6-0.2-0.8,0c-0.2,0.2-0.2,0.6,0,0.8l4.7,4.7l-4.7,4.7c-0.1,0.1-0.2,0.3-0.2,0.4c0,0.3,0.3,0.6,0.6,0.6
+                            c0.2,0,0.3-0.1,0.4-0.2l4.7-4.7l4.7,4.7c0.1,0.1,0.3,0.2,0.4,0.2s0.3-0.1,0.4-0.2C11.7,11.3,11.7,10.9,11.5,10.6z"></path>
+                        </svg>
+                    </button>
+                </div>
+            {% else %} 
+            <button class="drawer-close"  title="close drawer" aria-label="close" data-side-drawer-close>
+                <svg x="0px" y="0px" viewBox="0 0 11.8 11.8" style="enable-background:new 0 0 11.8 11.8;" fill="currentColor">
+                    <path d="M11.5,10.6L6.7,5.9l4.7-4.7c0.2-0.2,0.2-0.6,0-0.8c-0.1-0.1-0.3-0.2-0.4-0.2c0,0,0,0,0,0c-0.2,0-0.3,0.1-0.4,0.2L5.9,5.1
+                    L1.2,0.3c-0.2-0.2-0.6-0.2-0.8,0c-0.2,0.2-0.2,0.6,0,0.8l4.7,4.7l-4.7,4.7c-0.1,0.1-0.2,0.3-0.2,0.4c0,0.3,0.3,0.6,0.6,0.6
+                    c0.2,0,0.3-0.1,0.4-0.2l4.7-4.7l4.7,4.7c0.1,0.1,0.3,0.2,0.4,0.2s0.3-0.1,0.4-0.2C11.7,11.3,11.7,10.9,11.5,10.6z"></path>
+                </svg>
+            </button>
+        {% endif %}
+          {%- if cartRecommendationpopup != blank -%}
+           <div class="cart-recommandation-popup" data-recommendation-popup>
+            {{ cartRecommendationpopup }}
+           </div>
+          {% endif %}
+            <div class="side-drawer-content" data-search-parent> 
+            {{ drawerContent }}
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="header-store-locator">
+  {% if section.settings.locator_text != blank %}
+      <span class="store-locator-icon">
+        {% render 'icons',icon: 'store-locator'%}
+        </span>
+      {% endif %}
+        <div class="store-locator-text text-small">{{ section.settings.locator_text }}</div>
+    </div>
