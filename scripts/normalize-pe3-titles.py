@@ -256,6 +256,22 @@ def fetch_one(handle: str) -> list[dict]:
 # ---------------------------------------------------------------------------
 # Title parsing
 # ---------------------------------------------------------------------------
+# Strip customer-facing TM/registered/copyright glyphs from titles. Leaves
+# dimension marks (×, x), pipes, em-dashes, and inch/foot quotes untouched.
+# Applied early in normalize() so brand detection and the composed
+# proposed_title both see the cleaned form. The original (with glyphs) is
+# preserved as current_title in the output so reviewers see the Shopify state.
+TRADEMARK_GLYPHS = re.compile(r'[®™℠©℗ⓒⓡⓢ]')
+
+
+def strip_trademark_symbols(text: str) -> str:
+    if not text:
+        return text
+    text = TRADEMARK_GLYPHS.sub('', text)
+    # Collapse double spaces left behind by removed glyphs
+    return re.sub(r'\s{2,}', ' ', text).strip()
+
+
 def detect_brand(title: str, vendor: str) -> tuple[str, str]:
     """Return (canonical_brand, source). source ∈ {'title','vendor',''}."""
     t_low = title.lower()
@@ -372,13 +388,17 @@ def sentence_case(name: str, restore_brand_tokens: bool = False,
 
 def normalize(row: dict) -> dict:
     """Produce the proposed title + confidence for one product."""
-    title = (row['title'] or '').strip()
+    original_title = (row['title'] or '').strip()
+    # Strip ®/™/©/℠ glyphs before brand detection and body composition so
+    # they don't leak into the customer-facing proposed_title. The original
+    # (with glyphs) is kept in current_title for the audit trail.
+    title = strip_trademark_symbols(original_title)
     notes: list[str] = []
 
     if not title:
         return {
             'handle': row['handle'],
-            'current_title': '',
+            'current_title': original_title,
             'proposed_title': '',
             'brand_detected': '',
             'spec_detected': '',
@@ -452,7 +472,7 @@ def normalize(row: dict) -> dict:
 
     return {
         'handle': row['handle'],
-        'current_title': title,
+        'current_title': original_title,
         'proposed_title': proposed,
         'brand_detected': brand,
         'spec_detected': spec,
