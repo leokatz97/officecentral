@@ -1,0 +1,708 @@
+/* ============================================================
+   pdp.css — template 5 scoped styles
+   Product Detail Page (unbuyable variant canonical, buyable swap data-driven)
+   Composes ONLY tokens from tokens.css and patterns from
+   bbi-components.css. No new tokens. No additions to bbi-components.css.
+   New template-scoped classes — all .pd-* prefix.
+   ============================================================ */
+
+.pd-page {
+  background: var(--background);
+  color: var(--textColor);
+  font-family: var(--bodyFont);
+}
+
+/* ---------- breadcrumbs band ---------- */
+.pd-crumb-band {
+  border-bottom: 1px solid var(--borderColor);
+  background: var(--background);
+}
+.pd-crumb-band__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--space-4) 32px;
+}
+.pd-page--mobile .pd-crumb-band__inner { padding: var(--space-3) 16px; }
+
+/* ---------- HERO band (split 60/40 desktop) ---------- */
+.pd-hero {
+  padding: var(--space-12) 0 var(--space-12);
+  border-bottom: 1px solid var(--borderColor);
+}
+.pd-hero__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: var(--space-12);
+  align-items: start;
+}
+.pd-page--mobile .pd-hero { padding: var(--space-8) 0; }
+.pd-page--mobile .pd-hero__inner {
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  padding: 0 16px;
+}
+
+/* ---------- GALLERY (main image + thumb strip) ---------- */
+.pd-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.pd-gallery__main {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: var(--alternateBackground);
+  border: 1px solid var(--borderColor);
+  border-radius: var(--cardRadius);
+  overflow: hidden;
+}
+.pd-page--mobile .pd-gallery__main { aspect-ratio: 1 / 1; }
+.pd-gallery__main .bbi-ph { aspect-ratio: auto; height: 100%; }
+
+.pd-gallery__thumbs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-2);
+}
+.pd-page--mobile .pd-gallery__thumbs {
+  grid-template-columns: repeat(4, minmax(72px, 1fr));
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pd-page--mobile .pd-gallery__thumbs::-webkit-scrollbar { display: none; }
+.pd-gallery__thumb {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--alternateBackground);
+  border: 1px solid var(--borderColor);
+  border-radius: var(--inputRadius);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+}
+.pd-gallery__thumb .bbi-ph { aspect-ratio: auto; height: 100%; }
+.pd-gallery__thumb:hover { border-color: rgba(var(--textColor-rgb), 0.5); }
+.pd-gallery__thumb--active {
+  border-color: var(--textColor);
+  border-width: 2px;
+}
+/* hide thumb strip when only one image in gallery (empty-state grace) */
+.pd-gallery--single .pd-gallery__thumbs { display: none; }
+
+/* ---------- PRODUCT INFO column (right) ---------- */
+.pd-product {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: sticky;
+  top: var(--space-6);
+}
+.pd-page--mobile .pd-product { position: static; }
+
+.pd-product__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.6);
+  margin: 0;
+}
+.pd-product__eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: var(--saleBadgeBackground);
+}
+.pd-product__eyebrow a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.pd-product__brand-parent {
+  font-size: 12px;
+  color: rgba(var(--textColor-rgb), 0.55);
+  margin: 0;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.04em;
+}
+.pd-product__title {
+  font-family: var(--headingFont);
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  color: var(--headingColor);
+  margin: 0;
+  text-wrap: balance;
+}
+.pd-product__model {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: rgba(var(--textColor-rgb), 0.7);
+  margin: 0;
+}
+.pd-product__model b {
+  color: var(--textColor);
+  font-weight: 600;
+}
+.pd-product__model .sep {
+  display: inline-block;
+  margin: 0 6px;
+  color: rgba(var(--textColor-rgb), 0.35);
+}
+.pd-product__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+.pd-product__standfirst {
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(var(--textColor-rgb), 0.78);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* Sold-out chip — does NOT exist in bbi-components.css.
+   Built here as .pd-badge--sold to keep components file untouched.
+   Composes the global --soldBadgeBackground token (#5A5A5E, 6.74:1 AA on white). */
+.pd-badge--sold {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 10px;
+  font-family: var(--headingFont);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  white-space: nowrap;
+  background: var(--soldBadgeBackground);
+  color: #FFFFFF;
+}
+
+/* ---------- COMMERCE block (unbuyable canonical + buyable swap) ---------- */
+.pd-commerce {
+  margin-top: var(--space-3);
+  padding: var(--space-6);
+  background: var(--alternateBackground);
+  border: 1px solid var(--borderColor);
+  border-radius: var(--cardRadius);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.pd-commerce__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.65);
+  margin: 0;
+}
+.pd-commerce__eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 14px; height: 1px;
+  background: var(--saleBadgeBackground);
+}
+.pd-commerce__heading {
+  font-family: var(--headingFont);
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  font-weight: 600;
+  color: var(--headingColor);
+  margin: 0;
+}
+.pd-commerce__sub {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(var(--textColor-rgb), 0.78);
+  margin: 0;
+}
+.pd-commerce__primary {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+.pd-commerce__secondary {
+  align-self: flex-start;
+  margin-top: var(--space-1);
+  font-family: var(--bodyFont);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--textColor);
+  text-decoration: none;
+  border-bottom: 1px solid var(--textColor);
+  padding: 2px 0;
+}
+.pd-commerce__secondary b { font-weight: 600; }
+.pd-commerce__trust {
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(var(--textColor-rgb), 0.7);
+  margin: var(--space-2) 0 0;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.pd-commerce__trust .dot {
+  flex: 0 0 auto;
+  margin-top: 6px;
+  width: 6px; height: 6px;
+  border-radius: 99px;
+  background: var(--saleBadgeBackground);
+}
+
+/* Buyable variant — price block + qty stepper + stock indicator */
+.pd-commerce--buyable .pd-commerce__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin: 0;
+}
+.pd-commerce--buyable .pd-commerce__price-val {
+  font-family: var(--headingFont);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--textColor);
+}
+.pd-commerce--buyable .pd-commerce__price-unit {
+  font-size: 13px;
+  color: rgba(var(--textColor-rgb), 0.6);
+}
+.pd-commerce--buyable .pd-commerce__stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.78);
+}
+.pd-commerce--buyable .pd-commerce__stock .dot {
+  width: 6px; height: 6px;
+  border-radius: 99px;
+  background: var(--success);
+}
+.pd-commerce__qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--inputBorder);
+  border-radius: var(--inputRadius);
+  overflow: hidden;
+  align-self: flex-start;
+}
+.pd-commerce__qty-btn {
+  width: 36px; height: 40px;
+  background: var(--inputBackground);
+  color: var(--inputColor);
+  border: 0;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pd-commerce__qty-btn:hover { background: var(--alternateBackground); }
+.pd-commerce__qty-val {
+  width: 48px;
+  text-align: center;
+  font-family: var(--bodyFont);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--inputColor);
+  border: 0;
+  border-left: 1px solid var(--borderColor);
+  border-right: 1px solid var(--borderColor);
+  background: var(--inputBackground);
+  height: 40px;
+}
+.pd-commerce__qty-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+.pd-commerce__qty-row .pd-commerce__primary { width: auto; flex: 1 1 auto; margin-top: 0; }
+
+/* ---------- DESCRIPTION / story block ---------- */
+.pd-description {
+  padding: var(--space-12) 0;
+  background: var(--background);
+}
+.pd-description__inner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.pd-page--mobile .pd-description { padding: var(--space-8) 0; }
+.pd-page--mobile .pd-description__inner { padding: 0 16px; }
+.pd-description__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.6);
+  margin: 0 0 var(--space-4);
+}
+.pd-description__eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: var(--saleBadgeBackground);
+}
+.pd-description__h2 {
+  font-family: var(--headingFont);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: 600;
+  color: var(--headingColor);
+  margin: 0 0 var(--space-6);
+  text-wrap: balance;
+}
+.pd-description__body p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: rgba(var(--textColor-rgb), 0.82);
+  margin: 0 0 var(--space-4);
+  text-wrap: pretty;
+}
+.pd-description__body p:last-child { margin-bottom: 0; }
+.pd-description__bestfor {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--borderColor);
+  font-family: var(--headingFont);
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--textColor);
+}
+.pd-description__bestfor b {
+  font-weight: 600;
+  display: block;
+  margin-bottom: var(--space-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.6);
+}
+
+/* ---------- SPEC TABLE (full-width, label 28% / value 72%) ---------- */
+.pd-specs {
+  padding: var(--space-12) 0;
+  background: var(--alternateBackground);
+  border-top: 1px solid var(--borderColor);
+  border-bottom: 1px solid var(--borderColor);
+}
+.pd-page--mobile .pd-specs { padding: var(--space-8) 0; }
+.pd-specs__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.pd-page--mobile .pd-specs__inner { padding: 0 16px; }
+.pd-specs__head {
+  margin-bottom: var(--space-8);
+  max-width: 640px;
+}
+.pd-specs__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.6);
+  margin: 0 0 var(--space-3);
+}
+.pd-specs__eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: var(--saleBadgeBackground);
+}
+.pd-specs__h2 {
+  font-family: var(--headingFont);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: 600;
+  color: var(--headingColor);
+  margin: 0;
+}
+.pd-specs__table {
+  border-top: 1px solid var(--textColor);
+}
+.pd-spec-row {
+  display: grid;
+  grid-template-columns: 28% 72%;
+  gap: var(--space-6);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--borderColor);
+  align-items: baseline;
+}
+.pd-page--mobile .pd-spec-row {
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+}
+.pd-spec-row__label {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.6);
+  font-weight: 500;
+}
+.pd-spec-row__value {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--textColor);
+}
+.pd-spec-row__value ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pd-spec-row__value li {
+  position: relative;
+  padding-left: 18px;
+  line-height: 1.5;
+}
+.pd-spec-row__value li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 11px;
+  width: 10px; height: 1px;
+  background: var(--textColor);
+}
+
+/* ---------- VARIANTS / configuration selector ---------- */
+.pd-variants {
+  padding: var(--space-12) 0;
+  background: var(--background);
+}
+.pd-variants__inner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.pd-page--mobile .pd-variants__inner { padding: 0 16px; }
+.pd-variants__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.6);
+  margin: 0 0 var(--space-3);
+}
+.pd-variants__eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: var(--saleBadgeBackground);
+}
+.pd-variants__h2 {
+  font-family: var(--headingFont);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: 600;
+  color: var(--headingColor);
+  margin: 0 0 var(--space-6);
+}
+.pd-variants__summary {
+  background: var(--alternateBackground);
+  border: 1px solid var(--borderColor);
+  border-radius: var(--cardRadius);
+  padding: var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.pd-page--mobile .pd-variants__summary { grid-template-columns: 1fr; }
+.pd-variant-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pd-variant-row__label {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.55);
+}
+.pd-variant-row__value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--textColor);
+}
+
+/* ---------- RELATED products row ---------- */
+.pd-related {
+  padding: var(--space-12) 0;
+  background: var(--background);
+  border-top: 1px solid var(--borderColor);
+}
+.pd-page--mobile .pd-related { padding: var(--space-8) 0; }
+.pd-related__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.pd-page--mobile .pd-related__inner { padding: 0 16px; }
+.pd-related__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.pd-page--mobile .pd-related__head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+.pd-related__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.6);
+  margin: 0 0 var(--space-3);
+}
+.pd-related__eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: var(--saleBadgeBackground);
+}
+.pd-related__h2 {
+  font-family: var(--headingFont);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: 600;
+  color: var(--headingColor);
+  margin: 0;
+}
+.pd-related__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+.pd-page--mobile .pd-related__grid {
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: var(--space-3);
+  overflow-x: auto;
+  scrollbar-width: none;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+}
+.pd-page--mobile .pd-related__grid::-webkit-scrollbar { display: none; }
+
+/* ---------- BRAND BLOCK ---------- */
+.pd-brand-block {
+  padding: var(--space-12) 0;
+  background: var(--alternateBackground);
+  border-top: 1px solid var(--borderColor);
+}
+.pd-page--mobile .pd-brand-block { padding: var(--space-8) 0; }
+.pd-brand-block__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+.pd-page--mobile .pd-brand-block__inner {
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  padding: 0 16px;
+}
+.pd-brand-block__plate {
+  background: var(--background);
+  border: 1px solid var(--borderColor);
+  border-radius: var(--cardRadius);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.pd-brand-block__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.6);
+  margin: 0;
+}
+.pd-brand-block__eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: var(--saleBadgeBackground);
+}
+.pd-brand-block__name {
+  font-family: var(--headingFont);
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: var(--headingColor);
+  margin: 0;
+}
+.pd-brand-block__blurb {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(var(--textColor-rgb), 0.78);
+  margin: 0;
+}
+.pd-brand-block__cta {
+  margin-top: var(--space-2);
+  align-self: flex-start;
+}
+
+/* ---------- footer separator (template-5 scope only) ---------- */
+.pd-page .bbi-footer { border-top: 1px solid var(--borderColor); }
+
+/* ---------- mobile section overrides (catch-alls) ---------- */
+.pd-page--mobile .bbi-cta-section__inner {
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  padding: var(--space-12) 16px;
+}
+.pd-page--mobile .bbi-cta-section__heading {
+  font-size: 28px;
+}
