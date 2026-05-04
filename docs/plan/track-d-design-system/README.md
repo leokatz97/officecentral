@@ -1,6 +1,6 @@
 # Track D — Design System
 
-**Status:** DS-0 in progress · 53 TBDs open
+**Status:** DS-0 complete (s2) · DS-1..4 not started · 53 TBDs open (DS-1 gate)
 **Owner:** Steve / Leo
 **Dev theme target:** BBI Landing Dev (`186373570873`) — never publish to live until LAUNCH-2
 **Confirmed:** 2026-05-04
@@ -23,7 +23,7 @@ The gate **closes on DS-1** (fill TBDs), not DS-0. DS-0 lands the inputs DS-1 ne
 
 | Row | Title | Status | Closes |
 |---|---|---|---|
-| **DS-0** | Land Claude Design Phase 3 — 5 screen exports + audit tables | s1 (in progress) | Inputs for DS-1 |
+| **DS-0** | Land Claude Design Phase 3 — 5 screen exports + audit tables | **s2 (complete)** | Inputs for DS-1 |
 | **DS-1** | Fill `design-system.md` TBD placeholders | not started | `grep -c TBD → 0` (gate) |
 | **DS-2** | Push design tokens to BBI Landing Dev (theme `186373570873`) | not started | `settings_data.json` updated on dev |
 | **DS-3** | Three Liquid edits + PR + push to BBI Landing Dev | not started | dark-mode block deleted; `#f00f00`/`#FFCA10` → `#D4252A` |
@@ -37,7 +37,8 @@ DS-0 → DS-4 must run in order. DS-4 is the blocking gate before any P1 build r
 
 - **T2** — locked → `data/design-photos/screens-t2-locked-2026-04-28/`
 - **T3** — locked → `data/design-photos/screens-t3-LOCKED-2026-04-29/`
-- **T4** — **in flight** (not yet locked) → `data/design-photos/round4-template-3-attachments/`
+- **T4** — **locked** → `data/design-photos/round4-template-3-attachments/` (LOCKED files confirmed 2026-05-04)
+- **T5** — **locked** → `data/design-photos/screens-t5-2026-05-04/` (OECM landing + PDP unbuyable — new 2026-05-04)
 
 ### 5 screens in scope
 1. Homepage
@@ -61,6 +62,8 @@ All design attachments (HTML deliverables, locked screens, component zips, basel
 - `screens-t2-locked-2026-04-28/`, `screens-t2-final-2026-04-28/` — T2
 - `screens-t3-LOCKED-2026-04-29/`, `screens-t3-r1-2026-04-29/` — T3
 - `round3-template-2-attachments/`, `round4-template-3-attachments/` — round inputs
+- `screens-t5-2026-05-04/landing-oecm/` — T5 OECM landing (Template 4)
+- `screens-t5-2026-05-04/pdp-unbuyable/` — T5 PDP unbuyable (Template 5)
 
 **Anti-reference baselines:**
 - `ANTI-REF-baseline-2026-04-27-homepage.png`
@@ -82,14 +85,16 @@ These are the "moving away from" reference — attached to Claude Design briefs 
 | Foundations zip (HTML + tokens) | [data/design-photos/components-v1-2026-04-27/](../../../data/design-photos/components-v1-2026-04-27/) |
 | T2 locked | [data/design-photos/screens-t2-locked-2026-04-28/](../../../data/design-photos/screens-t2-locked-2026-04-28/) |
 | T3 locked | [data/design-photos/screens-t3-LOCKED-2026-04-29/](../../../data/design-photos/screens-t3-LOCKED-2026-04-29/) |
-| T4 (in flight) | [data/design-photos/round4-template-3-attachments/](../../../data/design-photos/round4-template-3-attachments/) |
+| T4 (locked) | [data/design-photos/round4-template-3-attachments/](../../../data/design-photos/round4-template-3-attachments/) |
+| T5 (locked) | [data/design-photos/screens-t5-2026-05-04/](../../../data/design-photos/screens-t5-2026-05-04/) |
+| **DS-0 audit doc** | [docs/strategy/bbi-screens-audit-v1.md](../../strategy/bbi-screens-audit-v1.md) |
 | Live SEEDS checklist | [docs/plan/website-fix-checklist.html](../website-fix-checklist.html) |
 
 ---
 
 ## Exit criteria
 
-- [ ] DS-0: 5 locked screen exports (homepage, collection.category, collection sub, OECM landing, PDP unbuyable) at 1440px + 375px in `data/design-photos/screens-v1-*/` + audit tables in `docs/strategy/bbi-screens-audit-v1.md`
+- [x] DS-0: 5 locked screen exports (homepage, collection.category, collection sub, OECM landing, PDP unbuyable) at 1440px + 375px in `data/design-photos/screens-t*/` + audit tables in `docs/strategy/bbi-screens-audit-v1.md`
 - [ ] DS-1: `grep -c TBD docs/strategy/design-system.md` returns `0` (gate)
 - [ ] DS-2: tokens pushed to BBI Landing Dev `settings_data.json`; baseline backup + push log written
 - [ ] DS-3: dark-mode block deleted from `theme/snippets/style-variables.liquid`; `#f00f00` and `#FFCA10` replaced with `#D4252A`; PR merged

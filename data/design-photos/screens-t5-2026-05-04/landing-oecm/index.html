@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BBI · Templates 1–4 · desktop + mobile</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Tokens + components + template-scoped styles -->
+<link rel="stylesheet" href="src/tokens.css">
+<link rel="stylesheet" href="src/bbi-components.css">
+<link rel="stylesheet" href="src/homepage.css">
+<link rel="stylesheet" href="src/collection-category.css">
+<link rel="stylesheet" href="src/collection.css">
+<link rel="stylesheet" href="src/landing.css">
+
+<!-- Audit panel styling -->
+<link rel="stylesheet" href="src/audits.css">
+
+<!-- Logo asset rehydration shim (preserved verbatim from round 4) -->
+<style>
+.__bundle-logo-dep { background-image: url("assets/bbi-logo-v2.png"); display: none; }
+</style>
+<script>
+(function(){
+  function recoverLogoBlobUrl(){
+    var el = document.createElement('div');
+    el.className = '__bundle-logo-dep';
+    document.body.appendChild(el);
+    var bg = getComputedStyle(el).backgroundImage || '';
+    el.remove();
+    var m = bg.match(/url\(["']?(blob:[^"')]+)["']?\)/);
+    return m ? m[1] : null;
+  }
+  function patchImgs(blobUrl){
+    if (!blobUrl) return;
+    Array.from(document.querySelectorAll('img')).forEach(function(img){
+      if ((img.getAttribute('src')||'').indexOf('bbi-logo-v2') !== -1) {
+        img.src = blobUrl;
+      }
+    });
+  }
+  function start(){
+    var blobUrl = null;
+    var tryFix = function(){
+      if (!blobUrl) blobUrl = recoverLogoBlobUrl();
+      if (blobUrl) patchImgs(blobUrl);
+    };
+    tryFix();
+    var mo = new MutationObserver(function(muts){
+      for (var i = 0; i < muts.length; i++) {
+        var m = muts[i];
+        for (var j = 0; j < m.addedNodes.length; j++) {
+          var n = m.addedNodes[j];
+          if (!n || n.nodeType !== 1) continue;
+          if (n.tagName === 'IMG' || (n.querySelectorAll && n.querySelectorAll('img').length)) {
+            tryFix();
+            return;
+          }
+        }
+      }
+    });
+    if (document.body) mo.observe(document.body, {childList: true, subtree: true});
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+</head>
+<body>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;background:#FAFAFA">
+    <rect x="120" y="90" width="160" height="120" fill="#FFFFFF" stroke="#0B0B0C" stroke-width="2" />
+    <text x="200" y="165" text-anchor="middle" font-family="ui-monospace,monospace" font-size="32" font-weight="700" fill="#0B0B0C">BBI</text>
+    <rect x="170" y="180" width="60" height="2" fill="#D4252A" />
+  </svg>
+</template>
+
+<div id="root"></div>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Component scripts (load order matters) -->
+<script type="text/babel" src="src/design-canvas.jsx"></script>
+<script type="text/babel" src="src/Homepage.jsx"></script>
+<script type="text/babel" src="src/CollectionCategory.jsx"></script>
+<script type="text/babel" src="src/Collection.jsx"></script>
+<script type="text/babel" src="src/Landing.jsx"></script>
+<script type="text/babel" src="src/Audits.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const { DesignCanvas, DCSection, DCArtboard, Homepage, CollectionCategory, Collection, Landing, Audits } = window;
+
+const App = () => (
+  <DesignCanvas>
+    <DCSection id="hp" title="01 — Homepage (locked)" subtitle="Round 2 reference. Tokens, components, header, footer, OECM bar, CTA closer all originate here.">
+      <DCArtboard id="hp-1440" label="Desktop · 1440" width={1440} height={5400}>
+        <Homepage mobile={false} />
+      </DCArtboard>
+      <DCArtboard id="hp-375" label="Mobile · 375" width={375} height={6400}>
+        <Homepage mobile={true} />
+      </DCArtboard>
+      <DCArtboard id="hp-audits" label="Audit panels" width={1280} height={2700}>
+        <Audits template="homepage" />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection id="cc" title="02 — Collection · category (locked)" subtitle="/collections/business-furniture · the catalogue map. Header → Shop and homepage 'Browse all' both resolve here.">
+      <DCArtboard id="cc-1440" label="Desktop · 1440" width={1440} height={5500}>
+        <CollectionCategory mobile={false} />
+      </DCArtboard>
+      <DCArtboard id="cc-375" label="Mobile · 375" width={375} height={7100}>
+        <CollectionCategory mobile={true} />
+      </DCArtboard>
+      <DCArtboard id="cc-audits" label="Audit panels" width={1280} height={2780}>
+        <Audits template="collection-category" />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection id="cn" title="03 — Collection · seating (locked)" subtitle="/collections/seating · a single category page. Sub-cat chip rail folds in the sub-category facet; horizontal filter bar collapses to a single Filters trigger on mobile. Shape generalizes to all 9 categories.">
+      <DCArtboard id="cn-1440" label="Desktop · 1440" width={1440} height={4000}>
+        <Collection mobile={false} />
+      </DCArtboard>
+      <DCArtboard id="cn-375" label="Mobile · 375" width={375} height={6900}>
+        <Collection mobile={true} />
+      </DCArtboard>
+      <DCArtboard id="cn-audits" label="Audit panels" width={1280} height={3000}>
+        <Audits template="collection" />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection id="lp" title="04 — Landing · OECM (round 5)" subtitle="/pages/oecm · canonical render of the landing template that powers ~20 pages (industries, brands, services, about, FAQ). Data-driven via Landing's `data` prop with OECM defaults.">
+      <DCArtboard id="lp-1440" label="Desktop · 1440" width={1440} height={5400}>
+        <Landing mobile={false} />
+      </DCArtboard>
+      <DCArtboard id="lp-375" label="Mobile · 375" width={375} height={7000}>
+        <Landing mobile={true} />
+      </DCArtboard>
+      <DCArtboard id="lp-audits" label="Audit panels" width={1280} height={3200}>
+        <Audits template="landing" />
+      </DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+</body>
+</html>
