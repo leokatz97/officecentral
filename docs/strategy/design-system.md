@@ -1,7 +1,7 @@
 # BBI Design System
 
-**Status:** Skeleton — fill in after Claude Design session completes.
-**Last updated:** 2026-04-27
+**Status:** v1 — DS-1 complete. All token values locked from Claude Design T4/T5 screens.
+**Last updated:** 2026-05-04
 **Owner:** Steve / Leo
 **Maps to:** Shopify Admin → Theme settings → Colors
 
@@ -39,7 +39,7 @@ The lockup is horizontal: **"Brant"** in charcoal sans-serif + **"BASICS"** in r
 - **Brighter through neutrals, not saturation.** Lighter backgrounds + crisper borders + more whitespace. Red stays where it is, or goes slightly down.
 - **Brand red is `#D4252A`** (from the logo). On white it's ~4.7:1 — borderline AA. Therefore:
   - `red-surface` = `#D4252A` exact, used on buttons/banners/badges (large surfaces).
-  - `red-text` = darker variant (~`#A81E22`, TBD test) for any red text on white. Must hit AA 4.5:1.
+  - `red-text` = darker variant `#A81E22` (confirmed 5.88:1 AA on white ✓) for any red text on white. Must hit AA 4.5:1.
 - **Red density 5–8%** of any given screen. Reserved for action: primary CTAs, key badges, hover accents. Body links default to charcoal.
 - **Anchor neutral is `#0B0B0C` charcoal** (from the logo) for headings and body text. NOT navy. Earlier proposals used navy `#1a2744` — superseded by the brand mark.
 - **AA 4.5:1** for body text, 3:1 for large text and UI components. Non-negotiable.
@@ -51,64 +51,80 @@ The lockup is horizontal: **"Brant"** in charcoal sans-serif + **"BASICS"** in r
 
 ## Color tokens
 
-> Replace each `TBD` with the value Claude Design returns. Keep both hex and `r,g,b` triplet — `style-variables.liquid` consumes the triplet for `rgba()` math.
+> Values confirmed from Claude Design T4/T5 locked screens (2026-05-04). Keep both hex and `r,g,b` triplet — `style-variables.liquid` consumes the triplet for `rgba()` math.
 
 ### Scheme: default (white canvas) — used 90% of pages
 
 | Token | Hex | r,g,b | Contrast vs `--background` |
 |---|---|---|---|
 | `--background` | `#FFFFFF` | `255,255,255` | — |
-| `--alternateBackground` | TBD | TBD | TBD |
-| `--cardBackground` | TBD | TBD | TBD |
-| `--textColor` | TBD | TBD | TBD ✓ AA |
-| `--linkColor` | TBD | TBD | TBD ✓ AA |
-| `--headingColor` | TBD | TBD | TBD ✓ AA |
-| `--buttonBackground` *(red-surface)* | TBD | TBD | — |
-| `--buttonColor` | TBD | TBD | TBD ✓ AA |
-| `--buttonBorder` | TBD | TBD | — |
-| `--buttonBackgroundHover` | TBD | TBD | — |
-| `--alternateButtonBackground` *(navy outline)* | TBD | TBD | — |
-| `--alternateButtonColor` | TBD | TBD | TBD ✓ AA |
-| `--alternateButtonBorder` | TBD | TBD | — |
-| `--inputBackground` | TBD | TBD | — |
-| `--inputColor` | TBD | TBD | TBD ✓ AA |
-| `--inputBorder` | TBD | TBD | TBD ✓ 3:1 |
-| `--borderColor` | TBD | TBD | TBD ✓ 3:1 |
-| `--productBorder` | TBD | TBD | TBD ✓ 3:1 |
-| `--ratingStarColor` | TBD | TBD | — |
-| `--shadowColor` | TBD | TBD | — |
-| `--line-color` *(accent line)* | TBD | TBD | — |
+| `--alternateBackground` | `#FAFAFA` | `250,250,250` | 18.87 : 1 AAA |
+| `--cardBackground` | `#FFFFFF` | `255,255,255` | — |
+| `--textColor` | `#0B0B0C` | `11,11,12` | 20.10 : 1 AAA |
+| `--linkColor` | `#0B0B0C` | `11,11,12` | 20.10 : 1 AAA |
+| `--headingColor` | `#0B0B0C` | `11,11,12` | 20.10 : 1 AAA |
+| `--buttonBackground` *(charcoal solid, red on hover)* | `#0B0B0C` | `11,11,12` | — |
+| `--buttonColor` | `#FFFFFF` | `255,255,255` | 20.10 : 1 AAA on charcoal |
+| `--buttonBorder` | `#0B0B0C` | `11,11,12` | — |
+| `--buttonBackgroundHover` | `#D4252A` | `212,37,42` | — |
+| `--alternateButtonBackground` *(secondary outline)* | `#FFFFFF` | `255,255,255` | — |
+| `--alternateButtonColor` | `#0B0B0C` | `11,11,12` | 20.10 : 1 AAA |
+| `--alternateButtonBorder` | `#0B0B0C` | `11,11,12` | — |
+| `--inputBackground` | `#FFFFFF` | `255,255,255` | — |
+| `--inputColor` | `#0B0B0C` | `11,11,12` | 20.10 : 1 AAA |
+| `--inputBorder` | `#0B0B0C` | `11,11,12` | 20.10 : 1 (high-trust procurement form treatment — full ink border) |
+| `--borderColor` | `#E5E5E7` | `229,229,231` | 1.22 : 1 (decorative hairline — intentionally low; focus rings use `--textColor`) |
+| `--productBorder` | `#E5E5E7` | `229,229,231` | 1.22 : 1 (decorative) |
+| `--ratingStarColor` | `#0B0B0C` | `11,11,12` | — |
+| `--shadowColor` | `#0B0B0C` | `11,11,12` | — |
+| `--line-color` *(accent line / divider)* | `#E5E5E7` | `229,229,231` | — |
 
-### Scheme: inverse (navy canvas) — hero/feature blocks only
+### Scheme: inverse (charcoal canvas) — hero/feature blocks only
 
 | Token | Hex | r,g,b | Contrast vs `--background` |
 |---|---|---|---|
-| `--background` | TBD | TBD | — |
-| `--textColor` | `#FFFFFF` | `255,255,255` | TBD ✓ AA |
-| `--headingColor` | `#FFFFFF` | `255,255,255` | TBD ✓ AA |
-| `--linkColor` | TBD | TBD | TBD ✓ AA |
-| `--buttonBackground` *(red-surface)* | TBD | TBD | — |
-| `--buttonColor` | TBD | TBD | — |
-| *(...remainder)* | TBD | TBD | TBD |
+| `--background` | `#0B0B0C` | `11,11,12` | — |
+| `--alternateBackground` | `#161618` | `22,22,24` | — |
+| `--cardBackground` | `#161618` | `22,22,24` | — |
+| `--textColor` | `#FFFFFF` | `255,255,255` | 20.10 : 1 AAA |
+| `--headingColor` | `#FFFFFF` | `255,255,255` | 20.10 : 1 AAA |
+| `--linkColor` | `#FFFFFF` | `255,255,255` | 20.10 : 1 AAA *(NEVER `#A81E22` on inverse — only 2.32:1, fails)* |
+| `--buttonBackground` *(white solid, red on hover)* | `#FFFFFF` | `255,255,255` | — |
+| `--buttonColor` | `#0B0B0C` | `11,11,12` | 20.10 : 1 AAA on white |
+| `--buttonBorder` | `#FFFFFF` | `255,255,255` | — |
+| `--buttonBackgroundHover` | `#D4252A` | `212,37,42` | 4.83 : 1 AA vs charcoal canvas |
+| `--alternateButtonBackground` | `transparent` | `11,11,12` *(effective canvas)* | — |
+| `--alternateButtonColor` | `#FFFFFF` | `255,255,255` | 20.10 : 1 AAA |
+| `--alternateButtonBorder` | `#FFFFFF` | `255,255,255` | — |
+| `--inputBackground` | `#161618` | `22,22,24` | — |
+| `--inputColor` | `#FFFFFF` | `255,255,255` | 18.41 : 1 AAA on plate |
+| `--inputBorder` | `#FFFFFF` | `255,255,255` | 20.10 : 1 vs canvas |
+| `--borderColor` | `#1F1F21` | `31,31,33` | 1.17 : 1 (symmetric to default hairline) |
+| `--productBorder` | `#1F1F21` | `31,31,33` | 1.17 : 1 (decorative) |
+| `--ratingStarColor` | `#FFFFFF` | `255,255,255` | — |
+| `--shadowColor` | `#000000` | `0,0,0` | — |
+| `--line-color` | `#1F1F21` | `31,31,33` | — |
 
-### Global tokens (set once)
+### Global tokens (set once — scheme-independent)
 
 | Token | Hex | r,g,b | Notes |
 |---|---|---|---|
-| `--success` | TBD | TBD | Green, AA on white |
-| `--error` | TBD | TBD | Distinct from brand red — use a slightly oranger or darker red |
-| `--saleBadgeBackground` | TBD | TBD | — |
-| `--newBadgeBackground` | TBD | TBD | — |
-| `--preorderBadgeBackground` | TBD | TBD | — |
-| `--soldBadgeBackground` | TBD | TBD | — |
-| `--customBadgeBackground` | TBD | TBD | — |
-| `--headerBg` | TBD | TBD | — |
-| `--headerColor` | TBD | TBD | — |
-| `--headerHoverColor` | TBD | TBD | — |
-| `--cartCountBg` | TBD | TBD | — |
-| `--submenuBg` | TBD | TBD | — |
-| `--submenuColor` | TBD | TBD | — |
-| `--submenuHoverColor` | TBD | TBD | — |
+| `--success` | `#1F6F3F` | `31,111,63` | 6.04 : 1 AA on white |
+| `--error` | `#B33A1A` | `179,58,26` | 5.93 : 1 AA on white · 11° hue shift from brand red — distinct from branding |
+| `--warningBackground` | `#E8A317` | `232,163,23` | 7.71 : 1 AA · low-stock badge — ink label |
+| `--saleBadgeBackground` | `#D4252A` | `212,37,42` | White label, AA-large |
+| `--newBadgeBackground` | `#0B0B0C` | `11,11,12` | White label, AAA |
+| `--preorderBadgeBackground` | `#FFFFFF` | `255,255,255` | Outlined variant — ink label |
+| `--soldBadgeBackground` | `#5A5A5E` | `90,90,94` | 6.74 : 1 AA · white label · deemphasized (still a lead-capture page) |
+| `--customBadgeBackground` | `#FAFAFA` | `250,250,250` | Ink label on surface |
+| `--headerBg` | `#FFFFFF` | `255,255,255` | — |
+| `--headerColor` | `#0B0B0C` | `11,11,12` | 20.10 : 1 AAA |
+| `--headerHoverColor` | `#A81E22` | `168,30,34` | 5.88 : 1 AA · hover only, never default |
+| `--cartCountBg` | `#D4252A` | `212,37,42` | Numerals bold ≥ 11px → AA-large |
+| `--cartCountColor` | `#FFFFFF` | `255,255,255` | — |
+| `--submenuBg` | `#FFFFFF` | `255,255,255` | — |
+| `--submenuColor` | `#0B0B0C` | `11,11,12` | 20.10 : 1 AAA |
+| `--submenuHoverColor` | `#A81E22` | `168,30,34` | 5.88 : 1 AA |
 
 ---
 
@@ -116,13 +132,17 @@ The lockup is horizontal: **"Brant"** in charcoal sans-serif + **"BASICS"** in r
 
 | Role | Font | Weight | Size (mobile) | Size (desktop) | Line-height |
 |---|---|---|---|---|---|
-| H0 (hero) | TBD | TBD | TBD | TBD | TBD |
-| H1 | TBD | TBD | TBD | TBD | TBD |
-| H2 | TBD | TBD | TBD | TBD | TBD |
-| H3 | TBD | TBD | TBD | TBD | TBD |
-| Body | TBD | TBD | TBD | TBD | TBD |
-| Small | TBD | TBD | TBD | TBD | TBD |
-| Button | TBD | TBD | TBD | TBD | TBD |
+| H0 (hero) | Inter Tight | 600 | 44px | 72px | 1.05 / 1.0 |
+| H1 | Inter Tight | 600 | 32px | 48px | 1.1 / 1.05 |
+| H2 | Inter Tight | 600 | 24px | 32px | 1.15 / 1.1 |
+| H3 | Inter Tight | 600 | 18px | 22px | 1.25 / 1.2 |
+| Body | Inter | 400 | 16px | 16px | 1.55 |
+| Small | Inter | 400 | 13px | 14px | 1.5 |
+| Button | Inter | 600 | 15px | 15px | 1 |
+
+**Fallback stack:** `"Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`  
+**Letter-spacing:** H0 `−0.02em` · H1 `−0.015em` · H2 `−0.01em` · H3 `−0.005em` · body/small `0` · button `+0.01em`  
+**Google Fonts load:** `Inter` (wght 400;500;600;700) + `JetBrains Mono` (wght 400;500) for mono eyebrows
 
 ---
 
@@ -130,64 +150,66 @@ The lockup is horizontal: **"Brant"** in charcoal sans-serif + **"BASICS"** in r
 
 **Spacing scale:** 4, 8, 12, 16, 24, 32, 48, 64, 96 (px)
 
-**Radius:** `--inputRadius` TBD · `--buttonRadius` TBD · `--cardRadius` TBD · `--imageRadius` TBD · `--productRadius` TBD
+**Radius:** `--inputRadius` 4px · `--buttonRadius` 4px · `--cardRadius` 8px · `--imageRadius` 4px · `--productRadius` 8px
 
 **Shadow:**
-- `shadow-sm` — TBD (cards on white)
-- `shadow-md` — TBD (modal/drawer)
+- `shadow-sm` — `0 1px 2px rgba(11,11,12,0.04), 0 2px 8px rgba(11,11,12,0.05)` (cards on white)
+- `shadow-md` — `0 2px 4px rgba(11,11,12,0.05), 0 12px 32px rgba(11,11,12,0.08)` (modal/drawer)
 
 ---
 
 ## Components
 
 ### Buttons
-- **Primary** — red-surface bg, white text. Use for the single most important action on a screen.
-- **Secondary** — navy outline, navy text, white bg. Use for non-primary actions.
-- **Tertiary** — text-only, navy color, no background. Use for inline links and table actions.
-- All states: default, hover, focus (visible ring), active, disabled.
+- **Primary** — charcoal bg (`#0B0B0C`), white text. Hover: red bg (`#D4252A`). Use for the single most important action on a screen.
+- **Secondary** — charcoal outline, charcoal text, white bg. Hover: charcoal invert. Use for non-primary actions.
+- **Tertiary** — text-only, charcoal color, no background. Use for inline links and table actions.
+- All states: default, hover, focus (visible 2px outline in `--textColor`), active, disabled.
 - Disabled state: 40% opacity AND grayscale — never just opacity (preserves contrast).
 
 ### Form inputs
-- White bg, navy text, mid-gray border (3:1 against bg).
-- Focus: navy 2px ring, no fill change.
+- White bg, charcoal text, full-ink charcoal border (high-trust procurement treatment — `#0B0B0C` 1px solid).
+- Focus: 2px outline in `--textColor`, 2px offset. No fill change.
 - Error: red border + red helper text below + ARIA live region.
 
 ### Badges
-- Five distinct colors: sale, new, preorder, sold, custom. Sale is BBI red. Sold is gray (deemphasized — these are still pages, just unbuyable). Others can use complementary cool tones — never warm.
+- Five distinct surfaces: sale (`#D4252A` red), new (`#0B0B0C` charcoal), preorder (white outlined), sold (`#5A5A5E` gray), custom (`#FAFAFA` surface).
+- Sold is gray — deemphasized intentionally. Sold-out pages stay live as B2B lead-capture; the badge signals "quote, don't cart" not "ignore this product."
 
 ### Product card
-- White bg, light gray border (1px), no shadow at rest, subtle shadow on hover.
-- Photo crops square. Title in navy. Price in body color.
+- White bg, `#E5E5E7` border (1px), no shadow at rest, `shadow-sm` on hover.
+- Photo crops square. Title in charcoal. Price in body color.
 - Sale/new/preorder badge top-left. Sold badge top-right (separate corner — different meaning).
 - For unbuyable items (sold-out, $0-price, showcase): card shows "Request a Quote" button instead of "Add to Cart". Per BBI rule: these stay live as B2B lead-capture pages.
 
 ### Quote-request CTA block
-- Standalone section variant: navy bg, white heading, red CTA button, OECM trust line below.
+- Standalone section variant: charcoal canvas (`.scheme-inverse`), white heading, white primary CTA (red on hover), OECM trust line below.
 - Inline PDP variant: replaces add-to-cart entirely on unbuyable items. Larger button, "Request a Quote" wording, "We respond within 1 business day" microcopy below.
 
 ### Header
-- White bg, navy text. Red used only for cart count badge.
-- Mobile hamburger drawer uses the secondary header tokens (separate set in `style-variables.liquid`).
+- White bg, charcoal text. Red used for cart count badge and nav link hover only.
+- Mobile: phone icon + number + hamburger. Nav drawer uses same charcoal tokens.
 
 ### Footer
-- Navy bg (uses inverse scheme). White text. Red on hover for primary nav links only.
+- Charcoal canvas (`.scheme-inverse`). White text. Link hover: white (red-text `#A81E22` fails 2.32:1 on charcoal — never use). Maple leaf brand plate in lower-right.
 
 ---
 
 ## Usage rules
 
 ### Red usage
-- ✓ Primary CTAs (one per viewport)
-- ✓ Sale badge
-- ✓ Cart count badge
-- ✓ Critical state (error icons — but use `--error` not `--buttonBackground`)
-- ✗ Body links (use navy)
+- ✓ Primary CTAs — hover surface (`--buttonBackgroundHover`)
+- ✓ Sale badge surface (`--saleBadgeBackground`)
+- ✓ Cart count badge surface (`--cartCountBg`)
+- ✓ Eyebrow ticks, OECM dots, maple-leaf badge marks (small accent use)
+- ✓ Critical state icons — use `--error` (`#B33A1A`), not `--saleBadgeBackground`
+- ✗ Body links (use charcoal with underline)
 - ✗ Section backgrounds larger than ~10% of viewport
 - ✗ Headings (red headings read as warning, not branding)
-- ✗ Hover state for non-critical elements (use navy or border darken)
+- ✗ Hover state on inverse canvas (`#A81E22` = 2.32:1 on `#0B0B0C` — fails)
 
 ### When in doubt
-- Default to navy. Red is a privilege, not a default.
+- Default to charcoal. Red is a privilege, not a default.
 - Default to no shadow. Borders carry more weight on white-forward systems.
 - Default to the standard scheme. Inverse is for marketing surfaces, not utility.
 
@@ -199,14 +221,14 @@ The lockup is horizontal: **"Brant"** in charcoal sans-serif + **"BASICS"** in r
 
 **Update flow:**
 1. Update this file with new values.
-2. Apply in Admin on a duplicate (non-live) theme.
+2. Apply in Admin on BBI Landing Dev theme (`186373570873`) — never on live.
 3. Preview, screenshot.
 4. Promote duplicate to live when approved.
 
-**One-time code edits required:**
-- `theme/snippets/style-variables.liquid` lines 83–154 — disable dark mode block OR replace `#ffca10` with the BBI red.
-- `theme/sections/blinking-icons.liquid` line 205 — fix `#f00f00` typo.
-- `theme/sections/shapes.liquid` lines 333, 339 — replace `#FFCA10` with BBI red.
+**One-time code edits required (DS-3):**
+- `theme/snippets/style-variables.liquid` lines 83–154 + 301–334 — delete dark-mode block.
+- `theme/sections/blinking-icons.liquid` line 205 — replace `#f00f00` → `#D4252A`.
+- `theme/sections/shapes.liquid` lines 333, 339 — replace `#FFCA10` → `#D4252A`.
 
 See [`docs/reviews/design-system-audit-2026-04-27.md`](../reviews/design-system-audit-2026-04-27.md) for the full code audit.
 
@@ -216,3 +238,4 @@ See [`docs/reviews/design-system-audit-2026-04-27.md`](../reviews/design-system-
 
 - **2026-04-27** — Skeleton scaffolded. Awaiting Claude Design output to populate token values.
 - **2026-04-27** — Brand mark added. Anchor hexes locked: red `#D4252A`, charcoal `#0B0B0C`. Anchor neutral shifted from navy to charcoal to follow the logo.
+- **2026-05-04** — DS-1 complete. All placeholder values filled from Claude Design T4/T5 locked screens. Inverse scheme expanded to full token set. Typography scale and radius/shadow values filled. "Navy" labels corrected to "charcoal" throughout.
