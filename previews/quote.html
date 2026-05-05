@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request a Quote | Brant Business Interiors</title>
+  <meta name="description" content="Get a furniture quote from Brant Business Interiors in 24 hours. OECM buyers welcome — reference your agreement for instant eligibility.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+/* ============================================================
+   BBI Design Tokens — DS v2
+   ============================================================ */
+:root {
+  --bodyFont: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --headingFont: "Inter Tight", "Inter", system-ui, sans-serif;
+  --headingFontWeight: 600;
+  --headingFontLineHeight: 1.1;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --inputRadius: 4px; --buttonRadius: 4px; --cardRadius: 8px;
+  --shadow-sm: 0 1px 2px rgba(11,11,12,.04), 0 2px 8px rgba(11,11,12,.05);
+  --shadow-md: 0 2px 4px rgba(11,11,12,.05), 0 12px 32px rgba(11,11,12,.08);
+  --saleBadgeBackground: #D4252A;
+  --saleBadgeBackground-rgb: 212,37,42;
+  --fs-h0: 44px; --lh-h0: 1.05; --ls-h0: -0.02em;
+  --fs-h1: 32px; --lh-h1: 1.1;  --ls-h1: -0.015em;
+  --fs-h2: 24px; --lh-h2: 1.15; --ls-h2: -0.01em;
+  --fs-h3: 18px; --lh-h3: 1.25; --ls-h3: -0.005em;
+  --fs-body: 16px; --lh-body: 1.55;
+  --fs-small: 13px; --lh-small: 1.5;
+  --fs-button: 15px; --lh-button: 1; --ls-button: 0.01em;
+}
+@media (min-width: 768px) {
+  :root {
+    --fs-h0: 72px; --fs-h1: 48px; --lh-h1: 1.05;
+    --fs-h2: 32px; --lh-h2: 1.1;
+    --fs-h3: 22px; --lh-h3: 1.2;
+    --fs-small: 14px;
+  }
+}
+
+/* ============================================================
+   Scope + Scheme tokens
+   ============================================================ */
+.bbi-lp-quote.scheme-default {
+  --background: #FFFFFF; --background-rgb: 255,255,255;
+  --alternateBackground: #FAFAFA; --alternateBackground-rgb: 250,250,250;
+  --cardBackground: #FFFFFF; --cardBackground-rgb: 255,255,255;
+  --textColor: #0B0B0C; --textColor-rgb: 11,11,12;
+  --linkColor: #0B0B0C; --headingColor: #0B0B0C; --headingColor-rgb: 11,11,12;
+  --buttonBackground: #0B0B0C; --buttonBackground-rgb: 11,11,12;
+  --buttonColor: #FFFFFF; --buttonBorder: #0B0B0C;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --alternateButtonBackground: #FFFFFF; --alternateButtonColor: #0B0B0C; --alternateButtonBorder: #0B0B0C;
+  --alternateButtonBackgroundHover: #0B0B0C; --alternateButtonColorHover: #FFFFFF; --alternateButtonBorderHover: #0B0B0C;
+  --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
+  --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
+}
+.bbi-lp-quote .scheme-inverse {
+  --background: #0B0B0C; --background-rgb: 11,11,12;
+  --alternateBackground: #161618; --alternateBackground-rgb: 22,22,24;
+  --textColor: #FFFFFF; --textColor-rgb: 255,255,255;
+  --linkColor: #FFFFFF; --headingColor: #FFFFFF; --headingColor-rgb: 255,255,255;
+  --buttonBackground: #FFFFFF; --buttonBackground-rgb: 255,255,255;
+  --buttonColor: #0B0B0C; --buttonBorder: #FFFFFF;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --alternateButtonBackground: transparent; --alternateButtonColor: #FFFFFF; --alternateButtonBorder: #FFFFFF;
+  --alternateButtonBackgroundHover: #FFFFFF; --alternateButtonColorHover: #0B0B0C; --alternateButtonBorderHover: #FFFFFF;
+  --borderColor: #1F1F21; --borderColor-rgb: 31,31,33;
+  --shadowColor: #000000; --shadowColor-rgb: 0,0,0;
+}
+
+/* ============================================================
+   Base reset + shared
+   ============================================================ */
+.bbi-lp-quote *, .bbi-lp-quote *::before, .bbi-lp-quote *::after { box-sizing: border-box; }
+.bbi-lp-quote {
+  font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body);
+  color: var(--textColor); background: var(--background);
+  -webkit-font-smoothing: antialiased;
+}
+.bbi-lp-quote img { display: block; max-width: 100%; height: auto; }
+.bbi-lp-quote a { color: var(--linkColor); }
+.bbi-lp-quote .bbi-mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* Buttons */
+.bbi-lp-quote .bbi-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2); padding: 12px 20px; min-height: 44px;
+  font-family: var(--bodyFont); font-size: var(--fs-button); line-height: var(--lh-button);
+  letter-spacing: var(--ls-button); font-weight: 600; border-radius: var(--buttonRadius);
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.bbi-lp-quote .bbi-btn:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
+.bbi-lp-quote .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
+.bbi-lp-quote .bbi-btn--full { width: 100%; }
+.bbi-lp-quote .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.bbi-lp-quote .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.bbi-lp-quote .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
+.bbi-lp-quote .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
+.bbi-lp-quote .arrow { display: inline-block; transition: transform 120ms ease; }
+.bbi-lp-quote .bbi-btn:hover .arrow { transform: translateX(3px); }
+
+/* Breadcrumbs */
+.bbi-lp-quote .bbi-crumbs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; color: var(--textColor); margin: 0; padding: 0; list-style: none; }
+.bbi-lp-quote .bbi-crumbs li { display: inline-flex; align-items: center; gap: 8px; }
+.bbi-lp-quote .bbi-crumbs li:not(:last-child)::after { content: ">"; opacity: 0.4; }
+.bbi-lp-quote .bbi-crumbs a { color: var(--textColor); opacity: 0.65; text-decoration: none; }
+.bbi-lp-quote .bbi-crumbs a:hover { opacity: 1; text-decoration: underline; }
+.bbi-lp-quote .bbi-crumbs li:last-child { font-weight: 500; }
+
+/* ============================================================
+   Header (preview stub)
+   ============================================================ */
+.bbi-lp-quote .bbi-header {
+  position: sticky; top: 0; z-index: 100;
+  background: #FFFFFF; border-bottom: 1px solid rgba(229,229,231,.8);
+  --textColor: #0B0B0C; --headingColor: #0B0B0C;
+  --buttonBackground: #0B0B0C; --buttonColor: #FFFFFF; --buttonBorder: #0B0B0C;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --alternateButtonBackground: #FFFFFF; --alternateButtonColor: #0B0B0C; --alternateButtonBorder: #0B0B0C;
+  --alternateButtonBackgroundHover: #0B0B0C; --alternateButtonColorHover: #FFFFFF; --alternateButtonBorderHover: #0B0B0C;
+}
+.bbi-lp-quote .bbi-header__inner {
+  max-width: 1320px; margin: 0 auto; padding: 0 32px;
+  height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 32px;
+}
+.bbi-lp-quote .bbi-header__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+.bbi-lp-quote .bbi-header__logo-mark { width: 32px; height: 32px; background: #0B0B0C; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+.bbi-lp-quote .bbi-header__logo-mark svg { color: #fff; }
+.bbi-lp-quote .bbi-header__logo-name { font-family: var(--headingFont); font-size: 15px; font-weight: 600; color: #0B0B0C; line-height: 1.2; }
+.bbi-lp-quote .bbi-header__logo-sub { font-size: 10px; color: rgba(11,11,12,.5); font-family: "JetBrains Mono", monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+.bbi-lp-quote .bbi-header__nav { display: flex; gap: 4px; align-items: center; flex: 1; }
+.bbi-lp-quote .bbi-nav-item { font-size: 14px; font-weight: 500; color: #0B0B0C; text-decoration: none; padding: 6px 12px; border-radius: 4px; }
+.bbi-lp-quote .bbi-nav-item:hover { color: #A81E22; }
+.bbi-lp-quote .bbi-nav-item.is-current { color: #A81E22; font-weight: 600; }
+.bbi-lp-quote .bbi-header__util { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.bbi-lp-quote .bbi-header__phone { font-size: 13px; font-weight: 500; color: #0B0B0C; text-decoration: none; display: flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid rgba(229,229,231,.8); border-radius: 4px; }
+.bbi-lp-quote .bbi-header__phone:hover { border-color: #0B0B0C; }
+
+/* ============================================================
+   Crumbs band
+   ============================================================ */
+.bbi-lp-quote .lp-crumbs-band { border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-quote .lp-crumbs-band__inner { max-width: 1280px; margin: 0 auto; padding: var(--space-3) var(--space-6); }
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.bbi-lp-quote .lp-hero { padding: var(--space-12) 0; border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-quote .lp-hero__inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6);
+  display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: var(--space-12); align-items: center;
+}
+.bbi-lp-quote .lp-hero__text { max-width: 560px; }
+.bbi-lp-quote .lp-hero__eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4);
+}
+.bbi-lp-quote .lp-hero__eyebrow::before {
+  content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground);
+}
+.bbi-lp-quote .lp-hero__eyebrow-label { color: rgba(var(--textColor-rgb),.6); }
+.bbi-lp-quote .lp-hero__badge {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: 6px 12px; border: 1px solid rgba(var(--borderColor-rgb),.8);
+  border-radius: 999px; margin-bottom: var(--space-6);
+  font-size: 12px; color: rgba(var(--textColor-rgb),.78);
+}
+.bbi-lp-quote .lp-hero__badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saleBadgeBackground); }
+.bbi-lp-quote .lp-hero h1 {
+  font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1);
+  letter-spacing: var(--ls-h1); font-weight: 600; color: var(--headingColor);
+  margin: 0 0 var(--space-4); text-wrap: balance;
+}
+.bbi-lp-quote .lp-hero__standfirst {
+  font-size: 18px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78);
+  margin: 0 0 var(--space-6); text-wrap: pretty;
+}
+.bbi-lp-quote .lp-hero__cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.bbi-lp-quote .lp-hero__media {
+  position: relative; aspect-ratio: 5 / 4;
+  background: var(--alternateBackground); border-radius: var(--cardRadius); overflow: hidden;
+}
+.bbi-lp-quote .lp-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.bbi-lp-quote .lp-hero__media-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground);
+  color: rgba(var(--textColor-rgb),.5);
+  font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* ============================================================
+   Intro
+   ============================================================ */
+.bbi-lp-quote .lp-intro { padding: var(--space-12) 0; }
+.bbi-lp-quote .lp-intro__inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-quote .lp-intro__eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-4);
+}
+.bbi-lp-quote .lp-intro__eyebrow::before {
+  content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground);
+}
+.bbi-lp-quote .lp-intro h2 {
+  font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2);
+  font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-6); text-wrap: balance;
+}
+.bbi-lp-quote .lp-intro__body p {
+  font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78);
+  margin: 0 0 var(--space-4); text-wrap: pretty;
+}
+.bbi-lp-quote .lp-intro__body a { color: var(--linkColor); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================================================
+   Contact section (form explainer + OECM callout)
+   ============================================================ */
+.bbi-lp-quote .lp-contact { padding: var(--space-12) 0; background: var(--alternateBackground); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-quote .lp-contact__inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6);
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: start;
+}
+.bbi-lp-quote .lp-contact__col-head { margin-bottom: var(--space-6); }
+.bbi-lp-quote .lp-contact__eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3);
+}
+.bbi-lp-quote .lp-contact__eyebrow::before {
+  content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground);
+}
+.bbi-lp-quote .lp-contact h2 {
+  font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2);
+  font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance;
+}
+.bbi-lp-quote .lp-contact__body {
+  font-size: 16px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78);
+  margin: 0 0 var(--space-6);
+}
+.bbi-lp-quote .lp-contact__channels { display: flex; flex-direction: column; gap: var(--space-3); }
+.bbi-lp-quote .lp-contact__channel {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  background: var(--cardBackground); border: 1px solid rgba(var(--borderColor-rgb),.8);
+  border-radius: var(--cardRadius); text-decoration: none; color: var(--textColor);
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+.bbi-lp-quote .lp-contact__channel:hover { border-color: var(--textColor); }
+.bbi-lp-quote .lp-contact__channel-icon { width: 20px; height: 20px; color: rgba(var(--textColor-rgb),.6); flex-shrink: 0; }
+.bbi-lp-quote .lp-contact__channel-label { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.bbi-lp-quote .lp-contact__channel-name { font-family: var(--headingFont); font-size: 15px; font-weight: 600; color: var(--headingColor); }
+.bbi-lp-quote .lp-contact__channel-meta { font-size: 13px; color: rgba(var(--textColor-rgb),.6); }
+.bbi-lp-quote .lp-contact__channel-arrow { color: rgba(var(--textColor-rgb),.4); transition: transform 160ms ease; }
+.bbi-lp-quote .lp-contact__channel:hover .lp-contact__channel-arrow { transform: translateX(3px); color: var(--textColor); }
+
+/* OECM callout box */
+.bbi-lp-quote .lp-oecm-callout {
+  padding: var(--space-8);
+  background: var(--cardBackground);
+  border: 1px solid rgba(var(--borderColor-rgb),.8);
+  border-left: 3px solid var(--saleBadgeBackground);
+  border-radius: var(--cardRadius);
+}
+.bbi-lp-quote .lp-oecm-callout__eyebrow {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--saleBadgeBackground);
+}
+.bbi-lp-quote .lp-oecm-callout__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saleBadgeBackground); flex-shrink: 0; }
+.bbi-lp-quote .lp-oecm-callout h3 {
+  font-family: var(--headingFont); font-size: 20px; font-weight: 600;
+  color: var(--headingColor); margin: 0 0 var(--space-3); line-height: 1.3;
+}
+.bbi-lp-quote .lp-oecm-callout__body {
+  font-size: 15px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78);
+  margin: 0 0 var(--space-6);
+}
+.bbi-lp-quote .lp-oecm-callout__detail {
+  font-size: 13px; line-height: 1.55; color: rgba(var(--textColor-rgb),.65);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(var(--saleBadgeBackground-rgb),.04);
+  border-radius: 4px; margin-top: var(--space-4);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.03em;
+}
+
+/* ============================================================
+   Differentiators
+   ============================================================ */
+.bbi-lp-quote .lp-diff { padding: var(--space-12) 0; background: var(--background); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-quote .lp-diff__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-quote .lp-diff__head { margin-bottom: var(--space-8); max-width: 640px; }
+.bbi-lp-quote .lp-diff__eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3);
+}
+.bbi-lp-quote .lp-diff__eyebrow::before {
+  content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground);
+}
+.bbi-lp-quote .lp-diff h2 {
+  font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2);
+  font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance;
+}
+.bbi-lp-quote .lp-diff__grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  border-top: 1px solid rgba(var(--borderColor-rgb),.6);
+  border-left: 1px solid rgba(var(--borderColor-rgb),.6);
+}
+.bbi-lp-quote .lp-diff-card {
+  background: var(--cardBackground); padding: var(--space-8);
+  border-right: 1px solid rgba(var(--borderColor-rgb),.6);
+  border-bottom: 1px solid rgba(var(--borderColor-rgb),.6);
+  border-radius: 0; display: grid; grid-template-rows: auto auto auto 1fr; gap: var(--space-3);
+  transition: background-color 160ms ease;
+}
+.bbi-lp-quote .lp-diff-card:hover { background: rgba(var(--shadowColor-rgb),.02); }
+.bbi-lp-quote .lp-diff-card__num {
+  font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px;
+  letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.6);
+}
+.bbi-lp-quote .lp-diff-card__icon { width: 32px; height: 32px; color: var(--textColor); display: flex; align-items: center; }
+.bbi-lp-quote .lp-diff-card__label {
+  font-family: var(--headingFont); font-size: 22px; line-height: 1.3;
+  font-weight: 600; color: var(--headingColor); margin: 0;
+  display: flex; flex-direction: column; gap: var(--space-2);
+}
+.bbi-lp-quote .lp-diff-card__label::after {
+  content: ""; display: block; width: 24px; height: 1px; background: var(--saleBadgeBackground);
+}
+.bbi-lp-quote .lp-diff-card__sentence {
+  font-size: 15px; line-height: 1.55; color: rgba(var(--textColor-rgb),.7); margin: 0; text-wrap: pretty;
+}
+
+/* ============================================================
+   Proof bar
+   ============================================================ */
+.bbi-lp-quote .lp-proof-bar { background: var(--alternateBackground); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-quote .lp-proof-bar__inner {
+  max-width: 1280px; margin: 0 auto; padding: var(--space-8) var(--space-6);
+  display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-8);
+}
+.bbi-lp-quote .lp-proof-bar__stat { display: flex; flex-direction: column; gap: var(--space-2); }
+.bbi-lp-quote .lp-proof-bar__stat + .lp-proof-bar__stat { border-left: 1px solid rgba(var(--borderColor-rgb),.6); padding-left: var(--space-8); }
+.bbi-lp-quote .lp-proof-bar__stat-num {
+  font-family: var(--headingFont); font-size: 40px; line-height: 1; font-weight: 600;
+  color: var(--headingColor); display: flex; align-items: center; gap: var(--space-3);
+}
+.bbi-lp-quote .lp-proof-bar__stat-num::before {
+  content: ""; display: inline-block; width: 14px; height: 1px; background: var(--saleBadgeBackground);
+}
+.bbi-lp-quote .lp-proof-bar__stat-label {
+  font-size: 13px; color: rgba(var(--textColor-rgb),.6);
+  font-family: "JetBrains Mono",ui-monospace,monospace; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.bbi-lp-quote .lp-proof-bar__stat-detail { font-size: 14px; color: rgba(var(--textColor-rgb),.78); line-height: 1.5; margin-top: var(--space-2); }
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.bbi-lp-quote .lp-faq { padding: var(--space-12) 0; background: var(--background); border-top: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-quote .lp-faq__inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-quote .lp-faq__head { margin-bottom: var(--space-6); }
+.bbi-lp-quote .lp-faq__eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3);
+}
+.bbi-lp-quote .lp-faq__eyebrow::before {
+  content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground);
+}
+.bbi-lp-quote .lp-faq h2 {
+  font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2);
+  font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance;
+}
+.bbi-lp-quote .lp-faq__list { border-top: 1px solid rgba(var(--borderColor-rgb),.8); }
+.bbi-lp-quote .lp-faq__item { border-bottom: 1px solid rgba(var(--borderColor-rgb),.8); }
+.bbi-lp-quote .lp-faq__trigger {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4);
+  width: 100%; padding: var(--space-6) 0; background: transparent; border: none;
+  text-align: left; cursor: pointer;
+  font-family: var(--headingFont); font-size: 17px; font-weight: 600; color: var(--headingColor);
+}
+.bbi-lp-quote .lp-faq__trigger-num {
+  font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px;
+  letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.55); font-weight: 400;
+}
+.bbi-lp-quote .lp-faq__chevron { width: 16px; height: 16px; color: rgba(var(--textColor-rgb),.55); transition: transform 200ms ease; }
+.bbi-lp-quote .lp-faq__item--open .lp-faq__chevron { transform: rotate(180deg); color: var(--textColor); }
+.bbi-lp-quote .lp-faq__answer {
+  display: none; padding: var(--space-4) 0 var(--space-5) calc(36px + var(--space-4));
+  font-size: 15px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78);
+}
+.bbi-lp-quote .lp-faq__item--open .lp-faq__answer { display: block; }
+.bbi-lp-quote .lp-faq__answer p { margin: 0 0 var(--space-3); text-wrap: pretty; }
+.bbi-lp-quote .lp-faq__answer p:last-child { margin-bottom: 0; }
+.bbi-lp-quote .lp-faq__answer a { color: var(--linkColor); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================================================
+   CTA Closer (scheme-inverse)
+   ============================================================ */
+.bbi-lp-quote .bbi-cta-section { background: var(--background); color: var(--textColor); }
+.bbi-lp-quote .bbi-cta-section__inner {
+  max-width: 1320px; margin: 0 auto; padding: 96px 32px;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center;
+}
+.bbi-lp-quote .bbi-cta-section__eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(var(--textColor-rgb),.7); margin: 0 0 16px;
+}
+.bbi-lp-quote .bbi-cta-section__heading {
+  font-family: var(--headingFont); font-size: clamp(32px,4.2vw,56px);
+  line-height: 1.05; letter-spacing: -0.015em; font-weight: 600;
+  margin: 0 0 20px; text-wrap: balance;
+}
+.bbi-lp-quote .bbi-cta-section__sub {
+  font-size: 17px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78);
+  max-width: 52ch; margin: 0;
+}
+.bbi-lp-quote .bbi-cta-section__actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.bbi-lp-quote .bbi-cta-section__trust { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgba(var(--textColor-rgb),.78); }
+.bbi-lp-quote .bbi-cta-section__trust .dot { flex: 0 0 auto; margin-top: 7px; width: 6px; height: 6px; border-radius: 99px; background: var(--saleBadgeBackground); }
+.bbi-lp-quote .bbi-cta-section__trust b { color: var(--textColor); font-weight: 600; }
+.bbi-lp-quote .bbi-cta-section__trust a { color: var(--textColor); text-decoration: underline; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.bbi-lp-quote .bbi-footer {
+  background: var(--background); color: var(--textColor);
+  border-top: 1px solid rgba(var(--borderColor-rgb),.6);
+}
+.bbi-lp-quote .bbi-footer__inner {
+  max-width: 1320px; margin: 0 auto; padding: 64px 32px 48px;
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px;
+}
+.bbi-lp-quote .bbi-footer__brand-plate { display: flex; flex-direction: column; gap: 12px; }
+.bbi-lp-quote .bbi-footer__logo-block { display: flex; flex-direction: column; gap: 4px; }
+.bbi-lp-quote .bbi-footer__logo-name { font-family: var(--headingFont); font-size: 18px; font-weight: 600; color: var(--textColor); }
+.bbi-lp-quote .bbi-footer__logo-sub { font-size: 11px; color: rgba(var(--textColor-rgb),.6); font-family: "JetBrains Mono", monospace; letter-spacing: 0.05em; text-transform: uppercase; }
+.bbi-lp-quote .bbi-footer__tag { font-size: 14px; line-height: 1.5; color: rgba(var(--textColor-rgb),.65); max-width: 30ch; }
+.bbi-lp-quote .bbi-footer__oecm { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-family: "JetBrains Mono", monospace; letter-spacing: 0.05em; color: rgba(var(--textColor-rgb),.55); border: 1px solid rgba(var(--borderColor-rgb),.8); border-radius: 4px; padding: 4px 8px; }
+.bbi-lp-quote .bbi-footer__oecm-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--saleBadgeBackground); }
+.bbi-lp-quote .bbi-footer__col-head { font-family: var(--headingFont); font-size: 13px; font-weight: 600; color: var(--textColor); margin: 0 0 16px; text-transform: uppercase; letter-spacing: 0.04em; }
+.bbi-lp-quote .bbi-footer__links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.bbi-lp-quote .bbi-footer__links a { font-size: 14px; color: rgba(var(--textColor-rgb),.65); text-decoration: none; }
+.bbi-lp-quote .bbi-footer__links a:hover { color: var(--textColor); }
+.bbi-lp-quote .bbi-footer__bottom { max-width: 1320px; margin: 0 auto; padding: 20px 32px; border-top: 1px solid rgba(var(--borderColor-rgb),.6); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.bbi-lp-quote .bbi-footer__copy { font-size: 13px; color: rgba(var(--textColor-rgb),.45); }
+.bbi-lp-quote .bbi-footer__maple { font-size: 13px; color: rgba(var(--textColor-rgb),.45); display: flex; align-items: center; gap: 6px; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 980px) {
+  .bbi-lp-quote .bbi-header__nav { display: none; }
+  .bbi-lp-quote .lp-hero__inner { grid-template-columns: 1fr; gap: var(--space-8); }
+  .bbi-lp-quote .lp-hero__media { aspect-ratio: 16 / 10; }
+  .bbi-lp-quote .lp-contact__inner { grid-template-columns: 1fr; gap: var(--space-8); }
+  .bbi-lp-quote .lp-diff__grid { grid-template-columns: 1fr; }
+  .bbi-lp-quote .lp-proof-bar__inner { grid-template-columns: 1fr; gap: var(--space-6); }
+  .bbi-lp-quote .lp-proof-bar__stat + .lp-proof-bar__stat { border-left: none; border-top: 1px solid rgba(var(--borderColor-rgb),.6); padding-left: 0; padding-top: var(--space-6); }
+  .bbi-lp-quote .bbi-cta-section__inner { grid-template-columns: 1fr; gap: 48px; }
+  .bbi-lp-quote .bbi-footer__inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .bbi-lp-quote .bbi-header__inner { padding: 0 16px; }
+  .bbi-lp-quote .bbi-header__phone span { display: none; }
+  .bbi-lp-quote .lp-hero { padding: var(--space-8) 0; }
+  .bbi-lp-quote .lp-hero h1 { font-size: 32px; }
+  .bbi-lp-quote .lp-hero__standfirst { font-size: 16px; }
+  .bbi-lp-quote .lp-intro, .bbi-lp-quote .lp-diff, .bbi-lp-quote .lp-faq,
+  .bbi-lp-quote .lp-contact, .bbi-lp-quote .lp-proof-bar { padding: var(--space-8) 0; }
+  .bbi-lp-quote .lp-diff-card { padding: var(--space-6); }
+  .bbi-lp-quote .lp-proof-bar__stat-num { font-size: 32px; }
+  .bbi-lp-quote .bbi-footer__inner { grid-template-columns: 1fr; }
+  .bbi-lp-quote .bbi-cta-section__inner { padding: 64px 24px; }
+}
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#fff;">
+
+<div class="bbi-lp-quote scheme-default">
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="bbi-header" role="banner">
+    <div class="bbi-header__inner">
+      <a class="bbi-header__logo" href="/" aria-label="Brant Business Interiors — home">
+        <div class="bbi-header__logo-mark">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <rect x="2" y="2" width="6" height="6" fill="white"/>
+            <rect x="10" y="2" width="6" height="6" fill="white"/>
+            <rect x="2" y="10" width="6" height="6" fill="white"/>
+            <rect x="10" y="10" width="6" height="6" fill="#D4252A"/>
+          </svg>
+        </div>
+        <div>
+          <div class="bbi-header__logo-name">Brant Business Interiors</div>
+          <div class="bbi-header__logo-sub">a division of Office Central Inc.</div>
+        </div>
+      </a>
+      <nav class="bbi-header__nav" aria-label="Main navigation">
+        <a class="bbi-nav-item" href="/collections/business-furniture">Shop Furniture</a>
+        <a class="bbi-nav-item" href="/pages/oecm">OECM Purchasing</a>
+        <a class="bbi-nav-item" href="/pages/industries">Industries</a>
+        <a class="bbi-nav-item" href="/pages/about">About</a>
+      </nav>
+      <div class="bbi-header__util">
+        <a class="bbi-header__phone" href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 2 C2 2 1 5 4.5 8.5 C8 12 11 11 11 11 L12 9 L9.5 7.5 L8 9 C8 9 5.5 7.5 5 5 L6.5 4 L5 1.5 Z"/></svg>
+          <span>1-800-835-9565</span>
+        </a>
+        <a class="bbi-btn bbi-btn--primary" href="/pages/quote" aria-current="page">Request a Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       BREADCRUMBS
+       ============================================================ -->
+  <div class="lp-crumbs-band">
+    <div class="lp-crumbs-band__inner">
+      <ol class="bbi-crumbs" aria-label="Breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li aria-current="page">Request a Quote</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="lp-hero" aria-label="Hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <p class="lp-hero__eyebrow bbi-mono">
+          <span class="lp-hero__eyebrow-label">Quoting · Ontario &amp; Canada</span>
+        </p>
+        <span class="lp-hero__badge">
+          <span class="lp-hero__badge-dot"></span>
+          We respond within 1 business day
+        </span>
+        <h1>Your quote, back within 24 hours.</h1>
+        <p class="lp-hero__standfirst">Tell us what your space needs — chair count, desk specs, floor plan, or just a rough scope. Brant Business Interiors turns requests into itemised quotes, fast. No minimums. No sales pitch. Just the number you need to move your project forward.</p>
+        <div class="lp-hero__cta-row">
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/contact">Request a Quote <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">Call 1-800-835-9565</a>
+        </div>
+      </div>
+      <div class="lp-hero__media" aria-hidden="true">
+        <div class="lp-hero__media-placeholder">Hero · 5:4 · Ontario workspace fit-out</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INTRO — How the quote process works
+       ============================================================ -->
+  <section class="lp-intro" aria-label="How quoting works">
+    <div class="lp-intro__inner">
+      <p class="lp-intro__eyebrow bbi-mono">How it works</p>
+      <h2>Send a scope. Get a quote. Place a PO.</h2>
+      <div class="lp-intro__body">
+        <p>Most quotes start with a message or a call. Share your space details — room dimensions, headcount, product preferences, or links to items you've seen — and our Ontario-based team will assemble a line-item quote, typically within one business day. No travel, no showroom visit required before you have numbers on paper.</p>
+        <p>For larger fit-outs — full offices, multi-room schools, healthcare waiting areas — we include a free space plan with your quote. Our designers work from your floor plan and return a furniture layout with the quote so you can show your team exactly what you're buying before the PO is cut. <a href="/pages/design-services">Learn about our free design layout service →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT / FORM SECTION + OECM CALLOUT
+       ============================================================ -->
+  <section class="lp-contact" aria-label="How to reach us">
+    <div class="lp-contact__inner">
+
+      <!-- Left: channels -->
+      <div>
+        <div class="lp-contact__col-head">
+          <p class="lp-contact__eyebrow bbi-mono">Get in touch</p>
+          <h2>Three ways to start your quote.</h2>
+        </div>
+        <p class="lp-contact__body">Use whatever's fastest for you. All three channels go to the same Ontario team — you'll hear back within 1 business day.</p>
+        <div class="lp-contact__channels">
+
+          <a class="lp-contact__channel" href="/pages/contact">
+            <span class="lp-contact__channel-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="4" width="16" height="13" rx="2"/><path d="M2 7 L10 12 L18 7"/></svg>
+            </span>
+            <span class="lp-contact__channel-label">
+              <span class="lp-contact__channel-name">Online quote form</span>
+              <span class="lp-contact__channel-meta">Describe your scope · attach a floor plan · we respond in 1 business day</span>
+            </span>
+            <svg class="lp-contact__channel-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8 H13"/><path d="M9 4 L13 8 L9 12"/></svg>
+          </a>
+
+          <a class="lp-contact__channel" href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">
+            <span class="lp-contact__channel-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 3 C3 3 2 7 6.5 11.5 C11 16 15 15 15 15 L16.5 12.5 L13.5 10.5 L11.5 12.5 C11.5 12.5 8.5 10.5 8 7.5 L10 6 L8 2.5 Z"/></svg>
+            </span>
+            <span class="lp-contact__channel-label">
+              <span class="lp-contact__channel-name">Call 1-800-835-9565</span>
+              <span class="lp-contact__channel-meta">Mon–Fri 8am–5pm ET · speak directly with a furniture consultant</span>
+            </span>
+            <svg class="lp-contact__channel-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8 H13"/><path d="M9 4 L13 8 L9 12"/></svg>
+          </a>
+
+          <a class="lp-contact__channel" href="mailto:info@brantbusinessinteriors.com">
+            <span class="lp-contact__channel-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 4 H16 a2 2 0 0 1 2 2 V14 a2 2 0 0 1 -2 2 H4 a2 2 0 0 1 -2 -2 V6 a2 2 0 0 1 2 -2 Z"/><path d="M2 6 L10 11 L18 6"/></svg>
+            </span>
+            <span class="lp-contact__channel-label">
+              <span class="lp-contact__channel-name">info@brantbusinessinteriors.com</span>
+              <span class="lp-contact__channel-meta">Email your scope or product list directly</span>
+            </span>
+            <svg class="lp-contact__channel-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8 H13"/><path d="M9 4 L13 8 L9 12"/></svg>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Right: OECM callout -->
+      <div>
+        <div class="lp-oecm-callout">
+          <div class="lp-oecm-callout__eyebrow">
+            <span class="lp-oecm-callout__dot"></span>
+            OECM Buyer?
+          </div>
+          <h3>Reference your agreement number — we'll do the rest.</h3>
+          <p class="lp-oecm-callout__body">Brant Business Interiors is an OECM Supplier Partner (Agreement 2025-470). If your school board, hospital, municipality, or not-for-profit is OECM-eligible, your procurement policy already covers purchasing from us — no separate RFP needed.</p>
+          <p class="lp-oecm-callout__body" style="margin-bottom:0;">When you request a quote, mention that you're an OECM buyer and include your organization's OECM member number. We'll format the quote against the pre-tendered agreement pricing and flag the eligible line items so your purchasing team can approve it cleanly.</p>
+          <div class="lp-oecm-callout__detail">OECM Supplier Partner · Agreement 2025-470 · Office Furniture Category · Ontario broader public sector</div>
+          <div style="margin-top: var(--space-6);">
+            <a class="bbi-btn bbi-btn--primary bbi-btn--full" href="/pages/contact">Request an OECM Quote <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+          <div style="margin-top: var(--space-3);">
+            <a class="bbi-btn bbi-btn--secondary bbi-btn--full" href="/pages/oecm">Learn about OECM purchasing →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DIFFERENTIATORS — 4 reasons to quote with BBI
+       ============================================================ -->
+  <section class="lp-diff" aria-label="Why quote with Brant Business Interiors">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">Why quote with us</p>
+        <h2>Four reasons Ontario buyers send us their scope.</h2>
+      </div>
+      <div class="lp-diff__grid">
+
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">01</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="16" cy="16" r="12"/>
+              <path d="M16 9 V16 L20 20"/>
+            </svg>
+          </span>
+          <h3 class="lp-diff-card__label"><span>1-day turnaround</span></h3>
+          <p class="lp-diff-card__sentence">Most quotes return within one business day of intake. For larger projects with floor plans, add one more day. No waiting a week to find out if the budget works.</p>
+        </article>
+
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">02</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="M16 3 L27 7 V16 c0 7 -5 11 -11 13 c-6 -2 -11 -6 -11 -13 V7 Z"/>
+              <path d="M11 16 l4 4 l6 -8"/>
+            </svg>
+          </span>
+          <h3 class="lp-diff-card__label"><span>OECM-ready quotes</span></h3>
+          <p class="lp-diff-card__sentence">As an OECM Supplier Partner (Agreement 2025-470), we format quotes against pre-tendered pricing for eligible buyers — school boards, hospitals, municipalities, not-for-profits.</p>
+        </article>
+
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">03</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="M6 28 L6 12 C6 9 8 7 11 7 L21 7 C24 7 26 9 26 12 L26 28"/>
+              <path d="M3 28 H29"/>
+              <rect x="13" y="18" width="6" height="10"/>
+              <rect x="9" y="12" width="5" height="5"/>
+              <rect x="18" y="12" width="5" height="5"/>
+            </svg>
+          </span>
+          <h3 class="lp-diff-card__label"><span>Canadian-owned, Ontario-based</span></h3>
+          <p class="lp-diff-card__sentence">Canadian-owned. Ontario-based. 🍁 Head office in Peterborough, showroom in Mississauga — one Ontario team manages your quote, delivery, and installation. No out-of-province handoffs.</p>
+        </article>
+
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">04</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <rect x="4" y="8" width="24" height="18" rx="2"/>
+              <path d="M4 14 H28"/>
+              <path d="M10 6 V10 M22 6 V10"/>
+              <path d="M10 20 H14 M18 20 H22"/>
+            </svg>
+          </span>
+          <h3 class="lp-diff-card__label"><span>Free space plan included</span></h3>
+          <p class="lp-diff-card__sentence">Fit-outs over a certain size? We include a furniture layout with your quote at no charge — so you can see how the room works before you commit. Floor plan optional; rough dimensions work too.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROOF BAR
+       ============================================================ -->
+  <section class="lp-proof-bar" aria-label="Track record">
+    <div class="lp-proof-bar__inner">
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">Since 1964</span>
+        <span class="lp-proof-bar__stat-label">Serving Ontario buyers</span>
+        <span class="lp-proof-bar__stat-detail">Over six decades of commercial furniture expertise. Canadian-owned and operated since the beginning.</span>
+      </div>
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">OECM</span>
+        <span class="lp-proof-bar__stat-label">Verified Supplier Partner</span>
+        <span class="lp-proof-bar__stat-detail">Agreement 2025-470. Pre-tendered office furniture pricing for the Ontario broader public sector.</span>
+      </div>
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">1 day</span>
+        <span class="lp-proof-bar__stat-label">Quote turnaround</span>
+        <span class="lp-proof-bar__stat-detail">Most itemised quotes return within one business day of receiving your scope — no minimums, no RFQ overhead.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ
+       ============================================================ -->
+  <section class="lp-faq" aria-label="Frequently asked questions">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <p class="lp-faq__eyebrow bbi-mono">FAQ</p>
+        <h2>Common questions before the first quote.</h2>
+      </div>
+      <div class="lp-faq__list" id="quote-faq-list">
+
+        <div class="lp-faq__item lp-faq__item--open">
+          <button class="lp-faq__trigger" aria-expanded="true">
+            <span class="lp-faq__trigger-num">01</span>
+            <span>What do you need from me to start a quote?</span>
+            <span class="lp-faq__chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+          </button>
+          <div class="lp-faq__answer">
+            <p>Anything is a starting point — a list of products, a room dimension, a headcount, or links to items you've seen on the site. You don't need a finished floor plan or a confirmed budget to get numbers. We'll ask a few follow-up questions if needed and get you an itemised quote, usually within one business day.</p>
+          </div>
+        </div>
+
+        <div class="lp-faq__item">
+          <button class="lp-faq__trigger" aria-expanded="false">
+            <span class="lp-faq__trigger-num">02</span>
+            <span>Is there a minimum order to get a quote?</span>
+            <span class="lp-faq__chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+          </button>
+          <div class="lp-faq__answer">
+            <p>No minimum. We quote single chairs, full boardrooms, and everything in between. For very small orders (one or two items), the online store lets you purchase directly — the quote channel is most useful when you want product guidance, a free space plan, or OECM-formatted pricing.</p>
+          </div>
+        </div>
+
+        <div class="lp-faq__item">
+          <button class="lp-faq__trigger" aria-expanded="false">
+            <span class="lp-faq__trigger-num">03</span>
+            <span>I'm an OECM buyer. What do I include in my quote request?</span>
+            <span class="lp-faq__chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+          </button>
+          <div class="lp-faq__answer">
+            <p>Mention that you're purchasing under OECM and include your organization's OECM member number. Brant Business Interiors holds Agreement 2025-470 in the office furniture category. We'll format the quote against pre-tendered pricing and flag which line items are OECM-eligible so your purchasing team can approve it cleanly — no extra steps on your end.</p>
+            <p>Not sure if your organization is OECM-eligible? <a href="/pages/oecm">See our OECM overview</a> or call 1-800-835-9565 and we'll confirm in five minutes.</p>
+          </div>
+        </div>
+
+        <div class="lp-faq__item">
+          <button class="lp-faq__trigger" aria-expanded="false">
+            <span class="lp-faq__trigger-num">04</span>
+            <span>Do you include delivery and installation in quotes?</span>
+            <span class="lp-faq__chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+          </button>
+          <div class="lp-faq__answer">
+            <p>Yes — all quotes include delivery and installation as a separate line item so you can see the full landed cost. We deliver across Ontario and can install with our own crew. After-hours and weekend installs are available for occupied spaces. For out-of-province shipments, call us for a freight quote.</p>
+          </div>
+        </div>
+
+        <div class="lp-faq__item">
+          <button class="lp-faq__trigger" aria-expanded="false">
+            <span class="lp-faq__trigger-num">05</span>
+            <span>Can I pay by purchase order (PO)?</span>
+            <span class="lp-faq__chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+          </button>
+          <div class="lp-faq__answer">
+            <p>Yes. Government bodies, school boards, hospitals, non-profits, and established businesses can place orders on account with a PO. Mention this when you request your quote and we'll set up your account during the quoting process.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA CLOSER (scheme-inverse)
+       ============================================================ -->
+  <section class="bbi-cta-section scheme-inverse" aria-label="Request a quote">
+    <div class="bbi-cta-section__inner">
+      <div>
+        <p class="bbi-cta-section__eyebrow">Ready to move forward?</p>
+        <h2 class="bbi-cta-section__heading">Send us your scope. We'll send back a quote.</h2>
+        <p class="bbi-cta-section__sub">Floor plan, product list, or rough headcount — any starting point works. One business day to a quote, one Ontario team from scope through installation.</p>
+      </div>
+      <div class="bbi-cta-section__actions">
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/contact">Request a Quote <span class="arrow" aria-hidden="true">→</span></a>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span><b>We respond within 1 business day.</b> No minimums, no sales overhead.</span>
+        </div>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span>Or call <a href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">1-800-835-9565</a> &middot; Mon&ndash;Fri 8am&ndash;5pm ET</span>
+        </div>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span>Canadian-owned. Ontario-based. 🍁 Serving institutional buyers since 1964.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER (scheme-inverse)
+       ============================================================ -->
+  <footer class="bbi-footer scheme-inverse" role="contentinfo">
+    <div class="bbi-footer__inner">
+      <div class="bbi-footer__brand-plate">
+        <div class="bbi-footer__logo-block">
+          <div class="bbi-footer__logo-name">Brant Business Interiors</div>
+          <div class="bbi-footer__logo-sub">a division of Office Central Inc.</div>
+        </div>
+        <p class="bbi-footer__tag">Commercial office furniture for Ontario institutions and businesses. Canadian-owned since 1964. 🍁</p>
+        <div class="bbi-footer__oecm">
+          <span class="bbi-footer__oecm-dot"></span>
+          OECM Supplier · Agreement 2025-470
+        </div>
+      </div>
+      <div>
+        <div class="bbi-footer__col-head">Shop</div>
+        <ul class="bbi-footer__links">
+          <li><a href="/collections/seating">Seating</a></li>
+          <li><a href="/collections/desks">Desks &amp; Workstations</a></li>
+          <li><a href="/collections/storage">Storage &amp; Filing</a></li>
+          <li><a href="/collections/tables">Tables</a></li>
+          <li><a href="/collections/boardroom">Boardroom</a></li>
+          <li><a href="/collections/business-furniture">View all →</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="bbi-footer__col-head">Services</div>
+        <ul class="bbi-footer__links">
+          <li><a href="/pages/quote">Request a Quote</a></li>
+          <li><a href="/pages/oecm">OECM Purchasing</a></li>
+          <li><a href="/pages/design-services">Free Space Planning</a></li>
+          <li><a href="/pages/delivery">Delivery &amp; Install</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="bbi-footer__col-head">Contact</div>
+        <ul class="bbi-footer__links">
+          <li><a href="tel:18008359565" aria-label="Call 1-800-835-9565">1-800-835-9565</a></li>
+          <li><a href="mailto:info@brantbusinessinteriors.com">info@brantbusinessinteriors.com</a></li>
+          <li><a href="/pages/about">295 George St N, Peterborough ON</a></li>
+          <li><a href="/pages/about">2400 Matheson Blvd E, Mississauga ON</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bbi-footer__bottom">
+      <span class="bbi-footer__copy">&copy; 2026 Brant Business Interiors, a division of Office Central Inc. All rights reserved.</span>
+      <span class="bbi-footer__maple">Canadian-owned &amp; operated 🍁</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- FAQPage JSON-LD structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Furniture Quote Request — Brant Business Interiors",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Brant Business Interiors",
+        "url": "https://www.brantbusinessinteriors.com",
+        "telephone": "+1-800-835-9565",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "295 George St N",
+          "addressLocality": "Peterborough",
+          "addressRegion": "ON",
+          "postalCode": "K9J 3H2",
+          "addressCountry": "CA"
+        }
+      },
+      "serviceType": "Commercial office furniture quoting and procurement",
+      "areaServed": "Ontario, Canada",
+      "description": "Brant Business Interiors provides commercial office furniture quotes to Ontario institutional buyers (school boards, hospitals, municipalities, not-for-profits) and private-sector businesses, typically within one business day. OECM Supplier Partner, Agreement 2025-470.",
+      "offers": {
+        "@type": "Offer",
+        "description": "Free furniture quote with 1 business day turnaround. OECM pre-tendered pricing available."
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What do you need from me to start a furniture quote?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Anything is a starting point — a list of products, a room dimension, a headcount, or links to items on the site. You don't need a finished floor plan or a confirmed budget to get numbers. Brant Business Interiors will ask follow-up questions if needed and return an itemised quote within one business day."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a minimum order to get a quote?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No minimum. Brant Business Interiors quotes single chairs, full boardrooms, and everything in between. The quote channel is most useful when you want product guidance, a free space plan, or OECM-formatted pricing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I'm an OECM buyer. What do I include in my quote request?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mention that you're purchasing under OECM and include your organization's OECM member number. Brant Business Interiors holds OECM Supplier Partner Agreement 2025-470 in the office furniture category. The quote will be formatted against pre-tendered pricing with eligible line items flagged for your purchasing team."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Brant Business Interiors include delivery and installation in quotes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All quotes include delivery and installation as a separate line item showing the full landed cost. Delivery is available across Ontario, with after-hours and weekend installs available for occupied spaces."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I pay by purchase order (PO)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Government bodies, school boards, hospitals, non-profits, and established businesses can place orders on account with a purchase order. Mention this when requesting a quote."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- FAQ accordion JS -->
+<script>
+(function() {
+  var list = document.getElementById('quote-faq-list');
+  if (!list) return;
+  list.addEventListener('click', function(e) {
+    var trigger = e.target.closest('.lp-faq__trigger');
+    if (!trigger) return;
+    var item = trigger.closest('.lp-faq__item');
+    var isOpen = item.classList.contains('lp-faq__item--open');
+    list.querySelectorAll('.lp-faq__item--open').forEach(function(el) {
+      el.classList.remove('lp-faq__item--open');
+      el.querySelector('.lp-faq__trigger').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('lp-faq__item--open');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

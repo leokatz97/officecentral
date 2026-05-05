@@ -226,3 +226,5 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | **Landing page deploy script** | [scripts/bbi-push-landing.py](scripts/bbi-push-landing.py) |
 | **P1-2 OECM page — section** | [theme/sections/ds-lp-oecm.liquid](theme/sections/ds-lp-oecm.liquid) |
 | **P1-2 OECM page — template** | [theme/templates/page.oecm.json](theme/templates/page.oecm.json) |
+| **P1-4 Quote page — section** | [theme/sections/ds-lp-quote.liquid](theme/sections/ds-lp-quote.liquid) |
+| **P1-4 Quote page — template** | [theme/templates/page.quote.json](theme/templates/page.quote.json) |

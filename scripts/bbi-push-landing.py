@@ -32,6 +32,7 @@ from pathlib import Path
 # ── Human-readable page titles keyed by slug ──────────────────────────────────
 # Add an entry here whenever you add a new templates/page.{slug}.json file.
 PAGE_TITLES = {
+    'quote':        'Request a Quote',
     'oecm':         'OECM Purchasing',
     'brand-dealer': 'ergoCentric Authorized Dealer',
     'healthcare':   'Healthcare Furniture',
