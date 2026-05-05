@@ -26,7 +26,7 @@ The gate **closes on DS-1** (fill TBDs), not DS-0. DS-0 lands the inputs DS-1 ne
 | **DS-0** | Land Claude Design Phase 3 — 5 screen exports + audit tables | **s2 (complete)** | Inputs for DS-1 |
 | **DS-1** | Fill `design-system.md` TBD placeholders | not started | `grep -c TBD → 0` (gate) |
 | **DS-2** | Push design tokens to BBI Landing Dev (theme `186373570873`) | **s2 (complete)** | `settings_data.json` updated on dev |
-| **DS-3** | Three Liquid edits + PR + push to BBI Landing Dev | not started | dark-mode block deleted; `#f00f00`/`#FFCA10` → `#D4252A` |
+| **DS-3** | Three Liquid edits + PR + push to BBI Landing Dev | **s2 (complete)** | dark-mode block deleted; `#f00f00`/`#FFCA10` → `#D4252A` |
 | **DS-4** | `/bbi-build-page` readiness check (9-row pass/fail) | not started | Verdict line `READY` — blocks every P1 row |
 
 DS-0 → DS-4 must run in order. DS-4 is the blocking gate before any P1 build runs.
@@ -97,7 +97,7 @@ These are the "moving away from" reference — attached to Claude Design briefs 
 - [x] DS-0: 5 locked screen exports (homepage, collection.category, collection sub, OECM landing, PDP unbuyable) at 1440px + 375px in `data/design-photos/screens-t*/` + audit tables in `docs/strategy/bbi-screens-audit-v1.md`
 - [ ] DS-1: `grep -c TBD docs/strategy/design-system.md` returns `0` (gate)
 - [x] DS-2: tokens pushed to BBI Landing Dev `settings_data.json`; baseline backup + push log written
-- [ ] DS-3: dark-mode block deleted from `theme/snippets/style-variables.liquid`; `#f00f00` and `#FFCA10` replaced with `#D4252A`; PR merged
+- [x] DS-3: dark-mode block deleted from `theme/snippets/style-variables.liquid`; `#f00f00` and `#FFCA10` replaced with `#D4252A`; pushed to BBI Landing Dev
 - [ ] DS-4: 9-row readiness check returns `READY` — unblocks P1
 - [ ] T4 round locked
 - [ ] All 5 screens promoted from screen exports into `theme/` sections + snippets
