@@ -49,8 +49,8 @@ Source of truth: `docs/strategy/design-system.md` (locked 2026-04-27). Mirrored 
 
 ```
 --bbi-ink: #0B0B0C           (primary text, button fills)
---bbi-paper: #FFFFFF         (page canvas — white-forward)
---bbi-paper-raised: #FAFAFA  (card/panel surface tier)
+--bbi-paper: #F7F8FA         (page canvas — warm paper white)
+--bbi-paper-raised: #FFFFFF  (card/panel surface — pure white raised above page)
 --bbi-accent: #D4252A        (Brant red — use sparingly)
 --bbi-gray-200: #DEE1E6      (default border)
 --bbi-gray-500: #6F7580      (meta/caption text)
@@ -245,7 +245,41 @@ Tell Leo:
 Remove `ds-featured-grid` for text-heavy pages (FAQ, Contact, policies) where a card grid doesn't apply. Add a second `ds-feature-strip` or a testimonial block between trust-row and quote-cta on pages where social proof needs more weight.
 
 **Type B — Standard Shopify Page** (homepage, collection pages, product pages, about, contact):
-Type B uses Starlite sections, not ds-*. Start from the closest completed BBI page template as a structural reference (see Step 3 readiness gate for options). Identify which Starlite section handles each piece of the Claude Design output in Step 5.
+Type B uses Starlite sections, not ds-*. The Starlite section inventory for BBI is below — use these as the building blocks when mapping Claude Design output in Step 5.
+
+**Starlite section inventory (BBI theme):**
+
+| Section file | Role / use case |
+|---|---|
+| `images-banner.liquid` | Full-width hero with image background + headline + CTA — primary hero for homepage, collection category |
+| `split-banner.liquid` | 50/50 image + text — good for About, service intros, secondary heroes |
+| `categories.liquid` | Category tile grid — homepage shop grid (9 BF category tiles), collection sub-navigation |
+| `featured-collection.liquid` | Products from a single named collection — homepage "featured products" row |
+| `featured-products.liquid` | Curated product grid (manually selected) — hero product showcase, bestsellers strip |
+| `multi-column.liquid` | 3–4 column icon + text layout — Type B equivalent of ds-feature-strip |
+| `logo-list.liquid` | Logo strip — brand trust row, client logos, OECM seal row |
+| `blinking-icons.liquid` | Icon callout strip — feature highlights, trust points |
+| `featured-content.liquid` | Flexible headline + body + CTA block — quote CTA equivalent, section intros |
+| `marquee.liquid` | Scrolling text or logo strip — announcement, brand crawl |
+| `newsletter.liquid` | Email capture or contact CTA form |
+| `images-grid.liquid` | Photo grid — Our Work, project gallery |
+| `blog-posts.liquid` | Recent articles — Resources/blog hub |
+| `Collapsible-content.liquid` | Accordion FAQ — FAQ page, product spec sections |
+| `custom-liquid.liquid` | **Escape hatch** — paste raw HTML/CSS from Claude Design output when no Starlite section maps cleanly. Use this rather than forcing a bad fit. |
+
+**Default Type B section stack (starting point — adjust per page):**
+1. `announcement-bar` — only if active promo; omit otherwise
+2. `header` — always (Starlite sticky header with nav)
+3. `images-banner` — full-width hero with H1
+4. `categories` — tile grid (for shop/collection pages) OR `multi-column` (for content pages)
+5. `featured-products` or `featured-collection` — product showcase where relevant
+6. `logo-list` — trust logos / OECM seal
+7. `featured-content` — quote/contact CTA band
+8. `footer` — always
+
+For content-only pages (About, Contact, FAQ): replace 4–6 with `split-banner` + `Collapsible-content` + `newsletter` as appropriate.
+
+When Claude Design output has a section that doesn't map to any Starlite section, use `custom-liquid.liquid` and paste the HTML/CSS block directly. Note it in Step 6 so Leo knows which sections are Starlite-managed vs. custom paste.
 
 Wait for Leo to confirm the scope before moving to Step 2.
 
@@ -271,8 +305,8 @@ With the content brief approved, generate the full SEO + AEO package for this pa
 
 **2B-1: SEO Title + Meta Description**
 Invoke `/meta-tags-optimizer` with the page name, target keyword (from icp.md keyword lists), and the approved content brief. Output:
-- SEO title: ≤60 chars, ends with `| Brant Business Interiors — a division of Office Central Inc. (OECM Supplier)`
-- Meta description: 150–160 chars, outcome-focused, includes target keyword
+- SEO title: ≤60 chars total, ends with `| Brant Business Interiors` (26 chars — leaves 34 for the page name). OECM Supplier and division details belong in the meta description, not the title — they push it over 60 chars and get truncated by Google.
+- Meta description: 150–160 chars, outcome-focused, includes target keyword + "OECM Supplier Partner, Agreement 2025-470" where relevant
 
 **2B-2: Header Hierarchy**
 Define H1, H2, H3 order with target keywords naturally placed. H1 = page hero headline (one only, never duplicate). H2s = section headers.
@@ -313,11 +347,15 @@ Present the full SEO + AEO package as a pasteable block. Wait for Leo's go-ahead
 
 Confirm all four items are ready before generating the prompt. Do not proceed if any are missing.
 
-- [ ] Brand constants block populated AND values match the locked anchors in `docs/strategy/design-system.md`: canvas #FFFFFF, surface #FAFAFA, ink #0B0B0C, accent #D4252A. No beige, no navy, no dark-mode tokens in the prompt.
+- [ ] Brand constants block populated AND values match the locked anchors in `docs/strategy/design-system.md`: canvas #F7F8FA, card surface #FFFFFF, ink #0B0B0C, accent #D4252A. No beige, no navy, no dark-mode tokens in the prompt.
 - [ ] All page images identified with exact file paths (from Pre-Step item 0)
 - [ ] SEO title, H1, and meta description from Step 2B ready to paste
 - [ ] Reference page identified for Leo to attach — pick the most structurally similar completed page:
-  - **Phase 3 reference screens** (homepage, collection.category, collection sub, OECM landing, PDP unbuyable) from `data/design-photos/screens-v1-*/` — primary visual anchor; attach the closest-match screen alongside any template-based reference
+  - **Locked reference screens** (primary visual anchor — attach the closest-match screen alongside any template-based reference):
+    - Homepage / Collection-category / Collection-sub (T4): `data/design-photos/round4-template-3-attachments/`
+    - OECM Landing (T5 Template 4): `data/design-photos/screens-t5-2026-05-04/landing-oecm/`
+    - PDP unbuyable (T5 Template 5): `data/design-photos/screens-t5-2026-05-04/pdp-unbuyable/`
+    - Earlier rounds (T2/T3) in `data/design-photos/screens-t2-locked-2026-04-28/` and `screens-t3-LOCKED-2026-04-29/` — use only as fallback if T4/T5 doesn't match the page type
   - `page.oecm.json` → service / trust / procurement pages
   - `page.brand-dealer.json` → dealer / brand showcase pages
   - As more pages complete QA, add their template handles here so Leo always has the closest match
@@ -345,7 +383,7 @@ Emit the exact prompt for Leo to paste into claude.ai/design. Use this template 
 Design a [PAGE TYPE] for Brant Business Interiors (BBI).
 
 Brand constants (use exactly — do not invent):
-Background: #FFFFFF | Card surface: #FAFAFA | Primary text: #0B0B0C
+Background: #F7F8FA | Card surface: #FFFFFF | Primary text: #0B0B0C
 Accent — red-surface (buttons / banners / badges): #D4252A — must occupy 5–8% of any rendered screen (primary CTAs, key badges, hover accents only)
 Accent — red-text (any red text on white, AA 4.5:1): #A81E22 — never use #D4252A for red text on white (fails AA)
 Border: #DEE1E6 | Secondary text: #363A42 | Meta/caption: #6F7580
@@ -385,6 +423,18 @@ Mobile-first. Output clean, self-contained HTML + CSS only.
 Use ONLY these CSS custom properties — do not invent new ones, do not add beige/tan/cream/navy, do not produce a dark-mode variant:
 --bbi-ink, --bbi-paper, --bbi-paper-raised, --bbi-accent, --bbi-gray-200, --bbi-gray-500, --bbi-gray-700, --bbi-font-sans
 
+Define them in a :root block at the top of your <style> tag so the HTML renders correctly as a standalone file:
+:root {
+  --bbi-ink: #0B0B0C;
+  --bbi-paper: #F7F8FA;
+  --bbi-paper-raised: #FFFFFF;
+  --bbi-accent: #D4252A;
+  --bbi-gray-200: #DEE1E6;
+  --bbi-gray-500: #6F7580;
+  --bbi-gray-700: #363A42;
+  --bbi-font-sans: system-ui, "Geist", "Inter", Helvetica, sans-serif;
+}
+
 SECONDARY PRODUCT ROW (any card grid showing collection products):
 Every product card MUST have an image slot at the top before any text content.
 Image slot: 16:9 or 4:3 aspect ratio, width: 100%, object-fit: cover.
@@ -402,6 +452,21 @@ Then wait. Do not proceed until Leo pastes HTML.
 ## Step 4 — Leo Runs Claude Design
 
 Leo builds the page in claude.ai/design using your prompt — following the session protocol in `docs/workflows/claude-design-session-playbook.md` (token names, attach order, audit asks). Then pastes the full HTML output back into the session. You do nothing here — just wait.
+
+---
+
+## Step 4B — HTML Review (you do this before converting)
+
+When Leo pastes the HTML, run these 6 checks before touching Step 5. If any fail, flag the issue with the exact CSS line(s) and ask Leo whether to fix it now or proceed with a note.
+
+- [ ] **No unauthorized colors** — scan for any hex value that isn't `#0B0B0C`, `#FFFFFF`, `#F7F8FA`, `#D4252A`, `#A81E22`, `#DEE1E6`, `#363A42`, `#6F7580`, or a valid rgba/opacity of those. Flag anything else (beige, tan, cream, sand, navy, goldenrod, teal — all unauthorized).
+- [ ] **No dark mode** — grep for `color-mode`, `prefers-color-scheme`, `dark` as a class or attribute. Zero allowed.
+- [ ] **No serif or display fonts** — grep for `serif`, `Georgia`, `Times`, any Google Fonts import, or any font-family not in the approved stack. Flag and replace with `var(--bbi-font-sans)`.
+- [ ] **Red density ≤8%** — `#D4252A` should appear only on buttons, badges, and the quote CTA band background. Not on headings, not as a large background fill on content sections, not repeated in every row. If it dominates visually, flag it.
+- [ ] **Product cards have image slots** — if the page has a card grid, confirm each card has a `<div>` or `<img>` image slot at the top with `aspect-ratio: 4/3` or `16/9` and `object-fit: cover`. Text-only cards are a defect.
+- [ ] **`:root {}` present** — confirm the HTML contains the `:root` block with `--bbi-*` definitions (required for standalone preview; will be stripped in Step 5 conversion since ds-landing.css already defines them on the live theme).
+
+If all 6 pass, summarise: "HTML review passed — proceeding to Step 5." If any fail, list them clearly before asking how to proceed.
 
 ---
 
