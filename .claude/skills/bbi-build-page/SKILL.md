@@ -2,8 +2,9 @@
 name: bbi-build-page
 description: >
   Explicit slash command for building Brant Business Interiors (BBI) Shopify pages.
-  Runs Leo's full 7-step workflow coordinating Claude Code, Claude Design
-  (claude.ai/design), and Shopify Admin.
+  Runs Leo's full 7-step workflow entirely inside Claude Code — reads the LOCKED design
+  system files, builds the HTML preview directly, previews it in-browser, then converts
+  to Shopify. No Claude Design / claude.ai/design involved.
 
   Invoked as `/bbi-build-page [page name]` — e.g. `/bbi-build-page homepage`,
   `/bbi-build-page contact`, `/bbi-build-page healthcare`. Parse the page name
@@ -16,7 +17,7 @@ description: >
 
 # BBI Build Page
 
-Leo's canonical workflow for building a new BBI Shopify page. Seven steps, always in order, no skipping — even for simple pages.
+Leo's canonical workflow for building a new BBI Shopify page. Seven steps, always in order, no skipping — even for simple pages. **Built entirely in Claude Code** — reads canonical design system sources, writes the HTML, previews in browser, iterates, then converts to Shopify.
 
 ---
 
@@ -43,24 +44,26 @@ Parse the page name from the arguments. If he didn't include one, ask once: "Whi
 
 ---
 
-## Brand Design Tokens
+## Brand Design Tokens — Locked Anchors
 
-Source of truth: `docs/strategy/design-system.md` (locked 2026-04-27). Mirrored into `theme/assets/ds-landing.css`. If the two ever disagree, the spec doc wins — flag the drift to Leo.
+Source of truth: [docs/strategy/design-system.md](../../docs/strategy/design-system.md). Do not re-derive tokens in any prompt — paste anchors only and reference the spec by name.
 
-```
---bbi-ink: #0B0B0C           (primary text, button fills)
---bbi-paper: #F7F8FA         (page canvas — warm paper white)
---bbi-paper-raised: #FFFFFF  (card/panel surface — pure white raised above page)
---bbi-accent: #D4252A        (Brant red — use sparingly)
---bbi-gray-200: #DEE1E6      (default border)
---bbi-gray-500: #6F7580      (meta/caption text)
---bbi-gray-700: #363A42      (body/secondary text)
---bbi-font-sans: system-ui, "Geist", "Inter", Helvetica, sans-serif
-```
+**Locked color anchors (do not relitigate):**
+- `red-surface` = `#D4252A` (buttons / banners / sale badges)
+- `red-text` = `~#A81E22` (any red text on white — AA 4.5:1 verified in design-system.md)
+- Anchor neutral = charcoal `#0B0B0C` (body + headings — NOT navy, supersedes any `#1a2744` reference)
+- Canvas = `#FFFFFF`. Surface tier = `#FAFAFA`. **Anything warmer is banned.**
+- **No beige / tan / cream / sand. No warm tones. No dark mode. No gradients on red. No red as body link color. No red headings.**
+- Red density target: 5–8% per screen.
 
-**Tone:** B2B institutional. Outcome-focused. No fluff. No serif. No emoji on the site.
+**Token vocabulary (use these names — Shopify Admin maps them 1:1):**
+- Per-scheme: `--background, --cardBackground, --textColor, --linkColor, --headingColor, --buttonBackground, --buttonColor, --buttonBorder, --inputBackground, --inputBorder, --borderColor, --line-color, --shadowColor` (+ hover/alternate variants — full list in design-system.md)
+- Global: `--saleBadgeBackground, --soldBadgeBackground, --headerBg, --headerColor, --cartCountBg, --submenuBg` (+ siblings)
+- Two schemes are defined: `scheme-default` (white canvas, 90% of pages) and `scheme-inverse` (charcoal canvas, hero/feature blocks only)
 
-Reference templates: `theme/templates/page.oecm.json` and `theme/templates/page.brand-dealer.json` — match their section order and content style when in doubt.
+**Tone:** B2B institutional. Outcome-focused. No fluff. No serif. No emoji on the site. Maple-leaf icon required wherever Canadian-Owned or Made-in-Canada copy appears.
+
+Reference templates: [theme/templates/page.oecm.json](../../theme/templates/page.oecm.json) and [theme/templates/page.brand-dealer.json](../../theme/templates/page.brand-dealer.json) — match their section order. **For visual rhythm, attach the ANTI-REF screens** from `Design System Zips/5 - Landing Page (2)/uploads/15-ANTI-REF-homepage.png` (homepage layout) and `16-ANTI-REF-nav.png` (header/nav). These are the authoritative visual anchors — they supersede any `data/design-photos/design-system-v1-*/` reference screens.
 
 ---
 
@@ -93,8 +96,68 @@ Reference templates: `theme/templates/page.oecm.json` and `theme/templates/page.
 
 **Photo library:** `data/oci-photos/catalog.json` — 48 real project photos. Use for heroes, Our Work, industry pages.
 
+**Component canon:** All canonical CSS and page templates live in `Design System Zips/5 - PDP/src/`. This is the complete, up-to-date design system bundle — use it as the single source of truth for every page type.
+
+**Shared CSS (used on every page):**
+- `Design System Zips/5 - PDP/src/tokens.css` — all CSS custom property definitions
+- `Design System Zips/5 - PDP/src/bbi-components.css` — all shared classes: `.bbi-btn`, `.bbi-mono`, `.bbi-section`, `.bbi-container`, `.bbi-section-head`, `.bbi-card--collection`, `.bbi-card--product`, `.bbi-badge--oecm`, `.bbi-ph`, `.bbi-cta-section`, header, footer
+
+**Page-specific CSS + JSX template (by page type):**
+
+| Page type | JSX template | CSS file | Class prefix |
+|---|---|---|---|
+| Homepage | `src/Homepage.jsx` | `src/homepage.css` | `.hp-*` |
+| Collection category | `src/CollectionCategory.jsx` | `src/collection-category.css` | (check file) |
+| Collection (sub-collection) | `src/Collection.jsx` | `src/collection.css` | (check file) |
+| Landing pages (OECM, industries, brands, services, about) | `src/Landing.jsx` | `src/landing.css` | `.lp-*` |
+| PDP (unbuyable + buyable) | `src/ProductDetail.jsx` | `src/pdp.css` | `.pd-*` |
+
+**Landing page section order** (from `Landing.jsx` composition):
+Header → Breadcrumbs (`.lp-crumbs-band`) → Hero (`.lp-hero`) → Intro (`.lp-intro`) → Differentiators (`.lp-diff`) → Trust photos (`.lp-trust-row`, conditional) → Proof bar (`.lp-proof-bar`, conditional) → Crosslinks (`.lp-crosslinks`, conditional) → OECM bar (conditional) → FAQ (`.lp-faq`) → Closer (`.bbi-cta-section.scheme-inverse`) → Footer
+
+**PDP section order** (from `ProductDetail.jsx` composition):
+Header → Breadcrumbs (`.pd-crumb-band`) → Hero (`.pd-hero`, gallery 60% + commerce panel 40%) → Description (`.pd-description`) → Specs (`.pd-specs`, conditional) → Variants (`.pd-variants`, conditional) → OECM bar → Related (`.pd-related`, conditional) → Brand block (`.pd-brand-block`, conditional) → Closer (`.bbi-cta-section.scheme-inverse`) → Footer
+
+**Visual reference:** `Design System Zips/5 - PDP/BBI Templates Bundle.html` — rendered HTML of ALL templates in one file. Use as a visual anchor for any page type.
+
+**ANTI-REF images** (visual lock for header/nav): `Design System Zips/5 - Landing Page (2)/uploads/15-ANTI-REF-homepage.png` and `16-ANTI-REF-nav.png` — still the canonical nav/header reference.
+
+Do not invent class names or token names. Every class used must trace back to these source files. `data/design-photos/components-v1-2026-04-27/Components.html` is a retired spec sheet — do not use it as a reference.
+
 **AI page-image library:** pre-generated 16:9 hero images for every BBI landing page, produced by `scripts/generate-page-images.py` (fal.ai flux/schnell). See slug→folder table in Pre-Step.
 To (re)generate: `python3 scripts/generate-page-images.py --live` (or `--limit=3 --live` for a smoke test).
+
+---
+
+## Trust Signal Placement Matrix
+
+Reference table used by Step 2 (microcopy inventory) and Step 3 (Claude Design prompt). Trust signals must land in specific slots, not be sprinkled. "Always" = required on every page of that type; "If applicable" = include only when the page topic supports it (e.g. OECM logo on government/healthcare/education, not on private-sector dealer pages).
+
+| Trust signal | Where it MUST appear | Where it MAY appear | Never |
+|---|---|---|---|
+| **Phone `1-800-835-9565`** | Header (`tel:` link, always) + 1 in-body CTA (hero subheading OR quote-cta band) | Footer | Buried in body paragraph text |
+| **OECM Supplier Partner (Agreement 2025-470)** | Trust row (logo or text badge) on every page targeting Primary ICP (institutional Ontario) | Hero subheading on OECM/government/healthcare/education pages; first 200 words of body copy as a stated fact (AEO anchor) | Marketing-claim phrasing ("we're proud to be…"); decorative repetition |
+| **Canadian-owned line** | Footer (always) | Hero subheading on industry/brand pages; trust row as separate badge | Inside product cards; mid-paragraph fluff |
+| **🍁 Maple leaf icon** | Adjacent to every "Canadian-made" or "Canadian-owned" claim | — | As decorative background; without an accompanying claim |
+| **Authorized dealer (ergoCentric, Keilhauer, Global, Teknion)** | Brand-dealer pages: hero subheading + trust row | Category pages where the brand is featured (single line in feature strip) | Generic landing pages where the brand isn't relevant |
+| **Client logo row** | Trust row on Type A landing pages with Primary ICP | Homepage, About, Customer Stories | Conversion-only pages (Quote form, 404) |
+| **Testimonial quote** | Trust row OR dedicated testimonial block on industry/brand/services pages | Homepage, Customer Stories | Hero (too dense); quote-cta band (competes with form CTA) |
+
+**Per-page-type defaults (apply unless the brief says otherwise):**
+
+| Page type | Hero subheading anchor | Trust row content | Quote CTA band sub-line |
+|---|---|---|---|
+| Industry (healthcare/education/government) | OECM line + phone | OECM seal + 4–6 client logos + Canadian-owned badge | "OECM-eligible. Quote in 1 business day." |
+| Brand dealer (Keilhauer, ergoCentric, etc.) | "Authorized [Brand] dealer" + 🍁 if Canadian-made | Brand logo + OECM seal (if Primary ICP) + 2–3 client logos | "Authorized dealer. Quote in 1 business day." |
+| Service (design, delivery, relocation) | Outcome-anchor (e.g. "Free space plan included") + phone | OECM seal + 4–6 client logos | "Quote in 1 business day. Phone 1-800-835-9565." |
+| OECM (`/pages/oecm`) | OECM agreement number + "purchase without open tender" | OECM seal (large) + Ontario buyer logos | "OECM Agreement 2025-470. Quote in 1 business day." |
+| Category (Seating, Desks, etc.) | Category outcome (e.g. "Built for institutional use") | OECM seal + 3 brand logos carried in this category | "Quote in 1 business day." |
+| Brand-filtered smart collection | Brand-only line ("Authorized [Brand] dealer") | Brand logo only | "Quote in 1 business day." |
+| About / Customer Stories | Canadian-owned + Ontario-focused | Client logos + Canadian-owned badge | Standard quote CTA |
+| FAQ / Contact / Quote form | Phone (no OECM in hero — would distract from form) | OECM seal in trust row only | (page IS the conversion endpoint — no separate band) |
+| Homepage | Outcome-anchor + phone | Full client logo strip + OECM seal + Canadian-owned badge | Standard quote CTA |
+
+If a page type isn't listed, default to: OECM in trust row (if Primary ICP), phone in header + quote-cta, Canadian-owned in footer.
 
 ---
 
@@ -130,6 +193,27 @@ Read `docs/plan/shopify-fix-plan.md` Wave 0 section and surface the status of th
 | W0-7 | OECM + trust signals on BBI store | Trust pages |
 
 If Leo wants to proceed anyway, note which W0 items are outstanding and flag that SEO impact will be limited until they're done. Don't block the build — just make the dependency visible.
+
+---
+
+**Pre-Step 0a — Design System Gate**
+
+Before scoping any page, verify the design-system rebuild is in place. If any of these checks fail, stop and tell Leo to run / finish the 3-phase Claude Design playbook before continuing:
+
+- [ ] `docs/strategy/design-system.md` exists and contains no `TBD` placeholders in the per-scheme color tables, typography table, or radius/shadow scales
+- [ ] `docs/reviews/design-system-audit-2026-04-27.md` is present (token-name reference)
+- [ ] The canonical design system bundle exists at `Design System Zips/5 - PDP/src/` — specifically confirm these files are present:
+  - `tokens.css`, `bbi-components.css` (shared — required for every page)
+  - `Homepage.jsx` + `homepage.css` (homepage)
+  - `Landing.jsx` + `landing.css` (all landing pages)
+  - `ProductDetail.jsx` + `pdp.css` (all PDPs)
+  - `CollectionCategory.jsx` + `collection-category.css` (category pages)
+  - `Collection.jsx` + `collection.css` (sub-collection pages)
+- [ ] ANTI-REF images exist at `Design System Zips/5 - Landing Page (2)/uploads/15-ANTI-REF-homepage.png` and `16-ANTI-REF-nav.png` (visual header/nav lock)
+- [ ] Logo exists at `Design System Zips/5 - Landing Page (2)/uploads/14-bbi-logo-v2.png` ("Brant ✱ BI | Business Interiors" wordmark)
+- [ ] **Before building any page:** read the corresponding JSX template for that page type — the component tree defines section order. Never derive structure from memory or prose.
+
+If `design-system.md` still has TBDs, surface the missing rows and pause. Do not let the page build re-derive tokens.
 
 ---
 
@@ -199,7 +283,7 @@ Also check the manifest CSV at `data/reports/generated-page-images-YYYY-MM-DD.cs
 If neither `{slug}-product.jpg` nor `{slug}-space.jpg` exists in the folder (and no OCI photo is specified in the manifest CSV), **pause here** and ask Leo to choose before continuing:
 - **(a)** Generate: `python3 scripts/generate-page-images.py --limit=1 --live` (add `--slug={slug}` if supported, otherwise run the full script and pull the new file)
 - **(b)** Substitute an OCI photo from `data/oci-photos/catalog.json` — pick the one whose description best matches the page theme
-- **(c)** Proceed with a solid `--bbi-gray-200` placeholder — not ideal for first-impression pages, but acceptable for rough drafts
+- **(c)** Proceed with a solid `--borderColor` (`#DEE1E6`) placeholder — not ideal for first-impression pages, but acceptable for rough drafts
 
 Do not proceed to Step 1 until image slots are confirmed.
 
@@ -245,41 +329,7 @@ Tell Leo:
 Remove `ds-featured-grid` for text-heavy pages (FAQ, Contact, policies) where a card grid doesn't apply. Add a second `ds-feature-strip` or a testimonial block between trust-row and quote-cta on pages where social proof needs more weight.
 
 **Type B — Standard Shopify Page** (homepage, collection pages, product pages, about, contact):
-Type B uses Starlite sections, not ds-*. The Starlite section inventory for BBI is below — use these as the building blocks when mapping Claude Design output in Step 5.
-
-**Starlite section inventory (BBI theme):**
-
-| Section file | Role / use case |
-|---|---|
-| `images-banner.liquid` | Full-width hero with image background + headline + CTA — primary hero for homepage, collection category |
-| `split-banner.liquid` | 50/50 image + text — good for About, service intros, secondary heroes |
-| `categories.liquid` | Category tile grid — homepage shop grid (9 BF category tiles), collection sub-navigation |
-| `featured-collection.liquid` | Products from a single named collection — homepage "featured products" row |
-| `featured-products.liquid` | Curated product grid (manually selected) — hero product showcase, bestsellers strip |
-| `multi-column.liquid` | 3–4 column icon + text layout — Type B equivalent of ds-feature-strip |
-| `logo-list.liquid` | Logo strip — brand trust row, client logos, OECM seal row |
-| `blinking-icons.liquid` | Icon callout strip — feature highlights, trust points |
-| `featured-content.liquid` | Flexible headline + body + CTA block — quote CTA equivalent, section intros |
-| `marquee.liquid` | Scrolling text or logo strip — announcement, brand crawl |
-| `newsletter.liquid` | Email capture or contact CTA form |
-| `images-grid.liquid` | Photo grid — Our Work, project gallery |
-| `blog-posts.liquid` | Recent articles — Resources/blog hub |
-| `Collapsible-content.liquid` | Accordion FAQ — FAQ page, product spec sections |
-| `custom-liquid.liquid` | **Escape hatch** — paste raw HTML/CSS from Claude Design output when no Starlite section maps cleanly. Use this rather than forcing a bad fit. |
-
-**Default Type B section stack (starting point — adjust per page):**
-1. `announcement-bar` — only if active promo; omit otherwise
-2. `header` — always (Starlite sticky header with nav)
-3. `images-banner` — full-width hero with H1
-4. `categories` — tile grid (for shop/collection pages) OR `multi-column` (for content pages)
-5. `featured-products` or `featured-collection` — product showcase where relevant
-6. `logo-list` — trust logos / OECM seal
-7. `featured-content` — quote/contact CTA band
-8. `footer` — always
-
-For content-only pages (About, Contact, FAQ): replace 4–6 with `split-banner` + `Collapsible-content` + `newsletter` as appropriate.
-
-When Claude Design output has a section that doesn't map to any Starlite section, use `custom-liquid.liquid` and paste the HTML/CSS block directly. Note it in Step 6 so Leo knows which sections are Starlite-managed vs. custom paste.
+Type B uses Starlite sections, not ds-*. Start from the closest completed BBI page template as a structural reference (see Step 3 readiness gate for options). Identify which Starlite section handles each piece of the Claude Design output in Step 5.
 
 Wait for Leo to confirm the scope before moving to Step 2.
 
@@ -287,15 +337,88 @@ Wait for Leo to confirm the scope before moving to Step 2.
 
 ## Step 2 — Content Brief
 
-Write all copy for the page:
+Three sub-steps in order. Do not collapse them — each gates the next. The output of all three combined is the "approved content brief" that Step 2B references.
+
+---
+
+### Step 2.1 — ICP Voice Gate
+
+Before writing any copy, lock the voice for this page. Ask Leo explicitly:
+
+> **Which ICP is this page targeting — Primary (institutional Ontario: school boards, hospitals, municipalities, OECM buyers) or Secondary (SMB private-sector: Ontario commercial offices, dental/medical clinics, professional services firms)?**
+
+Default the suggestion based on the Pre-Step item 2 reading of `docs/strategy/icp.md` and the page tips, but require Leo to confirm — don't assume.
+
+Once confirmed, **read the matching voice rules from `docs/strategy/icp.md`** and inject them into the brief as a "Voice Lock" block. Use this format:
+
+```
+VOICE LOCK — [Primary | Secondary] ICP
+- Tone: [exact tone descriptor from icp.md]
+- Reading level: [grade level / formality marker from icp.md]
+- Pronouns: [we / you / they conventions from icp.md]
+- Forbidden words: [exact list from icp.md, e.g. "innovative", "cutting-edge", "synergy"]
+- Required anchors: [trust signals + facts that MUST appear in body copy — pull from icp.md]
+- CTA voice: [imperative / suggestive / formal — from icp.md]
+- Phone CTA wording: [exact phrasing approved for this ICP]
+```
+
+This block is the source of truth for the rest of Step 2 and for Step 2B SEO copy. Every headline, body paragraph, and CTA in this brief must conform to it. Do not proceed to 2.2 until Leo confirms the Voice Lock is correct.
+
+**If `icp.md` doesn't have an explicit voice rule for the field above, mark it `[derive from voice-samples.md]` and pull the closest approved sample as the calibration anchor — don't invent a rule.**
+
+---
+
+### Step 2.2 — Microcopy Inventory
+
+Before writing body copy, list every microcopy element this page will need. The goal is to fix labels and CTA wording up front so they're consistent across the page (and across the site).
+
+Output a table — Leo edits in place if he wants different wording:
+
+| Element | Type | Wording |
+|---|---|---|
+| Primary CTA | Button | _e.g._ Request a Quote |
+| Secondary CTA | Button | _e.g._ Call 1-800-835-9565 |
+| Hero CTA | Button | (same as primary unless page-specific) |
+| Quote CTA band heading | Headline | _e.g._ Ready to outfit your space? |
+| Quote CTA band sub-line | Body | (pull from Trust Signal Placement Matrix per page type) |
+| Quote modal heading | Modal | _e.g._ Request a Quote |
+| Quote modal submit | Button | _e.g._ Send request |
+| Quote form labels | Form | Name / Organization / Email / Phone / Project details |
+| Quote form helper text | Form | _e.g._ We respond within 1 business day. |
+| "View all" link (category pages) | Link | _e.g._ View all [Category] → |
+| "Shop [Brand] products" link (brand pages) | Link | _e.g._ Shop Keilhauer products → |
+| Breadcrumb separator | Layout | `>` (chevron, not slash) |
+| Card CTA (product/sub-collection tiles) | Button | _e.g._ Request a Quote (NOT "Add to cart" — no checkout) |
+| Phone link aria-label | a11y | _e.g._ Call Brant Business Interiors at 1-800-835-9565 |
+| Empty state (if any) | Body | (e.g. for filtered results) |
+
+**Site-wide rules — read the canonical "Microcopy lockup" section in `docs/strategy/icp.md` and apply every locked element verbatim.** Highlights (full list lives in icp.md):
+- Quote CTA: **"Request a Quote"** (never "Get a Quote", "Get Pricing", "Contact Sales")
+- Phone CTA: **"Call 1-800-835-9565"** (full number always — never "Call us")
+- Form submit button: **"Send request"** (never "Submit")
+- Form helper after submit: **"We respond within 1 business day."** (never "24 hours", "ASAP")
+- Brand name in body copy: **"Brant Business Interiors"** — NEVER abbreviate to "BBI" in customer-facing copy
+- Card CTA on product/sub-collection tiles: **"Request a Quote"** (never "Add to cart" — no checkout)
+- Breadcrumb separator: `>` chevron (never `/`)
+
+If this page introduces a new microcopy element not in icp.md's Microcopy lockup table, flag it to Leo and add it to icp.md before using it on the page — never let one-off variants leak in via Claude Design output.
+
+Wait for Leo to confirm the inventory before writing body copy.
+
+---
+
+### Step 2.3 — Body Copy
+
+Now write all the actual copy for the page, applying the locked Voice (2.1) and using only the approved microcopy (2.2):
 - Every headline, subheadline, body paragraph, CTA label
-- Written for B2B institutional procurement buyers
+- Written for the confirmed ICP — no tone drift mid-page
 - Outcome-focused ("free design layout included" — not "we offer design services")
 - Pull real BBI facts: OECM agreement number (2025-470), phone, brands carried, Ontario scope
 - Include 1–2 client quotes from testimonials if available (pulled in Pre-Step)
 - Weave in the competitive differentiator identified in Pre-Step
+- Trust signals placed per the **Trust Signal Placement Matrix** above — do NOT scatter them; map each signal to a specific section/slot
 
-Present the brief as a structured block Leo can scan. Wait for his sign-off before Step 2B.
+Present the brief as a structured block Leo can scan, with the Voice Lock + Microcopy Inventory tables included at the top so the full content package is reviewable in one read. Wait for his sign-off before Step 2B.
 
 ---
 
@@ -305,8 +428,8 @@ With the content brief approved, generate the full SEO + AEO package for this pa
 
 **2B-1: SEO Title + Meta Description**
 Invoke `/meta-tags-optimizer` with the page name, target keyword (from icp.md keyword lists), and the approved content brief. Output:
-- SEO title: ≤60 chars total, ends with `| Brant Business Interiors` (26 chars — leaves 34 for the page name). OECM Supplier and division details belong in the meta description, not the title — they push it over 60 chars and get truncated by Google.
-- Meta description: 150–160 chars, outcome-focused, includes target keyword + "OECM Supplier Partner, Agreement 2025-470" where relevant
+- SEO title: ≤60 chars, ends with `| Brant Business Interiors — a division of Office Central Inc. (OECM Supplier)`
+- Meta description: 150–160 chars, outcome-focused, includes target keyword
 
 **2B-2: Header Hierarchy**
 Define H1, H2, H3 order with target keywords naturally placed. H1 = page hero headline (one only, never duplicate). H2s = section headers.
@@ -341,132 +464,188 @@ Present the full SEO + AEO package as a pasteable block. Wait for Leo's go-ahead
 
 ---
 
-## Step 3 — Claude Design Prompt
+## Step 3 — Build HTML
 
 ### Step 3 Readiness Gate
 
-Confirm all four items are ready before generating the prompt. Do not proceed if any are missing.
+Confirm all items are ready before writing any code:
 
-- [ ] Brand constants block populated AND values match the locked anchors in `docs/strategy/design-system.md`: canvas #F7F8FA, card surface #FFFFFF, ink #0B0B0C, accent #D4252A. No beige, no navy, no dark-mode tokens in the prompt.
+- [ ] Brand constants confirmed (tokens read from `Design System Zips/5 - Landing Page (2)/uploads/05-tokens.css`)
 - [ ] All page images identified with exact file paths (from Pre-Step item 0)
-- [ ] SEO title, H1, and meta description from Step 2B ready to paste
-- [ ] Reference page identified for Leo to attach — pick the most structurally similar completed page:
-  - **Locked reference screens** (primary visual anchor — attach the closest-match screen alongside any template-based reference):
-    - Homepage / Collection-category / Collection-sub (T4): `data/design-photos/round4-template-3-attachments/`
-    - OECM Landing (T5 Template 4): `data/design-photos/screens-t5-2026-05-04/landing-oecm/`
-    - PDP unbuyable (T5 Template 5): `data/design-photos/screens-t5-2026-05-04/pdp-unbuyable/`
-    - Earlier rounds (T2/T3) in `data/design-photos/screens-t2-locked-2026-04-28/` and `screens-t3-LOCKED-2026-04-29/` — use only as fallback if T4/T5 doesn't match the page type
-  - `page.oecm.json` → service / trust / procurement pages
-  - `page.brand-dealer.json` → dealer / brand showcase pages
-  - As more pages complete QA, add their template handles here so Leo always has the closest match
+- [ ] SEO title, H1, and meta description from Step 2B locked
+- [ ] Voice Lock + microcopy inventory from Steps 2.1–2.2 approved
+- [ ] Trust signal slots resolved (hero subheading / trust row / quote-cta sub-line per page-type matrix — no placeholders)
+- [ ] Structural template read for this page type (all in `Design System Zips/5 - PDP/src/`):
+  - **Homepage:** `src/Homepage.jsx`
+  - **Landing pages** (OECM, industries, brands, services, about): `src/Landing.jsx`
+  - **PDP** (product pages, unbuyable or buyable): `src/ProductDetail.jsx`
+  - **Collection category:** `src/CollectionCategory.jsx`
+  - **Collection (sub-collection):** `src/Collection.jsx`
 
 ---
 
-**Before pasting into Claude Design, tell Leo to attach these files:**
+### What to read before writing
 
-1. **Page images** (exact paths from Pre-Step image inventory):
-   - `data/page-images/{slug}/{slug}-product.jpg` → hero / product showcase image
-   - `data/page-images/{slug}/{slug}-space.jpg` → full-room background (if it exists)
-   - Or the OCI photo listed in the Pre-Step summary if that slot is `SOURCE=OCI_PHOTO`
+Before writing a single line of HTML, read these files in full. All paths are under `Design System Zips/5 - PDP/src/`:
 
-2. **Reference page HTML** — attach the rendered HTML of a completed BBI page as a structural anchor. Use the source of `page.oecm.json` or `page.brand-dealer.json`. Tell Claude Design: "Match the component structure and visual rhythm of the attached reference page — dark header, full-width hero, feature strip, card grid, CTA band."
+1. `tokens.css` — all CSS custom property definitions
+2. `bbi-components.css` — all shared component classes (required for every page)
+3. The JSX template for this page type — defines section order and component tree:
+   - Homepage → `Homepage.jsx`
+   - Landing (OECM / industries / brands / services / about) → `Landing.jsx`
+   - PDP → `ProductDetail.jsx`
+   - Collection category → `CollectionCategory.jsx`
+   - Collection → `Collection.jsx`
+4. The page-specific CSS for this page type:
+   - Homepage → `homepage.css` (`.hp-*` classes)
+   - Landing → `landing.css` (`.lp-*` classes)
+   - PDP → `pdp.css` (`.pd-*` classes)
+   - Collection category → `collection-category.css`
+   - Collection → `collection.css`
 
-> These are the images Claude Design must use — do not let it generate placeholder imagery.
+Do not invent class names or token names. Every class used must exist in these files. If a pattern isn't in the source files, it doesn't belong on the page.
 
 ---
 
-**Collection page note:** If this page includes a product card grid (desks, seating, storage, any category page), every card **must** have a 16:9 or 4:3 image slot at the top — `object-fit: cover`. Do not build text-only cards. The SECONDARY PRODUCT ROW standard in the prompt enforces this; confirm it is present before submitting.
+### How to build the file
 
-Emit the exact prompt for Leo to paste into claude.ai/design. Use this template — fill in the bracketed parts:
+**Output file:** `previews/{slug}-draft-v1.html` (self-contained — all CSS inlined in `<style>`)
 
-```
-Design a [PAGE TYPE] for Brant Business Interiors (BBI).
+**Structure of the file:**
 
-Brand constants (use exactly — do not invent):
-Background: #F7F8FA | Card surface: #FFFFFF | Primary text: #0B0B0C
-Accent — red-surface (buttons / banners / badges): #D4252A — must occupy 5–8% of any rendered screen (primary CTAs, key badges, hover accents only)
-Accent — red-text (any red text on white, AA 4.5:1): #A81E22 — never use #D4252A for red text on white (fails AA)
-Border: #DEE1E6 | Secondary text: #363A42 | Meta/caption: #6F7580
-Font: system-ui, "Geist", "Inter", Helvetica, sans-serif — no serif, no display fonts
-Spacing scale: 8px base unit (8 / 16 / 24 / 32 / 48 / 64 / 96px)
-Border-radius: 4px on cards, 2px on buttons
-
-Tone: B2B institutional. Clean. No fluff. Ontario commercial furniture dealer.
-Body links: charcoal (#0B0B0C) underline, never red. Reserve red for action surfaces (buttons, CTAs, badges, hover-state accents).
-Borders over shadows: prefer 1px borders in --bbi-gray-200 (#DEE1E6) for component separation; shadows ≤ 8% opacity if used at all.
-Reference: Match the component structure and visual rhythm of the attached reference page —
-dark header, full-width hero, feature strip, card grid, CTA band.
-
-Trust signals (weave into copy naturally — not as a separate section):
-- OECM Supplier Partner, Agreement 2025-470 — Ontario institutional buyers can purchase without open tender
-- Canadian-owned business serving Ontario
-- Authorized dealer: ergoCentric — render an inline SVG maple leaf (not emoji) in --bbi-accent next to any "Canadian-made" or "Canadian-owned" copy
-- Phone: 1-800-835-9565 — must appear in the header and at least one in-body CTA
-
-Images: I am attaching [N] image(s). Use them as-is — do NOT generate placeholder imagery.
-- [{slug}-product.jpg] → hero / product showcase image
-- [{slug}-space.jpg] → full-room background / space atmosphere (if attached)
-
-Page: [NAME]
-Purpose: [PURPOSE IN ONE LINE]
-
-SEO title: [TITLE FROM STEP 2B]
-Meta description: [DESCRIPTION FROM STEP 2B]
-H1: [H1 FROM STEP 2B HEADER HIERARCHY]
-
-Sections (in order):
-1. [SECTION] — [CONTENT]
-2. [SECTION] — [CONTENT]
-...
-
-Mobile-first. Output clean, self-contained HTML + CSS only.
-Use ONLY these CSS custom properties — do not invent new ones, do not add beige/tan/cream/navy, do not produce a dark-mode variant:
---bbi-ink, --bbi-paper, --bbi-paper-raised, --bbi-accent, --bbi-gray-200, --bbi-gray-500, --bbi-gray-700, --bbi-font-sans
-
-Define them in a :root block at the top of your <style> tag so the HTML renders correctly as a standalone file:
-:root {
-  --bbi-ink: #0B0B0C;
-  --bbi-paper: #F7F8FA;
-  --bbi-paper-raised: #FFFFFF;
-  --bbi-accent: #D4252A;
-  --bbi-gray-200: #DEE1E6;
-  --bbi-gray-500: #6F7580;
-  --bbi-gray-700: #363A42;
-  --bbi-font-sans: system-ui, "Geist", "Inter", Helvetica, sans-serif;
-}
-
-SECONDARY PRODUCT ROW (any card grid showing collection products):
-Every product card MUST have an image slot at the top before any text content.
-Image slot: 16:9 or 4:3 aspect ratio, width: 100%, object-fit: cover.
-In this prototype use the attached product image or a solid --bbi-gray-200 placeholder — do NOT generate decorative imagery.
-Card structure (top to bottom): image slot → product name → short descriptor → CTA button.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[SEO TITLE FROM STEP 2B]</title>
+  <meta name="description" content="[META DESCRIPTION FROM STEP 2B]">
+  <!-- Google Fonts: JetBrains Mono for .bbi-mono elements -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* 1. Paste full contents of 05-tokens.css here — scheme-default vars on :root */
+    /* 2. Paste full contents of 06-bbi-components.css here */
+    /* 3. Paste full contents of page-specific CSS (07/08/09) here */
+    /* 4. Any remaining layout rules specific to this page only */
+  </style>
+</head>
+<body class="scheme-default">
+  <!-- Header -->
+  <!-- [sections in order per LOCKED template] -->
+  <!-- Footer -->
+</body>
+</html>
 ```
 
-End your message with:
-> → Go to claude.ai/design, attach the files listed above, paste the prompt, build the page, then paste the HTML output back here.
+**Locked header constants (always):**
+- Logo: `Design System Zips/5 - Landing Page (2)/uploads/14-bbi-logo-v2.png` — alt "Brant Business Interiors", height 36px
+- Nav labels: Shop | Brands | Verticals | Our work | Services | About
+- Header right: phone text link "Call 1-800-835-9565" + charcoal `.bbi-btn--primary` "Request a Quote" (never red)
+- Header height: 72px, max-width inner 1320px, padding 0 32px
 
-Then wait. Do not proceed until Leo pastes HTML.
+**Section rhythm (every body section except OECMBar):**
+```html
+<section class="bbi-section">     <!-- padding: 96px 0 -->
+  <div class="bbi-container">    <!-- max-width: 1320px; padding: 0 32px; margin: 0 auto -->
+    ...
+  </div>
+</section>
+```
+
+**Section head eyebrow rule (every section with a heading):**
+```html
+<div class="bbi-section-head">
+  <div>
+    <p class="bbi-section-head__eyebrow bbi-mono">Eyebrow text</p>
+    <h2 class="bbi-section-head__title">Section heading</h2>
+  </div>
+</div>
+```
+CSS: `.bbi-section-head__eyebrow::before { content:""; display:block; width:24px; height:1px; background:var(--saleBadgeBackground); flex-shrink:0; }`
+
+**Image slots — use `.bbi-ph` placeholders where real images aren't available:**
+```html
+<div class="bbi-ph" style="aspect-ratio:16/9;">
+  <span class="bbi-ph__label">Description</span>
+</div>
+```
+If a real image file exists (from Pre-Step), use `<img src="..." loading="lazy" alt="...">` instead.
+
+**Collection page note:** Any product card grid — every card **must** have a 16:9 or 4:3 image slot at the very top. No text-only cards.
+
+**Red density rule:** After writing each section, count red surface area. Red appears only on: hero primary CTA (`.hp-hero__cta-red`), hero eyebrow dot, section head `::before` rule, OECM badge accent, service mono numbers, testimonial quote mark SVG. Target 5–8% per screen. Never on headings, body links, or the header CTA.
 
 ---
 
-## Step 4 — Leo Runs Claude Design
+### After writing the file
 
-Leo builds the page in claude.ai/design using your prompt — following the session protocol in `docs/workflows/claude-design-session-playbook.md` (token names, attach order, audit asks). Then pastes the full HTML output back into the session. You do nothing here — just wait.
+Tell Leo: "Draft written to `previews/{slug}-draft-v1.html`. Moving to Step 4 to preview."
+
+Do not wait for approval — proceed directly to Step 4.
 
 ---
 
-## Step 4B — HTML Review (you do this before converting)
+## Step 4 — Preview & Iterate
 
-When Leo pastes the HTML, run these 6 checks before touching Step 5. If any fail, flag the issue with the exact CSS line(s) and ask Leo whether to fix it now or proceed with a note.
+Open the preview, check it visually, fix any issues before moving to Step 5. This is Claude Code's QA pass — do it thoroughly so Step 7 is a formality.
 
-- [ ] **No unauthorized colors** — scan for any hex value that isn't `#0B0B0C`, `#FFFFFF`, `#F7F8FA`, `#D4252A`, `#A81E22`, `#DEE1E6`, `#363A42`, `#6F7580`, or a valid rgba/opacity of those. Flag anything else (beige, tan, cream, sand, navy, goldenrod, teal — all unauthorized).
-- [ ] **No dark mode** — grep for `color-mode`, `prefers-color-scheme`, `dark` as a class or attribute. Zero allowed.
-- [ ] **No serif or display fonts** — grep for `serif`, `Georgia`, `Times`, any Google Fonts import, or any font-family not in the approved stack. Flag and replace with `var(--bbi-font-sans)`.
-- [ ] **Red density ≤8%** — `#D4252A` should appear only on buttons, badges, and the quote CTA band background. Not on headings, not as a large background fill on content sections, not repeated in every row. If it dominates visually, flag it.
-- [ ] **Product cards have image slots** — if the page has a card grid, confirm each card has a `<div>` or `<img>` image slot at the top with `aspect-ratio: 4/3` or `16/9` and `object-fit: cover`. Text-only cards are a defect.
-- [ ] **`:root {}` present** — confirm the HTML contains the `:root` block with `--bbi-*` definitions (required for standalone preview; will be stripped in Step 5 conversion since ds-landing.css already defines them on the live theme).
+**4a. Start preview:**
 
-If all 6 pass, summarise: "HTML review passed — proceeding to Step 5." If any fail, list them clearly before asking how to proceed.
+```
+preview_start previews/{slug}-draft-v1.html
+```
+
+**4b. Take a screenshot and check:**
+
+```
+preview_screenshot
+```
+
+Look for:
+- Header renders correctly (logo, nav labels, charcoal CTA)
+- Sections appear in the correct order per the LOCKED template
+- Section head eyebrows have the red `::before` rule visible
+- Hero primary CTA is red; header CTA is charcoal
+- No warm tones (beige/tan/cream) anywhere
+- `.bbi-ph` placeholders render as striped grey boxes with labels
+- Text is readable — charcoal on white, not low-contrast
+
+**4c. Check console for errors:**
+
+```
+preview_console_logs
+```
+
+Fix any CSS parse errors or missing variable warnings before continuing.
+
+**4d. Check responsive at 375px:**
+
+```
+preview_resize 375 812
+preview_screenshot
+```
+
+Confirm: nav collapses or truncates cleanly, hero text doesn't overflow, grid columns stack correctly.
+
+**4e. Iterate:**
+
+For each issue found, edit the HTML file directly and re-screenshot. Repeat until the page matches the LOCKED template visually. Common fixes:
+- Wrong class name → check against `06-bbi-components.css` and `07-homepage.css`
+- Token not resolving → confirm the var name exists in `05-tokens.css`
+- Section out of order → re-read the LOCKED JSX and reorder
+
+**4f. Final screenshot:**
+
+Take a full-page screenshot at 1440px width and share it with Leo before proceeding to Step 5.
+
+```
+preview_resize 1440 900
+preview_screenshot
+```
+
+Wait for Leo's go-ahead before Step 5.
 
 ---
 
@@ -608,6 +787,31 @@ After Leo says "it's live in the draft theme", walk him through these 9 checks. 
 - [ ] Brand-filtered button (brand pages only) — click "Shop [Brand] products →" and confirm it lands on the vendor-filtered smart collection with that brand's products visible
 - [ ] FAQ schema (FAQ + article pages) — view source, search `"@type":"FAQPage"`, confirm structured data matches the visible Q&A content
 
+**Design-system conformance (must pass on every new page):**
+- [ ] Red density 5–8% — eyeball the rendered page; flag if a hero, badge cluster, or CTA stack pushes past 8%
+- [ ] No beige / tan / cream / sand anywhere — scan card backgrounds, footers, alternate-section bands
+- [ ] All headings render in `--headingColor` (charcoal), never red
+- [ ] All body links render in `--linkColor` (charcoal-derived), never red
+- [ ] Focus rings visible on every interactive element against white canvas (≥3:1)
+- [ ] Maple-leaf icon present wherever Canadian-Owned / Made-in-Canada copy appears
+- [ ] Quote-request CTA visually outranks every secondary action on its block (BBI's primary conversion pattern)
+- [ ] Product cards (any grid) have 16:9 image slot at top — no exceptions
+- [ ] Logo is new "Brant ✱ BI | Business Interiors" wordmark from `uploads/14-bbi-logo-v2.png` — not old version
+- [ ] Nav labels are: Shop | Brands | Verticals | Our work | Services | About — not old labels
+- [ ] Header CTA ("Request a Quote") is charcoal, not red — red only on hero primary CTA (`hp-hero__cta-red`)
+- [ ] Every body section uses `.bbi-section` (padding 96px 0) + `.bbi-container` (max-width 1320px, padding 0 32px) wrappers
+- [ ] Every section head eyebrow has red `::before` rule (24px × 1px, `var(--saleBadgeBackground)`)
+- [ ] Class names match canonical system — check the prefix for this page type and confirm every class traces back to a source file:
+  - Shared: `.bbi-*` (from `bbi-components.css`)
+  - Homepage: `.hp-*` (from `homepage.css`)
+  - Landing pages: `.lp-*` (from `landing.css`)
+  - PDP: `.pd-*` (from `pdp.css`)
+  - No invented class names allowed on any page type
+- [ ] Homepage only: no CTA band between Testimonials and Footer (`.bbi-cta-section` is for landing pages and PDPs, not homepage)
+- [ ] Landing pages: closer band uses `.bbi-cta-section.scheme-inverse` (shared component, not `.lp-*`)
+- [ ] PDP (unbuyable): commerce panel shows quote CTA, not "Add to cart" — `data.commerce.buyable = false` pattern
+- [ ] PDP: gallery is 4:5 aspect ratio on desktop, 1:1 on mobile; thumb strip is 6-column grid
+
 Once all checks pass, update `previews/bbi-planning-hub.html` — find the entry for this page in the `PAGES` array and set its status to `done`. This keeps the planning hub accurate as the source of truth for what's built vs. what's left.
 
 ---
@@ -619,7 +823,7 @@ Once all checks pass, update `previews/bbi-planning-hub.html` — find the entry
 - **Suppress Starlite chrome only on Type A** — Type B uses it
 - **Never publish the dev theme** — everything stays in "BBI Landing Dev" draft
 - **Never delete products** — archive or unpublish; prefer unpublish when sold-history exists
-- **Wait for Leo's go-ahead** between Pre-Step, Steps 1, 2, 2B, 3, and 5 — don't run the whole flow autonomously
+- **Wait for Leo's go-ahead** between Pre-Step, Steps 1, 2, 2B, and after Step 4 screenshot — don't run the whole flow autonomously
 - **Flag unbuilt pages** as `[placeholder]` in Step 1 so Leo can decide which to build next
 - **SEO/AEO is non-negotiable** — Step 2B runs on every page, no skipping even for simple pages
-- **One-shot rule** — the Claude Design prompt must pass all 4 gate items before submission. Never submit a partial prompt intending to revise; credits are spent per generation, not per session
+- **Read before writing** — always read the LOCKED source files (tokens, components, LOCKED JSX) before writing any HTML in Step 3. Never invent classes or tokens.
