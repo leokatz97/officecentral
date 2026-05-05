@@ -49,8 +49,8 @@ Source of truth: `docs/strategy/design-system.md` (locked 2026-04-27). Mirrored 
 
 ```
 --bbi-ink: #0B0B0C           (primary text, button fills)
---bbi-paper: #FFFFFF         (page canvas — white-forward)
---bbi-paper-raised: #FAFAFA  (card/panel surface tier)
+--bbi-paper: #F7F8FA         (page canvas — warm paper white)
+--bbi-paper-raised: #FFFFFF  (card/panel surface — pure white raised above page)
 --bbi-accent: #D4252A        (Brant red — use sparingly)
 --bbi-gray-200: #DEE1E6      (default border)
 --bbi-gray-500: #6F7580      (meta/caption text)
@@ -317,7 +317,11 @@ Confirm all four items are ready before generating the prompt. Do not proceed if
 - [ ] All page images identified with exact file paths (from Pre-Step item 0)
 - [ ] SEO title, H1, and meta description from Step 2B ready to paste
 - [ ] Reference page identified for Leo to attach — pick the most structurally similar completed page:
-  - **Phase 3 reference screens** (homepage, collection.category, collection sub, OECM landing, PDP unbuyable) from `data/design-photos/screens-v1-*/` — primary visual anchor; attach the closest-match screen alongside any template-based reference
+  - **Locked reference screens** (primary visual anchor — attach the closest-match screen alongside any template-based reference):
+    - Homepage / Collection-category / Collection-sub (T4): `data/design-photos/round4-template-3-attachments/`
+    - OECM Landing (T5 Template 4): `data/design-photos/screens-t5-2026-05-04/landing-oecm/`
+    - PDP unbuyable (T5 Template 5): `data/design-photos/screens-t5-2026-05-04/pdp-unbuyable/`
+    - Earlier rounds (T2/T3) in `data/design-photos/screens-t2-locked-2026-04-28/` and `screens-t3-LOCKED-2026-04-29/` — use only as fallback if T4/T5 doesn't match the page type
   - `page.oecm.json` → service / trust / procurement pages
   - `page.brand-dealer.json` → dealer / brand showcase pages
   - As more pages complete QA, add their template handles here so Leo always has the closest match
@@ -345,7 +349,7 @@ Emit the exact prompt for Leo to paste into claude.ai/design. Use this template 
 Design a [PAGE TYPE] for Brant Business Interiors (BBI).
 
 Brand constants (use exactly — do not invent):
-Background: #FFFFFF | Card surface: #FAFAFA | Primary text: #0B0B0C
+Background: #F7F8FA | Card surface: #FFFFFF | Primary text: #0B0B0C
 Accent — red-surface (buttons / banners / badges): #D4252A — must occupy 5–8% of any rendered screen (primary CTAs, key badges, hover accents only)
 Accent — red-text (any red text on white, AA 4.5:1): #A81E22 — never use #D4252A for red text on white (fails AA)
 Border: #DEE1E6 | Secondary text: #363A42 | Meta/caption: #6F7580
