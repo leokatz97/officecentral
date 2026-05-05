@@ -1,59 +1,71 @@
 """
-Push the BBI landing-page additions into an unpublished Shopify theme.
+Push BBI landing-page files into an unpublished Shopify theme.
 
-Reads files from the repo's `theme/` folder and uploads:
+Auto-discovers all BBI custom files in theme/:
   - assets/ds-*
   - assets/bbi-*.svg
   - assets/maple-leaf.svg
   - sections/ds-*.liquid
   - snippets/ds-*.liquid
-  - templates/page.oecm.json
-  - templates/page.brand-dealer.json
+  - templates/page.*.json   ← auto-discovered; a Shopify Page is created for each
 
-Then creates two Shopify Pages bound to the new templates.
+Pages are created unpublished and assigned to their matching template suffix.
+Page title comes from PAGE_TITLES below; unmapped slugs get a title-cased fallback.
 
 Env:
   SHOPIFY_TOKEN — Admin API token with write_themes + write_content
   SHOPIFY_STORE — office-central-online.myshopify.com
 
 Usage:
-  python3 scripts/bbi-push-landing.py <THEME_ID>
+  python3 scripts/bbi-push-landing.py <THEME_ID>            # push everything
+  python3 scripts/bbi-push-landing.py <THEME_ID> --slug oecm  # push one page only
 """
 import os
 import sys
 import json
 import base64
+import argparse
 import urllib.request
 import urllib.error
 from pathlib import Path
 
+# ── Human-readable page titles keyed by slug ──────────────────────────────────
+# Add an entry here whenever you add a new templates/page.{slug}.json file.
+PAGE_TITLES = {
+    'oecm':         'OECM Purchasing',
+    'brand-dealer': 'ergoCentric Authorized Dealer',
+    'healthcare':   'Healthcare Furniture',
+    'education':    'Education Furniture',
+    'government':   'Government & Municipal Furniture',
+    'about':        'About Brant Business Interiors',
+    'design-services': 'Space Planning & Design Services',
+    'delivery':     'Delivery & Installation',
+    'brands':       'Brands We Carry',
+    'industries':   'Industries We Serve',
+}
+# ──────────────────────────────────────────────────────────────────────────────
+
 TOKEN = os.environ['SHOPIFY_TOKEN']
 STORE = os.environ.get('SHOPIFY_STORE', 'office-central-online.myshopify.com')
-API = '2026-04'
-
-if len(sys.argv) < 2:
-    print('Usage: python3 scripts/bbi-push-landing.py <THEME_ID>')
-    sys.exit(1)
-THEME_ID = sys.argv[1]
-
-BASE = f'https://{STORE}/admin/api/{API}'
-HEADERS = {'X-Shopify-Access-Token': TOKEN, 'Content-Type': 'application/json'}
+API_VERSION = '2026-04'
 
 ROOT = Path(os.environ.get('BBI_PUSH_ROOT', Path(__file__).resolve().parent.parent))
 THEME = ROOT / 'theme'
 if not THEME.exists():
-    raise SystemExit(f'theme/ not found at {THEME} — set BBI_PUSH_ROOT to the repo root that has theme/')
+    raise SystemExit(f'theme/ not found at {THEME} — set BBI_PUSH_ROOT if running from a non-standard location')
 
 TEXT_SUFFIXES = {'.liquid', '.json', '.css', '.js', '.svg'}
 BINARY_SUFFIXES = {'.jpg', '.jpeg', '.png', '.gif', '.webp', '.ico'}
 
 
-def api(method, path, body=None):
-    url = f'{BASE}{path}'
-    data = None
-    if body is not None:
-        data = json.dumps(body).encode()
-    req = urllib.request.Request(url, data=data, headers=HEADERS, method=method)
+def make_headers():
+    return {'X-Shopify-Access-Token': TOKEN, 'Content-Type': 'application/json'}
+
+
+def api(method, path, body=None, *, base):
+    url = f'{base}{path}'
+    data = json.dumps(body).encode() if body is not None else None
+    req = urllib.request.Request(url, data=data, headers=make_headers(), method=method)
     try:
         with urllib.request.urlopen(req) as resp:
             raw = resp.read().decode() or '{}'
@@ -62,48 +74,79 @@ def api(method, path, body=None):
         return {'_error': e.read().decode(), '_code': e.code}, e.code
 
 
-def upload_file(path: Path, key: str):
+def upload_file(path: Path, key: str, *, theme_id, base):
     if path.suffix.lower() in BINARY_SUFFIXES:
         data = base64.b64encode(path.read_bytes()).decode()
         body = {'asset': {'key': key, 'attachment': data}}
     else:
         body = {'asset': {'key': key, 'value': path.read_text(encoding='utf-8')}}
-    result, code = api('PUT', f'/themes/{THEME_ID}/assets.json', body)
+    result, code = api('PUT', f'/themes/{theme_id}/assets.json', body, base=base)
     ok = code < 300
     print(f"  {'OK ' if ok else 'FAIL'} {key} ({code})")
     if not ok:
-        print(f"       {result.get('_error', result)[:200]}")
+        print(f"       {result.get('_error', result)[:300]}")
     return ok
 
 
-def files_to_push():
-    patterns = [
+def files_to_push(slug_filter=None):
+    """Yield (Path, shopify_key) pairs for all BBI theme files.
+
+    If slug_filter is set, only yields the matching section + template for that slug.
+    Always yields shared assets/sections/snippets (they have no per-slug concept).
+    """
+    shared_patterns = [
         ('assets', 'ds-*'),
         ('assets', 'bbi-*.svg'),
         ('assets', 'maple-leaf.svg'),
-        ('sections', 'ds-*.liquid'),
         ('snippets', 'ds-*.liquid'),
-        ('templates', 'page.oecm.json'),
-        ('templates', 'page.brand-dealer.json'),
     ]
-    for subdir, pattern in patterns:
-        for p in sorted((THEME / subdir).glob(pattern)):
-            key = f'{subdir}/{p.name}'
-            yield p, key
+    if slug_filter is None:
+        # Also push all sections and templates
+        shared_patterns += [
+            ('sections', 'ds-*.liquid'),
+        ]
+        template_glob = 'page.*.json'
+    else:
+        # Only push the section + template for this slug
+        shared_patterns += [
+            ('sections', f'ds-lp-{slug_filter}.liquid'),
+        ]
+        template_glob = f'page.{slug_filter}.json'
+
+    for subdir, pattern in shared_patterns:
+        target = THEME / subdir
+        if not target.exists():
+            continue
+        for p in sorted(target.glob(pattern)):
+            yield p, f'{subdir}/{p.name}'
+
+    templates_dir = THEME / 'templates'
+    if templates_dir.exists():
+        for p in sorted(templates_dir.glob(template_glob)):
+            yield p, f'templates/{p.name}'
 
 
-def ensure_page(title, handle, template_suffix):
-    existing, code = api('GET', f'/pages.json?handle={handle}&limit=1')
+def slug_from_template(p: Path) -> str:
+    """templates/page.oecm.json → 'oecm'"""
+    return p.stem.removeprefix('page.')
+
+
+def page_title_for(slug: str) -> str:
+    return PAGE_TITLES.get(slug, slug.replace('-', ' ').title())
+
+
+def ensure_page(title, handle, template_suffix, *, base):
+    existing, code = api('GET', f'/pages.json?handle={handle}&limit=1', base=base)
     if code >= 300:
         print(f'  FAIL lookup {handle}: {existing}')
         return None
     pages = existing.get('pages', [])
     if pages:
         page_id = pages[0]['id']
-        result, code = api('PUT', f'/pages/{page_id}.json', {
-            'page': {'id': page_id, 'template_suffix': template_suffix}
-        })
-        print(f'  OK  page updated {handle} (id={page_id})')
+        api('PUT', f'/pages/{page_id}.json',
+            {'page': {'id': page_id, 'template_suffix': template_suffix}},
+            base=base)
+        print(f'  OK  page updated  handle={handle} (id={page_id})')
         return page_id
     result, code = api('POST', '/pages.json', {
         'page': {
@@ -111,54 +154,84 @@ def ensure_page(title, handle, template_suffix):
             'handle': handle,
             'body_html': '',
             'template_suffix': template_suffix,
-            'published': False,  # keep unpublished; the dev theme is unpublished anyway
+            'published': False,
         }
-    })
+    }, base=base)
     if code >= 300:
         print(f'  FAIL create {handle}: {result}')
         return None
     page_id = result['page']['id']
-    print(f'  OK  page created {handle} (id={page_id})')
+    print(f'  OK  page created  handle={handle} (id={page_id})')
     return page_id
 
 
 def main():
-    print(f'Pushing to theme {THEME_ID} on {STORE}')
-    print(f'API base: {BASE}')
+    parser = argparse.ArgumentParser(
+        description='Push BBI landing-page files to a Shopify dev theme.')
+    parser.add_argument('theme_id', help='Shopify theme ID (numeric)')
+    parser.add_argument('--slug', default=None,
+                        help='Deploy only this slug (e.g. oecm). Omit for all.')
+    args = parser.parse_args()
+
+    theme_id = args.theme_id
+    slug_filter = args.slug
+    base = f'https://{STORE}/admin/api/{API_VERSION}'
+
+    print(f'Store   : {STORE}')
+    print(f'Theme ID: {theme_id}')
+    print(f'Slug    : {slug_filter or "all"}')
     print()
 
-    # Preflight: can we read the theme?
-    info, code = api('GET', f'/themes/{THEME_ID}.json')
+    # Preflight
+    info, code = api('GET', f'/themes/{theme_id}.json', base=base)
     if code >= 300:
-        print(f'FAIL preflight — theme {THEME_ID} not reachable: {info}')
+        print(f'FAIL preflight — theme {theme_id} not reachable: {info}')
         return 1
-    print(f'Theme name: {info["theme"]["name"]}  role={info["theme"]["role"]}')
+    theme_info = info['theme']
+    print(f'Theme   : {theme_info["name"]}  role={theme_info["role"]}')
+    if theme_info['role'] == 'main':
+        print('WARNING : This is the LIVE theme. Only dev themes should be used here.')
+        answer = input('Type "yes" to continue anyway, or anything else to abort: ').strip().lower()
+        if answer != 'yes':
+            print('Aborted.')
+            return 1
     print()
 
-    # Upload assets
+    # Upload files
     print('Uploading files:')
-    ok, fail = 0, 0
-    for path, key in files_to_push():
-        if upload_file(path, key):
-            ok += 1
+    ok_count, fail_count = 0, 0
+    for path, key in files_to_push(slug_filter):
+        if upload_file(path, key, theme_id=theme_id, base=base):
+            ok_count += 1
         else:
-            fail += 1
+            fail_count += 1
     print()
-    print(f'Upload: {ok} ok, {fail} failed')
-    if fail:
+    print(f'Upload: {ok_count} ok, {fail_count} failed')
+    if fail_count:
         return 1
 
-    # Create pages
+    # Ensure pages
     print()
-    print('Ensuring pages exist and are bound to the new templates:')
-    ensure_page('OECM', 'oecm', 'oecm')
-    ensure_page('ergoCentric', 'ergocentric', 'brand-dealer')
+    print('Ensuring Shopify pages exist and are bound to templates:')
+    templates_dir = THEME / 'templates'
+    template_glob = f'page.{slug_filter}.json' if slug_filter else 'page.*.json'
+    created_slugs = []
+    if templates_dir.exists():
+        for p in sorted(templates_dir.glob(template_glob)):
+            slug = slug_from_template(p)
+            title = page_title_for(slug)
+            ensure_page(title, slug, slug, base=base)
+            created_slugs.append(slug)
     print()
 
-    preview_base = f'https://{STORE.replace(".myshopify.com", "")}.myshopify.com'
-    print('Preview URLs (accessible only via the dev theme Preview link in admin):')
-    print(f'  {preview_base}/pages/oecm?preview_theme_id={THEME_ID}')
-    print(f'  {preview_base}/pages/ergocentric?preview_theme_id={THEME_ID}')
+    # Preview URLs
+    host = STORE.replace('.myshopify.com', '')
+    preview_base = f'https://{host}.myshopify.com'
+    print('Preview URLs (dev theme only — share via Shopify Preview link):')
+    for slug in created_slugs:
+        print(f'  {preview_base}/pages/{slug}?preview_theme_id={theme_id}')
+    print()
+
     return 0
 
 

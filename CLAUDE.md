@@ -223,3 +223,6 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | **BBI logo v2 (new)** | [data/design-photos/components-v1-2026-04-27/bbi-logo-v2.png](data/design-photos/components-v1-2026-04-27/bbi-logo-v2.png) |
 | Components v1 HTML deliverable | [data/design-photos/components-v1-2026-04-27/Components.html](data/design-photos/components-v1-2026-04-27/Components.html) |
 | Components v1 tokens CSS | [data/design-photos/components-v1-2026-04-27/tokens.css](data/design-photos/components-v1-2026-04-27/tokens.css) |
+| **Landing page deploy script** | [scripts/bbi-push-landing.py](scripts/bbi-push-landing.py) |
+| **P1-2 OECM page — section** | [theme/sections/ds-lp-oecm.liquid](theme/sections/ds-lp-oecm.liquid) |
+| **P1-2 OECM page — template** | [theme/templates/page.oecm.json](theme/templates/page.oecm.json) |

@@ -4,7 +4,7 @@
     {
       "name": "HTML preview (static server for *-preview.html)",
       "runtimeExecutable": "python3",
-      "runtimeArgs": [".claude/serve-previews.py"],
+      "runtimeArgs": ["-m", "http.server", "8080", "--directory", "/Users/leokatz/Desktop/Office Central/previews"],
       "port": 8080
     },
     {

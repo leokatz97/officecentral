@@ -1,0 +1,787 @@
+{%- comment -%}
+  Section: ds-lp-oecm
+  Purpose: OECM purchasing landing page — BBI Design System v2
+  Sections: breadcrumbs → hero → intro → differentiators → trust row → proof bar → cross-links → FAQ → CTA closer
+  JSON-LD: GovernmentService + FAQPage structured data
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+/* ============================================================
+   BBI Design Tokens — DS v2
+   ============================================================ */
+:root {
+  --bodyFont: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --headingFont: "Inter Tight", "Inter", system-ui, sans-serif;
+  --headingFontWeight: 600;
+  --headingFontLineHeight: 1.1;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --inputRadius: 4px; --buttonRadius: 4px; --cardRadius: 8px;
+  --shadow-sm: 0 1px 2px rgba(11,11,12,.04), 0 2px 8px rgba(11,11,12,.05);
+  --shadow-md: 0 2px 4px rgba(11,11,12,.05), 0 12px 32px rgba(11,11,12,.08);
+  --saleBadgeBackground: #D4252A;
+  --saleBadgeBackground-rgb: 212,37,42;
+  --fs-h0: 44px; --lh-h0: 1.05; --ls-h0: -0.02em;
+  --fs-h1: 32px; --lh-h1: 1.1;  --ls-h1: -0.015em;
+  --fs-h2: 24px; --lh-h2: 1.15; --ls-h2: -0.01em;
+  --fs-h3: 18px; --lh-h3: 1.25; --ls-h3: -0.005em;
+  --fs-body: 16px; --lh-body: 1.55;
+  --fs-small: 13px; --lh-small: 1.5;
+  --fs-button: 15px; --lh-button: 1; --ls-button: 0.01em;
+}
+@media (min-width: 768px) {
+  :root {
+    --fs-h0: 72px; --fs-h1: 48px; --lh-h1: 1.05;
+    --fs-h2: 32px; --lh-h2: 1.1;
+    --fs-h3: 22px; --lh-h3: 1.2;
+    --fs-small: 14px;
+  }
+}
+.bbi-lp-oecm.scheme-default {
+  --background: #FFFFFF; --background-rgb: 255,255,255;
+  --alternateBackground: #FAFAFA; --alternateBackground-rgb: 250,250,250;
+  --cardBackground: #FFFFFF; --cardBackground-rgb: 255,255,255;
+  --textColor: #0B0B0C; --textColor-rgb: 11,11,12;
+  --linkColor: #0B0B0C; --headingColor: #0B0B0C; --headingColor-rgb: 11,11,12;
+  --buttonBackground: #0B0B0C; --buttonBackground-rgb: 11,11,12;
+  --buttonColor: #FFFFFF; --buttonBorder: #0B0B0C;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --alternateButtonBackground: #FFFFFF; --alternateButtonColor: #0B0B0C; --alternateButtonBorder: #0B0B0C;
+  --alternateButtonBackgroundHover: #0B0B0C; --alternateButtonColorHover: #FFFFFF; --alternateButtonBorderHover: #0B0B0C;
+  --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
+  --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
+}
+.bbi-lp-oecm .scheme-inverse {
+  --background: #0B0B0C; --background-rgb: 11,11,12;
+  --alternateBackground: #161618; --alternateBackground-rgb: 22,22,24;
+  --textColor: #FFFFFF; --textColor-rgb: 255,255,255;
+  --linkColor: #FFFFFF; --headingColor: #FFFFFF; --headingColor-rgb: 255,255,255;
+  --buttonBackground: #FFFFFF; --buttonBackground-rgb: 255,255,255;
+  --buttonColor: #0B0B0C; --buttonBorder: #FFFFFF;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --alternateButtonBackground: transparent; --alternateButtonColor: #FFFFFF; --alternateButtonBorder: #FFFFFF;
+  --alternateButtonBackgroundHover: #FFFFFF; --alternateButtonColorHover: #0B0B0C; --alternateButtonBorderHover: #FFFFFF;
+  --borderColor: #1F1F21; --borderColor-rgb: 31,31,33;
+  --shadowColor: #000000; --shadowColor-rgb: 0,0,0;
+}
+
+/* ============================================================
+   Base + Shared Components
+   ============================================================ */
+.bbi-lp-oecm *, .bbi-lp-oecm *::before, .bbi-lp-oecm *::after { box-sizing: border-box; }
+.bbi-lp-oecm { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
+.bbi-lp-oecm img { display: block; max-width: 100%; height: auto; }
+.bbi-lp-oecm a { color: var(--linkColor); }
+.bbi-lp-oecm .bbi-mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.bbi-lp-oecm .bbi-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2); padding: 12px 20px; min-height: 44px;
+  font-family: var(--bodyFont); font-size: var(--fs-button); line-height: var(--lh-button);
+  letter-spacing: var(--ls-button); font-weight: 600; border-radius: var(--buttonRadius);
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.bbi-lp-oecm .bbi-btn:focus { outline: none; }
+.bbi-lp-oecm .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
+.bbi-lp-oecm .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.bbi-lp-oecm .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.bbi-lp-oecm .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
+.bbi-lp-oecm .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
+.bbi-lp-oecm .bbi-crumbs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; color: var(--textColor); margin: 0; padding: 0; list-style: none; }
+.bbi-lp-oecm .bbi-crumbs li { display: inline-flex; align-items: center; gap: 8px; }
+.bbi-lp-oecm .bbi-crumbs li:not(:last-child)::after { content: "/"; opacity: 0.4; }
+.bbi-lp-oecm .bbi-crumbs a { color: var(--textColor); opacity: 0.65; text-decoration: none; }
+.bbi-lp-oecm .bbi-crumbs a:hover { opacity: 1; text-decoration: underline; }
+.bbi-lp-oecm .bbi-crumbs li:last-child { font-weight: 500; }
+
+/* ============================================================
+   CTA Section (reused by closer)
+   ============================================================ */
+.bbi-lp-oecm .bbi-cta-section { background: var(--background); color: var(--textColor); }
+.bbi-lp-oecm .bbi-cta-section__inner {
+  max-width: 1320px; margin: 0 auto; padding: 96px 32px;
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center;
+}
+.bbi-lp-oecm .bbi-cta-section__eyebrow { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--textColor-rgb),.7); margin: 0 0 16px; }
+.bbi-lp-oecm .bbi-cta-section__heading { font-family: var(--headingFont); font-size: clamp(32px,4.2vw,56px); line-height: 1.05; letter-spacing: -0.015em; font-weight: 600; margin: 0 0 20px; text-wrap: balance; }
+.bbi-lp-oecm .bbi-cta-section__sub { font-size: 17px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78); max-width: 52ch; margin: 0; }
+.bbi-lp-oecm .bbi-cta-section__actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.bbi-lp-oecm .bbi-cta-section__trust { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgba(var(--textColor-rgb),.78); }
+.bbi-lp-oecm .bbi-cta-section__trust .dot { flex: 0 0 auto; margin-top: 7px; width: 6px; height: 6px; border-radius: 99px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .bbi-cta-section__trust b { color: var(--textColor); font-weight: 600; }
+.bbi-lp-oecm .bbi-cta-section__trust a { color: var(--textColor); text-decoration: underline; }
+
+/* ============================================================
+   Landing Page Sections
+   ============================================================ */
+.bbi-lp-oecm .lp-crumbs-band { border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-oecm .lp-crumbs-band__inner { max-width: 1280px; margin: 0 auto; padding: var(--space-3) var(--space-6); }
+
+/* Hero */
+.bbi-lp-oecm .lp-hero { padding: var(--space-12) 0; border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-oecm .lp-hero__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: var(--space-12); align-items: center; }
+.bbi-lp-oecm .lp-hero__text { max-width: 560px; }
+.bbi-lp-oecm .lp-hero__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
+.bbi-lp-oecm .lp-hero__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-hero__eyebrow-label { color: rgba(var(--textColor-rgb),.6); }
+.bbi-lp-oecm .lp-hero h1 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-4); text-wrap: balance; }
+.bbi-lp-oecm .lp-hero__standfirst { font-size: 18px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-6); text-wrap: pretty; }
+.bbi-lp-oecm .lp-hero__badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: 6px 12px; border: 1px solid rgba(var(--borderColor-rgb),.8); border-radius: 999px; margin-bottom: var(--space-6); font-size: 12px; color: rgba(var(--textColor-rgb),.78); }
+.bbi-lp-oecm .lp-hero__badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-hero__cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.bbi-lp-oecm .lp-hero__media { position: relative; aspect-ratio: 5 / 4; background: var(--alternateBackground); border-radius: var(--cardRadius); overflow: hidden; }
+.bbi-lp-oecm .lp-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.bbi-lp-oecm .lp-hero__media-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground); color: rgba(var(--textColor-rgb),.5); font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.bbi-lp-oecm .lp-hero__caption { position: absolute; left: var(--space-4); bottom: var(--space-4); background: rgba(var(--shadowColor-rgb),.7); color: #fff; padding: 6px 10px; border-radius: 4px; font-size: 12px; display: inline-flex; align-items: center; gap: var(--space-2); }
+.bbi-lp-oecm .lp-hero__caption-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--saleBadgeBackground); }
+
+/* Intro */
+.bbi-lp-oecm .lp-intro { padding: var(--space-12) 0; }
+.bbi-lp-oecm .lp-intro__inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-oecm .lp-intro__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-4); }
+.bbi-lp-oecm .lp-intro__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-intro h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-6); text-wrap: balance; }
+.bbi-lp-oecm .lp-intro__body p { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-4); text-wrap: pretty; }
+.bbi-lp-oecm .lp-intro__body a { color: var(--linkColor); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Differentiators */
+.bbi-lp-oecm .lp-diff { padding: var(--space-12) 0; background: var(--alternateBackground); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-oecm .lp-diff__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-oecm .lp-diff__head { margin-bottom: var(--space-8); max-width: 640px; }
+.bbi-lp-oecm .lp-diff__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
+.bbi-lp-oecm .lp-diff__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-diff h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance; }
+.bbi-lp-oecm .lp-diff__grid { display: grid; grid-template-columns: repeat(2,1fr); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-left: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-oecm .lp-diff-card { background: var(--cardBackground); padding: var(--space-8); border-right: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); border-radius: 0; display: grid; grid-template-rows: auto auto auto 1fr; gap: var(--space-3); transition: background-color 160ms ease; }
+.bbi-lp-oecm .lp-diff-card:hover { background: rgba(var(--shadowColor-rgb),.02); }
+.bbi-lp-oecm .lp-diff-card__num { font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.6); }
+.bbi-lp-oecm .lp-diff-card__icon { width: 32px; height: 32px; color: var(--textColor); display: flex; align-items: center; }
+.bbi-lp-oecm .lp-diff-card__label { font-family: var(--headingFont); font-size: 22px; line-height: 1.3; font-weight: 600; color: var(--headingColor); margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.bbi-lp-oecm .lp-diff-card__label::after { content: ""; display: block; width: 24px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-diff-card__sentence { font-size: 15px; line-height: 1.55; color: rgba(var(--textColor-rgb),.7); margin: 0; text-wrap: pretty; }
+
+/* Trust row */
+.bbi-lp-oecm .lp-trust-row { padding: var(--space-12) 0; }
+.bbi-lp-oecm .lp-trust-row__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-oecm .lp-trust-row__head { margin-bottom: var(--space-6); max-width: 640px; }
+.bbi-lp-oecm .lp-trust-row__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
+.bbi-lp-oecm .lp-trust-row__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-trust-row h2 { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0; }
+.bbi-lp-oecm .lp-trust-row__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
+.bbi-lp-oecm .lp-trust-row__cell { position: relative; aspect-ratio: 4 / 3; background: var(--alternateBackground); border-radius: var(--cardRadius); overflow: hidden; }
+.bbi-lp-oecm .lp-trust-row__cell img { width: 100%; height: 100%; object-fit: cover; }
+.bbi-lp-oecm .lp-trust-row__cell-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: repeating-linear-gradient(45deg,rgba(var(--shadowColor-rgb),.04) 0px,rgba(var(--shadowColor-rgb),.04) 2px,transparent 2px,transparent 12px); color: rgba(var(--textColor-rgb),.5); font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.bbi-lp-oecm .lp-trust-row__caption { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(var(--shadowColor-rgb),.85); color: #fff; padding: 10px 14px; font-size: 12px; line-height: 1.4; display: flex; flex-direction: column; gap: 2px; }
+.bbi-lp-oecm .lp-trust-row__caption-key { font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+
+/* Proof bar */
+.bbi-lp-oecm .lp-proof-bar { background: var(--alternateBackground); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-oecm .lp-proof-bar__inner { max-width: 1280px; margin: 0 auto; padding: var(--space-8) var(--space-6); display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-8); }
+.bbi-lp-oecm .lp-proof-bar__stat { display: flex; flex-direction: column; gap: var(--space-2); }
+.bbi-lp-oecm .lp-proof-bar__stat + .lp-proof-bar__stat { border-left: 1px solid rgba(var(--borderColor-rgb),.6); padding-left: var(--space-8); }
+.bbi-lp-oecm .lp-proof-bar__stat-num { font-family: var(--headingFont); font-size: 40px; line-height: 1; font-weight: 600; color: var(--headingColor); display: flex; align-items: center; gap: var(--space-3); }
+.bbi-lp-oecm .lp-proof-bar__stat-num::before { content: ""; display: inline-block; width: 14px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-proof-bar__stat-label { font-size: 13px; color: rgba(var(--textColor-rgb),.6); font-family: "JetBrains Mono",ui-monospace,monospace; letter-spacing: 0.04em; text-transform: uppercase; }
+.bbi-lp-oecm .lp-proof-bar__stat-detail { font-size: 14px; color: rgba(var(--textColor-rgb),.78); line-height: 1.5; margin-top: var(--space-2); }
+
+/* Cross-links */
+.bbi-lp-oecm .lp-crosslinks { padding: var(--space-12) 0; }
+.bbi-lp-oecm .lp-crosslinks__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-oecm .lp-crosslinks__head { margin-bottom: var(--space-6); }
+.bbi-lp-oecm .lp-crosslinks__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
+.bbi-lp-oecm .lp-crosslinks__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-crosslinks h2 { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0; }
+.bbi-lp-oecm .lp-crosslinks__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
+.bbi-lp-oecm .lp-crosslinks__tile { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); padding: var(--space-6); background: var(--background); border: 1px solid rgba(var(--borderColor-rgb),.8); border-radius: var(--cardRadius); text-decoration: none; color: var(--textColor); transition: background-color 160ms ease, border-color 160ms ease; }
+.bbi-lp-oecm .lp-crosslinks__tile:hover { background: var(--alternateBackground); border-color: rgba(var(--borderColor-rgb),1); }
+.bbi-lp-oecm .lp-crosslinks__tile-icon { width: 28px; height: 28px; color: rgba(var(--textColor-rgb),.55); }
+.bbi-lp-oecm .lp-crosslinks__tile-label { display: flex; flex-direction: column; gap: 2px; }
+.bbi-lp-oecm .lp-crosslinks__tile-name { font-family: var(--headingFont); font-size: 18px; font-weight: 600; color: var(--headingColor); }
+.bbi-lp-oecm .lp-crosslinks__tile-meta { font-size: 13px; color: rgba(var(--textColor-rgb),.6); font-family: "JetBrains Mono",ui-monospace,monospace; letter-spacing: 0.04em; }
+.bbi-lp-oecm .lp-crosslinks__tile-arrow { width: 18px; height: 18px; color: rgba(var(--textColor-rgb),.55); transition: transform 160ms ease; }
+.bbi-lp-oecm .lp-crosslinks__tile:hover .lp-crosslinks__tile-arrow { transform: translateX(4px); color: var(--textColor); }
+
+/* FAQ */
+.bbi-lp-oecm .lp-faq { padding: var(--space-12) 0; background: var(--background); border-top: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-oecm .lp-faq__inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-oecm .lp-faq__head { margin-bottom: var(--space-6); }
+.bbi-lp-oecm .lp-faq__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
+.bbi-lp-oecm .lp-faq__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-faq h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0; }
+.bbi-lp-oecm .lp-faq__list { border-top: 1px solid rgba(var(--borderColor-rgb),.8); }
+.bbi-lp-oecm .lp-faq__item { border-bottom: 1px solid rgba(var(--borderColor-rgb),.8); }
+.bbi-lp-oecm .lp-faq__trigger { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); width: 100%; padding: var(--space-6) 0; background: transparent; border: none; text-align: left; cursor: pointer; font-family: var(--headingFont); font-size: 17px; font-weight: 600; color: var(--headingColor); }
+.bbi-lp-oecm .lp-faq__trigger-num { font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.55); font-weight: 400; }
+.bbi-lp-oecm .lp-faq__chevron { width: 16px; height: 16px; color: rgba(var(--textColor-rgb),.55); transition: transform 200ms ease; }
+.bbi-lp-oecm .lp-faq__item--open .lp-faq__chevron { transform: rotate(180deg); color: var(--textColor); }
+.bbi-lp-oecm .lp-faq__answer { display: none; padding: var(--space-4) 0 var(--space-5) calc(36px + var(--space-4)); font-size: 15px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); }
+.bbi-lp-oecm .lp-faq__item--open .lp-faq__answer { display: block; }
+.bbi-lp-oecm .lp-faq__answer p { margin: 0 0 var(--space-3); text-wrap: pretty; }
+.bbi-lp-oecm .lp-faq__answer p:last-child { margin-bottom: 0; }
+
+/* Responsive */
+@media (max-width: 980px) {
+  .bbi-lp-oecm .lp-hero__inner { grid-template-columns: 1fr; gap: var(--space-8); }
+  .bbi-lp-oecm .lp-hero__media { aspect-ratio: 16 / 10; }
+  .bbi-lp-oecm .lp-diff__grid { grid-template-columns: 1fr; }
+  .bbi-lp-oecm .lp-trust-row__grid { grid-template-columns: 1fr; }
+  .bbi-lp-oecm .lp-proof-bar__inner { grid-template-columns: 1fr; gap: var(--space-6); }
+  .bbi-lp-oecm .lp-proof-bar__stat + .lp-proof-bar__stat { border-left: none; border-top: 1px solid rgba(var(--borderColor-rgb),.6); padding-left: 0; padding-top: var(--space-6); }
+  .bbi-lp-oecm .lp-crosslinks__grid { grid-template-columns: 1fr; }
+  .bbi-lp-oecm .bbi-cta-section__inner { grid-template-columns: 1fr; gap: 48px; }
+}
+@media (max-width: 640px) {
+  .bbi-lp-oecm .lp-hero { padding: var(--space-8) 0; }
+  .bbi-lp-oecm .lp-hero h1 { font-size: 32px; }
+  .bbi-lp-oecm .lp-intro, .bbi-lp-oecm .lp-diff, .bbi-lp-oecm .lp-trust-row,
+  .bbi-lp-oecm .lp-crosslinks, .bbi-lp-oecm .lp-faq { padding: var(--space-8) 0; }
+  .bbi-lp-oecm .lp-diff-card { padding: var(--space-6); }
+  .bbi-lp-oecm .lp-proof-bar__stat-num { font-size: 32px; }
+}
+</style>
+
+{%- comment -%} GovernmentService + FAQPage JSON-LD — body placement is valid per spec {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "GovernmentService",
+      "name": "OECM Office Furniture Purchasing — Brant Business Interiors",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Brant Business Interiors",
+        "url": "https://www.brantbusinessinteriors.com",
+        "telephone": "+1-800-835-9565",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "295 George St N",
+          "addressLocality": "Peterborough",
+          "addressRegion": "ON",
+          "postalCode": "K9J 3H2",
+          "addressCountry": "CA"
+        }
+      },
+      "serviceType": "OECM-approved office furniture supply and installation",
+      "areaServed": "Ontario, Canada",
+      "description": "Brant Business Interiors is an OECM-approved vendor of record for office furniture. Ontario school boards, hospitals, municipalities, colleges, and not-for-profits can purchase under existing OECM agreements without running a separate RFP."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- assign faq_blocks = section.blocks | where: "type", "faq_item" -%}
+        {%- for block in faq_blocks -%}
+        {
+          "@type": "Question",
+          "name": {{ block.settings.question | json }},
+          "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} }
+        }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  ]
+}
+</script>
+
+<div class="bbi-lp-oecm scheme-default">
+
+  {%- comment -%} BREADCRUMBS {%- endcomment -%}
+  <div class="lp-crumbs-band">
+    <div class="lp-crumbs-band__inner">
+      <ol class="bbi-crumbs" aria-label="Breadcrumb">
+        <li><a href="{{ routes.root_url }}">Home</a></li>
+        <li><a href="/pages/services">Services</a></li>
+        <li aria-current="page">OECM purchasing</li>
+      </ol>
+    </div>
+  </div>
+
+  {%- comment -%} HERO {%- endcomment -%}
+  <section class="lp-hero" aria-label="Hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <p class="lp-hero__eyebrow bbi-mono">
+          <span class="lp-hero__eyebrow-label">Service · OECM</span>
+        </p>
+        <span class="lp-hero__badge">
+          <span class="lp-hero__badge-dot"></span>
+          {{ section.settings.hero_badge | default: 'OECM vendor of record · pre-qualified' }}
+        </span>
+        <h1>{{ section.settings.hero_heading | default: 'Furnish your school, hospital, or council without re-tendering.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.hero_standfirst | default: 'Brant Business Interiors is an OECM-approved supplier — Ontario&#8217;s broader public sector can buy seating, desks, storage, and acoustics from us under existing OECM agreements. No RFP. No vendor onboarding. One quote, one PO, one invoice.' }}</p>
+        <div class="lp-hero__cta-row">
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.cta_primary_url | default: '/pages/quote' }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }}</a>
+        </div>
+      </div>
+      <div class="lp-hero__media" aria-hidden="true">
+        {%- if section.settings.hero_image != blank -%}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', width: 900, alt: section.settings.hero_image.alt | default: 'OECM facility install' }}
+        {%- else -%}
+          <div class="lp-hero__media-placeholder">Hero · 5:4 · BPS facility install</div>
+        {%- endif -%}
+        <div class="lp-hero__caption">
+          <span class="lp-hero__caption-dot"></span>
+          <span>{{ section.settings.hero_caption | default: 'Halton DSB · 240 task chairs · OECM PO #4521' }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} INTRO {%- endcomment -%}
+  <section class="lp-intro" aria-label="What OECM means">
+    <div class="lp-intro__inner">
+      <p class="lp-intro__eyebrow bbi-mono">What OECM means</p>
+      <h2>You've already done the procurement. We honour it.</h2>
+      <div class="lp-intro__body">
+        <p>OECM (Ontario Education Collaborative Marketplace) negotiates pre-tendered agreements on behalf of the broader public sector — schools, colleges, universities, hospitals, municipalities, and not-for-profits. If your organization is OECM-eligible, you can buy from any approved supplier under those agreed terms without running your own RFP.</p>
+        <p>Brant Business Interiors has held OECM vendor-of-record status on the office furniture category since 2019. That means our pricing, warranty terms, delivery windows, and product range are already vetted against OECM's procurement standards. You skip the tender. We skip the markup. Everyone keeps their afternoon.</p>
+        <p><a href="/pages/oecm-agreement">Read the full OECM agreement details →</a></p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} DIFFERENTIATORS {%- endcomment -%}
+  <section class="lp-diff" aria-label="Why Brant Business Interiors">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">Why BBI</p>
+        <h2>Four reasons OECM purchasers send us their POs.</h2>
+      </div>
+      <div class="lp-diff__grid">
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">01</span>
+          <span class="lp-diff-card__icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="26" height="26"/><path d="M9 16.5 l5 5 l9 -11"/></svg></span>
+          <h3 class="lp-diff-card__label"><span>Pre-tendered pricing</span></h3>
+          <p class="lp-diff-card__sentence">OECM-negotiated rates on the full Brant Business Interiors catalogue. No "sharpened pencil" games — the price you see is the price agreed at the master-agreement level.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">02</span>
+          <span class="lp-diff-card__icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M16 3 L27 7 V16 c0 7 -5 11 -11 13 c-6 -2 -11 -6 -11 -13 V7 Z"/><path d="M11 16 l4 4 l6 -8"/></svg></span>
+          <h3 class="lp-diff-card__label"><span>No RFP needed</span></h3>
+          <p class="lp-diff-card__sentence">If you're OECM-eligible, your purchasing policy already lists us as compliant. Skip the 6-week tender; quote and PO move in days, not months.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">03</span>
+          <span class="lp-diff-card__icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M9 16 l4 4 l4 -4 l4 4 l-4 4"/><path d="M9 16 l4 -4 l4 4 l4 -4 l4 4"/></svg></span>
+          <h3 class="lp-diff-card__label"><span>Single Ontario partner</span></h3>
+          <p class="lp-diff-card__sentence">Ontario-owned since 1962, head office in Brantford. One account team owns your file from quote through warranty — no out-of-province handoffs.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">04</span>
+          <span class="lp-diff-card__icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="4" y="4" width="10" height="10"/><rect x="18" y="4" width="10" height="10"/><rect x="4" y="18" width="10" height="10"/><rect x="18" y="18" width="10" height="10"/></svg></span>
+          <h3 class="lp-diff-card__label"><span>Full brand range</span></h3>
+          <p class="lp-diff-card__sentence">18 manufacturer lines under one OECM SKU set — ergoCentric, Keilhauer, Global, Teknion, and the rest. You buy the right chair, not the closest one.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} TRUST PHOTO ROW {%- endcomment -%}
+  <section class="lp-trust-row" aria-label="Recent OECM installs">
+    <div class="lp-trust-row__inner">
+      <div class="lp-trust-row__head">
+        <p class="lp-trust-row__eyebrow bbi-mono">Recent OECM installs</p>
+        <h2>Three Ontario sites we shipped last year, all under existing OECM agreements.</h2>
+      </div>
+      <div class="lp-trust-row__grid">
+        <figure class="lp-trust-row__cell">
+          {%- if section.settings.trust_image_1 != blank -%}
+            {{ section.settings.trust_image_1 | image_url: width: 600 | image_tag: loading: 'lazy', width: 600, height: 450, alt: 'Halton DSB admin offices OECM install' }}
+          {%- else -%}
+            <div class="lp-trust-row__cell-placeholder">Education · 4:3</div>
+          {%- endif -%}
+          <figcaption class="lp-trust-row__caption">
+            <span class="lp-trust-row__caption-key">Education</span>
+            <span><b>Halton DSB · admin offices</b></span>
+            <span>240 task chairs · OECM PO · 2024</span>
+          </figcaption>
+        </figure>
+        <figure class="lp-trust-row__cell">
+          {%- if section.settings.trust_image_2 != blank -%}
+            {{ section.settings.trust_image_2 | image_url: width: 600 | image_tag: loading: 'lazy', width: 600, height: 450, alt: 'Brantford General waiting area OECM install' }}
+          {%- else -%}
+            <div class="lp-trust-row__cell-placeholder">Healthcare · 4:3</div>
+          {%- endif -%}
+          <figcaption class="lp-trust-row__caption">
+            <span class="lp-trust-row__caption-key">Healthcare</span>
+            <span><b>Brantford General · waiting</b></span>
+            <span>60 vinyl-grade lounge units · OECM PO · 2023</span>
+          </figcaption>
+        </figure>
+        <figure class="lp-trust-row__cell">
+          {%- if section.settings.trust_image_3 != blank -%}
+            {{ section.settings.trust_image_3 | image_url: width: 600 | image_tag: loading: 'lazy', width: 600, height: 450, alt: 'City of Hamilton council suites OECM install' }}
+          {%- else -%}
+            <div class="lp-trust-row__cell-placeholder">Government · 4:3</div>
+          {%- endif -%}
+          <figcaption class="lp-trust-row__caption">
+            <span class="lp-trust-row__caption-key">Government</span>
+            <span><b>City of Hamilton · council suites</b></span>
+            <span>32 private offices fit-out · OECM PO · 2024</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} PROOF BAR {%- endcomment -%}
+  <section class="lp-proof-bar" aria-label="Track record">
+    <div class="lp-proof-bar__inner">
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">2019</span>
+        <span class="lp-proof-bar__stat-label">OECM vendor since</span>
+        <span class="lp-proof-bar__stat-detail">Office furniture category — re-qualified each contract cycle.</span>
+      </div>
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">340+</span>
+        <span class="lp-proof-bar__stat-label">OECM POs delivered</span>
+        <span class="lp-proof-bar__stat-detail">Across 90+ Ontario school boards, hospitals, and municipalities since 2019.</span>
+      </div>
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">1 day</span>
+        <span class="lp-proof-bar__stat-label">Quote turnaround</span>
+        <span class="lp-proof-bar__stat-detail">Most OECM line-item quotes return within one business day of intake.</span>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} CROSS-LINKS {%- endcomment -%}
+  <section class="lp-crosslinks" aria-label="Browse the catalogue">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse the catalogue</p>
+        <h2>Start with the category, end with a PO.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+        {%- assign crosslink_blocks = section.blocks | where: "type", "crosslink_tile" -%}
+        {%- for block in crosslink_blocks -%}
+        <a class="lp-crosslinks__tile" href="{{ block.settings.url }}" {{ block.shopify_attributes }}>
+          <span class="lp-crosslinks__tile-icon">
+            {%- case block.settings.icon -%}
+            {%- when 'seating' -%}
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg>
+            {%- when 'desks' -%}
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg>
+            {%- when 'storage' -%}
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="5" y="3" width="18" height="22"/><path d="M5 12 H23 M5 18 H23"/><path d="M10 7 H13 M10 15 H13 M10 21 H13"/></svg>
+            {%- else -%}
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4" y="4" width="9" height="9"/><rect x="15" y="4" width="9" height="9"/><rect x="4" y="15" width="9" height="9"/><rect x="15" y="15" width="9" height="9"/></svg>
+            {%- endcase -%}
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">{{ block.settings.name }}</span>
+            <span class="lp-crosslinks__tile-meta">{{ block.settings.meta }}</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} FAQ {%- endcomment -%}
+  <section class="lp-faq" aria-label="Frequently asked questions">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <p class="lp-faq__eyebrow bbi-mono">FAQ</p>
+        <h2>{{ section.settings.faq_heading | default: 'Six questions OECM purchasers ask before sending the PO.' }}</h2>
+      </div>
+      <div class="lp-faq__list" id="oecm-faq-list">
+        {%- assign faq_blocks = section.blocks | where: "type", "faq_item" -%}
+        {%- for block in faq_blocks -%}
+        <div class="lp-faq__item{% if forloop.first %} lp-faq__item--open{% endif %}" {{ block.shopify_attributes }}>
+          <button class="lp-faq__trigger" aria-expanded="{{ forloop.first | json }}">
+            <span class="lp-faq__trigger-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <span>{{ block.settings.question }}</span>
+            <span class="lp-faq__chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+          </button>
+          <div class="lp-faq__answer">
+            {{ block.settings.answer }}
+          </div>
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} CTA CLOSER {%- endcomment -%}
+  <section class="bbi-cta-section scheme-inverse" aria-label="Request a quote">
+    <div class="bbi-cta-section__inner">
+      <div>
+        <p class="bbi-cta-section__eyebrow">Quoting under OECM</p>
+        <h2 class="bbi-cta-section__heading">Send us your wish list. We'll send back an OECM-line-item quote.</h2>
+        <p class="bbi-cta-section__sub">Floor plan, square footage, or a list of seat counts — any starting point works. One business day to a quote, one Ontario team end-to-end.</p>
+      </div>
+      <div class="bbi-cta-section__actions">
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.cta_primary_url | default: '/pages/quote' }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span><b>1 business day response</b> on every OECM quote — no minimums.</span>
+        </div>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span>Or call <a href="tel:{{ section.settings.phone_href | default: '18008359565' }}">{{ section.settings.phone | default: '1-800-835-9565' }}</a> &middot; Mon&ndash;Fri 8&ndash;5 ET</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function() {
+  var list = document.getElementById('oecm-faq-list');
+  if (!list) return;
+  list.addEventListener('click', function(e) {
+    var trigger = e.target.closest('.lp-faq__trigger');
+    if (!trigger) return;
+    var item = trigger.closest('.lp-faq__item');
+    var isOpen = item.classList.contains('lp-faq__item--open');
+    list.querySelectorAll('.lp-faq__item--open').forEach(function(el) {
+      el.classList.remove('lp-faq__item--open');
+      el.querySelector('.lp-faq__trigger').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('lp-faq__item--open');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "OECM Landing Page",
+  "class": "ds-lp-oecm",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_badge",
+      "label": "Badge label",
+      "default": "OECM vendor of record · pre-qualified"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Furnish your school, hospital, or council without re-tendering."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_standfirst",
+      "label": "Standfirst",
+      "default": "Brant Business Interiors is an OECM-approved supplier — Ontario's broader public sector can buy seating, desks, storage, and acoustics from us under existing OECM agreements. No RFP. No vendor onboarding. One quote, one PO, one invoice."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image (5:4)"
+    },
+    {
+      "type": "text",
+      "id": "hero_caption",
+      "label": "Hero image caption",
+      "default": "Halton DSB · 240 task chairs · OECM PO #4521"
+    },
+    {
+      "type": "header",
+      "content": "CTA & Contact"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_url",
+      "label": "Primary CTA URL"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary CTA label",
+      "default": "Request a Quote"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone (display)",
+      "default": "1-800-835-9565"
+    },
+    {
+      "type": "text",
+      "id": "phone_href",
+      "label": "Phone (digits only for href)",
+      "default": "18008359565"
+    },
+    {
+      "type": "header",
+      "content": "Trust Photo Row"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_image_1",
+      "label": "Photo 1 (Education)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_image_2",
+      "label": "Photo 2 (Healthcare)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_image_3",
+      "label": "Photo 3 (Government)"
+    },
+    {
+      "type": "header",
+      "content": "FAQ"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ section heading",
+      "default": "Six questions OECM purchasers ask before sending the PO."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Who is eligible to buy under OECM?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Enter answer here.</p>"
+        }
+      ]
+    },
+    {
+      "type": "crosslink_tile",
+      "name": "Crosslink tile",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Category name",
+          "default": "Seating"
+        },
+        {
+          "type": "text",
+          "id": "meta",
+          "label": "Meta label",
+          "default": "120 models · OECM-eligible"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "seating",
+          "options": [
+            { "value": "seating", "label": "Seating" },
+            { "value": "desks", "label": "Desks" },
+            { "value": "storage", "label": "Storage" },
+            { "value": "other", "label": "Other (grid)" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "OECM Landing Page",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Who's eligible to buy from Brant Business Interiors under OECM?",
+            "answer": "<p>Any OECM-eligible organization: Ontario school boards (K-12), publicly-assisted colleges and universities, hospitals and CCACs, municipalities and their agencies, broader-public-sector organizations, and not-for-profits in the social and education sectors. If you're not sure, OECM publishes the eligible-buyer list on their site, or call us and we'll confirm in five minutes.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do I still need internal sign-off?",
+            "answer": "<p>Yes — your organization's purchasing policy still applies (signing limits, board approvals, etc.), but you skip the tender step. Most OECM buyers go quote → internal PO authorization → Brant Business Interiors PO. The 6–8 weeks normally spent issuing an RFP, evaluating bids, and writing a contract is what disappears.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is the OECM price always the lowest?",
+            "answer": "<p>Honestly, not always — open-tender bids on a single high-volume SKU can occasionally beat the OECM rate. But once you factor in tender cost, evaluation time, and the risk of a non-compliant low bidder, OECM nets out cheaper on the vast majority of orders. For very large fit-outs we'll tell you directly if running a separate tender would save you money.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's the warranty handling under OECM?",
+            "answer": "<p>Same as any Brant Business Interiors order — we file the manufacturer claim on your behalf and keep the chair (or desk, or panel) in service. ergoCentric mechanisms carry 12 years; most other lines are 10. Loaner chairs are available during repair. One service contact, Ontario-based.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does delivery and install work?",
+            "answer": "<p>Brant Business Interiors' own crew handles delivery, assembly, levelling, and removal of old furniture — we don't subcontract logistics. After-hours and weekend installs are available for occupied spaces. W5-cleared installers for ministry and hospital sites.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I add non-OECM-eligible items to the same PO?",
+            "answer": "<p>Yes. We can split a single quote into the OECM-eligible portion (drawn against the master agreement) and any out-of-scope items handled under your normal procurement. You get one delivery, one install, one invoice — the procurement tracking just lists the two streams.</p>"
+          }
+        },
+        {
+          "type": "crosslink_tile",
+          "settings": {
+            "name": "Seating",
+            "meta": "120 models · OECM-eligible",
+            "url": "/collections/seating",
+            "icon": "seating"
+          }
+        },
+        {
+          "type": "crosslink_tile",
+          "settings": {
+            "name": "Desks & workstations",
+            "meta": "Height-adjustable + fixed",
+            "url": "/collections/desks",
+            "icon": "desks"
+          }
+        },
+        {
+          "type": "crosslink_tile",
+          "settings": {
+            "name": "Storage & filing",
+            "meta": "Lateral · vertical · mobile",
+            "url": "/collections/storage",
+            "icon": "storage"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
