@@ -202,6 +202,19 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | Claude Design constraint brief | [docs/strategy/design-system-brief.md](docs/strategy/design-system-brief.md) |
 | **Component spec — v1** | [docs/strategy/bbi-component-spec-v1.md](docs/strategy/bbi-component-spec-v1.md) |
 | Component design photos — v1 | [data/design-photos/components-v1-2026-04-27/](data/design-photos/components-v1-2026-04-27/) |
+| **DS Zips — COMPLETE design system bundle (all templates + CSS)** | `Design System Zips/5 - PDP/src/` |
+| **DS Zips — Shared tokens (canonical)** | `Design System Zips/5 - PDP/src/tokens.css` |
+| **DS Zips — Shared component CSS (canonical)** | `Design System Zips/5 - PDP/src/bbi-components.css` |
+| **DS Zips — Homepage template + CSS** | `Design System Zips/5 - PDP/src/Homepage.jsx` · `homepage.css` |
+| **DS Zips — Landing page template + CSS** (OECM, industries, brands, services, about) | `Design System Zips/5 - PDP/src/Landing.jsx` · `landing.css` |
+| **DS Zips — PDP template + CSS** (unbuyable + buyable) | `Design System Zips/5 - PDP/src/ProductDetail.jsx` · `pdp.css` |
+| **DS Zips — Collection category template + CSS** | `Design System Zips/5 - PDP/src/CollectionCategory.jsx` · `collection-category.css` |
+| **DS Zips — Collection template + CSS** | `Design System Zips/5 - PDP/src/Collection.jsx` · `collection.css` |
+| **DS Zips — All templates rendered (visual reference)** | `Design System Zips/5 - PDP/BBI Templates Bundle.html` |
+| **DS Zips — PDP rendered standalone** | `Design System Zips/5 - PDP/Template 5 - PDP (unbuyable).html` |
+| **DS Zips — Visual reference (homepage + nav/header lock)** | `Design System Zips/5 - Landing Page (2)/uploads/15-ANTI-REF-homepage.png` · `16-ANTI-REF-nav.png` |
+| **DS Zips — Logo v2 (new "Brant ✱ BI" wordmark)** | `Design System Zips/5 - Landing Page (2)/uploads/14-bbi-logo-v2.png` |
+| **Homepage rebuild prompt** | [docs/plan/homepage-rebuild-prompt.md](docs/plan/homepage-rebuild-prompt.md) |
 | Script reference | [scripts/README.md](scripts/README.md) |
 | **AI image pipeline — Phase 1 audit** | [scripts/audit-current-images.py](scripts/audit-current-images.py) |
 | **AI image pipeline — Phase 2 hero audit** | [scripts/audit-hero-images.py](scripts/audit-hero-images.py) |
