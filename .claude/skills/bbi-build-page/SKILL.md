@@ -575,6 +575,8 @@ If a real image file exists (from Pre-Step), use `<img src="..." loading="lazy" 
 
 **Collection page note:** Any product card grid — every card **must** have a 16:9 or 4:3 image slot at the very top. No text-only cards.
 
+**Schema defaults — keep copy out of inline Liquid:** All copy-heavy default strings (headlines, subheadlines, body paragraphs, CTAs) belong in the `{% schema %}` block's `"default":` key, not as `| default: '...'` Liquid filters. The JSON template (`page.{suffix}.json`) pre-populates every setting so the section renders without Customizer edits — that is the correct pattern. Never rely on an inline Liquid default to carry copy text.
+
 **Red density rule:** After writing each section, count red surface area. Red appears only on: hero primary CTA (`.hp-hero__cta-red`), hero eyebrow dot, section head `::before` rule, OECM badge accent, service mono numbers, testimonial quote mark SVG. Target 5–8% per screen. Never on headings, body links, or the header CTA.
 
 ---
@@ -654,6 +656,8 @@ Wait for Leo's go-ahead before Step 5.
 Take the HTML from Claude Design and convert it:
 
 **For Type A:**
+
+**CRITICAL — Liquid inline defaults are banned.** When generating `ds-*.liquid` section files, **never** write `{{ section.settings.X | default: 'some copy' }}`. Em-dashes, curly quotes, and any non-ASCII character inside an inline `| default: '...'` filter cause a Liquid syntax error on push (`Unexpected character — in "{{ ... }}"`). The `{% schema %}` block already declares `"default":` for every field — Shopify uses those when the setting is unset. Inline defaults are redundant and will break the deploy. Strip them entirely: write `{{ section.settings.X }}` and put the default text in the schema `"default":` key only.
 
 Start by emitting the skeleton `page.{suffix}.json` template Leo needs to create in Edit Code. Fill in `heading`, `subheading`, and `image` for `ds-page-hero` from the approved content brief; leave other settings as `{}` — they're set via the Customizer or hardcoded in the section itself.
 
