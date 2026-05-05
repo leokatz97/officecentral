@@ -313,7 +313,7 @@ Present the full SEO + AEO package as a pasteable block. Wait for Leo's go-ahead
 
 Confirm all four items are ready before generating the prompt. Do not proceed if any are missing.
 
-- [ ] Brand constants block populated AND values match the locked anchors in `docs/strategy/design-system.md`: canvas #FFFFFF, surface #FAFAFA, ink #0B0B0C, accent #D4252A. No beige, no navy, no dark-mode tokens in the prompt.
+- [ ] Brand constants block populated AND values match the locked anchors in `docs/strategy/design-system.md`: canvas #F7F8FA, card surface #FFFFFF, ink #0B0B0C, accent #D4252A. No beige, no navy, no dark-mode tokens in the prompt.
 - [ ] All page images identified with exact file paths (from Pre-Step item 0)
 - [ ] SEO title, H1, and meta description from Step 2B ready to paste
 - [ ] Reference page identified for Leo to attach — pick the most structurally similar completed page:
