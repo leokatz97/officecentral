@@ -187,7 +187,9 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | Need | File |
 |---|---|
 | Live task list | [docs/plan/shopify-fix-plan.md](docs/plan/shopify-fix-plan.md) |
-| **Track D — Design System (DS-0 → DS-4)** | [docs/plan/track-d-design-system/README.md](docs/plan/track-d-design-system/README.md) |
+| **Track D — Design System (DS-0 → DS-4 COMPLETE)** | [docs/plan/track-d-design-system/README.md](docs/plan/track-d-design-system/README.md) |
+| Screen audit — 5 locked screens (DS-0 output) | [docs/strategy/bbi-screens-audit-v1.md](docs/strategy/bbi-screens-audit-v1.md) |
+| Design token push script | [scripts/push-design-tokens.py](scripts/push-design-tokens.py) |
 | Status snapshot | [docs/plan/status-snapshot-2026-04-20.md](docs/plan/status-snapshot-2026-04-20.md) |
 | Interactive checklist | [docs/plan/website-fix-checklist.html](docs/plan/website-fix-checklist.html) |
 | Planning hub (canonical PAGES + fix items) | [previews/bbi-planning-hub.html](previews/bbi-planning-hub.html) |
