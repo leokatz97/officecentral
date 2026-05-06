@@ -1,10 +1,12 @@
 ---
 name: bbi-build-page
+version: "2.0"
 description: >
   Explicit slash command for building Brant Business Interiors (BBI) Shopify pages.
-  Runs Leo's full 7-step workflow entirely inside Claude Code — reads the LOCKED design
+  Runs Leo's full 12-step workflow entirely inside Claude Code — reads the LOCKED design
   system files, builds the HTML preview directly, previews it in-browser, then converts
-  to Shopify. No Claude Design / claude.ai/design involved.
+  to Shopify, auto-deploys, and verifies with a 12-point post-deploy audit before
+  marking the build-state row done.
 
   Invoked as `/bbi-build-page [page name]` — e.g. `/bbi-build-page homepage`,
   `/bbi-build-page contact`, `/bbi-build-page healthcare`. Parse the page name
@@ -214,6 +216,37 @@ Before scoping any page, verify the design-system rebuild is in place. If any of
 - [ ] **Before building any page:** read the corresponding JSX template for that page type — the component tree defines section order. Never derive structure from memory or prose.
 
 If `design-system.md` still has TBDs, surface the missing rows and pause. Do not let the page build re-derive tokens.
+
+---
+
+**Pre-Step 0b — Worktree + Root Guard + Context Load**
+
+Run these checks before touching any file or code. Hard-stop on any failure.
+
+**0b-1. Worktree guard:**
+```bash
+pwd
+```
+Confirm the output contains `.claude/worktrees/`. If it does not, hard-stop:
+> "You must run `/bbi-build-page` from inside a Claude Code worktree, not from the main repo root. The `--slug` push will otherwise silently deploy stale main-repo files to Shopify (see Lessons Learned #4). `cd` into a worktree and re-invoke."
+
+**0b-2. Build-state check:**
+Read `docs/plan/bbi-build-state.md`. Find the row whose ID or Notes column matches the slug being built.
+- If the row is already ✅ and evidence points to a live commit: hard-stop and report "Row is already ✅ — nothing to do. If you want to rebuild, first clear the evidence column and set status back to ⬜."
+- If the row is ⬜ or has no row yet: proceed.
+- If the row doesn't exist at all: flag to Leo before continuing (new page may need a row added).
+
+**0b-3. Context load — interlinking map:**
+Read `docs/plan/bbi-interlinking-map.md`. Find the section for this page's URL (e.g. `### /pages/healthcare`). Extract:
+- **Expected outbound links** — the "Outbound (must exist)" list. Store for use in Step 11 check 5 (crosslink hrefs return 200).
+- **Template JSON filename** — derive from page type:
+  - Type A landing page → `theme/templates/page.{slug}.json`
+  - Collection category → `theme/templates/collection.category.json`
+  - Sub-collection → `theme/templates/collection.json`
+
+If the page has no row in the interlinking map yet, note it — you will add one after Step 12.
+
+Report the loaded context to Leo in one line: `"Pre-Step 0b: pwd ✓ | build-state ⬜ | outbound links loaded (N expected) | template: page.{slug}.json"` then continue.
 
 ---
 
@@ -680,13 +713,13 @@ Start by emitting the skeleton `page.{suffix}.json` template Leo needs to create
 
 Remove unused sections from the `sections` object AND the `order` array (e.g. omit `announce-bar` if there's no active promo; omit `featured-grid` for text-heavy pages).
 
-Then emit the `theme/layout/theme.liquid` gate addition. Read the current gate block first, then add the new suffix to it:
+**Gate edit (automated — do not tell Leo):** Read `theme/layout/theme.liquid` from the worktree filesystem. Find the `bbi_landing` assignment block (the `{%- if template.suffix == ... -%}` line). If `template.suffix == '{slug}'` is not already in the condition, append it. Write the file back. This is idempotent — if the suffix is already present, skip without error.
 
 ```liquid
-{%- if template.suffix == 'oecm' or template.suffix == 'brand-dealer' or template.suffix == '[NEW-SUFFIX-HERE]' -%}
+{%- if template.suffix == 'oecm' or template.suffix == 'brand-dealer' or template.suffix == '{slug}' -%}
 ```
 
-Tell Leo: "Open `theme/layout/theme.liquid`, find the `bbi_landing` assignment block, and add `or template.suffix == '[NEW-SUFFIX-HERE]'` to the condition. Do this before the template will render correctly."
+The gate edit is deployed to Shopify in Step 9 via `--layout`. Do not tell Leo to do this manually.
 
 Finally, break any custom HTML sections from the Claude Design output into Liquid snippet paste blocks. Generate a separate code block for each file Leo needs to create.
 
@@ -927,15 +960,191 @@ Once all checks pass, update `previews/bbi-planning-hub.html` — find the entry
 
 ---
 
+## Step 9 — Populate image_pickers + deploy
+
+This step deploys the gate edit and pushes the section + fully-populated template in two commands. The image_picker population happens **before** the `--slug` push so section and template land together in one call.
+
+### 9a — Discover image_picker settings
+
+Read `theme/sections/ds-lp-{slug}.liquid`. Find every entry with `"type": "image_picker"` in the `{% schema %}` block. Build a list of setting IDs.
+
+### 9b — Populate template JSON
+
+Open `theme/templates/page.{slug}.json`. For each `image_picker` setting ID found in 9a, apply this mapping and write the value into the JSON's `settings` object:
+
+| Setting ID | Source | Upload to Shopify Files? |
+|---|---|---|
+| `logo` | `shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png` — fixed, already uploaded | No |
+| `hero_image` | `data/page-images/{slug}/{slug}-space.jpg` → fallback `data/page-images/{slug}/{slug}-product.jpg` | Yes — upload via Shopify Files API (REST `POST /admin/api/2024-01/files.json` with `attachment` or `src`), capture returned `shopify://shop_images/…` ref |
+| `trust_image_1` | First OCI photo confirmed in Pre-Step item 4 brief | Yes |
+| `trust_image_2` | Second OCI photo confirmed in Pre-Step item 4 brief | Yes |
+| `trust_image_3` | Third OCI photo confirmed in Pre-Step item 4 brief | Yes |
+| `tile_image_1..5` (industries hub only) | `data/page-images/{tile-slug}/{tile-slug}-space.jpg` for each tile (healthcare, education, government, non-profit, professional-services in order) | Yes |
+| `testimonial_logo` | Client logo file confirmed in Pre-Step brief | Yes |
+| `form_photo` | `data/page-images/{slug}/{slug}-product.jpg` | Yes |
+| `client_logo` | Same file as `testimonial_logo` | Yes |
+| Any other `image_picker` ID | **Hard-stop** — print "Unknown image_picker setting `{id}` — not in mapping. Tell Leo which file to use before continuing." Never leave blank. | — |
+
+**Upload procedure** (for settings that require it):
+1. Check if the source file exists in the worktree. Hard-stop if missing — do not proceed with a blank.
+2. Upload via Shopify REST API: `POST https://{shop}/admin/api/2024-01/files.json` with `{"file": {"attachment": "<base64>", "filename": "<name>", "content_type": "image/jpeg"}}` (or `"src"` for a URL). Use credentials from `.env`.
+3. From the response, extract `file.public_url`. Convert to `shopify://shop_images/{filename}` format: take the filename portion of `public_url`.
+4. Write `"shopify://shop_images/{filename}"` into the template JSON setting.
+
+Write the updated JSON back to `theme/templates/page.{slug}.json` in the worktree filesystem.
+
+### 9c — Deploy
+
+Push the gate edit and the populated section + template in two commands:
+
+```bash
+# 1. Push the bbi_landing gate edit (theme/layout/theme.liquid)
+BBI_PUSH_ROOT=$(pwd) python scripts/bbi-push-landing.py {THEME_ID} --layout
+
+# 2. Push the section + populated template together (one call)
+BBI_PUSH_ROOT=$(pwd) python scripts/bbi-push-landing.py {THEME_ID} --slug {slug}
+```
+
+Where `{THEME_ID}` is `186373570873` (BBI Landing Dev). Confirm both commands exit 0. The push script prints the dev preview URL — capture it for Step 11.
+
+If either command fails: report the error verbatim and hard-stop. Do not proceed to Step 11 with a failed deploy.
+
+---
+
+## Step 11 — 12-point post-deploy verification
+
+**Dev theme URL:** `https://brantbusinessinteriors.com/pages/{slug}?preview_theme_id=186373570873`
+
+Run all 12 checks from `docs/plan/bbi-interlinking-map.md`. Hard-stop on any FAIL — do not proceed to Step 12.
+
+### Checks 1–10 (DOM, via Chrome MCP JS eval)
+
+Navigate to the dev theme URL, then execute:
+
+```javascript
+({
+  headers:           document.querySelectorAll('.bbi-header').length,           // PASS: === 1
+  footers:           document.querySelectorAll('.bbi-footer').length,           // PASS: === 1
+  starlite:          !!document.querySelector('.shopify-section-group-header-group'), // PASS: false
+  nav_links:         document.querySelectorAll('.bbi-nav-item').length,         // PASS: >= 5
+  logo_src:          document.querySelector('.bbi-header__logo img')?.src || '', // PASS: non-empty string
+  footer_industries: Array.from(document.querySelectorAll('.bbi-footer a'))
+                       .map(a => a.getAttribute('href'))
+                       .filter(h => ['/pages/healthcare','/pages/education','/pages/government',
+                                     '/pages/non-profit','/pages/professional-services'].includes(h))
+                       .length,                                                 // PASS: === 5
+  footer_services:   Array.from(document.querySelectorAll('.bbi-footer a'))
+                       .map(a => a.getAttribute('href'))
+                       .filter(h => ['/pages/design-services','/pages/delivery','/pages/relocation',
+                                     '/pages/oecm','/pages/faq'].includes(h))
+                       .length,                                                 // PASS: === 5
+  phone:             !!document.querySelector('a[href="tel:18008359565"]'),     // PASS: true
+  breadcrumb_3:      document.querySelectorAll('.bbi-crumbs li').length,        // PASS: >= 2
+  crosslinks_unique: (() => {
+                       const hrefs = Array.from(document.querySelectorAll('.lp-crosslinks__tile'))
+                                       .map(a => a.getAttribute('href'));
+                       return hrefs.length === 0 || hrefs.length === new Set(hrefs).size;
+                     })(),                                                      // PASS: true
+})
+```
+
+Report results as `PASS / FAIL` per key. Any value outside the expected range = FAIL.
+
+### Check 11 (footer Services FAQ — source-level)
+
+Grep the Liquid section source for the footer FAQ link:
+
+```bash
+grep -c '/pages/faq' theme/sections/ds-lp-{slug}.liquid
+```
+
+PASS: count ≥ 1. FAIL: 0 matches — FAQ link is absent from the Liquid source (this is the exact 9c8b7db failure mode: the footer services column was built without the FAQ row, and DOM-only checks wouldn't catch it in a cold-cache render).
+
+### Check 12 (live-DOM vs worktree-source drift)
+
+Fetch the rendered dev theme URL HTML and confirm these 3 signatures from the worktree section file are present verbatim in the fetched HTML:
+
+```
+# DRIFT SIGNATURES — update this comment if any of the three values change in the section source
+# sig_1  logo filename fragment: extracted from the logo setting in the section schema default or template JSON
+#         grep 'bbi-logo-v2_aa647658' theme/sections/ds-lp-{slug}.liquid (or the template JSON)
+#         → the CDN img src in the rendered HTML must contain this fragment
+# sig_2  footer FAQ link: '/pages/faq' must appear as an href in the rendered HTML footer
+# sig_3  phone href: 'tel:18008359565' must appear as an href in the rendered HTML
+```
+
+Steps:
+1. Extract `sig_1` from the worktree: `grep -o 'bbi-logo-v2_[a-z0-9_-]*' theme/templates/page.{slug}.json | head -1`
+2. Fetch the dev theme URL (via `curl` or Chrome MCP): capture raw HTML
+3. Assert all three signatures appear in the fetched HTML
+
+PASS: all 3 present. FAIL on any miss = drift detected (a push from the main repo root silently overwrote the worktree's version on Shopify). Hard-stop: "Drift detected on signature `{sig}`. Re-run `BBI_PUSH_ROOT=$(pwd) python scripts/bbi-push-landing.py {THEME_ID} --slug {slug}` from inside this worktree, then re-run Step 11."
+
+### Verification summary
+
+After running all 12 checks, print a table:
+
+```
+Check  | Result | Detail
+-------|--------|-------
+DOM-1  headers        | PASS   | 1
+DOM-2  footers        | PASS   | 1
+DOM-3  starlite       | PASS   | false
+DOM-4  nav_links      | PASS   | 6
+DOM-5  logo_src       | PASS   | https://cdn.shopify.com/...
+DOM-6  footer_industries | PASS | 5
+DOM-7  footer_services   | PASS | 5
+DOM-8  phone          | PASS   | true
+DOM-9  breadcrumb_3   | PASS   | 3
+DOM-10 crosslinks_unique | PASS | true
+SRC-11 footer_faq_src | PASS   | 2 matches in source
+DOM-12 drift check    | PASS   | all 3 signatures present
+```
+
+If all 12 are PASS: print "All 12 checks pass — proceeding to Step 12." and continue.
+
+---
+
+## Step 12 — Mark done (all-green gate)
+
+Only runs after Step 11 is all-green. Hard-stop otherwise.
+
+1. **Update `bbi-build-state.md`:** Find the row for this slug. Set status to ✅. Set Evidence to `commit {SHA} + https://brantbusinessinteriors.com/pages/{slug}?preview_theme_id=186373570873`. Update Notes to remove any "pending" language.
+
+2. **Add interlinking map row** (if missing): Add a `### /pages/{slug}` section to `docs/plan/bbi-interlinking-map.md` with the outbound links confirmed live and `Verified: ✅ commit {SHA}`.
+
+3. **Commit:** Include `theme/sections/ds-lp-{slug}.liquid`, `theme/templates/page.{slug}.json`, `theme/layout/theme.liquid` (gate edit), `docs/plan/bbi-build-state.md`, and `docs/plan/bbi-interlinking-map.md` (if updated) in a single commit. Message format:
+   ```
+   {slug}: build + deploy + 12-point audit pass
+   ```
+
+4. **Push:** `git push origin {branch-name}`
+
+5. **Report to Leo:**
+   ```
+   ✅ {slug} complete.
+   Dev theme: https://brantbusinessinteriors.com/pages/{slug}?preview_theme_id=186373570873
+   Commit: {SHA}
+   All 12 post-deploy checks passed.
+   bbi-build-state.md row updated.
+   ```
+
+---
+
 ## Rules
 
-- **Always run all 7 steps in order** — no shortcuts, even for simple pages
+- **Always run all steps in order** — Pre-Step 0a → 0b → 1–7 brief → Steps 1, 2, 2B, 3, 4, 5, 5.5, 6, 7, 9, 11, 12. No shortcuts, even for simple pages.
 - **Never rebuild** anything in the ds-* inventory — reuse it
 - **Suppress Starlite chrome only on Type A** — Type B uses it
 - **Never publish the dev theme** — everything stays in "BBI Landing Dev" draft
 - **Never delete products** — archive or unpublish; prefer unpublish when sold-history exists
 - **Wait for Leo's go-ahead** between Pre-Step, Steps 1, 2, 2B, and after Step 4 screenshot — don't run the whole flow autonomously
 - **Step 5.5 QA gate is mandatory** — never proceed to Step 6 with unresolved FAILs; fix mechanical ones automatically, surface the rest
+- **Gate edit is automated** — Claude Code writes `theme/layout/theme.liquid` directly in Step 5; never tell Leo to do it manually
+- **image_picker slots are never left blank** — unknown settings hard-stop in Step 9; the logo-blank bug class is what Step 9 prevents
+- **Single --slug push** — populate template JSON before calling `--slug`, never re-push to fix images after the fact
+- **Step 11 is a hard gate** — never proceed to Step 12 with any FAIL across all 12 checks
+- **Step 12 marks done only on all-green** — bbi-build-state.md row must not be set to ✅ until Step 11 is clean
 - **Flag unbuilt pages** as `[placeholder]` in Step 1 so Leo can decide which to build next
 - **SEO/AEO is non-negotiable** — Step 2B runs on every page, no skipping even for simple pages
 - **Read before writing** — always read the LOCKED source files (tokens, components, LOCKED JSX) before writing any HTML in Step 3. Never invent classes or tokens.
