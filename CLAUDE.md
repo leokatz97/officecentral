@@ -228,3 +228,6 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | **P1-2 OECM page — template** | [theme/templates/page.oecm.json](theme/templates/page.oecm.json) |
 | **P1-4 Quote page — section** | [theme/sections/ds-lp-quote.liquid](theme/sections/ds-lp-quote.liquid) |
 | **P1-4 Quote page — template** | [theme/templates/page.quote.json](theme/templates/page.quote.json) |
+| **P1-5 Industries Hub — section** | [theme/sections/ds-lp-industries.liquid](theme/sections/ds-lp-industries.liquid) |
+| **P1-5 Industries Hub — template** | [theme/templates/page.industries.json](theme/templates/page.industries.json) |
+| Industries Hub draft preview | [previews/industries-hub-draft-v1.html](previews/industries-hub-draft-v1.html) |
