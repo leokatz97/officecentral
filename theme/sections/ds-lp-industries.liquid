@@ -463,6 +463,125 @@
 .lp-ind .bbi-footer__legal a{color:rgba(var(--textColor-rgb),0.55);text-decoration:none;}
 .lp-ind .bbi-footer__legal a:hover{color:var(--textColor);}
 
+/* ---- Browse the catalogue ---- */
+.lp-ind .lp-catalogue{
+  padding:var(--space-12) 0;
+  border-top:1px solid rgba(var(--borderColor-rgb),0.6);
+}
+.lp-ind .lp-catalogue__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ind .lp-catalogue__head{margin-bottom:var(--space-8);max-width:640px;}
+.lp-ind .lp-catalogue__eyebrow{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);
+}
+.lp-ind .lp-catalogue__eyebrow::before{
+  content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);
+}
+.lp-ind .lp-catalogue h2{
+  font-family:var(--headingFont);font-size:var(--fs-h2);
+  line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-2);text-wrap:balance;
+}
+.lp-ind .lp-catalogue__sub{
+  font-size:16px;color:rgba(var(--textColor-rgb),0.65);margin:0;
+}
+.lp-ind .lp-catalogue__grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border-top:1px solid rgba(var(--borderColor-rgb),0.6);
+  border-left:1px solid rgba(var(--borderColor-rgb),0.6);
+}
+.lp-ind .lp-cat-card{
+  display:block;padding:var(--space-6) var(--space-6) var(--space-8);
+  border-right:1px solid rgba(var(--borderColor-rgb),0.6);
+  border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);
+  text-decoration:none;color:inherit;
+  transition:background-color 120ms ease;
+}
+.lp-ind .lp-cat-card:hover{background:rgba(var(--shadowColor-rgb),0.03);}
+.lp-ind .lp-cat-card__num{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:0.08em;color:rgba(var(--textColor-rgb),0.45);
+  display:block;margin-bottom:var(--space-4);
+}
+.lp-ind .lp-cat-card__title{
+  font-family:var(--headingFont);font-size:18px;font-weight:600;
+  color:var(--headingColor);margin:0 0 var(--space-2);line-height:1.25;
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);
+}
+.lp-ind .lp-cat-card__title .arrow{
+  font-size:16px;color:var(--saleBadgeBackground);flex-shrink:0;
+  opacity:0;transition:opacity 120ms ease,transform 120ms ease;transform:translateX(-4px);
+}
+.lp-ind .lp-cat-card:hover .lp-cat-card__title .arrow{opacity:1;transform:translateX(0);}
+.lp-ind .lp-cat-card__desc{
+  font-size:14px;line-height:1.5;color:rgba(var(--textColor-rgb),0.6);margin:0;
+}
+
+/* ---- FAQ ---- */
+.lp-ind .lp-faq{
+  padding:var(--space-12) 0;background:var(--alternateBackground);
+  border-top:1px solid rgba(var(--borderColor-rgb),0.6);
+  border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);
+}
+.lp-ind .lp-faq__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);
+  display:grid;grid-template-columns:320px 1fr;gap:var(--space-16);align-items:start;
+}
+.lp-ind .lp-faq__head{position:sticky;top:32px;}
+.lp-ind .lp-faq__eyebrow{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);
+}
+.lp-ind .lp-faq__eyebrow::before{
+  content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);
+}
+.lp-ind .lp-faq h2{
+  font-family:var(--headingFont);font-size:var(--fs-h2);
+  line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-6);text-wrap:balance;
+}
+.lp-ind .lp-faq__cta{font-size:14px;color:rgba(var(--textColor-rgb),0.65);line-height:1.55;}
+.lp-ind .lp-faq__cta a{color:var(--textColor);font-weight:600;text-decoration:underline;}
+.lp-ind .lp-faq__list{display:flex;flex-direction:column;}
+.lp-ind .lp-faq-item{
+  border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);background:transparent;
+}
+.lp-ind .lp-faq-item:first-child{border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-ind .lp-faq-item summary{
+  display:flex;align-items:center;gap:var(--space-4);padding:var(--space-6) 0;
+  cursor:pointer;list-style:none;user-select:none;
+}
+.lp-ind .lp-faq-item summary::-webkit-details-marker{display:none;}
+.lp-ind .lp-faq-item summary:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;border-radius:4px;}
+.lp-ind .lp-faq-item__num{
+  flex:0 0 auto;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:0.08em;color:rgba(var(--textColor-rgb),0.4);width:28px;
+}
+.lp-ind .lp-faq-item__q{
+  flex:1;font-family:var(--headingFont);font-size:var(--fs-h3);
+  font-weight:600;color:var(--headingColor);line-height:1.3;
+}
+.lp-ind .lp-faq-item__icon{
+  flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(var(--borderColor-rgb),0.8);
+  display:flex;align-items:center;justify-content:center;
+  transition:background-color 120ms ease,border-color 120ms ease;
+}
+.lp-ind .lp-faq-item__icon::before{
+  content:"+";font-size:14px;line-height:1;color:var(--textColor);font-weight:400;
+  transition:transform 200ms ease;
+}
+.lp-ind .lp-faq-item[open] .lp-faq-item__icon{
+  background:var(--textColor);border-color:var(--textColor);
+}
+.lp-ind .lp-faq-item[open] .lp-faq-item__icon::before{
+  content:"−";color:#FFFFFF;
+}
+.lp-ind .lp-faq-item__body{
+  padding:0 0 var(--space-6) calc(28px + var(--space-4));
+}
+.lp-ind .lp-faq-item__body p{
+  font-size:16px;line-height:1.6;color:rgba(var(--textColor-rgb),0.75);
+  margin:0 0 var(--space-3);max-width:62ch;text-wrap:pretty;
+}
+.lp-ind .lp-faq-item__body p:last-child{margin-bottom:0;}
+
 /* ---- Responsive ---- */
 @media(max-width:980px){
   .lp-ind .lp-hero__inner{grid-template-columns:1fr;gap:var(--space-8);}
@@ -470,6 +589,9 @@
   .lp-ind .lp-diff__grid{grid-template-columns:1fr;}
   .lp-ind .lp-trust-row__grid{grid-template-columns:1fr;}
   .lp-ind .lp-industries__grid{grid-template-columns:repeat(2,1fr);}
+  .lp-ind .lp-catalogue__grid{grid-template-columns:repeat(2,1fr);}
+  .lp-ind .lp-faq__inner{grid-template-columns:1fr;}
+  .lp-ind .lp-faq__head{position:static;}
   .lp-ind .bbi-footer__top{grid-template-columns:1fr;gap:var(--space-8);}
   .lp-ind .bbi-footer__cols{grid-template-columns:repeat(2,1fr);}
   .lp-ind .lp-closer__inner{grid-template-columns:1fr;gap:var(--space-8);}
@@ -481,6 +603,7 @@
   .lp-ind .lp-intro,.lp-ind .lp-diff,.lp-ind .lp-trust-row,.lp-ind .lp-industries{padding:var(--space-8) 0;}
   .lp-ind .lp-diff-card{padding:var(--space-6);}
   .lp-ind .lp-industries__grid{grid-template-columns:1fr;}
+  .lp-ind .lp-catalogue__grid{grid-template-columns:1fr;}
   .lp-ind .bbi-footer__cols{grid-template-columns:1fr;}
   .lp-ind .lp-closer__inner{padding:64px 24px;}
 }
@@ -756,6 +879,64 @@
     </div>
   </section>
 
+  {%- comment -%}BROWSE THE CATALOGUE{%- endcomment -%}
+  <section class="lp-catalogue" aria-label="Browse by product category">
+    <div class="lp-catalogue__inner">
+      <div class="lp-catalogue__head">
+        <p class="lp-catalogue__eyebrow bbi-mono">Browse the catalogue</p>
+        <h2>Start with the category, end with a PO.</h2>
+        <p class="lp-catalogue__sub">Every category is OECM-eligible. Quote in 1 business day.</p>
+      </div>
+      <div class="lp-catalogue__grid">
+        <a class="lp-cat-card" href="/collections/seating">
+          <span class="lp-cat-card__num">01</span>
+          <h3 class="lp-cat-card__title">Seating <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Task chairs, side chairs, lounge, stacking &amp; bariatric. ergoCentric ergonomic series included.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/desks">
+          <span class="lp-cat-card__num">02</span>
+          <h3 class="lp-cat-card__title">Desks &amp; Workstations <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Height-adjustable and fixed-height desks. Private offices, open plans, and reception.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/storage">
+          <span class="lp-cat-card__num">03</span>
+          <h3 class="lp-cat-card__title">Storage &amp; Filing <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Lateral, vertical, and mobile pedestal units. Secure locking options for records-heavy environments.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/tables">
+          <span class="lp-cat-card__num">04</span>
+          <h3 class="lp-cat-card__title">Tables <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Training, meeting, flip-top, and café tables. Nesting options for multi-use rooms.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/boardroom">
+          <span class="lp-cat-card__num">05</span>
+          <h3 class="lp-cat-card__title">Boardroom <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Conference tables and executive seating for council chambers, boardrooms, and boardroom suites.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/ergonomic-products">
+          <span class="lp-cat-card__num">06</span>
+          <h3 class="lp-cat-card__title">Ergonomic Products <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Sit-stand converters, monitor arms, keyboard trays, and footrests. Supports duty-of-care requirements.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/panels-room-dividers">
+          <span class="lp-cat-card__num">07</span>
+          <h3 class="lp-cat-card__title">Panels &amp; Dividers <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Freestanding screens and panel systems. Privacy partitions for open-plan and hybrid offices.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/quiet-spaces">
+          <span class="lp-cat-card__num">08</span>
+          <h3 class="lp-cat-card__title">Quiet Spaces <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Acoustic pods and focus booths for open-plan environments. No construction required.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/accessories">
+          <span class="lp-cat-card__num">09</span>
+          <h3 class="lp-cat-card__title">Accessories <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Whiteboards, coat hooks, waste bins, task lighting, and workspace add-ons.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   {%- comment -%}TESTIMONIAL STRIP{%- endcomment -%}
   <section class="lp-quote-strip" aria-label="Client testimonial">
     <div class="lp-quote-strip__inner">
@@ -767,6 +948,75 @@
         {%- if section.settings.testimonial_logo != blank -%}
           {{ section.settings.testimonial_logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: 'Kawartha Dairy', height: 48 }}
         {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}FAQ{%- endcomment -%}
+  <section class="lp-faq" aria-label="Frequently asked questions">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <p class="lp-faq__eyebrow bbi-mono">Common questions</p>
+        <h2>What institutional buyers ask before sending the PO.</h2>
+        <p class="lp-faq__cta">Still have a question? <a href="tel:18008359565">Call 1-800-835-9565</a> or <a href="/pages/quote">request a quote</a> and we&rsquo;ll get back to you in 1 business day.</p>
+      </div>
+      <div class="lp-faq__list">
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">01</span>
+            <span class="lp-faq-item__q">Which sectors are eligible to buy under OECM?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Any OECM-eligible organization: Ontario school boards (K&ndash;12), publicly-assisted colleges and universities, hospitals and CCACs, municipalities and their agencies, broader-public-sector organizations, and not-for-profits in the social and education sectors. If you&rsquo;re not sure, OECM publishes the eligible-buyer list on their site, or call us and we&rsquo;ll confirm in five minutes.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">02</span>
+            <span class="lp-faq-item__q">What are typical lead times for institutional orders?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Most in-stock items ship within 2&ndash;3 weeks. Custom-configured or upholstered pieces are typically 6&ndash;10 weeks depending on the manufacturer. We&rsquo;ll confirm lead time on your quote before you commit, and we flag anything with long-lead items clearly. For time-sensitive projects, tell us your move-in date and we&rsquo;ll work backwards from there.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">03</span>
+            <span class="lp-faq-item__q">Do you accept purchase orders and NET 30 terms?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; purchase orders, NET 30, and invoiced accounts are standard. We match your accounts payable process, not the other way around. Credit applications take 1&ndash;2 business days. If your organization needs a specific invoice format, PO reference field, or split billing, just let us know on the quote and we&rsquo;ll accommodate it.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">04</span>
+            <span class="lp-faq-item__q">Does every quote include a space plan?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; every quote includes a free furniture layout at no charge. Send us your floor plan (even a rough sketch or PDF) and we&rsquo;ll size the pieces, spec the finishes, and show you what it looks like before you approve anything. For larger fit-outs, our design team will provide a full 2D layout with product callouts and a finish schedule.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">05</span>
+            <span class="lp-faq-item__q">How does delivery and installation work?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>We deliver across Ontario and ship across Canada. Professional installation is available as an add-on &mdash; our crews handle uncrating, assembly, placement, and debris removal. For multi-floor or phased projects, we coordinate delivery windows with your facilities team. We can also coordinate after-hours or weekend delivery for occupied buildings where access is restricted during business hours.</p>
+          </div>
+        </details>
+
       </div>
     </div>
   </section>
