@@ -89,6 +89,7 @@
   white-space: nowrap;
 }
 .bbi-lp-oecm .bbi-btn:focus { outline: none; }
+.bbi-lp-oecm .bbi-btn:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
 .bbi-lp-oecm .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
 .bbi-lp-oecm .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
 .bbi-lp-oecm .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
@@ -202,7 +203,7 @@
 .bbi-lp-oecm .lp-crosslinks__tile { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); padding: var(--space-6); background: var(--background); border: 1px solid rgba(var(--borderColor-rgb),.8); border-radius: var(--cardRadius); text-decoration: none; color: var(--textColor); transition: background-color 160ms ease, border-color 160ms ease; }
 .bbi-lp-oecm .lp-crosslinks__tile:hover { background: var(--alternateBackground); border-color: rgba(var(--borderColor-rgb),1); }
 .bbi-lp-oecm .lp-crosslinks__tile-icon { width: 28px; height: 28px; color: rgba(var(--textColor-rgb),.55); }
-.bbi-lp-oecm .lp-crosslinks__tile-label { display: flex; flex-direction: column; gap: 2px; }
+.bbi-lp-oecm .lp-crosslinks__tile-label { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .bbi-lp-oecm .lp-crosslinks__tile-name { font-family: var(--headingFont); font-size: 18px; font-weight: 600; color: var(--headingColor); }
 .bbi-lp-oecm .lp-crosslinks__tile-meta { font-size: 13px; color: rgba(var(--textColor-rgb),.6); font-family: "JetBrains Mono",ui-monospace,monospace; letter-spacing: 0.04em; }
 .bbi-lp-oecm .lp-crosslinks__tile-arrow { width: 18px; height: 18px; color: rgba(var(--textColor-rgb),.55); transition: transform 160ms ease; }
@@ -218,6 +219,8 @@
 .bbi-lp-oecm .lp-faq__list { border-top: 1px solid rgba(var(--borderColor-rgb),.8); }
 .bbi-lp-oecm .lp-faq__item { border-bottom: 1px solid rgba(var(--borderColor-rgb),.8); }
 .bbi-lp-oecm .lp-faq__trigger { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); width: 100%; padding: var(--space-6) 0; background: transparent; border: none; text-align: left; cursor: pointer; font-family: var(--headingFont); font-size: 17px; font-weight: 600; color: var(--headingColor); }
+.bbi-lp-oecm .lp-faq__trigger:focus { outline: none; }
+.bbi-lp-oecm .lp-faq__trigger:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
 .bbi-lp-oecm .lp-faq__trigger-num { font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.55); font-weight: 400; }
 .bbi-lp-oecm .lp-faq__chevron { width: 16px; height: 16px; color: rgba(var(--textColor-rgb),.55); transition: transform 200ms ease; }
 .bbi-lp-oecm .lp-faq__item--open .lp-faq__chevron { transform: rotate(180deg); color: var(--textColor); }
@@ -290,6 +293,9 @@
 }
 </script>
 
+{%- assign _cta_url = section.settings.cta_primary_url | default: '/pages/quote' -%}
+{%- assign _hero_alt = section.settings.hero_image.alt | default: '' -%}
+
 <div class="bbi-lp-oecm scheme-default">
 
   {%- comment -%} BREADCRUMBS {%- endcomment -%}
@@ -317,13 +323,13 @@
         <h1>{{ section.settings.hero_heading | default: 'Furnish your school, hospital, or council without re-tendering.' }}</h1>
         <p class="lp-hero__standfirst">{{ section.settings.hero_standfirst | default: 'Brant Business Interiors is an OECM-approved supplier — Ontario&#8217;s broader public sector can buy seating, desks, storage, and acoustics from us under existing OECM agreements. No RFP. No vendor onboarding. One quote, one PO, one invoice.' }}</p>
         <div class="lp-hero__cta-row">
-          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.cta_primary_url | default: '/pages/quote' }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
-          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }}</a>
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ _cta_url }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href }}">Call {{ section.settings.phone }}</a>
         </div>
       </div>
       <div class="lp-hero__media" aria-hidden="true">
         {%- if section.settings.hero_image != blank -%}
-          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', width: 900, alt: section.settings.hero_image.alt | default: 'OECM facility install' }}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', width: 900, alt: _hero_alt }}
         {%- else -%}
           <div class="lp-hero__media-placeholder">Hero · 5:4 · BPS facility install</div>
         {%- endif -%}
@@ -352,7 +358,7 @@
   <section class="lp-diff" aria-label="Why Brant Business Interiors">
     <div class="lp-diff__inner">
       <div class="lp-diff__head">
-        <p class="lp-diff__eyebrow bbi-mono">Why BBI</p>
+        <p class="lp-diff__eyebrow bbi-mono">Why Brant Business Interiors</p>
         <h2>Four reasons OECM purchasers send us their POs.</h2>
       </div>
       <div class="lp-diff__grid">
@@ -521,14 +527,14 @@
         <p class="bbi-cta-section__sub">Floor plan, square footage, or a list of seat counts — any starting point works. One business day to a quote, one Ontario team end-to-end.</p>
       </div>
       <div class="bbi-cta-section__actions">
-        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.cta_primary_url | default: '/pages/quote' }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ _cta_url }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
         <div class="bbi-cta-section__trust">
           <span class="dot"></span>
           <span><b>1 business day response</b> on every OECM quote — no minimums.</span>
         </div>
         <div class="bbi-cta-section__trust">
           <span class="dot"></span>
-          <span>Or call <a href="tel:{{ section.settings.phone_href | default: '18008359565' }}">{{ section.settings.phone | default: '1-800-835-9565' }}</a> &middot; Mon&ndash;Fri 8&ndash;5 ET</span>
+          <span>Or call <a href="tel:{{ section.settings.phone_href }}">{{ section.settings.phone }}</a> &middot; Mon&ndash;Fri 8&ndash;5 ET</span>
         </div>
       </div>
     </div>

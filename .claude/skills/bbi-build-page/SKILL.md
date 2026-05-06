@@ -697,6 +697,113 @@ Finally, break any custom HTML sections from the Claude Design output into Liqui
 
 ---
 
+## Step 5.5 — Pre-Push QA Gate
+
+After writing the Liquid section file to `theme/sections/ds-lp-{slug}.liquid`, and **before** telling Leo to paste anything into Shopify Admin, run the full QA gate below. This is automated — you run every check, report the results, and either fix FAILs yourself (when the fix is mechanical) or hard-stop and tell Leo what to resolve. Do not proceed to Step 6 with any unresolved FAILs.
+
+---
+
+### How to run it
+
+Run each check with `grep` or a read of the file. The target file is always `theme/sections/ds-lp-{slug}.liquid`.
+
+Report results in this exact format — one line per check, three columns:
+```
+PASS  [check name]
+FAIL  [check name] — line N: [exact issue and mechanical fix]
+WARN  [check name] — line N: [note]
+```
+
+After the table, state one of:
+- **"All checks pass — proceeding to Step 6."**
+- **"[N] FAIL(s) found — fixing now before Step 6."** (fix them, re-run, confirm PASS)
+- **"[N] WARN(s) noted — flagging to Leo before Step 6."** (list them, wait for go-ahead)
+
+---
+
+### Checks
+
+**CSS / STYLE**
+
+| ID | What to check | How | FAIL condition |
+|----|---------------|-----|----------------|
+| CSS-1 | `!important` in CSS | `grep -n '!important'` | Any match |
+| CSS-2 | Inline `style=""` on HTML elements | `grep -n 'style="'` | Any match not inside a `{% style %}` or `<style>` block |
+| CSS-3 | Single-class img rules that set `height`/`width`/`object-fit` | Read CSS block, look for `.some-class img {` with only one class | Specificity 0,1,1 or lower overrides the base reset `.bbi-lp-{name} img` (0,1,1) |
+| CSS-4 | Flex/grid children with text but no `min-width: 0` | Scan each `display: grid` or `display: flex` rule for children that render text | WARN if direct grid children with `1fr` columns or `flex: 1` children have no `min-width: 0` |
+
+**COLOR TOKENS**
+
+| ID | What to check | How | FAIL condition |
+|----|---------------|-----|----------------|
+| COL-1 | Hardcoded hex colors outside `:root {}` token block | `grep -n '#[0-9A-Fa-f]\{3,6\}'` in the CSS outside `:root` | Any hex not in the allowed set: `#D4252A`, `#A81E22`, `#0B0B0C`, `#FFFFFF`, `#FAFAFA`, `#F0F4FF`, `#CBD5F0`, `#2563EB`, `#fff`, `#000`, OECM badge colours |
+| COL-2 | Warm tones | grep for `#FFF8`, `#FEF`, `#FDF`, `beige`, `tan`, `cream`, `sand` | Any match |
+| COL-3 | Red applied to h1–h4 | grep for `h[1-4].*color.*D4252A` or `h[1-4].*saleBadge` | Any match |
+| COL-4 | Red as body link color on white | Check `.{wrapper} a { color: … }` — confirm it resolves to charcoal, not `#D4252A` or `var(--saleBadgeBackground)` | Any match |
+
+**COPY & TRUST SIGNALS**
+
+| ID | What to check | How | FAIL condition |
+|----|---------------|-----|----------------|
+| COPY-1 | "BBI" abbreviation in customer-facing copy | `grep -n '\bBBI\b'` — then exclude lines that are CSS class definitions (`.bbi-`), HTML class attributes (`class="…bbi-…"`), Liquid comments (`{%-? comment`), and CSS comments (`/* … */`) | Any remaining match is a customer-facing "BBI" violation |
+| COPY-2 | Phone `1-800-835-9565` in both hero CTA row and closer section | `grep -n '1-800-835-9565\|18008359565'` — check it appears at least twice | FAIL if phone appears 0 or 1 times total on a page that has both a hero and a closer |
+| COPY-3 | OECM badge or text on Primary-ICP pages | `grep -ni 'oecm'` | WARN if page targets institutional Ontario buyers but OECM appears 0 times |
+
+**SECTION STRUCTURE**
+
+| ID | What to check | How | FAIL condition |
+|----|---------------|-----|----------------|
+| STRUCT-1 | Exactly one `<h1>` | `grep -c '<h1'` | Count ≠ 1 |
+| STRUCT-2 | Ends with `scheme-inverse` closer | `grep -n 'scheme-inverse'` | No match OR the `scheme-inverse` section is not the last `<section>` before `</div>` |
+| STRUCT-3 | FAQ immediately before closer | Read the HTML structure — confirm `lp-faq` section appears directly before `bbi-cta-section.scheme-inverse` | Any other section between FAQ and closer |
+
+**LIQUID / SHOPIFY CORRECTNESS**
+
+| ID | What to check | How | FAIL condition |
+|----|---------------|-----|----------------|
+| LIQ-1 | `{% include %}` banned | `grep -n '{%.*include'` | Any match |
+| LIQ-2 | Inline `default:` in HTML attributes | `grep -n '="[^"]*\| default:'` | Any match — inline defaults in attribute values cause deploy errors; all defaults belong in the schema `"default":` key |
+| LIQ-3 | `image_url: width:` before every `image_tag` | `grep -n 'image_tag'` — for each hit, confirm the preceding filter chain includes `image_url: width:` | Any `image_tag` without `image_url: width:` upstream |
+| LIQ-4 | Schema `"name"` ≤ 25 characters | Extract `"name":` from the `{% schema %}` block — count chars | Name > 25 chars causes 422 on push |
+| LIQ-5 | Schema has `"presets"` array | `grep -n '"presets"'` in schema block | No match |
+| LIQ-6 | `{{ block.shopify_attributes }}` in every block loop | For each `{% for block in section.blocks %}` loop, confirm the rendered wrapper element includes `{{ block.shopify_attributes }}` | Any block loop without it |
+| LIQ-7 | Broken `alt:` default pattern | `grep -n 'alt:.*\| default:'` in image_tag calls — `\| default:` inside a named arg applies to the tag output, not the param | Any match — fix by assigning the variable first: `{%- assign _alt = var \| default: '' -%}` then `alt: _alt` |
+
+**ACCESSIBILITY**
+
+| ID | What to check | How | FAIL condition |
+|----|---------------|-----|----------------|
+| A11Y-1 | `:focus { outline: none }` without a paired `:focus-visible` rule | `grep -n ':focus'` — for each hit with `outline.*none` or `outline.*0`, confirm a `:focus-visible` rule exists for the same selector | Removing outline without a :focus-visible replacement is a WCAG 2.4.7 violation |
+| A11Y-2 | FAQ `<button>` has `aria-expanded` | `grep -n 'lp-faq__trigger'` — confirm `aria-expanded` attribute is present on the button | Missing `aria-expanded` |
+| A11Y-3 | Every `<img>` has an `alt` attribute | `grep -n '<img'` — confirm every hit has `alt=` | Any `<img>` without alt — decorative images inside `aria-hidden="true"` parents should use `alt=""` |
+| A11Y-4 | Form inputs have associated `<label>` | If page has `<input` or `<textarea`, check for `<label for="…">` | Any input without a label |
+| A11Y-5 | Interactive elements have `:focus-visible` | Scan for `<button>` elements not covered by `.bbi-btn` (e.g. `.lp-faq__trigger`) and `<a>` elements acting as interactive cards; confirm `:focus-visible` exists for each class | WARN if any interactive element class has no `:focus-visible` rule |
+
+**JSON-LD**
+
+| ID | What to check | How | FAIL condition |
+|----|---------------|-----|----------------|
+| JLDL-1 | FAQ blocks have FAQPage JSON-LD | If `type: faq_item` blocks exist in schema, confirm `"@type":"FAQPage"` in the JSON-LD script block | FAQ blocks present but no FAQPage JSON-LD |
+| JLDL-2 | FAQPage JSON-LD is dynamic (built from blocks) | grep for `for block in` inside the JSON-LD script block | Hardcoded FAQPage entries that diverge from what editors can change |
+
+---
+
+### Auto-fix policy
+
+For these FAILs, fix the file immediately without asking Leo and re-run the check:
+- CSS-1: `!important` → remove it and fix the specificity
+- CSS-2: inline `style=""` → move property to the stylesheet
+- COPY-1: `"BBI"` in copy → replace with `"Brant Business Interiors"`
+- LIQ-1: `{% include %}` → replace with `{% render %}`
+- LIQ-2: inline `default:` in attribute → extract to `{%- assign -%}` before the tag
+- LIQ-7: broken alt default → extract to `{%- assign _alt -%}` pattern
+- A11Y-1: `focus: outline none` without `focus-visible` → add the paired rule
+- STRUCT-1: multiple `<h1>` → demote extras to `<h2>`
+
+For all other FAILs and all WARNs: list them in the report, tell Leo the exact fix, and wait for his go-ahead before Step 6.
+
+---
+
 ## Step 6 — Shopify Admin Steps
 
 Walk Leo through the manual work. Tell him exactly:
@@ -828,6 +935,7 @@ Once all checks pass, update `previews/bbi-planning-hub.html` — find the entry
 - **Never publish the dev theme** — everything stays in "BBI Landing Dev" draft
 - **Never delete products** — archive or unpublish; prefer unpublish when sold-history exists
 - **Wait for Leo's go-ahead** between Pre-Step, Steps 1, 2, 2B, and after Step 4 screenshot — don't run the whole flow autonomously
+- **Step 5.5 QA gate is mandatory** — never proceed to Step 6 with unresolved FAILs; fix mechanical ones automatically, surface the rest
 - **Flag unbuilt pages** as `[placeholder]` in Step 1 so Leo can decide which to build next
 - **SEO/AEO is non-negotiable** — Step 2B runs on every page, no skipping even for simple pages
 - **Read before writing** — always read the LOCKED source files (tokens, components, LOCKED JSX) before writing any HTML in Step 3. Never invent classes or tokens.

@@ -102,6 +102,8 @@
 /* CTA Section */
 .bbi-lp-quote .bbi-cta-section { background: var(--background); color: var(--textColor); }
 .bbi-lp-quote .bbi-cta-section__inner { max-width: 1320px; margin: 0 auto; padding: 96px 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
+.bbi-lp-quote .bbi-cta-section__inner > * { min-width: 0; }
+.bbi-lp-quote .lp-contact__inner > * { min-width: 0; }
 .bbi-lp-quote .bbi-cta-section__eyebrow { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--textColor-rgb),.7); margin: 0 0 16px; }
 .bbi-lp-quote .bbi-cta-section__heading { font-family: var(--headingFont); font-size: clamp(32px,4.2vw,56px); line-height: 1.05; letter-spacing: -0.015em; font-weight: 600; margin: 0 0 20px; text-wrap: balance; }
 .bbi-lp-quote .bbi-cta-section__sub { font-size: 17px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78); max-width: 52ch; margin: 0; }
@@ -153,7 +155,7 @@
 .bbi-lp-quote .lp-contact__channel { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); background: var(--cardBackground); border: 1px solid rgba(var(--borderColor-rgb),.8); border-radius: var(--cardRadius); text-decoration: none; color: var(--textColor); transition: border-color 160ms ease; }
 .bbi-lp-quote .lp-contact__channel:hover { border-color: var(--textColor); }
 .bbi-lp-quote .lp-contact__channel-icon { width: 20px; height: 20px; color: rgba(var(--textColor-rgb),.6); flex-shrink: 0; }
-.bbi-lp-quote .lp-contact__channel-label { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.bbi-lp-quote .lp-contact__channel-label { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
 .bbi-lp-quote .lp-contact__channel-name { font-family: var(--headingFont); font-size: 15px; font-weight: 600; color: var(--headingColor); }
 .bbi-lp-quote .lp-contact__channel-meta { font-size: 13px; color: rgba(var(--textColor-rgb),.6); }
 .bbi-lp-quote .lp-contact__channel-arrow { color: rgba(var(--textColor-rgb),.4); transition: transform 160ms ease; }
@@ -191,6 +193,9 @@
 .bbi-lp-quote .lp-proof-bar__stat-label { font-size: 13px; color: rgba(var(--textColor-rgb),.6); font-family: "JetBrains Mono",ui-monospace,monospace; letter-spacing: 0.04em; text-transform: uppercase; }
 .bbi-lp-quote .lp-proof-bar__stat-detail { font-size: 14px; color: rgba(var(--textColor-rgb),.78); line-height: 1.5; margin-top: var(--space-2); }
 
+/* OECM callout CTA spacing */
+.bbi-lp-quote .lp-oecm-callout .bbi-btn--primary { margin-bottom: var(--space-3); }
+
 /* FAQ */
 .bbi-lp-quote .lp-faq { padding: var(--space-12) 0; background: var(--background); border-top: 1px solid rgba(var(--borderColor-rgb),.6); }
 .bbi-lp-quote .lp-faq__inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); }
@@ -201,6 +206,9 @@
 .bbi-lp-quote .lp-faq__list { border-top: 1px solid rgba(var(--borderColor-rgb),.8); }
 .bbi-lp-quote .lp-faq__item { border-bottom: 1px solid rgba(var(--borderColor-rgb),.8); }
 .bbi-lp-quote .lp-faq__trigger { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); width: 100%; padding: var(--space-6) 0; background: transparent; border: none; text-align: left; cursor: pointer; font-family: var(--headingFont); font-size: 17px; font-weight: 600; color: var(--headingColor); }
+.bbi-lp-quote .lp-faq__trigger:focus { outline: none; }
+.bbi-lp-quote .lp-faq__trigger:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
+.bbi-lp-quote .lp-contact__channel:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; border-color: var(--textColor); }
 .bbi-lp-quote .lp-faq__trigger-num { font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.55); font-weight: 400; }
 .bbi-lp-quote .lp-faq__chevron { width: 16px; height: 16px; color: rgba(var(--textColor-rgb),.55); transition: transform 200ms ease; }
 .bbi-lp-quote .lp-faq__item--open .lp-faq__chevron { transform: rotate(180deg); color: var(--textColor); }
@@ -279,6 +287,11 @@
 }
 </script>
 
+{%- assign _cta_url = section.settings.cta_primary_url | default: '/pages/contact' -%}
+{%- assign _form_url = section.settings.form_url | default: '/pages/contact' -%}
+{%- assign _email = section.settings.email | default: 'info@brantbusinessinteriors.com' -%}
+{%- assign _hero_alt = section.settings.hero_image.alt | default: '' -%}
+
 <div class="bbi-lp-quote scheme-default">
 
   {%- comment -%} BREADCRUMBS {%- endcomment -%}
@@ -305,13 +318,13 @@
         <h1>{{ section.settings.hero_heading | default: 'Your quote, back within 24 hours.' }}</h1>
         <p class="lp-hero__standfirst">{{ section.settings.hero_standfirst }}</p>
         <div class="lp-hero__cta-row">
-          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.cta_primary_url | default: '/pages/contact' }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
-          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }}</a>
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ _cta_url }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone }}">Call {{ section.settings.phone }}</a>
         </div>
       </div>
       <div class="lp-hero__media" aria-hidden="true">
         {%- if section.settings.hero_image != blank -%}
-          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', width: 900, alt: section.settings.hero_image.alt | default: 'Ontario workspace fit-out — Brant Business Interiors' }}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', width: 900, alt: _hero_alt }}
         {%- else -%}
           <div class="lp-hero__media-placeholder">Hero · 5:4 · Ontario workspace fit-out</div>
         {%- endif -%}
@@ -341,7 +354,7 @@
         <p class="lp-contact__body">{{ section.settings.contact_body }}</p>
         <div class="lp-contact__channels">
 
-          <a class="lp-contact__channel" href="{{ section.settings.form_url | default: '/pages/contact' }}">
+          <a class="lp-contact__channel" href="{{ _form_url }}">
             <span class="lp-contact__channel-icon">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2" y="4" width="16" height="13" rx="2"/><path d="M2 7 L10 12 L18 7"/></svg>
             </span>
@@ -352,7 +365,7 @@
             <svg class="lp-contact__channel-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8 H13"/><path d="M9 4 L13 8 L9 12"/></svg>
           </a>
 
-          <a class="lp-contact__channel" href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">
+          <a class="lp-contact__channel" href="tel:{{ section.settings.phone_href }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone }}">
             <span class="lp-contact__channel-icon">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 3 C3 3 2 7 6.5 11.5 C11 16 15 15 15 15 L16.5 12.5 L13.5 10.5 L11.5 12.5 C11.5 12.5 8.5 10.5 8 7.5 L10 6 L8 2.5 Z"/></svg>
             </span>
@@ -363,12 +376,12 @@
             <svg class="lp-contact__channel-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8 H13"/><path d="M9 4 L13 8 L9 12"/></svg>
           </a>
 
-          <a class="lp-contact__channel" href="mailto:{{ section.settings.email | default: 'info@brantbusinessinteriors.com' }}">
+          <a class="lp-contact__channel" href="mailto:{{ _email }}">
             <span class="lp-contact__channel-icon">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 4 H16 a2 2 0 0 1 2 2 V14 a2 2 0 0 1 -2 2 H4 a2 2 0 0 1 -2 -2 V6 a2 2 0 0 1 2 -2 Z"/><path d="M2 6 L10 11 L18 6"/></svg>
             </span>
             <span class="lp-contact__channel-label">
-              <span class="lp-contact__channel-name">{{ section.settings.email | default: 'info@brantbusinessinteriors.com' }}</span>
+              <span class="lp-contact__channel-name">{{ _email }}</span>
               <span class="lp-contact__channel-meta">Email your scope or product list directly</span>
             </span>
             <svg class="lp-contact__channel-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8 H13"/><path d="M9 4 L13 8 L9 12"/></svg>
@@ -387,7 +400,7 @@
           <p class="lp-oecm-callout__body">Brant Business Interiors is an OECM Supplier Partner (Agreement 2025-470). If your school board, hospital, municipality, or not-for-profit is OECM-eligible, your procurement policy already covers purchasing from us &#x2014; no separate RFP needed.</p>
           <p class="lp-oecm-callout__body">When you request a quote, mention that you&#x2019;re an OECM buyer and include your organisation&#x2019;s OECM member number. We&#x2019;ll format the quote against pre-tendered pricing and flag eligible line items so your purchasing team can approve it cleanly.</p>
           <div class="lp-oecm-callout__detail">OECM Supplier Partner &middot; Agreement 2025-470 &middot; Office Furniture Category &middot; Ontario broader public sector</div>
-          <a class="bbi-btn bbi-btn--primary bbi-btn--full" href="{{ section.settings.cta_primary_url | default: '/pages/contact' }}" style="margin-bottom:12px;">Request an OECM Quote <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="bbi-btn bbi-btn--primary bbi-btn--full" href="{{ _cta_url }}">Request an OECM Quote <span class="arrow" aria-hidden="true">→</span></a>
           <a class="bbi-btn bbi-btn--secondary bbi-btn--full" href="/pages/oecm">Learn about OECM purchasing &#x2192;</a>
         </div>
       </div>
@@ -491,14 +504,14 @@
         <p class="bbi-cta-section__sub">{{ section.settings.closer_sub | default: 'Floor plan, product list, or rough headcount — any starting point works. One business day to a quote, one Ontario team from scope through installation.' }}</p>
       </div>
       <div class="bbi-cta-section__actions">
-        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.cta_primary_url | default: '/pages/contact' }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ _cta_url }}">{{ section.settings.cta_primary_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
         <div class="bbi-cta-section__trust">
           <span class="dot"></span>
           <span><b>We respond within 1 business day.</b> No minimums, no sales overhead.</span>
         </div>
         <div class="bbi-cta-section__trust">
           <span class="dot"></span>
-          <span>Or call <a href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">{{ section.settings.phone | default: '1-800-835-9565' }}</a> &middot; Mon&ndash;Fri 8am&ndash;5pm ET</span>
+          <span>Or call <a href="tel:{{ section.settings.phone_href }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone }}">{{ section.settings.phone }}</a> &middot; Mon&ndash;Fri 8am&ndash;5pm ET</span>
         </div>
         <div class="bbi-cta-section__trust">
           <span class="dot"></span>
@@ -562,7 +575,7 @@
       "type": "textarea",
       "id": "hero_standfirst",
       "label": "Standfirst",
-      "default": "Tell us what your space needs — chair count, desk specs, floor plan, or just a rough scope. Brant Business Interiors turns requests into itemised quotes, fast. No minimums. No sales pitch. Just the number you need to move your project forward."
+      "default": "Tell us what your space needs — chair count, desk specs, floor plan, or just a rough scope. Brant Business Interiors turns requests into itemised quotes, fast. OECM Supplier Partner (Agreement 2025-470) — Ontario school boards, hospitals, and municipalities skip the RFP. No minimums. No sales pitch."
     },
     {
       "type": "image_picker",
