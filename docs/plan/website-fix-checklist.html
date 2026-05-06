@@ -249,10 +249,11 @@ tr:hover td { background: #fafafa; }
     <table>
       <thead><tr><th style="width:72px">ID</th><th>Page</th><th style="width:220px">URL</th><th style="width:160px">Status</th></tr></thead>
       <tbody>
-        <tr><td class="tk">P1-1</td><td class="tn">Homepage</td><td><code>/</code></td><td><button class="sb s0" data-key="P1-1" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-1</td><td class="tn">Homepage</td><td><code>/</code></td><td><button class="sb s2" data-key="P1-1" onclick="cycle(this)"><span class="dot"></span>Done</button></td></tr>
         <tr><td class="tk">P1-2</td><td class="tn">OECM Supplier Partner</td><td><code>/pages/oecm</code></td><td><button class="sb s2" data-key="P1-2" onclick="cycle(this)"><span class="dot"></span>Done</button></td></tr>
-        <tr><td class="tk">P1-3</td><td class="tn">Design Services</td><td><code>/pages/design-services</code></td><td><button class="sb s0" data-key="P1-3" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
+        <tr><td class="tk">P1-3</td><td class="tn">Design Services</td><td><code>/pages/design-services</code></td><td><button class="sb s2" data-key="P1-3" onclick="cycle(this)"><span class="dot"></span>Done</button></td></tr>
         <tr><td class="tk">P1-4</td><td class="tn">Request a Quote</td><td><code>/pages/quote</code></td><td><button class="sb s2" data-key="P1-4" onclick="cycle(this)"><span class="dot"></span>Done</button></td></tr>
+        <tr><td class="tk">P1-4b</td><td class="tn">FAQ</td><td><code>/pages/faq</code></td><td><button class="sb s2" data-key="P1-4b" onclick="cycle(this)"><span class="dot"></span>Done</button></td></tr>
         <tr><td class="tk">P1-5</td><td class="tn">Industries Hub</td><td><code>/pages/industries</code></td><td><button class="sb s0" data-key="P1-5" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
         <tr><td class="tk">P1-6</td><td class="tn">Healthcare industry page</td><td><code>/pages/healthcare</code></td><td><button class="sb s0" data-key="P1-6" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
         <tr><td class="tk">P1-7</td><td class="tn">Education industry page</td><td><code>/pages/education</code></td><td><button class="sb s0" data-key="P1-7" onclick="cycle(this)"><span class="dot"></span>Not started</button></td></tr>
@@ -631,6 +632,11 @@ const LABEL = {s0:'Not started', s1:'In progress', s2:'Done'};
 
 // Seeded defaults (from markdown statuses)
 const SEEDS = {
+  'P1-1': 's2',
+  'P1-2': 's2',
+  'P1-3': 's2',
+  'P1-4': 's2',
+  'P1-4b': 's2',
   'PB-1': 's2',
   'PB-2': 's2',
   'PB-4': 's2',

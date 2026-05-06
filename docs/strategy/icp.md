@@ -304,6 +304,7 @@ Site-wide microcopy rules. These are non-negotiable across every page, email, an
 | Breadcrumb separator | `>` (chevron, not slash) | `/`, `›`, `»` |
 | Empty state (filtered results) | **No products match this filter. [Reset filters]** | "Nothing here", "No results found" |
 | Modal close button | aria-label "Close" + visible × glyph | Text "Close" only |
+| Hero CTA — Design Services page only | **Get My Free Layout →** (anchor-scrolls to `#design-form` on the same page) | "Request a Layout", "Get Started", "Learn More" |
 
 **Voice anchors per ICP** (apply on top of the locked microcopy above):
 

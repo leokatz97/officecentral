@@ -30,6 +30,12 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["shopify-oauth.js"],
       "port": 3000
+    },
+    {
+      "name": "HTML preview - drafts",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8083"],
+      "port": 8083
     }
   ]
 }

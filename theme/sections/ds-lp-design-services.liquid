@@ -1,0 +1,611 @@
+{%- comment -%}
+  Section: ds-lp-design-services
+  Purpose: Free Design Layout / Space Planning landing page — BBI Design System v2
+  Sections: breadcrumbs → hero → intro → differentiators → form split → client trust → FAQ → CTA closer
+  JSON-LD: HowTo + FAQPage structured data
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Get a Free Office Design Layout from Brant Business Interiors",
+  "description": "Brant Business Interiors delivers a free CAD floor plan with furniture placement for your office space. No cost, no obligation. Serving Ontario businesses and across Canada.",
+  "estimatedCost": { "@type": "MonetaryAmount", "currency": "CAD", "value": "0" },
+  "totalTime": "P5D",
+  "step": [
+    { "@type": "HowToStep", "name": "Submit your project details", "text": "Fill out the project form with your space dimensions, project type, timeline, and budget range. We review every submission within 1 business day." },
+    { "@type": "HowToStep", "name": "We produce your CAD floor plan", "text": "Our team creates a to-scale CAD floor plan with furniture placement based on your dimensions. First draft delivered within 3–5 business days." },
+    { "@type": "HowToStep", "name": "Review and refine", "text": "We walk you through the layout and adjust placement, product selection, or configuration based on your feedback." },
+    { "@type": "HowToStep", "name": "Order when you're ready", "text": "Place your order once the layout is finalized — or keep the floor plan for reference. No commitment required." }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- assign faq_blocks = section.blocks | where: "type", "faq_item" -%}
+    {%- for block in faq_blocks -%}
+    { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+
+<style>
+/* ============================================================
+   BBI Design Tokens — DS v2
+   ============================================================ */
+:root {
+  --bodyFont: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --headingFont: "Inter Tight", "Inter", system-ui, sans-serif;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --inputRadius: 4px; --buttonRadius: 4px; --cardRadius: 8px;
+  --shadow-sm: 0 1px 2px rgba(11,11,12,.04), 0 2px 8px rgba(11,11,12,.05);
+  --saleBadgeBackground: #D4252A;
+  --saleBadgeBackground-rgb: 212,37,42;
+  --fs-h0: 44px; --lh-h0: 1.05; --ls-h0: -0.02em;
+  --fs-h1: 32px; --lh-h1: 1.1; --ls-h1: -0.015em;
+  --fs-h2: 24px; --lh-h2: 1.15; --ls-h2: -0.01em;
+  --fs-h3: 18px; --lh-h3: 1.25;
+  --fs-body: 16px; --lh-body: 1.55;
+  --fs-small: 13px;
+  --fs-button: 15px; --lh-button: 1; --ls-button: 0.01em;
+}
+@media (min-width: 768px) {
+  :root {
+    --fs-h0: 72px; --lh-h0: 1.0;
+    --fs-h1: 48px; --lh-h1: 1.05;
+    --fs-h2: 32px; --lh-h2: 1.1;
+    --fs-h3: 22px; --lh-h3: 1.2;
+    --fs-small: 14px;
+  }
+}
+.bbi-lp-design-services.scheme-default {
+  --background: #FFFFFF; --background-rgb: 255,255,255;
+  --alternateBackground: #FAFAFA; --alternateBackground-rgb: 250,250,250;
+  --cardBackground: #FFFFFF;
+  --textColor: #0B0B0C; --textColor-rgb: 11,11,12;
+  --linkColor: #0B0B0C; --headingColor: #0B0B0C; --headingColor-rgb: 11,11,12;
+  --buttonBackground: #0B0B0C; --buttonColor: #FFFFFF; --buttonBorder: #0B0B0C;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --alternateButtonBackground: #FFFFFF; --alternateButtonColor: #0B0B0C; --alternateButtonBorder: #0B0B0C;
+  --alternateButtonBackgroundHover: #0B0B0C; --alternateButtonColorHover: #FFFFFF; --alternateButtonBorderHover: #0B0B0C;
+  --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
+  --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
+}
+.bbi-lp-design-services .scheme-inverse {
+  --background: #0B0B0C; --background-rgb: 11,11,12;
+  --alternateBackground: #161618;
+  --textColor: #FFFFFF; --textColor-rgb: 255,255,255;
+  --linkColor: #FFFFFF; --headingColor: #FFFFFF; --headingColor-rgb: 255,255,255;
+  --buttonBackground: #FFFFFF; --buttonColor: #0B0B0C; --buttonBorder: #FFFFFF;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --alternateButtonBackground: transparent; --alternateButtonColor: #FFFFFF; --alternateButtonBorder: #FFFFFF;
+  --alternateButtonBackgroundHover: #FFFFFF; --alternateButtonColorHover: #0B0B0C; --alternateButtonBorderHover: #FFFFFF;
+  --borderColor: #1F1F21;
+}
+
+/* ============================================================
+   Base + Shared Components
+   ============================================================ */
+.bbi-lp-design-services *, .bbi-lp-design-services *::before, .bbi-lp-design-services *::after { box-sizing: border-box; }
+.bbi-lp-design-services { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
+.bbi-lp-design-services img { display: block; max-width: 100%; height: auto; }
+.bbi-lp-design-services a { color: var(--linkColor); }
+.bbi-lp-design-services .bbi-mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.bbi-lp-design-services .bbi-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2); padding: 12px 20px; min-height: 44px;
+  font-family: var(--bodyFont); font-size: var(--fs-button); line-height: var(--lh-button);
+  letter-spacing: var(--ls-button); font-weight: 600; border-radius: var(--buttonRadius);
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.bbi-lp-design-services .bbi-btn:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
+.bbi-lp-design-services .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
+.bbi-lp-design-services .bbi-btn--full { width: 100%; }
+.bbi-lp-design-services .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.bbi-lp-design-services .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.bbi-lp-design-services .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
+.bbi-lp-design-services .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
+.bbi-lp-design-services .arrow { display: inline-block; transition: transform 120ms ease; }
+.bbi-lp-design-services .bbi-btn:hover .arrow { transform: translateX(3px); }
+.bbi-lp-design-services .bbi-crumbs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; color: var(--textColor); margin: 0; padding: 0; list-style: none; }
+.bbi-lp-design-services .bbi-crumbs li { display: inline-flex; align-items: center; gap: 8px; }
+.bbi-lp-design-services .bbi-crumbs li:not(:last-child)::after { content: ">"; opacity: 0.4; }
+.bbi-lp-design-services .bbi-crumbs a { color: var(--textColor); opacity: 0.65; text-decoration: none; }
+.bbi-lp-design-services .bbi-crumbs a:hover { opacity: 1; text-decoration: underline; }
+.bbi-lp-design-services .bbi-crumbs li:last-child { font-weight: 500; }
+.bbi-lp-design-services .bbi-badge--oecm {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; background: #F0F4FF; color: #0B0B0C;
+  border: 1px solid #CBD5F0; border-radius: 4px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.bbi-lp-design-services .bbi-badge--oecm .dot { width: 6px; height: 6px; border-radius: 50%; background: #2563EB; flex-shrink: 0; }
+
+/* ============================================================
+   Breadcrumbs
+   ============================================================ */
+.lp-crumbs-band { background: var(--alternateBackground); border-bottom: 1px solid var(--borderColor); }
+.lp-crumbs-band__inner { max-width: 1200px; margin: 0 auto; padding: 12px var(--space-6); }
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.lp-hero { background: var(--alternateBackground); padding: var(--space-16) 0; }
+.lp-hero__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 1fr; gap: var(--space-12); align-items: center; }
+@media (min-width: 768px) { .lp-hero__inner { grid-template-columns: 1fr 1fr; gap: var(--space-16); } }
+.lp-hero__eyebrow { color: var(--textColor); opacity: 0.55; margin: 0 0 var(--space-4); }
+.lp-hero__eyebrow-label { opacity: 1; }
+.lp-hero__text h1 { font-family: var(--headingFont); font-size: var(--fs-h0); line-height: var(--lh-h0); letter-spacing: var(--ls-h0); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-6); }
+.lp-hero__standfirst { font-size: 18px; line-height: 1.6; color: var(--textColor); opacity: 0.8; margin: 0 0 var(--space-8); max-width: 540px; }
+.lp-hero__cta-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+.lp-hero__media { border-radius: var(--cardRadius); overflow: hidden; }
+.lp-hero__media img { width: 100%; height: 400px; object-fit: cover; border-radius: var(--cardRadius); }
+
+/* ============================================================
+   Intro
+   ============================================================ */
+.lp-intro { background: var(--background); padding: var(--space-16) 0; }
+.lp-intro__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-intro__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.lp-intro__inner h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-8); max-width: 700px; }
+.lp-intro__body { display: grid; grid-template-columns: 1fr; gap: var(--space-6); max-width: 820px; }
+@media (min-width: 768px) { .lp-intro__body { grid-template-columns: 1fr 1fr; } }
+.lp-intro__body p { margin: 0; line-height: 1.7; }
+
+/* ============================================================
+   Differentiators
+   ============================================================ */
+.lp-diff { background: var(--alternateBackground); padding: var(--space-16) 0; border-top: 1px solid var(--borderColor); border-bottom: 1px solid var(--borderColor); }
+.lp-diff__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-diff__head { margin-bottom: var(--space-12); }
+.lp-diff__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.lp-diff__head h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0; max-width: 600px; }
+.lp-diff__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+@media (min-width: 640px) { .lp-diff__grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .lp-diff__grid { grid-template-columns: repeat(4, 1fr); } }
+.lp-diff-card { background: var(--cardBackground); border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+.lp-diff-card__num { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--textColor); opacity: 0.35; }
+.lp-diff-card__icon { width: 36px; height: 36px; color: var(--textColor); }
+.lp-diff-card__icon svg { width: 100%; height: 100%; }
+.lp-diff-card__label { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0; }
+.lp-diff-card__sentence { font-size: 14px; line-height: 1.6; color: var(--textColor); opacity: 0.75; margin: 0; }
+
+/* ============================================================
+   Form Split
+   ============================================================ */
+.lp-form-split { background: var(--background); padding: var(--space-16) 0; }
+.lp-form-split__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 1fr; gap: var(--space-12); align-items: start; }
+@media (min-width: 900px) { .lp-form-split__inner { grid-template-columns: 1fr 420px; gap: var(--space-16); } }
+.lp-form-split__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-3); }
+.lp-form-split__heading { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-3); }
+.lp-form-split__sub { font-size: 16px; color: var(--textColor); opacity: 0.7; margin: 0 0 var(--space-8); }
+.lp-form__row { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-bottom: var(--space-4); }
+@media (min-width: 540px) { .lp-form__row { grid-template-columns: 1fr 1fr; } }
+.lp-form__field { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+.lp-form__label { font-size: 13px; font-weight: 600; color: var(--textColor); letter-spacing: 0.02em; }
+.lp-form__input, .lp-form__select {
+  padding: 10px 14px; border: 1px solid var(--borderColor);
+  border-radius: var(--inputRadius); font-family: var(--bodyFont);
+  font-size: 15px; color: var(--textColor); background: var(--background);
+  transition: border-color 120ms ease; -webkit-appearance: none; appearance: none;
+  min-height: 44px;
+}
+.lp-form__input:focus, .lp-form__select:focus { outline: none; border-color: var(--textColor); }
+.lp-form__select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 6l5 5 5-5' stroke='%230B0B0C' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+.lp-form__submit-wrap { margin-top: var(--space-6); }
+.lp-form__helper { font-size: 13px; color: var(--textColor); opacity: 0.55; margin: var(--space-3) 0 0; }
+.lp-form-split__photo { border-radius: var(--cardRadius); overflow: hidden; position: relative; }
+.lp-form-split__photo img { width: 100%; height: 380px; object-fit: cover; border-radius: var(--cardRadius); }
+.lp-form-split__photo-caption { display: flex; align-items: center; gap: 8px; margin-top: var(--space-3); font-size: 12px; color: var(--textColor); opacity: 0.5; }
+.lp-form-split__photo-caption-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--textColor); opacity: 0.4; flex-shrink: 0; }
+
+/* ============================================================
+   Client Trust Band
+   ============================================================ */
+.lp-client-trust { background: var(--alternateBackground); border-top: 1px solid var(--borderColor); border-bottom: 1px solid var(--borderColor); padding: var(--space-12) 0; }
+.lp-client-trust__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: center; justify-content: space-between; }
+.lp-client-trust__testimonial { flex: 1 1 340px; }
+.lp-client-trust__quote { font-size: 18px; line-height: 1.55; font-style: italic; color: var(--textColor); margin: 0 0 var(--space-6); }
+.lp-client-trust__attribution { display: flex; align-items: center; gap: var(--space-4); }
+.bbi-lp-design-services .lp-client-trust__logo { height: 36px; width: auto; max-width: 100px; object-fit: contain; flex-shrink: 0; }
+.lp-client-trust__attribution-text { min-width: 0; }
+.lp-client-trust__client-name { font-weight: 600; font-size: 14px; color: var(--headingColor); }
+.lp-client-trust__client-sub { font-size: 12px; color: var(--textColor); opacity: 0.55; margin-top: 2px; }
+.lp-client-trust__badge-col { display: flex; flex-direction: column; gap: var(--space-4); align-items: flex-start; }
+.lp-client-trust__our-work { font-size: 14px; font-weight: 600; color: var(--textColor); text-decoration: none; display: flex; align-items: center; gap: 4px; }
+.lp-client-trust__our-work:hover { text-decoration: underline; }
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.lp-faq { background: var(--background); padding: var(--space-16) 0; }
+.lp-faq__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-faq__head { margin-bottom: var(--space-12); }
+.lp-faq__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.lp-faq__head h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0; max-width: 700px; }
+.lp-faq__item { border-bottom: 1px solid var(--borderColor); }
+.lp-faq__trigger { width: 100%; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-6) 0; background: none; border: none; cursor: pointer; text-align: left; font-family: var(--bodyFont); font-size: 16px; font-weight: 600; color: var(--headingColor); }
+.lp-faq__trigger:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; border-radius: 2px; }
+.lp-faq__trigger-num { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--textColor); opacity: 0.35; flex-shrink: 0; width: 22px; }
+.lp-faq__trigger span:nth-child(2) { flex: 1; }
+.lp-faq__chevron { flex-shrink: 0; transition: transform 200ms ease; color: var(--textColor); opacity: 0.5; }
+.lp-faq__item--open .lp-faq__chevron { transform: rotate(180deg); }
+.lp-faq__answer { display: none; padding: 0 0 var(--space-6) calc(22px + var(--space-4)); }
+.lp-faq__item--open .lp-faq__answer { display: block; }
+.lp-faq__answer p { margin: 0 0 var(--space-4); line-height: 1.7; }
+.lp-faq__answer p:last-child { margin-bottom: 0; }
+
+/* ============================================================
+   CTA Closer
+   ============================================================ */
+.bbi-cta-section { padding: var(--space-16) 0; background: var(--background); }
+.bbi-cta-section__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 1fr; gap: var(--space-12); align-items: center; }
+@media (min-width: 768px) { .bbi-cta-section__inner { grid-template-columns: 1fr auto; } }
+.bbi-cta-section__eyebrow { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.bbi-cta-section__heading { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-4); }
+.bbi-cta-section__sub { font-size: 16px; line-height: 1.65; color: var(--textColor); opacity: 0.75; margin: 0; max-width: 520px; }
+.bbi-cta-section__actions { display: flex; flex-direction: column; gap: var(--space-4); align-items: flex-start; }
+.bbi-cta-section__trust { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--textColor); opacity: 0.75; line-height: 1.5; }
+.bbi-cta-section__trust .dot { width: 6px; height: 6px; border-radius: 50%; background: #D4252A; flex-shrink: 0; margin-top: 4px; }
+.bbi-cta-section__trust a { color: var(--linkColor); }
+</style>
+
+<div class="bbi-lp-design-services scheme-default">
+
+  <!-- BREADCRUMBS -->
+  <div class="lp-crumbs-band">
+    <div class="lp-crumbs-band__inner">
+      <ol class="bbi-crumbs" aria-label="Breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/pages/services">Services</a></li>
+        <li><span>Free Design Layout</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="lp-hero" aria-label="Hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <p class="lp-hero__eyebrow bbi-mono">
+          <span class="lp-hero__eyebrow-label">{{ section.settings.hero_eyebrow | default: 'Service · Design' }}</span>
+        </p>
+        <h1>{{ section.settings.hero_heading | default: 'A free CAD floor plan for your office — no obligation.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.hero_standfirst | default: 'Brant Business Interiors is an OECM Supplier Partner (Agreement 2025-470) and Canadian-owned office furniture dealer serving Ontario businesses. Our free design layout service delivers a to-scale CAD floor plan with furniture placement — at no cost and with no obligation to purchase. Call 1-800-835-9565 to talk it through first.' }}</p>
+        <div class="lp-hero__cta-row">
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="#design-form">{{ section.settings.cta_primary_label | default: 'Get My Free Layout' }} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }}</a>
+        </div>
+      </div>
+      <div class="lp-hero__media" aria-hidden="true">
+        {%- if section.settings.hero_image != blank -%}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', width: 900, alt: section.settings.hero_image.alt | default: 'Ontario office space planning — Brant Business Interiors' }}
+        {%- else -%}
+          <img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/design-services-product.png?v=1778074380" alt="Ontario office space planning — Brant Business Interiors" loading="eager" width="900">
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="lp-intro" aria-label="The offer">
+    <div class="lp-intro__inner">
+      <p class="lp-intro__eyebrow bbi-mono">{{ section.settings.intro_eyebrow | default: 'The offer' }}</p>
+      <h2>{{ section.settings.intro_heading | default: 'We deliver the floor plan. You decide what to do with it.' }}</h2>
+      <div class="lp-intro__body">
+        <p>{{ section.settings.intro_para1 | default: 'Send us your room dimensions and project scope. Our Ontario-based team builds a to-scale CAD floor plan with every desk, chair, and storage unit placed where it actually fits. Same format our commercial install crews work from — not a rough sketch.' }}</p>
+        <p>{{ section.settings.intro_para2 | default: 'The floor plan is yours, free, whether you order from us or not. Most clients do place an order once they see the layout — but that decision is yours, not ours.' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFERENTIATORS -->
+  <section class="lp-diff" aria-label="What's included">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">{{ section.settings.diff_eyebrow | default: "What's included" }}</p>
+        <h2>{{ section.settings.diff_heading | default: 'Everything in the free design layout.' }}</h2>
+      </div>
+      <div class="lp-diff__grid">
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">01</span>
+          <span class="lp-diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label"><span>CAD floor plan — to scale</span></h3>
+          <p class="lp-diff-card__sentence">Not a rough sketch. A proper to-scale floor plan — every desk, chair, and storage unit placed where it actually fits. The same format our commercial install teams work from.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">02</span>
+          <span class="lp-diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label"><span>Furniture placement mapped</span></h3>
+          <p class="lp-diff-card__sentence">We spec each piece before you order. See the full fit-out on paper first — traffic flow, desk orientation, storage placement — then decide. No surprises when the truck shows up.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">03</span>
+          <span class="lp-diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label"><span>Free. No obligation.</span></h3>
+          <p class="lp-diff-card__sentence">No cost, no commitment. The layout is yours whether you order from us or not. Most clients do order from us once they see the layout — but that's your call, not ours.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">04</span>
+          <span class="lp-diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label"><span>1 business day response</span></h3>
+          <p class="lp-diff-card__sentence">Submit your project details and we'll confirm receipt within 1 business day. First CAD draft typically arrives within 3–5 business days. Ontario team, no out-of-province handoffs.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM SPLIT -->
+  <section class="lp-form-split" id="design-form" aria-label="Request your free design layout">
+    <div class="lp-form-split__inner">
+
+      <div class="lp-form-split__form-col">
+        <div class="lp-form-split__head">
+          <p class="lp-form-split__eyebrow bbi-mono">Get started</p>
+          <h2 class="lp-form-split__heading">Tell us about your project</h2>
+          <p class="lp-form-split__sub">We'll have a first draft back to you within 3–5 business days.</p>
+        </div>
+        <form action="mailto:{{ section.settings.form_email | default: 'sales@brantbusinessinteriors.com' }}" method="POST" enctype="text/plain" novalidate>
+          <div class="lp-form__row">
+            <div class="lp-form__field">
+              <label class="lp-form__label" for="ds-project-type">Project type</label>
+              <select class="lp-form__select" id="ds-project-type" name="project_type">
+                <option value="">Select…</option>
+                <option value="new-office">New office fit-out</option>
+                <option value="refresh">Office refresh / renovation</option>
+                <option value="workstations">Workstation additions</option>
+                <option value="boardroom">Boardroom / meeting room</option>
+                <option value="reception">Reception / lobby</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="lp-form__field">
+              <label class="lp-form__label" for="ds-sqft">Approx. square footage</label>
+              <input class="lp-form__input" type="text" id="ds-sqft" name="square_footage" placeholder="e.g. 1,200 sq ft">
+            </div>
+          </div>
+          <div class="lp-form__row">
+            <div class="lp-form__field">
+              <label class="lp-form__label" for="ds-timeline">Timeline</label>
+              <select class="lp-form__select" id="ds-timeline" name="timeline">
+                <option value="">Select…</option>
+                <option value="asap">As soon as possible</option>
+                <option value="1-3mo">1–3 months</option>
+                <option value="3-6mo">3–6 months</option>
+                <option value="planning">Still planning</option>
+              </select>
+            </div>
+            <div class="lp-form__field">
+              <label class="lp-form__label" for="ds-budget">Budget range</label>
+              <select class="lp-form__select" id="ds-budget" name="budget">
+                <option value="">Select…</option>
+                <option value="under-5k">Under $5,000</option>
+                <option value="5k-15k">$5,000 – $15,000</option>
+                <option value="15k-50k">$15,000 – $50,000</option>
+                <option value="50k-plus">$50,000+</option>
+                <option value="unknown">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+          <div class="lp-form__row">
+            <div class="lp-form__field">
+              <label class="lp-form__label" for="ds-name">Name</label>
+              <input class="lp-form__input" type="text" id="ds-name" name="name" placeholder="Your name" autocomplete="name">
+            </div>
+            <div class="lp-form__field">
+              <label class="lp-form__label" for="ds-company">Company / Organization</label>
+              <input class="lp-form__input" type="text" id="ds-company" name="company" placeholder="Company name" autocomplete="organization">
+            </div>
+          </div>
+          <div class="lp-form__field">
+            <label class="lp-form__label" for="ds-email">Email</label>
+            <input class="lp-form__input" type="email" id="ds-email" name="email" placeholder="you@company.com" autocomplete="email">
+          </div>
+          <div class="lp-form__submit-wrap">
+            <button class="bbi-btn bbi-btn--primary bbi-btn--lg bbi-btn--full" type="submit">Send request <span class="arrow" aria-hidden="true">→</span></button>
+            <p class="lp-form__helper">We respond within 1 business day.</p>
+          </div>
+        </form>
+      </div>
+
+      <div class="lp-form-split__photo">
+        {%- if section.settings.form_photo != blank -%}
+          {{ section.settings.form_photo | image_url: width: 840 | image_tag: loading: 'lazy', width: 840, alt: section.settings.form_photo.alt | default: 'Office space planning — Brant Business Interiors project' }}
+        {%- else -%}
+          <img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/OCI-Planning-Desogn.jpg?v=1778074380" alt="Office space planning — Brant Business Interiors project" loading="lazy" width="840">
+        {%- endif -%}
+        <div class="lp-form-split__photo-caption">
+          <span class="lp-form-split__photo-caption-dot"></span>
+          <span>Brant Business Interiors — space planning, Ontario</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLIENT TRUST BAND -->
+  <section class="lp-client-trust" aria-label="Client trust">
+    <div class="lp-client-trust__inner">
+      <div class="lp-client-trust__testimonial">
+        <blockquote class="lp-client-trust__quote">
+          &ldquo;{{ section.settings.testimonial_quote | default: 'Sharing a successful partnership for more than a decade. A great local company that provides products and services with a smile.' }}&rdquo;
+        </blockquote>
+        <div class="lp-client-trust__attribution">
+          {%- if section.settings.client_logo != blank -%}
+            {{ section.settings.client_logo | image_url: width: 200 | image_tag: loading: 'lazy', height: 36, alt: section.settings.client_name | default: 'Client' }}
+          {%- else -%}
+            <img class="lp-client-trust__logo" src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/kawartha-dairy-logo.jpg?v=1778074382" alt="{{ section.settings.client_name | default: 'Kawartha Dairy' }}" loading="lazy" height="36">
+          {%- endif -%}
+          <div class="lp-client-trust__attribution-text">
+            <div class="lp-client-trust__client-name">{{ section.settings.client_name | default: 'Kawartha Dairy' }}</div>
+            <div class="lp-client-trust__client-sub">{{ section.settings.client_sub | default: 'Est. 1937 · Bobcaygeon, Ontario' }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="lp-client-trust__badge-col">
+        <span class="bbi-badge bbi-badge--oecm">
+          <span class="dot"></span>
+          OECM Supplier Partner
+        </span>
+        {%- if section.settings.our_work_url != blank -%}
+          <a class="lp-client-trust__our-work" href="{{ section.settings.our_work_url }}">View Our Work →</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="lp-faq" aria-label="Frequently asked questions">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <p class="lp-faq__eyebrow bbi-mono">Common questions</p>
+        <h2>{{ section.settings.faq_heading | default: 'Five questions before you fill out the form.' }}</h2>
+      </div>
+      <div class="lp-faq__list" id="ds-faq-list">
+        {%- assign faq_blocks = section.blocks | where: "type", "faq_item" -%}
+        {%- for block in faq_blocks -%}
+          <div class="lp-faq__item{% if forloop.first %} lp-faq__item--open{% endif %}" {{ block.shopify_attributes }}>
+            <button class="lp-faq__trigger" aria-expanded="{{ forloop.first | json }}">
+              <span class="lp-faq__trigger-num">0{{ forloop.index }}</span>
+              <span>{{ block.settings.question }}</span>
+              <span class="lp-faq__chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+            </button>
+            <div class="lp-faq__answer">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA CLOSER -->
+  <section class="bbi-cta-section scheme-inverse" aria-label="Call to action">
+    <div class="bbi-cta-section__inner">
+      <div>
+        <p class="bbi-cta-section__eyebrow">Prefer to talk first</p>
+        <h2 class="bbi-cta-section__heading">{{ section.settings.closer_heading | default: 'Prefer to talk it through first?' }}</h2>
+        <p class="bbi-cta-section__sub">{{ section.settings.closer_sub | default: 'Our team is on the phone Monday to Friday. Floor plan, square footage, or just a rough idea — any starting point works.' }}</p>
+      </div>
+      <div class="bbi-cta-section__actions">
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }} <span class="arrow" aria-hidden="true">→</span></a>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span><b>1 business day response</b> on every design request — no minimums.</span>
+        </div>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span>Or <a href="#design-form">fill out the form above</a> — we'll reach out within 1 business day.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function() {
+  var list = document.getElementById('ds-faq-list');
+  if (!list) return;
+  list.addEventListener('click', function(e) {
+    var btn = e.target.closest('.lp-faq__trigger');
+    if (!btn) return;
+    var item = btn.closest('.lp-faq__item');
+    var isOpen = item.classList.contains('lp-faq__item--open');
+    list.querySelectorAll('.lp-faq__item--open').forEach(function(el) {
+      el.classList.remove('lp-faq__item--open');
+      el.querySelector('.lp-faq__trigger').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('lp-faq__item--open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Design Services Landing",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Service · Design" },
+    { "type": "text", "id": "hero_heading", "label": "H1 heading", "default": "A free CAD floor plan for your office — no obligation." },
+    { "type": "textarea", "id": "hero_standfirst", "label": "Standfirst paragraph", "default": "Brant Business Interiors is an OECM Supplier Partner (Agreement 2025-470) and Canadian-owned office furniture dealer serving Ontario businesses. Our free design layout service delivers a to-scale CAD floor plan with furniture placement — at no cost and with no obligation to purchase. Call 1-800-835-9565 to talk it through first." },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "header", "content": "Phone" },
+    { "type": "text", "id": "phone", "label": "Phone (display)", "default": "1-800-835-9565" },
+    { "type": "text", "id": "phone_href", "label": "Phone (href, digits only)", "default": "18008359565" },
+    { "type": "header", "content": "Primary CTA" },
+    { "type": "text", "id": "cta_primary_label", "label": "Hero CTA label", "default": "Get My Free Layout" },
+    { "type": "header", "content": "Intro section" },
+    { "type": "text", "id": "intro_eyebrow", "label": "Eyebrow", "default": "The offer" },
+    { "type": "text", "id": "intro_heading", "label": "Heading", "default": "We deliver the floor plan. You decide what to do with it." },
+    { "type": "textarea", "id": "intro_para1", "label": "Paragraph 1", "default": "Send us your room dimensions and project scope. Our Ontario-based team builds a to-scale CAD floor plan with every desk, chair, and storage unit placed where it actually fits. Same format our commercial install crews work from — not a rough sketch." },
+    { "type": "textarea", "id": "intro_para2", "label": "Paragraph 2", "default": "The floor plan is yours, free, whether you order from us or not. Most clients do place an order once they see the layout — but that decision is yours, not ours." },
+    { "type": "header", "content": "Differentiators" },
+    { "type": "text", "id": "diff_eyebrow", "label": "Eyebrow", "default": "What's included" },
+    { "type": "text", "id": "diff_heading", "label": "Heading", "default": "Everything in the free design layout." },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "form_email", "label": "Form mailto address", "default": "sales@brantbusinessinteriors.com" },
+    { "type": "image_picker", "id": "form_photo", "label": "Form photo (right column)" },
+    { "type": "header", "content": "Client trust band" },
+    { "type": "textarea", "id": "testimonial_quote", "label": "Testimonial quote (no quotes)", "default": "Sharing a successful partnership for more than a decade. A great local company that provides products and services with a smile." },
+    { "type": "image_picker", "id": "client_logo", "label": "Client logo" },
+    { "type": "text", "id": "client_name", "label": "Client name", "default": "Kawartha Dairy" },
+    { "type": "text", "id": "client_sub", "label": "Client sub-line", "default": "Est. 1937 · Bobcaygeon, Ontario" },
+    { "type": "url", "id": "our_work_url", "label": "Our Work URL (optional)" },
+    { "type": "header", "content": "FAQ" },
+    { "type": "text", "id": "faq_heading", "label": "FAQ heading", "default": "Five questions before you fill out the form." },
+    { "type": "header", "content": "Closer" },
+    { "type": "text", "id": "closer_heading", "label": "Heading", "default": "Prefer to talk it through first?" },
+    { "type": "textarea", "id": "closer_sub", "label": "Sub-copy", "default": "Our team is on the phone Monday to Friday. Floor plan, square footage, or just a rough idea — any starting point works." }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Design Services Landing",
+      "blocks": [
+        { "type": "faq_item", "settings": { "question": "What's included in the free design layout?", "answer": "<p>A to-scale CAD floor plan showing furniture placement for your space — based on your dimensions or a site visit. We use the same layout tools our commercial install teams work from.</p>" } },
+        { "type": "faq_item", "settings": { "question": "Is there a minimum project size?", "answer": "<p>No minimum. The service is free for any project, whether you're fitting out two workstations or a full floor.</p>" } },
+        { "type": "faq_item", "settings": { "question": "How long does it take?", "answer": "<p>We typically deliver a first draft within 3–5 business days of receiving your project details.</p>" } },
+        { "type": "faq_item", "settings": { "question": "Do I have to buy the furniture from you?", "answer": "<p>No obligation. The floor plan is yours either way. Most clients do order from us once they see the layout — but that's your decision.</p>" } },
+        { "type": "faq_item", "settings": { "question": "Do you do space planning outside Ontario?", "answer": "<p>We work on spaces across Canada. Delivery and installation are Ontario-based — we'll be upfront about that during the design conversation.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
