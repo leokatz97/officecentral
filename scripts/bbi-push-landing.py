@@ -15,10 +15,22 @@ Page title comes from PAGE_TITLES below; unmapped slugs get a title-cased fallba
 Env:
   SHOPIFY_TOKEN — Admin API token with write_themes + write_content
   SHOPIFY_STORE — office-central-online.myshopify.com
+  BBI_PUSH_ROOT — override repo root (default: auto-detected, see below)
+
+Root auto-detection (in priority order):
+  1. BBI_PUSH_ROOT env var — explicit override, always wins.
+  2. cwd worktree rule — if the current working directory contains
+     '.claude/worktrees/' it is a git worktree; use cwd as root so
+     worktree files, not main-repo stale files, reach Shopify.
+  3. __file__ fallback — parent.parent of this script file (original behaviour).
+  A loud WARNING is printed whenever sources 2 and 3 disagree.
 
 Usage:
-  python3 scripts/bbi-push-landing.py <THEME_ID>            # push everything
-  python3 scripts/bbi-push-landing.py <THEME_ID> --slug oecm  # push one page only
+  python3 scripts/bbi-push-landing.py <THEME_ID>                 # push everything
+  python3 scripts/bbi-push-landing.py <THEME_ID> --slug oecm     # one page only
+  python3 scripts/bbi-push-landing.py <THEME_ID> --layout        # also push theme.liquid
+  python3 scripts/bbi-push-landing.py <THEME_ID> --snippets      # also push bbi-*.liquid snippets
+  python3 scripts/bbi-push-landing.py <THEME_ID> --layout --snippets --slug oecm  # all three
 """
 import os
 import sys
@@ -52,7 +64,46 @@ TOKEN = os.environ['SHOPIFY_TOKEN']
 STORE = os.environ.get('SHOPIFY_STORE', 'office-central-online.myshopify.com')
 API_VERSION = '2026-04'
 
-ROOT = Path(os.environ.get('BBI_PUSH_ROOT', Path(__file__).resolve().parent.parent))
+
+def _resolve_root() -> Path:
+    """Return the repo root to use for this push, with worktree-awareness."""
+    # 1. Explicit env override — always wins.
+    if env_root := os.environ.get('BBI_PUSH_ROOT'):
+        return Path(env_root).resolve()
+
+    cwd = Path.cwd().resolve()
+    file_root = Path(__file__).resolve().parent.parent
+
+    # 2. Worktree rule — if cwd is inside a Claude worktree, trust it.
+    #    This prevents the silent stale-push bug where the script resolves
+    #    to the main repo when invoked from a .claude/worktrees/* context.
+    cwd_is_worktree = '.claude/worktrees/' in str(cwd)
+    if cwd_is_worktree:
+        cwd_root = cwd
+        if cwd_root != file_root:
+            print(
+                f'\n⚠️  ROOT MISMATCH DETECTED\n'
+                f'   cwd  (worktree, used): {cwd_root}\n'
+                f'   file (skipped):        {file_root}\n'
+                f'   Worktree rule wins. Push will use worktree files.\n'
+                f'   Set BBI_PUSH_ROOT to silence this warning.\n'
+            )
+        return cwd_root
+
+    # 3. __file__ fallback — original behaviour.
+    #    Warn if cwd looks like a different repo root (theme/ present in cwd
+    #    but it differs from the file-derived root).
+    if (cwd / 'theme').exists() and cwd != file_root:
+        print(
+            f'\n⚠️  ROOT MISMATCH DETECTED\n'
+            f'   cwd  (has theme/, unused): {cwd}\n'
+            f'   file (used):               {file_root}\n'
+            f'   If you intended to push from cwd, set BBI_PUSH_ROOT=$(pwd).\n'
+        )
+    return file_root
+
+
+ROOT = _resolve_root()
 THEME = ROOT / 'theme'
 if not THEME.exists():
     raise SystemExit(f'theme/ not found at {THEME} — set BBI_PUSH_ROOT if running from a non-standard location')
@@ -91,11 +142,14 @@ def upload_file(path: Path, key: str, *, theme_id, base):
     return ok
 
 
-def files_to_push(slug_filter=None):
+def files_to_push(slug_filter=None, push_layout=False, push_snippets=False):
     """Yield (Path, shopify_key) pairs for all BBI theme files.
 
-    If slug_filter is set, only yields the matching section + template for that slug.
-    Always yields shared assets/sections/snippets (they have no per-slug concept).
+    slug_filter   — if set, only yields the matching section + template for that slug.
+                    Always yields shared assets/snippets (no per-slug concept).
+    push_layout   — also yield layout/theme.liquid (needed after bbi_landing gate edits).
+    push_snippets — also yield snippets/bbi-*.liquid (BBI shared snippets only;
+                    Starlite legacy snippets are deliberately excluded).
     """
     shared_patterns = [
         ('assets', 'ds-*'),
@@ -127,6 +181,21 @@ def files_to_push(slug_filter=None):
     if templates_dir.exists():
         for p in sorted(templates_dir.glob(template_glob)):
             yield p, f'templates/{p.name}'
+
+    # Optional extras — only when flags are explicitly passed.
+    if push_layout:
+        layout_file = THEME / 'layout' / 'theme.liquid'
+        if layout_file.exists():
+            yield layout_file, 'layout/theme.liquid'
+        else:
+            print(f'  WARN layout/theme.liquid not found at {layout_file} — skipping')
+
+    if push_snippets:
+        snippets_dir = THEME / 'snippets'
+        if snippets_dir.exists():
+            # bbi-*.liquid only — never touch Starlite legacy snippets
+            for p in sorted(snippets_dir.glob('bbi-*.liquid')):
+                yield p, f'snippets/{p.name}'
 
 
 def slug_from_template(p: Path) -> str:
@@ -174,15 +243,24 @@ def main():
     parser.add_argument('theme_id', help='Shopify theme ID (numeric)')
     parser.add_argument('--slug', default=None,
                         help='Deploy only this slug (e.g. oecm). Omit for all.')
+    parser.add_argument('--layout', action='store_true',
+                        help='Also push layout/theme.liquid (needed after bbi_landing gate edits).')
+    parser.add_argument('--snippets', action='store_true',
+                        help='Also push snippets/bbi-*.liquid (BBI shared snippets only).')
     args = parser.parse_args()
 
     theme_id = args.theme_id
     slug_filter = args.slug
+    push_layout = args.layout
+    push_snippets = args.snippets
     base = f'https://{STORE}/admin/api/{API_VERSION}'
 
     print(f'Store   : {STORE}')
+    print(f'Root    : {ROOT}')
     print(f'Theme ID: {theme_id}')
     print(f'Slug    : {slug_filter or "all"}')
+    print(f'Layout  : {"yes" if push_layout else "no"}')
+    print(f'Snippets: {"yes" if push_snippets else "no"}')
     print()
 
     # Preflight
@@ -203,7 +281,7 @@ def main():
     # Upload files
     print('Uploading files:')
     ok_count, fail_count = 0, 0
-    for path, key in files_to_push(slug_filter):
+    for path, key in files_to_push(slug_filter, push_layout=push_layout, push_snippets=push_snippets):
         if upload_file(path, key, theme_id=theme_id, base=base):
             ok_count += 1
         else:
