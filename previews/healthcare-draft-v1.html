@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare &amp; Clinical Office Furniture Ontario | Brant Business Interiors — a division of Office Central Inc. (OECM Supplier)</title>
+  <meta name="description" content="Commercial-grade furniture for Ontario clinics, dental offices, and long-term care. OECM Supplier Partner. Free space plan included. Quote in 1 business day.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Inter+Tight:wght@600&display=swap" rel="stylesheet">
+  <style>
+/* ============================================================
+   BBI tokens
+   ============================================================ */
+:root {
+  --bodyFont: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bodyFontWeight: 400;
+  --bodyFontLineHeight: 1.55;
+  --bodyFontBase: 16px;
+  --headingFont: "Inter Tight", "Inter", system-ui, sans-serif;
+  --headingFontWeight: 600;
+  --headingFontLineHeight: 1.1;
+  --headingFontBase: 48px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px; --space-24: 96px;
+  --inputRadius: 4px; --buttonRadius: 4px; --cardRadius: 8px; --imageRadius: 4px; --productRadius: 8px;
+  --shadow-sm: 0 1px 2px rgba(11,11,12,0.04), 0 2px 8px rgba(11,11,12,0.05);
+  --shadow-md: 0 2px 4px rgba(11,11,12,0.05), 0 12px 32px rgba(11,11,12,0.08);
+  --success: #1F6F3F; --success-rgb: 31,111,63;
+  --error: #B33A1A; --error-rgb: 179,58,26;
+  --saleBadgeBackground: #D4252A; --saleBadgeBackground-rgb: 212,37,42;
+  --newBadgeBackground: #0B0B0C; --newBadgeBackground-rgb: 11,11,12;
+  --soldBadgeBackground: #5A5A5E; --soldBadgeBackground-rgb: 90,90,94;
+  --warningBackground: #E8A317; --warningBackground-rgb: 232,163,23;
+  --headerBg: #FFFFFF; --headerBg-rgb: 255,255,255;
+  --headerColor: #0B0B0C; --headerColor-rgb: 11,11,12;
+  --headerHoverColor: #A81E22; --headerHoverColor-rgb: 168,30,34;
+  --headerIconColor: #0B0B0C; --headerIconColor-rgb: 11,11,12;
+  --cartCountBg: #D4252A; --cartCountBg-rgb: 212,37,42;
+  --cartCountColor: #FFFFFF; --cartCountColor-rgb: 255,255,255;
+  --submenuBg: #FFFFFF; --submenuBg-rgb: 255,255,255;
+  --submenuColor: #0B0B0C; --submenuColor-rgb: 11,11,12;
+  --submenuHoverColor: #A81E22; --submenuHoverColor-rgb: 168,30,34;
+  --fs-h0: 44px; --lh-h0: 1.05; --ls-h0: -0.02em;
+  --fs-h1: 32px; --lh-h1: 1.1;  --ls-h1: -0.015em;
+  --fs-h2: 24px; --lh-h2: 1.15; --ls-h2: -0.01em;
+  --fs-h3: 18px; --lh-h3: 1.25; --ls-h3: -0.005em;
+  --fs-body: 16px; --lh-body: 1.55; --ls-body: 0;
+  --fs-small: 13px; --lh-small: 1.5; --ls-small: 0;
+  --fs-button: 15px; --lh-button: 1; --ls-button: 0.01em;
+}
+@media (min-width: 768px) {
+  :root {
+    --fs-h0: 72px; --lh-h0: 1.0;
+    --fs-h1: 48px; --lh-h1: 1.05;
+    --fs-h2: 32px; --lh-h2: 1.1;
+    --fs-h3: 22px; --lh-h3: 1.2;
+    --fs-button: 15px; --lh-button: 1;
+  }
+}
+.scheme-default {
+  --background: #FFFFFF; --background-rgb: 255,255,255;
+  --alternateBackground: #FAFAFA; --alternateBackground-rgb: 250,250,250;
+  --cardBackground: #FFFFFF; --cardBackground-rgb: 255,255,255;
+  --textColor: #0B0B0C; --textColor-rgb: 11,11,12;
+  --linkColor: #0B0B0C; --linkColor-rgb: 11,11,12;
+  --headingColor: #0B0B0C; --headingColor-rgb: 11,11,12;
+  --buttonBackground: #0B0B0C; --buttonBackground-rgb: 11,11,12;
+  --buttonColor: #FFFFFF; --buttonColor-rgb: 255,255,255;
+  --buttonBorder: #0B0B0C; --buttonBorder-rgb: 11,11,12;
+  --buttonBackgroundHover: #D4252A; --buttonBackgroundHover-rgb: 212,37,42;
+  --buttonColorHover: #FFFFFF; --buttonColorHover-rgb: 255,255,255;
+  --buttonBorderHover: #D4252A; --buttonBorderHover-rgb: 212,37,42;
+  --alternateButtonBackground: #FFFFFF; --alternateButtonBackground-rgb: 255,255,255;
+  --alternateButtonColor: #0B0B0C; --alternateButtonColor-rgb: 11,11,12;
+  --alternateButtonBorder: #0B0B0C; --alternateButtonBorder-rgb: 11,11,12;
+  --alternateButtonBackgroundHover: #0B0B0C; --alternateButtonBackgroundHover-rgb: 11,11,12;
+  --alternateButtonColorHover: #FFFFFF; --alternateButtonColorHover-rgb: 255,255,255;
+  --alternateButtonBorderHover: #0B0B0C; --alternateButtonBorderHover-rgb: 11,11,12;
+  --inputBackground: #FFFFFF; --inputBackground-rgb: 255,255,255;
+  --inputColor: #0B0B0C; --inputColor-rgb: 11,11,12;
+  --inputBorder: #0B0B0C; --inputBorder-rgb: 11,11,12;
+  --productBorder: #E5E5E7; --productBorder-rgb: 229,229,231;
+  --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
+  --line-color: #E5E5E7; --line-color-rgb: 229,229,231;
+  --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
+  --productIconColor: #0B0B0C; --productIconColor-rgb: 11,11,12;
+  --productIconBg: #FAFAFA; --productIconBg-rgb: 250,250,250;
+}
+.scheme-inverse {
+  --background: #0B0B0C; --background-rgb: 11,11,12;
+  --alternateBackground: #161618; --alternateBackground-rgb: 22,22,24;
+  --cardBackground: #161618; --cardBackground-rgb: 22,22,24;
+  --textColor: #FFFFFF; --textColor-rgb: 255,255,255;
+  --linkColor: #FFFFFF; --linkColor-rgb: 255,255,255;
+  --headingColor: #FFFFFF; --headingColor-rgb: 255,255,255;
+  --buttonBackground: #FFFFFF; --buttonBackground-rgb: 255,255,255;
+  --buttonColor: #0B0B0C; --buttonColor-rgb: 11,11,12;
+  --buttonBorder: #FFFFFF; --buttonBorder-rgb: 255,255,255;
+  --buttonBackgroundHover: #D4252A; --buttonBackgroundHover-rgb: 212,37,42;
+  --buttonColorHover: #FFFFFF; --buttonColorHover-rgb: 255,255,255;
+  --buttonBorderHover: #D4252A; --buttonBorderHover-rgb: 212,37,42;
+  --alternateButtonBackground: transparent; --alternateButtonBackground-rgb: 11,11,12;
+  --alternateButtonColor: #FFFFFF; --alternateButtonColor-rgb: 255,255,255;
+  --alternateButtonBorder: #FFFFFF; --alternateButtonBorder-rgb: 255,255,255;
+  --alternateButtonBackgroundHover: #FFFFFF; --alternateButtonBackgroundHover-rgb: 255,255,255;
+  --alternateButtonColorHover: #0B0B0C; --alternateButtonColorHover-rgb: 11,11,12;
+  --alternateButtonBorderHover: #FFFFFF; --alternateButtonBorderHover-rgb: 255,255,255;
+  --inputBackground: #161618; --inputBackground-rgb: 22,22,24;
+  --inputColor: #FFFFFF; --inputColor-rgb: 255,255,255;
+  --inputBorder: #FFFFFF; --inputBorder-rgb: 255,255,255;
+  --productBorder: #1F1F21; --productBorder-rgb: 31,31,33;
+  --borderColor: #1F1F21; --borderColor-rgb: 31,31,33;
+  --line-color: #1F1F21; --line-color-rgb: 31,31,33;
+  --shadowColor: #000000; --shadowColor-rgb: 0,0,0;
+  --productIconColor: #FFFFFF; --productIconColor-rgb: 255,255,255;
+  --productIconBg: #161618; --productIconBg-rgb: 22,22,24;
+}
+:where(a,button,[role="button"],input,select,textarea,summary,[tabindex]):focus-visible {
+  outline: 2px solid var(--textColor);
+  outline-offset: 2px;
+  border-radius: var(--inputRadius);
+}
+
+/* ============================================================
+   BBI shared components
+   ============================================================ */
+*,*::before,*::after { box-sizing: border-box; }
+html,body { margin: 0; padding: 0; }
+body {
+  font-family: var(--bodyFont);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--textColor);
+  background: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--linkColor); }
+.bbi-mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.bbi-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2); padding: 12px 20px; min-height: 44px;
+  font-family: var(--bodyFont); font-size: var(--fs-button);
+  line-height: var(--lh-button); letter-spacing: var(--ls-button);
+  font-weight: 600; border-radius: var(--buttonRadius);
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  user-select: none; white-space: nowrap;
+}
+.bbi-btn:focus { outline: none; }
+.bbi-btn--sm { min-height: 36px; padding: 8px 14px; font-size: 13px; }
+.bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
+.bbi-btn--full { width: 100%; }
+.bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
+.bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
+.bbi-btn--tertiary { background: transparent; color: var(--textColor); border-color: transparent; padding-left: 4px; padding-right: 4px; border-radius: 2px; }
+.bbi-btn--tertiary .label { position: relative; }
+.bbi-btn--tertiary .label::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: currentColor; transition: opacity 120ms ease; }
+.bbi-btn .arrow { display: inline-block; transform: translateY(-0.5px); }
+.bbi-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 22px; padding: 0 10px;
+  font-family: var(--headingFont); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; border-radius: 2px; white-space: nowrap;
+}
+.bbi-badge--oecm { background: transparent; color: var(--textColor); border: 1px solid var(--textColor); }
+.bbi-badge--oecm .dot { width: 6px; height: 6px; border-radius: 99px; background: var(--saleBadgeBackground); }
+.bbi-badge--canadian { background: transparent; color: var(--textColor); border: 1px solid var(--textColor); }
+.bbi-badge--canadian .leaf { width: 12px; height: 12px; color: var(--saleBadgeBackground); }
+.bbi-header { background: var(--headerBg); color: var(--headerColor); border-bottom: 1px solid var(--borderColor); position: relative; z-index: 10; }
+.bbi-header__inner { max-width: 1320px; margin: 0 auto; padding: 0 32px; height: 72px; display: flex; align-items: center; gap: 32px; }
+.bbi-header__logo { display: inline-flex; align-items: center; height: 40px; text-decoration: none; }
+.bbi-header__logo img { height: 36px; width: auto; }
+.bbi-header__nav { display: flex; align-items: center; gap: 4px; margin-left: 16px; }
+.bbi-nav-item { display: inline-flex; align-items: center; gap: 4px; height: 72px; padding: 0 14px; color: var(--headerColor); font-size: 14px; font-weight: 500; text-decoration: none; position: relative; }
+.bbi-nav-item:hover { color: var(--headerHoverColor); }
+.bbi-nav-item.is-current::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 18px; height: 1px; background: var(--textColor); }
+.bbi-header__utility { margin-left: auto; display: flex; align-items: center; gap: 16px; font-size: 14px; }
+.bbi-header__utility a:not(.bbi-btn) { color: var(--headerColor); text-decoration: none; }
+.bbi-header__utility .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.bbi-header__utility .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.bbi-footer { background: var(--background); color: var(--textColor); }
+.bbi-footer__inner { max-width: 1320px; margin: 0 auto; padding: 64px 32px 24px; }
+.bbi-footer__top { display: grid; grid-template-columns: 1.1fr 3fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid var(--borderColor); }
+.bbi-footer__brand-plate { display: inline-block; background: var(--headerBg); padding: 16px 20px; border-radius: var(--cardRadius); }
+.bbi-footer__brand-plate img { height: 44px; width: auto; display: block; }
+.bbi-footer__tagline { margin: 20px 0 16px; font-size: 14px; line-height: 1.55; max-width: 32ch; color: rgba(var(--textColor-rgb),0.78); }
+.bbi-footer__canadian { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--textColor); }
+.bbi-footer__canadian .leaf { width: 14px; height: 14px; color: var(--saleBadgeBackground); }
+.bbi-footer__cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.bbi-footer__col h4 { font-family: var(--headingFont); font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 16px; color: var(--textColor); }
+.bbi-footer__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.bbi-footer__col a { color: rgba(var(--textColor-rgb),0.78); text-decoration: none; font-size: 14px; line-height: 1.4; }
+.bbi-footer__col a:hover { color: var(--textColor); text-decoration: underline; }
+.bbi-footer__col--contact .row { display: grid; grid-template-columns: 80px 1fr; gap: 8px; font-size: 14px; margin-bottom: 12px; line-height: 1.45; }
+.bbi-footer__col--contact .lbl { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(var(--textColor-rgb),0.55); padding-top: 2px; }
+.bbi-footer__col--contact .row span:not(.lbl), .bbi-footer__col--contact .row a { color: var(--textColor); }
+.bbi-footer__bottom { padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(var(--textColor-rgb),0.55); }
+.bbi-footer__legal { display: flex; gap: 24px; }
+.bbi-footer__legal a { color: rgba(var(--textColor-rgb),0.55); text-decoration: none; }
+.bbi-footer__legal a:hover { color: var(--textColor); }
+.bbi-card { display: flex; flex-direction: column; background: var(--cardBackground); border-radius: var(--cardRadius); overflow: hidden; }
+.bbi-crumbs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; color: var(--textColor); margin: 0; padding: 0; list-style: none; }
+.bbi-crumbs li { display: inline-flex; align-items: center; gap: 8px; }
+.bbi-crumbs li:not(:last-child)::after { content: ">"; opacity: 0.4; }
+.bbi-crumbs a { color: var(--textColor); opacity: 0.65; text-decoration: none; }
+.bbi-crumbs a:hover { opacity: 1; text-decoration: underline; }
+.bbi-crumbs li:last-child { font-weight: 500; }
+.bbi-cta-section { background: var(--background); color: var(--textColor); }
+.bbi-cta-section__inner { max-width: 1320px; margin: 0 auto; padding: 96px 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
+.bbi-cta-section__eyebrow { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--textColor-rgb),0.7); margin: 0 0 16px; }
+.bbi-cta-section__heading { font-family: var(--headingFont); font-size: clamp(32px,4.2vw,56px); line-height: 1.05; letter-spacing: -0.015em; font-weight: 600; margin: 0 0 20px; text-wrap: balance; }
+.bbi-cta-section__sub { font-size: 17px; line-height: 1.55; color: rgba(var(--textColor-rgb),0.78); max-width: 52ch; margin: 0; }
+.bbi-cta-section__actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.bbi-cta-section__actions .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.bbi-cta-section__actions .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.bbi-cta-section__trust { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgba(var(--textColor-rgb),0.78); }
+.bbi-cta-section__trust .dot { flex: 0 0 auto; margin-top: 7px; width: 6px; height: 6px; border-radius: 99px; background: var(--saleBadgeBackground); }
+.bbi-cta-section__trust b { color: var(--textColor); font-weight: 600; }
+.bbi-cta-section__trust a { color: var(--textColor); text-decoration: underline; }
+
+/* ============================================================
+   Landing page styles
+   ============================================================ */
+.lp-page { background: var(--background); color: var(--textColor); }
+.lp-crumbs-band { border-bottom: 1px solid rgba(var(--borderColor-rgb),0.6); }
+.lp-crumbs-band__inner { max-width: 1280px; margin: 0 auto; padding: var(--space-3) var(--space-6); }
+.lp-hero { padding: var(--space-12) 0; border-bottom: 1px solid rgba(var(--borderColor-rgb),0.6); }
+.lp-hero__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: var(--space-12); align-items: center; }
+.lp-hero__text { max-width: 560px; }
+.lp-hero__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
+.lp-hero__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-hero__eyebrow-label { color: rgba(var(--textColor-rgb),0.6); }
+.lp-hero h1 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-4); text-wrap: balance; }
+.lp-hero__standfirst { font-size: 18px; line-height: 1.55; color: rgba(var(--textColor-rgb),0.78); margin: 0 0 var(--space-6); text-wrap: pretty; }
+.lp-hero__badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: 6px 12px; border: 1px solid rgba(var(--borderColor-rgb),0.8); border-radius: 999px; margin-bottom: var(--space-6); font-size: 12px; color: rgba(var(--textColor-rgb),0.78); }
+.lp-hero__badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saleBadgeBackground); }
+.lp-hero__cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.lp-hero__media { position: relative; aspect-ratio: 5/4; background: var(--alternateBackground); border-radius: var(--cardRadius); overflow: hidden; }
+.lp-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.lp-intro { padding: var(--space-12) 0; }
+.lp-intro__inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-intro__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),0.6); margin-bottom: var(--space-4); }
+.lp-intro__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-intro h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-6); text-wrap: balance; }
+.lp-intro__body p { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb),0.78); margin: 0 0 var(--space-4); text-wrap: pretty; }
+.lp-diff { padding: var(--space-12) 0; background: var(--alternateBackground); border-top: 1px solid rgba(var(--borderColor-rgb),0.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),0.6); }
+.lp-diff__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-diff__head { margin-bottom: var(--space-8); max-width: 640px; }
+.lp-diff__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),0.6); margin-bottom: var(--space-3); }
+.lp-diff__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-diff h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance; }
+.lp-diff__grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0; border-top: 1px solid rgba(var(--borderColor-rgb),0.6); border-left: 1px solid rgba(var(--borderColor-rgb),0.6); }
+.lp-diff-card { background: var(--cardBackground); padding: var(--space-8); border-right: 1px solid rgba(var(--borderColor-rgb),0.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),0.6); border-radius: 0; display: grid; grid-template-rows: auto auto auto 1fr; gap: var(--space-3); transition: background-color 160ms ease; }
+.lp-diff-card:hover { background: rgba(var(--shadowColor-rgb),0.02); }
+.lp-diff-card__num { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),0.6); }
+.lp-diff-card__icon { width: 32px; height: 32px; color: var(--textColor); display: flex; align-items: center; justify-content: flex-start; }
+.lp-diff-card__label { font-family: var(--headingFont); font-size: 22px; line-height: 1.3; font-weight: 600; color: var(--headingColor); margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.lp-diff-card__label::after { content: ""; display: block; width: 24px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-diff-card__sentence { font-size: 15px; line-height: 1.55; color: rgba(var(--textColor-rgb),0.7); margin: 0; text-wrap: pretty; }
+.lp-trust-row { padding: var(--space-12) 0; }
+.lp-trust-row__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-trust-row__head { margin-bottom: var(--space-6); max-width: 640px; }
+.lp-trust-row__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),0.6); margin-bottom: var(--space-3); }
+.lp-trust-row__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-trust-row h2 { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0; }
+.lp-trust-row__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
+.lp-trust-row__cell { position: relative; aspect-ratio: 4/3; background: var(--alternateBackground); border-radius: var(--cardRadius); overflow: hidden; }
+.lp-trust-row__cell img { width: 100%; height: 100%; object-fit: cover; }
+.lp-trust-row__cell-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: repeating-linear-gradient(45deg, rgba(var(--shadowColor-rgb),0.04) 0px, rgba(var(--shadowColor-rgb),0.04) 2px, transparent 2px, transparent 12px); color: rgba(var(--textColor-rgb),0.5); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.lp-trust-row__caption { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(var(--shadowColor-rgb),0.85); color: var(--background); padding: 10px 14px; font-size: 12px; line-height: 1.4; display: flex; flex-direction: column; gap: 2px; }
+.lp-trust-row__caption-key { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--background-rgb),0.6); }
+.lp-crosslinks { padding: var(--space-12) 0; }
+.lp-crosslinks__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-crosslinks__head { margin-bottom: var(--space-6); display: flex; align-items: end; justify-content: space-between; gap: var(--space-6); }
+.lp-crosslinks__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),0.6); margin-bottom: var(--space-3); }
+.lp-crosslinks__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-crosslinks h2 { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0; }
+.lp-crosslinks__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-4); }
+.lp-crosslinks__tile { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); padding: var(--space-6); background: var(--background); border: 1px solid rgba(var(--borderColor-rgb),0.8); border-radius: var(--cardRadius); text-decoration: none; color: var(--textColor); transition: background-color 160ms ease, border-color 160ms ease; }
+.lp-crosslinks__tile:hover { background: var(--alternateBackground); border-color: rgba(var(--borderColor-rgb),1); }
+.lp-crosslinks__tile-icon { width: 28px; height: 28px; color: rgba(var(--textColor-rgb),0.55); }
+.lp-crosslinks__tile-label { display: flex; flex-direction: column; gap: 2px; }
+.lp-crosslinks__tile-name { font-family: var(--headingFont); font-size: 18px; font-weight: 600; color: var(--headingColor); }
+.lp-crosslinks__tile-meta { font-size: 13px; color: rgba(var(--textColor-rgb),0.6); font-family: "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.04em; }
+.lp-crosslinks__tile-arrow { width: 18px; height: 18px; color: rgba(var(--textColor-rgb),0.55); transition: transform 160ms ease; }
+.lp-crosslinks__tile:hover .lp-crosslinks__tile-arrow { transform: translateX(4px); color: var(--textColor); }
+
+/* OECM bar (hp-oecm from homepage.css) */
+.hp-oecm { border-top: 1px solid var(--borderColor); border-bottom: 1px solid var(--borderColor); background: var(--background); }
+.hp-oecm__inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 24px 32px; max-width: 1320px; margin: 0 auto; }
+.hp-oecm__lead { display: flex; align-items: center; gap: 20px; flex: 1 1 auto; min-width: 0; }
+.hp-oecm__lead .bbi-badge--oecm { flex: 0 0 auto; height: 28px; padding: 0 12px; font-size: 12px; }
+.hp-oecm__copy { margin: 0; font-size: 14px; line-height: 1.5; color: var(--textColor); opacity: 0.85; max-width: 80ch; }
+.hp-oecm__meta { flex: 0 0 auto; }
+
+/* Responsive */
+@media (max-width: 980px) {
+  .lp-hero__inner { grid-template-columns: 1fr; gap: var(--space-8); }
+  .lp-hero__media { aspect-ratio: 16/10; }
+  .lp-diff__grid { grid-template-columns: 1fr; }
+  .lp-trust-row__grid { grid-template-columns: 1fr; }
+  .lp-crosslinks__grid { grid-template-columns: 1fr; }
+  .lp-crosslinks__head { flex-direction: column; align-items: start; }
+  .bbi-cta-section__inner { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px; }
+  .bbi-footer__top { grid-template-columns: 1fr; gap: 32px; }
+  .bbi-footer__cols { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 640px) {
+  .lp-hero { padding: var(--space-8) 0; }
+  .lp-hero h1 { font-size: 32px; }
+  .lp-intro, .lp-diff, .lp-trust-row, .lp-crosslinks { padding: var(--space-8) 0; }
+  .lp-diff-card { padding: var(--space-6); }
+  .bbi-footer__cols { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body class="scheme-default lp-page">
+
+  <!-- ===== HEADER ===== -->
+  <header class="bbi-header" role="banner">
+    <div class="bbi-header__inner">
+      <a href="/" class="bbi-header__logo">
+        <img src="../Design System Zips/5 - Landing Page (2)/uploads/14-bbi-logo-v2.png"
+             alt="Brant Business Interiors" height="36">
+      </a>
+      <nav class="bbi-header__nav" aria-label="Main navigation">
+        <a href="/collections/business-furniture" class="bbi-nav-item">Shop</a>
+        <a href="/pages/brands" class="bbi-nav-item">Brands</a>
+        <a href="/pages/industries" class="bbi-nav-item is-current">Verticals</a>
+        <a href="/pages/our-work" class="bbi-nav-item">Our work</a>
+        <a href="/pages/design-services" class="bbi-nav-item">Services</a>
+        <a href="/pages/about" class="bbi-nav-item">About</a>
+      </nav>
+      <div class="bbi-header__utility">
+        <a href="tel:18008359565" class="phone" aria-label="Call Brant Business Interiors at 1-800-835-9565">
+          <b>1-800-835-9565</b>
+        </a>
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary">Request a Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== BREADCRUMBS ===== -->
+  <div class="lp-crumbs-band">
+    <div class="lp-crumbs-band__inner">
+      <ol class="bbi-crumbs" aria-label="Breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/pages/industries">Industries</a></li>
+        <li aria-current="page">Healthcare &amp; Clinical</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="lp-hero" aria-label="Hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <p class="lp-hero__eyebrow bbi-mono">
+          <span class="lp-hero__eyebrow-label">Industry · Healthcare &amp; Clinical</span>
+        </p>
+        <h1>Healthcare &amp; Clinical Office Furniture for Ontario</h1>
+        <p class="lp-hero__standfirst">
+          Cleanable, durable, and professionally specified — for private clinics, dental and
+          medical offices, long-term care, and hospital environments across Ontario.
+          Call <a href="tel:18008359565" style="color:inherit;font-weight:600;">1-800-835-9565</a>.
+        </p>
+        <div class="lp-hero__cta-row">
+          <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">
+            Request a Quote <span class="arrow">→</span>
+          </a>
+          <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg"
+             aria-label="Call Brant Business Interiors at 1-800-835-9565">
+            Call 1-800-835-9565
+          </a>
+        </div>
+      </div>
+      <div class="lp-hero__media" aria-hidden="true">
+        <img src="../data/oci-photos/OCI-Healthcare-Carousel-3.jpg"
+             alt="Healthcare office environment with clinical furniture"
+             loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTRO (AEO anchors) ===== -->
+  <section class="lp-intro" aria-label="About our healthcare furniture">
+    <div class="lp-intro__inner">
+      <p class="lp-intro__eyebrow bbi-mono">What we do</p>
+      <h2>Furniture that holds up in a busy clinical environment.</h2>
+      <div class="lp-intro__body">
+        <p>
+          Brant Business Interiors supplies commercial-grade furniture for medical offices,
+          dental clinics, physiotherapy practices, and long-term care facilities across Ontario.
+          Every piece is specified for high-traffic use — cleanable surfaces, durable frames,
+          and ergonomic options for staff who spend a full day on their feet or at a desk.
+        </p>
+        <p>
+          As an OECM Supplier Partner (Agreement 2025-470), Ontario hospitals and long-term
+          care facilities can purchase directly from Brant Business Interiors without an open
+          tender or RFP process. Our team provides a free space layout before you commit —
+          so the room works on paper before a single piece ships.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DIFFERENTIATORS ===== -->
+  <section class="lp-diff" aria-label="Why Brant Business Interiors for healthcare">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">Why us</p>
+        <h2>Specified for clinical environments.</h2>
+      </div>
+      <div class="lp-diff__grid">
+
+        <!-- Card 01 -->
+        <article class="bbi-card lp-diff-card">
+          <span class="lp-diff-card__num">01</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="M16 3 L27 7 V16 c0 7 -5 11 -11 13 c-6 -2 -11 -6 -11 -13 V7 Z"/>
+              <path d="M11 16 l4 4 l6 -8"/>
+            </svg>
+          </span>
+          <h3 class="lp-diff-card__label">Cleanable &amp; durable</h3>
+          <p class="lp-diff-card__sentence">
+            Commercial-grade upholstery and surfaces that hold up to busy waiting rooms, exam areas,
+            and staff workstations — and clean easily at end of shift. Vinyl and antimicrobial fabric
+            options available.
+          </p>
+        </article>
+
+        <!-- Card 02 -->
+        <article class="bbi-card lp-diff-card">
+          <span class="lp-diff-card__num">02</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <rect x="3" y="3" width="26" height="26"/>
+              <path d="M9 16.5 l5 5 l9 -11"/>
+            </svg>
+          </span>
+          <h3 class="lp-diff-card__label">Free layout included</h3>
+          <p class="lp-diff-card__sentence">
+            Send us your floor plan. Our team provides a free space layout and rendering before you
+            order — so your clinic, reception, or staff area looks exactly the way you want it,
+            with the right pieces in the right places.
+          </p>
+        </article>
+
+        <!-- Card 03 -->
+        <article class="bbi-card lp-diff-card">
+          <span class="lp-diff-card__num">03</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <circle cx="16" cy="16" r="12"/>
+              <path d="M9 16 l4 4 l4 -4 l4 4 l-4 4"/>
+              <path d="M9 16 l4 -4 l4 4 l4 -4 l4 4"/>
+            </svg>
+          </span>
+          <h3 class="lp-diff-card__label">OECM-eligible procurement</h3>
+          <p class="lp-diff-card__sentence">
+            Brant Business Interiors is an OECM Supplier Partner (Agreement 2025-470). Ontario
+            hospitals, long-term care facilities, and health teams can procure directly —
+            no RFP or open tender required.
+          </p>
+        </article>
+
+        <!-- Card 04 -->
+        <article class="bbi-card lp-diff-card">
+          <span class="lp-diff-card__num">04</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <rect x="4" y="4" width="10" height="10"/>
+              <rect x="18" y="4" width="10" height="10"/>
+              <rect x="4" y="18" width="10" height="10"/>
+              <rect x="18" y="18" width="10" height="10"/>
+            </svg>
+          </span>
+          <h3 class="lp-diff-card__label">Ontario delivery &amp; installation</h3>
+          <p class="lp-diff-card__sentence">
+            Delivery and installation available across Ontario. Our team handles assembly,
+            levelling, and removal of old furniture — so your practice or facility is operational
+            the same day the truck arrives.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST ROW ===== -->
+  <section class="lp-trust-row" aria-label="Healthcare projects">
+    <div class="lp-trust-row__inner">
+      <div class="lp-trust-row__head">
+        <p class="lp-trust-row__eyebrow bbi-mono">Our work</p>
+        <h2>Clinical environments we've helped furnish across Ontario.</h2>
+      </div>
+      <div class="lp-trust-row__grid">
+
+        <figure class="lp-trust-row__cell">
+          <img src="../data/oci-photos/OCI-Healthcare-Carousel-3.jpg"
+               alt="Healthcare corridor and nursing station furniture" loading="lazy">
+          <figcaption class="lp-trust-row__caption">
+            <span class="lp-trust-row__caption-key">Healthcare</span>
+            <span><b>Nursing station &amp; corridor seating</b></span>
+            <span style="color:rgba(255,255,255,0.6)">Ontario hospital environment</span>
+          </figcaption>
+        </figure>
+
+        <figure class="lp-trust-row__cell">
+          <img src="../data/oci-photos/OCI-Healthcare-Furniture-Gallery-Image.jpg"
+               alt="Clinical reception desk and waiting area furniture" loading="lazy">
+          <figcaption class="lp-trust-row__caption">
+            <span class="lp-trust-row__caption-key">Clinical</span>
+            <span><b>Reception desk &amp; waiting room</b></span>
+            <span style="color:rgba(255,255,255,0.6)">Medical office, Ontario</span>
+          </figcaption>
+        </figure>
+
+        <figure class="lp-trust-row__cell">
+          <div class="lp-trust-row__cell-placeholder">Staff workspace · Coming soon</div>
+          <figcaption class="lp-trust-row__caption">
+            <span class="lp-trust-row__caption-key">Admin</span>
+            <span><b>Staff desks &amp; workstations</b></span>
+            <span style="color:rgba(255,255,255,0.6)">Long-term care facility</span>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CROSS-LINKS ===== -->
+  <section class="lp-crosslinks" aria-label="Browse healthcare furniture categories">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <div>
+          <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
+          <h2>Furniture for every area of your clinic.</h2>
+        </div>
+      </div>
+      <div class="lp-crosslinks__grid">
+
+        <a href="/collections/seating" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+              <path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/>
+              <path d="M5 13 H23 v6 H5 Z"/>
+              <path d="M8 19 V25 M20 19 V25"/>
+            </svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Patient &amp; Bariatric Seating</span>
+            <span class="lp-crosslinks__tile-meta">Waiting room · exam · bariatric</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/>
+            </svg>
+          </span>
+        </a>
+
+        <a href="/collections/seating" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+              <path d="M4 18 H24 V21 H4 Z"/>
+              <path d="M7 10 H21 V18 H7 Z"/>
+              <path d="M6 21 V25 M22 21 V25"/>
+              <path d="M10 10 V7 a2 2 0 0 1 2 -2 h4 a2 2 0 0 1 2 2 v3"/>
+            </svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Waiting Room &amp; Reception</span>
+            <span class="lp-crosslinks__tile-meta">Lounge · reception desks · guest chairs</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/>
+            </svg>
+          </span>
+        </a>
+
+        <a href="/collections/desks" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+              <path d="M3 11 H25"/>
+              <path d="M5 11 V23 M23 11 V23"/>
+              <path d="M3 8 H25 V11 H3 Z"/>
+            </svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Staff Desks &amp; Workstations</span>
+            <span class="lp-crosslinks__tile-meta">Admin · nursing stations · height-adjustable</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+              <path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/>
+            </svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OECM BAR ===== -->
+  <section class="hp-oecm" aria-label="OECM procurement">
+    <div class="hp-oecm__inner bbi-container">
+      <div class="hp-oecm__lead">
+        <span class="bbi-badge bbi-badge--oecm">
+          <span class="dot"></span>
+          OECM Supplier Partner
+        </span>
+        <p class="hp-oecm__copy">
+          OECM Supplier Partner, Agreement 2025-470 — Ontario hospitals and long-term care
+          facilities can purchase directly from Brant Business Interiors without an open
+          tender or RFP process.
+        </p>
+      </div>
+      <div class="hp-oecm__meta">
+        <a href="/pages/oecm" class="bbi-btn bbi-btn--tertiary">
+          <span class="label">Learn about OECM purchasing</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CLOSER ===== -->
+  <section class="bbi-cta-section scheme-inverse" aria-label="Request a quote">
+    <div class="bbi-cta-section__inner">
+      <div>
+        <p class="bbi-cta-section__eyebrow">Quoting for your clinic or facility</p>
+        <h2 class="bbi-cta-section__heading">Ready to outfit your clinic or practice?</h2>
+        <p class="bbi-cta-section__sub">
+          OECM-eligible. Quote in 1 business day. A floor plan, a room count, or a list of
+          what you need — any starting point works.
+        </p>
+      </div>
+      <div class="bbi-cta-section__actions">
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">
+          Request a Quote <span class="arrow">→</span>
+        </a>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span><b>1 business day response</b> — no minimums, no obligations.</span>
+        </div>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span>Or call <a href="tel:18008359565">1-800-835-9565</a> · Mon–Fri 8–5 ET</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bbi-footer scheme-inverse" role="contentinfo">
+    <div class="bbi-footer__inner">
+      <div class="bbi-footer__top">
+        <div>
+          <div class="bbi-footer__brand-plate">
+            <img src="../Design System Zips/5 - Landing Page (2)/uploads/14-bbi-logo-v2.png"
+                 alt="Brant Business Interiors" height="44">
+          </div>
+          <p class="bbi-footer__tagline">
+            Commercial office furniture for Ontario businesses, clinics, and institutions.
+            A division of Office Central Inc.
+          </p>
+          <span class="bbi-footer__canadian">
+            <svg class="leaf" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 1.5 l1.2 3.5 3.8-0.8-2.2 2.5 1.9 0.8-3.7 0.2 0.8 3.6-1.8-1.3-1.8 1.3 0.8-3.6-3.7-0.2 1.9-0.8-2.2-2.5 3.8 0.8z"/>
+            </svg>
+            Canadian-owned. Ontario-based.
+          </span>
+        </div>
+        <div class="bbi-footer__cols">
+          <div class="bbi-footer__col">
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="/collections/seating">Seating</a></li>
+              <li><a href="/collections/desks">Desks &amp; Workstations</a></li>
+              <li><a href="/collections/storage">Storage &amp; Filing</a></li>
+              <li><a href="/collections/tables">Tables</a></li>
+              <li><a href="/collections/business-furniture">View all furniture</a></li>
+            </ul>
+          </div>
+          <div class="bbi-footer__col">
+            <h4>Industries</h4>
+            <ul>
+              <li><a href="/pages/healthcare">Healthcare &amp; Clinical</a></li>
+              <li><a href="/pages/education">Education</a></li>
+              <li><a href="/pages/government">Government</a></li>
+              <li><a href="/pages/non-profit">Non-Profit</a></li>
+              <li><a href="/pages/industries">All industries</a></li>
+            </ul>
+          </div>
+          <div class="bbi-footer__col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="/pages/design-services">Design Services</a></li>
+              <li><a href="/pages/oecm">OECM Purchasing</a></li>
+              <li><a href="/pages/delivery">Delivery &amp; Installation</a></li>
+              <li><a href="/pages/quote">Request a Quote</a></li>
+              <li><a href="/pages/faq">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="bbi-footer__col bbi-footer__col--contact">
+            <h4>Contact</h4>
+            <div class="row">
+              <span class="lbl">Phone</span>
+              <a href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">1-800-835-9565</a>
+            </div>
+            <div class="row">
+              <span class="lbl">Email</span>
+              <a href="mailto:info@brantbusinessinteriors.com">info@brantbusinessinteriors.com</a>
+            </div>
+            <div class="row">
+              <span class="lbl">Address</span>
+              <span>295 George St N<br>Peterborough, ON K9J 3H2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bbi-footer__bottom">
+        <span>© 2025 Brant Business Interiors, a division of Office Central Inc. OECM Supplier Partner.</span>
+        <nav class="bbi-footer__legal" aria-label="Legal">
+          <a href="/policies/privacy-policy">Privacy</a>
+          <a href="/policies/terms-of-service">Terms</a>
+          <a href="/policies/shipping-policy">Shipping</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

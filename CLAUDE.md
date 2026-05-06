@@ -231,3 +231,6 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | **P1-5 Industries Hub — section** | [theme/sections/ds-lp-industries.liquid](theme/sections/ds-lp-industries.liquid) |
 | **P1-5 Industries Hub — template** | [theme/templates/page.industries.json](theme/templates/page.industries.json) |
 | Industries Hub draft preview | [previews/industries-hub-draft-v1.html](previews/industries-hub-draft-v1.html) |
+| **P1-6 Healthcare — section** | [theme/sections/ds-lp-healthcare.liquid](theme/sections/ds-lp-healthcare.liquid) |
+| **P1-6 Healthcare — template** | [theme/templates/page.healthcare.json](theme/templates/page.healthcare.json) |
+| Healthcare draft preview | [previews/healthcare-draft-v1.html](previews/healthcare-draft-v1.html) |
