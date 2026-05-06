@@ -13,7 +13,7 @@ All project documentation, grouped by purpose. Start at the root [README.md](../
 
 ## plan/
 
-- [shopify-fix-plan.md](plan/shopify-fix-plan.md) — master task list (Tier 1 / Tier 2 / Waves 0–3). Source of truth for what's done and blocked.
+- [bbi-build-state.md](plan/bbi-build-state.md) — single source of truth for current build state (Wave A task table).
 - [status-snapshot-2026-04-20.md](plan/status-snapshot-2026-04-20.md) — point-in-time summary of Done / In Progress / Blocked.
 - [ideas-backlog.md](plan/ideas-backlog.md) — parking lot for improvement ideas to research later.
 
