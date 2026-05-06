@@ -1,0 +1,253 @@
+{%- comment -%}
+  Snippet: bbi-footer
+  Purpose: Shared BBI footer — 4-column nav links, OECM trust band, copyright bar
+  Render:  {% render 'bbi-footer', logo: section.settings.logo %}
+  Params:
+    logo {image} — section.settings.logo image object (optional; text wordmark fallback)
+  Columns: Shop (9 categories) · Industries (6) · Services (6 incl. OECM) · Contact
+  Trust:   OECM trust band row above copyright
+  Spec:    docs/strategy/bbi-nav-spec.md — FIX 1 (OECM trust band + OECM in Services)
+                                         — FIX 2 (all 9 shop categories)
+{%- endcomment -%}
+
+<style>
+/* ============================================================
+   bbi-footer snippet — shared dark footer
+   Self-contained: defines its own local tokens on .bbi-footer
+   ============================================================ */
+.bbi-footer *,.bbi-footer *::before,.bbi-footer *::after{box-sizing:border-box;}
+
+.bbi-footer{
+  /* Local tokens — always dark, independent of page light/dark mode */
+  --ft-bg:    #0B0B0C;
+  --ft-fg:    #FFFFFF;
+  --ft-muted: rgba(255,255,255,0.65);
+  --ft-dim:   rgba(255,255,255,0.45);
+  --ft-border:#1F1F21;
+  background:var(--ft-bg);
+  color:var(--ft-fg);
+  font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
+}
+
+.bbi-footer__inner{
+  max-width:1320px;margin:0 auto;padding:64px 32px 24px;
+}
+
+/* ---- Top section: brand plate + 4-column grid ---- */
+.bbi-footer__top{
+  display:grid;
+  grid-template-columns:1.1fr 3fr;
+  gap:64px;
+  padding-bottom:48px;
+  border-bottom:1px solid var(--ft-border);
+}
+
+/* Brand plate (white card on dark background) */
+.bbi-footer__brand-plate{
+  display:inline-block;
+  background:#FFFFFF;
+  padding:16px 20px;
+  border-radius:8px;
+}
+.bbi-footer__brand-plate img{height:44px;width:auto;display:block;}
+.bbi-footer__brand-plate-text{
+  font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
+  font-size:14px;font-weight:600;color:#0B0B0C;white-space:nowrap;
+}
+
+.bbi-footer__tagline{
+  margin:20px 0 16px;
+  font-size:14px;line-height:1.55;
+  max-width:32ch;color:var(--ft-muted);
+}
+
+.bbi-footer__canadian{
+  display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ft-fg);
+}
+.bbi-footer__leaf{width:14px;height:14px;color:#D4252A;flex-shrink:0;}
+
+/* ---- 4-column link grid ---- */
+.bbi-footer__columns{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:32px;
+}
+
+/* Column heading */
+.bbi-footer__column h4{
+  font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
+  font-size:13px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;
+  margin:0 0 16px;color:var(--ft-fg);
+}
+
+.bbi-footer__column ul{
+  list-style:none;margin:0;padding:0;
+  display:flex;flex-direction:column;gap:8px;
+}
+
+.bbi-footer__column a{
+  color:var(--ft-muted);text-decoration:none;font-size:14px;
+  transition:color 100ms ease;
+}
+.bbi-footer__column a:hover,.bbi-footer__column a:focus-visible{
+  color:var(--ft-fg);text-decoration:underline;outline:none;
+}
+
+/* Contact column — label + value rows */
+.bbi-footer__contact-row{
+  display:grid;grid-template-columns:72px 1fr;
+  gap:8px;font-size:14px;margin-bottom:12px;line-height:1.45;
+}
+.bbi-footer__contact-lbl{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--ft-dim);padding-top:2px;
+}
+.bbi-footer__contact-row a,
+.bbi-footer__contact-row span:not(.bbi-footer__contact-lbl){
+  color:var(--ft-fg);
+}
+
+/* ---- OECM trust band (above copyright) ---- */
+.bbi-footer__trust{
+  padding:14px 0;
+  text-align:center;
+  font-size:12px;color:var(--ft-dim);
+  border-bottom:1px solid var(--ft-border);
+}
+.bbi-footer__trust a{
+  color:var(--ft-dim);
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.bbi-footer__trust a:hover{color:var(--ft-muted);}
+
+/* ---- Copyright bar ---- */
+.bbi-footer__bottom{
+  padding-top:20px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;color:var(--ft-dim);
+  flex-wrap:wrap;gap:8px;
+}
+.bbi-footer__legal{display:flex;gap:24px;}
+.bbi-footer__legal a{color:var(--ft-dim);text-decoration:none;}
+.bbi-footer__legal a:hover{color:var(--ft-fg);}
+
+/* ---- Responsive ---- */
+@media(max-width:1023px){
+  .bbi-footer__top{grid-template-columns:1fr;gap:40px;}
+  .bbi-footer__columns{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:479px){
+  .bbi-footer__columns{grid-template-columns:1fr;}
+  .bbi-footer__inner{padding:48px 24px 20px;}
+}
+</style>
+
+{%- comment -%}FOOTER{%- endcomment -%}
+<footer class="bbi-footer" role="contentinfo">
+  <div class="bbi-footer__inner">
+
+    <div class="bbi-footer__top">
+
+      {%- comment -%} Left: logo + tagline + Canadian trust badge {%- endcomment -%}
+      <div>
+        <div class="bbi-footer__brand-plate">
+          {%- if logo != blank -%}
+            {{ logo | image_url: width: 300 | image_tag: height: 44, alt: 'Brant Business Interiors', loading: 'lazy' }}
+          {%- else -%}
+            <span class="bbi-footer__brand-plate-text">Brant Business Interiors</span>
+          {%- endif -%}
+        </div>
+        <p class="bbi-footer__tagline">Commercial office furniture for Ontario clinics, businesses, and institutions. A division of Office Central Inc.</p>
+        <span class="bbi-footer__canadian">
+          <svg class="bbi-footer__leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true">
+            <path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/>
+          </svg>
+          Canadian-Owned &middot; Ontario-Based
+        </span>
+      </div>
+
+      {%- comment -%} Right: 4-column link grid {%- endcomment -%}
+      <div class="bbi-footer__columns">
+
+        {%- comment -%} Shop — all 9 categories (FIX 2: full category list for crawlability) {%- endcomment -%}
+        <div class="bbi-footer__column">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="/collections/seating">Seating</a></li>
+            <li><a href="/collections/desks">Desks &amp; Workstations</a></li>
+            <li><a href="/collections/storage">Storage &amp; Filing</a></li>
+            <li><a href="/collections/tables">Tables</a></li>
+            <li><a href="/collections/boardroom">Boardroom</a></li>
+            <li><a href="/collections/ergonomic-products">Ergonomic Products</a></li>
+            <li><a href="/collections/panels-room-dividers">Panels &amp; Dividers</a></li>
+            <li><a href="/collections/accessories">Accessories</a></li>
+            <li><a href="/collections/quiet-spaces">Quiet Spaces</a></li>
+          </ul>
+        </div>
+
+        {%- comment -%} Industries {%- endcomment -%}
+        <div class="bbi-footer__column">
+          <h4>Industries</h4>
+          <ul>
+            <li><a href="/pages/healthcare">Healthcare &amp; Clinical</a></li>
+            <li><a href="/pages/education">Education</a></li>
+            <li><a href="/pages/government">Government</a></li>
+            <li><a href="/pages/non-profit">Non-Profit</a></li>
+            <li><a href="/pages/professional-services">Professional Services</a></li>
+            <li><a href="/pages/industries">All industries</a></li>
+          </ul>
+        </div>
+
+        {%- comment -%} Services — 6 links incl. OECM (FIX 1b) {%- endcomment -%}
+        <div class="bbi-footer__column">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="/pages/design-services">Design Services</a></li>
+            <li><a href="/pages/delivery">Delivery &amp; Installation</a></li>
+            <li><a href="/pages/relocation">Relocation Management</a></li>
+            <li><a href="/pages/quote">Request a Quote</a></li>
+            <li><a href="/pages/faq">FAQ</a></li>
+            <li><a href="/pages/oecm">OECM Procurement</a></li>
+          </ul>
+        </div>
+
+        {%- comment -%} Contact {%- endcomment -%}
+        <div class="bbi-footer__column">
+          <h4>Contact</h4>
+          <div class="bbi-footer__contact-row">
+            <span class="bbi-footer__contact-lbl">Phone</span>
+            <a href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">1-800-835-9565</a>
+          </div>
+          <div class="bbi-footer__contact-row">
+            <span class="bbi-footer__contact-lbl">Email</span>
+            <a href="mailto:info@brantbusinessinteriors.com">info@brantbusinessinteriors.com</a>
+          </div>
+          <div class="bbi-footer__contact-row">
+            <span class="bbi-footer__contact-lbl">Address</span>
+            <span>295 George St N<br>Peterborough, ON K9J 3H2</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    {%- comment -%} OECM trust band (FIX 1a) — centre-aligned, 12px, muted {%- endcomment -%}
+    <div class="bbi-footer__trust">
+      <a href="/pages/oecm">OECM-eligible supplier</a> &middot; Authorized Canadian Dealer &middot; Since 1964
+    </div>
+
+    {%- comment -%} Copyright bar {%- endcomment -%}
+    <div class="bbi-footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} Brant Business Interiors &mdash; a division of Office Central Inc. OECM Supplier Partner Agreement 2025-470.</span>
+      <div class="bbi-footer__legal">
+        <a href="/policies/privacy-policy">Privacy</a>
+        <a href="/policies/terms-of-service">Terms</a>
+        <a href="/policies/shipping-policy">Shipping</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
