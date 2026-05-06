@@ -137,3 +137,13 @@ On mobile it moves to the sticky footer of the hamburger overlay.
 - CSS tokens: background `--color-nav-bg` (white), active indicator `--color-brand-red` (`#D4252A`), CTA button uses `--color-brand-red`.
 - Dropdown open/close via CSS `:hover` + a JS fallback for touch devices (no hover). Use `CustomEvent` to broadcast open/close state for accessibility.
 - Focus trap inside mobile overlay. Escape closes. WCAG 2.1 AA required.
+
+---
+
+## 7. Follow-ups (non-blocking)
+
+- **Click-behavior consistency.** Currently Shop Furniture click → navigates to `/collections/business-furniture`; Industries / Brands / Services / About click → open dropdown only. Decide before NAV-2 builds the snippet whether to make all 5 dropdown-only (predictable, fewer footguns), or all 5 click-navigate to a hub (Industries Hub, Brands Hub, etc. would each become click-navigable from the top bar). RECOMMENDATION: all 5 dropdown-only. Open at top of NAV-2.
+
+- **OECM prominence.** OECM is buried at About > OECM Procurement (3rd item in dropdown). `CLAUDE.md` flags OECM as the single biggest institutional-buyer differentiator. Track as part of W0-7 (site-wide OECM trust signals) — consider an OECM badge in the top bar or promoting OECM to first-item position in the About dropdown.
+
+- **Search input.** Spec doesn't include a search input. B2B catalogs usually have one. DECISION NEEDED: does v1 launch include search? If yes, queue a NAV-5 row (search input position + autocomplete wiring). If no, document here that search is post-launch backlog.
