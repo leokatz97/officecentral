@@ -1,0 +1,838 @@
+{%- comment -%}
+  Section: ds-lp-education
+  Purpose: Education vertical landing page — Ontario school boards, colleges, post-secondary institutions
+  Sections: breadcrumbs → hero → intro (AEO) → proof bar → differentiators (2×2) → trust photos → crosslinks → OECM bar → testimonial → FAQ → closer → footer
+  Scope: Admin offices, staff rooms, boardrooms, training rooms ONLY — no classroom/daycare/ECE
+  Used by: page.education.json (template suffix: education)
+  Gate: theme.liquid bbi_landing gate — suppresses Starlite header/footer/cart
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+/* ============================================================
+   BBI Design Tokens — DS v2
+   ============================================================ */
+:root {
+  --bodyFont:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --headingFont:"Inter Tight","Inter",system-ui,sans-serif;
+  --headingFontWeight:600;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+  --inputRadius:4px;--buttonRadius:4px;--cardRadius:8px;
+  --saleBadgeBackground:#D4252A;--saleBadgeBackground-rgb:212,37,42;
+  --fs-h0:44px;--lh-h0:1.05;--ls-h0:-0.02em;
+  --fs-h1:32px;--lh-h1:1.1;--ls-h1:-0.015em;
+  --fs-h2:24px;--lh-h2:1.15;--ls-h2:-0.01em;
+  --fs-h3:18px;--lh-h3:1.25;--ls-h3:-0.005em;
+  --fs-body:16px;--lh-body:1.55;--ls-body:0;
+  --fs-small:13px;--lh-small:1.5;
+  --fs-button:15px;--lh-button:1;--ls-button:0.01em;
+  --headerBg:#FFFFFF;--headerColor:#0B0B0C;
+  --headerHoverColor:#A81E22;
+}
+@media(min-width:768px){
+  :root{
+    --fs-h1:48px;--lh-h1:1.05;
+    --fs-h2:32px;--lh-h2:1.1;
+    --fs-h3:22px;--lh-h3:1.2;
+    --fs-small:14px;
+  }
+}
+.lp-edu{
+  --background:#FFFFFF;--background-rgb:255,255,255;
+  --alternateBackground:#FAFAFA;--alternateBackground-rgb:250,250,250;
+  --cardBackground:#FFFFFF;--cardBackground-rgb:255,255,255;
+  --textColor:#0B0B0C;--textColor-rgb:11,11,12;
+  --linkColor:#0B0B0C;--linkColor-rgb:11,11,12;
+  --headingColor:#0B0B0C;--headingColor-rgb:11,11,12;
+  --buttonBackground:#0B0B0C;--buttonBackground-rgb:11,11,12;
+  --buttonColor:#FFFFFF;--buttonColor-rgb:255,255,255;
+  --buttonBorder:#0B0B0C;
+  --buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;
+  --alternateButtonBackground:#FFFFFF;--alternateButtonColor:#0B0B0C;
+  --alternateButtonBorder:#0B0B0C;
+  --alternateButtonBackgroundHover:#0B0B0C;--alternateButtonColorHover:#FFFFFF;
+  --borderColor:#E5E5E7;--borderColor-rgb:229,229,231;
+  --shadowColor:#0B0B0C;--shadowColor-rgb:11,11,12;
+  background:var(--background);color:var(--textColor);
+  font-family:var(--bodyFont);font-size:var(--fs-body);
+  line-height:var(--lh-body);-webkit-font-smoothing:antialiased;
+}
+.lp-edu *,.lp-edu *::before,.lp-edu *::after{box-sizing:border-box;}
+.lp-edu img{display:block;max-width:100%;height:auto;}
+.lp-edu a{color:var(--linkColor);}
+.lp-edu .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+
+/* ---- Buttons ---- */
+.lp-edu .bbi-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:var(--space-2);padding:12px 20px;min-height:44px;
+  font-family:var(--bodyFont);font-size:var(--fs-button);
+  line-height:var(--lh-button);letter-spacing:var(--ls-button);
+  font-weight:600;border-radius:var(--buttonRadius);
+  border:1px solid transparent;cursor:pointer;text-decoration:none;
+  transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;
+  white-space:nowrap;
+}
+.lp-edu .bbi-btn--lg{min-height:52px;padding:16px 24px;font-size:16px;}
+.lp-edu .bbi-btn--primary{background:var(--buttonBackground);color:var(--buttonColor);border-color:var(--buttonBorder);}
+.lp-edu .bbi-btn--primary:hover{background:var(--buttonBackgroundHover);color:var(--buttonColorHover);border-color:var(--buttonBorderHover);}
+.lp-edu .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
+.lp-edu .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
+.lp-edu .bbi-btn--tertiary{background:transparent;color:var(--textColor);border-color:transparent;padding-left:4px;padding-right:4px;}
+.lp-edu .bbi-btn--tertiary .label{position:relative;}
+.lp-edu .bbi-btn--tertiary .label::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;}
+.lp-edu .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
+
+/* ---- Header ---- */
+.lp-edu .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
+.lp-edu .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
+.lp-edu .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
+.lp-edu .bbi-header__logo img{height:36px;width:auto;}
+.lp-edu .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
+.lp-edu .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;position:relative;}
+.lp-edu .bbi-nav-item:hover{color:var(--headerHoverColor);}
+.lp-edu .bbi-nav-item.is-current::after{content:"";position:absolute;left:14px;right:14px;bottom:18px;height:1px;background:var(--textColor);}
+.lp-edu .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
+.lp-edu .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
+
+/* ---- Crumbs ---- */
+.lp-edu .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
+.lp-edu .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
+.lp-edu .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
+.lp-edu .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
+.lp-edu .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
+.lp-edu .bbi-crumbs li:last-child{font-weight:500;}
+.lp-edu .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-edu .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
+
+/* ---- Hero ---- */
+.lp-edu .lp-hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-edu .lp-hero__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--space-12);align-items:center;}
+.lp-edu .lp-hero__text{max-width:560px;}
+.lp-edu .lp-hero__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);}
+.lp-edu .lp-hero__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-hero__eyebrow-label{color:rgba(var(--textColor-rgb),0.6);}
+.lp-edu .lp-hero h1{font-family:var(--headingFont);font-size:var(--fs-h1);line-height:var(--lh-h1);letter-spacing:var(--ls-h1);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);text-wrap:balance;}
+.lp-edu .lp-hero__standfirst{font-size:18px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-6);text-wrap:pretty;}
+.lp-edu .lp-hero__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;}
+.lp-edu .lp-hero__media{position:relative;aspect-ratio:5/4;background:var(--alternateBackground);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-edu .lp-hero__media img{width:100%;height:100%;object-fit:cover;}
+.lp-edu .lp-hero__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,rgba(11,11,12,.04) 0 8px,rgba(11,11,12,.07) 8px 16px),var(--alternateBackground);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.5);}
+.lp-edu .lp-hero__caption{position:absolute;left:var(--space-4);bottom:var(--space-4);background:rgba(var(--shadowColor-rgb),0.7);color:var(--background);padding:6px 10px;border-radius:4px;font-size:12px;display:inline-flex;align-items:center;gap:var(--space-2);}
+.lp-edu .lp-hero__caption-dot{width:4px;height:4px;border-radius:50%;background:var(--saleBadgeBackground);}
+
+/* ---- Intro ---- */
+.lp-edu .lp-intro{padding:var(--space-12) 0;}
+.lp-edu .lp-intro__inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
+.lp-edu .lp-intro__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-edu .lp-intro__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-intro h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-6);text-wrap:balance;}
+.lp-edu .lp-intro__body p{font-size:17px;line-height:1.6;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-4);text-wrap:pretty;}
+
+/* ---- Proof bar ---- */
+.lp-edu .lp-proof-bar{background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),.6);border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-edu .lp-proof-bar__inner{max-width:1280px;margin:0 auto;padding:var(--space-8) var(--space-6);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8);}
+.lp-edu .lp-proof-bar__stat{display:flex;flex-direction:column;gap:var(--space-2);}
+.lp-edu .lp-proof-bar__stat + .lp-proof-bar__stat{border-left:1px solid rgba(var(--borderColor-rgb),.6);padding-left:var(--space-8);}
+.lp-edu .lp-proof-bar__stat-num{font-family:var(--headingFont);font-size:40px;line-height:1;font-weight:600;color:var(--headingColor);display:flex;align-items:center;gap:var(--space-3);}
+.lp-edu .lp-proof-bar__stat-num::before{content:"";display:inline-block;width:14px;height:1px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-proof-bar__stat-label{font-size:13px;color:rgba(var(--textColor-rgb),.6);font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.04em;text-transform:uppercase;}
+.lp-edu .lp-proof-bar__stat-detail{font-size:14px;color:rgba(var(--textColor-rgb),.78);line-height:1.5;margin-top:var(--space-2);}
+
+/* ---- Differentiators ---- */
+.lp-edu .lp-diff{padding:var(--space-12) 0;background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.6);border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-edu .lp-diff__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-edu .lp-diff__head{margin-bottom:var(--space-8);max-width:640px;}
+.lp-edu .lp-diff__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.lp-edu .lp-diff__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-diff h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-edu .lp-diff__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);border-left:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-edu .lp-diff-card{background:var(--cardBackground);padding:var(--space-8);border-right:1px solid rgba(var(--borderColor-rgb),0.6);border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);border-radius:0;display:grid;grid-template-rows:auto auto auto 1fr;gap:var(--space-3);transition:background-color 160ms ease;}
+.lp-edu .lp-diff-card:hover{background:rgba(var(--shadowColor-rgb),0.02);}
+.lp-edu .lp-diff-card__num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;color:rgba(var(--textColor-rgb),0.6);}
+.lp-edu .lp-diff-card__icon{width:32px;height:32px;color:var(--textColor);display:flex;align-items:center;}
+.lp-edu .lp-diff-card__label{font-family:var(--headingFont);font-size:22px;line-height:1.3;font-weight:600;color:var(--headingColor);margin:0;display:flex;flex-direction:column;gap:var(--space-2);}
+.lp-edu .lp-diff-card__label::after{content:"";display:block;width:24px;height:1px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-diff-card__sentence{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),0.7);margin:0;text-wrap:pretty;}
+
+/* ---- Trust row ---- */
+.lp-edu .lp-trust-row{padding:var(--space-12) 0;}
+.lp-edu .lp-trust-row__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-edu .lp-trust-row__head{margin-bottom:var(--space-6);max-width:640px;}
+.lp-edu .lp-trust-row__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.lp-edu .lp-trust-row__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-trust-row h2{font-family:var(--headingFont);font-size:var(--fs-h3);line-height:var(--lh-h3);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-edu .lp-trust-row__grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-4);}
+.lp-edu .lp-trust-row__grid:has(> :nth-child(3)){grid-template-columns:repeat(3,1fr);}
+.lp-edu .lp-trust-row__grid:not(:has(> :nth-child(3))){grid-template-columns:repeat(2,1fr);max-width:860px;}
+.lp-edu .lp-trust-row__cell{position:relative;aspect-ratio:4/3;background:var(--alternateBackground);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-edu .lp-trust-row__cell img{width:100%;height:100%;object-fit:cover;}
+.lp-edu .lp-trust-row__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,rgba(var(--shadowColor-rgb),.04) 0 2px,transparent 2px 12px);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.5);}
+.lp-edu .lp-trust-row__caption{position:absolute;left:0;right:0;bottom:0;background:rgba(var(--shadowColor-rgb),0.85);color:#FFFFFF;padding:10px 14px;font-size:12px;line-height:1.4;display:flex;flex-direction:column;gap:2px;}
+.lp-edu .lp-trust-row__caption-key{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+
+/* ---- Crosslinks ---- */
+.lp-edu .lp-crosslinks{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-edu .lp-crosslinks__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-edu .lp-crosslinks__head{margin-bottom:var(--space-6);}
+.lp-edu .lp-crosslinks__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.lp-edu .lp-crosslinks__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-crosslinks h2{font-family:var(--headingFont);font-size:var(--fs-h3);line-height:var(--lh-h3);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-edu .lp-crosslinks__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);}
+.lp-edu .lp-crosslinks__tile{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--space-4);padding:var(--space-6);background:var(--background);border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);transition:background-color 160ms ease,border-color 160ms ease;}
+.lp-edu .lp-crosslinks__tile:hover{background:var(--alternateBackground);}
+.lp-edu .lp-crosslinks__tile-icon{width:28px;height:28px;color:rgba(var(--textColor-rgb),0.55);}
+.lp-edu .lp-crosslinks__tile-label{display:flex;flex-direction:column;gap:2px;}
+.lp-edu .lp-crosslinks__tile-name{font-family:var(--headingFont);font-size:18px;font-weight:600;color:var(--headingColor);}
+.lp-edu .lp-crosslinks__tile-meta{font-size:13px;color:rgba(var(--textColor-rgb),0.6);font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.04em;}
+.lp-edu .lp-crosslinks__tile-arrow{width:18px;height:18px;color:rgba(var(--textColor-rgb),0.55);transition:transform 160ms ease;}
+.lp-edu .lp-crosslinks__tile:hover .lp-crosslinks__tile-arrow{transform:translateX(4px);color:var(--textColor);}
+
+/* ---- OECM bar ---- */
+.lp-edu .lp-oecm-bar{border-top:1px solid var(--borderColor);border-bottom:1px solid var(--borderColor);background:var(--background);}
+.lp-edu .lp-oecm-bar__inner{display:flex;align-items:center;justify-content:space-between;gap:32px;padding:24px 32px;max-width:1320px;margin:0 auto;}
+.lp-edu .lp-oecm-bar__lead{display:flex;align-items:center;gap:20px;flex:1 1 auto;min-width:0;}
+.lp-edu .lp-oecm-badge{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;font-family:var(--headingFont);font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border-radius:2px;border:1px solid var(--textColor);white-space:nowrap;flex:0 0 auto;}
+.lp-edu .lp-oecm-badge .dot{width:6px;height:6px;border-radius:99px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-oecm-bar__copy{margin:0;font-size:14px;line-height:1.5;color:var(--textColor);opacity:0.85;max-width:80ch;}
+.lp-edu .lp-oecm-bar__meta{flex:0 0 auto;}
+
+/* ---- Testimonial strip ---- */
+.lp-edu .lp-quote-strip{background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.6);border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);padding:var(--space-8) 0;}
+.lp-edu .lp-quote-strip__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-12);}
+.lp-edu .lp-quote-strip__quote{flex:1;font-size:18px;line-height:1.5;font-style:italic;color:rgba(var(--textColor-rgb),0.78);}
+.lp-edu .lp-quote-strip__quote cite{display:block;margin-top:var(--space-4);font-style:normal;font-size:13px;font-weight:600;color:rgba(var(--textColor-rgb),0.6);font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.05em;text-transform:uppercase;}
+.lp-edu .lp-quote-strip__logo img{height:48px;width:auto;filter:grayscale(100%);opacity:0.65;}
+
+/* ---- FAQ ---- */
+.lp-edu .lp-faq{padding:var(--space-12) 0;background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.6);border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-edu .lp-faq__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:grid;grid-template-columns:320px 1fr;gap:var(--space-16);align-items:start;}
+.lp-edu .lp-faq__head{position:sticky;top:32px;}
+.lp-edu .lp-faq__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.lp-edu .lp-faq__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-faq h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-6);text-wrap:balance;}
+.lp-edu .lp-faq__cta{font-size:14px;color:rgba(var(--textColor-rgb),0.65);line-height:1.55;}
+.lp-edu .lp-faq__cta a{color:var(--textColor);font-weight:600;text-decoration:underline;}
+.lp-edu .lp-faq__list{display:flex;flex-direction:column;}
+.lp-edu .lp-faq-item{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);background:transparent;}
+.lp-edu .lp-faq-item:first-child{border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-edu .lp-faq-item summary{display:flex;align-items:center;gap:var(--space-4);padding:var(--space-6) 0;cursor:pointer;list-style:none;user-select:none;}
+.lp-edu .lp-faq-item summary::-webkit-details-marker{display:none;}
+.lp-edu .lp-faq-item summary:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;border-radius:4px;}
+.lp-edu .lp-faq-item__num{flex:0 0 auto;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;color:rgba(var(--textColor-rgb),0.4);width:28px;}
+.lp-edu .lp-faq-item__q{flex:1;font-family:var(--headingFont);font-size:var(--fs-h3);font-weight:600;color:var(--headingColor);line-height:1.3;}
+.lp-edu .lp-faq-item__icon{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(var(--borderColor-rgb),0.8);display:flex;align-items:center;justify-content:center;transition:background-color 120ms ease,border-color 120ms ease;}
+.lp-edu .lp-faq-item__icon::before{content:"+";font-size:14px;line-height:1;color:var(--textColor);font-weight:400;transition:transform 200ms ease;}
+.lp-edu .lp-faq-item[open] .lp-faq-item__icon{background:var(--textColor);border-color:var(--textColor);}
+.lp-edu .lp-faq-item[open] .lp-faq-item__icon::before{content:"−";color:#FFFFFF;}
+.lp-edu .lp-faq-item__body{padding:0 0 var(--space-6) calc(28px + var(--space-4));}
+.lp-edu .lp-faq-item__body p{font-size:16px;line-height:1.6;color:rgba(var(--textColor-rgb),0.75);margin:0 0 var(--space-3);max-width:62ch;text-wrap:pretty;}
+.lp-edu .lp-faq-item__body p:last-child{margin-bottom:0;}
+
+/* ---- CTA closer ---- */
+.lp-edu .lp-closer{--background:#0B0B0C;--background-rgb:11,11,12;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--headingColor:#FFFFFF;--headingColor-rgb:255,255,255;--buttonBackground:#FFFFFF;--buttonColor:#0B0B0C;--buttonBorder:#FFFFFF;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;background:var(--background);color:var(--textColor);}
+.lp-edu .lp-closer__inner{max-width:1320px;margin:0 auto;padding:96px 32px;display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:center;}
+.lp-edu .lp-closer__eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.7);margin:0 0 16px;}
+.lp-edu .lp-closer__heading{font-family:var(--headingFont);font-size:clamp(32px,4.2vw,56px);line-height:1.05;letter-spacing:-0.015em;font-weight:600;color:var(--headingColor);margin:0 0 20px;text-wrap:balance;}
+.lp-edu .lp-closer__sub{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);max-width:52ch;margin:0;}
+.lp-edu .lp-closer__actions{display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+.lp-edu .lp-closer__trust{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(var(--textColor-rgb),0.78);}
+.lp-edu .lp-closer__trust .dot{flex:0 0 auto;margin-top:7px;width:6px;height:6px;border-radius:99px;background:var(--saleBadgeBackground);}
+.lp-edu .lp-closer__trust b{color:var(--textColor);font-weight:600;}
+.lp-edu .lp-closer__trust a{color:var(--textColor);text-decoration:underline;}
+
+/* ---- Footer ---- */
+.lp-edu .bbi-footer{--background:#0B0B0C;--background-rgb:11,11,12;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--borderColor:#1F1F21;--borderColor-rgb:31,31,33;background:var(--background);color:var(--textColor);}
+.lp-edu .bbi-footer__inner{max-width:1320px;margin:0 auto;padding:64px 32px 24px;}
+.lp-edu .bbi-footer__top{display:grid;grid-template-columns:1.1fr 3fr;gap:64px;padding-bottom:48px;border-bottom:1px solid var(--borderColor);}
+.lp-edu .bbi-footer__brand-plate{display:inline-block;background:#FFFFFF;padding:16px 20px;border-radius:8px;}
+.lp-edu .bbi-footer__brand-plate img{height:44px;width:auto;display:block;}
+.lp-edu .bbi-footer__tagline{margin:20px 0 16px;font-size:14px;line-height:1.55;max-width:32ch;color:rgba(var(--textColor-rgb),0.78);}
+.lp-edu .bbi-footer__canadian{display:inline-flex;align-items:center;gap:8px;font-size:13px;}
+.lp-edu .bbi-footer__canadian .leaf{width:14px;height:14px;color:#D4252A;}
+.lp-edu .bbi-footer__cols{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+.lp-edu .bbi-footer__col h4{font-family:var(--headingFont);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;}
+.lp-edu .bbi-footer__col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
+.lp-edu .bbi-footer__col a{color:rgba(var(--textColor-rgb),0.78);text-decoration:none;font-size:14px;}
+.lp-edu .bbi-footer__col a:hover{color:var(--textColor);text-decoration:underline;}
+.lp-edu .bbi-footer__col--contact .row{display:grid;grid-template-columns:80px 1fr;gap:8px;font-size:14px;margin-bottom:12px;line-height:1.45;}
+.lp-edu .bbi-footer__col--contact .lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.55);padding-top:2px;}
+.lp-edu .bbi-footer__col--contact .row a,.lp-edu .bbi-footer__col--contact .row span:not(.lbl){color:var(--textColor);}
+.lp-edu .bbi-footer__bottom{padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(var(--textColor-rgb),0.55);}
+.lp-edu .bbi-footer__legal{display:flex;gap:24px;}
+.lp-edu .bbi-footer__legal a{color:rgba(var(--textColor-rgb),0.55);text-decoration:none;}
+.lp-edu .bbi-footer__legal a:hover{color:var(--textColor);}
+
+/* ---- Responsive ---- */
+@media(max-width:980px){
+  .lp-edu .lp-hero__inner{grid-template-columns:1fr;gap:var(--space-8);}
+  .lp-edu .lp-hero__media{aspect-ratio:16/10;}
+  .lp-edu .lp-diff__grid{grid-template-columns:1fr;}
+  .lp-edu .lp-trust-row__grid{grid-template-columns:1fr;}
+  .lp-edu .lp-crosslinks__grid{grid-template-columns:1fr;}
+  .lp-edu .lp-closer__inner{grid-template-columns:1fr;gap:var(--space-8);}
+  .lp-edu .bbi-footer__top{grid-template-columns:1fr;gap:var(--space-8);}
+  .lp-edu .bbi-footer__cols{grid-template-columns:repeat(2,1fr);}
+  .lp-edu .lp-quote-strip__inner{flex-direction:column;gap:var(--space-6);}
+  .lp-edu .lp-proof-bar__inner{grid-template-columns:1fr;gap:var(--space-6);}
+  .lp-edu .lp-proof-bar__stat + .lp-proof-bar__stat{border-left:none;border-top:1px solid rgba(var(--borderColor-rgb),.6);padding-left:0;padding-top:var(--space-6);}
+  .lp-edu .lp-faq__inner{grid-template-columns:1fr;}
+  .lp-edu .lp-faq__head{position:static;}
+}
+@media(max-width:640px){
+  .lp-edu .lp-hero{padding:var(--space-8) 0;}
+  .lp-edu .lp-hero h1{font-size:32px;}
+  .lp-edu .lp-intro,.lp-edu .lp-diff,.lp-edu .lp-trust-row,.lp-edu .lp-crosslinks{padding:var(--space-8) 0;}
+  .lp-edu .lp-diff-card{padding:var(--space-6);}
+  .lp-edu .bbi-footer__cols{grid-template-columns:1fr;}
+  .lp-edu .lp-closer__inner{padding:64px 24px;}
+}
+.lp-edu :where(a,button,[role="button"]):focus-visible{outline:2px solid var(--textColor);outline-offset:2px;border-radius:4px;}
+</style>
+
+<div class="lp-edu">
+
+  {%- comment -%}HEADER{%- endcomment -%}
+  <header class="bbi-header" role="banner">
+    <div class="bbi-header__inner">
+      <a class="bbi-header__logo" href="/" aria-label="Brant Business Interiors — home">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 300 | image_tag: height: 36, alt: 'Brant Business Interiors', loading: 'eager' }}
+        {%- else -%}
+          <span style="font-family:var(--headingFont);font-size:15px;font-weight:600;color:var(--headerColor);">Brant &#10033; BI | Business Interiors</span>
+        {%- endif -%}
+      </a>
+      <nav class="bbi-header__nav" aria-label="Main navigation">
+        <a class="bbi-nav-item" href="/collections/business-furniture">Shop</a>
+        <a class="bbi-nav-item" href="/pages/brands">Brands</a>
+        <a class="bbi-nav-item is-current" href="/pages/industries" aria-current="true">Verticals</a>
+        <a class="bbi-nav-item" href="/pages/our-work">Our work</a>
+        <a class="bbi-nav-item" href="/pages/design-services">Services</a>
+        <a class="bbi-nav-item" href="/pages/about">About</a>
+      </nav>
+      <div class="bbi-header__utility">
+        <a href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">
+          <b>1-800-835-9565</b>
+        </a>
+        <a class="bbi-btn bbi-btn--primary" href="/pages/quote">Request a Quote</a>
+      </div>
+    </div>
+  </header>
+
+  {%- comment -%}BREADCRUMBS{%- endcomment -%}
+  <div class="lp-crumbs-band">
+    <div class="lp-crumbs-band__inner">
+      <ol class="bbi-crumbs" aria-label="Breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/pages/industries">Industries</a></li>
+        <li aria-current="page">Education</li>
+      </ol>
+    </div>
+  </div>
+
+  {%- comment -%}HERO{%- endcomment -%}
+  <section class="lp-hero" aria-label="Hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <p class="lp-hero__eyebrow bbi-mono">
+          <span class="lp-hero__eyebrow-label">Industry &middot; Education</span>
+        </p>
+        <h1>{{ section.settings.heading | default: 'School & Post-Secondary Office Furniture for Ontario' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Ontario school boards and colleges can procure directly under OECM Agreement 2025-470 — no open tender or RFP required. Admin offices, staff rooms, boardrooms, and training rooms across Ontario. Call 1-800-835-9565.' }}</p>
+        <div class="lp-hero__cta-row">
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
+            Request a Quote <span class="arrow">&#8594;</span>
+          </a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:18008359565"
+             aria-label="Call Brant Business Interiors at 1-800-835-9565">
+            Call 1-800-835-9565
+          </a>
+        </div>
+      </div>
+      <div class="lp-hero__media" aria-hidden="true">
+        {%- if section.settings.hero_image != blank -%}
+          {{ section.settings.hero_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: 'Education office furniture by Brant Business Interiors', width: 1200 }}
+        {%- else -%}
+          <div class="lp-hero__ph">Hero image &middot; 5:4 &middot; upload OCI-Education-1.jpg</div>
+        {%- endif -%}
+        <div class="lp-hero__caption">
+          <span class="lp-hero__caption-dot"></span>
+          <span>Admin &amp; staff environments for Ontario schools and colleges</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}INTRO — AEO direct-answer anchors{%- endcomment -%}
+  <section class="lp-intro" aria-label="About our education furniture">
+    <div class="lp-intro__inner">
+      <p class="lp-intro__eyebrow bbi-mono">What we do</p>
+      <h2>Admin and staff furniture built for Ontario educational institutions.</h2>
+      <div class="lp-intro__body">
+        <p>Brant Business Interiors supplies commercial-grade office furniture for the administrative and staff areas of Ontario school boards, colleges, and post-secondary institutions. That means admin offices, staff rooms, boardrooms, and training rooms &mdash; specified for institutional use, not residential quality.</p>
+        <p>As an OECM Supplier Partner (Agreement 2025-470), Ontario school boards and colleges can purchase directly from Brant Business Interiors without an open tender or RFP process. We provide a free space layout before you commit &mdash; so the room works on paper before a single piece ships. Most line-item quotes return within one business day.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}PROOF BAR{%- endcomment -%}
+  <section class="lp-proof-bar" aria-label="Track record">
+    <div class="lp-proof-bar__inner">
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">2019</span>
+        <span class="lp-proof-bar__stat-label">OECM vendor since</span>
+        <span class="lp-proof-bar__stat-detail">Office furniture category &mdash; re-qualified each contract cycle.</span>
+      </div>
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">340+</span>
+        <span class="lp-proof-bar__stat-label">OECM POs delivered</span>
+        <span class="lp-proof-bar__stat-detail">Across 90+ Ontario school boards, hospitals, and municipalities since 2019.</span>
+      </div>
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">1 day</span>
+        <span class="lp-proof-bar__stat-label">Quote turnaround</span>
+        <span class="lp-proof-bar__stat-detail">Most line-item quotes return within one business day of intake.</span>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}DIFFERENTIATORS{%- endcomment -%}
+  <section class="lp-diff" aria-label="Why Brant Business Interiors for education">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">Why us</p>
+        <h2>Built for institutional use. Specified for education.</h2>
+      </div>
+      <div class="lp-diff__grid">
+
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">01</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M16 3 L27 7 V16 c0 7 -5 11 -11 13 c-6 -2 -11 -6 -11 -13 V7 Z"/><path d="M11 16 l4 4 l6 -8"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label">OECM direct purchase</h3>
+          <p class="lp-diff-card__sentence">Ontario school boards and colleges purchase directly under OECM Agreement 2025-470 &mdash; no open tender or RFP. We include the agreement number on every quote. If you&rsquo;re not sure your board qualifies, call us and we&rsquo;ll confirm in five minutes.</p>
+        </article>
+
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">02</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 18 H28 V21 H4 Z"/><path d="M7 10 H25 V18 H7 Z"/><path d="M6 21 V25 M26 21 V25"/><path d="M10 10 V7 a2 2 0 0 1 2 -2 h8 a2 2 0 0 1 2 2 v3"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label">Ergonomic staff seating</h3>
+          <p class="lp-diff-card__sentence">Teachers and admin staff spend long hours seated. We spec ergonomic task chairs that support all-day use &mdash; adjustable lumbar, seat depth, and armrests &mdash; from brands like ergoCentric and Global Furniture Group.</p>
+        </article>
+
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">03</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="26" height="26"/><path d="M9 16.5 l5 5 l9 -11"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label">Training room configuration</h3>
+          <p class="lp-diff-card__sentence">Folding and nesting tables, stackable chairs, and mobile storage make training rooms convertible for different session formats. We configure the layout before delivery so setup on the day is straightforward.</p>
+        </article>
+
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">04</span>
+          <span class="lp-diff-card__icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="4" y="4" width="10" height="10"/><rect x="18" y="4" width="10" height="10"/><rect x="4" y="18" width="10" height="10"/><rect x="18" y="18" width="10" height="10"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label">Ontario delivery</h3>
+          <p class="lp-diff-card__sentence">Delivery and installation across Ontario. For occupied schools, we coordinate delivery around the school calendar and offer phased delivery windows to minimize disruption to staff and students.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}TRUST ROW — education project photos{%- endcomment -%}
+  <section class="lp-trust-row" aria-label="Education projects">
+    <div class="lp-trust-row__inner">
+      <div class="lp-trust-row__head">
+        <p class="lp-trust-row__eyebrow bbi-mono">Our work</p>
+        <h2>School board and post-secondary environments we&rsquo;ve helped furnish.</h2>
+      </div>
+      <div class="lp-trust-row__grid">
+
+        <figure class="lp-trust-row__cell">
+          {%- if section.settings.trust_image_1 != blank -%}
+            {{ section.settings.trust_image_1 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Education admin office furniture by Brant Business Interiors', width: 800 }}
+          {%- else -%}
+            <div class="lp-trust-row__ph">Education &middot; 4:3</div>
+          {%- endif -%}
+          <figcaption class="lp-trust-row__caption">
+            <span class="lp-trust-row__caption-key">Education</span>
+            <span><b>Admin &amp; staff office</b></span>
+            <span style="color:rgba(255,255,255,0.6)">Ontario school board environment</span>
+          </figcaption>
+        </figure>
+
+        <figure class="lp-trust-row__cell">
+          {%- if section.settings.trust_image_2 != blank -%}
+            {{ section.settings.trust_image_2 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Training and meeting room furniture for Ontario schools', width: 800 }}
+          {%- else -%}
+            <div class="lp-trust-row__ph">Meeting &middot; 4:3</div>
+          {%- endif -%}
+          <figcaption class="lp-trust-row__caption">
+            <span class="lp-trust-row__caption-key">Training</span>
+            <span><b>Training &amp; meeting room</b></span>
+            <span style="color:rgba(255,255,255,0.6)">Post-secondary institution, Ontario</span>
+          </figcaption>
+        </figure>
+
+        {%- if section.settings.trust_image_3 != blank -%}
+        <figure class="lp-trust-row__cell">
+          {{ section.settings.trust_image_3 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Boardroom furniture for Ontario educational institution', width: 800 }}
+          <figcaption class="lp-trust-row__caption">
+            <span class="lp-trust-row__caption-key">Boardroom</span>
+            <span><b>Board &amp; committee room</b></span>
+            <span style="color:rgba(255,255,255,0.6)">Ontario school board</span>
+          </figcaption>
+        </figure>
+        {%- endif -%}
+
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}CROSSLINKS — product category tiles{%- endcomment -%}
+  <section class="lp-crosslinks" aria-label="Browse education furniture categories">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
+        <h2>Furniture for every admin and staff area.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+
+        <a href="/collections/desks" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Admin Desks &amp; Workstations</span>
+            <span class="lp-crosslinks__tile-meta">Office desks &middot; height-adjustable &middot; L-shape</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/seating" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Staff &amp; Lounge Seating</span>
+            <span class="lp-crosslinks__tile-meta">Task chairs &middot; lounge &middot; staff room</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/tables" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2 10 H26 V13 H2 Z"/><path d="M6 13 V22 M22 13 V22"/><path d="M4 22 H24"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Training &amp; Meeting Tables</span>
+            <span class="lp-crosslinks__tile-meta">Folding &middot; nesting &middot; boardroom</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}OECM BAR{%- endcomment -%}
+  <div class="lp-oecm-bar" aria-label="OECM procurement">
+    <div class="lp-oecm-bar__inner">
+      <div class="lp-oecm-bar__lead">
+        <span class="lp-oecm-badge">
+          <span class="dot"></span>
+          OECM Supplier Partner
+        </span>
+        <p class="lp-oecm-bar__copy">OECM Supplier Partner, Agreement 2025-470 &mdash; Ontario school boards and colleges can purchase directly from Brant Business Interiors without an open tender or RFP process.</p>
+      </div>
+      <div class="lp-oecm-bar__meta">
+        <a href="/pages/oecm" class="bbi-btn bbi-btn--tertiary">
+          <span class="label">Learn about OECM purchasing</span>
+          <span class="arrow"> &#8594;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%}TESTIMONIAL STRIP{%- endcomment -%}
+  <section class="lp-quote-strip" aria-label="Client testimonial">
+    <div class="lp-quote-strip__inner">
+      <blockquote class="lp-quote-strip__quote">
+        &ldquo;Sharing a successful partnership for more than a decade. A great local company that provides products and services with a smile.&rdquo;
+        <cite>Kawartha Dairy &mdash; Est. 1937, Ontario</cite>
+      </blockquote>
+      <div class="lp-quote-strip__logo">
+        {%- if section.settings.testimonial_logo != blank -%}
+          {{ section.settings.testimonial_logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: 'Kawartha Dairy', height: 48 }}
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}FAQ{%- endcomment -%}
+  <section class="lp-faq" aria-label="Frequently asked questions">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <p class="lp-faq__eyebrow bbi-mono">Common questions</p>
+        <h2>What school boards and colleges ask before sending the PO.</h2>
+        <p class="lp-faq__cta">Still have a question? <a href="tel:18008359565">Call 1-800-835-9565</a> or <a href="/pages/quote">request a quote</a> and we&rsquo;ll respond in 1 business day.</p>
+      </div>
+      <div class="lp-faq__list">
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">01</span>
+            <span class="lp-faq-item__q">Can Ontario school boards purchase under OECM without a tender?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes. Brant Business Interiors is an OECM Supplier Partner (Agreement 2025-470). Ontario school boards, district school boards, and colleges can purchase directly without an open tender or RFP. We include the agreement number on every quote. If you&rsquo;re unsure whether your board qualifies, call us &mdash; we&rsquo;ll confirm in five minutes.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">02</span>
+            <span class="lp-faq-item__q">What are the lead times for large institutional orders?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Lead times depend on product and quantity. In-stock items ship in 2&ndash;4 weeks. Custom or made-to-order pieces typically run 8&ndash;12 weeks. We flag lead times on the quote so you can plan around the school calendar. For renovation-season orders (June&ndash;August), we recommend submitting by April to secure your window.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">03</span>
+            <span class="lp-faq-item__q">Do you accept purchase orders and NET 30?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; school boards and post-secondary institutions can pay by purchase order with NET 30 terms. We issue a formal quote, you issue a PO, and we bill on delivery. For OECM orders, the agreement number appears on the quote so your finance team can process it without additional procurement paperwork.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">04</span>
+            <span class="lp-faq-item__q">Is the space plan included in the quote, or is it a separate fee?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Included &mdash; no extra fee. Send us your floor plan (PDF, sketch, or AutoCAD file) and we&rsquo;ll place the furniture and show you a layout before you approve anything. This applies to every room type: admin offices, staff rooms, boardrooms, and training rooms.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">05</span>
+            <span class="lp-faq-item__q">Can you phase delivery around an occupied school schedule?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes. We coordinate delivery around the school calendar and offer phased delivery windows for multi-room projects. For occupied buildings, we can deliver and install room by room to minimize disruption. Early morning and weekend delivery is available at most Ontario locations. We plan the sequence with your facilities team before the first truck arrives.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}CTA CLOSER{%- endcomment -%}
+  <section class="lp-closer" aria-label="Request a quote">
+    <div class="lp-closer__inner">
+      <div>
+        <p class="lp-closer__eyebrow">Quoting for your school board or institution</p>
+        <h2 class="lp-closer__heading">Ready to outfit your admin spaces?</h2>
+        <p class="lp-closer__sub">OECM-eligible. Quote in 1 business day. A floor plan, a room count, or a list of what you need &mdash; any starting point works.</p>
+      </div>
+      <div class="lp-closer__actions">
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
+          Request a Quote <span class="arrow">&#8594;</span>
+        </a>
+        <div class="lp-closer__trust">
+          <span class="dot"></span>
+          <span><b>1 business day response</b> &mdash; no minimums, no obligations.</span>
+        </div>
+        <div class="lp-closer__trust">
+          <span class="dot"></span>
+          <span>Or call <a href="tel:18008359565">1-800-835-9565</a> &middot; Mon&ndash;Fri 8&ndash;5 ET</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}FOOTER{%- endcomment -%}
+  <footer class="bbi-footer" role="contentinfo">
+    <div class="bbi-footer__inner">
+      <div class="bbi-footer__top">
+        <div>
+          <div class="bbi-footer__brand-plate">
+            {%- if section.settings.logo != blank -%}
+              {{ section.settings.logo | image_url: width: 300 | image_tag: height: 44, alt: 'Brant Business Interiors' }}
+            {%- else -%}
+              <span style="font-family:var(--headingFont);font-size:14px;font-weight:600;color:#0B0B0C;">Brant &#10033; BI | Business Interiors</span>
+            {%- endif -%}
+          </div>
+          <p class="bbi-footer__tagline">Commercial office furniture for Ontario schools, businesses, and institutions. A division of Office Central Inc.</p>
+          <span class="bbi-footer__canadian">
+            <svg class="leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg>
+            Canadian-Owned &middot; Ontario-Based
+          </span>
+        </div>
+        <div class="bbi-footer__cols">
+          <div class="bbi-footer__col">
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="/collections/seating">Seating</a></li>
+              <li><a href="/collections/desks">Desks &amp; Workstations</a></li>
+              <li><a href="/collections/storage">Storage &amp; Filing</a></li>
+              <li><a href="/collections/tables">Tables</a></li>
+              <li><a href="/collections/business-furniture">View all furniture</a></li>
+            </ul>
+          </div>
+          <div class="bbi-footer__col">
+            <h4>Industries</h4>
+            <ul>
+              <li><a href="/pages/healthcare">Healthcare &amp; Clinical</a></li>
+              <li><a href="/pages/education">Education</a></li>
+              <li><a href="/pages/government">Government</a></li>
+              <li><a href="/pages/non-profit">Non-Profit</a></li>
+              <li><a href="/pages/industries">All industries</a></li>
+            </ul>
+          </div>
+          <div class="bbi-footer__col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="/pages/design-services">Design Services</a></li>
+              <li><a href="/pages/oecm">OECM Purchasing</a></li>
+              <li><a href="/pages/delivery">Delivery &amp; Installation</a></li>
+              <li><a href="/pages/quote">Request a Quote</a></li>
+              <li><a href="/pages/faq">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="bbi-footer__col bbi-footer__col--contact">
+            <h4>Contact</h4>
+            <div class="row">
+              <span class="lbl">Phone</span>
+              <a href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">1-800-835-9565</a>
+            </div>
+            <div class="row">
+              <span class="lbl">Email</span>
+              <a href="mailto:info@brantbusinessinteriors.com">info@brantbusinessinteriors.com</a>
+            </div>
+            <div class="row">
+              <span class="lbl">Address</span>
+              <span>295 George St N<br>Peterborough, ON K9J 3H2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bbi-footer__bottom">
+        <span>&copy; 2025 Brant Business Interiors &mdash; a division of Office Central Inc. OECM Supplier Partner Agreement 2025-470.</span>
+        <div class="bbi-footer__legal">
+          <a href="/policies/privacy-policy">Privacy</a>
+          <a href="/policies/terms-of-service">Terms</a>
+          <a href="/policies/shipping-policy">Shipping</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /lp-edu -->
+
+{% schema %}
+{
+  "name": "Education Landing Page",
+  "class": "ds-lp-education",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "Upload the Brant ✱ BI v2 wordmark. Leave blank to show text fallback."
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "H1 heading",
+      "default": "School & Post-Secondary Office Furniture for Ontario"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Hero standfirst",
+      "default": "Ontario school boards and colleges can procure directly under OECM Agreement 2025-470 — no open tender or RFP required. Admin offices, staff rooms, boardrooms, and training rooms across Ontario. Call 1-800-835-9565."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image (5:4)",
+      "info": "Upload OCI-Education-1.jpg from data/oci-photos/"
+    },
+    {
+      "type": "header",
+      "content": "Trust row photos (4:3 each)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_image_1",
+      "label": "Trust photo 1",
+      "info": "Upload OCI-Education-1.jpg"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_image_2",
+      "label": "Trust photo 2",
+      "info": "Upload Inspiration-Meeting-1.jpg"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_image_3",
+      "label": "Trust photo 3 (optional)",
+      "info": "Upload a third education photo if available"
+    },
+    {
+      "type": "header",
+      "content": "Testimonial"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_logo",
+      "label": "Client logo",
+      "info": "Upload kawartha-dairy-logo.jpg from data/testimonials/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Education Landing Page"
+    }
+  ]
+}
+{% endschema %}

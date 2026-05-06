@@ -234,3 +234,11 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 | **P1-6 Healthcare — section** | [theme/sections/ds-lp-healthcare.liquid](theme/sections/ds-lp-healthcare.liquid) |
 | **P1-6 Healthcare — template** | [theme/templates/page.healthcare.json](theme/templates/page.healthcare.json) |
 | Healthcare draft preview | [previews/healthcare-draft-v1.html](previews/healthcare-draft-v1.html) |
+| **P1-7 Education — section** | [theme/sections/ds-lp-education.liquid](theme/sections/ds-lp-education.liquid) |
+| **P1-7 Education — template** | [theme/templates/page.education.json](theme/templates/page.education.json) |
+| **P1-8 Government — section** | [theme/sections/ds-lp-government.liquid](theme/sections/ds-lp-government.liquid) |
+| **P1-8 Government — template** | [theme/templates/page.government.json](theme/templates/page.government.json) |
+| **P1-9 Non-Profit — section** | [theme/sections/ds-lp-non-profit.liquid](theme/sections/ds-lp-non-profit.liquid) |
+| **P1-9 Non-Profit — template** | [theme/templates/page.non-profit.json](theme/templates/page.non-profit.json) |
+| **P1-10 Professional Services — section** | [theme/sections/ds-lp-professional-services.liquid](theme/sections/ds-lp-professional-services.liquid) |
+| **P1-10 Professional Services — template** | [theme/templates/page.professional-services.json](theme/templates/page.professional-services.json) |

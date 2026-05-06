@@ -43,6 +43,8 @@ PAGE_TITLES = {
     'delivery':     'Delivery & Installation',
     'brands':       'Brands We Carry',
     'industries':   'Industries We Serve',
+    'non-profit':   'Non-Profit Office Furniture',
+    'professional-services': 'Professional Services Office Furniture',
 }
 # ──────────────────────────────────────────────────────────────────────────────
 
