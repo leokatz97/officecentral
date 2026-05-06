@@ -88,7 +88,7 @@ These are the "moving away from" reference — attached to Claude Design briefs 
 | T4 (locked) | [data/design-photos/round4-template-3-attachments/](../../../data/design-photos/round4-template-3-attachments/) |
 | T5 (locked) | [data/design-photos/screens-t5-2026-05-04/](../../../data/design-photos/screens-t5-2026-05-04/) |
 | **DS-0 audit doc** | [docs/strategy/bbi-screens-audit-v1.md](../../strategy/bbi-screens-audit-v1.md) |
-| Live SEEDS checklist | [docs/plan/website-fix-checklist.html](../website-fix-checklist.html) |
+| Build state / task tracker | [docs/plan/bbi-build-state.md](../bbi-build-state.md) |
 
 ---
 
