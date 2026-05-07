@@ -29,15 +29,6 @@
 .lp-reloc .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
 .lp-reloc .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
 .lp-reloc .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
-.lp-reloc .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
-.lp-reloc .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
-.lp-reloc .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
-.lp-reloc .bbi-header__logo img{height:36px;width:auto;}
-.lp-reloc .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
-.lp-reloc .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;position:relative;}
-.lp-reloc .bbi-nav-item:hover{color:var(--headerHoverColor);}
-.lp-reloc .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
-.lp-reloc .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
 .lp-reloc .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
 .lp-reloc .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
 .lp-reloc .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
@@ -105,45 +96,12 @@
 .lp-reloc .lp-closer__sub{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.72);margin:0 0 var(--space-8);}
 .lp-reloc .lp-closer__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-4);}
 .lp-reloc .lp-closer__trust{font-size:13px;color:rgba(var(--textColor-rgb),0.5);}
-.lp-reloc .bbi-footer{background:var(--textColor);color:rgba(255,255,255,0.85);padding:var(--space-12) 0 var(--space-8);}
-.lp-reloc .bbi-footer__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
-.lp-reloc .bbi-footer__grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:var(--space-12);margin-bottom:var(--space-8);}
-.lp-reloc .bbi-footer__brand-logo{height:32px;width:auto;margin-bottom:var(--space-4);opacity:0.9;}
-.lp-reloc .bbi-footer__tagline{font-size:14px;line-height:1.55;color:rgba(255,255,255,0.6);max-width:260px;}
-.lp-reloc .bbi-footer__col-title{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:0 0 var(--space-4);}
-.lp-reloc .bbi-footer__links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-2);}
-.lp-reloc .bbi-footer__links a{font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;}
-.lp-reloc .bbi-footer__links a:hover{color:#fff;}
-.lp-reloc .bbi-footer__bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-4);font-size:13px;color:rgba(255,255,255,0.4);}
-@media(max-width:1023px){.lp-reloc .lp-hero__inner{grid-template-columns:1fr;}.lp-reloc .lp-process__grid{grid-template-columns:repeat(2,1fr);}.lp-reloc .bbi-footer__grid{grid-template-columns:1fr 1fr;gap:var(--space-8);}}
-@media(max-width:639px){.lp-reloc .lp-process__grid{grid-template-columns:1fr;}.lp-reloc .bbi-header__nav{display:none;}.lp-reloc .bbi-footer__grid{grid-template-columns:1fr;}}
+@media(max-width:1023px){.lp-reloc .lp-hero__inner{grid-template-columns:1fr;}.lp-reloc .lp-process__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:639px){.lp-reloc .lp-process__grid{grid-template-columns:1fr;}}
 </style>
 
 <div class="lp-reloc scheme-default">
-
-  {%- comment -%} Header {%- endcomment -%}
-  <header class="bbi-header">
-    <div class="bbi-header__inner">
-      <a href="/" class="bbi-header__logo" aria-label="Brant Business Interiors — Home">
-        {%- if section.settings.logo != blank -%}
-          {{ section.settings.logo | image_url: width: 200 | image_tag: loading: 'eager', alt: 'Brant Business Interiors' }}
-        {%- else -%}
-          <span style="font-family:var(--headingFont);font-size:17px;font-weight:600;color:var(--textColor);">Brant ✱ BI</span>
-        {%- endif -%}
-      </a>
-      <nav class="bbi-header__nav" aria-label="Main navigation">
-        <a href="/collections/business-furniture" class="bbi-nav-item">Shop</a>
-        <a href="/pages/industries" class="bbi-nav-item">Industries</a>
-        <a href="/pages/brands" class="bbi-nav-item">Brands</a>
-        <a href="/pages/design-services" class="bbi-nav-item">Services</a>
-        <a href="/pages/about" class="bbi-nav-item">About</a>
-      </nav>
-      <div class="bbi-header__utility">
-        <a href="tel:18008359565">1-800-835-9565</a>
-        <a href="/pages/quote" class="bbi-btn bbi-btn--primary">Request a Quote</a>
-      </div>
-    </div>
-  </header>
+  {%- render 'bbi-nav', logo: section.settings.logo, active: 'services' -%}
 
   {%- comment -%} Breadcrumbs {%- endcomment -%}
   <div class="lp-crumbs-band">
@@ -298,54 +256,7 @@
       <p class="lp-closer__trust">OECM Agreement 2025-470 · Full-scope relocation · Ontario-wide</p>
     </div>
   </section>
-
-  {%- comment -%} Footer {%- endcomment -%}
-  <footer class="bbi-footer">
-    <div class="bbi-footer__inner">
-      <div class="bbi-footer__grid">
-        <div>
-          {%- if section.settings.logo != blank -%}
-            {{ section.settings.logo | image_url: width: 180 | image_tag: loading: 'lazy', alt: 'Brant Business Interiors', class: 'bbi-footer__brand-logo' }}
-          {%- else -%}
-            <p style="font-family:var(--headingFont);font-size:16px;font-weight:600;color:#fff;margin:0 0 12px;">Brant ✱ BI</p>
-          {%- endif -%}
-          <p class="bbi-footer__tagline">Commercial office furniture for Ontario businesses, schools, hospitals, and government. 🍁 Canadian-owned.</p>
-        </div>
-        <div>
-          <p class="bbi-footer__col-title">Shop</p>
-          <ul class="bbi-footer__links">
-            <li><a href="/collections/seating">Seating</a></li>
-            <li><a href="/collections/desks">Desks &amp; Workstations</a></li>
-            <li><a href="/collections/storage">Storage &amp; Filing</a></li>
-            <li><a href="/collections/tables">Tables</a></li>
-            <li><a href="/collections/business-furniture">All Products</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="bbi-footer__col-title">Services</p>
-          <ul class="bbi-footer__links">
-            <li><a href="/pages/design-services">Space Planning</a></li>
-            <li><a href="/pages/delivery">Delivery &amp; Installation</a></li>
-            <li><a href="/pages/relocation">Relocation Management</a></li>
-            <li><a href="/pages/quote">Request a Quote</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="bbi-footer__col-title">Company</p>
-          <ul class="bbi-footer__links">
-            <li><a href="/pages/about">About BBI</a></li>
-            <li><a href="/pages/oecm">OECM Purchasing</a></li>
-            <li><a href="/pages/brands">Brands We Carry</a></li>
-            <li><a href="/pages/contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="bbi-footer__bottom">
-        <span>© {{ 'now' | date: '%Y' }} Brant Business Interiors · 295 George St N, Peterborough, ON K9J 3H2</span>
-        <span><a href="tel:18008359565" style="color:rgba(255,255,255,0.4);text-decoration:none;">1-800-835-9565</a> · <a href="mailto:info@brantbusinessinteriors.com" style="color:rgba(255,255,255,0.4);text-decoration:none;">info@brantbusinessinteriors.com</a></span>
-      </div>
-    </div>
-  </footer>
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
 
 </div>
 

@@ -1,0 +1,15 @@
+url,template_type,section,active_nav_item,header_source,delta_from_canonical
+/,homepage,bbi-nav-wrap section,,render 'bbi-nav' (snippet: 92ee8097),"none (homepage uses bbi-nav-wrap section, same snippet)"
+/pages/about,page.about,ds-lp-about,about,render 'bbi-nav' (snippet: 92ee8097),active='about' only
+/pages/oecm,page.oecm,ds-lp-oecm,about,render 'bbi-nav' (snippet: 92ee8097),active='about' only
+/pages/brands,page.brands,ds-lp-brands,brands,render 'bbi-nav' (snippet: 92ee8097),active='brands' only
+/pages/healthcare,page.healthcare,ds-lp-healthcare,industries,render 'bbi-nav' (snippet: 92ee8097),active='industries' only
+/pages/customer-stories,page.customer-stories,ds-lp-customer-stories,about,render 'bbi-nav' (snippet: 92ee8097),active='about' only
+/pages/contact,page.contact,ds-lp-contact,about,render 'bbi-nav' (snippet: 92ee8097),active='about' only
+/pages/our-work,page.our-work,ds-lp-our-work,about,render 'bbi-nav' (snippet: 92ee8097),active='about' only
+/pages/delivery,page.delivery,ds-lp-delivery,services,render 'bbi-nav' (snippet: 92ee8097),active='services' only
+/pages/relocation,page.relocation,ds-lp-relocation,services,render 'bbi-nav' (snippet: 92ee8097),active='services' only
+/collections/seating,collection (cc-base),ds-cc-base,shop,render 'bbi-nav' (snippet: 92ee8097),active='shop' only
+/collections/task-seating,collection (cs-base),ds-cs-base,shop,render 'bbi-nav' (snippet: 92ee8097),active='shop' only
+/products/*,product,(no BBI chrome section — Stage 5 gap),n/a,MISSING — no BBI chrome section,STAGE_5_GAP — no nav rendered
+/this-does-not-exist,404,(no BBI chrome section — Stage 5 gap),n/a,MISSING — no BBI chrome section,STAGE_5_GAP — no nav rendered
