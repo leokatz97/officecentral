@@ -203,3 +203,91 @@ None. All four sub-tasks proceeded without ambiguity.
 - Theme `186495992121` (live) was **NOT touched**.
 - All changes target `186373570873` (BBI Landing Dev) only.
 - Branch: `feature/stage-3.0-design-tokens` — not merged.
+
+---
+
+## 11. Stage 3.0.5 — Hotfix: Malformed Comment Fragment in Homepage Hero
+
+**Date:** 2026-05-07
+
+### Bug Location
+`theme/templates/index.json` → `sections["bbi-hero"]["settings"]["custom_liquid"]`
+
+### Before (custom_liquid opening)
+```
+HERO
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="hp-hero">
+```
+The `<!--` was never written, so the comment fragment (`HERO\n═══...═══ -->`) rendered as visible text above the hero block on the live homepage.
+
+### After (custom_liquid opening)
+```
+  <section class="hp-hero">
+```
+The 76-character prefix (`HERO\n       ═══...═══ -->\n`) was stripped entirely. Hero content (heading, CTAs, image) unchanged.
+
+### Push Status
+- Target theme: `186373570873` (BBI Landing Dev)
+- HTTP 200 · checksum `673289747ae515437443a9dcc971b847`
+
+### Spot-Check
+GET of `templates/index.json` from theme `186373570873` confirmed `custom_liquid` opens with `  <section class="hp-hero">` — no `HERO` prefix present.
+
+### Commit
+`0d55572` — `fix: strip malformed comment fragment from homepage hero (Stage 3.0.5)` on `feature/stage-3.0-design-tokens`
+
+### Note
+`bbi-oecm` section has an identical pattern (`OECM BAR\n═══...═══ -->\n`) — fixed in Stage 3.0.6 below.
+
+---
+
+## 12. Stage 3.0.6 — Custom_Liquid Comment-Fragment Full Audit + Fix
+
+**Date:** 2026-05-07
+
+### Scope
+All `custom-liquid` sections in `theme/templates/index.json` audited for malformed comment-fragment prefixes. A section is BROKEN if its `custom_liquid` value does not begin with a valid HTML opening tag (after optional whitespace).
+
+### Audit Table
+
+| section_id | verdict | prefix_chars | notes |
+|---|---|---|---|
+| `bbi-hero` | OK | 0 | Already fixed in Stage 3.0.5 — not re-examined |
+| `bbi-trust` | OK | 0 | Starts with `<div class="hp-trust"` |
+| `bbi-shop` | OK | 0 | Starts with `<section class="bbi-section…"` |
+| `bbi-featured` | OK | 0 | Starts with `<section class="bbi-section…"` |
+| `bbi-oecm` | **BROKEN** | **82** | `OECM BAR\n       ═══...═══ -->\n  ` prefixed `<section>` |
+| `bbi-industries` | OK | 0 | Starts with `<section class="bbi-section…"` |
+| `bbi-services` | OK | 0 | Starts with `<section class="bbi-section…"` |
+| `bbi-work` | OK | 0 | Starts with `<section class="bbi-section…"` |
+
+Full audit CSV: `data/reports/index-section-audit-stage-3.0.6.csv`
+
+### Fix Applied
+
+| section_id | prefix_chars_stripped | prefix_text |
+|---|---|---|
+| `bbi-oecm` | 82 | `'OECM BAR\n       ═══════════════════════════════════════════════════════════ -->\n  '` |
+
+Slice point: `cl.find("<section")` → index 82. Content from index 82 onward (`<section class="hp-oecm"…`) preserved intact.
+
+### JSON Validation
+`python3 -c 'import json; json.load(open("theme/templates/index.json"))'` — **PASS**
+
+### Push Status
+- Target theme: `186373570873` (BBI Landing Dev)
+- File: `templates/index.json`
+- HTTP **200** · server checksum `b87eb6101b604ad6b4340871a7ca48ce`
+- Pushed at: `2026-05-07T14:28:49-04:00`
+
+### Spot-Check
+GET of `templates/index.json` from theme `186373570873`:
+
+| section_id | custom_liquid opens with | result |
+|---|---|---|
+| `bbi-oecm` | `<section class="hp-oecm" aria-label="OECM trust signal">` | ✅ PASS |
+
+### Confirmation
+- Live theme `186495992121`: **NOT touched**
+- Branch: `feature/stage-3.0-design-tokens` — not merged
