@@ -15,6 +15,11 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 - **OECM status is a key differentiator.** Office Central and Brant Basics are verified OECM partners. Ontario institutional buyers can purchase without open tender. Surface this in copy whenever relevant.
 - **Dry-run first.** All `push-*` scripts default to dry run. Always confirm output before passing `--live`.
 - **Credentials.** API token lives in `.env` (`SHOPIFY_TOKEN=...`). Never commit `.env`. Scripts back up to `data/backups/` and log to `data/logs/` before writing.
+- **SEO tooling — DataForSEO MCP is mandatory for three workflows:**
+  1. **Pre-launch technical SEO audit (SEO-AUDIT-1, Wave E)** — hard gate before LAUNCH-0. Crawl every page in the `bbi_landing` gate; verify meta tags, H1 hierarchy, schema, canonicals, broken links, Lighthouse + Core Web Vitals. All `block`-severity issues must be resolved or explicitly waived in `docs/reviews/seo-audit-<date>.md` before launch.
+  2. **Blog post creation (BL-* and B1..B10)** — every blog brief starts with a DataForSEO keyword pull: search volume, difficulty, related keywords, SERP competitors, and "people also ask". Lock one primary keyword + 2–3 secondaries in the brief before writing.
+  3. **Cross-page keyword optimization (SEO-AUDIT-2, post-launch)** — once the site is fully built, run a site-wide keyword audit to detect cannibalization, find gap keywords, and reassign primary/secondary KWs per page. Output: `docs/strategy/bbi-keyword-map-<date>.md`.
+  Do not draft a blog post, mark a launch-ready row done, or change page meta copy site-wide without running the appropriate DataForSEO MCP step first.
 
 ---
 

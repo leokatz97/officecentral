@@ -229,6 +229,7 @@ Four deploy-error patterns recurred during P1 builds. The `/bbi-build-page` skil
 | LEAD-2 | Gap analysis on lead routing | ⬜ | `docs/plan/bbi-lead-routing.md` | Identify duplicate forms, inconsistent inboxes |
 | LEAD-3 | Unify on `bbi-lead-form.liquid` snippet + ack auto-reply per type | ⬜ | TBD `theme/snippets/bbi-lead-form.liquid` | 🔔 **NEEDS DECISION** — Single inbox to consolidate on (sales@brantbusinessinteriors.com or another?), and the auto-reply copy per `lead_type` (quote / design / contact / oecm). Halt before writing the snippet. |
 | INTERLINK-3 | Final cross-link audit, all pages | ⬜ | audit output green | |
+| **SEO-AUDIT-1** | **Technical SEO audit via DataForSEO MCP (HARD GATE)** | ⬜ | `data/reports/seo-audit-<date>.json` + `docs/reviews/seo-audit-<date>.md` | **Pre-launch hard gate — must run before LAUNCH-0.** Use the DataForSEO MCP (`on_page` + `lighthouse` + `domain_analytics` tools) against BBI Landing Dev (`186373570873` preview URL). Required checks: (a) crawl every published page in `bbi_landing` gate, (b) meta titles + descriptions present and within length limits, (c) H1 hierarchy correct (one H1 per page, no skipped levels), (d) all schema validates (Organization, Product, BreadcrumbList, FAQPage from AI-3..AI-6), (e) canonical tags resolve, (f) no broken internal links, (g) Lighthouse mobile perf ≥ 80, (h) Core Web Vitals pass on top 5 templates (home, OECM, quote, industries hub, healthcare). Output a per-page issue list with severity (block / fix / waive). All `block` items must be resolved or explicitly waived in the report before LAUNCH-0 can run. |
 | NAV-VERIFY | Homepage + collection pages render shared nav | ⬜ | DOM check | Verify NAV-3, NAV-4 stuck |
 | DS-VERIFY | DS pre-launch verification (HARD GATE) | ⬜ | screenshot diff vs T5 locked | Brand-red unified, dark-mode block stays deleted, tokens intact |
 | IMG-PHASE2 | Product image regen (≥80% coverage SOFT GATE) | ⬜ | `data/reports/img-phase2-coverage.csv` | Waiver CSV for the rest |
@@ -256,7 +257,8 @@ Four deploy-error patterns recurred during P1 builds. The `/bbi-build-page` skil
 These compound after live, none blocks launch:
 
 - **Phase 1b full catalog** — PE-5/6/7 for the 503 non-Hero products (descriptions, specs, meta)
-- **Blog** — BL-1..BL-6 (template + schema + related products) + first 10 posts (B1..B10)
+- **Blog** — BL-1..BL-6 (template + schema + related products) + first 10 posts (B1..B10). **🔍 Every blog post must start with DataForSEO MCP keyword research** — pull search volume, difficulty, related keywords, SERP competitors, and "people also ask" before drafting. Target keyword + 2–3 secondary keywords go in the brief; the post is written to rank for them.
+- **SEO-AUDIT-2 — Cross-page keyword optimization (DataForSEO MCP)** — once the full site is built (post-LAUNCH-2), run a site-wide keyword audit: pull current rankings, identify cannibalization (multiple pages competing for the same keyword), find gaps (high-intent keywords with no landing page), and reassign primary/secondary keywords per page. Output: `docs/strategy/bbi-keyword-map-<date>.md` with one row per page (URL, primary KW, secondary KWs, search volume, current rank). Then patch meta titles, H1s, and intro copy across pages to align.
 - **AI search** — AI-10 (spec completeness), AI-11 ("best of" / comparison content)
 - **Smart Collections** — finish migration on remaining manual collections
 - **Wave 2** — Acoustic Pods sub-collection, sit-stand buyer guide, hybrid work bundle
