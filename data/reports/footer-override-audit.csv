@@ -1,0 +1,23 @@
+section_file,selector,background_value,color_value,verdict,notes
+ds-lp-about.liquid,.lp-about .bbi-footer,var(--alternateBackground),(none set),BROKEN,Overrides snippet's --ft-bg with light page token; all .lp-about .bbi-footer__* rules also removed
+ds-lp-brands-ergocentric.liquid,.lp-ergo .bbi-footer,var(--alternateBackground),(none set),BROKEN,Same pattern as about; all .lp-ergo .bbi-footer__* rules also removed
+ds-lp-brands-global-teknion.liquid,.lp-global .bbi-footer,var(--alternateBackground),(none set),BROKEN,Same pattern as about; all .lp-global .bbi-footer__* rules also removed
+ds-lp-brands-keilhauer.liquid,.lp-keilhauer .bbi-footer,var(--alternateBackground),(none set),BROKEN,Same pattern as about; all .lp-keilhauer .bbi-footer__* rules also removed
+ds-lp-brands.liquid,.lp-brands .bbi-footer,var(--alternateBackground),(none set),BROKEN,Same pattern as about; all .lp-brands .bbi-footer__* rules also removed
+ds-lp-contact.liquid,(no override),(no override),(no override),OK,No .bbi-footer background rule; snippet self-contained
+ds-lp-customer-stories.liquid,(no override),(no override),(no override),OK,No .bbi-footer background rule; snippet self-contained (Stage 2.6 cleaned)
+ds-lp-delivery.liquid,(no override),(no override),(no override),OK,No .bbi-footer background rule
+ds-lp-design-services.liquid,.bbi-lp-design-services .bbi-footer__top (layout only),(no background),(no color),OK,Layout-only responsive overrides; no background conflict
+ds-lp-education.liquid,.lp-edu responsive footer cols only,(no background),(no color),OK,Layout-only responsive overrides
+ds-lp-faq.liquid,.bbi-lp-faq responsive footer cols only,(no background),(no color),OK,Layout-only responsive overrides
+ds-lp-government.liquid,.lp-gov responsive footer cols only,(no background),(no color),OK,Layout-only responsive overrides
+ds-lp-healthcare.liquid,.lp-hc .bbi-footer,var(--background) (local --background:#0B0B0C),var(--textColor),OK,Explicitly re-declares --background:#0B0B0C locally then uses it; results in dark bg
+ds-lp-industries.liquid,.lp-ind .bbi-footer__* layout only,(no background on .bbi-footer),(no color on .bbi-footer),OK,Layout-only overrides; snippet own --ft-bg applies
+ds-lp-non-profit.liquid,.lp-np responsive footer cols only,(no background),(no color),OK,Layout-only responsive overrides
+ds-lp-oecm.liquid,.bbi-lp-oecm responsive footer cols only,(no background),(no color),OK,Layout-only responsive overrides
+ds-lp-our-work.liquid,(no override),(no override),(no override),OK,No .bbi-footer override at all
+ds-lp-professional-services.liquid,.lp-ps responsive footer cols only,(no background),(no color),OK,Layout-only responsive overrides
+ds-lp-quote.liquid,.bbi-lp-quote .bbi-footer,var(--background) (local --background:#0B0B0C),var(--textColor),OK,Explicitly re-declares --background:#0B0B0C locally; results in dark bg
+ds-lp-relocation.liquid,(no override),(no override),(no override),OK,No .bbi-footer override
+ds-cc-base.liquid,(no override),(no override),(no override),OK,No .bbi-footer rules
+ds-cs-base.liquid,(no override),(no override),(no override),OK,No .bbi-footer rules

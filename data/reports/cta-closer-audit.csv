@@ -1,0 +1,23 @@
+section_file,wrapper_class,selector,has_background_rule,has_color_rule,verdict,notes
+ds-lp-about.liquid,lp-closer,.lp-about .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Tokens set by .lp-about .scheme-inverse on same element; resolves dark
+ds-lp-brands-ergocentric.liquid,lp-closer,.lp-ergo .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Same pattern as about
+ds-lp-brands-global-teknion.liquid,lp-closer,.lp-global .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Same pattern as about
+ds-lp-brands-keilhauer.liquid,lp-closer,.lp-keilhauer .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Same pattern as about
+ds-lp-brands.liquid,lp-closer,.lp-brands .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Same pattern as about
+ds-lp-contact.liquid,(none),(none),N/A,N/A,OK,No scheme-inverse CTA closer
+ds-lp-customer-stories.liquid,bbi-cta-section,.lp-stories .bbi-cta-section.scheme-inverse,NO (before fix),YES (color via textColor),BROKEN (fixed),No background rule — scheme-inverse redefines --background dark but element bg stayed light; FIXED: added background:var(--background);color:var(--textColor)
+ds-lp-delivery.liquid,lp-closer,inline style on element,YES (inline style background:var(--background)),N/A,OK,Inline style on <section> handles it; element has scheme-inverse so resolves dark
+ds-lp-design-services.liquid,bbi-cta-section,.bbi-cta-section (unscoped),YES (var(--background)),YES (implied by scheme-inverse),OK,Unscoped rule sets background:var(--background); element has scheme-inverse so token resolves dark
+ds-lp-education.liquid,lp-closer,.lp-edu .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Tokens baked directly into rule (--background:#0B0B0C); no scheme-inverse class needed
+ds-lp-faq.liquid,(none),(none),N/A,N/A,OK,No scheme-inverse CTA closer
+ds-lp-government.liquid,lp-closer,.lp-gov .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Tokens baked directly; no scheme-inverse class on element
+ds-lp-healthcare.liquid,lp-closer,.lp-hc .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Tokens baked directly (--background:#0B0B0C); no scheme-inverse class on element
+ds-lp-industries.liquid,lp-closer,.lp-ind .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Tokens baked directly (--background:#0B0B0C); no scheme-inverse class on element
+ds-lp-non-profit.liquid,lp-closer,.lp-np .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Tokens baked directly
+ds-lp-oecm.liquid,bbi-cta-section,.bbi-lp-oecm .bbi-cta-section,YES (var(--background)),YES (var(--textColor)),OK,Scoped rule paints background; element has scheme-inverse so resolves dark
+ds-lp-our-work.liquid,lp-closer,inline style on element,YES (inline style background:var(--alternateBackground)),N/A,OK,Uses alternateBackground intentionally (light section — no scheme-inverse); not white-on-white
+ds-lp-professional-services.liquid,lp-closer,.lp-ps .lp-closer,YES (var(--background)),YES (var(--textColor)),OK,Tokens baked directly
+ds-lp-quote.liquid,bbi-cta-section,.bbi-lp-quote .bbi-cta-section,YES (var(--background)),YES (var(--textColor)),OK,Scoped rule + scheme-inverse resolves dark
+ds-lp-relocation.liquid,lp-closer,inline style on element,YES (inline style background:var(--background)),N/A,OK,Inline style + scheme-inverse class resolves dark
+ds-cc-base.liquid,(none),(none),N/A,N/A,OK,No scheme-inverse CTA closer
+ds-cs-base.liquid,(none),(none),N/A,N/A,OK,No scheme-inverse CTA closer
