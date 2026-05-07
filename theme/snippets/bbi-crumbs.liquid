@@ -1,0 +1,52 @@
+{%- comment -%}
+  bbi-crumbs.liquid
+  Unified breadcrumb band — renders 2, 3, or 4 levels.
+
+  Render:
+    {%- render 'bbi-crumbs', c2_label: 'About Us' -%}
+    {%- render 'bbi-crumbs', c2_label: 'Industries', c2_href: '/pages/industries', c3_label: 'Healthcare' -%}
+    {%- render 'bbi-crumbs', c2_label: 'Shop Furniture', c2_href: '/collections/business-furniture',
+        c3_label: parent_title, c3_href: parent_href, c4_label: collection.title -%}
+
+  Parameters (Level 1 = Home / is always rendered):
+    c2_label {string} — Level 2 label (required; if blank, renders nothing)
+    c2_href  {string} — Level 2 href; leave blank if c2 is the terminal (current) crumb
+    c3_label {string} — Level 3 label; if present, c2_href must be set
+    c3_href  {string} — Level 3 href; leave blank if c3 is terminal
+    c4_label {string} — Level 4 label; always terminal (no href); c3_href must be set
+
+  Locked depth pattern (Stage 2):
+    2-level: top-level pages           — Home > Page
+    3-level: industry/brand sub-pages  — Home > Section > Page
+    4-level: category hubs + sub-colls — Home > Shop Furniture > Category > Item
+{%- endcomment -%}
+<style>
+  .bbi-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
+  .bbi-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
+  .bbi-crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:0;font-size:13px;color:var(--textColor);margin:0;padding:0;list-style:none;}
+  .bbi-crumbs li{display:inline-flex;align-items:center;}
+  .bbi-crumbs__sep{margin:0 7px;opacity:.4;font-size:11px;line-height:1;}
+  .bbi-crumbs a{color:var(--textColor);opacity:.65;text-decoration:none;}
+  .bbi-crumbs a:hover,.bbi-crumbs a:focus-visible{opacity:1;text-decoration:underline;}
+  .bbi-crumbs li:last-child{font-weight:500;}
+</style>
+{%- if c2_label != blank -%}
+<nav class="bbi-crumbs-band" aria-label="Breadcrumb">
+  <div class="bbi-crumbs-band__inner">
+    <ol class="bbi-crumbs">
+      <li><a href="/">Home</a></li>
+      {%- if c3_label != blank -%}
+        <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><a href="{{ c2_href }}">{{ c2_label }}</a></li>
+        {%- if c4_label != blank -%}
+          <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><a href="{{ c3_href }}">{{ c3_label }}</a></li>
+          <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><span aria-current="page">{{ c4_label }}</span></li>
+        {%- else -%}
+          <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><span aria-current="page">{{ c3_label }}</span></li>
+        {%- endif -%}
+      {%- else -%}
+        <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><span aria-current="page">{{ c2_label }}</span></li>
+      {%- endif -%}
+    </ol>
+  </div>
+</nav>
+{%- endif -%}

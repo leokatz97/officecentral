@@ -28,14 +28,6 @@
 .lp-contact .bbi-btn--primary:hover{background:var(--buttonBackgroundHover);color:var(--buttonColorHover);border-color:var(--buttonBorderHover);}
 .lp-contact .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
 .lp-contact .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
-.lp-contact .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
-.lp-contact .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
-.lp-contact .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
-.lp-contact .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
-.lp-contact .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
-.lp-contact .bbi-crumbs li:last-child{font-weight:500;}
-.lp-contact .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
-.lp-contact .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
 .lp-contact .lp-page-head{padding:var(--space-12) 0 var(--space-8);border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
 .lp-contact .lp-page-head__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
 .lp-contact .lp-page-head__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);}
@@ -69,15 +61,8 @@
 <div class="lp-contact scheme-default">
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'about' -%}
 
-  {%- comment -%} Breadcrumbs {%- endcomment -%}
-  <div class="lp-crumbs-band">
-    <div class="lp-crumbs-band__inner">
-      <ol class="bbi-crumbs">
-        <li><a href="/">Home</a></li>
-        <li>Contact</li>
-      </ol>
-    </div>
-  </div>
+  {%- render 'bbi-crumbs', c2_label: 'Contact' -%}
+
 
   {%- comment -%} Page Heading {%- endcomment -%}
   <section class="lp-page-head">

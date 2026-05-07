@@ -60,14 +60,6 @@
 .bbi-lp-faq a { color: var(--linkColor); }
 
 /* Breadcrumbs */
-.bbi-lp-faq .lp-crumbs-band { border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
-.bbi-lp-faq .lp-crumbs-band__inner { max-width: 1280px; margin: 0 auto; padding: var(--space-3) var(--space-6); }
-.bbi-lp-faq .bbi-crumbs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; color: var(--textColor); margin: 0; padding: 0; list-style: none; }
-.bbi-lp-faq .bbi-crumbs li { display: inline-flex; align-items: center; gap: 8px; }
-.bbi-lp-faq .bbi-crumbs li:not(:last-child)::after { content: ">"; opacity: 0.4; }
-.bbi-lp-faq .bbi-crumbs a { color: var(--textColor); opacity: 0.65; text-decoration: none; }
-.bbi-lp-faq .bbi-crumbs a:hover { opacity: 1; text-decoration: underline; }
-.bbi-lp-faq .bbi-crumbs li:last-child { font-weight: 500; }
 
 /* ============================================================
    FAQ Hero
@@ -161,15 +153,8 @@
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'services' -%}
 
-  {%- comment -%}BREADCRUMBS{%- endcomment -%}
-  <div class="lp-crumbs-band">
-    <div class="lp-crumbs-band__inner">
-      <ol class="bbi-crumbs" aria-label="Breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li>FAQ</li>
-      </ol>
-    </div>
-  </div>
+  {%- render 'bbi-crumbs', c2_label: 'FAQ' -%}
+
 
   <!-- ═══ HERO ═══ -->
   <div class="faq-hero">

@@ -112,17 +112,6 @@
 .ds-cc .bbi-btn--tertiary .label::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;}
 .ds-cc .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
 
-/* ---- Breadcrumb band ---- */
-.ds-cc__crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
-.ds-cc__crumbs-band .ds-cc__inner{padding-top:var(--space-3);padding-bottom:var(--space-3);}
-.ds-cc__crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
-  font-size:13px;margin:0;padding:0;list-style:none;}
-.ds-cc__crumbs li{display:inline-flex;align-items:center;gap:6px;}
-.ds-cc__crumbs li:not(:last-child)::after{content:"›";opacity:0.4;}
-.ds-cc__crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
-.ds-cc__crumbs a:hover{opacity:1;text-decoration:underline;}
-.ds-cc__crumbs li:last-child{font-weight:500;}
-
 /* ---- Hero ---- */
 .ds-cc__hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
 .ds-cc__hero-inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);
@@ -310,18 +299,15 @@
   {%- comment -%} ── Shared nav ── {%- endcomment -%}
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'shop' -%}
 
-  {%- comment -%} ── Breadcrumb band ── {%- endcomment -%}
-  <nav class="ds-cc__crumbs-band" aria-label="Breadcrumb">
-    <div class="ds-cc__inner">
-      <ol class="ds-cc__crumbs">
-        <li><a href="/">Home</a></li>
-        {%- if section.settings.breadcrumb_parent_label != blank -%}
-          <li><a href="{{ section.settings.breadcrumb_parent_url | default: '/collections/business-furniture' }}">{{ section.settings.breadcrumb_parent_label | escape }}</a></li>
-        {%- endif -%}
-        <li><span>{{ section.settings.hero_title | default: collection.title | escape }}</span></li>
-      </ol>
-    </div>
-  </nav>
+  {%- liquid
+    assign _cc_title      = section.settings.hero_title | default: collection.title
+    assign _cc_parent_href = section.settings.breadcrumb_parent_url | default: '/collections/business-furniture'
+  -%}
+  {%- if section.settings.breadcrumb_parent_label != blank -%}
+    {%- render 'bbi-crumbs', c2_label: section.settings.breadcrumb_parent_label, c2_href: _cc_parent_href, c3_label: _cc_title -%}
+  {%- else -%}
+    {%- render 'bbi-crumbs', c2_label: _cc_title -%}
+  {%- endif -%}
 
   {%- comment -%} ── Hero ── {%- endcomment -%}
   <section class="ds-cc__hero" aria-labelledby="cc-hero-title">

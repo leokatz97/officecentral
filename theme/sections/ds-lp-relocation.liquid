@@ -29,14 +29,6 @@
 .lp-reloc .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
 .lp-reloc .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
 .lp-reloc .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
-.lp-reloc .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
-.lp-reloc .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
-.lp-reloc .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
-.lp-reloc .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
-.lp-reloc .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
-.lp-reloc .bbi-crumbs li:last-child{font-weight:500;}
-.lp-reloc .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
-.lp-reloc .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
 .lp-reloc .lp-hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
 .lp-reloc .lp-hero__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--space-12);align-items:center;}
 .lp-reloc .lp-hero__text{max-width:560px;}
@@ -103,15 +95,8 @@
 <div class="lp-reloc scheme-default">
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'services' -%}
 
-  {%- comment -%} Breadcrumbs {%- endcomment -%}
-  <div class="lp-crumbs-band">
-    <div class="lp-crumbs-band__inner">
-      <ol class="bbi-crumbs">
-        <li><a href="/">Home</a></li>
-        <li>Relocation Management</li>
-      </ol>
-    </div>
-  </div>
+  {%- render 'bbi-crumbs', c2_label: 'Relocation Management' -%}
+
 
   {%- comment -%} Hero {%- endcomment -%}
   <section class="lp-hero">

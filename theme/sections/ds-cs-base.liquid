@@ -98,17 +98,6 @@
 .ds-cs .bbi-btn--ghost{background:transparent;color:var(--textColor);border-color:var(--borderColor);}
 .ds-cs .bbi-btn--ghost:hover{border-color:var(--buttonBackground);}
 
-/* ── Breadcrumb band ─────────────────────────────────────────────── */
-.ds-cs__crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
-.ds-cs__crumbs-band .ds-cs__inner{padding-top:var(--space-3);padding-bottom:var(--space-3);}
-.ds-cs__crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
-  font-size:13px;margin:0;padding:0;list-style:none;}
-.ds-cs__crumbs li{display:inline-flex;align-items:center;gap:6px;}
-.ds-cs__crumbs a{color:var(--textColor);text-decoration:none;opacity:.65;}
-.ds-cs__crumbs a:hover{opacity:1;color:var(--accentRed);}
-.ds-cs__crumbs__sep{color:var(--borderColor);}
-.ds-cs__crumbs__current{font-weight:600;opacity:.9;}
-
 /* ── Hero strip ──────────────────────────────────────────────────── */
 .ds-cs__hero{padding:var(--space-12) 0 var(--space-8);background:var(--alternateBackground);}
 .ds-cs__hero-inner{display:flex;flex-direction:column;gap:var(--space-4);}
@@ -286,17 +275,10 @@
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'shop' -%}
 
-  {%- comment -%} ── Breadcrumb ── {%- endcomment -%}
-  <nav class="ds-cs__crumbs-band" aria-label="{{ 'general.breadcrumbs.title' | t | default: 'Breadcrumb' }}">
-    <div class="ds-cs__inner">
-      <ol class="ds-cs__crumbs">
-        <li><a href="/">{{ 'general.breadcrumbs.home' | t | default: 'Home' }}</a><span class="ds-cs__crumbs__sep" aria-hidden="true">›</span></li>
-        <li><a href="/collections/business-furniture">Shop Furniture</a><span class="ds-cs__crumbs__sep" aria-hidden="true">›</span></li>
-        <li><a href="/collections/{{ parent_handle }}">{{ parent_title }}</a><span class="ds-cs__crumbs__sep" aria-hidden="true">›</span></li>
-        <li><span class="ds-cs__crumbs__current" aria-current="page">{{ page_title }}</span></li>
-      </ol>
-    </div>
-  </nav>
+  {%- liquid
+    assign _cs_parent_href = '/collections/' | append: parent_handle
+  -%}
+  {%- render 'bbi-crumbs', c2_label: 'Shop Furniture', c2_href: '/collections/business-furniture', c3_label: parent_title, c3_href: _cs_parent_href, c4_label: page_title -%}
 
   {%- comment -%} ── Hero strip ── {%- endcomment -%}
   <section class="ds-cs__hero">

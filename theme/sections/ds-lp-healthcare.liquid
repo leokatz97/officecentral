@@ -101,14 +101,6 @@
 .lp-hc .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
 
 /* ---- Crumbs ---- */
-.lp-hc .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
-.lp-hc .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
-.lp-hc .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
-.lp-hc .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
-.lp-hc .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
-.lp-hc .bbi-crumbs li:last-child{font-weight:500;}
-.lp-hc .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
-.lp-hc .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
 
 /* ---- Hero ---- */
 .lp-hc .lp-hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
@@ -299,16 +291,8 @@
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'industries' -%}
 
-  {%- comment -%}BREADCRUMBS{%- endcomment -%}
-  <div class="lp-crumbs-band">
-    <div class="lp-crumbs-band__inner">
-      <ol class="bbi-crumbs" aria-label="Breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a href="/pages/industries">Industries</a></li>
-        <li aria-current="page">Healthcare &amp; Clinical</li>
-      </ol>
-    </div>
-  </div>
+  {%- render 'bbi-crumbs', c2_label: 'Industries', c2_href: '/pages/industries', c3_label: 'Healthcare &amp; Clinical' -%}
+
 
   {%- comment -%}HERO{%- endcomment -%}
   <section class="lp-hero" aria-label="Hero">

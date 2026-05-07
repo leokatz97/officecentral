@@ -42,14 +42,6 @@
 .lp-ergo .bbi-nav-item.is-current::after{content:"";position:absolute;left:14px;right:14px;bottom:18px;height:1px;background:var(--textColor);}
 .lp-ergo .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
 .lp-ergo .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
-.lp-ergo .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
-.lp-ergo .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
-.lp-ergo .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
-.lp-ergo .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
-.lp-ergo .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
-.lp-ergo .bbi-crumbs li:last-child{font-weight:500;}
-.lp-ergo .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
-.lp-ergo .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
 .lp-ergo .lp-hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
 .lp-ergo .lp-hero__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--space-12);align-items:center;}
 .lp-ergo .lp-hero__text{max-width:560px;}
@@ -151,16 +143,8 @@
 <div class="lp-ergo scheme-default">
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'brands' -%}
+  {%- render 'bbi-crumbs', c2_label: 'Brands', c2_href: '/pages/brands', c3_label: 'ergoCentric' -%}
 
-  <div class="lp-crumbs-band">
-    <div class="lp-crumbs-band__inner">
-      <ol class="bbi-crumbs" aria-label="Breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a href="/pages/brands">Brands</a></li>
-        <li aria-current="page">ergoCentric</li>
-      </ol>
-    </div>
-  </div>
 
   <section class="lp-hero" aria-label="Hero">
     <div class="lp-hero__inner">

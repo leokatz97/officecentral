@@ -81,14 +81,6 @@
 .lp-ps .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
 
 /* ---- Crumbs ---- */
-.lp-ps .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
-.lp-ps .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
-.lp-ps .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
-.lp-ps .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
-.lp-ps .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
-.lp-ps .bbi-crumbs li:last-child{font-weight:500;}
-.lp-ps .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
-.lp-ps .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
 
 /* ---- Hero ---- */
 .lp-ps .lp-hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
@@ -248,16 +240,8 @@
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'industries' -%}
 
-  {%- comment -%}BREADCRUMBS{%- endcomment -%}
-  <div class="lp-crumbs-band">
-    <div class="lp-crumbs-band__inner">
-      <ol class="bbi-crumbs" aria-label="Breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a href="/pages/industries">Industries</a></li>
-        <li aria-current="page">Professional Services</li>
-      </ol>
-    </div>
-  </div>
+  {%- render 'bbi-crumbs', c2_label: 'Industries', c2_href: '/pages/industries', c3_label: 'Professional Services' -%}
+
 
   {%- comment -%}HERO{%- endcomment -%}
   <section class="lp-hero" aria-label="Hero">

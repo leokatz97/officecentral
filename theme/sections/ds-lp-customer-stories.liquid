@@ -40,15 +40,6 @@
 .lp-stories .bbi-nav-item:hover{color:var(--headerHoverColor);}
 .lp-stories .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
 .lp-stories .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
-/* Breadcrumbs */
-.lp-stories .bbi-crumbs-band{background:var(--alternateBackground);border-bottom:1px solid var(--borderColor);}
-.lp-stories .bbi-crumbs-band__inner{max-width:1320px;margin:0 auto;padding:12px 32px;}
-.lp-stories .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
-.lp-stories .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
-.lp-stories .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
-.lp-stories .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
-.lp-stories .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
-.lp-stories .bbi-crumbs li:last-child{font-weight:500;}
 /* Page intro */
 .lp-stories .lp-st-intro{max-width:1320px;margin:0 auto;padding:64px 32px 48px;}
 .lp-stories .lp-st-intro__eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
@@ -123,7 +114,6 @@
   .lp-stories .lp-st-quote__mark{top:16px;left:24px;font-size:60px;}
   .lp-stories .bbi-cta-section.scheme-inverse{padding:56px 20px;}
   .lp-stories .bbi-footer__grid{grid-template-columns:1fr 1fr;gap:24px;}
-  .lp-stories .bbi-crumbs-band__inner{padding:10px 20px;}
 }
 </style>
 
@@ -131,15 +121,7 @@
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'about' -%}
 
-  <nav class="bbi-crumbs-band" aria-label="Breadcrumb">
-    <div class="bbi-crumbs-band__inner">
-      <ol class="bbi-crumbs">
-        <li><a href="/">Home</a></li>
-        <li><a href="/pages/about">About</a></li>
-        <li>Customer Stories</li>
-      </ol>
-    </div>
-  </nav>
+  {%- render 'bbi-crumbs', c2_label: 'About', c2_href: '/pages/about', c3_label: 'Customer Stories' -%}
 
   <!-- Page intro -->
   <section class="lp-st-intro">
