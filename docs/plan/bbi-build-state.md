@@ -212,6 +212,25 @@ Four deploy-error patterns recurred during P1 builds. The `/bbi-build-page` skil
 
 ---
 
+## Wave G — Phase 5: Product + system templates
+
+**Pre-req:** Wave C complete (so brand pages link to live trust pages). Independent of Wave D.
+**Goal:** Rebuild the PDP template + add the missing system pages (Customer Stories, custom 404, smart collections, blog templates) before audit + launch waves run.
+**Why before Wave E:** Wave E hardening runs perf / a11y / link-rot / schema audits on every page in the `bbi_landing` gate. Running those before the PDP rebuild means re-running them after — wasted work. Build everything, then audit once. The user explicitly accepted slower launch in exchange for first-time-right.
+
+| ID | Task | Status | Evidence | Notes |
+|---|---|---|---|---|
+| PB-PDP-1 | Extend `bbi_landing` gate for `template == 'product'` | ⬜ | TBD `theme/layout/theme.liquid` | Add `template == 'product'` to bbi_landing gate so PDPs render bbi-nav/bbi-footer wrappers and Starlite chrome stays suppressed. Smoke test deferred to PDP-1. |
+| PDP-1 | Build `ds-pdp-base.liquid` section + `product.json` template | ⬜ | TBD `theme/sections/ds-pdp-base.liquid`, `theme/templates/product.json` | Hero gallery (carousel + zoom from `product.images`); spec table from PE-2 metafields (`product.metafields.specs.*`); **Request a Quote CTA auto-rendered when `product.price == 0` OR `product.available == false`** (BBI rule #2 — unbuyable items stay live as lead-capture pages); related products (same `type:*` tag, max 4); 4-level breadcrumb (Home > Shop Furniture > Category > Product); renders `bbi-nav` (active=`shop`) + `bbi-footer`. Use `image_url` + `image_tag` for responsive srcset; lazy-load below-fold images per CLAUDE.md performance rules. |
+| PDP-2 | Wire JSON-LD into `ds-pdp-base` (absorbs AI-3) | ⬜ | TBD `theme/snippets/bbi-product-jsonld.liquid` rendered from `ds-pdp-base` | **Absorbs AI-3 (Product schema on every PDP) — that row removed from Wave E.** Product JSON-LD: `name`, `description`, `image`, `offers` (price + availability + `priceCurrency: CAD`), `brand`, `sku`, `mpn` if present. Renders shared `bbi-breadcrumb-jsonld.liquid` snippet from AI-6 (don't duplicate breadcrumb logic). Validate with Google Rich Results Test on 3 PDPs (Hero in-stock, Hero sold-out, $0 showcase). |
+| PDP-3 | PDP smoke test — 5 product states | ⬜ | TBD `data/reports/pdp-smoke-<date>.csv` | Test 5 PDP states: (a) in-stock priced Hero, (b) sold-out, (c) $0 showcase, (d) Hero with full spec metafields, (e) non-Hero with sparse metafields. DOM assertions per page: `bbi-header=1`, `bbi-footer=1`, Starlite suppressed, breadcrumb 4-level, Product JSON-LD valid, Quote CTA visible on (b)+(c) only. |
+| CS-1 | Customer Stories page (`/pages/customer-stories`) | ⬜ | TBD `theme/sections/ds-lp-customer-stories.liquid`, `theme/templates/page.customer-stories.json` | Page hero + industry filter chips (healthcare, education, government, non-profit, professional-services) + story cards (image, pull-quote, customer name, industry tag, link to full case study). Review schema (`schema.org/Review`) per testimonial. Seed from `data/oci-photos/catalog.json` (48 photos) + `docs/strategy/voice-samples.md`. **Cross-linked from:** homepage Rule 6 ("Read customer stories →"), About page, 5 industry pages, 3 brand pages. Site architecture §2j flags as ⭐ priority. |
+| 404-1 | Custom 404 page (`templates/404.json`) | ⬜ | TBD `theme/sections/ds-system-404.liquid`, `theme/templates/404.json` | Branded 404 — H1 "Page not found" + brief copy + search box (`/search` form) + 4 top category tiles (seating, desks, storage, tables) + phone CTA + Quote button. Add `template == '404'` to `bbi_landing` gate. Smoke test by hitting any garbage URL on dev theme. |
+| SMART-1 | Smart collections — 10 "view all" + 4 brand-filtered | ⬜ | TBD `scripts/create-smart-collections.py`, `data/reports/smart-collections-<date>.csv` | Create 14 smart collections via Shopify Admin API. **10 "view all" per category** (`all-seating`, `all-desks`, `all-storage`, `all-tables`, `all-boardroom`, `all-ergonomic`, `all-panels`, `all-accessories`, `all-quiet-spaces`, `all-business-furniture`) — rule: tagged `type:<category>`. **4 brand-filtered** (`keilhauer`, `global-teknion`, `ergocentric`, `oecm-eligible`) — rule: tagged `brand:<brand>` or `oecm-eligible`. Reuses smart-collection helper from PB-14. Backup current collection list before running; `--dry-run` default. Wired up by category-page "View all" CTAs (already in interlinking-map). |
+| BLOG-TPL-1 | Blog + Article templates (empty — content deferred) | ⬜ | TBD `theme/templates/blog.json`, `theme/templates/article.json`, `theme/sections/ds-blog-list.liquid`, `theme/sections/ds-article.liquid` | BBI-styled templates only — no posts yet. **Resources hub** (paginated list, category filter chips, optional tag filter, related products from collection metafield). **Article** (hero image, prose body, related products module, FAQPage schema if `article.metafields.faq` exists, share buttons, author/date metadata). Add `template == 'blog'` and `template == 'article'` to `bbi_landing` gate. First posts (BL-1..BL-6 + B1..B10) stay in post-launch backlog per CLAUDE.md (every post starts with DataForSEO keyword research). |
+
+---
+
 ## Wave E — Pre-launch hardening
 
 **Pre-req:** Waves A + C complete.
@@ -219,9 +238,8 @@ Four deploy-error patterns recurred during P1 builds. The `/bbi-build-page` skil
 
 | ID | Task | Status | Evidence | Notes |
 |---|---|---|---|---|
-| AI-3 | Product schema (JSON-LD) on every PDP | ⬜ | view-source check | `name`, `description`, `image`, `offers`, `brand`, `sku` |
 | AI-4 | Organization schema on homepage + About | ⬜ | view-source check | `name`, `url`, `logo`, `telephone`, `address`, `areaServed`, `sameAs` |
-| AI-6 | BreadcrumbList JSON-LD on collection + product pages | ⬜ | view-source check | |
+| AI-6 | BreadcrumbList JSON-LD via shared snippet | ⬜ | TBD `theme/snippets/bbi-breadcrumb-jsonld.liquid` | Build the snippet, then render from `ds-cc-base` (Phase 2 categories), `ds-cs-base` (Phase 3 sub-collections), and `ds-pdp-base` (PDP-2 in Wave G). Don't duplicate the schema logic in each section — own it once in the snippet. |
 | AI-7 | Entity-clarity copy on homepage | ⬜ | first 200 words on `/` | Who BBI is, what they sell, who they serve, where |
 | AI-8 | OECM page copy hardening | ⬜ | `/pages/oecm` | Highest-value AI citation target |
 | AI-9 | FAQ blocks on category pages | ⬜ | 9 category pages | 3–5 Q&A per category, FAQPage schema |
@@ -237,6 +255,7 @@ Four deploy-error patterns recurred during P1 builds. The `/bbi-build-page` skil
 | PERF-AUDIT-1 | Lighthouse + Core Web Vitals on top 10 pages | ⬜ | TBD `data/reports/perf-audit-<date>.csv` | Run Lighthouse mobile + desktop on /, /collections/business-furniture, /collections/seating, /pages/oecm, /pages/healthcare, /pages/quote, /pages/faq, /pages/about, /pages/our-work, /pages/contact. Save scores + LCP/FID/CLS/INP. Flag pages below mobile-perf 80 or any CWV failing. |
 | A11Y-AUDIT-1 | WCAG 2.1 AA audit on top 10 pages | ⬜ | TBD `data/reports/a11y-audit-<date>.csv` | axe-core or pa11y CLI on the same 10 pages. Hard fails: missing alt text, no form labels, contrast < 4.5:1, focus traps broken, keyboard gaps. Per-page issue list. |
 | LINK-ROT-1 | Internal + external link 200/404 sweep | ⬜ | TBD `data/reports/link-rot-<date>.csv` | Crawl every `<a href>` across all bbi_landing pages. Internal: assert 200. External: flag 404/500/timeouts. |
+| SYS-VERIFY-1 | System pages (cart / search / account / password) chrome verification | ⬜ | TBD `data/reports/system-pages-verify-<date>.csv` | DOM check on `/cart`, `/search`, `/account/login`, `/account/register`, `/account`, `/password`. Architecture §2m flags these as "Standard Shopify" templates — they should NOT be in `bbi_landing` gate, so the inherited Starlite header/footer renders intact. Confirm: no double header/footer, no chrome leak, search/cart/account flows still functional. If any page in the gate accidentally pulls bbi-nav/bbi-footer (or vice-versa), patch the gate. **Reverse-direction check** vs. lessons-learned #1 — instead of "did we add the suffix?", "did we accidentally include something that should stay Starlite?" |
 | CONTENT-1 | Finalize BBI logo asset | ⬜ | `data/logos/bbi-logo-final.png` | 🔔 **NEEDS DECISION** — `bbi-logo-v2` is the Brant Basics wordmark (not BBI-specific). Lock it as the current answer, OR source/design a true "Brant Business Interiors" wordmark. If sourcing new, that's a content task that adds 1–2 days. |
 
 ---
@@ -325,7 +344,7 @@ All Hero 100 product enrichment is LIVE on Shopify.
 | AI-1 | `llms.txt` deployed | ✅ | commit `a2118f3` |
 | AI-2 | `robots.txt` audit | ✅ | commit `24ab01e` |
 | AI-12 | `audit-ai-readability.py` script | ✅ | commit `a752eb3` |
-| AI-3..AI-11 | Schema + copy work | ⬜ | see Wave E |
+| AI-4..AI-9 | Schema + copy work | ⬜ | see Wave E (AI-3 absorbed into PDP-2 in Wave G; AI-10..AI-11 in backlog) |
 
 ---
 
@@ -335,6 +354,7 @@ All Hero 100 product enrichment is LIVE on Shopify.
 2. **brand-dealer reconciliation** — section file is on a separate branch, suffix is in the gate. Merge or de-gate? (PB-13)
 3. **BBI logo** — `bbi-logo-v2` is Brant Basics wordmark. Lock it or source a true BBI wordmark? (CONTENT-1)
 4. **Smart Collection migration timing** — confirmed: before Phase 3 (Wave B step 1)
+5. **Customer Stories source content** — CS-1 (Wave G) needs 5–8 testimonials with photos. Pull from `data/oci-photos/catalog.json` (project photos) + voice-samples.md, or does Steve have testimonial copy approved by clients we can quote on the public site? Permission matters for Review schema.
 
 ---
 
