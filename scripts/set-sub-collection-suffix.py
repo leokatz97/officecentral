@@ -28,37 +28,37 @@ STORE       = "office-central-online.myshopify.com"
 API_VERSION = "2024-01"
 TARGET_SUFFIX = "base"
 
-# All 68 sub-collection handles from site-architecture-2026-04-25.md
+# Stage 3.2c — exactly the 56 populated legacy collections from stage-3.2a.5-migration-plan.md §1.
+# highback-seating is excluded (already migrated in Stage 3.2b).
+# 0-product collections (audio-visual-equipment, chair-accessories, anti-fatigue-mats,
+# technology, metal-shelving) are excluded per migration plan §6.
+# Missing handles (monitor-accessories, filing-accessories, mobility-aids,
+# phone-booths, meeting-pods) are excluded — don't exist in Shopify.
 SUB_COLLECTION_HANDLES = [
-    # Seating
-    "highback-seating", "medium-back-seating", "mesh-seating", "leather-faux-seating",
-    "stools-seating", "lounge-chairs-seating", "ottomans", "guest-seating",
-    "stacking-seating", "folding-stacking-chairs-carts", "nesting-chairs-chair",
-    "24-hour-seating", "big-heavy-seating", "cluster-seating", "industrial-seating", "gaming",
-    # Desks
-    "u-shape-desks-desks", "l-shape-desks-desks", "height-adjustable-tables-desks",
-    "multi-person-workstations-desks", "benching-desks", "table-desks",
-    "straight-desks-desks", "reception", "office-suites-desks",
-    # Storage
-    "lateral-files-storage", "vertical-files", "storage-cabinets-storage",
-    "bookcases-storage", "hutch", "lateral-storage-combo-storage", "end-tab-filing-storage",
-    "pedestal-drawers-storage", "fire-resistant-safes-storage", "metal-shelving",
-    "lockers", "fire-resistant-file-cabinets-storage", "wardrobe-storage", "credenzas",
-    # Tables
-    "meeting-tables", "coffee-tables", "training-flip-top-tables", "end-tables-tables",
-    "drafting-tables", "round-square-tables", "cafeteria-kitchen-tables",
-    "bar-height-tables", "folding-tables-tables", "table-bases",
-    # Boardroom
-    "boardroom-conference-meeting", "lecterns-podiums", "audio-visual-equipment",
-    # Ergonomic
-    "height-adjustable-tables", "monitor-arms", "keyboard-trays", "desktop-sit-stand",
-    # Panels
+    # Seating (15)
+    "medium-back-seating", "mesh-seating", "guest-seating", "leather-faux-seating",
+    "lounge-chairs-seating", "stacking-seating", "stools-seating", "big-heavy-seating",
+    "industrial-seating", "folding-stacking-chairs-carts", "ottomans",
+    "nesting-chairs-chair", "24-hour-seating", "gaming", "cluster-seating",
+    # Desks (9)
+    "l-shape-desks-desks", "height-adjustable-tables-desks", "straight-desks-desks",
+    "u-shape-desks-desks", "office-suites-desks", "multi-person-workstations-desks",
+    "table-desks", "reception", "benching-desks",
+    # Storage (13)
+    "bookcases-storage", "storage-cabinets-storage", "fire-resistant-safes-storage",
+    "credenzas", "pedestal-drawers-storage", "lateral-files-storage",
+    "fire-resistant-file-cabinets-storage", "lockers", "vertical-files",
+    "wardrobe-storage", "lateral-storage-combo-storage", "hutch", "end-tab-filing-storage",
+    # Tables (10)
+    "meeting-tables", "round-square-tables", "folding-tables-tables", "drafting-tables",
+    "coffee-tables", "end-tables-tables", "table-bases", "training-flip-top-tables",
+    "cafeteria-kitchen-tables", "bar-height-tables",
+    # Boardroom (2)
+    "boardroom-conference-meeting", "lecterns-podiums",
+    # Ergonomic Products (4)
+    "height-adjustable-tables", "desktop-sit-stand", "monitor-arms", "keyboard-trays",
+    # Panels & Room Dividers (3)
     "room-dividers-panels-dividers", "desk-top-dividers", "modesty-panels",
-    # Accessories
-    "chair-accessories", "desk-accessories", "monitor-accessories",
-    "anti-fatigue-mats", "filing-accessories", "mobility-aids", "technology",
-    # Quiet Spaces
-    "phone-booths", "meeting-pods",
 ]
 
 
