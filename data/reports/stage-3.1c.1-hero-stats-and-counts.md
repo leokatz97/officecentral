@@ -228,3 +228,40 @@ The following shared snippets were **not modified**:
 3. Set up smart collection rules that filter by these tags (or implement JS-based client-side filter on the existing product grid)
 
 Until the tagging pass runs, a filter rail would render all dropdowns with 0 items. The filter rail markup can be added as a progressive enhancement in 3.1c.2; it won't break the page if absent.
+
+---
+
+## Stage 3.1c.1.1 Hotfix
+
+**Commit:** `4c89aaf`  
+**Date:** 2026-05-07
+
+### What changed
+
+| Change | Reason |
+|---|---|
+| Removed Canadian-made stat from strip | `collection.products` Liquid pagination cap (250 products) made the count unreliable; removed rather than qualify |
+| Removed Lead time stat from strip | User feedback — not useful as a static value; schema setting also removed |
+| Removed `_stat_canadian` tag loop | No longer needed after Canadian-made stat dropped |
+| Removed `lead_time` schema setting | No longer referenced anywhere |
+| Added `.ds-cc__cm-badge` static trust pill | Canadian-made as a trust signal, not a counted stat — pill with maple leaf SVG, eyebrow-style Mono text, muted background |
+
+### Hero stats strip after hotfix
+
+`MODELS · BRANDS · IN STOCK` (3 items)
+
+### Canadian-made badge
+
+Inline static pill directly below the `</dl>`, above the CTA row. Non-clickable (Steve can add a link in a later pass). Matches maple leaf SVG path used in `bbi-footer.liquid`. CSS scoped to `.ds-cc__cm-badge` / `.ds-cc__cm-badge-leaf`.
+
+### No template changes required
+
+Grep of all `collection.*.json` templates confirmed zero references to `lead_time` — the setting had a default and was never explicitly set per-hub.
+
+### Push result
+
+| File | Theme | HTTP |
+|---|---|---|
+| `sections/ds-cc-base.liquid` | dev `186373570873` | **200 OK** |
+
+All 9 spot-checks on pulled content: PASS.
