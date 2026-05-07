@@ -19,7 +19,8 @@
 .lp-keilhauer *,.lp-keilhauer *::before,.lp-keilhauer *::after{box-sizing:border-box;}
 .lp-keilhauer{font-family:var(--bodyFont);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);background:var(--background);-webkit-font-smoothing:antialiased;}
 .lp-keilhauer img{display:block;max-width:100%;height:auto;}
-.lp-keilhauer a{color:var(--linkColor);}
+.lp-keilhauer a{color:var(--linkColor);text-decoration:none;}
+.bbi-icon--leaf{display:inline-block;width:14px;height:14px;vertical-align:-2px;color:#D4252A;flex-shrink:0;}
 .lp-keilhauer .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
 .lp-keilhauer .bbi-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:12px 20px;min-height:44px;font-family:var(--bodyFont);font-size:var(--fs-button);line-height:var(--lh-button);letter-spacing:var(--ls-button);font-weight:600;border-radius:var(--buttonRadius);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;white-space:nowrap;}
 .lp-keilhauer .bbi-btn:focus{outline:none;}.lp-keilhauer .bbi-btn:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
@@ -144,7 +145,7 @@
         </p>
         <span class="lp-hero__badge">
           <span class="lp-hero__badge-dot"></span>
-          Authorized Keilhauer Dealer &middot; Made in Toronto, ON &#127809;
+          Authorized Keilhauer Dealer &middot; Made in Toronto, ON <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg>
         </span>
         <h1>{{ section.settings.heading | default: 'Keilhauer seating for boardrooms, lounges, and workspaces.' }}</h1>
         <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Premium commercial seating made in Toronto, Ontario. Boardroom chairs, lounge seating, and task seating for Ontario institutions — available under OECM Agreement 2025-470. Quote in 1 business day.' }}</p>
@@ -166,7 +167,7 @@
         {%- endif -%}
         <div class="lp-hero__caption">
           <span class="lp-hero__caption-dot"></span>
-          <span>Keilhauer &mdash; made in Toronto, Ontario &#127809;</span>
+          <span>Keilhauer &mdash; made in Toronto, Ontario <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg></span>
         </div>
       </div>
     </div>
@@ -191,7 +192,7 @@
       </div>
       <div class="lp-diff__grid">
         <article class="lp-diff-card">
-          <span class="lp-diff-card__num">&#127809; Made in Canada</span>
+          <span class="lp-diff-card__num"><svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg> Made in Canada</span>
           <h3 class="lp-diff-card__label">Toronto manufacturing</h3>
           <p class="lp-diff-card__sentence">Keilhauer chairs are made in Toronto, Ontario. Short lead times, Canadian parts, and post-sale service without shipping across a border.</p>
         </article>

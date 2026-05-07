@@ -19,7 +19,8 @@
 .lp-about *,.lp-about *::before,.lp-about *::after{box-sizing:border-box;}
 .lp-about{font-family:var(--bodyFont);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);background:var(--background);-webkit-font-smoothing:antialiased;}
 .lp-about img{display:block;max-width:100%;height:auto;}
-.lp-about a{color:var(--linkColor);}
+.lp-about a{color:var(--linkColor);text-decoration:none;}
+.bbi-icon--leaf{display:inline-block;width:14px;height:14px;vertical-align:-2px;color:#D4252A;flex-shrink:0;}
 .lp-about .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
 .lp-about .bbi-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:12px 20px;min-height:44px;font-family:var(--bodyFont);font-size:var(--fs-button);line-height:var(--lh-button);letter-spacing:var(--ls-button);font-weight:600;border-radius:var(--buttonRadius);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;white-space:nowrap;}
 .lp-about .bbi-btn:focus{outline:none;}.lp-about .bbi-btn:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
@@ -106,7 +107,7 @@
     <div class="lp-hero__inner">
       <div class="lp-hero__text">
         <p class="lp-hero__eyebrow bbi-mono">
-          <span class="lp-hero__eyebrow-label">About &middot; Brant Business Interiors &#127809;</span>
+          <span class="lp-hero__eyebrow-label">About &middot; Brant Business Interiors <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg></span>
         </p>
         <h1>{{ section.settings.heading | default: 'Ontario-owned commercial furniture — part of the Office Central Group.' }}</h1>
         <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Brant Business Interiors is a Canadian-owned commercial furniture dealer headquartered in Peterborough, Ontario. OECM Supplier Partner since 2019. Part of the Office Central Group of Companies.' }}</p>
@@ -128,7 +129,7 @@
         {%- endif -%}
         <div class="lp-hero__caption">
           <span class="lp-hero__caption-dot"></span>
-          <span>Peterborough, Ontario &mdash; Canadian-owned &#127809;</span>
+          <span>Peterborough, Ontario &mdash; Canadian-owned <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg></span>
         </div>
       </div>
     </div>
@@ -153,7 +154,7 @@
       </div>
       <div class="lp-diff__grid">
         <article class="lp-diff-card">
-          <span class="lp-diff-card__num">&#127809; Canadian-owned</span>
+          <span class="lp-diff-card__num"><svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg> Canadian-owned</span>
           <h3 class="lp-diff-card__label">Ontario-based, Ontario-focused</h3>
           <p class="lp-diff-card__sentence">We are headquartered in Peterborough and serve customers across Ontario. Our team understands the institutional procurement process, timelines, and site constraints that come with Ontario projects.</p>
         </article>
