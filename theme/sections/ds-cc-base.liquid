@@ -141,12 +141,49 @@
   font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
   letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.5);}
 
+/* ---- Skip-by-sector bar ---- */
+.ds-cc__skip-bar{padding:12px 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);background:var(--alternateBackground);}
+.ds-cc__skip-bar-inner{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;}
+.ds-cc__skip-bar-lbl{flex:0 0 auto;font-size:10px;color:rgba(var(--textColor-rgb),0.5);}
+.ds-cc__skip-bar-chips{display:flex;gap:var(--space-2);flex-wrap:wrap;}
+.ds-cc__skip-chip{
+  display:inline-block;padding:6px 14px;
+  border:1px solid rgba(var(--borderColor-rgb),0.9);border-radius:999px;
+  font-size:13px;font-weight:500;color:var(--textColor);text-decoration:none;
+  background:var(--cardBackground);white-space:nowrap;
+  transition:border-color 120ms ease,background 120ms ease;
+}
+.ds-cc__skip-chip:hover{border-color:rgba(var(--textColor-rgb),0.4);background:var(--alternateBackground);}
+.ds-cc__skip-chip:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+
+/* ---- 30+ brands band ---- */
+.ds-cc__brands-band{padding:14px 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.ds-cc__brands-band-inner{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;}
+.ds-cc__brands-band-copy{font-size:14px;color:rgba(var(--textColor-rgb),0.7);margin:0;}
+.ds-cc__brands-band-link{font-size:14px;font-weight:600;color:var(--textColor);text-decoration:none;white-space:nowrap;}
+.ds-cc__brands-band-link:hover{text-decoration:underline;text-underline-offset:2px;}
+.ds-cc__brands-band-link:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+
 /* ---- Intro ---- */
 .ds-cc__intro{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
 .ds-cc__intro-inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
 .ds-cc__intro-inner p{font-size:17px;line-height:1.6;
   color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-4);text-wrap:pretty;}
 .ds-cc__intro-inner p:last-child{margin-bottom:0;}
+
+/* ---- Sub-cat filter bar ---- */
+.ds-cc__filter-bar{padding:var(--space-4) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.ds-cc__filter-bar-inner{display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.ds-cc__filter-bar-inner::-webkit-scrollbar{display:none;}
+.ds-cc__filter-chip{
+  display:inline-block;padding:7px 16px;
+  border:1px solid rgba(var(--borderColor-rgb),0.9);border-radius:999px;
+  font-size:13px;font-weight:500;color:var(--textColor);text-decoration:none;
+  background:var(--cardBackground);white-space:nowrap;flex:0 0 auto;
+  transition:border-color 120ms ease,background 120ms ease;
+}
+.ds-cc__filter-chip:hover{border-color:rgba(var(--textColor-rgb),0.4);background:var(--alternateBackground);}
+.ds-cc__filter-chip:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
 
 /* ---- Tile grid section ---- */
 .ds-cc__tiles-section{padding:var(--space-12) 0;}
@@ -249,6 +286,65 @@
   margin:0;text-wrap:pretty;flex:1;
 }
 
+/* ---- Brand plates (8 per hub) ---- */
+.ds-cc__brand-plates{
+  padding:var(--space-12) 0;
+  border-top:1px solid rgba(var(--borderColor-rgb),0.6);
+}
+.ds-cc__brand-plates-head{margin-bottom:var(--space-8);}
+.ds-cc__brand-plates-eyebrow{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  color:rgba(var(--textColor-rgb),0.5);margin:0 0 var(--space-2);
+  display:inline-flex;align-items:center;gap:var(--space-2);
+}
+.ds-cc__brand-plates-eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.ds-cc__brand-plates-heading{
+  font-family:var(--headingFont);font-size:var(--fs-h3);font-weight:600;
+  color:var(--headingColor);margin:0;
+}
+.ds-cc__brand-plates-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:var(--space-4);
+}
+@media(min-width:1200px){.ds-cc__brand-plates-grid{grid-template-columns:repeat(4,1fr);}}
+.ds-cc__brand-plate{
+  display:flex;flex-direction:column;gap:var(--space-2);
+  background:var(--cardBackground);
+  border:1px solid rgba(var(--borderColor-rgb),0.8);
+  border-radius:var(--cardRadius);
+  padding:var(--space-6) var(--space-4);
+  text-decoration:none;color:var(--textColor);
+  transition:box-shadow 160ms ease,border-color 160ms ease;
+}
+.ds-cc__brand-plate:hover{box-shadow:var(--shadow-sm);border-color:rgba(var(--textColor-rgb),0.2);}
+.ds-cc__brand-plate:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+.ds-cc__brand-plate-logo{height:32px;object-fit:contain;object-position:left center;}
+.ds-cc__brand-plate-name{
+  font-family:var(--headingFont);font-size:14px;font-weight:600;
+  color:var(--headingColor);margin:0;
+}
+.ds-cc__brand-plate-badges{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-1);}
+.bbi-badge--canadian{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 8px;
+  border:1px solid rgba(var(--textColor-rgb),0.4);border-radius:4px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--textColor);background:transparent;
+}
+.bbi-badge--canadian .leaf{width:10px;height:10px;flex:0 0 auto;color:var(--saleBadgeBackground);}
+.bbi-badge--oem{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 8px;
+  border:1px solid rgba(var(--borderColor-rgb),1);border-radius:4px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:0.06em;text-transform:uppercase;
+  color:rgba(var(--textColor-rgb),0.6);background:transparent;
+}
+@media(max-width:767px){.ds-cc__brand-plates-grid{grid-template-columns:repeat(2,1fr);}}
+
 /* ---- Phone CTA closer ---- */
 .ds-cc__phone-cta{
   --background:#0B0B0C;--background-rgb:11,11,12;
@@ -276,6 +372,67 @@
 .ds-cc__phone-num:hover{text-decoration:underline;}
 .ds-cc__phone-sub{font-size:13px;color:rgba(255,255,255,0.55);margin:0;}
 
+/* ---- Product grid (paginated) ---- */
+.ds-cc__product-grid-section{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.ds-cc__product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:var(--space-4);
+  margin-bottom:var(--space-8);
+}
+@media(min-width:1200px){.ds-cc__product-grid{grid-template-columns:repeat(4,1fr);}}
+.ds-cc__product-card{
+  display:flex;flex-direction:column;
+  background:var(--cardBackground);
+  border:1px solid rgba(var(--borderColor-rgb),0.8);
+  border-radius:var(--cardRadius);
+  overflow:hidden;text-decoration:none;color:var(--textColor);
+  transition:box-shadow 160ms ease,border-color 160ms ease;
+}
+.ds-cc__product-card:hover{box-shadow:var(--shadow-sm);border-color:rgba(var(--textColor-rgb),0.2);}
+.ds-cc__product-card-media{
+  aspect-ratio:4/5;background:var(--alternateBackground);
+  overflow:hidden;position:relative;flex:0 0 auto;
+}
+.ds-cc__product-card-media img{width:100%;height:100%;object-fit:cover;transition:transform 240ms ease;}
+.ds-cc__product-card:hover .ds-cc__product-card-media img{transform:scale(1.03);}
+.ds-cc__product-card-ph{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,rgba(var(--shadowColor-rgb),.03) 0 2px,transparent 2px 12px);
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+  letter-spacing:0.06em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.4);
+  text-align:center;padding:8px;
+}
+.ds-cc__product-card-body{
+  padding:var(--space-4);display:flex;flex-direction:column;gap:4px;flex:1;
+}
+.ds-cc__product-card-brand{font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.55);margin:0;}
+.ds-cc__product-card-title{font-family:var(--headingFont);font-size:14px;font-weight:600;line-height:1.3;color:var(--headingColor);margin:0;}
+.ds-cc__product-card-price{font-size:13px;color:rgba(var(--textColor-rgb),0.7);margin:0;}
+.ds-cc__product-card-cta{
+  margin-top:auto;padding-top:var(--space-3);
+}
+.ds-cc__product-card-cta .bbi-btn{width:100%;justify-content:center;min-height:40px;font-size:13px;padding:10px 16px;}
+.ds-cc__badge{
+  position:absolute;top:var(--space-2);left:var(--space-2);
+  padding:3px 8px;border-radius:4px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;
+}
+.ds-cc__badge--sold{background:rgba(90,90,94,1);color:#fff;}
+.ds-cc__badge--sale{background:var(--saleBadgeBackground);color:#fff;}
+/* Pagination */
+.ds-cc__pagination{display:flex;justify-content:center;gap:var(--space-2);flex-wrap:wrap;}
+.ds-cc__pagination a,.ds-cc__pagination span{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:40px;min-height:40px;padding:8px 12px;
+  border:1px solid rgba(var(--borderColor-rgb),0.9);border-radius:var(--buttonRadius);
+  font-size:14px;font-weight:600;color:var(--textColor);text-decoration:none;
+}
+.ds-cc__pagination a:hover{background:var(--alternateBackground);}
+.ds-cc__pagination span.current{background:var(--textColor);color:var(--buttonColor);border-color:var(--textColor);}
+.ds-cc__pagination a:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+
 /* ---- Responsive ---- */
 @media(max-width:1023px){
   .ds-cc__hero-inner{grid-template-columns:1fr;gap:var(--space-8);}
@@ -287,9 +444,11 @@
   .ds-cc__brands-grid{grid-template-columns:1fr;}
   .ds-cc__phone-cta-inner{flex-direction:column;align-items:flex-start;}
   .ds-cc__inner{padding:0 var(--space-4);}
+  .ds-cc__product-grid{grid-template-columns:repeat(2,1fr);gap:var(--space-3);}
 }
 @media(max-width:479px){
   .ds-cc__tiles-grid{grid-template-columns:1fr;}
+  .ds-cc__product-grid{grid-template-columns:1fr;}
 }
 </style>
 
@@ -321,8 +480,8 @@
           <p class="ds-cc__hero-standfirst">{{ section.settings.hero_subtitle | escape }}</p>
         {%- endif -%}
         <div class="ds-cc__hero-cta-row">
-          <a href="{{ section.settings.cta_url | default: '/pages/quote' }}" class="bbi-btn bbi-btn--primary bbi-btn--lg">
-            {{ section.settings.cta_label | default: 'Get a free design consultation' | escape }}
+          <a href="/collections/{{ collection.handle }}" class="bbi-btn bbi-btn--primary bbi-btn--lg">
+            {{ section.settings.cta_label | default: 'Shop all ' | escape }}{{ section.settings.hero_title | default: collection.title | escape }}
           </a>
         </div>
         <p class="ds-cc__hero-micro">
@@ -342,6 +501,32 @@
     </div>
   </section>
 
+  {%- comment -%} ── Skip-by-sector bar ── {%- endcomment -%}
+  {%- if section.settings.show_sector_bar -%}
+  <nav class="ds-cc__skip-bar" aria-label="Shop by sector">
+    <div class="ds-cc__inner ds-cc__skip-bar-inner">
+      <span class="ds-cc__skip-bar-lbl bbi-mono">Shop by sector</span>
+      <div class="ds-cc__skip-bar-chips">
+        <a class="ds-cc__skip-chip" href="/pages/healthcare">Healthcare</a>
+        <a class="ds-cc__skip-chip" href="/pages/education">Education</a>
+        <a class="ds-cc__skip-chip" href="/pages/government">Government</a>
+        <a class="ds-cc__skip-chip" href="/pages/non-profit">Non-Profit</a>
+        <a class="ds-cc__skip-chip" href="/pages/professional-services">Professional Services</a>
+      </div>
+    </div>
+  </nav>
+  {%- endif -%}
+
+  {%- comment -%} ── 30+ brands band ── {%- endcomment -%}
+  {%- if section.settings.show_brands_band -%}
+  <div class="ds-cc__brands-band">
+    <div class="ds-cc__inner ds-cc__brands-band-inner">
+      <p class="ds-cc__brands-band-copy">30+ commercial furniture brands across 3 dealer tiers &middot; Ontario OECM partner</p>
+      <a class="ds-cc__brands-band-link" href="/pages/brands">View all brands <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+  {%- endif -%}
+
   {%- comment -%} ── Intro text (hidden when blank) ── {%- endcomment -%}
   {%- if section.settings.intro_text != blank -%}
     <section class="ds-cc__intro">
@@ -351,12 +536,28 @@
     </section>
   {%- endif -%}
 
-  {%- comment -%} ── Tile grid (always rendered — blocks added per-collection in P2-* builds) ── {%- endcomment -%}
+  {%- comment -%} ── Tile grid (rendered when grid_mode = tiles | both) ── {%- endcomment -%}
+  {%- assign _grid_mode_tiles = section.settings.grid_mode | default: 'both' -%}
   {%- assign tile_count = 0 -%}
   {%- for block in section.blocks -%}
     {%- if block.type == 'tile' -%}{%- assign tile_count = tile_count | plus: 1 -%}{%- endif -%}
   {%- endfor -%}
 
+  {%- comment -%} ── Sub-cat filter chips (nav pills, sourced from tile block links) ── {%- endcomment -%}
+  {%- assign _filter_tiles = section.blocks | where: 'type', 'tile' -%}
+  {%- if _filter_tiles.size > 1 and section.settings.show_filter_chips -%}
+  <nav class="ds-cc__filter-bar" aria-label="Sub-categories">
+    <div class="ds-cc__inner ds-cc__filter-bar-inner">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tile' and block.settings.link != blank -%}
+          <a class="ds-cc__filter-chip" href="{{ block.settings.link }}">{{ block.settings.title | escape }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </nav>
+  {%- endif -%}
+
+  {%- if _grid_mode_tiles != 'products' -%}
   <section class="ds-cc__tiles-section" aria-labelledby="cc-tiles-heading">
     <div class="ds-cc__inner">
       {%- comment -%} Visually hidden heading for accessibility {%- endcomment -%}
@@ -404,6 +605,89 @@
 
     </div>
   </section>
+  {%- endif -%}
+
+  {%- comment -%} ── Product grid (grid_mode: products | both; suppressed for tiles-only) ── {%- endcomment -%}
+  {%- assign _grid_mode = section.settings.grid_mode | default: 'both' -%}
+  {%- if _grid_mode == 'products' or _grid_mode == 'both' -%}
+    {%- assign _per_page = section.settings.products_per_page | default: 12 -%}
+    {%- paginate collection.products by _per_page -%}
+      {%- if collection.products_count > 0 -%}
+      <section class="ds-cc__product-grid-section" aria-labelledby="cc-products-heading">
+        <div class="ds-cc__inner">
+          <h2 id="cc-products-heading" class="visually-hidden">{{ section.settings.hero_title | default: collection.title | escape }} products</h2>
+          <div class="ds-cc__product-grid">
+            {%- for product in collection.products -%}
+              {%- liquid
+                assign _buyable = true
+                if product.available == false
+                  assign _buyable = false
+                endif
+                if product.price == 0
+                  assign _buyable = false
+                endif
+                if product.tags contains 'showcase'
+                  assign _buyable = false
+                endif
+              -%}
+              <a class="ds-cc__product-card" href="{{ product.url }}">
+                <div class="ds-cc__product-card-media">
+                  {%- if product.featured_image != blank -%}
+                    {{- product.featured_image | image_url: width: 600 | image_tag:
+                        loading: 'lazy',
+                        widths: '280,400,600',
+                        alt: product.featured_image.alt | default: product.title -}}
+                  {%- else -%}
+                    <div class="ds-cc__product-card-ph">{{ product.title | escape }}</div>
+                  {%- endif -%}
+                  {%- unless product.available -%}
+                    <span class="ds-cc__badge ds-cc__badge--sold">Sold</span>
+                  {%- endunless -%}
+                  {%- if product.compare_at_price > product.price and product.available -%}
+                    <span class="ds-cc__badge ds-cc__badge--sale">Sale</span>
+                  {%- endif -%}
+                </div>
+                <div class="ds-cc__product-card-body">
+                  {%- if product.vendor != blank -%}
+                    <p class="ds-cc__product-card-brand">{{ product.vendor | escape }}</p>
+                  {%- endif -%}
+                  <p class="ds-cc__product-card-title">{{ product.title | escape }}</p>
+                  {%- if _buyable -%}
+                    <p class="ds-cc__product-card-price">From {{ product.price | money }}</p>
+                  {%- endif -%}
+                  <div class="ds-cc__product-card-cta">
+                    {%- if _buyable -%}
+                      <span class="bbi-btn bbi-btn--secondary">View product</span>
+                    {%- else -%}
+                      <span class="bbi-btn bbi-btn--primary">Request a Quote</span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </a>
+            {%- endfor -%}
+          </div>
+          {%- if paginate.pages > 1 -%}
+            <nav class="ds-cc__pagination" aria-label="Product pages">
+              {%- if paginate.previous -%}
+                <a href="{{ paginate.previous.url }}" aria-label="Previous page">&larr;</a>
+              {%- endif -%}
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}
+                  <a href="{{ part.url }}">{{ part.title }}</a>
+                {%- else -%}
+                  <span class="current">{{ part.title }}</span>
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if paginate.next -%}
+                <a href="{{ paginate.next.url }}" aria-label="Next page">&rarr;</a>
+              {%- endif -%}
+            </nav>
+          {%- endif -%}
+        </div>
+      </section>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
 
   {%- comment -%} ── Brand callouts (optional — max 2 per spec) ── {%- endcomment -%}
   {%- assign brand_count = 0 -%}
@@ -445,6 +729,53 @@
       </div>
     </section>
   {%- endif -%}
+
+  {%- comment -%} ── Brand plates (8 per hub, data-derived from Phase 2) ── {%- endcomment -%}
+  {%- assign brand_plate_count = 0 -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'brand_plate' and block.settings.brand_plate_name != blank -%}
+      {%- assign brand_plate_count = brand_plate_count | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if brand_plate_count > 0 -%}
+  <section class="ds-cc__brand-plates" aria-labelledby="cc-brand-plates-heading">
+    <div class="ds-cc__inner">
+      <div class="ds-cc__brand-plates-head">
+        <p class="ds-cc__brand-plates-eyebrow">Authorized dealers</p>
+        <h2 id="cc-brand-plates-heading" class="ds-cc__brand-plates-heading">Brands in this category</h2>
+      </div>
+      <div class="ds-cc__brand-plates-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'brand_plate' and block.settings.brand_plate_name != blank -%}
+            {%- assign _bp_href = block.settings.brand_plate_link | default: '/pages/brands' -%}
+            <a class="ds-cc__brand-plate" href="{{ _bp_href }}" {{ block.shopify_attributes }}>
+              {%- if block.settings.brand_plate_logo != blank -%}
+                {{- block.settings.brand_plate_logo | image_url: width: 360 | image_tag:
+                    class: 'ds-cc__brand-plate-logo',
+                    loading: 'lazy',
+                    widths: '180,360',
+                    alt: block.settings.brand_plate_name -}}
+              {%- endif -%}
+              <p class="ds-cc__brand-plate-name">{{ block.settings.brand_plate_name | escape }}</p>
+              <div class="ds-cc__brand-plate-badges">
+                {%- if block.settings.brand_plate_canadian -%}
+                  <span class="bbi-badge bbi-badge--canadian">
+                    <svg class="leaf" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.2 4 3.4-1.2-1.2 3.4L19 10l-4 1.5 1 3-4-1.5-1 4-1-4-4 1.5 1-3-4-1.5 3.6-1.8L5.4 4.8 8.8 6 10 2z"/></svg>
+                    Canadian
+                  </span>
+                {%- endif -%}
+                <span class="bbi-badge bbi-badge--oem">Authorized</span>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  {%- comment -%} ── OECM bar (shared snippet) ── {%- endcomment -%}
+  {%- render 'bbi-oecm-bar' -%}
 
   {%- comment -%} ── Phone CTA closer ── {%- endcomment -%}
   {%- if section.settings.show_phone_cta -%}
@@ -525,13 +856,34 @@
       "type": "text",
       "id": "cta_label",
       "label": "CTA label",
-      "default": "Get a free design consultation"
+      "info": "Prefixed with 'Shop all [title]'. Leave blank for default."
     },
     {
-      "type": "url",
-      "id": "cta_url",
-      "label": "CTA URL",
-      "info": "Defaults to /pages/quote"
+      "type": "header",
+      "content": "Sector bar + brands band"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sector_bar",
+      "label": "Show shop-by-sector bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brands_band",
+      "label": "Show 30+ brands band",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Filter chips"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filter_chips",
+      "label": "Show sub-category filter chips",
+      "default": true,
+      "info": "Pills sourced from tile block titles and links. Shown when 2+ tiles exist."
     },
     {
       "type": "header",
@@ -542,6 +894,30 @@
       "id": "intro_text",
       "label": "Intro paragraph",
       "info": "Hidden when blank."
+    },
+    {
+      "type": "header",
+      "content": "Grid mode"
+    },
+    {
+      "type": "select",
+      "id": "grid_mode",
+      "label": "Grid mode",
+      "default": "both",
+      "options": [
+        { "value": "tiles", "label": "Tiles only (sub-categories)" },
+        { "value": "products", "label": "Products only" },
+        { "value": "both", "label": "Tiles + Products" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 4,
+      "max": 48,
+      "step": 4,
+      "default": 12
     },
     {
       "type": "header",
@@ -641,6 +1017,37 @@
           "id": "link_label",
           "label": "Link label",
           "default": "View brand"
+        }
+      ]
+    },
+    {
+      "type": "brand_plate",
+      "name": "Brand plate",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_plate_name",
+          "label": "Brand name",
+          "info": "Leave blank to hide this plate slot."
+        },
+        {
+          "type": "image_picker",
+          "id": "brand_plate_logo",
+          "label": "Brand logo (optional)",
+          "info": "Leave blank to show name-only plate."
+        },
+        {
+          "type": "url",
+          "id": "brand_plate_link",
+          "label": "Brand link",
+          "info": "E.g. /collections/ergocentric or /pages/brands#keilhauer"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand_plate_canadian",
+          "label": "Canadian-owned / made",
+          "default": false
         }
       ]
     },
