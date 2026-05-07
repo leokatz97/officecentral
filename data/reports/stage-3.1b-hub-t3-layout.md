@@ -274,6 +274,8 @@ Pulled `seating` and `ergonomic-products` from dev theme `186373570873`:
 
 ---
 
+**3.1b.3** — cleared per-hub `cta_label` so the section default (`Shop all <title>`) renders cleanly. Affected all 9 hubs (old values: "Get a free seating recommendation", "Get a free space plan", etc.). Commit `b12a558`. All 9 pushes 200 OK.
+
 **3.1b.2 cleanup** — Canadian flag corrected on Global Furniture and Teknion plates across the 3 empty hubs. All 9 hubs now consistent: ergoCentric + Keilhauer = `canadian=true`, Global Furniture + Teknion = `canadian=false`. Commit `bf3a6ff`. Pushed 200 OK.
 
 **Do not merge.** Halted at `feature/stage-3.1b-hub-t3-layout`.
