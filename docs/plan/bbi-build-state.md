@@ -156,10 +156,10 @@ Four deploy-error patterns recurred during P1 builds. The `/bbi-build-page` skil
 | P2-8 | Panels & Dividers (`/collections/panels-room-dividers`) | ✅ | commit `4e04f12` `theme/templates/collection.panels-room-dividers.json` | 3 sub-type tiles, Global/Teknion callout. Suffix set via API. |
 | P2-9 | Accessories (`/collections/accessories`) | ✅ | commit `4e04f12` `theme/templates/collection.accessories.json` | 4 sub-type tiles, no callouts. Suffix set via API. |
 | P2-10 | Quiet Spaces (`/collections/quiet-spaces`) | ✅ | commit `4e04f12` `theme/templates/collection.quiet-spaces.json` | 5 sub-type tiles, no callouts. Suffix set via API. |
-| PB-11 | Sub-collection 200/404 + product count audit | ⬜ | `data/reports/sub-collection-audit-<date>.csv` | Verify all ~68 sub-collection URLs return 200, products > 0, smart vs manual classification |
+| PB-11 | Sub-collection 200/404 + product count audit | ✅ | commit `81e83c8` `data/reports/sub-collection-audit-20260506_211829.csv` | 68/68 slugs found. 66 PASS / 2 WARN (metal-shelving + audio-visual-equipment empty — need products). 0 FAIL. `scripts/audit-sub-collections.py` report-only, exit 0. |
 | LEAD-1 | Crawl + dump current lead routing | ⬜ | `docs/plan/bbi-lead-routing.md` | 🔔 **NEEDS INPUT** — Claude Code can crawl and dump every CTA → destination URL, but you need to confirm where each form/email currently routes (which inbox, which CRM, any auto-replies). Halt and ask before publishing. |
-| INTERLINK-1 | Formalize P1-11 audit pattern as reusable script | ⬜ | `scripts/audit-interlinks.py` + `docs/plan/bbi-interlinking-map.md` | Re-runnable on every Phase 2/3/4 page set. |
-| IND-PROP | Industries Hub Browse + FAQ propagation to 5 industry pages | ⬜ | 5 ds-lp-* files | Add the two sections from commit `e98f91f` to healthcare, education, government, non-profit, professional-services. |
+| INTERLINK-1 | Formalize P1-11 audit pattern as reusable script | ✅ | commit `937cbcc` `data/reports/interlink-audit-20260506_211250.csv` | 21/21 pages checked. 0 FAIL / 52 PASS / 92 WARN / 108 SKIP. WARNs on checks 6/7/8/11 are live-theme fallback (dev theme preview requires Shopify admin auth — source files confirmed correct). `--suffix` flag added to `set-collection-template-suffix.py`. |
+| IND-PROP | Industries Hub Browse + FAQ propagation to 5 industry pages | ✅ | commit `c6812bd` `theme/snippets/ds-browse-faq.liquid` | Browse (9-grid) + FAQ (5-item) added to all 5 industry sections via shared `ds-browse-faq` snippet. Smoke tested healthcare + government. |
 
 ---
 
