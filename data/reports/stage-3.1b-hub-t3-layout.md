@@ -274,4 +274,6 @@ Pulled `seating` and `ergonomic-products` from dev theme `186373570873`:
 
 ---
 
+**3.1b.2 cleanup** — Canadian flag corrected on Global Furniture and Teknion plates across the 3 empty hubs. All 9 hubs now consistent: ergoCentric + Keilhauer = `canadian=true`, Global Furniture + Teknion = `canadian=false`. Commit `bf3a6ff`. Pushed 200 OK.
+
 **Do not merge.** Halted at `feature/stage-3.1b-hub-t3-layout`.
