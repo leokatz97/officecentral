@@ -264,7 +264,7 @@
       {%- if logo != blank -%}
         {{ logo | image_url: width: 300 | image_tag: height: 36, alt: 'Brant Business Interiors', loading: 'eager' }}
       {%- else -%}
-        <span class="bbi-header__logo-text">Brant Business Interiors</span>
+        <img src="{{ 'bbi-logo-v2.png' | asset_url }}" height="36" alt="Brant Business Interiors" loading="eager">
       {%- endif -%}
     </a>
 
@@ -360,6 +360,7 @@
         <ul class="bbi-nav__panel" role="menu">
           <li role="none"><a class="bbi-nav__dd-link" href="/pages/about" role="menuitem">About Us</a></li>
           <li role="none"><a class="bbi-nav__dd-link" href="/pages/our-work" role="menuitem">Our Work</a></li>
+          <li role="none"><a class="bbi-nav__dd-link" href="/pages/customer-stories" role="menuitem">Customer Stories</a></li>
           <li role="none"><a class="bbi-nav__dd-link" href="/pages/oecm" role="menuitem">OECM Procurement</a></li>
           <li role="none"><a class="bbi-nav__dd-link" href="/pages/contact" role="menuitem">Contact</a></li>
         </ul>
@@ -402,7 +403,7 @@
         {%- if logo != blank -%}
           {{ logo | image_url: width: 200 | image_tag: height: 30, alt: 'Brant Business Interiors', loading: 'lazy' }}
         {%- else -%}
-          <span class="bbi-mobile-nav__header-logo-text">Brant Business Interiors</span>
+          <img src="{{ 'bbi-logo-v2.png' | asset_url }}" height="30" alt="Brant Business Interiors" loading="lazy">
         {%- endif -%}
       </a>
       <button class="bbi-mobile-nav__close" type="button" aria-label="Close navigation menu">
@@ -493,6 +494,7 @@
         <ul class="bbi-mobile-nav__panel">
           <li><a href="/pages/about">About Us</a></li>
           <li><a href="/pages/our-work">Our Work</a></li>
+          <li><a href="/pages/customer-stories">Customer Stories</a></li>
           <li><a href="/pages/oecm">OECM Procurement</a></li>
           <li><a href="/pages/contact">Contact</a></li>
         </ul>

@@ -157,7 +157,7 @@
           {%- if logo != blank -%}
             {{ logo | image_url: width: 300 | image_tag: height: 44, alt: 'Brant Business Interiors', loading: 'lazy' }}
           {%- else -%}
-            <span class="bbi-footer__brand-plate-text">Brant Business Interiors</span>
+            <img src="{{ 'bbi-logo-v2.png' | asset_url }}" height="44" alt="Brant Business Interiors" loading="lazy">
           {%- endif -%}
         </div>
         <p class="bbi-footer__tagline">Commercial office furniture for Ontario clinics, businesses, and institutions. A division of Office Central Inc.</p>
@@ -201,7 +201,7 @@
           </ul>
         </div>
 
-        {%- comment -%} Services — 6 links incl. OECM (FIX 1b) {%- endcomment -%}
+        {%- comment -%} Services — 7 links incl. OECM + Customer Stories {%- endcomment -%}
         <div class="bbi-footer__column">
           <h4>Services</h4>
           <ul>
@@ -211,6 +211,7 @@
             <li><a href="/pages/quote">Request a Quote</a></li>
             <li><a href="/pages/faq">FAQ</a></li>
             <li><a href="/pages/oecm">OECM Procurement</a></li>
+            <li><a href="/pages/customer-stories">Customer Stories</a></li>
           </ul>
         </div>
 
