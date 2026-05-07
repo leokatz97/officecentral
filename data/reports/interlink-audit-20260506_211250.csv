@@ -1,0 +1,253 @@
+page,check,result,notes
+/,01-nav-consistency,SKIP,No baseline yet
+/,02-nav-active,SKIP,No expected active item for this page type
+/,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/,05-crosslinks-200,SKIP,--skip-200 flag
+/,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/,09-footer-parity,PASS,Footer matches baseline (/)
+/,10-phone-cta,PASS,tel:18008359565 found
+/,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/,12-drift-check,SKIP,--skip-drift flag
+/pages/oecm,01-nav-consistency,SKIP,No baseline yet
+/pages/oecm,02-nav-active,SKIP,No expected active item for this page type
+/pages/oecm,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/oecm,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/oecm,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/oecm,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/pages/oecm,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/oecm,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/oecm,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/oecm,10-phone-cta,PASS,tel:18008359565 found
+/pages/oecm,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/oecm,12-drift-check,SKIP,--skip-drift flag
+/pages/design-services,01-nav-consistency,SKIP,No baseline yet
+/pages/design-services,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/pages/design-services,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/design-services,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/design-services,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/design-services,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/pages/design-services,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/design-services,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/design-services,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/design-services,10-phone-cta,PASS,tel:18008359565 found
+/pages/design-services,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/design-services,12-drift-check,SKIP,--skip-drift flag
+/pages/quote,01-nav-consistency,SKIP,No baseline yet
+/pages/quote,02-nav-active,SKIP,No expected active item for this page type
+/pages/quote,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/quote,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/quote,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/quote,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/pages/quote,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/quote,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/quote,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/quote,10-phone-cta,PASS,tel:18008359565 found
+/pages/quote,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/quote,12-drift-check,SKIP,--skip-drift flag
+/pages/faq,01-nav-consistency,SKIP,No baseline yet
+/pages/faq,02-nav-active,SKIP,No expected active item for this page type
+/pages/faq,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/faq,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/faq,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/faq,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/pages/faq,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/faq,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/faq,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/faq,10-phone-cta,PASS,tel:18008359565 found
+/pages/faq,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/faq,12-drift-check,SKIP,--skip-drift flag
+/pages/industries,01-nav-consistency,SKIP,No baseline yet
+/pages/industries,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/pages/industries,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/industries,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/industries,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/industries,06-industries-hub-links,WARN,"Missing industry page links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/industries,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/industries,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/industries,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/industries,10-phone-cta,PASS,tel:18008359565 found
+/pages/industries,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/industries,12-drift-check,SKIP,--skip-drift flag
+/pages/healthcare,01-nav-consistency,SKIP,No baseline yet
+/pages/healthcare,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/pages/healthcare,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/healthcare,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/healthcare,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/healthcare,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/pages/healthcare,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/healthcare,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/healthcare,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/healthcare,10-phone-cta,PASS,tel:18008359565 found
+/pages/healthcare,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/healthcare,12-drift-check,SKIP,--skip-drift flag
+/pages/education,01-nav-consistency,SKIP,No baseline yet
+/pages/education,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/pages/education,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/education,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/education,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/education,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/pages/education,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/education,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/education,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/education,10-phone-cta,PASS,tel:18008359565 found
+/pages/education,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/education,12-drift-check,SKIP,--skip-drift flag
+/pages/government,01-nav-consistency,SKIP,No baseline yet
+/pages/government,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/pages/government,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/government,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/government,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/government,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/pages/government,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/government,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/government,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/government,10-phone-cta,PASS,tel:18008359565 found
+/pages/government,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/government,12-drift-check,SKIP,--skip-drift flag
+/pages/non-profit,01-nav-consistency,SKIP,No baseline yet
+/pages/non-profit,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/pages/non-profit,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/non-profit,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/non-profit,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/non-profit,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/pages/non-profit,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/non-profit,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/non-profit,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/non-profit,10-phone-cta,PASS,tel:18008359565 found
+/pages/non-profit,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/non-profit,12-drift-check,SKIP,--skip-drift flag
+/pages/professional-services,01-nav-consistency,SKIP,No baseline yet
+/pages/professional-services,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/pages/professional-services,03-breadcrumb,WARN,No breadcrumb container found (may be homepage)
+/pages/professional-services,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/pages/professional-services,05-crosslinks-200,SKIP,--skip-200 flag
+/pages/professional-services,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/pages/professional-services,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/pages/professional-services,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/pages/professional-services,09-footer-parity,PASS,Footer matches baseline (/)
+/pages/professional-services,10-phone-cta,PASS,tel:18008359565 found
+/pages/professional-services,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/pages/professional-services,12-drift-check,SKIP,--skip-drift flag
+/collections/business-furniture,01-nav-consistency,SKIP,No baseline yet
+/collections/business-furniture,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/business-furniture,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/business-furniture,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/business-furniture,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/business-furniture,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/business-furniture,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/business-furniture,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/business-furniture,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/business-furniture,10-phone-cta,PASS,tel:18008359565 found
+/collections/business-furniture,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/business-furniture,12-drift-check,SKIP,--skip-drift flag
+/collections/seating,01-nav-consistency,SKIP,No baseline yet
+/collections/seating,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/seating,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/seating,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/seating,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/seating,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/seating,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/seating,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/seating,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/seating,10-phone-cta,PASS,tel:18008359565 found
+/collections/seating,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/seating,12-drift-check,SKIP,--skip-drift flag
+/collections/desks,01-nav-consistency,SKIP,No baseline yet
+/collections/desks,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/desks,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/desks,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/desks,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/desks,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/desks,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/desks,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/desks,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/desks,10-phone-cta,PASS,tel:18008359565 found
+/collections/desks,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/desks,12-drift-check,SKIP,--skip-drift flag
+/collections/storage,01-nav-consistency,SKIP,No baseline yet
+/collections/storage,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/storage,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/storage,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/storage,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/storage,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/storage,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/storage,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/storage,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/storage,10-phone-cta,PASS,tel:18008359565 found
+/collections/storage,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/storage,12-drift-check,SKIP,--skip-drift flag
+/collections/tables,01-nav-consistency,SKIP,No baseline yet
+/collections/tables,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/tables,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/tables,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/tables,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/tables,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/tables,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/tables,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/tables,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/tables,10-phone-cta,PASS,tel:18008359565 found
+/collections/tables,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/tables,12-drift-check,SKIP,--skip-drift flag
+/collections/boardroom,01-nav-consistency,SKIP,No baseline yet
+/collections/boardroom,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/boardroom,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/boardroom,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/boardroom,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/boardroom,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/boardroom,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/boardroom,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/boardroom,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/boardroom,10-phone-cta,PASS,tel:18008359565 found
+/collections/boardroom,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/boardroom,12-drift-check,SKIP,--skip-drift flag
+/collections/ergonomic-products,01-nav-consistency,SKIP,No baseline yet
+/collections/ergonomic-products,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/ergonomic-products,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/ergonomic-products,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/ergonomic-products,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/ergonomic-products,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/ergonomic-products,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/ergonomic-products,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/ergonomic-products,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/ergonomic-products,10-phone-cta,PASS,tel:18008359565 found
+/collections/ergonomic-products,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/ergonomic-products,12-drift-check,SKIP,--skip-drift flag
+/collections/panels-room-dividers,01-nav-consistency,SKIP,No baseline yet
+/collections/panels-room-dividers,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/panels-room-dividers,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/panels-room-dividers,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/panels-room-dividers,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/panels-room-dividers,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/panels-room-dividers,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/panels-room-dividers,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/panels-room-dividers,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/panels-room-dividers,10-phone-cta,PASS,tel:18008359565 found
+/collections/panels-room-dividers,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/panels-room-dividers,12-drift-check,SKIP,--skip-drift flag
+/collections/accessories,01-nav-consistency,SKIP,No baseline yet
+/collections/accessories,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/accessories,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/accessories,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/accessories,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/accessories,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/accessories,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/accessories,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/accessories,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/accessories,10-phone-cta,PASS,tel:18008359565 found
+/collections/accessories,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/accessories,12-drift-check,SKIP,--skip-drift flag
+/collections/quiet-spaces,01-nav-consistency,SKIP,No baseline yet
+/collections/quiet-spaces,02-nav-active,WARN,No aria-current or active class detected (may be JS-driven)
+/collections/quiet-spaces,03-breadcrumb,PASS,Breadcrumb found with 2+ levels
+/collections/quiet-spaces,04-crosslinks-unique,SKIP,No crosslink grid detected on this page
+/collections/quiet-spaces,05-crosslinks-200,SKIP,--skip-200 flag
+/collections/quiet-spaces,06-industries-hub-links,SKIP,Only checked on /pages/industries
+/collections/quiet-spaces,07-footer-industries,WARN,"Footer missing industry links: ['/pages/healthcare', '/pages/education', '/pages/government', '/pages/non-profit', '/pages/professional-services'] (live theme — dev preview requires Shopify admin auth)"
+/collections/quiet-spaces,08-footer-services,WARN,"Footer missing service links: ['/pages/design-services', '/pages/delivery', '/pages/oecm'] (live theme — dev preview requires Shopify admin auth)"
+/collections/quiet-spaces,09-footer-parity,PASS,Footer matches baseline (/)
+/collections/quiet-spaces,10-phone-cta,PASS,tel:18008359565 found
+/collections/quiet-spaces,11-quote-cta,WARN,No /pages/quote link or quote modal trigger found (live theme — dev preview requires Shopify admin auth)
+/collections/quiet-spaces,12-drift-check,SKIP,--skip-drift flag
