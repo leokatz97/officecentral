@@ -147,15 +147,15 @@ Four deploy-error patterns recurred during P1 builds. The `/bbi-build-page` skil
 | 9 | PB-9 | Extend `bbi_landing` gate to detect collection templates | ✅ | commit `ceac44f` `theme/layout/theme.liquid` | **Done.** Added `template == 'collection.category'` to bbi_landing gate. Smoke test deferred to PB-10 (first collection.category page exercises it). |
 | 10 | PB-10 | Build `collection.category.json` template + `ds-cc-base.liquid` section pattern | ✅ | commit `77fca26` `theme/sections/ds-cc-base.liquid`, `theme/templates/collection.category.json`, `scripts/set-collection-template-suffix.py` | **Done.** Section: hero + breadcrumb (2/3-level via settings) + intro (richtext) + tile grid (max 20 tile blocks, always rendered) + view-all CTA + brand_callout blocks (max 2) + phone CTA closer. Gate exercised: `?view=category` on dev theme. Smoke test 5/5 green: bbi-header=1, bbi-footer=1, Starlite suppressed (PB-9 confirmed), active nav="Shop Furniture", tile grid container present. Helper script: dry-run default, --live, --rollback flags; backup + log on every run. |
 | P2-1 | Business Furniture vertical (`/collections/business-furniture`) | ✅ | commit `3e9ffe3` `theme/templates/collection.business-furniture.json` | 9 category tiles + 3 brand callouts (Keilhauer, Global/Teknion, ergoCentric), view-all CTA, phone CTA closer. Gate extended for `collection.business-furniture`. Smoke: 9 tiles, 3 brands, view-all, phone CTA, Starlite suppressed — all green. |
-| P2-2 | Seating (`/collections/seating`) | ⬜ | | 16 sub-type tiles |
-| P2-3 | Desks & Workstations (`/collections/desks`) | ⬜ | | 9 sub-type tiles, L-Shape leads |
-| P2-4 | Storage & Filing (`/collections/storage`) | ⬜ | | 14 sub-type tiles |
-| P2-5 | Tables (`/collections/tables`) | ⬜ | | 10 sub-type tiles |
-| P2-6 | Boardroom (`/collections/boardroom`) | ⬜ | | 3 sub-type tiles, Keilhauer callout |
-| P2-7 | Ergonomic Products (`/collections/ergonomic-products`) | ⬜ | | 4 sub-type tiles, ergoCentric callout |
-| P2-8 | Panels & Dividers (`/collections/panels-room-dividers`) | ⬜ | | 3 sub-type tiles |
-| P2-9 | Accessories (`/collections/accessories`) | ⬜ | | 4 sub-type tiles |
-| P2-10 | Quiet Spaces (`/collections/quiet-spaces`) | ⬜ | | 5 sub-type tiles |
+| P2-2 | Seating (`/collections/seating`) | ✅ | commit `4e04f12` `theme/templates/collection.seating.json` | 16 sub-type tiles, Keilhauer + ergoCentric callouts. Smoke: 16 tiles, 2 brands, 3-level breadcrumb, Starlite suppressed — all green. |
+| P2-3 | Desks & Workstations (`/collections/desks`) | ✅ | commit `4e04f12` `theme/templates/collection.desks.json` | 9 sub-type tiles, Global/Teknion callout. Suffix set via API. |
+| P2-4 | Storage & Filing (`/collections/storage`) | ✅ | commit `4e04f12` `theme/templates/collection.storage.json` | 14 sub-type tiles, no callouts. Suffix set via API. |
+| P2-5 | Tables (`/collections/tables`) | ✅ | commit `4e04f12` `theme/templates/collection.tables.json` | 10 sub-type tiles, no callouts. Suffix set via API. |
+| P2-6 | Boardroom (`/collections/boardroom`) | ✅ | commit `4e04f12` `theme/templates/collection.boardroom.json` | 3 sub-type tiles, Keilhauer callout. Suffix set via API. |
+| P2-7 | Ergonomic Products (`/collections/ergonomic-products`) | ✅ | commit `4e04f12` `theme/templates/collection.ergonomic-products.json` | 4 sub-type tiles, ergoCentric callout. Suffix set via API. |
+| P2-8 | Panels & Dividers (`/collections/panels-room-dividers`) | ✅ | commit `4e04f12` `theme/templates/collection.panels-room-dividers.json` | 3 sub-type tiles, Global/Teknion callout. Suffix set via API. |
+| P2-9 | Accessories (`/collections/accessories`) | ✅ | commit `4e04f12` `theme/templates/collection.accessories.json` | 4 sub-type tiles, no callouts. Suffix set via API. |
+| P2-10 | Quiet Spaces (`/collections/quiet-spaces`) | ✅ | commit `4e04f12` `theme/templates/collection.quiet-spaces.json` | 5 sub-type tiles, no callouts. Suffix set via API. |
 | PB-11 | Sub-collection 200/404 + product count audit | ⬜ | `data/reports/sub-collection-audit-<date>.csv` | Verify all ~68 sub-collection URLs return 200, products > 0, smart vs manual classification |
 | LEAD-1 | Crawl + dump current lead routing | ⬜ | `docs/plan/bbi-lead-routing.md` | 🔔 **NEEDS INPUT** — Claude Code can crawl and dump every CTA → destination URL, but you need to confirm where each form/email currently routes (which inbox, which CRM, any auto-replies). Halt and ask before publishing. |
 | INTERLINK-1 | Formalize P1-11 audit pattern as reusable script | ⬜ | `scripts/audit-interlinks.py` + `docs/plan/bbi-interlinking-map.md` | Re-runnable on every Phase 2/3/4 page set. |
