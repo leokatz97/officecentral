@@ -170,10 +170,10 @@ Four deploy-error patterns recurred during P1 builds. The `/bbi-build-page` skil
 
 | ID | Task | Status | Evidence | Notes |
 |---|---|---|---|---|
-| PB-14 | Manual → Smart collection migration script + per-collection assignment + rollback | ⬜ | TBD `scripts/migrate-to-smart-collections.py` | Convert manual `/collections/*` to rule-based using `type:*` and `room:*` tags. Backup first. |
-| PB-15 | Build `collection.json` template + `ds-cs-base.liquid` section | ⬜ | TBD `theme/templates/collection.json`, `theme/sections/ds-cs-base.liquid` | Filter sidebar + product grid + 4-level breadcrumb (Home > Shop Furniture > Category > Sub-collection) + phone CTA. |
-| P3-rollout | Apply `collection.json` to ~68 Business Furniture sub-collections | ⬜ | Push script log | Script-driven push, hero images from `data/page-images/` |
-| INTERLINK-2 | Re-run interlinking audit, fix drift introduced by Phase 3 | ⬜ | Audit output | |
+| PB-14 | Manual → Smart collection migration script + per-collection assignment + rollback | ✅ | `66f7623` `scripts/migrate-to-smart-collections.py` | Convert manual `/collections/*` to rule-based using `type:*` and `room:*` tags. Backup first. |
+| PB-15 | Build `collection.json` template + `ds-cs-base.liquid` section | ✅ | `de3237e` `theme/sections/ds-cs-base.liquid` + `collection.base.json` + gate update | Filter sidebar + product grid + 4-level breadcrumb (Home > Shop Furniture > Category > Sub-collection) + phone CTA. |
+| P3-rollout | Apply `collection.json` to ~68 Business Furniture sub-collections | ✅ | `aaa105a` `scripts/set-sub-collection-suffix.py` + rollout run | Script-driven push, hero images from `data/page-images/` |
+| INTERLINK-2 | Re-run interlinking audit, fix drift introduced by Phase 3 | ✅ | `82c64c8` Post-Wave-B audit (0 failures) | |
 
 ---
 
