@@ -35,13 +35,49 @@
             "link": "/collections/global-teknion",
             "link_label": "Shop Global / Teknion"
           }
+        },
+        "brand-plate-1": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "ergoCentric",
+            "brand_plate_link": "/pages/brands#ergocentric",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-2": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Keilhauer",
+            "brand_plate_link": "/pages/brands#keilhauer",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-3": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Global Furniture",
+            "brand_plate_link": "/pages/brands#global-furniture",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-4": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Teknion",
+            "brand_plate_link": "/pages/brands#teknion",
+            "brand_plate_canadian": true
+          }
         }
       },
       "block_order": [
         "tile-acoustic-panels",
         "tile-room-dividers",
         "tile-privacy-screens",
-        "brand-global-teknion"
+        "brand-global-teknion",
+        "brand-plate-1",
+        "brand-plate-2",
+        "brand-plate-3",
+        "brand-plate-4"
       ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
@@ -50,14 +86,20 @@
         "hero_title": "Panels & Dividers",
         "hero_subtitle": "Acoustic panels, room dividers, and privacy screens that shape open institutional spaces. OECM-eligible.",
         "cta_label": "Get a layout consultation",
-        "cta_url": "/pages/quote",
         "intro_text": "<p>Open-plan offices need structure. Brant Business Interiors carries acoustic panels, room dividers, and privacy screens that manage noise, define zones, and give people a sense of place — all without permanent construction. OECM Agreement 2025-470. Free layout planning. Quote in 1 business day.</p>",
         "show_view_all_cta": true,
         "view_all_label": "View all panels",
         "show_phone_cta": true,
-        "phone_cta_label": "Design your space layout"
+        "phone_cta_label": "Design your space layout",
+        "grid_mode": "tiles",
+        "products_per_page": 12,
+        "show_sector_bar": true,
+        "show_brands_band": true,
+        "show_filter_chips": true
       }
     }
   },
-  "order": ["ds-cc-base"]
+  "order": [
+    "ds-cc-base"
+  ]
 }

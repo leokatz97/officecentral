@@ -43,6 +43,38 @@
             "link": "/collections/ergocentric",
             "link_label": "Shop ergoCentric"
           }
+        },
+        "brand-plate-1": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "ergoCentric",
+            "brand_plate_link": "/pages/brands#ergocentric",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-2": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Keilhauer",
+            "brand_plate_link": "/pages/brands#keilhauer",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-3": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Global Furniture",
+            "brand_plate_link": "/pages/brands#global-furniture",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-4": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Teknion",
+            "brand_plate_link": "/pages/brands#teknion",
+            "brand_plate_canadian": true
+          }
         }
       },
       "block_order": [
@@ -50,7 +82,11 @@
         "tile-monitor-arms",
         "tile-keyboard-trays",
         "tile-ergonomic-accessories",
-        "brand-ergocentric"
+        "brand-ergocentric",
+        "brand-plate-1",
+        "brand-plate-2",
+        "brand-plate-3",
+        "brand-plate-4"
       ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
@@ -59,14 +95,20 @@
         "hero_title": "Ergonomic Products",
         "hero_subtitle": "Sit-stand converters, monitor arms, and ergonomic accessories for Ontario workplaces. OECM-eligible.",
         "cta_label": "Get an ergonomics assessment",
-        "cta_url": "/pages/quote",
         "intro_text": "<p>Ergonomic products reduce injury risk, improve productivity, and satisfy workplace health regulations. Brant Business Interiors carries sit-stand converters, monitor arms, keyboard trays, and accessories — all OECM-eligible under Agreement 2025-470. Free ergonomics assessment included. Quote in 1 business day.</p>",
         "show_view_all_cta": true,
         "view_all_label": "View all ergonomic products",
         "show_phone_cta": true,
-        "phone_cta_label": "Talk to an ergonomics specialist"
+        "phone_cta_label": "Talk to an ergonomics specialist",
+        "grid_mode": "tiles",
+        "products_per_page": 12,
+        "show_sector_bar": true,
+        "show_brands_band": true,
+        "show_filter_chips": true
       }
     }
   },
-  "order": ["ds-cc-base"]
+  "order": [
+    "ds-cc-base"
+  ]
 }

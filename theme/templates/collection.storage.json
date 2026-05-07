@@ -114,6 +114,30 @@
             "link": "/collections/high-density-storage",
             "description": "Compact shelving and high-density storage systems."
           }
+        },
+        "brand-plate-1": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Brant Business Interiors",
+            "brand_plate_link": "/collections/brant-business-interiors",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-2": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Offices to Go",
+            "brand_plate_link": "/collections/offices-to-go",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-3": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Heartwood Manufacturing",
+            "brand_plate_link": "/collections/heartwood-manufacturing",
+            "brand_plate_canadian": true
+          }
         }
       },
       "block_order": [
@@ -130,7 +154,10 @@
         "tile-mobile-storage",
         "tile-wall-storage",
         "tile-personal-lockers",
-        "tile-high-density"
+        "tile-high-density",
+        "brand-plate-1",
+        "brand-plate-2",
+        "brand-plate-3"
       ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
@@ -139,14 +166,20 @@
         "hero_title": "Storage & Filing",
         "hero_subtitle": "Commercial filing and storage for Ontario institutions — lateral files, lockers, credenzas, and high-density systems. OECM-eligible.",
         "cta_label": "Request a storage quote",
-        "cta_url": "/pages/quote",
         "intro_text": "<p>From 2-drawer pedestals to floor-to-ceiling high-density systems — Brant Business Interiors carries every storage format required by schools, government offices, and healthcare facilities. OECM Agreement 2025-470 covers the full storage line. Quote in 1 business day.</p>",
         "show_view_all_cta": true,
         "view_all_label": "View all storage",
         "show_phone_cta": true,
-        "phone_cta_label": "Talk to a storage specialist"
+        "phone_cta_label": "Talk to a storage specialist",
+        "grid_mode": "both",
+        "products_per_page": 12,
+        "show_sector_bar": true,
+        "show_brands_band": true,
+        "show_filter_chips": true
       }
     }
   },
-  "order": ["ds-cc-base"]
+  "order": [
+    "ds-cc-base"
+  ]
 }

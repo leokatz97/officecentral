@@ -42,6 +42,38 @@
             "link": "/collections/sound-dampeners",
             "description": "Acoustic ceiling baffles, wall panels, and desktop sound shields."
           }
+        },
+        "brand-plate-1": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "ergoCentric",
+            "brand_plate_link": "/pages/brands#ergocentric",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-2": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Keilhauer",
+            "brand_plate_link": "/pages/brands#keilhauer",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-3": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Global Furniture",
+            "brand_plate_link": "/pages/brands#global-furniture",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-4": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Teknion",
+            "brand_plate_link": "/pages/brands#teknion",
+            "brand_plate_canadian": true
+          }
         }
       },
       "block_order": [
@@ -49,7 +81,11 @@
         "tile-acoustic-pods",
         "tile-focus-rooms",
         "tile-privacy-seating",
-        "tile-soundproofing"
+        "tile-soundproofing",
+        "brand-plate-1",
+        "brand-plate-2",
+        "brand-plate-3",
+        "brand-plate-4"
       ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
@@ -58,14 +94,20 @@
         "hero_title": "Quiet Spaces",
         "hero_subtitle": "Phone booths, acoustic pods, and focus room furniture for institutional open-plan environments. OECM-eligible.",
         "cta_label": "Get a quiet space quote",
-        "cta_url": "/pages/quote",
         "intro_text": "<p>Open offices are productive — until they're not. Brant Business Interiors carries phone booths, multi-person acoustic pods, and high-back privacy seating that give people a place to focus and take confidential calls. No construction required. OECM Agreement 2025-470. Quote in 1 business day.</p>",
         "show_view_all_cta": true,
         "view_all_label": "View all quiet spaces",
         "show_phone_cta": true,
-        "phone_cta_label": "Design your quiet space solution"
+        "phone_cta_label": "Design your quiet space solution",
+        "grid_mode": "tiles",
+        "products_per_page": 12,
+        "show_sector_bar": true,
+        "show_brands_band": true,
+        "show_filter_chips": true
       }
     }
   },
-  "order": ["ds-cc-base"]
+  "order": [
+    "ds-cc-base"
+  ]
 }

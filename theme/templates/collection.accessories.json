@@ -34,13 +34,31 @@
             "link": "/collections/waste-recycling",
             "description": "Office waste bins and recycling station furniture."
           }
+        },
+        "brand-plate-1": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Brant Business Interiors",
+            "brand_plate_link": "/collections/brant-business-interiors",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-2": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Humanscale",
+            "brand_plate_link": "/collections/humanscale",
+            "brand_plate_canadian": false
+          }
         }
       },
       "block_order": [
         "tile-lighting",
         "tile-whiteboards",
         "tile-desktop-accessories",
-        "tile-waste-recycling"
+        "tile-waste-recycling",
+        "brand-plate-1",
+        "brand-plate-2"
       ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
@@ -49,14 +67,20 @@
         "hero_title": "Accessories",
         "hero_subtitle": "Lighting, whiteboards, and workspace accessories that complete the fit-out. OECM-eligible.",
         "cta_label": "Request an accessories quote",
-        "cta_url": "/pages/quote",
         "intro_text": "<p>The details matter. Brant Business Interiors carries task lighting, whiteboards, desktop organizers, and waste management furniture to complete any institutional fit-out. Add accessories to any furniture order — OECM-eligible, one quote, one delivery. Quote in 1 business day.</p>",
         "show_view_all_cta": true,
         "view_all_label": "View all accessories",
         "show_phone_cta": true,
-        "phone_cta_label": "Talk to a furniture specialist"
+        "phone_cta_label": "Talk to a furniture specialist",
+        "grid_mode": "both",
+        "products_per_page": 12,
+        "show_sector_bar": true,
+        "show_brands_band": true,
+        "show_filter_chips": true
       }
     }
   },
-  "order": ["ds-cc-base"]
+  "order": [
+    "ds-cc-base"
+  ]
 }

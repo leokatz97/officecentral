@@ -82,6 +82,46 @@
             "link": "/collections/collaborative-tables",
             "description": "Modular collaborative surfaces for open-plan and agile workplaces."
           }
+        },
+        "brand-plate-1": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Brant Business Interiors",
+            "brand_plate_link": "/collections/brant-business-interiors",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-2": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Teknion",
+            "brand_plate_link": "/collections/teknion",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-3": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Safco",
+            "brand_plate_link": "/collections/safco",
+            "brand_plate_canadian": false
+          }
+        },
+        "brand-plate-4": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Offices to Go",
+            "brand_plate_link": "/collections/offices-to-go",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-5": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Global Furniture Group",
+            "brand_plate_link": "/collections/global-furniture-group",
+            "brand_plate_canadian": true
+          }
         }
       },
       "block_order": [
@@ -94,7 +134,12 @@
         "tile-side-tables",
         "tile-outdoor-tables",
         "tile-nesting-tables",
-        "tile-collaborative"
+        "tile-collaborative",
+        "brand-plate-1",
+        "brand-plate-2",
+        "brand-plate-3",
+        "brand-plate-4",
+        "brand-plate-5"
       ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
@@ -103,14 +148,20 @@
         "hero_title": "Tables",
         "hero_subtitle": "Commercial tables for every meeting format — conference, training, café, and multi-purpose. OECM-eligible, delivered and installed.",
         "cta_label": "Get a table quote",
-        "cta_url": "/pages/quote",
         "intro_text": "<p>From 20-foot boardroom tables to nesting training tables that store in a closet — Brant Business Interiors carries every table format for institutional environments. OECM Agreement 2025-470 covers conference, training, and collaborative tables province-wide. Quote in 1 business day.</p>",
         "show_view_all_cta": true,
         "view_all_label": "View all tables",
         "show_phone_cta": true,
-        "phone_cta_label": "Talk to a furniture specialist"
+        "phone_cta_label": "Talk to a furniture specialist",
+        "grid_mode": "both",
+        "products_per_page": 12,
+        "show_sector_bar": true,
+        "show_brands_band": true,
+        "show_filter_chips": true
       }
     }
   },
-  "order": ["ds-cc-base"]
+  "order": [
+    "ds-cc-base"
+  ]
 }

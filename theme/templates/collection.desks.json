@@ -83,6 +83,38 @@
             "link": "/collections/global-teknion",
             "link_label": "Shop Global / Teknion"
           }
+        },
+        "brand-plate-1": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Brant Business Interiors",
+            "brand_plate_link": "/collections/brant-business-interiors",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-2": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Offices to Go",
+            "brand_plate_link": "/collections/offices-to-go",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-3": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Global Furniture Group",
+            "brand_plate_link": "/collections/global-furniture-group",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-4": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Safco",
+            "brand_plate_link": "/collections/safco",
+            "brand_plate_canadian": false
+          }
         }
       },
       "block_order": [
@@ -95,7 +127,11 @@
         "tile-executive-desks",
         "tile-training-desks",
         "tile-desk-accessories",
-        "brand-global-teknion"
+        "brand-global-teknion",
+        "brand-plate-1",
+        "brand-plate-2",
+        "brand-plate-3",
+        "brand-plate-4"
       ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
@@ -104,14 +140,20 @@
         "hero_title": "Desks & Workstations",
         "hero_subtitle": "Height-adjustable and fixed-height commercial desks for Ontario institutions — OECM-eligible, delivered and installed.",
         "cta_label": "Get a free space plan",
-        "cta_url": "/pages/quote",
         "intro_text": "<p>From sit-stand desks and L-shape suites to modular open-plan workstations — Brant Business Interiors carries every desk format for institutional environments. OECM Agreement 2025-470 covers the full line. Free space planning included. Quote in 1 business day.</p>",
         "show_view_all_cta": true,
         "view_all_label": "View all desks",
         "show_phone_cta": true,
-        "phone_cta_label": "Talk to a workstation specialist"
+        "phone_cta_label": "Talk to a workstation specialist",
+        "grid_mode": "both",
+        "products_per_page": 12,
+        "show_sector_bar": true,
+        "show_brands_band": true,
+        "show_filter_chips": true
       }
     }
   },
-  "order": ["ds-cc-base"]
+  "order": [
+    "ds-cc-base"
+  ]
 }

@@ -148,6 +148,46 @@
             "link": "/collections/ergocentric",
             "link_label": "Shop ergoCentric"
           }
+        },
+        "brand-plate-1": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Brant Business Interiors",
+            "brand_plate_link": "/collections/brant-business-interiors",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-2": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Global Furniture Group",
+            "brand_plate_link": "/collections/global-furniture-group",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-3": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "ObusForme",
+            "brand_plate_link": "/collections/obusforme",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-4": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Offices to Go",
+            "brand_plate_link": "/collections/offices-to-go",
+            "brand_plate_canadian": true
+          }
+        },
+        "brand-plate-5": {
+          "type": "brand_plate",
+          "settings": {
+            "brand_plate_name": "Teknion",
+            "brand_plate_link": "/collections/teknion",
+            "brand_plate_canadian": true
+          }
         }
       },
       "block_order": [
@@ -168,7 +208,12 @@
         "tile-motion",
         "tile-beam",
         "brand-keilhauer",
-        "brand-ergocentric"
+        "brand-ergocentric",
+        "brand-plate-1",
+        "brand-plate-2",
+        "brand-plate-3",
+        "brand-plate-4",
+        "brand-plate-5"
       ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
@@ -177,12 +222,16 @@
         "hero_title": "Seating",
         "hero_subtitle": "Commercial seating for Ontario institutions — from ergonomic task chairs to lounge, healthcare, and stacking. OECM-eligible.",
         "cta_label": "Get a free seating recommendation",
-        "cta_url": "/pages/quote",
         "intro_text": "<p>The right chair changes how people work. Brant Business Interiors carries 16 seating categories — ergonomic task, executive, conference, healthcare, and stacking — with commercial-grade builds designed for institutional environments. All OECM-eligible under Agreement 2025-470. Quote in 1 business day.</p>",
         "show_view_all_cta": true,
         "view_all_label": "View all seating",
         "show_phone_cta": true,
-        "phone_cta_label": "Talk to a seating specialist"
+        "phone_cta_label": "Talk to a seating specialist",
+        "grid_mode": "both",
+        "products_per_page": 12,
+        "show_sector_bar": true,
+        "show_brands_band": true,
+        "show_filter_chips": true
       }
     }
   },
