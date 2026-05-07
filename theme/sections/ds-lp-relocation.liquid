@@ -1,0 +1,387 @@
+{%- comment -%}
+  Section: ds-lp-relocation
+  Purpose: Office Relocation Management landing page — planning, decommission, installation, project management
+  Used by: page.relocation.json (template suffix: relocation)
+  Gate: theme.liquid bbi_landing gate
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+:root{--bodyFont:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--headingFont:"Inter Tight","Inter",system-ui,sans-serif;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--inputRadius:4px;--buttonRadius:4px;--cardRadius:8px;--shadow-sm:0 1px 2px rgba(11,11,12,.04),0 2px 8px rgba(11,11,12,.05);--saleBadgeBackground:#D4252A;--saleBadgeBackground-rgb:212,37,42;--fs-h0:44px;--lh-h0:1.05;--fs-h1:32px;--lh-h1:1.1;--ls-h1:-0.015em;--fs-h2:24px;--lh-h2:1.15;--ls-h2:-0.01em;--fs-h3:18px;--lh-h3:1.25;--fs-body:16px;--lh-body:1.55;--fs-button:15px;--lh-button:1;--ls-button:0.01em;}
+@media(min-width:768px){:root{--fs-h0:72px;--fs-h1:48px;--lh-h1:1.05;--fs-h2:32px;--lh-h2:1.1;--fs-h3:22px;}}
+.lp-reloc.scheme-default{--background:#FFFFFF;--background-rgb:255,255,255;--alternateBackground:#FAFAFA;--alternateBackground-rgb:250,250,250;--cardBackground:#FFFFFF;--textColor:#0B0B0C;--textColor-rgb:11,11,12;--linkColor:#0B0B0C;--headingColor:#0B0B0C;--headingColor-rgb:11,11,12;--buttonBackground:#0B0B0C;--buttonColor:#FFFFFF;--buttonBorder:#0B0B0C;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:#FFFFFF;--alternateButtonColor:#0B0B0C;--alternateButtonBorder:#0B0B0C;--alternateButtonBackgroundHover:#0B0B0C;--alternateButtonColorHover:#FFFFFF;--borderColor:#E5E5E7;--borderColor-rgb:229,229,231;--shadowColor:#0B0B0C;--shadowColor-rgb:11,11,12;--headerBg:#FFFFFF;--headerColor:#0B0B0C;--headerHoverColor:#D4252A;}
+.lp-reloc .scheme-inverse{--background:#0B0B0C;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--linkColor:#FFFFFF;--headingColor:#FFFFFF;--headingColor-rgb:255,255,255;--buttonBackground:#FFFFFF;--buttonColor:#0B0B0C;--buttonBorder:#FFFFFF;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:transparent;--alternateButtonColor:#FFFFFF;--alternateButtonBorder:#FFFFFF;--borderColor:#1F1F21;}
+.lp-reloc *,.lp-reloc *::before,.lp-reloc *::after{box-sizing:border-box;}
+.lp-reloc{font-family:var(--bodyFont);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);background:var(--background);-webkit-font-smoothing:antialiased;}
+.lp-reloc img{display:block;max-width:100%;height:auto;}
+.lp-reloc a{color:var(--linkColor);}
+.lp-reloc .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-reloc .bbi-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:12px 20px;min-height:44px;font-family:var(--bodyFont);font-size:var(--fs-button);line-height:var(--lh-button);letter-spacing:var(--ls-button);font-weight:600;border-radius:var(--buttonRadius);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;white-space:nowrap;}
+.lp-reloc .bbi-btn:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+.lp-reloc .bbi-btn--lg{min-height:52px;padding:16px 24px;font-size:16px;}
+.lp-reloc .bbi-btn--primary{background:var(--buttonBackground);color:var(--buttonColor);border-color:var(--buttonBorder);}
+.lp-reloc .bbi-btn--primary:hover{background:var(--buttonBackgroundHover);color:var(--buttonColorHover);border-color:var(--buttonBorderHover);}
+.lp-reloc .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
+.lp-reloc .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
+.lp-reloc .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
+.lp-reloc .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
+.lp-reloc .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
+.lp-reloc .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
+.lp-reloc .bbi-header__logo img{height:36px;width:auto;}
+.lp-reloc .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
+.lp-reloc .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;position:relative;}
+.lp-reloc .bbi-nav-item:hover{color:var(--headerHoverColor);}
+.lp-reloc .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
+.lp-reloc .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
+.lp-reloc .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
+.lp-reloc .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
+.lp-reloc .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
+.lp-reloc .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
+.lp-reloc .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
+.lp-reloc .bbi-crumbs li:last-child{font-weight:500;}
+.lp-reloc .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-reloc .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
+.lp-reloc .lp-hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-reloc .lp-hero__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--space-12);align-items:center;}
+.lp-reloc .lp-hero__text{max-width:560px;}
+.lp-reloc .lp-hero__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);}
+.lp-reloc .lp-hero__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-reloc .lp-hero__eyebrow-label{color:rgba(var(--textColor-rgb),0.6);}
+.lp-reloc .lp-hero h1{font-family:var(--headingFont);font-size:var(--fs-h1);line-height:var(--lh-h1);letter-spacing:var(--ls-h1);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);text-wrap:balance;}
+.lp-reloc .lp-hero__standfirst{font-size:18px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-6);}
+.lp-reloc .lp-hero__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;}
+.lp-reloc .lp-hero__media{position:relative;aspect-ratio:5/4;background:var(--alternateBackground);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-reloc .lp-hero__media img{width:100%;height:100%;object-fit:cover;}
+.lp-reloc .lp-hero__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground);color:rgba(var(--textColor-rgb),.5);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-reloc .lp-intro{padding:var(--space-12) 0;}
+.lp-reloc .lp-intro__inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
+.lp-reloc .lp-intro__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-reloc .lp-intro__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-reloc .lp-intro h2{font-family:var(--headingFont);font-size:var(--fs-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-6);}
+.lp-reloc .lp-intro__body p{font-size:17px;line-height:1.65;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-4);}
+.lp-reloc .lp-process{padding:var(--space-12) 0;background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.5);border-bottom:1px solid rgba(var(--borderColor-rgb),0.5);}
+.lp-reloc .lp-process__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-reloc .lp-process__head{margin-bottom:var(--space-8);}
+.lp-reloc .lp-process__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-reloc .lp-process__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-reloc .lp-process h2{font-family:var(--headingFont);font-size:var(--fs-h2);font-weight:600;color:var(--headingColor);margin:0;max-width:44ch;}
+.lp-reloc .lp-process__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);}
+.lp-reloc .lp-process-card{background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),0.6);border-radius:var(--cardRadius);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-3);}
+.lp-reloc .lp-process-card__step{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--saleBadgeBackground);margin:0;}
+.lp-reloc .lp-process-card__title{font-family:var(--headingFont);font-size:var(--fs-h3);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-reloc .lp-process-card__body{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),0.72);margin:0;}
+.lp-reloc .lp-oecm-bar{padding:var(--space-8) 0;background:rgba(var(--saleBadgeBackground-rgb),0.04);border-top:1px solid rgba(var(--saleBadgeBackground-rgb),0.12);border-bottom:1px solid rgba(var(--saleBadgeBackground-rgb),0.12);}
+.lp-reloc .lp-oecm-bar__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-6);flex-wrap:wrap;}
+.lp-reloc .lp-oecm-bar__badge{display:inline-flex;align-items:center;gap:var(--space-3);padding:6px 12px;background:var(--saleBadgeBackground);color:#fff;border-radius:4px;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap;}
+.lp-reloc .lp-oecm-bar__text{font-size:15px;color:rgba(var(--textColor-rgb),0.78);}
+.lp-reloc .lp-oecm-bar__text strong{color:var(--textColor);}
+.lp-reloc .lp-faq{padding:var(--space-12) 0;}
+.lp-reloc .lp-faq__inner{max-width:800px;margin:0 auto;padding:0 var(--space-6);}
+.lp-reloc .lp-faq__head{margin-bottom:var(--space-8);}
+.lp-reloc .lp-faq__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-reloc .lp-faq__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-reloc .lp-faq h2{font-family:var(--headingFont);font-size:var(--fs-h2);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-reloc .lp-faq__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;}
+.lp-reloc .lp-faq__item{border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-reloc .lp-faq__item:last-child{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-reloc .lp-faq__q{width:100%;background:none;border:none;padding:var(--space-6) 0;display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);font-family:var(--headingFont);font-size:var(--fs-h3);font-weight:600;color:var(--headingColor);text-align:left;cursor:pointer;}
+.lp-reloc .lp-faq__q-icon{flex-shrink:0;width:20px;height:20px;position:relative;}
+.lp-reloc .lp-faq__q-icon::before,.lp-reloc .lp-faq__q-icon::after{content:"";position:absolute;background:var(--textColor);border-radius:2px;}
+.lp-reloc .lp-faq__q-icon::before{width:12px;height:1.5px;top:50%;left:50%;transform:translate(-50%,-50%);}
+.lp-reloc .lp-faq__q-icon::after{width:1.5px;height:12px;top:50%;left:50%;transform:translate(-50%,-50%);transition:opacity 200ms ease;}
+.lp-reloc .lp-faq__item.is-open .lp-faq__q-icon::after{opacity:0;}
+.lp-reloc .lp-faq__a{display:none;padding:0 0 var(--space-6);}
+.lp-reloc .lp-faq__item.is-open .lp-faq__a{display:block;}
+.lp-reloc .lp-faq__a p{font-size:16px;line-height:1.65;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-3);}
+.lp-reloc .lp-faq__a p:last-child{margin-bottom:0;}
+.lp-reloc .lp-closer{padding:var(--space-12) 0;}
+.lp-reloc .lp-closer__inner{max-width:680px;margin:0 auto;padding:0 var(--space-6);text-align:center;}
+.lp-reloc .lp-closer h2{font-family:var(--headingFont);font-size:var(--fs-h1);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);}
+.lp-reloc .lp-closer__sub{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.72);margin:0 0 var(--space-8);}
+.lp-reloc .lp-closer__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-4);}
+.lp-reloc .lp-closer__trust{font-size:13px;color:rgba(var(--textColor-rgb),0.5);}
+.lp-reloc .bbi-footer{background:var(--textColor);color:rgba(255,255,255,0.85);padding:var(--space-12) 0 var(--space-8);}
+.lp-reloc .bbi-footer__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-reloc .bbi-footer__grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:var(--space-12);margin-bottom:var(--space-8);}
+.lp-reloc .bbi-footer__brand-logo{height:32px;width:auto;margin-bottom:var(--space-4);opacity:0.9;}
+.lp-reloc .bbi-footer__tagline{font-size:14px;line-height:1.55;color:rgba(255,255,255,0.6);max-width:260px;}
+.lp-reloc .bbi-footer__col-title{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:0 0 var(--space-4);}
+.lp-reloc .bbi-footer__links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-2);}
+.lp-reloc .bbi-footer__links a{font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;}
+.lp-reloc .bbi-footer__links a:hover{color:#fff;}
+.lp-reloc .bbi-footer__bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-4);font-size:13px;color:rgba(255,255,255,0.4);}
+@media(max-width:1023px){.lp-reloc .lp-hero__inner{grid-template-columns:1fr;}.lp-reloc .lp-process__grid{grid-template-columns:repeat(2,1fr);}.lp-reloc .bbi-footer__grid{grid-template-columns:1fr 1fr;gap:var(--space-8);}}
+@media(max-width:639px){.lp-reloc .lp-process__grid{grid-template-columns:1fr;}.lp-reloc .bbi-header__nav{display:none;}.lp-reloc .bbi-footer__grid{grid-template-columns:1fr;}}
+</style>
+
+<div class="lp-reloc scheme-default">
+
+  {%- comment -%} Header {%- endcomment -%}
+  <header class="bbi-header">
+    <div class="bbi-header__inner">
+      <a href="/" class="bbi-header__logo" aria-label="Brant Business Interiors — Home">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 200 | image_tag: loading: 'eager', alt: 'Brant Business Interiors' }}
+        {%- else -%}
+          <span style="font-family:var(--headingFont);font-size:17px;font-weight:600;color:var(--textColor);">Brant ✱ BI</span>
+        {%- endif -%}
+      </a>
+      <nav class="bbi-header__nav" aria-label="Main navigation">
+        <a href="/collections/business-furniture" class="bbi-nav-item">Shop</a>
+        <a href="/pages/industries" class="bbi-nav-item">Industries</a>
+        <a href="/pages/brands" class="bbi-nav-item">Brands</a>
+        <a href="/pages/design-services" class="bbi-nav-item">Services</a>
+        <a href="/pages/about" class="bbi-nav-item">About</a>
+      </nav>
+      <div class="bbi-header__utility">
+        <a href="tel:18008359565">1-800-835-9565</a>
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary">Request a Quote</a>
+      </div>
+    </div>
+  </header>
+
+  {%- comment -%} Breadcrumbs {%- endcomment -%}
+  <div class="lp-crumbs-band">
+    <div class="lp-crumbs-band__inner">
+      <ol class="bbi-crumbs">
+        <li><a href="/">Home</a></li>
+        <li>Relocation Management</li>
+      </ol>
+    </div>
+  </div>
+
+  {%- comment -%} Hero {%- endcomment -%}
+  <section class="lp-hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <div class="lp-hero__eyebrow">
+          <span class="bbi-mono lp-hero__eyebrow-label">Services</span>
+        </div>
+        <h1>Office relocation managed start to finish — no disruption, no surprises</h1>
+        <p class="lp-hero__standfirst">From decommissioning your old space to full installation in the new one, we coordinate every phase of your office move. Ontario-wide. OECM-eligible supplier. Quote in 1 business day.</p>
+        <div class="lp-hero__cta-row">
+          <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Request a Quote <span class="arrow">→</span></a>
+          <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg">1-800-835-9565</a>
+        </div>
+      </div>
+      <div class="lp-hero__media">
+        {%- if section.settings.hero_image != blank -%}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', alt: 'Office relocation and furniture installation' }}
+        {%- else -%}
+          <div class="lp-hero__ph"><span class="bbi-mono">Relocation hero image</span></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Intro {%- endcomment -%}
+  <section class="lp-intro">
+    <div class="lp-intro__inner">
+      <div class="lp-intro__eyebrow">
+        <span class="bbi-mono">Full-scope relocation</span>
+      </div>
+      <h2>Move your office without moving your team off-track</h2>
+      <div class="lp-intro__body">
+        <p>Office relocations fail when logistics aren't coordinated. We manage the complete scope — furniture decommissioning, inventory audits, responsible disposal or resale, new space installation, and post-move punch-lists — so your facilities team isn't juggling three contractors at once.</p>
+        <p>Whether you're moving a 10-person office or a multi-floor institution, our project coordinators build a phased plan around your occupancy dates and access windows. Disruption to your staff stays minimal.</p>
+        <p>OECM Agreement 2025-470 allows eligible Ontario public-sector organizations to engage relocation management services without a separate open tender process.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Process Steps {%- endcomment -%}
+  <section class="lp-process">
+    <div class="lp-process__inner">
+      <div class="lp-process__head">
+        <div class="lp-process__eyebrow">
+          <span class="bbi-mono">How it works</span>
+        </div>
+        <h2>Four phases from vacating to move-in day</h2>
+      </div>
+      <div class="lp-process__grid">
+        <div class="lp-process-card">
+          <p class="lp-process-card__step">Phase 01</p>
+          <h3 class="lp-process-card__title">Inventory &amp; planning</h3>
+          <p class="lp-process-card__body">We audit your existing furniture, identify what moves, what disposes, and what replaces. A phased project plan is built around your occupancy dates and facility access windows.</p>
+        </div>
+        <div class="lp-process-card">
+          <p class="lp-process-card__step">Phase 02</p>
+          <h3 class="lp-process-card__title">Decommission &amp; disposal</h3>
+          <p class="lp-process-card__body">Our team removes, packs, and responsibly disposes of or donates outgoing furniture. We handle coordination with your building management for dock access and disposal logistics.</p>
+        </div>
+        <div class="lp-process-card">
+          <p class="lp-process-card__step">Phase 03</p>
+          <h3 class="lp-process-card__title">New-space installation</h3>
+          <p class="lp-process-card__body">All new and relocated furniture is installed to your approved floor plan. Workstations assembled, seating adjusted, and cable management completed before your staff arrives.</p>
+        </div>
+        <div class="lp-process-card">
+          <p class="lp-process-card__step">Phase 04</p>
+          <h3 class="lp-process-card__title">Post-move punch-list</h3>
+          <p class="lp-process-card__body">We return to address any adjustments, missing items, or warranty concerns within the first two weeks of occupancy. The job isn't done until your team is settled.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} OECM Bar {%- endcomment -%}
+  <div class="lp-oecm-bar">
+    <div class="lp-oecm-bar__inner">
+      <span class="lp-oecm-bar__badge">OECM Supplier</span>
+      <p class="lp-oecm-bar__text"><strong>OECM Agreement 2025-470</strong> — Ontario schools, hospitals, and government offices can engage relocation services through OECM without an open tender process. <a href="/pages/oecm" style="color:var(--saleBadgeBackground);font-weight:600;text-decoration:none;">Learn about OECM purchasing →</a></p>
+    </div>
+  </div>
+
+  {%- comment -%} FAQ {%- endcomment -%}
+  <section class="lp-faq">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <div class="lp-faq__eyebrow">
+          <span class="bbi-mono">Common questions</span>
+        </div>
+        <h2>Relocation management — FAQ</h2>
+      </div>
+      <ul class="lp-faq__list">
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            Do you handle both the old space and the new space?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>Yes. Full-scope relocation covers decommissioning the existing space and full installation in the new one. We coordinate both sides of the move under one project manager so nothing falls through the cracks between contractors.</p>
+          </div>
+        </li>
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            Can you move furniture we didn't purchase from you?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>Yes. Our relocation services aren't limited to BBI-sourced furniture. We can inventory, move, and reinstall existing pieces alongside any new furniture included in your project. Contact us with details about your inventory for an accurate quote.</p>
+          </div>
+        </li>
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            What happens to furniture we're replacing?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>We can arrange responsible disposal, donation to registered non-profits, or resale depending on the condition of items. For institutional clients with surplus asset policies, we'll work within your disposal requirements. Ask about this during your quote call.</p>
+          </div>
+        </li>
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            How far in advance should we engage you for a relocation?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>For a typical office relocation, we recommend engaging us 8–12 weeks before your occupancy date. Larger institutional moves (full-floor or multi-site) benefit from 12–20 weeks of lead time. Contact us early — we can fit a scoping call into 1 business day.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {%- comment -%} CTA Closer {%- endcomment -%}
+  <section class="lp-closer scheme-inverse" style="background:var(--background);padding:var(--space-12) 0;">
+    <div class="lp-closer__inner">
+      <h2>Planning a move? Let's scope it.</h2>
+      <p class="lp-closer__sub">Request a quote and our project team will reach out within 1 business day to scope your relocation. OECM-eligible. No obligation.</p>
+      <div class="lp-closer__cta-row">
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Get a Quote <span class="arrow">→</span></a>
+        <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg">Call 1-800-835-9565</a>
+      </div>
+      <p class="lp-closer__trust">OECM Agreement 2025-470 · Full-scope relocation · Ontario-wide</p>
+    </div>
+  </section>
+
+  {%- comment -%} Footer {%- endcomment -%}
+  <footer class="bbi-footer">
+    <div class="bbi-footer__inner">
+      <div class="bbi-footer__grid">
+        <div>
+          {%- if section.settings.logo != blank -%}
+            {{ section.settings.logo | image_url: width: 180 | image_tag: loading: 'lazy', alt: 'Brant Business Interiors', class: 'bbi-footer__brand-logo' }}
+          {%- else -%}
+            <p style="font-family:var(--headingFont);font-size:16px;font-weight:600;color:#fff;margin:0 0 12px;">Brant ✱ BI</p>
+          {%- endif -%}
+          <p class="bbi-footer__tagline">Commercial office furniture for Ontario businesses, schools, hospitals, and government. 🍁 Canadian-owned.</p>
+        </div>
+        <div>
+          <p class="bbi-footer__col-title">Shop</p>
+          <ul class="bbi-footer__links">
+            <li><a href="/collections/seating">Seating</a></li>
+            <li><a href="/collections/desks">Desks &amp; Workstations</a></li>
+            <li><a href="/collections/storage">Storage &amp; Filing</a></li>
+            <li><a href="/collections/tables">Tables</a></li>
+            <li><a href="/collections/business-furniture">All Products</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="bbi-footer__col-title">Services</p>
+          <ul class="bbi-footer__links">
+            <li><a href="/pages/design-services">Space Planning</a></li>
+            <li><a href="/pages/delivery">Delivery &amp; Installation</a></li>
+            <li><a href="/pages/relocation">Relocation Management</a></li>
+            <li><a href="/pages/quote">Request a Quote</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="bbi-footer__col-title">Company</p>
+          <ul class="bbi-footer__links">
+            <li><a href="/pages/about">About BBI</a></li>
+            <li><a href="/pages/oecm">OECM Purchasing</a></li>
+            <li><a href="/pages/brands">Brands We Carry</a></li>
+            <li><a href="/pages/contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bbi-footer__bottom">
+        <span>© {{ 'now' | date: '%Y' }} Brant Business Interiors · 295 George St N, Peterborough, ON K9J 3H2</span>
+        <span><a href="tel:18008359565" style="color:rgba(255,255,255,0.4);text-decoration:none;">1-800-835-9565</a> · <a href="mailto:info@brantbusinessinteriors.com" style="color:rgba(255,255,255,0.4);text-decoration:none;">info@brantbusinessinteriors.com</a></span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('.lp-reloc .lp-faq__q').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=this.closest('.lp-faq__item');
+      var open=item.classList.contains('is-open');
+      document.querySelectorAll('.lp-reloc .lp-faq__item.is-open').forEach(function(i){i.classList.remove('is-open');i.querySelector('.lp-faq__q').setAttribute('aria-expanded','false');});
+      if(!open){item.classList.add('is-open');this.setAttribute('aria-expanded','true');}
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Relocation Management",
+  "class": "ds-lp-relocation",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Relocation Management"
+    }
+  ]
+}
+{% endschema %}

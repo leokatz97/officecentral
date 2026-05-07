@@ -1,0 +1,377 @@
+{%- comment -%}
+  Section: ds-lp-our-work
+  Purpose: Our Work / Project Gallery — showcases OCI project photos, client installs
+  Used by: page.our-work.json (template suffix: our-work)
+  Gate: theme.liquid bbi_landing gate
+  Photos: sourced from data/oci-photos/catalog.json (upload to Shopify assets before going live)
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+:root{--bodyFont:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--headingFont:"Inter Tight","Inter",system-ui,sans-serif;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--inputRadius:4px;--buttonRadius:4px;--cardRadius:8px;--saleBadgeBackground:#D4252A;--saleBadgeBackground-rgb:212,37,42;--fs-h0:44px;--fs-h1:32px;--lh-h1:1.1;--ls-h1:-0.015em;--fs-h2:24px;--lh-h2:1.15;--fs-h3:18px;--lh-h3:1.25;--fs-body:16px;--lh-body:1.55;--fs-button:15px;--lh-button:1;--ls-button:0.01em;}
+@media(min-width:768px){:root{--fs-h1:48px;--fs-h2:32px;--fs-h3:22px;}}
+.lp-our-work.scheme-default{--background:#FFFFFF;--background-rgb:255,255,255;--alternateBackground:#FAFAFA;--alternateBackground-rgb:250,250,250;--cardBackground:#FFFFFF;--textColor:#0B0B0C;--textColor-rgb:11,11,12;--linkColor:#0B0B0C;--headingColor:#0B0B0C;--headingColor-rgb:11,11,12;--buttonBackground:#0B0B0C;--buttonColor:#FFFFFF;--buttonBorder:#0B0B0C;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:#FFFFFF;--alternateButtonColor:#0B0B0C;--alternateButtonBorder:#0B0B0C;--alternateButtonBackgroundHover:#0B0B0C;--alternateButtonColorHover:#FFFFFF;--borderColor:#E5E5E7;--borderColor-rgb:229,229,231;--shadowColor:#0B0B0C;--shadowColor-rgb:11,11,12;--headerBg:#FFFFFF;--headerColor:#0B0B0C;--headerHoverColor:#D4252A;}
+.lp-our-work .scheme-inverse{--background:#0B0B0C;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--linkColor:#FFFFFF;--headingColor:#FFFFFF;--headingColor-rgb:255,255,255;--buttonBackground:#FFFFFF;--buttonColor:#0B0B0C;--buttonBorder:#FFFFFF;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:transparent;--alternateButtonColor:#FFFFFF;--alternateButtonBorder:#FFFFFF;--borderColor:#1F1F21;}
+.lp-our-work *,.lp-our-work *::before,.lp-our-work *::after{box-sizing:border-box;}
+.lp-our-work{font-family:var(--bodyFont);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);background:var(--background);-webkit-font-smoothing:antialiased;}
+.lp-our-work img{display:block;max-width:100%;height:auto;}
+.lp-our-work a{color:var(--linkColor);}
+.lp-our-work .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-our-work .bbi-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:12px 20px;min-height:44px;font-family:var(--bodyFont);font-size:var(--fs-button);font-weight:600;border-radius:var(--buttonRadius);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;white-space:nowrap;}
+.lp-our-work .bbi-btn:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+.lp-our-work .bbi-btn--lg{min-height:52px;padding:16px 24px;font-size:16px;}
+.lp-our-work .bbi-btn--primary{background:var(--buttonBackground);color:var(--buttonColor);border-color:var(--buttonBorder);}
+.lp-our-work .bbi-btn--primary:hover{background:var(--buttonBackgroundHover);color:var(--buttonColorHover);border-color:var(--buttonBorderHover);}
+.lp-our-work .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
+.lp-our-work .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
+.lp-our-work .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
+.lp-our-work .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
+.lp-our-work .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
+.lp-our-work .bbi-header__logo img{height:36px;width:auto;}
+.lp-our-work .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
+.lp-our-work .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;}
+.lp-our-work .bbi-nav-item:hover{color:var(--headerHoverColor);}
+.lp-our-work .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
+.lp-our-work .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
+.lp-our-work .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
+.lp-our-work .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
+.lp-our-work .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
+.lp-our-work .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
+.lp-our-work .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
+.lp-our-work .bbi-crumbs li:last-child{font-weight:500;}
+.lp-our-work .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-our-work .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
+.lp-our-work .lp-page-head{padding:var(--space-12) 0 var(--space-8);}
+.lp-our-work .lp-page-head__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-our-work .lp-page-head__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);}
+.lp-our-work .lp-page-head__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-our-work .lp-page-head__eyebrow-label{color:rgba(var(--textColor-rgb),0.6);}
+.lp-our-work .lp-page-head h1{font-family:var(--headingFont);font-size:var(--fs-h1);line-height:var(--lh-h1);letter-spacing:var(--ls-h1);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);max-width:22ch;}
+.lp-our-work .lp-page-head__sub{font-size:18px;line-height:1.55;color:rgba(var(--textColor-rgb),0.72);margin:0;max-width:60ch;}
+.lp-our-work .lp-gallery{padding:0 0 var(--space-16);}
+.lp-our-work .lp-gallery__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-our-work .lp-gallery__filter-row{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-8);}
+.lp-our-work .lp-filter-btn{padding:8px 16px;border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:100px;background:transparent;font-family:var(--bodyFont);font-size:14px;font-weight:500;color:var(--textColor);cursor:pointer;transition:background 120ms,border-color 120ms,color 120ms;}
+.lp-our-work .lp-filter-btn:hover,.lp-our-work .lp-filter-btn.is-active{background:var(--textColor);color:#fff;border-color:var(--textColor);}
+.lp-our-work .lp-gallery__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);}
+.lp-our-work .lp-photo-card{position:relative;border-radius:var(--cardRadius);overflow:hidden;background:var(--alternateBackground);}
+.lp-our-work .lp-photo-card--wide{grid-column:span 2;}
+.lp-our-work .lp-photo-card__media{aspect-ratio:4/3;overflow:hidden;}
+.lp-our-work .lp-photo-card--wide .lp-photo-card__media{aspect-ratio:16/9;}
+.lp-our-work .lp-photo-card__media img{width:100%;height:100%;object-fit:cover;transition:transform 400ms ease;}
+.lp-our-work .lp-photo-card:hover .lp-photo-card__media img{transform:scale(1.03);}
+.lp-our-work .lp-photo-card__caption{padding:var(--space-3) var(--space-4);font-size:13px;color:rgba(var(--textColor-rgb),0.6);}
+.lp-our-work .lp-photo-card__ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground);color:rgba(var(--textColor-rgb),.4);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-our-work .lp-closer{padding:var(--space-12) 0;}
+.lp-our-work .lp-closer__inner{max-width:680px;margin:0 auto;padding:0 var(--space-6);text-align:center;}
+.lp-our-work .lp-closer h2{font-family:var(--headingFont);font-size:var(--fs-h1);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);}
+.lp-our-work .lp-closer__sub{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.72);margin:0 0 var(--space-8);}
+.lp-our-work .lp-closer__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-4);}
+.lp-our-work .lp-closer__trust{font-size:13px;color:rgba(var(--textColor-rgb),0.5);}
+.lp-our-work .bbi-footer{background:var(--textColor);color:rgba(255,255,255,0.85);padding:var(--space-12) 0 var(--space-8);}
+.lp-our-work .bbi-footer__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-our-work .bbi-footer__grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:var(--space-12);margin-bottom:var(--space-8);}
+.lp-our-work .bbi-footer__brand-logo{height:32px;width:auto;margin-bottom:var(--space-4);opacity:0.9;}
+.lp-our-work .bbi-footer__tagline{font-size:14px;line-height:1.55;color:rgba(255,255,255,0.6);max-width:260px;}
+.lp-our-work .bbi-footer__col-title{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:0 0 var(--space-4);}
+.lp-our-work .bbi-footer__links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-2);}
+.lp-our-work .bbi-footer__links a{font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;}
+.lp-our-work .bbi-footer__links a:hover{color:#fff;}
+.lp-our-work .bbi-footer__bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-4);font-size:13px;color:rgba(255,255,255,0.4);}
+@media(max-width:1023px){.lp-our-work .lp-gallery__grid{grid-template-columns:repeat(2,1fr);}.lp-our-work .lp-photo-card--wide{grid-column:span 2;}.lp-our-work .bbi-footer__grid{grid-template-columns:1fr 1fr;gap:var(--space-8);}}
+@media(max-width:639px){.lp-our-work .lp-gallery__grid{grid-template-columns:1fr;}.lp-our-work .lp-photo-card--wide{grid-column:span 1;}.lp-our-work .bbi-header__nav{display:none;}.lp-our-work .bbi-footer__grid{grid-template-columns:1fr;}}
+</style>
+
+<div class="lp-our-work scheme-default">
+
+  {%- comment -%} Header {%- endcomment -%}
+  <header class="bbi-header">
+    <div class="bbi-header__inner">
+      <a href="/" class="bbi-header__logo" aria-label="Brant Business Interiors — Home">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 200 | image_tag: loading: 'eager', alt: 'Brant Business Interiors' }}
+        {%- else -%}
+          <span style="font-family:var(--headingFont);font-size:17px;font-weight:600;color:var(--textColor);">Brant ✱ BI</span>
+        {%- endif -%}
+      </a>
+      <nav class="bbi-header__nav" aria-label="Main navigation">
+        <a href="/collections/business-furniture" class="bbi-nav-item">Shop</a>
+        <a href="/pages/industries" class="bbi-nav-item">Industries</a>
+        <a href="/pages/brands" class="bbi-nav-item">Brands</a>
+        <a href="/pages/design-services" class="bbi-nav-item">Services</a>
+        <a href="/pages/about" class="bbi-nav-item is-current">About</a>
+      </nav>
+      <div class="bbi-header__utility">
+        <a href="tel:18008359565">1-800-835-9565</a>
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary">Request a Quote</a>
+      </div>
+    </div>
+  </header>
+
+  {%- comment -%} Breadcrumbs {%- endcomment -%}
+  <div class="lp-crumbs-band">
+    <div class="lp-crumbs-band__inner">
+      <ol class="bbi-crumbs">
+        <li><a href="/">Home</a></li>
+        <li><a href="/pages/about">About</a></li>
+        <li>Our Work</li>
+      </ol>
+    </div>
+  </div>
+
+  {%- comment -%} Page Heading {%- endcomment -%}
+  <section class="lp-page-head">
+    <div class="lp-page-head__inner">
+      <div class="lp-page-head__eyebrow">
+        <span class="bbi-mono lp-page-head__eyebrow-label">Project gallery</span>
+      </div>
+      <h1>Workspaces we've furnished across Ontario</h1>
+      <p class="lp-page-head__sub">From Mattamy Homes boardrooms to healthcare waiting areas — a selection of commercial furniture projects delivered by our team. Every space is quote-based, measurement-confirmed, and professionally installed.</p>
+    </div>
+  </section>
+
+  {%- comment -%} Photo Gallery {%- endcomment -%}
+  <section class="lp-gallery">
+    <div class="lp-gallery__inner">
+
+      {%- comment -%}
+        TODO: Upload OCI photos to Shopify CDN assets and replace these asset_url references.
+        Source images are in data/oci-photos/ — use scripts/push-oci-photos.py (or manual upload).
+        Pattern: {{ 'FILENAME' | asset_url | image_url: width: 1200 }}
+        Until photos are uploaded, schema image_picker settings below allow merchant upload via Customizer.
+      {%- endcomment -%}
+
+      <div class="lp-gallery__grid">
+
+        {%- comment -%} Row 1 — wide hero + standard {%- endcomment -%}
+        <div class="lp-photo-card lp-photo-card--wide">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_1 != blank -%}
+              {{ section.settings.photo_1 | image_url: width: 1400 | image_tag: loading: 'eager', alt: 'Mattamy Homes — boardroom installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Mattamy Homes — Boardroom</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Mattamy Homes — Corporate boardroom, Milton, ON</p>
+        </div>
+        <div class="lp-photo-card">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_2 != blank -%}
+              {{ section.settings.photo_2 | image_url: width: 800 | image_tag: loading: 'eager', alt: 'Executive office installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Executive Office</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Executive office — ergoCentric task seating + Keilhauer guest</p>
+        </div>
+
+        {%- comment -%} Row 2 — three standard {%- endcomment -%}
+        <div class="lp-photo-card">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_3 != blank -%}
+              {{ section.settings.photo_3 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Conference room installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Conference Room</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Conference room — Global Furniture Group tables</p>
+        </div>
+        <div class="lp-photo-card">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_4 != blank -%}
+              {{ section.settings.photo_4 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Open-plan workstation installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Open-plan workstations</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Open-plan workstations — height-adjustable desks, Peterborough</p>
+        </div>
+        <div class="lp-photo-card">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_5 != blank -%}
+              {{ section.settings.photo_5 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Reception area installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Reception Area</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Reception lounge — Keilhauer soft seating</p>
+        </div>
+
+        {%- comment -%} Row 3 — standard + wide {%- endcomment -%}
+        <div class="lp-photo-card">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_6 != blank -%}
+              {{ section.settings.photo_6 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Healthcare waiting area' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Healthcare Waiting</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Healthcare waiting area — bariatric-rated seating</p>
+        </div>
+        <div class="lp-photo-card lp-photo-card--wide">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_7 != blank -%}
+              {{ section.settings.photo_7 | image_url: width: 1400 | image_tag: loading: 'lazy', alt: 'Mattamy Homes — multi-office installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Mattamy Homes — Open Office</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Mattamy Homes — Multi-office open floor, Milton, ON</p>
+        </div>
+
+        {%- comment -%} Row 4 — three standard {%- endcomment -%}
+        <div class="lp-photo-card">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_8 != blank -%}
+              {{ section.settings.photo_8 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Ergonomic workstation setup' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Ergonomic Workstation</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Ergonomic workstation — ergoCentric TechnoMesh, sit-stand desk</p>
+        </div>
+        <div class="lp-photo-card">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_9 != blank -%}
+              {{ section.settings.photo_9 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Breakroom installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Breakroom</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Breakroom — café-height tables, stackable seating</p>
+        </div>
+        <div class="lp-photo-card">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_10 != blank -%}
+              {{ section.settings.photo_10 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Acoustic pods installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Acoustic Pods</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Private focus pods — acoustic enclosures, open-plan office</p>
+        </div>
+
+        {%- comment -%} Row 5 — wide + standard {%- endcomment -%}
+        <div class="lp-photo-card lp-photo-card--wide">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_11 != blank -%}
+              {{ section.settings.photo_11 | image_url: width: 1400 | image_tag: loading: 'lazy', alt: 'Government office installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Government Office</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Government — Federal office fit-out, ergonomic workstations</p>
+        </div>
+        <div class="lp-photo-card">
+          <div class="lp-photo-card__media">
+            {%- if section.settings.photo_12 != blank -%}
+              {{ section.settings.photo_12 | image_url: width: 800 | image_tag: loading: 'lazy', alt: 'Education classroom installation' }}
+            {%- else -%}
+              <div class="lp-photo-card__ph"><span>Education</span></div>
+            {%- endif -%}
+          </div>
+          <p class="lp-photo-card__caption">Education — collaborative classroom, active-learning seating</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} CTA Closer {%- endcomment -%}
+  <section class="lp-closer" style="background:var(--alternateBackground);padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);">
+    <div class="lp-closer__inner">
+      <h2>Have a project in mind?</h2>
+      <p class="lp-closer__sub">Request a quote and tell us about your space. We'll put together a plan with product recommendations, a CAD layout if needed, and delivery &amp; installation pricing. OECM-eligible. No obligation.</p>
+      <div class="lp-closer__cta-row">
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Request a Quote <span style="display:inline-block;transform:translateY(-0.5px);">→</span></a>
+        <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg">Call 1-800-835-9565</a>
+      </div>
+      <p class="lp-closer__trust">OECM Agreement 2025-470 · Quote in 1 business day · Ontario-wide delivery</p>
+    </div>
+  </section>
+
+  {%- comment -%} Footer {%- endcomment -%}
+  <footer class="bbi-footer">
+    <div class="bbi-footer__inner">
+      <div class="bbi-footer__grid">
+        <div>
+          {%- if section.settings.logo != blank -%}
+            {{ section.settings.logo | image_url: width: 180 | image_tag: loading: 'lazy', alt: 'Brant Business Interiors', class: 'bbi-footer__brand-logo' }}
+          {%- else -%}
+            <p style="font-family:var(--headingFont);font-size:16px;font-weight:600;color:#fff;margin:0 0 12px;">Brant ✱ BI</p>
+          {%- endif -%}
+          <p class="bbi-footer__tagline">Commercial office furniture for Ontario businesses, schools, hospitals, and government. 🍁 Canadian-owned.</p>
+        </div>
+        <div>
+          <p class="bbi-footer__col-title">Shop</p>
+          <ul class="bbi-footer__links">
+            <li><a href="/collections/seating">Seating</a></li>
+            <li><a href="/collections/desks">Desks &amp; Workstations</a></li>
+            <li><a href="/collections/storage">Storage &amp; Filing</a></li>
+            <li><a href="/collections/tables">Tables</a></li>
+            <li><a href="/collections/business-furniture">All Products</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="bbi-footer__col-title">Services</p>
+          <ul class="bbi-footer__links">
+            <li><a href="/pages/design-services">Space Planning</a></li>
+            <li><a href="/pages/delivery">Delivery &amp; Installation</a></li>
+            <li><a href="/pages/relocation">Relocation Management</a></li>
+            <li><a href="/pages/quote">Request a Quote</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="bbi-footer__col-title">Company</p>
+          <ul class="bbi-footer__links">
+            <li><a href="/pages/about">About BBI</a></li>
+            <li><a href="/pages/our-work">Our Work</a></li>
+            <li><a href="/pages/oecm">OECM Purchasing</a></li>
+            <li><a href="/pages/contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bbi-footer__bottom">
+        <span>© {{ 'now' | date: '%Y' }} Brant Business Interiors · 295 George St N, Peterborough, ON K9J 3H2</span>
+        <span><a href="tel:18008359565" style="color:rgba(255,255,255,0.4);text-decoration:none;">1-800-835-9565</a> · <a href="mailto:info@brantbusinessinteriors.com" style="color:rgba(255,255,255,0.4);text-decoration:none;">info@brantbusinessinteriors.com</a></span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+{% schema %}
+{
+  "name": "Our Work Gallery",
+  "class": "ds-lp-our-work",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    { "type": "image_picker", "id": "photo_1", "label": "Photo 1 (wide) — Mattamy boardroom" },
+    { "type": "image_picker", "id": "photo_2", "label": "Photo 2 — Executive office" },
+    { "type": "image_picker", "id": "photo_3", "label": "Photo 3 — Conference room" },
+    { "type": "image_picker", "id": "photo_4", "label": "Photo 4 — Open-plan workstations" },
+    { "type": "image_picker", "id": "photo_5", "label": "Photo 5 — Reception" },
+    { "type": "image_picker", "id": "photo_6", "label": "Photo 6 — Healthcare waiting" },
+    { "type": "image_picker", "id": "photo_7", "label": "Photo 7 (wide) — Mattamy open office" },
+    { "type": "image_picker", "id": "photo_8", "label": "Photo 8 — Ergonomic workstation" },
+    { "type": "image_picker", "id": "photo_9", "label": "Photo 9 — Breakroom" },
+    { "type": "image_picker", "id": "photo_10", "label": "Photo 10 — Acoustic pods" },
+    { "type": "image_picker", "id": "photo_11", "label": "Photo 11 (wide) — Government office" },
+    { "type": "image_picker", "id": "photo_12", "label": "Photo 12 — Education" }
+  ],
+  "presets": [
+    {
+      "name": "Our Work Gallery"
+    }
+  ]
+}
+{% endschema %}

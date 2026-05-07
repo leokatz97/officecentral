@@ -1,0 +1,354 @@
+{%- comment -%}
+  Section: ds-lp-customer-stories
+  Purpose: Customer stories / project showcase — named client projects, photos, outcomes
+  Used by: page.customer-stories.json (template suffix: customer-stories)
+  Gate: theme.liquid bbi_landing gate — suppresses Starlite header/footer/cart
+  Photos: upload OCI project photos (data/oci-photos/) to Shopify Files, then set via Customizer
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+:root{--bodyFont:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--headingFont:"Inter Tight","Inter",system-ui,sans-serif;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--inputRadius:4px;--buttonRadius:4px;--cardRadius:8px;--shadow-sm:0 1px 2px rgba(11,11,12,.04),0 2px 8px rgba(11,11,12,.05);--shadow-md:0 2px 4px rgba(11,11,12,.05),0 12px 32px rgba(11,11,12,.08);--saleBadgeBackground:#D4252A;--fs-h0:44px;--lh-h0:1.05;--fs-h1:32px;--lh-h1:1.1;--ls-h1:-0.015em;--fs-h2:24px;--lh-h2:1.15;--ls-h2:-0.01em;--fs-h3:18px;--lh-h3:1.25;--fs-body:16px;--lh-body:1.55;--fs-button:15px;--lh-button:1;--ls-button:0.01em;}
+@media(min-width:768px){:root{--fs-h0:64px;--fs-h1:48px;--lh-h1:1.05;--fs-h2:32px;--lh-h2:1.1;--fs-h3:22px;}}
+.lp-stories.scheme-default{--background:#FFFFFF;--background-rgb:255,255,255;--alternateBackground:#FAFAFA;--alternateBackground-rgb:250,250,250;--cardBackground:#FFFFFF;--textColor:#0B0B0C;--textColor-rgb:11,11,12;--linkColor:#0B0B0C;--headingColor:#0B0B0C;--headingColor-rgb:11,11,12;--buttonBackground:#0B0B0C;--buttonColor:#FFFFFF;--buttonBorder:#0B0B0C;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:#FFFFFF;--alternateButtonColor:#0B0B0C;--alternateButtonBorder:#0B0B0C;--alternateButtonBackgroundHover:#0B0B0C;--alternateButtonColorHover:#FFFFFF;--borderColor:#E5E5E7;--shadowColor:#0B0B0C;--headerBg:#FFFFFF;--headerColor:#0B0B0C;--headerHoverColor:#D4252A;}
+.lp-stories .scheme-inverse{--background:#0B0B0C;--background-rgb:11,11,12;--alternateBackground:#161618;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--linkColor:#FFFFFF;--headingColor:#FFFFFF;--headingColor-rgb:255,255,255;--buttonBackground:#FFFFFF;--buttonColor:#0B0B0C;--buttonBorder:#FFFFFF;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:transparent;--alternateButtonColor:#FFFFFF;--alternateButtonBorder:#FFFFFF;--borderColor:#1F1F21;}
+.lp-stories *,.lp-stories *::before,.lp-stories *::after{box-sizing:border-box;}
+.lp-stories{font-family:var(--bodyFont);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);background:var(--background);-webkit-font-smoothing:antialiased;}
+.lp-stories img{display:block;max-width:100%;height:auto;}
+.lp-stories a{color:var(--linkColor);}
+.lp-stories .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-stories .bbi-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:12px 20px;min-height:44px;font-family:var(--bodyFont);font-size:var(--fs-button);line-height:var(--lh-button);letter-spacing:var(--ls-button);font-weight:600;border-radius:var(--buttonRadius);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;white-space:nowrap;}
+.lp-stories .bbi-btn:focus{outline:none;}.lp-stories .bbi-btn:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+.lp-stories .bbi-btn--lg{min-height:52px;padding:16px 24px;font-size:16px;}
+.lp-stories .bbi-btn--primary{background:var(--buttonBackground);color:var(--buttonColor);border-color:var(--buttonBorder);}
+.lp-stories .bbi-btn--primary:hover{background:var(--buttonBackgroundHover);color:var(--buttonColorHover);border-color:var(--buttonBorderHover);}
+.lp-stories .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
+.lp-stories .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
+.lp-stories .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
+/* Header */
+.lp-stories .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
+.lp-stories .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
+.lp-stories .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
+.lp-stories .bbi-header__logo img{height:36px;width:auto;}
+.lp-stories .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
+.lp-stories .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;position:relative;}
+.lp-stories .bbi-nav-item:hover{color:var(--headerHoverColor);}
+.lp-stories .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
+.lp-stories .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
+/* Breadcrumbs */
+.lp-stories .bbi-crumbs-band{background:var(--alternateBackground);border-bottom:1px solid var(--borderColor);}
+.lp-stories .bbi-crumbs-band__inner{max-width:1320px;margin:0 auto;padding:12px 32px;}
+.lp-stories .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
+.lp-stories .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
+.lp-stories .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
+.lp-stories .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
+.lp-stories .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
+.lp-stories .bbi-crumbs li:last-child{font-weight:500;}
+/* Page intro */
+.lp-stories .lp-st-intro{max-width:1320px;margin:0 auto;padding:64px 32px 48px;}
+.lp-stories .lp-st-intro__eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.lp-stories .lp-st-intro__rule{width:28px;height:2px;background:#D4252A;flex-shrink:0;}
+.lp-stories .lp-st-intro h1{font-family:var(--headingFont);font-size:var(--fs-h1);font-weight:600;line-height:var(--lh-h1);letter-spacing:var(--ls-h1);color:var(--headingColor);margin:0 0 16px;}
+.lp-stories .lp-st-intro p{font-size:18px;line-height:1.6;color:var(--textColor);opacity:0.8;max-width:640px;margin:0;}
+/* Stories grid */
+.lp-stories .lp-st-grid{background:var(--alternateBackground);}
+.lp-stories .lp-st-grid__inner{max-width:1320px;margin:0 auto;padding:64px 32px;}
+.lp-stories .lp-st-grid__list{display:grid;gap:48px;}
+/* Story card — alternating image/text layout */
+.lp-stories .lp-st-card{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+.lp-stories .lp-st-card--reverse{direction:rtl;}
+.lp-stories .lp-st-card--reverse .lp-st-card__text,.lp-stories .lp-st-card--reverse .lp-st-card__img{direction:ltr;}
+.lp-stories .lp-st-card__img{border-radius:var(--cardRadius);overflow:hidden;aspect-ratio:4/3;background:var(--borderColor);}
+.lp-stories .lp-st-card__img img{width:100%;height:100%;object-fit:cover;}
+.lp-stories .lp-st-card__ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--textColor);opacity:0.3;font-size:13px;text-align:center;padding:16px;}
+.lp-stories .lp-st-card__text{display:flex;flex-direction:column;gap:16px;}
+.lp-stories .lp-st-card__sector{display:inline-flex;align-items:center;gap:8px;}
+.lp-stories .lp-st-card__badge{background:#D4252A;color:#FFFFFF;font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px;}
+.lp-stories .lp-st-card__tag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;opacity:0.55;}
+.lp-stories .lp-st-card__name{font-family:var(--headingFont);font-size:var(--fs-h2);font-weight:600;line-height:var(--lh-h2);letter-spacing:var(--ls-h2);color:var(--headingColor);margin:0;}
+.lp-stories .lp-st-card__summary{font-size:var(--fs-body);line-height:var(--lh-body);opacity:0.8;margin:0;}
+.lp-stories .lp-st-card__outcomes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
+.lp-stories .lp-st-card__outcomes li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.5;}
+.lp-stories .lp-st-card__outcomes li::before{content:"✓";color:#D4252A;font-weight:700;flex-shrink:0;margin-top:1px;}
+.lp-stories .lp-st-card__divider{border:none;border-top:1px solid var(--borderColor);margin:16px 0 0;}
+/* Testimonial pull-quote */
+.lp-stories .lp-st-quote{max-width:1320px;margin:0 auto;padding:64px 32px;}
+.lp-stories .lp-st-quote__inner{background:var(--cardBackground);border:1px solid var(--borderColor);border-radius:var(--cardRadius);padding:48px 64px;position:relative;}
+.lp-stories .lp-st-quote__mark{font-family:var(--headingFont);font-size:80px;line-height:1;color:#D4252A;position:absolute;top:24px;left:48px;user-select:none;}
+.lp-stories .lp-st-quote blockquote{margin:0;padding-top:24px;}
+.lp-stories .lp-st-quote blockquote p{font-family:var(--headingFont);font-size:clamp(18px,2vw,24px);font-weight:600;line-height:1.4;color:var(--headingColor);margin:0 0 24px;}
+.lp-stories .lp-st-quote__attribution{display:flex;align-items:center;gap:16px;}
+.lp-stories .lp-st-quote__attr-text{font-size:14px;line-height:1.4;}
+.lp-stories .lp-st-quote__attr-name{font-weight:600;display:block;}
+.lp-stories .lp-st-quote__attr-title{opacity:0.6;display:block;}
+/* OECM bar */
+.lp-stories .hp-oecm{background:var(--alternateBackground);border-top:1px solid var(--borderColor);border-bottom:1px solid var(--borderColor);}
+.lp-stories .hp-oecm__inner{max-width:1320px;margin:0 auto;padding:20px 32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.lp-stories .hp-oecm__badge{background:#D4252A;color:#fff;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:3px;white-space:nowrap;flex-shrink:0;}
+.lp-stories .hp-oecm__text{font-size:14px;line-height:1.5;flex:1;}
+.lp-stories .hp-oecm__text a{color:#D4252A;font-weight:600;text-decoration:none;}
+.lp-stories .hp-oecm__text a:hover{text-decoration:underline;}
+/* CTA closer */
+.lp-stories .bbi-cta-section.scheme-inverse{padding:80px 32px;text-align:center;}
+.lp-stories .bbi-cta-section__inner{max-width:640px;margin:0 auto;}
+.lp-stories .bbi-cta-section__eyebrow{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;}
+.lp-stories .bbi-cta-section__rule{width:28px;height:2px;background:#D4252A;}
+.lp-stories .bbi-cta-section h2{font-family:var(--headingFont);font-size:var(--fs-h1);font-weight:600;line-height:var(--lh-h1);letter-spacing:var(--ls-h1);color:var(--headingColor);margin:0 0 16px;}
+.lp-stories .bbi-cta-section p{font-size:18px;line-height:1.6;color:var(--textColor);opacity:0.75;margin:0 0 32px;}
+.lp-stories .bbi-cta-section__actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+/* Footer */
+.lp-stories .bbi-footer{background:var(--background);border-top:1px solid var(--borderColor);padding:48px 32px 32px;}
+.lp-stories .bbi-footer__inner{max-width:1320px;margin:0 auto;}
+.lp-stories .bbi-footer__grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
+.lp-stories .bbi-footer__col-head{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;font-weight:400;margin:0 0 12px;opacity:0.55;}
+.lp-stories .bbi-footer__links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;}
+.lp-stories .bbi-footer__links a{font-size:14px;color:var(--textColor);text-decoration:none;opacity:0.75;}
+.lp-stories .bbi-footer__links a:hover{opacity:1;text-decoration:underline;}
+.lp-stories .bbi-footer__bottom{border-top:1px solid var(--borderColor);padding-top:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;font-size:13px;opacity:0.55;}
+/* Responsive */
+@media(max-width:767px){
+  .lp-stories .bbi-header__nav{display:none;}
+  .lp-stories .lp-st-intro{padding:40px 20px 32px;}
+  .lp-stories .lp-st-intro h1{font-size:clamp(28px,8vw,40px);}
+  .lp-stories .lp-st-grid__inner{padding:40px 20px;}
+  .lp-stories .lp-st-card{grid-template-columns:1fr;gap:24px;}
+  .lp-stories .lp-st-card--reverse{direction:ltr;}
+  .lp-stories .lp-st-quote{padding:40px 20px;}
+  .lp-stories .lp-st-quote__inner{padding:32px 24px;}
+  .lp-stories .lp-st-quote__mark{top:16px;left:24px;font-size:60px;}
+  .lp-stories .bbi-cta-section.scheme-inverse{padding:56px 20px;}
+  .lp-stories .bbi-footer__grid{grid-template-columns:1fr 1fr;gap:24px;}
+  .lp-stories .bbi-crumbs-band__inner{padding:10px 20px;}
+}
+</style>
+
+<div class="lp-stories scheme-default" id="lp-stories-root">
+
+  {%- render 'bbi-nav', logo: section.settings.logo, active: 'about' -%}
+
+  <nav class="bbi-crumbs-band" aria-label="Breadcrumb">
+    <div class="bbi-crumbs-band__inner">
+      <ol class="bbi-crumbs">
+        <li><a href="/">Home</a></li>
+        <li><a href="/pages/about">About</a></li>
+        <li>Customer Stories</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Page intro -->
+  <section class="lp-st-intro">
+    <div class="lp-st-intro__eyebrow">
+      <span class="lp-st-intro__rule" aria-hidden="true"></span>
+      <span class="bbi-mono">Project Portfolio</span>
+    </div>
+    <h1>Real workplaces. Real outcomes.</h1>
+    <p>Ontario institutions and businesses trust Brant Business Interiors to deliver on time, on budget, and on spec — from single-office refreshes to multi-floor campus fitouts.</p>
+  </section>
+
+  <!-- Stories grid -->
+  <section class="lp-st-grid" aria-label="Customer projects">
+    <div class="lp-st-grid__inner">
+      <div class="lp-st-grid__list">
+
+        <!-- Story 1: Mattamy Homes -->
+        <article class="lp-st-card">
+          <div class="lp-st-card__img">
+            {%- if section.settings.story1_image != blank -%}
+              <img src="{{ section.settings.story1_image | image_url: width: 900 }}"
+                   alt="Mattamy Homes — corporate headquarters fitout"
+                   width="900" height="675" loading="lazy">
+            {%- else -%}
+              <div class="lp-st-card__ph">Mattamy Homes project photo<br>(upload via Customizer)</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-st-card__text">
+            <div class="lp-st-card__sector">
+              <span class="lp-st-card__badge">Corporate</span>
+              <span class="lp-st-card__tag">Peterborough, ON</span>
+            </div>
+            <h2 class="lp-st-card__name">Mattamy Homes — Corporate Office Fitout</h2>
+            <p class="lp-st-card__summary">A full-floor corporate workspace delivered for one of Canada's largest homebuilders. Private offices, open-plan collaboration zones, and a boardroom built to Mattamy's brand standards — all sourced, coordinated, and installed by our Ontario team.</p>
+            <ul class="lp-st-card__outcomes">
+              <li>Full-floor furniture supply and installation</li>
+              <li>Coordinated delivery with active construction schedule</li>
+              <li>Ergonomic task seating across 60+ workstations</li>
+              <li>Boardroom and executive suite furnished to spec</li>
+            </ul>
+            <hr class="lp-st-card__divider">
+            <a href="/pages/quote" class="bbi-btn bbi-btn--secondary">
+              <span class="label">Start your project</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Story 2: Kawartha Dairy -->
+        <article class="lp-st-card lp-st-card--reverse">
+          <div class="lp-st-card__img">
+            {%- if section.settings.story2_image != blank -%}
+              <img src="{{ section.settings.story2_image | image_url: width: 900 }}"
+                   alt="Kawartha Dairy — office and break room refresh"
+                   width="900" height="675" loading="lazy">
+            {%- else -%}
+              <div class="lp-st-card__ph">Kawartha Dairy project photo<br>(upload via Customizer)</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-st-card__text">
+            <div class="lp-st-card__sector">
+              <span class="lp-st-card__badge">Food &amp; Beverage</span>
+              <span class="lp-st-card__tag">Bobcaygeon, ON</span>
+            </div>
+            <h2 class="lp-st-card__name">Kawartha Dairy — Office &amp; Break Room Refresh</h2>
+            <p class="lp-st-card__summary">A local Ontario icon needed a workspace upgrade that matched their growth. BBI furnished the administrative offices, staff break room, and a new training space — delivered on a tight timeline around their production schedule.</p>
+            <ul class="lp-st-card__outcomes">
+              <li>Office seating and desk systems throughout admin floor</li>
+              <li>Break room tables and ergonomic seating</li>
+              <li>Training room with stackable chairs and folding tables</li>
+              <li>Phased delivery around plant operations</li>
+            </ul>
+            <hr class="lp-st-card__divider">
+            <a href="/pages/quote" class="bbi-btn bbi-btn--secondary">
+              <span class="label">Start your project</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Story 3: Generic Ontario institutional -->
+        <article class="lp-st-card">
+          <div class="lp-st-card__img">
+            {%- if section.settings.story3_image != blank -%}
+              <img src="{{ section.settings.story3_image | image_url: width: 900 }}"
+                   alt="Ontario public sector office fitout"
+                   width="900" height="675" loading="lazy">
+            {%- else -%}
+              <div class="lp-st-card__ph">Institutional project photo<br>(upload via Customizer)</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-st-card__text">
+            <div class="lp-st-card__sector">
+              <span class="lp-st-card__badge">Public Sector</span>
+              <span class="lp-st-card__tag">Central Ontario</span>
+            </div>
+            <h2 class="lp-st-card__name">Ontario Municipal Office — Open-Plan Renovation</h2>
+            <p class="lp-st-card__summary">A central Ontario municipality refreshed its public-facing service hall and back-office workspace under an OECM agreement — no open-tender process required. Project was specified, quoted, and installed within a single budget cycle.</p>
+            <ul class="lp-st-card__outcomes">
+              <li>OECM Agreement 2025-470 used — no tender required</li>
+              <li>Service-counter desking and public seating</li>
+              <li>Staff workstations with height-adjustable desks</li>
+              <li>Delivered and installed within fiscal-year budget cycle</li>
+            </ul>
+            <hr class="lp-st-card__divider">
+            <a href="/pages/oecm" class="bbi-btn bbi-btn--secondary">
+              <span class="label">How OECM works</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial pull-quote -->
+  <section class="lp-st-quote" aria-label="Client testimonial">
+    <div class="lp-st-quote__inner">
+      <span class="lp-st-quote__mark" aria-hidden="true">"</span>
+      <blockquote>
+        <p>The BBI team understood our timeline from day one. Delivery was coordinated around our move schedule and every piece arrived on spec. We'd worked with larger vendors before — the Ontario-local response time made a real difference.</p>
+        <footer class="lp-st-quote__attribution">
+          <div class="lp-st-quote__attr-text">
+            <span class="lp-st-quote__attr-name">Procurement Manager</span>
+            <span class="lp-st-quote__attr-title">Central Ontario Municipality</span>
+          </div>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- OECM bar -->
+  <div class="hp-oecm">
+    <div class="hp-oecm__inner">
+      <span class="hp-oecm__badge">OECM Vendor of Record</span>
+      <p class="hp-oecm__text">Brant Business Interiors is an approved OECM supplier — pre-qualified procurement for Ontario's broader public sector. Use existing OECM agreements without re-tendering. <a href="/pages/oecm">Agreement 2025-470 →</a></p>
+    </div>
+  </div>
+
+  <!-- CTA closer -->
+  <section class="bbi-cta-section scheme-inverse" aria-label="Start your project">
+    <div class="bbi-cta-section__inner">
+      <div class="bbi-cta-section__eyebrow">
+        <span class="bbi-cta-section__rule" aria-hidden="true"></span>
+        <span class="bbi-mono" style="color:rgba(255,255,255,0.6);">Get Started</span>
+      </div>
+      <h2>Ready to furnish your next space?</h2>
+      <p>Send us a brief — floor plan, headcount, timeline, budget. We'll respond within one business day with a proposal.</p>
+      <div class="bbi-cta-section__actions">
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">
+          Request a quote <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg">
+          Call 1-800-835-9565
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Customer Stories",
+  "class": "ds-lp-customer-stories",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "header",
+      "content": "Story 1 — Mattamy Homes"
+    },
+    {
+      "type": "image_picker",
+      "id": "story1_image",
+      "label": "Story 1 photo",
+      "info": "Upload Mattamy-1.jpg from data/oci-photos/ — 4:3 ratio recommended"
+    },
+    {
+      "type": "header",
+      "content": "Story 2 — Kawartha Dairy"
+    },
+    {
+      "type": "image_picker",
+      "id": "story2_image",
+      "label": "Story 2 photo",
+      "info": "Upload an OCI project photo — 4:3 ratio recommended"
+    },
+    {
+      "type": "header",
+      "content": "Story 3 — Institutional"
+    },
+    {
+      "type": "image_picker",
+      "id": "story3_image",
+      "label": "Story 3 photo",
+      "info": "Upload an OCI government/municipal project photo — 4:3 ratio recommended"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Stories"
+    }
+  ]
+}
+{% endschema %}

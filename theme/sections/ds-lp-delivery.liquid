@@ -1,0 +1,396 @@
+{%- comment -%}
+  Section: ds-lp-delivery
+  Purpose: Delivery & Installation landing page — white-glove delivery, professional installation
+  Used by: page.delivery.json (template suffix: delivery)
+  Gate: theme.liquid bbi_landing gate
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+:root{--bodyFont:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--headingFont:"Inter Tight","Inter",system-ui,sans-serif;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--inputRadius:4px;--buttonRadius:4px;--cardRadius:8px;--shadow-sm:0 1px 2px rgba(11,11,12,.04),0 2px 8px rgba(11,11,12,.05);--saleBadgeBackground:#D4252A;--saleBadgeBackground-rgb:212,37,42;--fs-h0:44px;--lh-h0:1.05;--fs-h1:32px;--lh-h1:1.1;--ls-h1:-0.015em;--fs-h2:24px;--lh-h2:1.15;--ls-h2:-0.01em;--fs-h3:18px;--lh-h3:1.25;--fs-body:16px;--lh-body:1.55;--fs-button:15px;--lh-button:1;--ls-button:0.01em;}
+@media(min-width:768px){:root{--fs-h0:72px;--fs-h1:48px;--lh-h1:1.05;--fs-h2:32px;--lh-h2:1.1;--fs-h3:22px;}}
+.lp-delivery.scheme-default{--background:#FFFFFF;--background-rgb:255,255,255;--alternateBackground:#FAFAFA;--alternateBackground-rgb:250,250,250;--cardBackground:#FFFFFF;--textColor:#0B0B0C;--textColor-rgb:11,11,12;--linkColor:#0B0B0C;--headingColor:#0B0B0C;--headingColor-rgb:11,11,12;--buttonBackground:#0B0B0C;--buttonColor:#FFFFFF;--buttonBorder:#0B0B0C;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:#FFFFFF;--alternateButtonColor:#0B0B0C;--alternateButtonBorder:#0B0B0C;--alternateButtonBackgroundHover:#0B0B0C;--alternateButtonColorHover:#FFFFFF;--borderColor:#E5E5E7;--borderColor-rgb:229,229,231;--shadowColor:#0B0B0C;--shadowColor-rgb:11,11,12;--headerBg:#FFFFFF;--headerColor:#0B0B0C;--headerHoverColor:#D4252A;}
+.lp-delivery .scheme-inverse{--background:#0B0B0C;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--linkColor:#FFFFFF;--headingColor:#FFFFFF;--headingColor-rgb:255,255,255;--buttonBackground:#FFFFFF;--buttonColor:#0B0B0C;--buttonBorder:#FFFFFF;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:transparent;--alternateButtonColor:#FFFFFF;--alternateButtonBorder:#FFFFFF;--borderColor:#1F1F21;}
+.lp-delivery *,.lp-delivery *::before,.lp-delivery *::after{box-sizing:border-box;}
+.lp-delivery{font-family:var(--bodyFont);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);background:var(--background);-webkit-font-smoothing:antialiased;}
+.lp-delivery img{display:block;max-width:100%;height:auto;}
+.lp-delivery a{color:var(--linkColor);}
+.lp-delivery .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-delivery .bbi-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:12px 20px;min-height:44px;font-family:var(--bodyFont);font-size:var(--fs-button);line-height:var(--lh-button);letter-spacing:var(--ls-button);font-weight:600;border-radius:var(--buttonRadius);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;white-space:nowrap;}
+.lp-delivery .bbi-btn:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+.lp-delivery .bbi-btn--lg{min-height:52px;padding:16px 24px;font-size:16px;}
+.lp-delivery .bbi-btn--primary{background:var(--buttonBackground);color:var(--buttonColor);border-color:var(--buttonBorder);}
+.lp-delivery .bbi-btn--primary:hover{background:var(--buttonBackgroundHover);color:var(--buttonColorHover);border-color:var(--buttonBorderHover);}
+.lp-delivery .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
+.lp-delivery .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
+.lp-delivery .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
+.lp-delivery .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
+.lp-delivery .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
+.lp-delivery .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
+.lp-delivery .bbi-header__logo img{height:36px;width:auto;}
+.lp-delivery .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
+.lp-delivery .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;position:relative;}
+.lp-delivery .bbi-nav-item:hover{color:var(--headerHoverColor);}
+.lp-delivery .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
+.lp-delivery .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
+.lp-delivery .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
+.lp-delivery .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
+.lp-delivery .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
+.lp-delivery .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
+.lp-delivery .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
+.lp-delivery .bbi-crumbs li:last-child{font-weight:500;}
+.lp-delivery .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-delivery .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
+.lp-delivery .lp-hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-delivery .lp-hero__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--space-12);align-items:center;}
+.lp-delivery .lp-hero__text{max-width:560px;}
+.lp-delivery .lp-hero__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);}
+.lp-delivery .lp-hero__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-delivery .lp-hero__eyebrow-label{color:rgba(var(--textColor-rgb),0.6);}
+.lp-delivery .lp-hero h1{font-family:var(--headingFont);font-size:var(--fs-h1);line-height:var(--lh-h1);letter-spacing:var(--ls-h1);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);text-wrap:balance;}
+.lp-delivery .lp-hero__standfirst{font-size:18px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-6);}
+.lp-delivery .lp-hero__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;}
+.lp-delivery .lp-hero__media{position:relative;aspect-ratio:5/4;background:var(--alternateBackground);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-delivery .lp-hero__media img{width:100%;height:100%;object-fit:cover;}
+.lp-delivery .lp-hero__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground);color:rgba(var(--textColor-rgb),.5);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-delivery .lp-intro{padding:var(--space-12) 0;}
+.lp-delivery .lp-intro__inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
+.lp-delivery .lp-intro__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-delivery .lp-intro__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-delivery .lp-intro h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-6);}
+.lp-delivery .lp-intro__body p{font-size:17px;line-height:1.65;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-4);}
+.lp-delivery .lp-diff{padding:var(--space-12) 0;background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.5);border-bottom:1px solid rgba(var(--borderColor-rgb),0.5);}
+.lp-delivery .lp-diff__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-delivery .lp-diff__head{margin-bottom:var(--space-8);}
+.lp-delivery .lp-diff__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-delivery .lp-diff__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-delivery .lp-diff h2{font-family:var(--headingFont);font-size:var(--fs-h2);font-weight:600;color:var(--headingColor);margin:0;max-width:44ch;}
+.lp-delivery .lp-diff__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);}
+.lp-delivery .lp-diff-card{background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),0.6);border-radius:var(--cardRadius);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-3);}
+.lp-delivery .lp-diff-card__icon{width:32px;height:32px;border-radius:6px;background:rgba(var(--saleBadgeBackground-rgb),0.08);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.lp-delivery .lp-diff-card__title{font-family:var(--headingFont);font-size:var(--fs-h3);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-delivery .lp-diff-card__body{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),0.72);margin:0;}
+.lp-delivery .lp-oecm-bar{padding:var(--space-8) 0;background:rgba(var(--saleBadgeBackground-rgb),0.04);border-top:1px solid rgba(var(--saleBadgeBackground-rgb),0.12);border-bottom:1px solid rgba(var(--saleBadgeBackground-rgb),0.12);}
+.lp-delivery .lp-oecm-bar__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-6);flex-wrap:wrap;}
+.lp-delivery .lp-oecm-bar__badge{display:inline-flex;align-items:center;gap:var(--space-3);padding:6px 12px;background:var(--saleBadgeBackground);color:#fff;border-radius:4px;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap;}
+.lp-delivery .lp-oecm-bar__text{font-size:15px;color:rgba(var(--textColor-rgb),0.78);}
+.lp-delivery .lp-oecm-bar__text strong{color:var(--textColor);}
+.lp-delivery .lp-faq{padding:var(--space-12) 0;}
+.lp-delivery .lp-faq__inner{max-width:800px;margin:0 auto;padding:0 var(--space-6);}
+.lp-delivery .lp-faq__head{margin-bottom:var(--space-8);}
+.lp-delivery .lp-faq__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-delivery .lp-faq__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-delivery .lp-faq h2{font-family:var(--headingFont);font-size:var(--fs-h2);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-delivery .lp-faq__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;}
+.lp-delivery .lp-faq__item{border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-delivery .lp-faq__item:last-child{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-delivery .lp-faq__q{width:100%;background:none;border:none;padding:var(--space-6) 0;display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);font-family:var(--headingFont);font-size:var(--fs-h3);font-weight:600;color:var(--headingColor);text-align:left;cursor:pointer;}
+.lp-delivery .lp-faq__q-icon{flex-shrink:0;width:20px;height:20px;position:relative;transition:transform 200ms ease;}
+.lp-delivery .lp-faq__q-icon::before,.lp-delivery .lp-faq__q-icon::after{content:"";position:absolute;background:var(--textColor);border-radius:2px;}
+.lp-delivery .lp-faq__q-icon::before{width:12px;height:1.5px;top:50%;left:50%;transform:translate(-50%,-50%);}
+.lp-delivery .lp-faq__q-icon::after{width:1.5px;height:12px;top:50%;left:50%;transform:translate(-50%,-50%);transition:opacity 200ms ease,transform 200ms ease;}
+.lp-delivery .lp-faq__item.is-open .lp-faq__q-icon::after{opacity:0;transform:translate(-50%,-50%) rotate(90deg);}
+.lp-delivery .lp-faq__a{display:none;padding:0 0 var(--space-6);}
+.lp-delivery .lp-faq__item.is-open .lp-faq__a{display:block;}
+.lp-delivery .lp-faq__a p{font-size:16px;line-height:1.65;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-3);}
+.lp-delivery .lp-faq__a p:last-child{margin-bottom:0;}
+.lp-delivery .lp-closer{padding:var(--space-12) 0;}
+.lp-delivery .lp-closer__inner{max-width:680px;margin:0 auto;padding:0 var(--space-6);text-align:center;}
+.lp-delivery .lp-closer h2{font-family:var(--headingFont);font-size:var(--fs-h1);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);}
+.lp-delivery .lp-closer__sub{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.72);margin:0 0 var(--space-8);}
+.lp-delivery .lp-closer__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-4);}
+.lp-delivery .lp-closer__trust{font-size:13px;color:rgba(var(--textColor-rgb),0.5);}
+.lp-delivery .bbi-footer{background:var(--textColor);color:rgba(255,255,255,0.85);padding:var(--space-12) 0 var(--space-8);}
+.lp-delivery .bbi-footer__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-delivery .bbi-footer__grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:var(--space-12);margin-bottom:var(--space-8);}
+.lp-delivery .bbi-footer__brand-logo{height:32px;width:auto;margin-bottom:var(--space-4);opacity:0.9;}
+.lp-delivery .bbi-footer__tagline{font-size:14px;line-height:1.55;color:rgba(255,255,255,0.6);max-width:260px;}
+.lp-delivery .bbi-footer__col-title{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:0 0 var(--space-4);}
+.lp-delivery .bbi-footer__links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-2);}
+.lp-delivery .bbi-footer__links a{font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;}
+.lp-delivery .bbi-footer__links a:hover{color:#fff;}
+.lp-delivery .bbi-footer__bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-4);font-size:13px;color:rgba(255,255,255,0.4);}
+@media(max-width:1023px){.lp-delivery .lp-hero__inner{grid-template-columns:1fr;}.lp-delivery .lp-diff__grid{grid-template-columns:repeat(2,1fr);}.lp-delivery .bbi-footer__grid{grid-template-columns:1fr 1fr;gap:var(--space-8);}}
+@media(max-width:639px){.lp-delivery .lp-diff__grid{grid-template-columns:1fr;}.lp-delivery .lp-hero__inner{gap:var(--space-8);}.lp-delivery .bbi-header__nav{display:none;}.lp-delivery .bbi-footer__grid{grid-template-columns:1fr;}}
+</style>
+
+<div class="lp-delivery scheme-default">
+
+  {%- comment -%} Header {%- endcomment -%}
+  <header class="bbi-header">
+    <div class="bbi-header__inner">
+      <a href="/" class="bbi-header__logo" aria-label="Brant Business Interiors — Home">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 200 | image_tag: loading: 'eager', alt: 'Brant Business Interiors' }}
+        {%- else -%}
+          <span style="font-family:var(--headingFont);font-size:17px;font-weight:600;color:var(--textColor);">Brant ✱ BI</span>
+        {%- endif -%}
+      </a>
+      <nav class="bbi-header__nav" aria-label="Main navigation">
+        <a href="/collections/business-furniture" class="bbi-nav-item">Shop</a>
+        <a href="/pages/industries" class="bbi-nav-item">Industries</a>
+        <a href="/pages/brands" class="bbi-nav-item">Brands</a>
+        <a href="/pages/design-services" class="bbi-nav-item">Services</a>
+        <a href="/pages/about" class="bbi-nav-item">About</a>
+      </nav>
+      <div class="bbi-header__utility">
+        <a href="tel:18008359565">1-800-835-9565</a>
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary">Request a Quote</a>
+      </div>
+    </div>
+  </header>
+
+  {%- comment -%} Breadcrumbs {%- endcomment -%}
+  <div class="lp-crumbs-band">
+    <div class="lp-crumbs-band__inner">
+      <ol class="bbi-crumbs">
+        <li><a href="/">Home</a></li>
+        <li>Delivery &amp; Installation</li>
+      </ol>
+    </div>
+  </div>
+
+  {%- comment -%} Hero {%- endcomment -%}
+  <section class="lp-hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <div class="lp-hero__eyebrow">
+          <span class="bbi-mono lp-hero__eyebrow-label">Services</span>
+        </div>
+        <h1>White-glove delivery and professional installation across Ontario</h1>
+        <p class="lp-hero__standfirst">We coordinate everything — scheduled delivery, in-room placement, and full assembly. Your staff walks in to a finished workspace. OECM-eligible supplier. Quote in 1 business day.</p>
+        <div class="lp-hero__cta-row">
+          <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Request a Quote <span class="arrow">→</span></a>
+          <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg">1-800-835-9565</a>
+        </div>
+      </div>
+      <div class="lp-hero__media">
+        {%- if section.settings.hero_image != blank -%}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', alt: 'Office furniture delivery and installation' }}
+        {%- else -%}
+          <div class="lp-hero__ph"><span class="bbi-mono">Delivery hero image</span></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Intro {%- endcomment -%}
+  <section class="lp-intro">
+    <div class="lp-intro__inner">
+      <div class="lp-intro__eyebrow">
+        <span class="bbi-mono">What's included</span>
+      </div>
+      <h2>More than just drop-off — we set you up to work</h2>
+      <div class="lp-intro__body">
+        <p>Every order placed through Brant Business Interiors includes coordinated delivery to your Ontario location. Our team handles the logistics: scheduled delivery windows, white-glove in-room placement, full assembly and levelling, and debris removal once the job is complete.</p>
+        <p>For larger projects — full-floor fit-outs, phased installations, or OECM standing orders — our project coordinators manage staging, sequencing, and site access to minimize disruption to your operations.</p>
+        <p>We serve educational institutions, healthcare facilities, government offices, and private businesses throughout Ontario. OECM Agreement 2025-470 streamlines purchasing for eligible public-sector buyers.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Differentiators {%- endcomment -%}
+  <section class="lp-diff">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <div class="lp-diff__eyebrow">
+          <span class="bbi-mono">Why BBI delivery</span>
+        </div>
+        <h2>Coordinated from purchase order to move-in day</h2>
+      </div>
+      <div class="lp-diff__grid">
+        <div class="lp-diff-card">
+          <div class="lp-diff-card__icon">🚚</div>
+          <h3 class="lp-diff-card__title">Scheduled delivery windows</h3>
+          <p class="lp-diff-card__body">We confirm delivery windows that work around your staff and facility schedule — no all-day waits. Advance notice for dock access and security coordination included.</p>
+        </div>
+        <div class="lp-diff-card">
+          <div class="lp-diff-card__icon">🔧</div>
+          <h3 class="lp-diff-card__title">Professional assembly team</h3>
+          <p class="lp-diff-card__body">Our trained install crew assembles, levels, and places every item to spec. Modular workstations, height-adjustable desks, and seating configured to your floor plan.</p>
+        </div>
+        <div class="lp-diff-card">
+          <div class="lp-diff-card__icon">📋</div>
+          <h3 class="lp-diff-card__title">Project coordination</h3>
+          <p class="lp-diff-card__body">One point of contact manages your order from quote to close-out. Phased installations, multi-location projects, and OECM standing orders all handled in-house.</p>
+        </div>
+        <div class="lp-diff-card">
+          <div class="lp-diff-card__icon">♻️</div>
+          <h3 class="lp-diff-card__title">Debris removal included</h3>
+          <p class="lp-diff-card__body">We remove all packaging materials and cardboard on delivery day. No piles of boxes left behind. Ask about old furniture decommission and responsible disposal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} OECM Bar {%- endcomment -%}
+  <div class="lp-oecm-bar">
+    <div class="lp-oecm-bar__inner">
+      <span class="lp-oecm-bar__badge">OECM Supplier</span>
+      <p class="lp-oecm-bar__text"><strong>OECM Agreement 2025-470</strong> — Ontario schools, hospitals, and government offices can purchase furniture and installation services through OECM without an open tender process. <a href="/pages/oecm" style="color:var(--saleBadgeBackground);font-weight:600;text-decoration:none;">Learn about OECM purchasing →</a></p>
+    </div>
+  </div>
+
+  {%- comment -%} FAQ {%- endcomment -%}
+  <section class="lp-faq">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <div class="lp-faq__eyebrow">
+          <span class="bbi-mono">Common questions</span>
+        </div>
+        <h2>Delivery &amp; installation — FAQ</h2>
+      </div>
+      <ul class="lp-faq__list">
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            What areas do you deliver to?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>We deliver throughout Ontario, with primary coverage across Southern and Central Ontario. This includes the Greater Toronto Area, Peterborough, Barrie, Hamilton, Ottawa, Kingston, and surrounding regions. For projects outside Southern Ontario, contact us to confirm delivery availability and lead times.</p>
+          </div>
+        </li>
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            Does installation require a separate quote?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>Professional assembly and installation is included with most orders at no additional charge. For large-scale fit-outs or projects requiring after-hours installation, we'll note any additional costs in your quote upfront. There are no surprise fees.</p>
+          </div>
+        </li>
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            How far in advance do you schedule delivery?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>Lead times vary by product and manufacturer. Stock items typically deliver within 1–2 weeks. Custom or made-to-order pieces range from 4–12 weeks depending on the manufacturer. We confirm your delivery window at order confirmation and provide advance notice before delivery day.</p>
+          </div>
+        </li>
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            Can you deliver to multiple floors or restricted access sites?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>Yes. We coordinate site access, elevator bookings, and dock scheduling in advance. For healthcare facilities, schools, and government buildings with access restrictions or security requirements, our project coordinator works directly with your facilities team to plan logistics.</p>
+          </div>
+        </li>
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            Do you offer old furniture removal?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>We remove and responsibly dispose of replaced furniture as part of our relocation and decommission services. Ask about this option when requesting your quote — we'll include it in the project scope. See our <a href="/pages/relocation">Relocation Management</a> page for more detail.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {%- comment -%} CTA Closer {%- endcomment -%}
+  <section class="lp-closer scheme-inverse" style="background:var(--background);padding:var(--space-12) 0;">
+    <div class="lp-closer__inner">
+      <h2>Ready to plan your delivery?</h2>
+      <p class="lp-closer__sub">Request a quote and we'll confirm availability, lead times, and installation scope within 1 business day. OECM-eligible. No obligation.</p>
+      <div class="lp-closer__cta-row">
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Get a Quote <span class="arrow">→</span></a>
+        <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg">Call 1-800-835-9565</a>
+      </div>
+      <p class="lp-closer__trust">OECM Agreement 2025-470 · Quote in 1 business day · Ontario-wide delivery</p>
+    </div>
+  </section>
+
+  {%- comment -%} Footer {%- endcomment -%}
+  <footer class="bbi-footer">
+    <div class="bbi-footer__inner">
+      <div class="bbi-footer__grid">
+        <div>
+          {%- if section.settings.logo != blank -%}
+            {{ section.settings.logo | image_url: width: 180 | image_tag: loading: 'lazy', alt: 'Brant Business Interiors', class: 'bbi-footer__brand-logo' }}
+          {%- else -%}
+            <p style="font-family:var(--headingFont);font-size:16px;font-weight:600;color:#fff;margin:0 0 12px;">Brant ✱ BI</p>
+          {%- endif -%}
+          <p class="bbi-footer__tagline">Commercial office furniture for Ontario businesses, schools, hospitals, and government. 🍁 Canadian-owned.</p>
+        </div>
+        <div>
+          <p class="bbi-footer__col-title">Shop</p>
+          <ul class="bbi-footer__links">
+            <li><a href="/collections/seating">Seating</a></li>
+            <li><a href="/collections/desks">Desks &amp; Workstations</a></li>
+            <li><a href="/collections/storage">Storage &amp; Filing</a></li>
+            <li><a href="/collections/tables">Tables</a></li>
+            <li><a href="/collections/business-furniture">All Products</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="bbi-footer__col-title">Services</p>
+          <ul class="bbi-footer__links">
+            <li><a href="/pages/design-services">Space Planning</a></li>
+            <li><a href="/pages/delivery">Delivery &amp; Installation</a></li>
+            <li><a href="/pages/relocation">Relocation Management</a></li>
+            <li><a href="/pages/quote">Request a Quote</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="bbi-footer__col-title">Company</p>
+          <ul class="bbi-footer__links">
+            <li><a href="/pages/about">About BBI</a></li>
+            <li><a href="/pages/oecm">OECM Purchasing</a></li>
+            <li><a href="/pages/brands">Brands We Carry</a></li>
+            <li><a href="/pages/contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bbi-footer__bottom">
+        <span>© {{ 'now' | date: '%Y' }} Brant Business Interiors · 295 George St N, Peterborough, ON K9J 3H2</span>
+        <span><a href="tel:18008359565" style="color:rgba(255,255,255,0.4);text-decoration:none;">1-800-835-9565</a> · <a href="mailto:info@brantbusinessinteriors.com" style="color:rgba(255,255,255,0.4);text-decoration:none;">info@brantbusinessinteriors.com</a></span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('.lp-delivery .lp-faq__q').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=this.closest('.lp-faq__item');
+      var open=item.classList.contains('is-open');
+      document.querySelectorAll('.lp-delivery .lp-faq__item.is-open').forEach(function(i){i.classList.remove('is-open');i.querySelector('.lp-faq__q').setAttribute('aria-expanded','false');});
+      if(!open){item.classList.add('is-open');this.setAttribute('aria-expanded','true');}
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Delivery & Installation",
+  "class": "ds-lp-delivery",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Delivery & Installation"
+    }
+  ]
+}
+{% endschema %}
