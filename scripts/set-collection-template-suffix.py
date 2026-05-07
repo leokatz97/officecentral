@@ -125,6 +125,12 @@ def main():
         metavar="BACKUP_FILE",
         help="Restore template_suffix values from a backup JSON file.",
     )
+    parser.add_argument(
+        "--suffix",
+        default=TARGET_SUFFIX,
+        metavar="SUFFIX",
+        help=f"Template suffix to apply (default: '{TARGET_SUFFIX}'). Example: --suffix=seating",
+    )
     args = parser.parse_args()
 
     token = os.environ.get("SHOPIFY_TOKEN")
@@ -132,6 +138,7 @@ def main():
         sys.exit("ERROR: SHOPIFY_TOKEN env var is not set.")
 
     live = args.live
+    target_suffix = args.suffix  # may be overridden from CLI
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     ensure_dirs()
 
@@ -176,6 +183,7 @@ def main():
 
     print(f"\nStore   : {STORE}")
     print(f"Theme   : {args.theme_id}  (suffix is store-wide, not per-theme)")
+    print(f"Suffix  : {target_suffix}")
     print(f"Targets : {', '.join(targets)}")
     print(f"Mode    : {'LIVE — writing to Shopify' if live else 'DRY RUN — no API calls'}\n")
 
@@ -217,11 +225,11 @@ def main():
             print(f"  {handle:<{col_w}} {'—':<22} {'—':<22} SKIP (not found)")
             continue
         current = col.get("template_suffix") or ""
-        if current == TARGET_SUFFIX:
-            print(f"  {handle:<{col_w}} {current:<22} {TARGET_SUFFIX:<22} ALREADY SET")
+        if current == target_suffix:
+            print(f"  {handle:<{col_w}} {current:<22} {target_suffix:<22} ALREADY SET")
         else:
             action = "WRITE" if live else "DRY-RUN"
-            print(f"  {handle:<{col_w}} {current or '(none)':<22} {TARGET_SUFFIX:<22} {action}")
+            print(f"  {handle:<{col_w}} {current or '(none)':<22} {target_suffix:<22} {action}")
             to_write.append((handle, col["id"], current))
 
     # 4. Execute writes
@@ -241,12 +249,12 @@ def main():
     fail_count = 0
 
     for handle, col_id, prev_suffix in to_write:
-        status, resp = set_template_suffix(col_id, TARGET_SUFFIX, token)
+        status, resp = set_template_suffix(col_id, target_suffix, token)
         entry = {
             "handle":     handle,
             "id":         col_id,
             "prev_suffix": prev_suffix,
-            "new_suffix":  TARGET_SUFFIX,
+            "new_suffix":  target_suffix,
             "status":      status,
             "response":    resp,
         }
