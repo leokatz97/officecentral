@@ -1,0 +1,470 @@
+{%- comment -%}
+  Section: ds-lp-brands
+  Purpose: Brands Hub — authorized dealer overview for Keilhauer, ergoCentric, Global, Teknion
+  Sections: breadcrumbs → hero → intro → differentiators → brand tiles → OECM bar → FAQ → CTA closer
+  Used by: page.brands.json (template suffix: brands)
+  Gate: theme.liquid bbi_landing gate — suppresses Starlite header/footer/cart
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+:root{--bodyFont:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--headingFont:"Inter Tight","Inter",system-ui,sans-serif;--headingFontWeight:600;--headingFontLineHeight:1.1;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--inputRadius:4px;--buttonRadius:4px;--cardRadius:8px;--shadow-sm:0 1px 2px rgba(11,11,12,.04),0 2px 8px rgba(11,11,12,.05);--shadow-md:0 2px 4px rgba(11,11,12,.05),0 12px 32px rgba(11,11,12,.08);--saleBadgeBackground:#D4252A;--saleBadgeBackground-rgb:212,37,42;--fs-h0:44px;--lh-h0:1.05;--ls-h0:-0.02em;--fs-h1:32px;--lh-h1:1.1;--ls-h1:-0.015em;--fs-h2:24px;--lh-h2:1.15;--ls-h2:-0.01em;--fs-h3:18px;--lh-h3:1.25;--ls-h3:-0.005em;--fs-body:16px;--lh-body:1.55;--fs-small:13px;--lh-small:1.5;--fs-button:15px;--lh-button:1;--ls-button:0.01em;}
+@media(min-width:768px){:root{--fs-h0:72px;--fs-h1:48px;--lh-h1:1.05;--fs-h2:32px;--lh-h2:1.1;--fs-h3:22px;--lh-h3:1.2;--fs-small:14px;}}
+.lp-brands.scheme-default{--background:#FFFFFF;--background-rgb:255,255,255;--alternateBackground:#FAFAFA;--alternateBackground-rgb:250,250,250;--cardBackground:#FFFFFF;--cardBackground-rgb:255,255,255;--textColor:#0B0B0C;--textColor-rgb:11,11,12;--linkColor:#0B0B0C;--headingColor:#0B0B0C;--headingColor-rgb:11,11,12;--buttonBackground:#0B0B0C;--buttonBackground-rgb:11,11,12;--buttonColor:#FFFFFF;--buttonBorder:#0B0B0C;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:#FFFFFF;--alternateButtonColor:#0B0B0C;--alternateButtonBorder:#0B0B0C;--alternateButtonBackgroundHover:#0B0B0C;--alternateButtonColorHover:#FFFFFF;--alternateButtonBorderHover:#0B0B0C;--borderColor:#E5E5E7;--borderColor-rgb:229,229,231;--shadowColor:#0B0B0C;--shadowColor-rgb:11,11,12;--headerBg:#FFFFFF;--headerColor:#0B0B0C;--headerHoverColor:#D4252A;}
+.lp-brands .scheme-inverse{--background:#0B0B0C;--background-rgb:11,11,12;--alternateBackground:#161618;--alternateBackground-rgb:22,22,24;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--linkColor:#FFFFFF;--headingColor:#FFFFFF;--headingColor-rgb:255,255,255;--buttonBackground:#FFFFFF;--buttonBackground-rgb:255,255,255;--buttonColor:#0B0B0C;--buttonBorder:#FFFFFF;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:transparent;--alternateButtonColor:#FFFFFF;--alternateButtonBorder:#FFFFFF;--alternateButtonBackgroundHover:#FFFFFF;--alternateButtonColorHover:#0B0B0C;--alternateButtonBorderHover:#FFFFFF;--borderColor:#1F1F21;--borderColor-rgb:31,31,33;--shadowColor:#000000;--shadowColor-rgb:0,0,0;}
+
+.lp-brands *,.lp-brands *::before,.lp-brands *::after{box-sizing:border-box;}
+.lp-brands{font-family:var(--bodyFont);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);background:var(--background);-webkit-font-smoothing:antialiased;}
+.lp-brands img{display:block;max-width:100%;height:auto;}
+.lp-brands a{color:var(--linkColor);}
+.lp-brands .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-brands .bbi-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:12px 20px;min-height:44px;font-family:var(--bodyFont);font-size:var(--fs-button);line-height:var(--lh-button);letter-spacing:var(--ls-button);font-weight:600;border-radius:var(--buttonRadius);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;white-space:nowrap;}
+.lp-brands .bbi-btn:focus{outline:none;}
+.lp-brands .bbi-btn:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+.lp-brands .bbi-btn--lg{min-height:52px;padding:16px 24px;font-size:16px;}
+.lp-brands .bbi-btn--primary{background:var(--buttonBackground);color:var(--buttonColor);border-color:var(--buttonBorder);}
+.lp-brands .bbi-btn--primary:hover{background:var(--buttonBackgroundHover);color:var(--buttonColorHover);border-color:var(--buttonBorderHover);}
+.lp-brands .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
+.lp-brands .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
+.lp-brands .bbi-btn--tertiary{background:transparent;color:var(--textColor);border-color:transparent;padding-left:4px;padding-right:4px;}
+.lp-brands .bbi-btn--tertiary .label{position:relative;}
+.lp-brands .bbi-btn--tertiary .label::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;}
+.lp-brands .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
+
+/* Header */
+.lp-brands .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
+.lp-brands .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
+.lp-brands .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
+.lp-brands .bbi-header__logo img{height:36px;width:auto;}
+.lp-brands .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
+.lp-brands .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;position:relative;}
+.lp-brands .bbi-nav-item:hover{color:var(--headerHoverColor);}
+.lp-brands .bbi-nav-item.is-current::after{content:"";position:absolute;left:14px;right:14px;bottom:18px;height:1px;background:var(--textColor);}
+.lp-brands .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
+.lp-brands .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
+
+/* Breadcrumbs */
+.lp-brands .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
+.lp-brands .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
+.lp-brands .bbi-crumbs li:not(:last-child)::after{content:">";opacity:0.4;}
+.lp-brands .bbi-crumbs a{color:var(--textColor);opacity:0.65;text-decoration:none;}
+.lp-brands .bbi-crumbs a:hover{opacity:1;text-decoration:underline;}
+.lp-brands .bbi-crumbs li:last-child{font-weight:500;}
+.lp-brands .lp-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-brands .lp-crumbs-band__inner{max-width:1280px;margin:0 auto;padding:var(--space-3) var(--space-6);}
+
+/* Hero */
+.lp-brands .lp-hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-brands .lp-hero__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--space-12);align-items:center;}
+.lp-brands .lp-hero__text{max-width:560px;}
+.lp-brands .lp-hero__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);}
+.lp-brands .lp-hero__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-brands .lp-hero__eyebrow-label{color:rgba(var(--textColor-rgb),0.6);}
+.lp-brands .lp-hero h1{font-family:var(--headingFont);font-size:var(--fs-h1);line-height:var(--lh-h1);letter-spacing:var(--ls-h1);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);text-wrap:balance;}
+.lp-brands .lp-hero__standfirst{font-size:18px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-6);text-wrap:pretty;}
+.lp-brands .lp-hero__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;}
+.lp-brands .lp-hero__media{position:relative;aspect-ratio:5/4;background:var(--alternateBackground);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-brands .lp-hero__media img{width:100%;height:100%;object-fit:cover;}
+.lp-brands .lp-hero__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground);color:rgba(var(--textColor-rgb),.5);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-brands .lp-hero__caption{position:absolute;left:var(--space-4);bottom:var(--space-4);background:rgba(var(--shadowColor-rgb),.7);color:#fff;padding:6px 10px;border-radius:4px;font-size:12px;display:inline-flex;align-items:center;gap:var(--space-2);}
+.lp-brands .lp-hero__caption-dot{width:4px;height:4px;border-radius:50%;background:var(--saleBadgeBackground);}
+
+/* Intro */
+.lp-brands .lp-intro{padding:var(--space-12) 0;}
+.lp-brands .lp-intro__inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
+.lp-brands .lp-intro__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-brands .lp-intro__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-brands .lp-intro h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);letter-spacing:var(--ls-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-6);}
+.lp-brands .lp-intro__body p{font-size:17px;line-height:1.65;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-4);}
+.lp-brands .lp-intro__body p:last-child{margin-bottom:0;}
+
+/* Differentiators */
+.lp-brands .lp-diff{padding:var(--space-12) 0;background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.5);border-bottom:1px solid rgba(var(--borderColor-rgb),0.5);}
+.lp-brands .lp-diff__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-brands .lp-diff__head{margin-bottom:var(--space-8);}
+.lp-brands .lp-diff__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-brands .lp-diff__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-brands .lp-diff h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);letter-spacing:var(--ls-h2);font-weight:600;color:var(--headingColor);margin:0;max-width:44ch;}
+.lp-brands .lp-diff__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);}
+.lp-brands .lp-diff-card{background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),0.6);border-radius:var(--cardRadius);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-3);}
+.lp-brands .lp-diff-card__num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;color:var(--saleBadgeBackground);font-weight:400;}
+.lp-brands .lp-diff-card__label{font-family:var(--headingFont);font-size:var(--fs-h3);line-height:var(--lh-h3);letter-spacing:var(--ls-h3);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-brands .lp-diff-card__sentence{font-size:14px;line-height:1.6;color:rgba(var(--textColor-rgb),0.72);margin:0;}
+
+/* Brand tiles */
+.lp-brands .lp-brand-tiles{padding:var(--space-12) 0;}
+.lp-brands .lp-brand-tiles__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-brands .lp-brand-tiles__head{margin-bottom:var(--space-8);}
+.lp-brands .lp-brand-tiles__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-brands .lp-brand-tiles__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-brands .lp-brand-tiles h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);letter-spacing:var(--ls-h2);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-brands .lp-brand-tiles__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);}
+.lp-brands .lp-brand-tile{display:flex;flex-direction:column;border:1px solid rgba(var(--borderColor-rgb),0.6);border-radius:var(--cardRadius);overflow:hidden;background:var(--cardBackground);text-decoration:none;color:var(--textColor);transition:box-shadow 140ms ease,border-color 140ms ease;}
+.lp-brands .lp-brand-tile:hover{box-shadow:var(--shadow-md);border-color:rgba(var(--borderColor-rgb),1);}
+.lp-brands .lp-brand-tile__media{aspect-ratio:16/9;background:var(--alternateBackground);overflow:hidden;}
+.lp-brands .lp-brand-tile__media img{width:100%;height:100%;object-fit:cover;transition:transform 200ms ease;}
+.lp-brands .lp-brand-tile:hover .lp-brand-tile__media img{transform:scale(1.02);}
+.lp-brands .lp-brand-tile__ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground);color:rgba(var(--textColor-rgb),.4);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.07em;text-transform:uppercase;}
+.lp-brands .lp-brand-tile__body{padding:var(--space-6);flex:1;display:flex;flex-direction:column;gap:var(--space-3);}
+.lp-brands .lp-brand-tile__name{font-family:var(--headingFont);font-size:20px;font-weight:600;line-height:1.2;color:var(--headingColor);margin:0;}
+.lp-brands .lp-brand-tile__meta{font-size:13px;color:rgba(var(--textColor-rgb),0.6);line-height:1.5;margin:0;}
+.lp-brands .lp-brand-tile__cta{margin-top:auto;padding-top:var(--space-4);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--textColor);}
+.lp-brands .lp-brand-tile__cta svg{transition:transform 120ms ease;}
+.lp-brands .lp-brand-tile:hover .lp-brand-tile__cta svg{transform:translateX(3px);}
+
+/* OECM bar */
+.lp-brands .lp-oecm-bar{background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.5);border-bottom:1px solid rgba(var(--borderColor-rgb),0.5);padding:var(--space-8) 0;}
+.lp-brands .lp-oecm-bar__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-8);flex-wrap:wrap;}
+.lp-brands .lp-oecm-badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:6px 12px;border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:999px;font-size:12px;white-space:nowrap;color:rgba(var(--textColor-rgb),0.78);}
+.lp-brands .lp-oecm-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--saleBadgeBackground);flex-shrink:0;}
+.lp-brands .lp-oecm-bar__lead{display:flex;align-items:flex-start;gap:var(--space-4);flex:1 1 400px;flex-wrap:wrap;}
+.lp-brands .lp-oecm-bar__copy{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);margin:0;max-width:62ch;}
+.lp-brands .lp-oecm-bar__meta{flex-shrink:0;}
+
+/* FAQ */
+.lp-brands .lp-faq{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.5);}
+.lp-brands .lp-faq__inner{max-width:860px;margin:0 auto;padding:0 var(--space-6);}
+.lp-brands .lp-faq__head{margin-bottom:var(--space-8);}
+.lp-brands .lp-faq__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-brands .lp-faq__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-brands .lp-faq h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);}
+.lp-brands .lp-faq__cta{font-size:15px;color:rgba(var(--textColor-rgb),0.72);margin:0;}
+.lp-brands .lp-faq__cta a{color:var(--textColor);text-decoration:underline;}
+.lp-brands .lp-faq-item{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-brands .lp-faq-item summary{list-style:none;display:flex;align-items:baseline;gap:var(--space-4);padding:var(--space-6) 0;cursor:pointer;}
+.lp-brands .lp-faq-item summary::-webkit-details-marker{display:none;}
+.lp-brands .lp-faq-item__num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:rgba(var(--textColor-rgb),0.4);flex-shrink:0;width:24px;}
+.lp-brands .lp-faq-item__q{flex:1;font-size:16px;font-weight:500;color:var(--headingColor);line-height:1.4;}
+.lp-brands .lp-faq-item__icon{flex-shrink:0;width:20px;height:20px;border-radius:50%;border:1px solid rgba(var(--borderColor-rgb),0.8);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(var(--textColor-rgb),0.5);transition:transform 160ms ease;}
+.lp-brands details[open] .lp-faq-item__icon{transform:rotate(45deg);}
+.lp-brands .lp-faq-item__icon::after{content:"+";}
+.lp-brands .lp-faq-item__body{padding:0 0 var(--space-6) calc(24px + var(--space-4));}
+.lp-brands .lp-faq-item__body p{font-size:15px;line-height:1.65;color:rgba(var(--textColor-rgb),0.78);margin:0;}
+
+/* CTA closer */
+.lp-brands .lp-closer{background:var(--background);color:var(--textColor);}
+.lp-brands .lp-closer__inner{max-width:1320px;margin:0 auto;padding:96px 32px;display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:center;}
+.lp-brands .lp-closer__eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.7);margin:0 0 16px;}
+.lp-brands .lp-closer__heading{font-family:var(--headingFont);font-size:clamp(32px,4.2vw,56px);line-height:1.05;letter-spacing:-0.015em;font-weight:600;margin:0 0 20px;text-wrap:balance;}
+.lp-brands .lp-closer__sub{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);max-width:52ch;margin:0;}
+.lp-brands .lp-closer__actions{display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+.lp-brands .lp-closer__trust{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(var(--textColor-rgb),0.78);}
+.lp-brands .lp-closer__trust .dot{flex:0 0 auto;margin-top:7px;width:6px;height:6px;border-radius:99px;background:var(--saleBadgeBackground);}
+.lp-brands .lp-closer__trust b{color:var(--textColor);font-weight:600;}
+.lp-brands .lp-closer__trust a{color:var(--textColor);text-decoration:underline;}
+
+/* Responsive */
+@media(max-width:1024px){.lp-brands .lp-diff__grid{grid-template-columns:repeat(2,1fr);}.lp-brands .lp-brand-tiles__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){
+  .lp-brands .lp-hero__inner{grid-template-columns:1fr;}
+  .lp-brands .lp-hero__media{display:none;}
+  .lp-brands .lp-diff__grid{grid-template-columns:1fr;}
+  .lp-brands .lp-brand-tiles__grid{grid-template-columns:1fr;}
+  .lp-brands .lp-closer__inner{grid-template-columns:1fr;padding:64px 24px;}
+  .lp-brands .bbi-header__nav{display:none;}
+}
+
+/* Footer */
+.lp-brands .bbi-footer{background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.6);padding:var(--space-12) 0 var(--space-8);}
+.lp-brands .bbi-footer__inner{max-width:1320px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:48px;}
+.lp-brands .bbi-footer__brand-plate{display:flex;flex-direction:column;gap:var(--space-4);}
+.lp-brands .bbi-footer__brand-plate img{height:32px;width:auto;}
+.lp-brands .bbi-footer__tagline{font-size:13px;line-height:1.6;color:rgba(var(--textColor-rgb),0.6);max-width:28ch;margin:0;}
+.lp-brands .bbi-footer__col h4{font-family:var(--headingFont);font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.5);margin:0 0 var(--space-4);}
+.lp-brands .bbi-footer__col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-3);}
+.lp-brands .bbi-footer__col a{font-size:14px;color:rgba(var(--textColor-rgb),0.78);text-decoration:none;}
+.lp-brands .bbi-footer__col a:hover{color:var(--textColor);}
+.lp-brands .bbi-footer__bottom{max-width:1320px;margin:var(--space-8) auto 0;padding:var(--space-6) 32px 0;border-top:1px solid rgba(var(--borderColor-rgb),0.4);display:flex;gap:var(--space-6);align-items:center;flex-wrap:wrap;font-size:12px;color:rgba(var(--textColor-rgb),0.5);}
+@media(max-width:768px){.lp-brands .bbi-footer__inner{grid-template-columns:1fr 1fr;}.lp-brands .bbi-footer__brand-plate{grid-column:1/-1;}}
+</style>
+
+<div class="lp-brands scheme-default">
+
+  {%- render 'bbi-nav', logo: section.settings.logo, active: 'brands' -%}
+
+  <div class="lp-crumbs-band">
+    <div class="lp-crumbs-band__inner">
+      <ol class="bbi-crumbs" aria-label="Breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li aria-current="page">Brands</li>
+      </ol>
+    </div>
+  </div>
+
+  <section class="lp-hero" aria-label="Hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <p class="lp-hero__eyebrow bbi-mono">
+          <span class="lp-hero__eyebrow-label">Brands &middot; Authorized Dealers</span>
+        </p>
+        <h1>{{ section.settings.heading | default: 'Authorized dealers for commercial furniture that lasts.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Keilhauer, ergoCentric, Global, and Teknion — Canadian and international brands specified by Ontario institutions. Authorized dealer status means direct warranty support, spec sheets, and real lead-time visibility.' }}</p>
+        <div class="lp-hero__cta-row">
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
+            Request a Quote <span class="arrow">&#8594;</span>
+          </a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="/collections/business-furniture">
+            Browse Categories
+          </a>
+        </div>
+      </div>
+      <div class="lp-hero__media" aria-hidden="true">
+        {%- if section.settings.hero_image != blank -%}
+          {%- assign hero_alt = 'Commercial office furniture by Brant Business Interiors' -%}
+          {{ section.settings.hero_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: hero_alt, width: 1200 }}
+        {%- else -%}
+          <div class="lp-hero__ph">Hero image &middot; 5:4 &middot; upload brands-hub-space.jpg</div>
+        {%- endif -%}
+        <div class="lp-hero__caption">
+          <span class="lp-hero__caption-dot"></span>
+          <span>Authorized dealer &mdash; Keilhauer &middot; ergoCentric &middot; Global &middot; Teknion</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-intro" aria-label="Why manufacturer matters">
+    <div class="lp-intro__inner">
+      <p class="lp-intro__eyebrow bbi-mono">Why it matters</p>
+      <h2>Authorized dealer status isn&rsquo;t marketing &mdash; it&rsquo;s accountability.</h2>
+      <div class="lp-intro__body">
+        <p>When you buy through an authorized dealer, warranty claims go through us directly to the manufacturer &mdash; not through a third-party distributor who may no longer carry the line. We maintain current price lists, access to spec sheets and CAD blocks, and manufacturer lead-time visibility. If a mechanism fails at year eight of a twelve-year warranty, we handle the claim.</p>
+        <p>Brant Business Interiors is an authorized dealer for Keilhauer, ergoCentric, and the Global Furniture Group (which includes Teknion). All three lines are OECM-eligible under our Agreement 2025-470, meaning Ontario institutional buyers can purchase without re-tendering.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-diff" aria-label="Why BBI for brands">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">What authorized means</p>
+        <h2>Four reasons manufacturer authorization matters on a large institutional order.</h2>
+      </div>
+      <div class="lp-diff__grid">
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">01</span>
+          <h3 class="lp-diff-card__label">Direct warranty support</h3>
+          <p class="lp-diff-card__sentence">We file the claim with the manufacturer and keep the chair in service &mdash; ergoCentric runs 12 years on mechanisms, Keilhauer runs 10. One call to us, handled end to end.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">02</span>
+          <h3 class="lp-diff-card__label">Canadian manufacturing</h3>
+          <p class="lp-diff-card__sentence">ergoCentric is made in Concord, Ontario. Keilhauer is made in Toronto. Short lead times, Canadian replacement parts, and post-sale support without timezone gaps.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">03</span>
+          <h3 class="lp-diff-card__label">Spec sheet access</h3>
+          <p class="lp-diff-card__sentence">Current drawings, COM availability, finish options, and dimensional data on request &mdash; the exact files your facilities team needs to approve the order.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">04</span>
+          <h3 class="lp-diff-card__label">OECM standing order</h3>
+          <p class="lp-diff-card__sentence">All three brand families are available under OECM Agreement 2025-470. Ontario schools, hospitals, and municipalities purchase without re-tendering.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-brand-tiles" aria-label="Brand pages">
+    <div class="lp-brand-tiles__inner">
+      <div class="lp-brand-tiles__head">
+        <p class="lp-brand-tiles__eyebrow bbi-mono">Our brands</p>
+        <h2>Three manufacturer lines, one authorized dealer.</h2>
+      </div>
+      <div class="lp-brand-tiles__grid">
+
+        <a href="/pages/brands-keilhauer" class="lp-brand-tile">
+          <div class="lp-brand-tile__media">
+            {%- if section.settings.keilhauer_image != blank -%}
+              {%- assign k_alt = 'Keilhauer seating by Brant Business Interiors' -%}
+              {{ section.settings.keilhauer_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: k_alt, width: 800 }}
+            {%- else -%}
+              <div class="lp-brand-tile__ph">keilhauer-space.jpg &middot; 16:9</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-brand-tile__body">
+            <h3 class="lp-brand-tile__name">Keilhauer</h3>
+            <p class="lp-brand-tile__meta">Boardroom &middot; lounge &middot; task seating &middot; Made in Toronto, ON</p>
+            <span class="lp-brand-tile__cta">View brand
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/pages/brands-ergocentric" class="lp-brand-tile">
+          <div class="lp-brand-tile__media">
+            {%- if section.settings.ergocentric_image != blank -%}
+              {%- assign e_alt = 'ergoCentric task chairs by Brant Business Interiors' -%}
+              {{ section.settings.ergocentric_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: e_alt, width: 800 }}
+            {%- else -%}
+              <div class="lp-brand-tile__ph">ergocentric-space.jpg &middot; 16:9</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-brand-tile__body">
+            <h3 class="lp-brand-tile__name">ergoCentric</h3>
+            <p class="lp-brand-tile__meta">Task &middot; 24/7 &middot; ergonomic chairs &middot; Made in Concord, ON &#127809;</p>
+            <span class="lp-brand-tile__cta">View brand
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/pages/brands-global-teknion" class="lp-brand-tile">
+          <div class="lp-brand-tile__media">
+            {%- if section.settings.global_image != blank -%}
+              {%- assign g_alt = 'Global and Teknion workstations by Brant Business Interiors' -%}
+              {{ section.settings.global_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: g_alt, width: 800 }}
+            {%- else -%}
+              <div class="lp-brand-tile__ph">global-teknion-space.jpg &middot; 16:9</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-brand-tile__body">
+            <h3 class="lp-brand-tile__name">Global / Teknion</h3>
+            <p class="lp-brand-tile__meta">Workstations &middot; panels &middot; height-adjustable desks &middot; Global Furniture Group</p>
+            <span class="lp-brand-tile__cta">View brand
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+            </span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-oecm-bar" aria-label="OECM procurement">
+    <div class="lp-oecm-bar__inner">
+      <div class="lp-oecm-bar__lead">
+        <span class="lp-oecm-badge">
+          <span class="dot"></span>
+          OECM Supplier Partner
+        </span>
+        <p class="lp-oecm-bar__copy">OECM Supplier Partner, Agreement 2025-470 &mdash; Ontario schools, hospitals, and municipalities can purchase Keilhauer, ergoCentric, and Global/Teknion products directly from Brant Business Interiors without an open tender or RFP process.</p>
+      </div>
+      <div class="lp-oecm-bar__meta">
+        <a href="/pages/oecm" class="bbi-btn bbi-btn--tertiary">
+          <span class="label">Learn about OECM purchasing</span>
+          <span class="arrow"> &#8594;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section class="lp-faq" aria-label="Frequently asked questions">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <p class="lp-faq__eyebrow bbi-mono">Common questions</p>
+        <h2>What buyers ask about manufacturer brands.</h2>
+        <p class="lp-faq__cta">Still have a question? <a href="tel:18008359565">Call 1&#8209;800&#8209;835&#8209;9565</a> or <a href="/pages/quote">request a quote</a> and we&rsquo;ll respond in 1 business day.</p>
+      </div>
+      <div class="lp-faq__list">
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">01</span>
+            <span class="lp-faq-item__q">Which brands are you authorized to sell?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>We are authorized dealers for Keilhauer, ergoCentric, and the Global Furniture Group (which includes Global, Teknion, and related lines). We also carry a range of other commercial manufacturers. Contact us with your spec or product name and we&rsquo;ll confirm availability and lead time.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">02</span>
+            <span class="lp-faq-item__q">Does authorized dealer status actually affect warranty claims?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes. As an authorized dealer, warranty claims go from you to us directly to the manufacturer &mdash; not through a distributor. We maintain the service relationship with the factory, which means faster resolution, genuine replacement parts, and no finger-pointing between intermediaries. If a mechanism fails under warranty, we handle the claim, period.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">03</span>
+            <span class="lp-faq-item__q">Are brand-name products more expensive for institutional buyers?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Not necessarily. Keilhauer and ergoCentric carry premium list prices, but over a 10&ndash;12 year product life the total cost of ownership compares favourably to lower-priced alternatives that need replacement sooner. For OECM buyers, these products are available at pre-negotiated government pricing under Agreement 2025-470, which is often below list.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">04</span>
+            <span class="lp-faq-item__q">Can I mix brands on the same quote?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; a typical institutional quote from us might include ergoCentric task chairs, Keilhauer lounge seating, and Global workstations all on one document. You get a single quote, a single delivery, a single invoice. We coordinate lead times across manufacturers so the install can happen in one pass.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">05</span>
+            <span class="lp-faq-item__q">How do I get spec sheets, CAD drawings, or COM samples?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Request them on your quote or call us at 1&#8209;800&#8209;835&#8209;9565. We maintain current spec packs for all authorized lines and can usually turn around dimensional drawings and finish samples within 1&ndash;2 business days. COM (customer&rsquo;s own material) availability varies by manufacturer &mdash; we&rsquo;ll confirm suitability before you commit to fabric.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-closer scheme-inverse" aria-label="Request a quote">
+    <div class="lp-closer__inner">
+      <div>
+        <p class="lp-closer__eyebrow">Brand enquiries</p>
+        <h2 class="lp-closer__heading">Tell us which brand you&rsquo;re specifying. We&rsquo;ll get you a quote.</h2>
+        <p class="lp-closer__sub">Authorized dealer for Keilhauer, ergoCentric, Global, and Teknion. Quote in 1 business day. Includes spec sheets and lead time on request.</p>
+      </div>
+      <div class="lp-closer__actions">
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
+          Request a Quote <span class="arrow">&#8594;</span>
+        </a>
+        <div class="lp-closer__trust">
+          <span class="dot"></span>
+          <span><b>1 business day response</b> &mdash; no minimums, no obligations.</span>
+        </div>
+        <div class="lp-closer__trust">
+          <span class="dot"></span>
+          <span>Or call <a href="tel:18008359565">1&#8209;800&#8209;835&#8209;9565</a> &middot; Mon&ndash;Fri 8&ndash;5 ET</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
+
+</div><!-- /lp-brands -->
+
+{% schema %}
+{
+  "name": "Brands Hub",
+  "class": "ds-lp-brands",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Brant ✱ BI v2 wordmark. Leave blank for text fallback." },
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "heading", "label": "H1 heading", "default": "Authorized dealers for commercial furniture that lasts." },
+    { "type": "textarea", "id": "subheading", "label": "Hero standfirst", "default": "Keilhauer, ergoCentric, Global, and Teknion — Canadian and international brands specified by Ontario institutions. Authorized dealer status means direct warranty support, spec sheets, and real lead-time visibility." },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image (5:4)", "info": "Upload brands-hub-space.jpg from data/page-images/brands-hub/" },
+    { "type": "header", "content": "Brand tile images (16:9 each)" },
+    { "type": "image_picker", "id": "keilhauer_image", "label": "Keilhauer tile image", "info": "Upload keilhauer-space.jpg from data/page-images/keilhauer/" },
+    { "type": "image_picker", "id": "ergocentric_image", "label": "ergoCentric tile image", "info": "Upload ergocentric-space.jpg from data/page-images/ergocentric/" },
+    { "type": "image_picker", "id": "global_image", "label": "Global/Teknion tile image", "info": "Upload global-teknion-space.jpg from data/page-images/global-teknion/" }
+  ],
+  "presets": [{ "name": "Brands Hub" }]
+}
+{% endschema %}
