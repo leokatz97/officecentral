@@ -109,6 +109,7 @@
   color:var(--headingColor);margin:0;
 }
 .ds-cs__hero-meta{font-size:15px;color:rgba(11,11,12,0.55);}
+.ds-cs__hero-cta{margin-top:var(--space-4);}
 @media(min-width:768px){
   .ds-cs__hero-inner{flex-direction:row;align-items:flex-end;justify-content:space-between;}
 }
@@ -194,7 +195,7 @@
 }
 .ds-cs__card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
 .ds-cs__card-img{
-  aspect-ratio:4/3;overflow:hidden;background:var(--alternateBackground);
+  aspect-ratio:1/1;overflow:hidden;background:var(--alternateBackground);
   border-bottom:1px solid rgba(var(--borderColor-rgb),0.5);
 }
 .ds-cs__card-img img{width:100%;height:100%;object-fit:cover;transition:transform 300ms ease;}
@@ -269,6 +270,14 @@
   background:transparent;color:#FFFFFF;border-color:rgba(255,255,255,0.5);
 }
 .ds-cs__phone-cta .bbi-btn--outline-white:hover{border-color:#FFFFFF;}
+.ds-cs__phone-cta-trust{
+  display:flex;align-items:center;gap:var(--space-2);
+  font-size:14px;color:rgba(255,255,255,0.75);margin:0;
+}
+.ds-cs__phone-cta-trust__dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#D4252A;flex-shrink:0;
+}
 </style>
 
 <div class="ds-cs">
@@ -295,6 +304,11 @@
           {%- else -%}
             <p class="ds-cs__hero-meta">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }} available</p>
           {%- endif -%}
+          <div class="ds-cs__hero-cta">
+            <a href="/collections/{{ parent_handle }}" class="bbi-btn bbi-btn--secondary">
+              Shop all {{ parent_title }}
+            </a>
+          </div>
         </div>
         {%- if hero_image != blank -%}
           <div style="width:180px;flex-shrink:0;border-radius:var(--imageRadius);overflow:hidden;">
@@ -447,7 +461,7 @@
                       <div class="ds-cs__card-img">
                         {%- if product.featured_media -%}
                           {%- assign card_img_alt = product.featured_media.alt | default: product.title | escape -%}
-                          {{ product.featured_media | image_url: width: 480 | image_tag: loading: 'lazy', alt: card_img_alt }}
+                          {{ product.featured_media | image_url: width: 480, height: 480, crop: 'center' | image_tag: loading: 'lazy', alt: card_img_alt }}
                         {%- else -%}
                           <div class="ds-cs__card-img-placeholder" aria-hidden="true">
                             <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><path d="M21 15l-5-5L5 21" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
@@ -464,7 +478,11 @@
                       </a>
                       <div class="ds-cs__card-footer">
                         {%- if is_quote_only -%}
-                          <a href="/pages/quote?product={{ product.handle }}&source=collection&lead_type=quote"
+                          {%- comment -%}
+                            BBI rule #2: link to PDP — the PDP decides between add-to-cart
+                            and quote CTA based on product state. Never bypass the PDP.
+                          {%- endcomment -%}
+                          <a href="{{ product_url }}"
                              class="ds-cs__card-quote-cta"
                              itemprop="url">
                             Request a Quote →
@@ -542,6 +560,10 @@
           Free Design Consultation
         </a>
       </div>
+      <p class="ds-cs__phone-cta-trust">
+        <span class="ds-cs__phone-cta-trust__dot" aria-hidden="true"></span>
+        <strong>OECM vendor of record</strong> &middot; Ontario institutional buyers can purchase without open tender
+      </p>
     </div>
   </section>
   {%- endif -%}
