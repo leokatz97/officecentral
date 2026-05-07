@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "ds-cc-base": {
+      "type": "ds-cc-base",
+      "blocks": {
+        "tile-lighting": {
+          "type": "tile",
+          "settings": {
+            "title": "Lighting",
+            "link": "/collections/office-lighting",
+            "description": "Task lights and ambient lighting for desks and workstations."
+          }
+        },
+        "tile-whiteboards": {
+          "type": "tile",
+          "settings": {
+            "title": "Whiteboards & Boards",
+            "link": "/collections/whiteboards",
+            "description": "Magnetic whiteboards, tackboards, and combination boards."
+          }
+        },
+        "tile-desktop-accessories": {
+          "type": "tile",
+          "settings": {
+            "title": "Desktop Accessories",
+            "link": "/collections/desktop-accessories",
+            "description": "Organizers, trays, letter sorters, and desk accessories."
+          }
+        },
+        "tile-waste-recycling": {
+          "type": "tile",
+          "settings": {
+            "title": "Waste & Recycling",
+            "link": "/collections/waste-recycling",
+            "description": "Office waste bins and recycling station furniture."
+          }
+        }
+      },
+      "block_order": [
+        "tile-lighting",
+        "tile-whiteboards",
+        "tile-desktop-accessories",
+        "tile-waste-recycling"
+      ],
+      "settings": {
+        "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
+        "breadcrumb_parent_label": "Business Furniture",
+        "breadcrumb_parent_url": "/collections/business-furniture",
+        "hero_title": "Accessories",
+        "hero_subtitle": "Lighting, whiteboards, and workspace accessories that complete the fit-out. OECM-eligible.",
+        "cta_label": "Request an accessories quote",
+        "cta_url": "/pages/quote",
+        "intro_text": "<p>The details matter. Brant Business Interiors carries task lighting, whiteboards, desktop organizers, and waste management furniture to complete any institutional fit-out. Add accessories to any furniture order — OECM-eligible, one quote, one delivery. Quote in 1 business day.</p>",
+        "show_view_all_cta": true,
+        "view_all_label": "View all accessories",
+        "show_phone_cta": true,
+        "phone_cta_label": "Talk to a furniture specialist"
+      }
+    }
+  },
+  "order": ["ds-cc-base"]
+}
