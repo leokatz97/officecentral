@@ -1,0 +1,190 @@
+{
+  "generated": "2026-05-07",
+  "dev_theme_id": "186373570873",
+  "store": "brantbusinessinteriors.com",
+  "method": "Chrome MCP browser_batch — live site with ?preview_theme_id=186373570873",
+  "note": "Screenshots captured in session context. Observations documented here. Re-run via Chrome MCP to regenerate images.",
+  "screenshots": [
+    {
+      "id": 1,
+      "url": "/",
+      "label": "Homepage",
+      "http_status": 200,
+      "bbi_nav": true,
+      "bbi_footer": true,
+      "gate_evaluated": true,
+      "observations": [
+        "BBI mega-menu nav renders correctly — 5 items visible",
+        "CONTENT-1 BUG: logo renders as text 'Brant BASICS Interiors' wordmark, not image",
+        "Hero section renders with background image",
+        "Artifact: 'HERO' label overlay visible in hero — likely a dev/editor artifact",
+        "Footer renders with 4-column layout and OECM trust band"
+      ],
+      "issues": ["CONTENT-1 logo bug active", "HERO label artifact"]
+    },
+    {
+      "id": 2,
+      "url": "/collections/seating",
+      "label": "Seating category page",
+      "http_status": 200,
+      "bbi_nav": true,
+      "bbi_footer": true,
+      "gate_evaluated": true,
+      "observations": [
+        "BBI nav renders — 'Shop Furniture' tab shows active state",
+        "Hero image placeholder visible (no image set for seating hero)",
+        "Breadcrumb: Home > Business Furniture > Seating (3-level) — correct",
+        "CTA reads 'Get a free seating recommendation' — should be 'Shop all seating'",
+        "Category tile grid renders"
+      ],
+      "issues": ["Hero image not set", "CTA copy wrong"]
+    },
+    {
+      "id": 3,
+      "url": "/collections/highback-seating",
+      "label": "Highback Seating sub-collection",
+      "http_status": 200,
+      "bbi_nav": true,
+      "bbi_footer": true,
+      "gate_evaluated": true,
+      "observations": [
+        "BBI nav renders — but logo falls back to text 'Brant Business Interiors' (no logo image set for this template)",
+        "Breadcrumb: Home > Highback (Seating) — only 2 levels, missing Shop Furniture middle level",
+        "CTA reads 'Get a free quote' — should be category-appropriate",
+        "Product grid renders but all product images are empty placeholders",
+        "Shopify Chat widget from Starlite theme bleeding through (bottom-right corner) — Starlite app not suppressed on sub-collection pages"
+      ],
+      "issues": ["Logo text fallback", "2-level breadcrumb (missing middle tier)", "Starlite Chat widget bleed-through", "Empty product image placeholders", "CTA copy wrong"]
+    },
+    {
+      "id": 4,
+      "url": "/products/alphabetter-stand-up-desk",
+      "label": "In-stock PDP",
+      "http_status": 200,
+      "bbi_nav": true,
+      "bbi_footer": true,
+      "gate_evaluated": true,
+      "observations": [
+        "BBI nav renders correctly",
+        "Product photo renders ✅",
+        "Price: $562.79 visible",
+        "Stock label: 'IN STOCK — ORDER DIRECT'",
+        "'Request a Quote' CTA present",
+        "Trust line renders",
+        "Breadcrumb: Home > Desks & Workstations > Alphabetter Stand Up Desk — 3-level (should be 4: Home > Shop Furniture > Desks > Product)"
+      ],
+      "issues": ["Breadcrumb 3-level not 4-level"]
+    },
+    {
+      "id": 5,
+      "url": "/products/boulevard-system-3",
+      "label": "Quote-only PDP ($0 price)",
+      "http_status": 200,
+      "bbi_nav": true,
+      "bbi_footer": true,
+      "gate_evaluated": true,
+      "observations": [
+        "BBI nav renders correctly",
+        "Product photo renders ✅",
+        "PROJECT QUOTE block renders: 'Request a quote on this product' ✅",
+        "No price shown — correct for $0 showcase product",
+        "BBI rule #2 (unbuyable → quote CTA) confirmed working"
+      ],
+      "issues": []
+    },
+    {
+      "id": 6,
+      "url": "/pages/about",
+      "label": "About page (DRAFT)",
+      "http_status": 404,
+      "bbi_nav": false,
+      "bbi_footer": false,
+      "gate_evaluated": false,
+      "observations": [
+        "Page returns 404 publicly — Shopify Page record exists but is DRAFT (published_at: null)",
+        "Starlite chrome renders: BrantBasics header visible above BBI 404 content",
+        "BBI custom 404 content ('Page not found' + search + category tiles) renders in body",
+        "Two-chrome bug: Starlite header + BBI 404 content = visual collision",
+        "Root cause: (1) page is DRAFT, (2) template=='404' missing from bbi_landing gate"
+      ],
+      "issues": ["DRAFT page — returns 404 publicly", "Starlite chrome leaks on 404 template", "gate missing template=='404'"]
+    },
+    {
+      "id": 7,
+      "url": "/pages/customer-stories",
+      "label": "Customer Stories page (no Page record)",
+      "http_status": 404,
+      "bbi_nav": false,
+      "bbi_footer": false,
+      "gate_evaluated": false,
+      "observations": [
+        "Page returns 404 — Shopify Page record was never created (ROOT_CAUSE_404)",
+        "Dev theme has page.customer-stories.json template but no Page record with that handle",
+        "Starlite chrome renders above BBI 404 content — same two-chrome bug as above",
+        "CS-1 row in Wave G is not started, matching build-state"
+      ],
+      "issues": ["ROOT_CAUSE_404 — no Shopify Page record", "Starlite chrome leaks on 404 template"]
+    },
+    {
+      "id": 8,
+      "url": "/pages/brands-keilhauer",
+      "label": "Brands Keilhauer page (DRAFT)",
+      "http_status": 404,
+      "bbi_nav": false,
+      "bbi_footer": false,
+      "gate_evaluated": false,
+      "observations": [
+        "Page returns 404 publicly — Shopify Page record exists but is DRAFT",
+        "Dev theme has page.brands-keilhauer.json template + ds-lp-brands-keilhauer.liquid section",
+        "Starlite chrome renders above BBI 404 content — same two-chrome bug",
+        "All Wave C brand pages (brands, brands-keilhauer, brands-global-teknion, brands-ergocentric) are DRAFT"
+      ],
+      "issues": ["DRAFT page — returns 404 publicly", "Starlite chrome leaks on 404 template"]
+    },
+    {
+      "id": 9,
+      "url": "/zzz-this-page-does-not-exist-audit-test",
+      "label": "Synthetic 404 page",
+      "http_status": 404,
+      "bbi_nav": false,
+      "bbi_footer": false,
+      "gate_evaluated": false,
+      "observations": [
+        "Confirms two-chrome bug on any 404: Starlite header renders above BBI custom 404 content",
+        "BBI 404 content renders correctly (search box + 4 category tiles + phone CTA)",
+        "Root cause: template=='404' not in bbi_landing gate in either worktree or dev theme",
+        "Fix: add 'or template == \"404\"' to bbi_landing gate in theme.liquid"
+      ],
+      "issues": ["gate missing template=='404' — confirmed on live 404 responses"]
+    },
+    {
+      "id": 10,
+      "url": "/pages/contact",
+      "label": "Contact page (published, dev-only drift)",
+      "http_status": 200,
+      "bbi_nav": true,
+      "bbi_footer": true,
+      "gate_evaluated": true,
+      "observations": [
+        "BBI nav renders ✅ — gate includes contact suffix in dev theme",
+        "Logo appears compact / text fallback 'Brant * BI' — possible stale nav snippet",
+        "Nav labels visible: Shop | Industries | Brands | Services | About",
+        "Contact info renders correctly: phone, email, address",
+        "Contact template exists only in dev theme (page.contact.json + ds-lp-contact.liquid) — NOT in worktree git",
+        "OK_DEVONLY_DRIFT status confirmed"
+      ],
+      "issues": ["Template only in dev theme, not committed to worktree git", "Logo compact/text fallback on contact"]
+    }
+  ],
+  "summary": {
+    "pages_200": 5,
+    "pages_404_draft": 3,
+    "pages_404_no_record": 1,
+    "pages_404_gate_bug": 1,
+    "bbi_chrome_ok": 5,
+    "bbi_chrome_missing": 4,
+    "starlite_bleed": 5,
+    "content1_logo_bug": 2,
+    "gate_bug_404_template": true
+  }
+}
