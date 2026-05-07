@@ -78,7 +78,7 @@
     <div class="body-wrapper">
           {%- liquid
         assign bbi_landing = false
-        if template.suffix == 'oecm' or template.suffix == 'faq' or template.suffix == 'design-services' or template.suffix == 'industries' or template.suffix == 'healthcare' or template.suffix == 'education' or template.suffix == 'government' or template.suffix == 'non-profit' or template.suffix == 'professional-services' or template.suffix == 'quote'
+        if template == 'index' or template.suffix == 'oecm' or template.suffix == 'faq' or template.suffix == 'design-services' or template.suffix == 'industries' or template.suffix == 'healthcare' or template.suffix == 'education' or template.suffix == 'government' or template.suffix == 'non-profit' or template.suffix == 'professional-services' or template.suffix == 'quote'
           assign bbi_landing = true
         endif
       -%}

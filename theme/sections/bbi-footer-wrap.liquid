@@ -1,0 +1,34 @@
+{%- comment -%}
+  Section: bbi-footer-wrap
+  Purpose: Thin wrapper section that renders the shared bbi-footer snippet on pages
+           that use a sections-everywhere / index.json template (e.g. homepage).
+           All footer HTML and CSS live in snippets/bbi-footer.liquid — this section
+           only provides the logo image_picker setting and a Theme Editor handle.
+  Render:  Added as the LAST section in templates/index.json (and any future
+           sections-everywhere template that needs the shared footer).
+  Note:    No CSS block — bbi-footer.liquid is fully self-contained.
+{%- endcomment -%}
+
+<div class="bbi-footer-wrap">
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
+</div>
+
+{% schema %}
+{
+  "name": "BBI Footer (wrapper)",
+  "class": "shopify-section-bbi-footer-wrap",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BBI Footer"
+    }
+  ],
+  "blocks": [{ "type": "@app" }]
+}
+{% endschema %}

@@ -1,0 +1,36 @@
+{%- comment -%}
+  Section: bbi-nav-wrap
+  Purpose: Thin wrapper section that renders the shared bbi-nav snippet on pages
+           that use a sections-everywhere / index.json template (e.g. homepage).
+           All nav HTML and CSS live in snippets/bbi-nav.liquid — this section
+           only provides the logo image_picker setting and a Theme Editor handle.
+  Render:  Added as the FIRST section in templates/index.json (and any future
+           sections-everywhere template that needs the shared nav).
+  Active:  Passes active: '' → no nav item receives .bbi-nav__item--active
+           (correct for the homepage where no top-level item is "current").
+  Note:    No CSS block — bbi-nav.liquid is fully self-contained.
+{%- endcomment -%}
+
+<header class="bbi-nav-wrap">
+  {%- render 'bbi-nav', logo: section.settings.logo, active: '' -%}
+</header>
+
+{% schema %}
+{
+  "name": "BBI Nav (wrapper)",
+  "class": "shopify-section-bbi-nav-wrap",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BBI Nav"
+    }
+  ],
+  "blocks": [{ "type": "@app" }]
+}
+{% endschema %}
