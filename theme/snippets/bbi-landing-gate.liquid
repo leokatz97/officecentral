@@ -1,0 +1,44 @@
+{%- comment -%}
+  bbi-landing-gate.liquid — DOCUMENTATION ONLY, not rendered.
+
+  This file is the canonical reference list of every template that should
+  render BBI chrome (bbi-nav + bbi-footer) instead of Starlite chrome.
+
+  The live gate logic lives in layout/theme.liquid (search "bbi_landing").
+  It cannot be extracted into this snippet because Shopify's `render` tag
+  is completely isolated from the parent template — variables assigned or
+  echoed inside `render` are NOT accessible in the calling layout, and
+  `capture` + `render` does not propagate output back to the parent.
+  The `include` tag would work but is deprecated; gate logic stays inline.
+
+  To add a new BBI page:
+    1. Add `elsif template.suffix == 'your-suffix'` to the gate block in
+       layout/theme.liquid — that is the ONLY file to change.
+    2. Mirror the change here so this list stays current.
+
+  Current BBI template set:
+    template == 'index'                         homepage
+    template.name == 'collection'               all collection pages (Level-2 hubs + sub-collections)
+    template == 'product'                       all PDPs
+    template == '404'                           404 error page
+    template.suffix == 'about'
+    template.suffix == 'brands'
+    template.suffix == 'brands-ergocentric'
+    template.suffix == 'brands-global-teknion'
+    template.suffix == 'brands-keilhauer'
+    template.suffix == 'contact'
+    template.suffix == 'customer-stories'
+    template.suffix == 'delivery'
+    template.suffix == 'design-services'
+    template.suffix == 'education'
+    template.suffix == 'faq'
+    template.suffix == 'government'
+    template.suffix == 'healthcare'
+    template.suffix == 'industries'
+    template.suffix == 'non-profit'
+    template.suffix == 'oecm'
+    template.suffix == 'our-work'
+    template.suffix == 'professional-services'
+    template.suffix == 'quote'
+    template.suffix == 'relocation'
+{%- endcomment -%}

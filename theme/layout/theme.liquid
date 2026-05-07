@@ -76,9 +76,60 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
     <div class="body-wrapper">
-          {%- liquid
+      {%- comment -%}
+        BBI chrome gate. To add a new BBI page: add one elsif line here AND
+        mirror it in snippets/bbi-landing-gate.liquid (which is the reference list).
+        Shopify's render tag is fully isolated so the gate must live inline.
+      {%- endcomment -%}
+      {%- liquid
         assign bbi_landing = false
-        if template == 'index' or template.name == 'collection' or template.suffix == 'oecm' or template.suffix == 'faq' or template.suffix == 'design-services' or template.suffix == 'industries' or template.suffix == 'healthcare' or template.suffix == 'education' or template.suffix == 'government' or template.suffix == 'non-profit' or template.suffix == 'professional-services' or template.suffix == 'quote' or template.suffix == 'brands' or template.suffix == 'brands-keilhauer' or template.suffix == 'brands-global-teknion' or template.suffix == 'brands-ergocentric' or template.suffix == 'about' or template.suffix == 'delivery' or template.suffix == 'relocation' or template.suffix == 'contact' or template.suffix == 'our-work' or template == 'product' or template.suffix == 'customer-stories' or template == '404'
+        if template == 'index'
+          assign bbi_landing = true
+        elsif template.name == 'collection'
+          assign bbi_landing = true
+        elsif template == 'product'
+          assign bbi_landing = true
+        elsif template == '404'
+          assign bbi_landing = true
+        elsif template.suffix == 'about'
+          assign bbi_landing = true
+        elsif template.suffix == 'brands'
+          assign bbi_landing = true
+        elsif template.suffix == 'brands-ergocentric'
+          assign bbi_landing = true
+        elsif template.suffix == 'brands-global-teknion'
+          assign bbi_landing = true
+        elsif template.suffix == 'brands-keilhauer'
+          assign bbi_landing = true
+        elsif template.suffix == 'contact'
+          assign bbi_landing = true
+        elsif template.suffix == 'customer-stories'
+          assign bbi_landing = true
+        elsif template.suffix == 'delivery'
+          assign bbi_landing = true
+        elsif template.suffix == 'design-services'
+          assign bbi_landing = true
+        elsif template.suffix == 'education'
+          assign bbi_landing = true
+        elsif template.suffix == 'faq'
+          assign bbi_landing = true
+        elsif template.suffix == 'government'
+          assign bbi_landing = true
+        elsif template.suffix == 'healthcare'
+          assign bbi_landing = true
+        elsif template.suffix == 'industries'
+          assign bbi_landing = true
+        elsif template.suffix == 'non-profit'
+          assign bbi_landing = true
+        elsif template.suffix == 'oecm'
+          assign bbi_landing = true
+        elsif template.suffix == 'our-work'
+          assign bbi_landing = true
+        elsif template.suffix == 'professional-services'
+          assign bbi_landing = true
+        elsif template.suffix == 'quote'
+          assign bbi_landing = true
+        elsif template.suffix == 'relocation'
           assign bbi_landing = true
         endif
       -%}
