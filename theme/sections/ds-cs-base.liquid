@@ -1,0 +1,721 @@
+{%- comment -%}
+  Section: ds-cs-base
+  Purpose: Base product-listing section for all 68 sub-collection pages.
+           Mirrors ds-cc-base but renders a product grid instead of category tiles.
+  Template: collection.base.json  (template_suffix = "base")
+  Gate: theme.liquid bbi_landing gate — template == 'collection.base'
+        (added via PB-15) suppresses Starlite header/footer.
+  Active nav: 'shop'
+  Breadcrumb: 4-level — Home > Shop Furniture > <parent category> > <this collection>
+              Parent category is derived from schema setting or from the collection's tags.
+  Filters: tag-based sidebar (type:*, room:*, price ranges) using JS toggle classes.
+  Product grid: 3-up → 4-up desktop, pagination via ?page=N, 24 per page.
+  CTA: Phone CTA band at foot of page.
+  BBI rule #2: Sold-out / $0 products show "Request a Quote" instead of price.
+{%- endcomment -%}
+
+{%- liquid
+  assign page_title  = section.settings.hero_title | default: collection.title
+  assign hero_image  = section.settings.hero_image
+  assign parent_title  = section.settings.parent_category_title | default: 'Seating'
+  assign parent_handle = section.settings.parent_category_handle | default: 'seating'
+  assign products_per_page = 24
+
+  # Build active filter sets from URL params
+  assign active_types  = request.path | split: '?'
+  assign active_rooms  = ''
+
+  # Pagination object is automatically available via collection.products
+  assign paginated_products = collection.products
+-%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+/* ── BBI Design Tokens ───────────────────────────────────────────── */
+:root{
+  --bodyFont:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --headingFont:"Inter Tight","Inter",system-ui,sans-serif;
+  --headingFontWeight:600;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;
+  --inputRadius:4px;--buttonRadius:4px;--cardRadius:8px;--imageRadius:4px;
+  --shadow-sm:0 1px 2px rgba(11,11,12,0.04),0 2px 8px rgba(11,11,12,0.05);
+  --shadow-md:0 2px 4px rgba(11,11,12,0.05),0 12px 32px rgba(11,11,12,0.08);
+  --fs-h1:32px;--lh-h1:1.1;--ls-h1:-0.015em;
+  --fs-h2:24px;--lh-h2:1.15;--ls-h2:-0.01em;
+  --fs-h3:18px;--lh-h3:1.25;
+  --fs-body:16px;--lh-body:1.55;
+  --fs-small:13px;--lh-small:1.5;
+  --fs-button:15px;--lh-button:1;--ls-button:0.01em;
+}
+@media(min-width:768px){
+  :root{--fs-h1:40px;--fs-h2:28px;--fs-h3:20px;}
+}
+/* ── Page scope ─────────────────────────────────────────────────── */
+.ds-cs{
+  --background:#FFFFFF;
+  --alternateBackground:#FAFAFA;
+  --cardBackground:#FFFFFF;
+  --textColor:#0B0B0C;
+  --linkColor:#0B0B0C;
+  --headingColor:#0B0B0C;
+  --buttonBackground:#0B0B0C;
+  --buttonColor:#FFFFFF;
+  --buttonBorder:#0B0B0C;
+  --buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;
+  --borderColor:#E5E5E7;--borderColor-rgb:229,229,231;
+  --accentRed:#D4252A;
+  background:var(--background);color:var(--textColor);
+  font-family:var(--bodyFont);font-size:var(--fs-body);
+  line-height:var(--lh-body);-webkit-font-smoothing:antialiased;
+}
+.ds-cs *,.ds-cs *::before,.ds-cs *::after{box-sizing:border-box;}
+.ds-cs img{display:block;max-width:100%;height:auto;}
+.ds-cs a{color:var(--linkColor);}
+.ds-cs .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+
+/* ── Inner container ─────────────────────────────────────────────── */
+.ds-cs__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+
+/* ── Buttons ─────────────────────────────────────────────────────── */
+.ds-cs .bbi-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);
+  padding:12px 20px;min-height:44px;font-family:var(--bodyFont);
+  font-size:var(--fs-button);font-weight:600;border-radius:var(--buttonRadius);
+  border:1px solid transparent;cursor:pointer;text-decoration:none;
+  transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;
+  white-space:nowrap;
+}
+.ds-cs .bbi-btn--primary{background:var(--buttonBackground);color:var(--buttonColor);border-color:var(--buttonBorder);}
+.ds-cs .bbi-btn--primary:hover{background:var(--buttonBackgroundHover);color:var(--buttonColorHover);border-color:var(--buttonBorderHover);}
+.ds-cs .bbi-btn--secondary{background:#FFFFFF;color:var(--buttonBackground);border-color:var(--buttonBackground);}
+.ds-cs .bbi-btn--secondary:hover{background:var(--buttonBackground);color:#FFFFFF;}
+.ds-cs .bbi-btn--ghost{background:transparent;color:var(--textColor);border-color:var(--borderColor);}
+.ds-cs .bbi-btn--ghost:hover{border-color:var(--buttonBackground);}
+
+/* ── Breadcrumb band ─────────────────────────────────────────────── */
+.ds-cs__crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.ds-cs__crumbs-band .ds-cs__inner{padding-top:var(--space-3);padding-bottom:var(--space-3);}
+.ds-cs__crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  font-size:13px;margin:0;padding:0;list-style:none;}
+.ds-cs__crumbs li{display:inline-flex;align-items:center;gap:6px;}
+.ds-cs__crumbs a{color:var(--textColor);text-decoration:none;opacity:.65;}
+.ds-cs__crumbs a:hover{opacity:1;color:var(--accentRed);}
+.ds-cs__crumbs__sep{color:var(--borderColor);}
+.ds-cs__crumbs__current{font-weight:600;opacity:.9;}
+
+/* ── Hero strip ──────────────────────────────────────────────────── */
+.ds-cs__hero{padding:var(--space-12) 0 var(--space-8);background:var(--alternateBackground);}
+.ds-cs__hero-inner{display:flex;flex-direction:column;gap:var(--space-4);}
+.ds-cs__hero-label{display:inline-flex;align-items:center;gap:var(--space-2);}
+.ds-cs__hero-label__dot{width:6px;height:6px;border-radius:50%;background:var(--accentRed);}
+.ds-cs__hero h1{
+  font-family:var(--headingFont);font-weight:var(--headingFontWeight);
+  font-size:var(--fs-h1);line-height:var(--lh-h1);letter-spacing:var(--ls-h1);
+  color:var(--headingColor);margin:0;
+}
+.ds-cs__hero-meta{font-size:15px;color:rgba(11,11,12,0.55);}
+@media(min-width:768px){
+  .ds-cs__hero-inner{flex-direction:row;align-items:flex-end;justify-content:space-between;}
+}
+
+/* ── Layout: sidebar + grid ──────────────────────────────────────── */
+.ds-cs__body{padding:var(--space-8) 0 var(--space-16);}
+.ds-cs__layout{display:grid;grid-template-columns:1fr;gap:var(--space-8);}
+@media(min-width:900px){
+  .ds-cs__layout{grid-template-columns:220px 1fr;gap:var(--space-8);}
+}
+
+/* ── Filter sidebar ──────────────────────────────────────────────── */
+.ds-cs__sidebar{}
+.ds-cs__filter-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;padding:var(--space-3) 0;background:none;border:none;
+  border-bottom:1px solid var(--borderColor);cursor:pointer;
+  font-family:var(--bodyFont);font-size:15px;font-weight:600;color:var(--textColor);
+}
+.ds-cs__filter-toggle svg{transition:transform 200ms ease;}
+.ds-cs__filter-toggle[aria-expanded="true"] svg{transform:rotate(180deg);}
+.ds-cs__filter-group{overflow:hidden;transition:height 200ms ease;}
+.ds-cs__filter-group--collapsed{height:0;}
+.ds-cs__filter-list{list-style:none;margin:0;padding:var(--space-3) 0;}
+.ds-cs__filter-item{padding:var(--space-2) 0;}
+.ds-cs__filter-item label{
+  display:flex;align-items:center;gap:var(--space-3);
+  font-size:14px;cursor:pointer;user-select:none;
+}
+.ds-cs__filter-item input[type="checkbox"]{
+  width:16px;height:16px;accent-color:var(--buttonBackground);cursor:pointer;
+}
+.ds-cs__filter-item .count{font-size:12px;color:rgba(11,11,12,0.45);margin-left:auto;}
+.ds-cs__filter-clear{
+  display:none;padding:var(--space-2) 0;font-size:13px;color:var(--accentRed);
+  background:none;border:none;cursor:pointer;text-align:left;
+}
+.ds-cs__filter-clear.visible{display:block;}
+.ds-cs__filter-price{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-3) 0;}
+.ds-cs__price-range{display:flex;align-items:center;gap:var(--space-2);}
+.ds-cs__price-range input{
+  flex:1;padding:8px var(--space-3);border:1px solid var(--borderColor);
+  border-radius:var(--inputRadius);font-size:14px;min-width:0;
+}
+
+@media(max-width:899px){
+  .ds-cs__sidebar-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:var(--space-3) 0;border-bottom:1px solid var(--borderColor);
+    cursor:pointer;
+  }
+  .ds-cs__sidebar-body{height:0;overflow:hidden;transition:height 200ms ease;}
+  .ds-cs__sidebar-body.open{height:auto;}
+}
+
+/* ── Product grid ─────────────────────────────────────────────────── */
+.ds-cs__grid-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:var(--space-4);border-bottom:1px solid var(--borderColor);
+  margin-bottom:var(--space-6);
+}
+.ds-cs__grid-header h2{
+  font-size:var(--fs-h3);font-family:var(--headingFont);
+  font-weight:var(--headingFontWeight);margin:0;color:var(--headingColor);
+}
+.ds-cs__sort{
+  padding:8px var(--space-3);border:1px solid var(--borderColor);
+  border-radius:var(--inputRadius);font-size:14px;background:#FFF;cursor:pointer;
+}
+.ds-cs__product-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4);
+}
+@media(min-width:640px){.ds-cs__product-grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:1024px){.ds-cs__product-grid{grid-template-columns:repeat(4,1fr);}}
+
+/* ── Product card ─────────────────────────────────────────────────── */
+.ds-cs__card{
+  background:var(--cardBackground);border:1px solid var(--borderColor);
+  border-radius:var(--cardRadius);overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  transition:transform 150ms ease,box-shadow 150ms ease;
+  display:flex;flex-direction:column;
+}
+.ds-cs__card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.ds-cs__card-img{
+  aspect-ratio:4/3;overflow:hidden;background:var(--alternateBackground);
+  border-bottom:1px solid rgba(var(--borderColor-rgb),0.5);
+}
+.ds-cs__card-img img{width:100%;height:100%;object-fit:cover;transition:transform 300ms ease;}
+.ds-cs__card:hover .ds-cs__card-img img{transform:scale(1.03);}
+.ds-cs__card-img-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  color:rgba(11,11,12,0.25);
+}
+.ds-cs__card-body{padding:var(--space-4);display:flex;flex-direction:column;flex:1;}
+.ds-cs__card-vendor{font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+  color:rgba(11,11,12,0.5);margin-bottom:var(--space-2);}
+.ds-cs__card-title{
+  font-size:14px;font-weight:500;line-height:1.35;color:var(--textColor);
+  text-decoration:none;display:block;margin-bottom:var(--space-3);flex:1;
+}
+.ds-cs__card-title:hover{color:var(--accentRed);}
+.ds-cs__card-footer{margin-top:auto;}
+.ds-cs__card-price{font-size:15px;font-weight:600;color:var(--headingColor);}
+.ds-cs__card-quote-cta{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  font-size:13px;font-weight:600;color:var(--accentRed);
+  text-decoration:none;
+}
+.ds-cs__card-quote-cta:hover{text-decoration:underline;}
+
+/* ── Empty state ─────────────────────────────────────────────────── */
+.ds-cs__empty{
+  text-align:center;padding:var(--space-16) var(--space-6);
+  color:rgba(11,11,12,0.5);
+}
+.ds-cs__empty h3{font-size:var(--fs-h3);color:var(--headingColor);margin-bottom:var(--space-3);}
+
+/* ── Pagination ──────────────────────────────────────────────────── */
+.ds-cs__pagination{
+  display:flex;justify-content:center;align-items:center;
+  gap:var(--space-2);padding-top:var(--space-12);
+}
+.ds-cs__pagination a,.ds-cs__pagination span{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:40px;height:40px;padding:0 var(--space-3);
+  border:1px solid var(--borderColor);border-radius:var(--buttonRadius);
+  font-size:14px;text-decoration:none;color:var(--textColor);
+  transition:border-color 120ms ease,background 120ms ease;
+}
+.ds-cs__pagination a:hover{border-color:var(--buttonBackground);background:var(--alternateBackground);}
+.ds-cs__pagination .current{
+  background:var(--buttonBackground);color:#FFF;border-color:var(--buttonBackground);
+  font-weight:600;
+}
+.ds-cs__pagination .disabled{opacity:.4;pointer-events:none;}
+
+/* ── Phone CTA band ──────────────────────────────────────────────── */
+.ds-cs__phone-cta{
+  background:#0B0B0C;color:#FFFFFF;
+  padding:var(--space-12) var(--space-6);text-align:center;
+}
+.ds-cs__phone-cta .ds-cs__inner{
+  display:flex;flex-direction:column;align-items:center;gap:var(--space-6);
+  max-width:680px;
+}
+.ds-cs__phone-cta h2{
+  font-family:var(--headingFont);font-weight:var(--headingFontWeight);
+  font-size:var(--fs-h2);line-height:var(--lh-h2);color:#FFFFFF;margin:0;
+}
+.ds-cs__phone-cta p{font-size:17px;color:rgba(255,255,255,0.75);margin:0;}
+.ds-cs__phone-cta-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);justify-content:center;}
+.ds-cs__phone-cta .bbi-btn--inverted{
+  background:#FFFFFF;color:#0B0B0C;border-color:#FFFFFF;
+}
+.ds-cs__phone-cta .bbi-btn--inverted:hover{background:var(--accentRed);color:#FFF;border-color:var(--accentRed);}
+.ds-cs__phone-cta .bbi-btn--outline-white{
+  background:transparent;color:#FFFFFF;border-color:rgba(255,255,255,0.5);
+}
+.ds-cs__phone-cta .bbi-btn--outline-white:hover{border-color:#FFFFFF;}
+</style>
+
+<div class="ds-cs">
+
+  {%- render 'bbi-nav', logo: section.settings.logo, active: 'shop' -%}
+
+  {%- comment -%} ── Breadcrumb ── {%- endcomment -%}
+  <nav class="ds-cs__crumbs-band" aria-label="{{ 'general.breadcrumbs.title' | t | default: 'Breadcrumb' }}">
+    <div class="ds-cs__inner">
+      <ol class="ds-cs__crumbs">
+        <li><a href="/">{{ 'general.breadcrumbs.home' | t | default: 'Home' }}</a><span class="ds-cs__crumbs__sep" aria-hidden="true">›</span></li>
+        <li><a href="/collections/business-furniture">Shop Furniture</a><span class="ds-cs__crumbs__sep" aria-hidden="true">›</span></li>
+        <li><a href="/collections/{{ parent_handle }}">{{ parent_title }}</a><span class="ds-cs__crumbs__sep" aria-hidden="true">›</span></li>
+        <li><span class="ds-cs__crumbs__current" aria-current="page">{{ page_title }}</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  {%- comment -%} ── Hero strip ── {%- endcomment -%}
+  <section class="ds-cs__hero">
+    <div class="ds-cs__inner">
+      <div class="ds-cs__hero-inner">
+        <div>
+          <div class="ds-cs__hero-label">
+            <span class="ds-cs__hero-label__dot" aria-hidden="true"></span>
+            <span class="bbi-mono">{{ parent_title }}</span>
+          </div>
+          <h1>{{ page_title }}</h1>
+          {%- if section.settings.hero_subtitle != blank -%}
+            <p class="ds-cs__hero-meta">{{ section.settings.hero_subtitle }}</p>
+          {%- else -%}
+            <p class="ds-cs__hero-meta">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }} available</p>
+          {%- endif -%}
+        </div>
+        {%- if hero_image != blank -%}
+          <div style="width:180px;flex-shrink:0;border-radius:var(--imageRadius);overflow:hidden;">
+            {{ hero_image | image_url: width: 360 | image_tag: loading: 'eager', alt: page_title }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ── Body: sidebar + product grid ── {%- endcomment -%}
+  <section class="ds-cs__body">
+    <div class="ds-cs__inner">
+      <div class="ds-cs__layout">
+
+        {%- comment -%} ── Filter sidebar ── {%- endcomment -%}
+        <aside class="ds-cs__sidebar" aria-label="Filter products">
+          {%- liquid
+            # Collect distinct type: and room: tags from this collection
+            assign type_tags = '' | split: ','
+            assign room_tags = '' | split: ','
+            for tag in collection.all_tags
+              if tag contains 'type:'
+                assign type_tags = type_tags | push: tag
+              elsif tag contains 'room:'
+                assign room_tags = room_tags | push: tag
+              endif
+            endfor
+          -%}
+
+          {%- comment -%} Mobile: collapsible filter header {%- endcomment -%}
+          <button class="ds-cs__sidebar-header" aria-expanded="false" aria-controls="ds-cs-filter-body" id="ds-cs-filter-toggle">
+            <span style="font-size:15px;font-weight:600;">Filter</span>
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M4 6h16M7 12h10M10 18h4"/></svg>
+          </button>
+
+          <div class="ds-cs__sidebar-body" id="ds-cs-filter-body" role="region" aria-labelledby="ds-cs-filter-toggle">
+
+            {%- unless type_tags == blank -%}
+            <div class="ds-cs__filter-section" data-filter-group="type">
+              <button class="ds-cs__filter-toggle" aria-expanded="true" aria-controls="ds-cs-filter-type">
+                <span>Product Type</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="ds-cs__filter-group" id="ds-cs-filter-type">
+                <ul class="ds-cs__filter-list">
+                  {%- for tag in type_tags -%}
+                    {%- assign label = tag | remove: 'type:' | replace: '-', ' ' | capitalize -%}
+                    <li class="ds-cs__filter-item">
+                      <label>
+                        <input type="checkbox" name="filter-type" value="{{ tag | url_param_escape }}"
+                          {% if current_tags contains tag %}checked{% endif %}>
+                        <span>{{ label }}</span>
+                      </label>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+            {%- endunless -%}
+
+            {%- unless room_tags == blank -%}
+            <div class="ds-cs__filter-section" data-filter-group="room">
+              <button class="ds-cs__filter-toggle" aria-expanded="true" aria-controls="ds-cs-filter-room">
+                <span>Room / Setting</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="ds-cs__filter-group" id="ds-cs-filter-room">
+                <ul class="ds-cs__filter-list">
+                  {%- for tag in room_tags -%}
+                    {%- assign label = tag | remove: 'room:' | replace: '-', ' ' | capitalize -%}
+                    <li class="ds-cs__filter-item">
+                      <label>
+                        <input type="checkbox" name="filter-room" value="{{ tag | url_param_escape }}"
+                          {% if current_tags contains tag %}checked{% endif %}>
+                        <span>{{ label }}</span>
+                      </label>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+            {%- endunless -%}
+
+            {%- comment -%} Price range filter {%- endcomment -%}
+            <div class="ds-cs__filter-section">
+              <button class="ds-cs__filter-toggle" aria-expanded="false" aria-controls="ds-cs-filter-price">
+                <span>Price</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="ds-cs__filter-group ds-cs__filter-group--collapsed" id="ds-cs-filter-price">
+                <div class="ds-cs__filter-price">
+                  <div class="ds-cs__price-range">
+                    <input type="number" id="price-min" placeholder="Min $" min="0" aria-label="Minimum price">
+                    <span style="color:var(--borderColor);">–</span>
+                    <input type="number" id="price-max" placeholder="Max $" min="0" aria-label="Maximum price">
+                  </div>
+                  <button class="bbi-btn bbi-btn--ghost" style="font-size:13px;padding:8px 12px;" id="apply-price-filter">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            {%- if current_tags.size > 0 -%}
+              <button class="ds-cs__filter-clear visible" id="clear-filters" aria-label="Clear all filters">
+                ✕ Clear all filters
+              </button>
+            {%- endif -%}
+
+          </div>{%- comment -%}/.ds-cs__sidebar-body{%- endcomment -%}
+        </aside>
+
+        {%- comment -%} ── Product grid ── {%- endcomment -%}
+        <div class="ds-cs__grid" role="main">
+          <div class="ds-cs__grid-header">
+            <h2>
+              {%- if current_tags.size > 0 -%}
+                {{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}
+              {%- else -%}
+                All {{ page_title }}
+              {%- endif -%}
+            </h2>
+            <form method="get" id="sort-form">
+              {%- for param in request.path -%}{%- endfor -%}
+              <select class="ds-cs__sort" name="sort_by" aria-label="Sort products" onchange="this.form.submit()">
+                {%- assign sort = collection.sort_by | default: collection.default_sort_by -%}
+                <option value="best-selling" {% if sort == 'best-selling' %}selected{% endif %}>Best Selling</option>
+                <option value="title-ascending" {% if sort == 'title-ascending' %}selected{% endif %}>Name A–Z</option>
+                <option value="title-descending" {% if sort == 'title-descending' %}selected{% endif %}>Name Z–A</option>
+                <option value="price-ascending" {% if sort == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+                <option value="price-descending" {% if sort == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+              </select>
+            </form>
+          </div>
+
+          {%- paginate collection.products by 24 -%}
+
+          {%- if collection.products.size > 0 -%}
+            <ul class="ds-cs__product-grid" role="list">
+              {%- for product in collection.products -%}
+                {%- liquid
+                  assign is_quote_only = false
+                  if product.price == 0 or product.available == false
+                    assign is_quote_only = true
+                  endif
+                  assign product_url = product.url
+                -%}
+                <li>
+                  <article class="ds-cs__card" itemscope itemtype="https://schema.org/Product">
+                    <a href="{{ product_url }}" tabindex="-1" aria-hidden="true">
+                      <div class="ds-cs__card-img">
+                        {%- if product.featured_media -%}
+                          {%- assign card_img_alt = product.featured_media.alt | default: product.title | escape -%}
+                          {{ product.featured_media | image_url: width: 480 | image_tag: loading: 'lazy', alt: card_img_alt }}
+                        {%- else -%}
+                          <div class="ds-cs__card-img-placeholder" aria-hidden="true">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><path d="M21 15l-5-5L5 21" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    </a>
+                    <div class="ds-cs__card-body">
+                      {%- if product.vendor != blank -%}
+                        <p class="ds-cs__card-vendor" itemprop="brand">{{ product.vendor | escape }}</p>
+                      {%- endif -%}
+                      <a class="ds-cs__card-title" href="{{ product_url }}" itemprop="name">
+                        {{ product.title | escape }}
+                      </a>
+                      <div class="ds-cs__card-footer">
+                        {%- if is_quote_only -%}
+                          <a href="/pages/quote?product={{ product.handle }}&source=collection&lead_type=quote"
+                             class="ds-cs__card-quote-cta"
+                             itemprop="url">
+                            Request a Quote →
+                          </a>
+                        {%- else -%}
+                          <p class="ds-cs__card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                            <meta itemprop="priceCurrency" content="CAD">
+                            <meta itemprop="price" content="{{ product.price | money_without_currency }}">
+                            {{ product.price_min | money }}
+                            {%- if product.price_min != product.price_max %} – {{ product.price_max | money }}{%- endif -%}
+                          </p>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  </article>
+                </li>
+              {%- endfor -%}
+            </ul>
+
+            {%- comment -%} ── Pagination ── {%- endcomment -%}
+            {%- if paginate.pages > 1 -%}
+              <nav class="ds-cs__pagination" aria-label="Collection pagination">
+                {%- if paginate.previous.is_link -%}
+                  <a href="{{ paginate.previous.url }}" aria-label="Previous page">‹</a>
+                {%- else -%}
+                  <span class="disabled" aria-hidden="true">‹</span>
+                {%- endif -%}
+
+                {%- for part in paginate.parts -%}
+                  {%- if part.is_link -%}
+                    <a href="{{ part.url }}">{{ part.title }}</a>
+                  {%- else -%}
+                    {%- if part.title == paginate.current_page -%}
+                      <span class="current" aria-current="page">{{ part.title }}</span>
+                    {%- else -%}
+                      <span aria-hidden="true">{{ part.title }}</span>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+                {%- if paginate.next.is_link -%}
+                  <a href="{{ paginate.next.url }}" aria-label="Next page">›</a>
+                {%- else -%}
+                  <span class="disabled" aria-hidden="true">›</span>
+                {%- endif -%}
+              </nav>
+            {%- endif -%}
+
+          {%- else -%}
+            <div class="ds-cs__empty">
+              <h3>No products found</h3>
+              <p>Try adjusting your filters or <a href="/collections/{{ parent_handle }}">browse all {{ parent_title | downcase }}</a>.</p>
+            </div>
+          {%- endif -%}
+
+          {%- endpaginate -%}
+        </div>{%- comment -%}/.ds-cs__grid{%- endcomment -%}
+
+      </div>{%- comment -%}/.ds-cs__layout{%- endcomment -%}
+    </div>
+  </section>
+
+  {%- comment -%} ── Phone CTA closer ── {%- endcomment -%}
+  {%- if section.settings.show_phone_cta -%}
+  <section class="ds-cs__phone-cta" aria-label="Contact BBI">
+    <div class="ds-cs__inner">
+      <h2>{{ section.settings.phone_cta_heading | default: "Need help choosing the right furniture?" }}</h2>
+      <p>{{ section.settings.phone_cta_body | default: "Our furniture consultants work with Canadian institutions across Ontario. Call us or request a free design consultation." }}</p>
+      <div class="ds-cs__phone-cta-actions">
+        <a href="tel:+15198371810" class="bbi-btn bbi-btn--inverted">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" stroke="currentColor" stroke-width="2"/></svg>
+          Call a Consultant
+        </a>
+        <a href="/pages/quote?source=collection-cta&lead_type=design-consultation" class="bbi-btn bbi-btn--outline-white">
+          Free Design Consultation
+        </a>
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
+
+</div>
+
+<script>
+(function() {
+  // Mobile sidebar toggle
+  var toggleBtn = document.getElementById('ds-cs-filter-toggle');
+  var filterBody = document.getElementById('ds-cs-filter-body');
+  if (toggleBtn && filterBody) {
+    toggleBtn.addEventListener('click', function() {
+      var isOpen = filterBody.classList.toggle('open');
+      toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+
+  // Desktop: collapsible filter groups
+  document.querySelectorAll('.ds-cs__filter-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var group = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!group) return;
+      var collapsed = group.classList.toggle('ds-cs__filter-group--collapsed');
+      btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    });
+  });
+
+  // Tag filter checkboxes → navigate to filtered URL
+  document.querySelectorAll('input[name="filter-type"], input[name="filter-room"]').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      var checked = Array.from(document.querySelectorAll('input[name="filter-type"]:checked, input[name="filter-room"]:checked'))
+                         .map(function(i) { return i.value; });
+      var base = window.location.pathname;
+      if (checked.length > 0) {
+        window.location.href = base + '/' + checked.join('+');
+      } else {
+        window.location.href = base;
+      }
+    });
+  });
+
+  // Price filter
+  var applyBtn = document.getElementById('apply-price-filter');
+  if (applyBtn) {
+    applyBtn.addEventListener('click', function() {
+      var min = document.getElementById('price-min').value;
+      var max = document.getElementById('price-max').value;
+      var url = new URL(window.location.href);
+      if (min) url.searchParams.set('filter.p.m.price.min', min);
+      else url.searchParams.delete('filter.p.m.price.min');
+      if (max) url.searchParams.set('filter.p.m.price.max', max);
+      else url.searchParams.delete('filter.p.m.price.max');
+      window.location.href = url.toString();
+    });
+  }
+
+  // Clear filters
+  var clearBtn = document.getElementById('clear-filters');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      window.location.href = window.location.pathname;
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Sub-Collection Page",
+  "class": "ds-cs-base",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Branding"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "Leave blank to use the default BBI logo from the snippet."
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Page title",
+      "info": "Defaults to collection.title if blank."
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Subtitle",
+      "info": "Defaults to product count if blank."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image (optional)",
+      "info": "Small accent image displayed right of title. 4:3 recommended."
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumb parent"
+    },
+    {
+      "type": "text",
+      "id": "parent_category_handle",
+      "label": "Parent category handle",
+      "default": "seating",
+      "info": "E.g. seating, desks, storage, tables. Sets breadcrumb Level 3 link."
+    },
+    {
+      "type": "text",
+      "id": "parent_category_title",
+      "label": "Parent category title",
+      "default": "Seating",
+      "info": "Human-readable name, e.g. Seating."
+    },
+    {
+      "type": "header",
+      "content": "Phone CTA closer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone_cta",
+      "label": "Show phone CTA band",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "phone_cta_heading",
+      "label": "Heading",
+      "default": "Need help choosing the right furniture?"
+    },
+    {
+      "type": "textarea",
+      "id": "phone_cta_body",
+      "label": "Body text",
+      "default": "Our furniture consultants work with Canadian institutions across Ontario. Call us or request a free design consultation."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sub-Collection Page"
+    }
+  ]
+}
+{% endschema %}
