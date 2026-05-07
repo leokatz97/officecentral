@@ -80,18 +80,6 @@
 .lp-ps .bbi-btn--tertiary .label::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;}
 .lp-ps .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
 
-/* ---- Header ---- */
-.lp-ps .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
-.lp-ps .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
-.lp-ps .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
-.lp-ps .bbi-header__logo img{height:36px;width:auto;}
-.lp-ps .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
-.lp-ps .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;position:relative;}
-.lp-ps .bbi-nav-item:hover{color:var(--headerHoverColor);}
-.lp-ps .bbi-nav-item.is-current::after{content:"";position:absolute;left:14px;right:14px;bottom:18px;height:1px;background:var(--textColor);}
-.lp-ps .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
-.lp-ps .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
-
 /* ---- Crumbs ---- */
 .lp-ps .bbi-crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:0;padding:0;list-style:none;}
 .lp-ps .bbi-crumbs li{display:inline-flex;align-items:center;gap:8px;}
@@ -229,28 +217,6 @@
 .lp-ps .lp-closer__trust b{color:var(--textColor);font-weight:600;}
 .lp-ps .lp-closer__trust a{color:var(--textColor);text-decoration:underline;}
 
-/* ---- Footer ---- */
-.lp-ps .bbi-footer{--background:#0B0B0C;--background-rgb:11,11,12;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--borderColor:#1F1F21;--borderColor-rgb:31,31,33;background:var(--background);color:var(--textColor);}
-.lp-ps .bbi-footer__inner{max-width:1320px;margin:0 auto;padding:64px 32px 24px;}
-.lp-ps .bbi-footer__top{display:grid;grid-template-columns:1.1fr 3fr;gap:64px;padding-bottom:48px;border-bottom:1px solid var(--borderColor);}
-.lp-ps .bbi-footer__brand-plate{display:inline-block;background:#FFFFFF;padding:16px 20px;border-radius:8px;}
-.lp-ps .bbi-footer__brand-plate img{height:44px;width:auto;display:block;}
-.lp-ps .bbi-footer__tagline{margin:20px 0 16px;font-size:14px;line-height:1.55;max-width:32ch;color:rgba(var(--textColor-rgb),0.78);}
-.lp-ps .bbi-footer__canadian{display:inline-flex;align-items:center;gap:8px;font-size:13px;}
-.lp-ps .bbi-footer__canadian .leaf{width:14px;height:14px;color:#D4252A;}
-.lp-ps .bbi-footer__cols{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
-.lp-ps .bbi-footer__col h4{font-family:var(--headingFont);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;}
-.lp-ps .bbi-footer__col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
-.lp-ps .bbi-footer__col a{color:rgba(var(--textColor-rgb),0.78);text-decoration:none;font-size:14px;}
-.lp-ps .bbi-footer__col a:hover{color:var(--textColor);text-decoration:underline;}
-.lp-ps .bbi-footer__col--contact .row{display:grid;grid-template-columns:80px 1fr;gap:8px;font-size:14px;margin-bottom:12px;line-height:1.45;}
-.lp-ps .bbi-footer__col--contact .lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.55);padding-top:2px;}
-.lp-ps .bbi-footer__col--contact .row a,.lp-ps .bbi-footer__col--contact .row span:not(.lbl){color:var(--textColor);}
-.lp-ps .bbi-footer__bottom{padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(var(--textColor-rgb),0.55);}
-.lp-ps .bbi-footer__legal{display:flex;gap:24px;}
-.lp-ps .bbi-footer__legal a{color:rgba(var(--textColor-rgb),0.55);text-decoration:none;}
-.lp-ps .bbi-footer__legal a:hover{color:var(--textColor);}
-
 /* ---- Responsive ---- */
 @media(max-width:980px){
   .lp-ps .lp-hero__inner{grid-template-columns:1fr;gap:var(--space-8);}
@@ -280,32 +246,7 @@
 
 <div class="lp-ps">
 
-  {%- comment -%}HEADER{%- endcomment -%}
-  <header class="bbi-header" role="banner">
-    <div class="bbi-header__inner">
-      <a class="bbi-header__logo" href="/" aria-label="Brant Business Interiors — home">
-        {%- if section.settings.logo != blank -%}
-          {{ section.settings.logo | image_url: width: 300 | image_tag: height: 36, alt: 'Brant Business Interiors', loading: 'eager' }}
-        {%- else -%}
-          <span style="font-family:var(--headingFont);font-size:15px;font-weight:600;color:var(--headerColor);">Brant &#10033; BI | Business Interiors</span>
-        {%- endif -%}
-      </a>
-      <nav class="bbi-header__nav" aria-label="Main navigation">
-        <a class="bbi-nav-item" href="/collections/business-furniture">Shop</a>
-        <a class="bbi-nav-item" href="/pages/brands">Brands</a>
-        <a class="bbi-nav-item is-current" href="/pages/industries" aria-current="true">Verticals</a>
-        <a class="bbi-nav-item" href="/pages/our-work">Our work</a>
-        <a class="bbi-nav-item" href="/pages/design-services">Services</a>
-        <a class="bbi-nav-item" href="/pages/about">About</a>
-      </nav>
-      <div class="bbi-header__utility">
-        <a href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">
-          <b>1-800-835-9565</b>
-        </a>
-        <a class="bbi-btn bbi-btn--primary" href="/pages/quote">Request a Quote</a>
-      </div>
-    </div>
-  </header>
+  {%- render 'bbi-nav', logo: section.settings.logo, active: 'industries' -%}
 
   {%- comment -%}BREADCRUMBS{%- endcomment -%}
   <div class="lp-crumbs-band">
@@ -643,83 +584,7 @@
     </div>
   </section>
 
-  {%- comment -%}FOOTER{%- endcomment -%}
-  <footer class="bbi-footer" role="contentinfo">
-    <div class="bbi-footer__inner">
-      <div class="bbi-footer__top">
-        <div>
-          <div class="bbi-footer__brand-plate">
-            {%- if section.settings.logo != blank -%}
-              {{ section.settings.logo | image_url: width: 300 | image_tag: height: 44, alt: 'Brant Business Interiors' }}
-            {%- else -%}
-              <span style="font-family:var(--headingFont);font-size:14px;font-weight:600;color:#0B0B0C;">Brant &#10033; BI | Business Interiors</span>
-            {%- endif -%}
-          </div>
-          <p class="bbi-footer__tagline">Commercial office furniture for Ontario businesses, institutions, and professional practices. A division of Office Central Inc.</p>
-          <span class="bbi-footer__canadian">
-            <svg class="leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg>
-            Canadian-Owned &middot; Ontario-Based
-          </span>
-        </div>
-        <div class="bbi-footer__cols">
-          <div class="bbi-footer__col">
-            <h4>Shop</h4>
-            <ul>
-              <li><a href="/collections/seating">Seating</a></li>
-              <li><a href="/collections/desks">Desks &amp; Workstations</a></li>
-              <li><a href="/collections/storage">Storage &amp; Filing</a></li>
-              <li><a href="/collections/boardroom">Boardroom</a></li>
-              <li><a href="/collections/business-furniture">View all furniture</a></li>
-            </ul>
-          </div>
-          <div class="bbi-footer__col">
-            <h4>Industries</h4>
-            <ul>
-              <li><a href="/pages/healthcare">Healthcare &amp; Clinical</a></li>
-              <li><a href="/pages/education">Education</a></li>
-              <li><a href="/pages/government">Government</a></li>
-              <li><a href="/pages/non-profit">Non-Profit</a></li>
-              <li><a href="/pages/professional-services">Professional Services</a></li>
-              <li><a href="/pages/industries">All industries</a></li>
-            </ul>
-          </div>
-          <div class="bbi-footer__col">
-            <h4>Services</h4>
-            <ul>
-              <li><a href="/pages/design-services">Design Services</a></li>
-              <li><a href="/pages/oecm">OECM Purchasing</a></li>
-              <li><a href="/pages/delivery">Delivery &amp; Installation</a></li>
-              <li><a href="/pages/quote">Request a Quote</a></li>
-              <li><a href="/pages/faq">FAQ</a></li>
-            </ul>
-          </div>
-          <div class="bbi-footer__col bbi-footer__col--contact">
-            <h4>Contact</h4>
-            <div class="row">
-              <span class="lbl">Phone</span>
-              <a href="tel:18008359565" aria-label="Call Brant Business Interiors at 1-800-835-9565">1-800-835-9565</a>
-            </div>
-            <div class="row">
-              <span class="lbl">Email</span>
-              <a href="mailto:info@brantbusinessinteriors.com">info@brantbusinessinteriors.com</a>
-            </div>
-            <div class="row">
-              <span class="lbl">Address</span>
-              <span>295 George St N<br>Peterborough, ON K9J 3H2</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bbi-footer__bottom">
-        <span>&copy; 2025 Brant Business Interiors &mdash; a division of Office Central Inc. OECM Supplier Partner Agreement 2025-470.</span>
-        <div class="bbi-footer__legal">
-          <a href="/policies/privacy-policy">Privacy</a>
-          <a href="/policies/terms-of-service">Terms</a>
-          <a href="/policies/shipping-policy">Shipping</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
 
 </div><!-- /lp-ps -->
 
