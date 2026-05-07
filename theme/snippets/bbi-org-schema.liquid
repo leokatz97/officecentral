@@ -1,0 +1,71 @@
+{%- comment -%}
+  Snippet: bbi-org-schema
+  Purpose: Organization + LocalBusiness JSON-LD — renders once per BBI landing page
+  Render:  {% render 'bbi-org-schema' %} (called from bbi-nav, so fires on every BBI page)
+  AI-4: required for Google AI Overview / entity clarity
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "LocalBusiness"],
+      "@id": "https://{{ shop.permanent_domain }}/#organization",
+      "name": "Brant Business Interiors",
+      "alternateName": "BBI",
+      "url": "https://{{ shop.permanent_domain }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://{{ shop.permanent_domain }}/cdn/shop/files/bbi-logo-v2.png",
+        "width": 400,
+        "height": 80
+      },
+      "description": "Brant Business Interiors is an Ontario-based B2B office furniture supplier serving schools, healthcare facilities, municipalities, and businesses across Ontario since 1982. Authorized OECM Supplier Partner (Agreement 2025-470) — Ontario institutions can purchase without open tender.",
+      "telephone": "+18008359565",
+      "email": "info@brantbusinessinteriors.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "295 George St N",
+        "addressLocality": "Peterborough",
+        "addressRegion": "ON",
+        "postalCode": "K9J 3H2",
+        "addressCountry": "CA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 44.3073,
+        "longitude": -78.3197
+      },
+      "openingHours": "Mo-Fr 08:30-17:00",
+      "areaServed": {
+        "@type": "State",
+        "name": "Ontario",
+        "addressCountry": "CA"
+      },
+      "sameAs": [
+        "https://www.officecentral.com",
+        "https://www.brantbasics.com"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Business Furniture",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Seating"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Desks & Workstations"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Storage & Filing"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Tables"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Boardroom Furniture"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Ergonomic Products"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Panels & Room Dividers"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Product", "name": "Quiet Spaces & Acoustic Pods"}}
+        ]
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Office Central Group of Companies",
+        "url": "https://www.officecentral.com"
+      }
+    }
+  ]
+}
+</script>
