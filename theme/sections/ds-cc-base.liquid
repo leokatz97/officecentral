@@ -141,6 +141,26 @@
   font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
   letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.5);}
 
+/* ---- Hero stats strip ---- */
+.ds-cc__hero-stats{
+  display:flex;flex-wrap:wrap;gap:var(--space-4) var(--space-6);
+  margin-bottom:var(--space-6);list-style:none;padding:0;margin-top:0;
+}
+.ds-cc__hero-stats__item{flex:0 0 auto;}
+.ds-cc__hero-stats__item dt{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:0.08em;text-transform:uppercase;
+  color:rgba(var(--textColor-rgb),0.5);margin:0 0 2px;
+}
+.ds-cc__hero-stats__item dd{
+  font-family:var(--headingFont);font-size:22px;font-weight:600;
+  line-height:1.1;letter-spacing:-0.01em;
+  color:var(--headingColor);margin:0;
+}
+@media(min-width:768px){
+  .ds-cc__hero-stats__item dd{font-size:26px;}
+}
+
 /* ---- Skip-by-sector bar ---- */
 .ds-cc__skip-bar{padding:12px 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);background:var(--alternateBackground);}
 .ds-cc__skip-bar-inner{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;}
@@ -184,6 +204,12 @@
 }
 .ds-cc__filter-chip:hover{border-color:rgba(var(--textColor-rgb),0.4);background:var(--alternateBackground);}
 .ds-cc__filter-chip:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+.ds-cc__filter-pill-count{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:0.04em;
+  color:rgba(var(--textColor-rgb),0.55);
+  margin-left:var(--space-1);
+}
 
 /* ---- Tile grid section ---- */
 .ds-cc__tiles-section{padding:var(--space-12) 0;}
@@ -479,6 +505,43 @@
         {%- if section.settings.hero_subtitle != blank -%}
           <p class="ds-cc__hero-standfirst">{{ section.settings.hero_subtitle | escape }}</p>
         {%- endif -%}
+
+        {%- comment -%} Hero stats strip: derived from collection data + lead_time schema setting {%- endcomment -%}
+        {%- liquid
+          assign _stat_models = collection.products_count | default: 0
+          assign _stat_brands = collection.products | map: 'vendor' | uniq | size
+          assign _stat_canadian = 0
+          for p in collection.products
+            if p.tags contains 'canadian-made'
+              assign _stat_canadian = _stat_canadian | plus: 1
+            endif
+          endfor
+          assign _stat_instock = collection.products | where: 'available', true | size
+          assign _stat_lead = section.settings.lead_time | default: '2–6 weeks'
+        -%}
+        <dl class="ds-cc__hero-stats">
+          <div class="ds-cc__hero-stats__item">
+            <dt>Models</dt>
+            <dd>{{ _stat_models }}</dd>
+          </div>
+          <div class="ds-cc__hero-stats__item">
+            <dt>Brands</dt>
+            <dd>{{ _stat_brands }}</dd>
+          </div>
+          <div class="ds-cc__hero-stats__item">
+            <dt>Canadian&#8209;made</dt>
+            <dd>{{ _stat_canadian }}</dd>
+          </div>
+          <div class="ds-cc__hero-stats__item">
+            <dt>In stock</dt>
+            <dd>{{ _stat_instock }}</dd>
+          </div>
+          <div class="ds-cc__hero-stats__item">
+            <dt>Lead time</dt>
+            <dd>{{ _stat_lead }}</dd>
+          </div>
+        </dl>
+
         <div class="ds-cc__hero-cta-row">
           <a href="/collections/{{ collection.handle }}" class="bbi-btn bbi-btn--primary bbi-btn--lg">
             {{ section.settings.cta_label | default: 'Shop all ' | escape }}{{ section.settings.hero_title | default: collection.title | escape }}
@@ -548,9 +611,24 @@
   {%- if _filter_tiles.size > 1 and section.settings.show_filter_chips -%}
   <nav class="ds-cc__filter-bar" aria-label="Sub-categories">
     <div class="ds-cc__inner ds-cc__filter-bar-inner">
+      {%- comment -%} "All" pill links to parent collection, shows total count {%- endcomment -%}
+      <a class="ds-cc__filter-chip" href="{{ collection.url }}">
+        All
+        <span class="ds-cc__filter-pill-count">{{ collection.products_count }}</span>
+      </a>
       {%- for block in section.blocks -%}
         {%- if block.type == 'tile' and block.settings.link != blank -%}
-          <a class="ds-cc__filter-chip" href="{{ block.settings.link }}">{{ block.settings.title | escape }}</a>
+          {%- liquid
+            assign _sub_raw = block.settings.link | remove: '/collections/'
+            assign _sub_handle = _sub_raw | remove: '/'
+            assign _sub_col = collections[_sub_handle]
+          -%}
+          <a class="ds-cc__filter-chip" href="{{ block.settings.link }}">
+            {{ block.settings.title | escape }}
+            {%- if _sub_col != nil -%}
+              <span class="ds-cc__filter-pill-count">{{ _sub_col.products_count }}</span>
+            {%- endif -%}
+          </a>
         {%- endif -%}
       {%- endfor -%}
     </div>
@@ -851,6 +929,13 @@
       "id": "hero_image",
       "label": "Hero image",
       "info": "5:4 ratio recommended. Leave blank for placeholder."
+    },
+    {
+      "type": "text",
+      "id": "lead_time",
+      "label": "Lead time",
+      "default": "2–6 weeks",
+      "info": "Shown in hero stats line. Override per-hub if needed."
     },
     {
       "type": "text",
