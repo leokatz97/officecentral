@@ -161,6 +161,22 @@
   .ds-cc__hero-stats__item dd{font-size:26px;}
 }
 
+/* ---- Canadian-made trust badge ---- */
+.ds-cc__cm-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:var(--space-3);margin-bottom:var(--space-6);
+  padding:5px 10px;
+  background:rgba(var(--textColor-rgb),0.04);
+  border:1px solid rgba(var(--textColor-rgb),0.12);
+  border-radius:999px;
+}
+.ds-cc__cm-badge span{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:0.07em;text-transform:uppercase;
+  color:rgba(var(--textColor-rgb),0.7);
+}
+.ds-cc__cm-badge-leaf{color:var(--saleBadgeBackground);flex:0 0 auto;}
+
 /* ---- Skip-by-sector bar ---- */
 .ds-cc__skip-bar{padding:12px 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);background:var(--alternateBackground);}
 .ds-cc__skip-bar-inner{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;}
@@ -506,18 +522,11 @@
           <p class="ds-cc__hero-standfirst">{{ section.settings.hero_subtitle | escape }}</p>
         {%- endif -%}
 
-        {%- comment -%} Hero stats strip: derived from collection data + lead_time schema setting {%- endcomment -%}
+        {%- comment -%} Hero stats strip: derived from collection data {%- endcomment -%}
         {%- liquid
           assign _stat_models = collection.products_count | default: 0
           assign _stat_brands = collection.products | map: 'vendor' | uniq | size
-          assign _stat_canadian = 0
-          for p in collection.products
-            if p.tags contains 'canadian-made'
-              assign _stat_canadian = _stat_canadian | plus: 1
-            endif
-          endfor
           assign _stat_instock = collection.products | where: 'available', true | size
-          assign _stat_lead = section.settings.lead_time | default: '2–6 weeks'
         -%}
         <dl class="ds-cc__hero-stats">
           <div class="ds-cc__hero-stats__item">
@@ -529,18 +538,16 @@
             <dd>{{ _stat_brands }}</dd>
           </div>
           <div class="ds-cc__hero-stats__item">
-            <dt>Canadian&#8209;made</dt>
-            <dd>{{ _stat_canadian }}</dd>
-          </div>
-          <div class="ds-cc__hero-stats__item">
             <dt>In stock</dt>
             <dd>{{ _stat_instock }}</dd>
           </div>
-          <div class="ds-cc__hero-stats__item">
-            <dt>Lead time</dt>
-            <dd>{{ _stat_lead }}</dd>
-          </div>
         </dl>
+        <div class="ds-cc__cm-badge" aria-label="Canadian-made options available">
+          <svg class="ds-cc__cm-badge-leaf" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="14" height="14">
+            <path d="M12 2l1.2 4 3.4-1.2-1.2 3.4L19 10l-4 1.5 1 3-4-1.5-1 4-1-4-4 1.5 1-3-4-1.5 3.6-1.8L5.4 4.8 8.8 6 10 2z"/>
+          </svg>
+          <span>Canadian-Made Options Available</span>
+        </div>
 
         <div class="ds-cc__hero-cta-row">
           <a href="/collections/{{ collection.handle }}" class="bbi-btn bbi-btn--primary bbi-btn--lg">
@@ -929,13 +936,6 @@
       "id": "hero_image",
       "label": "Hero image",
       "info": "5:4 ratio recommended. Leave blank for placeholder."
-    },
-    {
-      "type": "text",
-      "id": "lead_time",
-      "label": "Lead time",
-      "default": "2–6 weeks",
-      "info": "Shown in hero stats line. Override per-hub if needed."
     },
     {
       "type": "text",
