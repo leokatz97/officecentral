@@ -7,7 +7,9 @@
         (added via PB-15) suppresses Starlite header/footer.
   Active nav: 'shop'
   Breadcrumb: 4-level — Home > Shop Furniture > <parent category> > <this collection>
-              Parent category is derived from schema setting or from the collection's tags.
+              Parent category is derived from bbi.parent_hub_handle/title metafields (set by
+              scripts/set-collection-parent-metafields.py), falling back to schema settings,
+              then to 'business-furniture' / 'Business Furniture'.
   Filters: tag-based sidebar (type:*, room:*, price ranges) using JS toggle classes.
   Product grid: 3-up → 4-up desktop, pagination via ?page=N, 24 per page.
   CTA: Phone CTA band at foot of page.
@@ -17,8 +19,8 @@
 {%- liquid
   assign page_title  = section.settings.hero_title | default: collection.title
   assign hero_image  = section.settings.hero_image
-  assign parent_title  = section.settings.parent_category_title | default: 'Seating'
-  assign parent_handle = section.settings.parent_category_handle | default: 'seating'
+  assign parent_handle = collection.metafields.bbi.parent_hub_handle | default: section.settings.parent_category_handle | default: 'business-furniture'
+  assign parent_title  = collection.metafields.bbi.parent_hub_title | default: section.settings.parent_category_title | default: 'Business Furniture'
   assign products_per_page = 24
 
   # Build active filter sets from URL params
