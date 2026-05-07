@@ -1,0 +1,291 @@
+{%- comment -%}
+  Snippet: ds-browse-faq
+  Purpose: Shared "Browse the catalogue" 9-category grid + institutional FAQ
+           accordion. Appended before bbi-footer on all 5 industry pages
+           (healthcare, education, government, non-profit, professional-services).
+           Extracted from ds-lp-industries.liquid (commit e98f91f) so it can be
+           rendered once in each section with a single render tag.
+  Usage:   {%- render 'ds-browse-faq' -%}
+{%- endcomment -%}
+
+<style>
+/* ── ds-browse-faq shared styles ─────────────────────────────────── */
+.ds-bf{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+.ds-bf *,.ds-bf *::before,.ds-bf *::after{box-sizing:border-box;}
+:root{
+  --ds-bf-text:#0B0B0C;--ds-bf-text-rgb:11,11,12;
+  --ds-bf-heading:#0B0B0C;
+  --ds-bf-bg:#FFFFFF;--ds-bf-alt:#FAFAFA;
+  --ds-bf-border:#E5E5E7;--ds-bf-border-rgb:229,229,231;
+  --ds-bf-red:#D4252A;
+}
+
+/* ── Catalogue grid ─────────────────────────────────────────────── */
+.ds-bf .ds-bf-catalogue{
+  padding:48px 0;
+  border-top:1px solid rgba(var(--ds-bf-border-rgb),0.6);
+}
+.ds-bf .ds-bf-catalogue__inner{max-width:1280px;margin:0 auto;padding:0 24px;}
+.ds-bf .ds-bf-catalogue__head{margin-bottom:32px;max-width:640px;}
+.ds-bf .ds-bf-catalogue__eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  color:rgba(var(--ds-bf-text-rgb),0.6);margin-bottom:12px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+.ds-bf .ds-bf-catalogue__eyebrow::before{
+  content:"";display:inline-block;width:18px;height:1px;background:var(--ds-bf-red);
+}
+.ds-bf .ds-bf-catalogue__head h2{
+  font-family:"Inter Tight","Inter",system-ui,sans-serif;
+  font-size:clamp(22px,2.5vw,32px);line-height:1.1;font-weight:600;
+  color:var(--ds-bf-heading);margin:0 0 8px;text-wrap:balance;
+}
+.ds-bf .ds-bf-catalogue__sub{
+  font-size:16px;color:rgba(var(--ds-bf-text-rgb),0.65);margin:0;
+}
+.ds-bf .ds-bf-catalogue__grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border-top:1px solid rgba(var(--ds-bf-border-rgb),0.6);
+  border-left:1px solid rgba(var(--ds-bf-border-rgb),0.6);
+}
+.ds-bf .ds-bf-cat-card{
+  display:block;padding:24px 24px 32px;
+  border-right:1px solid rgba(var(--ds-bf-border-rgb),0.6);
+  border-bottom:1px solid rgba(var(--ds-bf-border-rgb),0.6);
+  text-decoration:none;color:inherit;
+  transition:background-color 120ms ease;
+}
+.ds-bf .ds-bf-cat-card:hover{background:rgba(var(--ds-bf-text-rgb),0.03);}
+.ds-bf .ds-bf-cat-card__num{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:0.08em;color:rgba(var(--ds-bf-text-rgb),0.45);
+  display:block;margin-bottom:16px;
+}
+.ds-bf .ds-bf-cat-card__title{
+  font-family:"Inter Tight","Inter",system-ui,sans-serif;
+  font-size:18px;font-weight:600;
+  color:var(--ds-bf-heading);margin:0 0 8px;line-height:1.25;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.ds-bf .ds-bf-cat-card__title .arrow{
+  font-size:16px;color:var(--ds-bf-red);flex-shrink:0;
+  opacity:0;transition:opacity 120ms ease,transform 120ms ease;transform:translateX(-4px);
+}
+.ds-bf .ds-bf-cat-card:hover .ds-bf-cat-card__title .arrow{opacity:1;transform:translateX(0);}
+.ds-bf .ds-bf-cat-card__desc{
+  font-size:14px;line-height:1.5;color:rgba(var(--ds-bf-text-rgb),0.6);margin:0;
+}
+@media(max-width:900px){
+  .ds-bf .ds-bf-catalogue__grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:600px){
+  .ds-bf .ds-bf-catalogue__grid{grid-template-columns:1fr;}
+}
+
+/* ── FAQ accordion ──────────────────────────────────────────────── */
+.ds-bf .ds-bf-faq{
+  padding:48px 0;background:var(--ds-bf-alt);
+  border-top:1px solid rgba(var(--ds-bf-border-rgb),0.6);
+  border-bottom:1px solid rgba(var(--ds-bf-border-rgb),0.6);
+}
+.ds-bf .ds-bf-faq__inner{
+  max-width:1280px;margin:0 auto;padding:0 24px;
+  display:grid;grid-template-columns:320px 1fr;gap:64px;align-items:start;
+}
+.ds-bf .ds-bf-faq__head{position:sticky;top:32px;}
+.ds-bf .ds-bf-faq__eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  color:rgba(var(--ds-bf-text-rgb),0.6);margin-bottom:12px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+.ds-bf .ds-bf-faq__eyebrow::before{
+  content:"";display:inline-block;width:18px;height:1px;background:var(--ds-bf-red);
+}
+.ds-bf .ds-bf-faq__head h2{
+  font-family:"Inter Tight","Inter",system-ui,sans-serif;
+  font-size:clamp(22px,2.5vw,32px);line-height:1.1;font-weight:600;
+  color:var(--ds-bf-heading);margin:0 0 24px;text-wrap:balance;
+}
+.ds-bf .ds-bf-faq__cta{font-size:14px;color:rgba(var(--ds-bf-text-rgb),0.65);line-height:1.55;}
+.ds-bf .ds-bf-faq__cta a{color:var(--ds-bf-text);font-weight:600;text-decoration:underline;}
+.ds-bf .ds-bf-faq__list{display:flex;flex-direction:column;}
+.ds-bf .ds-bf-faq-item{
+  border-bottom:1px solid rgba(var(--ds-bf-border-rgb),0.6);background:transparent;
+}
+.ds-bf .ds-bf-faq-item:first-child{border-top:1px solid rgba(var(--ds-bf-border-rgb),0.6);}
+.ds-bf .ds-bf-faq-item summary{
+  display:flex;align-items:center;gap:16px;padding:24px 0;
+  cursor:pointer;list-style:none;user-select:none;
+}
+.ds-bf .ds-bf-faq-item summary::-webkit-details-marker{display:none;}
+.ds-bf .ds-bf-faq-item summary:focus-visible{outline:2px solid var(--ds-bf-text);outline-offset:2px;border-radius:4px;}
+.ds-bf .ds-bf-faq-item__num{
+  flex:0 0 auto;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:0.08em;color:rgba(var(--ds-bf-text-rgb),0.4);width:28px;
+}
+.ds-bf .ds-bf-faq-item__q{
+  flex:1;font-family:"Inter Tight","Inter",system-ui,sans-serif;
+  font-size:18px;font-weight:600;color:var(--ds-bf-heading);line-height:1.3;
+}
+.ds-bf .ds-bf-faq-item__icon{
+  flex:0 0 auto;width:20px;height:20px;border-radius:50%;
+  border:1.5px solid rgba(var(--ds-bf-border-rgb),0.8);
+  display:flex;align-items:center;justify-content:center;
+  transition:background-color 120ms ease,border-color 120ms ease;
+}
+.ds-bf .ds-bf-faq-item__icon::before{
+  content:"+";font-size:14px;line-height:1;color:var(--ds-bf-text);font-weight:400;
+  transition:transform 200ms ease;
+}
+.ds-bf .ds-bf-faq-item[open] .ds-bf-faq-item__icon{
+  background:var(--ds-bf-text);border-color:var(--ds-bf-text);
+}
+.ds-bf .ds-bf-faq-item[open] .ds-bf-faq-item__icon::before{
+  content:"−";color:#FFFFFF;
+}
+.ds-bf .ds-bf-faq-item__body{
+  padding:0 0 24px calc(28px + 16px);
+}
+.ds-bf .ds-bf-faq-item__body p{
+  font-size:16px;line-height:1.6;color:rgba(var(--ds-bf-text-rgb),0.75);
+  margin:0 0 12px;max-width:62ch;text-wrap:pretty;
+}
+.ds-bf .ds-bf-faq-item__body p:last-child{margin-bottom:0;}
+@media(max-width:768px){
+  .ds-bf .ds-bf-faq__inner{grid-template-columns:1fr;gap:32px;}
+  .ds-bf .ds-bf-faq__head{position:static;}
+}
+</style>
+
+<div class="ds-bf">
+
+  {%- comment -%} Browse the catalogue {%- endcomment -%}
+  <section class="ds-bf-catalogue" aria-label="Browse by product category">
+    <div class="ds-bf-catalogue__inner">
+      <div class="ds-bf-catalogue__head">
+        <p class="ds-bf-catalogue__eyebrow">Browse the catalogue</p>
+        <h2>Start with the category, end with a PO.</h2>
+        <p class="ds-bf-catalogue__sub">Every category is OECM-eligible. Quote in 1 business day.</p>
+      </div>
+      <div class="ds-bf-catalogue__grid">
+        <a class="ds-bf-cat-card" href="/collections/seating">
+          <span class="ds-bf-cat-card__num">01</span>
+          <h3 class="ds-bf-cat-card__title">Seating <span class="arrow">&#8594;</span></h3>
+          <p class="ds-bf-cat-card__desc">Task chairs, side chairs, lounge, stacking &amp; bariatric. ergoCentric ergonomic series included.</p>
+        </a>
+        <a class="ds-bf-cat-card" href="/collections/desks">
+          <span class="ds-bf-cat-card__num">02</span>
+          <h3 class="ds-bf-cat-card__title">Desks &amp; Workstations <span class="arrow">&#8594;</span></h3>
+          <p class="ds-bf-cat-card__desc">Height-adjustable and fixed-height desks. Private offices, open plans, and reception.</p>
+        </a>
+        <a class="ds-bf-cat-card" href="/collections/storage">
+          <span class="ds-bf-cat-card__num">03</span>
+          <h3 class="ds-bf-cat-card__title">Storage &amp; Filing <span class="arrow">&#8594;</span></h3>
+          <p class="ds-bf-cat-card__desc">Lateral, vertical, and mobile pedestal units. Secure locking options for records-heavy environments.</p>
+        </a>
+        <a class="ds-bf-cat-card" href="/collections/tables">
+          <span class="ds-bf-cat-card__num">04</span>
+          <h3 class="ds-bf-cat-card__title">Tables <span class="arrow">&#8594;</span></h3>
+          <p class="ds-bf-cat-card__desc">Training, meeting, flip-top, and café tables. Nesting options for multi-use rooms.</p>
+        </a>
+        <a class="ds-bf-cat-card" href="/collections/boardroom">
+          <span class="ds-bf-cat-card__num">05</span>
+          <h3 class="ds-bf-cat-card__title">Boardroom <span class="arrow">&#8594;</span></h3>
+          <p class="ds-bf-cat-card__desc">Conference tables and executive seating for council chambers, boardrooms, and boardroom suites.</p>
+        </a>
+        <a class="ds-bf-cat-card" href="/collections/ergonomic-products">
+          <span class="ds-bf-cat-card__num">06</span>
+          <h3 class="ds-bf-cat-card__title">Ergonomic Products <span class="arrow">&#8594;</span></h3>
+          <p class="ds-bf-cat-card__desc">Sit-stand converters, monitor arms, keyboard trays, and footrests. Supports duty-of-care requirements.</p>
+        </a>
+        <a class="ds-bf-cat-card" href="/collections/panels-room-dividers">
+          <span class="ds-bf-cat-card__num">07</span>
+          <h3 class="ds-bf-cat-card__title">Panels &amp; Dividers <span class="arrow">&#8594;</span></h3>
+          <p class="ds-bf-cat-card__desc">Freestanding screens and panel systems. Privacy partitions for open-plan and hybrid offices.</p>
+        </a>
+        <a class="ds-bf-cat-card" href="/collections/quiet-spaces">
+          <span class="ds-bf-cat-card__num">08</span>
+          <h3 class="ds-bf-cat-card__title">Quiet Spaces <span class="arrow">&#8594;</span></h3>
+          <p class="ds-bf-cat-card__desc">Acoustic pods and focus booths for open-plan environments. No construction required.</p>
+        </a>
+        <a class="ds-bf-cat-card" href="/collections/accessories">
+          <span class="ds-bf-cat-card__num">09</span>
+          <h3 class="ds-bf-cat-card__title">Accessories <span class="arrow">&#8594;</span></h3>
+          <p class="ds-bf-cat-card__desc">Whiteboards, coat hooks, waste bins, task lighting, and workspace add-ons.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} FAQ accordion {%- endcomment -%}
+  <section class="ds-bf-faq" aria-label="Frequently asked questions">
+    <div class="ds-bf-faq__inner">
+      <div class="ds-bf-faq__head">
+        <p class="ds-bf-faq__eyebrow">Common questions</p>
+        <h2>What institutional buyers ask before sending the PO.</h2>
+        <p class="ds-bf-faq__cta">Still have a question? <a href="tel:18008359565">Call 1-800-835-9565</a> or <a href="/pages/quote">request a quote</a> and we&rsquo;ll get back to you in 1 business day.</p>
+      </div>
+      <div class="ds-bf-faq__list">
+
+        <details class="ds-bf-faq-item">
+          <summary>
+            <span class="ds-bf-faq-item__num">01</span>
+            <span class="ds-bf-faq-item__q">Which sectors are eligible to buy under OECM?</span>
+            <span class="ds-bf-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="ds-bf-faq-item__body">
+            <p>Any OECM-eligible organization: Ontario school boards (K&ndash;12), publicly-assisted colleges and universities, hospitals and CCACs, municipalities and their agencies, broader-public-sector organizations, and not-for-profits in the social and education sectors. If you&rsquo;re not sure, OECM publishes the eligible-buyer list on their site, or call us and we&rsquo;ll confirm in five minutes.</p>
+          </div>
+        </details>
+
+        <details class="ds-bf-faq-item">
+          <summary>
+            <span class="ds-bf-faq-item__num">02</span>
+            <span class="ds-bf-faq-item__q">What are typical lead times for institutional orders?</span>
+            <span class="ds-bf-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="ds-bf-faq-item__body">
+            <p>Most in-stock items ship within 2&ndash;3 weeks. Custom-configured or upholstered pieces are typically 6&ndash;10 weeks depending on the manufacturer. We&rsquo;ll confirm lead time on your quote before you commit, and we flag anything with long-lead items clearly. For time-sensitive projects, tell us your move-in date and we&rsquo;ll work backwards from there.</p>
+          </div>
+        </details>
+
+        <details class="ds-bf-faq-item">
+          <summary>
+            <span class="ds-bf-faq-item__num">03</span>
+            <span class="ds-bf-faq-item__q">Do you accept purchase orders and NET 30 terms?</span>
+            <span class="ds-bf-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="ds-bf-faq-item__body">
+            <p>Yes &mdash; purchase orders, NET 30, and invoiced accounts are standard. We match your accounts payable process, not the other way around. Credit applications take 1&ndash;2 business days. If your organization needs a specific invoice format, PO reference field, or split billing, just let us know on the quote and we&rsquo;ll accommodate it.</p>
+          </div>
+        </details>
+
+        <details class="ds-bf-faq-item">
+          <summary>
+            <span class="ds-bf-faq-item__num">04</span>
+            <span class="ds-bf-faq-item__q">Does every quote include a space plan?</span>
+            <span class="ds-bf-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="ds-bf-faq-item__body">
+            <p>Yes &mdash; every quote includes a free furniture layout at no charge. Send us your floor plan (even a rough sketch or PDF) and we&rsquo;ll size the pieces, spec the finishes, and show you what it looks like before you approve anything. For larger fit-outs, our design team will provide a full 2D layout with product callouts and a finish schedule.</p>
+          </div>
+        </details>
+
+        <details class="ds-bf-faq-item">
+          <summary>
+            <span class="ds-bf-faq-item__num">05</span>
+            <span class="ds-bf-faq-item__q">How does delivery and installation work?</span>
+            <span class="ds-bf-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="ds-bf-faq-item__body">
+            <p>We deliver across Ontario and ship across Canada. Professional installation is available as an add-on &mdash; our crews handle uncrating, assembly, placement, and debris removal. For multi-floor or phased projects, we coordinate delivery windows with your facilities team. We can also coordinate after-hours or weekend delivery for occupied buildings where access is restricted during business hours.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+</div><!-- /ds-bf -->
