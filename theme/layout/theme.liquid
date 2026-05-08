@@ -91,6 +91,10 @@
           assign bbi_landing = true
         elsif template == '404'
           assign bbi_landing = true
+        elsif template.name == 'blog'
+          assign bbi_landing = true
+        elsif template.name == 'article'
+          assign bbi_landing = true
         elsif template.suffix == 'about'
           assign bbi_landing = true
         elsif template.suffix == 'brands'

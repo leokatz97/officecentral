@@ -1,0 +1,196 @@
+{%- comment -%}
+  Section: ds-system-404
+  Purpose: Branded 404 error page — search box, 4 top category tiles, phone CTA + Quote button.
+  Gate: template == '404' (already in bbi_landing gate in theme.liquid).
+  Schema: logo image_picker (populate in 404.json).
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+/* ============================================================
+   BBI Design Tokens — DS v2
+   ============================================================ */
+:root {
+  --bodyFont: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --headingFont: "Inter Tight", "Inter", system-ui, sans-serif;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --inputRadius: 4px; --buttonRadius: 4px; --cardRadius: 8px;
+  --shadow-sm: 0 1px 2px rgba(11,11,12,.04), 0 2px 8px rgba(11,11,12,.05);
+  --saleBadgeBackground: #D4252A;
+  --saleBadgeBackground-rgb: 212,37,42;
+  --fs-h1: 32px; --lh-h1: 1.1; --ls-h1: -0.015em;
+  --fs-h2: 24px; --lh-h2: 1.15; --ls-h2: -0.01em;
+  --fs-h3: 18px; --lh-h3: 1.25;
+  --fs-body: 16px; --lh-body: 1.55;
+  --fs-small: 13px;
+  --fs-button: 15px; --lh-button: 1; --ls-button: 0.01em;
+}
+@media (min-width: 768px) {
+  :root {
+    --fs-h1: 48px; --lh-h1: 1.05;
+    --fs-h2: 32px; --lh-h2: 1.1;
+    --fs-h3: 22px; --lh-h3: 1.2;
+    --fs-small: 14px;
+  }
+}
+.bbi-system-404.scheme-default {
+  --background: #FFFFFF; --background-rgb: 255,255,255;
+  --alternateBackground: #FAFAFA;
+  --cardBackground: #FFFFFF;
+  --textColor: #0B0B0C; --textColor-rgb: 11,11,12;
+  --linkColor: #0B0B0C; --headingColor: #0B0B0C; --headingColor-rgb: 11,11,12;
+  --buttonBackground: #0B0B0C; --buttonColor: #FFFFFF; --buttonBorder: #0B0B0C;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
+  --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.bbi-system-404 *, .bbi-system-404 *::before, .bbi-system-404 *::after { box-sizing: border-box; }
+.bbi-system-404 { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
+.bbi-system-404 img { display: block; max-width: 100%; height: auto; }
+.bbi-system-404 a { color: var(--linkColor); }
+
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+.s404-hero { padding: 80px 0 64px; text-align: center; border-bottom: 1px solid var(--borderColor); }
+.s404-hero__inner { max-width: 600px; margin: 0 auto; padding: 0 24px; }
+.s404-hero__code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(var(--textColor-rgb),0.45); margin: 0 0 16px; }
+.s404-hero h1 { font-family: var(--headingFont); font-size: clamp(32px, 6vw, 56px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 600; color: var(--headingColor); margin: 0 0 16px; }
+.s404-hero__lede { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb),0.7); margin: 0 0 32px; }
+
+/* ── Search form ─────────────────────────────────────────────────────────── */
+.s404-search { max-width: 480px; margin: 0 auto; }
+.s404-search__form { display: flex; gap: 0; border: 1px solid var(--borderColor); border-radius: var(--buttonRadius); overflow: hidden; }
+.s404-search__input { flex: 1; padding: 12px 16px; border: none; outline: none; font-family: var(--bodyFont); font-size: 15px; background: var(--background); color: var(--textColor); }
+.s404-search__input::placeholder { color: rgba(var(--textColor-rgb),0.4); }
+.s404-search__btn { padding: 12px 20px; background: var(--buttonBackground); color: var(--buttonColor); border: none; cursor: pointer; font-family: var(--bodyFont); font-size: 15px; font-weight: 500; white-space: nowrap; transition: background 0.15s; }
+.s404-search__btn:hover { background: var(--saleBadgeBackground); }
+
+/* ── Category tiles ──────────────────────────────────────────────────────── */
+.s404-cats { padding: 64px 0; }
+.s404-cats__inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.s404-cats h2 { font-family: var(--headingFont); font-size: var(--fs-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 32px; text-align: center; letter-spacing: -0.01em; }
+.s404-cats__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (min-width: 640px) { .s404-cats__grid { grid-template-columns: repeat(4, 1fr); } }
+.s404-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 28px 20px; border: 1px solid var(--borderColor); border-radius: var(--cardRadius); background: var(--cardBackground); text-decoration: none; color: var(--textColor); transition: border-color 0.15s, box-shadow 0.15s; text-align: center; }
+.s404-tile:hover { border-color: var(--saleBadgeBackground); box-shadow: var(--shadow-sm); }
+.s404-tile__icon { font-size: 28px; line-height: 1; }
+.s404-tile__label { font-family: var(--headingFont); font-size: 15px; font-weight: 600; color: var(--headingColor); }
+.s404-tile__sub { font-size: 12px; color: rgba(var(--textColor-rgb),0.55); margin-top: 2px; }
+
+/* ── CTA closer ──────────────────────────────────────────────────────────── */
+.s404-cta { padding: 56px 24px; background: var(--alternateBackground); text-align: center; border-top: 1px solid var(--borderColor); }
+.s404-cta__inner { max-width: 600px; margin: 0 auto; }
+.s404-cta h2 { font-family: var(--headingFont); font-size: var(--fs-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 8px; letter-spacing: -0.01em; }
+.s404-cta p { font-size: 16px; color: rgba(var(--textColor-rgb),0.7); margin: 0 0 28px; }
+.s404-cta__btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.s404-btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; border-radius: var(--buttonRadius); font-family: var(--bodyFont); font-size: var(--fs-button); font-weight: 500; letter-spacing: var(--ls-button); text-decoration: none; transition: background 0.15s, border-color 0.15s; }
+.s404-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border: 1px solid var(--buttonBorder); }
+.s404-btn--primary:hover { background: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); color: #fff; }
+.s404-btn--outline { background: transparent; color: var(--textColor); border: 1px solid var(--borderColor); }
+.s404-btn--outline:hover { border-color: var(--textColor); }
+.s404-phone { margin-top: 20px; font-size: 14px; color: rgba(var(--textColor-rgb),0.6); }
+.s404-phone a { color: var(--textColor); font-weight: 500; text-decoration: none; }
+.s404-phone a:hover { color: var(--saleBadgeBackground); }
+</style>
+
+<div class="bbi-system-404 scheme-default">
+  {%- render 'bbi-nav', logo: section.settings.logo -%}
+
+  <main id="MainContent">
+    <!-- 404 Hero -->
+    <section class="s404-hero">
+      <div class="s404-hero__inner">
+        <p class="s404-hero__code">Error 404</p>
+        <h1>{{ 'general.404.title' | t | default: 'Page not found' }}</h1>
+        <p class="s404-hero__lede">{{ 'general.404.subtext' | t | default: "The page you're looking for doesn't exist or may have moved. Try searching, or browse the categories below." }}</p>
+
+        <!-- Search -->
+        <div class="s404-search">
+          <form class="s404-search__form" action="/search" method="get" role="search">
+            <input
+              class="s404-search__input"
+              type="search"
+              name="q"
+              placeholder="{{ 'general.search.search' | t | default: 'Search products…' }}"
+              aria-label="{{ 'general.search.search' | t | default: 'Search products' }}"
+              autocomplete="off"
+            >
+            <button class="s404-search__btn" type="submit">{{ 'general.search.search' | t | default: 'Search' }}</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top category tiles -->
+    <section class="s404-cats">
+      <div class="s404-cats__inner">
+        <h2>Browse our top categories</h2>
+        <div class="s404-cats__grid">
+          <a href="/collections/seating" class="s404-tile">
+            <span class="s404-tile__icon" aria-hidden="true">🪑</span>
+            <span class="s404-tile__label">Seating</span>
+            <span class="s404-tile__sub">Chairs, stools &amp; lounge</span>
+          </a>
+          <a href="/collections/desks" class="s404-tile">
+            <span class="s404-tile__icon" aria-hidden="true">🖥</span>
+            <span class="s404-tile__label">Desks &amp; Workstations</span>
+            <span class="s404-tile__sub">Sit-stand, L-shape &amp; more</span>
+          </a>
+          <a href="/collections/storage" class="s404-tile">
+            <span class="s404-tile__icon" aria-hidden="true">🗄</span>
+            <span class="s404-tile__label">Storage &amp; Filing</span>
+            <span class="s404-tile__sub">Cabinets, pedestals &amp; files</span>
+          </a>
+          <a href="/collections/tables" class="s404-tile">
+            <span class="s404-tile__icon" aria-hidden="true">📐</span>
+            <span class="s404-tile__label">Tables</span>
+            <span class="s404-tile__sub">Meeting, training &amp; café</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA closer -->
+    <section class="s404-cta">
+      <div class="s404-cta__inner">
+        <h2>Can't find what you need?</h2>
+        <p>Our team quotes single chairs to full boardrooms — usually within one business day.</p>
+        <div class="s404-cta__btns">
+          <a href="/pages/quote" class="s404-btn s404-btn--primary">Request a Quote</a>
+          <a href="/collections/business-furniture" class="s404-btn s404-btn--outline">Browse All Furniture</a>
+        </div>
+        <p class="s404-phone">
+          Or call us: <a href="tel:18008359565">1-800-835-9565</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
+</div>
+
+{% schema %}
+{
+  "name": "404 Page",
+  "class": "bbi-system-404-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "BBI Logo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "404 Page"
+    }
+  ]
+}
+{% endschema %}
