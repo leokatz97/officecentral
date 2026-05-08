@@ -1,0 +1,72 @@
+{%- comment -%}
+  bbi-breadcrumb-jsonld.liquid
+  Emits BreadcrumbList JSON-LD matching the visual bbi-crumbs breadcrumb.
+  Render inside <head> or at top of the PDP section.
+
+  Parameters mirror bbi-crumbs.liquid (pass the same values):
+    bc_c2_label, bc_c2_href
+    bc_c3_label, bc_c3_href
+    bc_c4_label, bc_c4_href
+    bc_c5_label  (terminal — product title on PDPs)
+
+  Usage (PDP):
+    {%- render 'bbi-breadcrumb-jsonld',
+        bc_c2_label: 'Shop Furniture', bc_c2_href: '/collections/business-furniture',
+        bc_c3_label: hub_title,        bc_c3_href: hub_href,
+        bc_c4_label: sub_coll_title,   bc_c4_href: sub_coll_href,
+        bc_c5_label: product.title -%}
+{%- endcomment -%}
+{%- liquid
+  assign _bld_base = shop.url
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": {{ _bld_base | json }}
+    }
+    {%- if bc_c2_label != blank -%}
+    ,{
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ bc_c2_label | json }}
+      {%- if bc_c2_href != blank -%}
+      ,"item": {{ _bld_base | append: bc_c2_href | json }}
+      {%- endif -%}
+    }
+    {%- if bc_c3_label != blank -%}
+    ,{
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ bc_c3_label | json }}
+      {%- if bc_c3_href != blank -%}
+      ,"item": {{ _bld_base | append: bc_c3_href | json }}
+      {%- endif -%}
+    }
+    {%- if bc_c4_label != blank -%}
+    ,{
+      "@type": "ListItem",
+      "position": 4,
+      "name": {{ bc_c4_label | json }}
+      {%- if bc_c4_href != blank -%}
+      ,"item": {{ _bld_base | append: bc_c4_href | json }}
+      {%- endif -%}
+    }
+    {%- if bc_c5_label != blank -%}
+    ,{
+      "@type": "ListItem",
+      "position": 5,
+      "name": {{ bc_c5_label | json }}
+    }
+    {%- endif -%}
+    {%- endif -%}
+    {%- endif -%}
+    {%- endif -%}
+  ]
+}
+</script>

@@ -1,0 +1,57 @@
+{%- comment -%}
+  bbi-product-jsonld.liquid
+  Emits Product JSON-LD structured data for the current product page.
+  Render inside <head> or at top of the PDP section.
+  Usage: {%- render 'bbi-product-jsonld' -%}
+{%- endcomment -%}
+{%- liquid
+  assign _pjld_name        = product.title
+  assign _pjld_desc        = product.description | strip_html | truncate: 500
+  assign _pjld_url         = shop.url | append: product.url
+  assign _pjld_sku         = product.selected_or_first_available_variant.sku
+  assign _pjld_mpn         = product.metafields.specs.model_number.value
+  assign _pjld_brand_name  = product.vendor
+  if product.vendor == blank or product.vendor == 'Brant Business Interiors'
+    assign _pjld_brand_name = product.metafields.specs.manufacturer.value | default: 'Brant Business Interiors'
+  endif
+  assign _pjld_image       = product.featured_image | image_url: width: 1200
+  assign _pjld_price       = product.price | money_without_currency
+  assign _pjld_currency    = cart.currency.iso_code
+  if product.available and product.price > 0
+    assign _pjld_avail = 'https://schema.org/InStock'
+  else
+    assign _pjld_avail = 'https://schema.org/OutOfStock'
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ _pjld_name | json }},
+  "description": {{ _pjld_desc | json }},
+  "url": {{ _pjld_url | json }},
+  "image": {{ _pjld_image | prepend: 'https:' | json }},
+  {%- if _pjld_sku != blank %}"sku": {{ _pjld_sku | json }},{%- endif %}
+  {%- if _pjld_mpn != blank %}"mpn": {{ _pjld_mpn | json }},{%- endif %}
+  "brand": {
+    "@type": "Brand",
+    "name": {{ _pjld_brand_name | json }}
+  },
+  {%- if product.metafields.specs.country_of_manufacture.value == 'Canada' %}
+  "countryOfOrigin": "CA",
+  {%- endif %}
+  "offers": {
+    "@type": "Offer",
+    "url": {{ _pjld_url | json }},
+    "priceCurrency": {{ _pjld_currency | json }},
+    {%- if product.price > 0 %}
+    "price": {{ _pjld_price | json }},
+    {%- endif %}
+    "availability": {{ _pjld_avail | json }},
+    "seller": {
+      "@type": "Organization",
+      "name": "Brant Business Interiors"
+    }
+  }
+}
+</script>
