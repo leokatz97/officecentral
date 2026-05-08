@@ -356,3 +356,133 @@ Live theme 186495992121 NOT touched ✅.
 - 93 collections with `bbi.parent_hub_handle` + `bbi.parent_hub_title` metafields set
 - 57 collections show correct non-seating breadcrumb (was 0 before this stage)
 - Breadcrumb accuracy: 100% — all 93 base collections have metafields; Liquid reads them first
+
+---
+
+## Stage 3.2c.6 — Canonical Handle Reconciliation
+
+**Date:** 2026-05-07
+**Branch:** `chore/stage-3.2c-subcollection-migration`
+
+### Context
+
+Stage 3.2c.3 flipped 56 handles to `template_suffix=base`, but targeted doubled-name legacy handles (e.g. `l-shape-desks-desks`) rather than the user-facing handles that hub tiles actually link to (e.g. `l-shape-desks`). This stage identifies and corrects the gap.
+
+The 56 wrong-handle flips from 3.2c.3 are left in place — those legacy collections are not user-navigated. Logged as cleanup-debt (see Backlog below).
+
+---
+
+### Phase 1 — Canonical Handle Inventory
+
+Extracted all `tile` block `link` fields from 9 Level-2 hub templates:
+`collection.accessories.json`, `collection.boardroom.json`, `collection.desks.json`, `collection.ergonomic-products.json`, `collection.panels-room-dividers.json`, `collection.quiet-spaces.json`, `collection.seating.json`, `collection.storage.json`, `collection.tables.json`
+
+**Result:** 68 tile links → 67 unique handles (meeting-conference-room-tables linked from both boardroom and tables hubs; boardroom deduplicated to first occurrence, then reassigned to tables in Phase 2 per specificity).
+
+API queried all 67 handles for: id, title, type (custom/smart), products_count, template_suffix.
+
+Output: `data/reports/stage-3.2c.6-canonical-handles.csv` (67 rows)
+
+---
+
+### Phase 2 — Flip Target Filter
+
+From 67 canonical handles, excluded:
+- **46 already `template_suffix=base`** — no action needed
+- **2 hub-level handles** (none in practice — all 9 hub handles have their own templates, none appeared as tile targets)
+- **2 zero-product orphan shells** (user-approved exclusions):
+  - `workstations-computer-desks` — 0 products → skip
+  - `chair-accessories` — 0 products → skip
+
+**Result:** 19 handles requiring flip
+
+Output: `data/reports/stage-3.2c.6-flip-targets.csv` (19 rows)
+
+---
+
+### Phase 3 — User-Approved Flip List
+
+Approved 2026-05-07:
+
+| Parent Hub | Handle | Products |
+|---|---|---|
+| Accessories | lighting | 4 |
+| Accessories | white-board | 1 |
+| Desks | l-shape-desks | 31 |
+| Desks | straight-desks | 12 |
+| Desks | reception-desks-desks | 9 |
+| Panels & Room Dividers | room-dividers | 7 |
+| Quiet Spaces | sound-dampeners | 8 |
+| Quiet Spaces | telephone-booths | 1 |
+| Seating | task-chairs | 10 |
+| Seating | stools | 8 |
+| Seating | outdoor-seating | 4 |
+| Seating | lounge-seating | 2 |
+| Storage | bookcases | 9 |
+| Storage | lateral-file-cabinets-storage | 8 |
+| Storage | mobile-pedestals | 8 |
+| Storage | storage-cabinets | 8 |
+| Storage | vertical-file-cabinets-storage | 6 |
+| Tables | meeting-conference-room-tables | 8 |
+| Tables | training-room-tables | 4 |
+
+User notes:
+- Doubled-suffix handles (`reception-desks-desks`, `lateral-file-cabinets-storage`, `vertical-file-cabinets-storage`) flipped as-is — see content-debt note in Backlog.
+- `meeting-conference-room-tables` dual-linked from boardroom + tables hubs; parent assigned to Tables per specificity. Boardroom-hub clicks will show "Tables" breadcrumb — minor, logged only.
+
+---
+
+### Phase 4 — Template Suffix Flip
+
+Script: `scripts/set-canonical-subcollection-suffix.py` (new — reads from flip-targets.csv)
+
+Result: **19/19 OK**, 0 failed
+Log: `data/logs/set-canonical-suffix-20260507_221510.json`
+
+---
+
+### Phase 5 — Metafield Application
+
+Script: `scripts/set-canonical-subcollection-metafields.py` (new — reads from flip-targets.csv)
+
+Result: **19/19 OK**, 0 failed, 0 skipped
+Log: `data/logs/set-canonical-metafields-20260507_221643.json`
+
+---
+
+### Phase 6 — Verification
+
+Spot-checked 5 handles post-flip:
+
+| Handle | suffix | parent_hub_handle | parent_hub_title | OK? |
+|---|---|---|---|---|
+| l-shape-desks | base | desks | Desks & Workstations | ✓ |
+| lateral-file-cabinets-storage | base | storage | Storage & Filing | ✓ |
+| task-chairs | base | seating | Seating | ✓ |
+| bookcases | base | storage | Storage & Filing | ✓ |
+| meeting-tables (baseline) | base | tables | Tables | ✓ |
+
+5/5 passed.
+
+---
+
+### Updated Stage Status
+
+**Stage 3.2c complete** (pending visual verification before merge).
+
+| Metric | Count |
+|---|---|
+| User-facing sub-collections on `template_suffix=base` | 65 (46 pre-existing + 19 this stage) |
+| Total base collections with parent hub metafields | 93 + 19 new = 112 |
+| Hub tile handles verified accessible | 67/67 |
+| Broken hub tiles (NOT_FOUND) | 0 |
+
+---
+
+### Backlog (cleanup-debt, future stage)
+
+1. **Doubled-name legacy handles retain `template_suffix=base`** from Stage 3.2c.3 (e.g. `l-shape-desks-desks`, `reception-desks-desks` legacy version, etc.). These are not user-navigated but now render the BBI template. Low priority — harmless unless someone navigates directly. Future cleanup: audit and reset to `template_suffix=''` or delete if truly orphaned.
+
+2. **Three user-facing handles have hub-name suffix doubled** (`reception-desks-desks`, `lateral-file-cabinets-storage`, `vertical-file-cabinets-storage`). These are live, linked from hub tiles, and now correctly on `template_suffix=base`. Renaming requires a URL redirect strategy (301 old → new, update hub tile links, update metafield keys). Defer to a dedicated redirect stage.
+
+3. **`meeting-conference-room-tables` breadcrumb shows "Tables" from boardroom-hub clicks** — minor UX inconsistency. Acceptable until a dual-parent breadcrumb strategy is defined.
