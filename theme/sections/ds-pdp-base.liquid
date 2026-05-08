@@ -1,0 +1,950 @@
+{%- comment -%}
+  ds-pdp-base.liquid
+  T5 Product Detail Page — full design-parity build.
+  Handles buyable (add-to-cart) and unbuyable (RFQ) states.
+  92% of catalog is sold-out; RFQ block is the primary commerce experience.
+  Reads spec metafields gracefully — spec table hidden when zero rows.
+  Stage 4b, 2026-05-08.
+{%- endcomment -%}
+
+{%- comment -%} ── Variable derivation ──────────────────────────────────────── {%- endcomment -%}
+{%- liquid
+  comment — Commerce state
+  endcomment
+  assign _pdp_buyable = false
+  if product.available and product.price > 0
+    assign _pdp_buyable = true
+  endif
+
+  comment — Brand detection
+  endcomment
+  assign _pdp_vendor     = product.vendor
+  assign _pdp_mfr        = product.metafields.specs.manufacturer.value
+  assign _pdp_brand_name = _pdp_vendor
+  if _pdp_vendor == blank or _pdp_vendor == 'Brant Business Interiors'
+    if _pdp_mfr != blank
+      assign _pdp_brand_name = _pdp_mfr
+    endif
+  endif
+
+  comment — Brand block matching
+  endcomment
+  assign _pdp_brand_key = 'generic'
+  if _pdp_vendor contains 'ergoCentric' or _pdp_mfr contains 'ergoCentric'
+    assign _pdp_brand_key = 'ergocentr'
+  elsif _pdp_vendor contains 'Keilhauer' or _pdp_mfr contains 'Keilhauer'
+    assign _pdp_brand_key = 'keilhauer'
+  elsif _pdp_vendor contains 'Global Furniture' or _pdp_vendor contains 'Teknion' or _pdp_mfr contains 'Global Furniture' or _pdp_mfr contains 'Offices to Go' or _pdp_mfr contains 'OTG'
+    assign _pdp_brand_key = 'global'
+  endif
+
+  comment — Breadcrumb derivation
+  endcomment
+  assign _pdp_sub_coll = product.collections.first
+  assign _pdp_parent_hub_handle = nil
+  assign _pdp_parent_hub_title  = nil
+  assign _pdp_parent_hub_href   = nil
+  if _pdp_sub_coll != nil
+    assign _pdp_parent_hub_handle = _pdp_sub_coll.metafields.bbi.parent_hub_handle.value
+    if _pdp_parent_hub_handle != blank
+      assign _pdp_parent_hub = collections[_pdp_parent_hub_handle]
+      if _pdp_parent_hub != nil
+        assign _pdp_parent_hub_title = _pdp_parent_hub.title
+        assign _pdp_parent_hub_href  = _pdp_parent_hub.url
+      endif
+    endif
+  endif
+
+  comment — Spec metafield presence checks
+  endcomment
+  assign _pdp_has_manufacturer      = false
+  assign _pdp_has_product_line      = false
+  assign _pdp_has_dimensions        = false
+  assign _pdp_has_weight            = false
+  assign _pdp_has_weight_capacity   = false
+  assign _pdp_has_materials         = false
+  assign _pdp_has_finishes          = false
+  assign _pdp_has_key_features      = false
+  assign _pdp_has_certifications    = false
+  assign _pdp_has_warranty          = false
+  assign _pdp_has_country           = false
+  assign _pdp_has_model_codes       = false
+  if product.metafields.specs.manufacturer.value != blank
+    assign _pdp_has_manufacturer = true
+  endif
+  if product.metafields.specs.product_line.value != blank
+    assign _pdp_has_product_line = true
+  endif
+  if product.metafields.specs.dimensions.value != blank
+    assign _pdp_has_dimensions = true
+  endif
+  if product.metafields.specs.weight.value != blank
+    assign _pdp_has_weight = true
+  endif
+  if product.metafields.specs.weight_capacity.value != blank
+    assign _pdp_has_weight_capacity = true
+  endif
+  if product.metafields.specs.materials.value != blank
+    assign _pdp_has_materials = true
+  endif
+  if product.metafields.specs.finishes_available.value != blank
+    assign _pdp_has_finishes = true
+  endif
+  if product.metafields.specs.key_features.value != blank
+    assign _pdp_has_key_features = true
+  endif
+  if product.metafields.specs.certifications.value != blank
+    assign _pdp_has_certifications = true
+  endif
+  if product.metafields.specs.warranty.value != blank
+    assign _pdp_has_warranty = true
+  endif
+  if product.metafields.specs.country_of_manufacture.value != blank
+    assign _pdp_has_country = true
+  endif
+  if product.metafields.specs.model_codes.value != blank
+    assign _pdp_has_model_codes = true
+  endif
+
+  assign _pdp_spec_row_count = 0
+  if _pdp_has_manufacturer      == true
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+  if _pdp_has_product_line      == true
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+  if product.type != blank
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+  if _pdp_has_dimensions        == true
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+  if _pdp_has_weight            == true
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+  if _pdp_has_weight_capacity   == true
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+  if _pdp_has_materials         == true
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+  if _pdp_has_country           == true
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+  if _pdp_has_warranty          == true
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+  if _pdp_has_model_codes       == true
+    assign _pdp_spec_row_count = _pdp_spec_row_count | plus: 1
+  endif
+
+  comment — Related products
+  endcomment
+  assign _pdp_related_count = 0
+  assign _pdp_related_products = collection.products
+  for rp in collection.products
+    if rp.id == product.id
+      continue
+    endif
+    if rp.type == product.type
+      assign _pdp_related_count = _pdp_related_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- comment -%} ── JSON-LD (renders in body; valid for SEO) ────────────────── {%- endcomment -%}
+{%- render 'bbi-product-jsonld' -%}
+{%- liquid
+  assign _bc_c3_label = _pdp_parent_hub_title
+  assign _bc_c3_href  = _pdp_parent_hub_href
+  assign _bc_c4_label = _pdp_sub_coll.title
+  assign _bc_c4_href  = _pdp_sub_coll.url
+  assign _bc_c5_label = product.title
+  if _pdp_parent_hub_title == blank
+    assign _bc_c3_label = _pdp_sub_coll.title
+    assign _bc_c3_href  = nil
+    assign _bc_c4_label = nil
+    assign _bc_c4_href  = nil
+    assign _bc_c5_label = product.title
+  endif
+-%}
+{%- render 'bbi-breadcrumb-jsonld',
+    bc_c2_label: 'Shop Furniture', bc_c2_href: '/collections/business-furniture',
+    bc_c3_label: _bc_c3_label,     bc_c3_href: _bc_c3_href,
+    bc_c4_label: _bc_c4_label,     bc_c4_href: _bc_c4_href,
+    bc_c5_label: _bc_c5_label -%}
+
+<style>
+  /* ── Layout ──────────────────────────────────────────────────────── */
+  .bbi-pdp { font-family: var(--bodyFont, system-ui, sans-serif); color: var(--textColor); }
+  .bbi-pdp__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+
+  /* ── Hero grid ───────────────────────────────────────────────────── */
+  .bbi-pdp__hero { display: grid; grid-template-columns: 1fr; gap: var(--space-8); padding: var(--space-8) var(--space-6) var(--space-12); max-width: 1280px; margin: 0 auto; }
+  @media (min-width: 900px) { .bbi-pdp__hero { grid-template-columns: 60fr 40fr; align-items: start; } }
+
+  /* ── Gallery ─────────────────────────────────────────────────────── */
+  .bbi-pdp-gallery { display: flex; flex-direction: column; gap: var(--space-3); }
+  .bbi-pdp-gallery__main { position: relative; overflow: hidden; border-radius: 8px; background: #F5F5F5; aspect-ratio: 4/3; }
+  .bbi-pdp-gallery__main img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .bbi-pdp-gallery__strip { display: flex; gap: var(--space-2); overflow-x: auto; scrollbar-width: none; }
+  .bbi-pdp-gallery__strip::-webkit-scrollbar { display: none; }
+  .bbi-pdp-gallery__thumb { width: 72px; height: 72px; flex: 0 0 72px; border-radius: 6px; border: 2px solid transparent; cursor: pointer; overflow: hidden; background: #F5F5F5; transition: border-color .15s; }
+  .bbi-pdp-gallery__thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .bbi-pdp-gallery__thumb[aria-selected="true"] { border-color: var(--accentRed, #C8102E); }
+  .bbi-pdp-gallery__nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,.9); border: 1px solid var(--borderColor); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; line-height: 1; }
+  .bbi-pdp-gallery__prev { left: 10px; }
+  .bbi-pdp-gallery__next { right: 10px; }
+
+  /* ── Commerce panel ──────────────────────────────────────────────── */
+  .bbi-pdp-info { background: var(--alternateBackground, #FAFAFA); border-radius: 10px; padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+  .bbi-pdp-info__vendor { font-size: 13px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: rgba(var(--textColor-rgb),.55); margin: 0; }
+  .bbi-pdp-info__title { font-family: var(--headingFont); font-size: clamp(22px, 2.4vw, 30px); font-weight: 600; line-height: 1.15; letter-spacing: -.015em; margin: 0; }
+
+  /* ── Trust pills ─────────────────────────────────────────────────── */
+  .bbi-pdp-badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; }
+  .bbi-pdp-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; line-height: 1; }
+  .bbi-pdp-badge--sold-out { background: rgba(var(--textColor-rgb),.08); color: rgba(var(--textColor-rgb),.65); }
+  .bbi-pdp-badge--canadian { background: rgba(200,16,46,.08); color: #C8102E; }
+  .bbi-pdp-badge--oecm { background: rgba(200,16,46,.1); color: #C8102E; }
+  .bbi-pdp-badge__leaf { width: 10px; height: 10px; }
+
+  /* ── Price / buyable ─────────────────────────────────────────────── */
+  .bbi-pdp-price { font-family: var(--headingFont); font-size: 26px; font-weight: 700; margin: 0; }
+  .bbi-pdp-price__note { font-size: 12px; color: rgba(var(--textColor-rgb),.55); margin: 4px 0 0; }
+  .bbi-pdp-atc { width: 100%; padding: 0; }
+  .bbi-pdp-atc .bbi-btn { width: 100%; justify-content: center; }
+
+  /* ── RFQ block ───────────────────────────────────────────────────── */
+  .bbi-pdp-rfq { display: flex; flex-direction: column; gap: var(--space-4); }
+  .bbi-pdp-rfq__headline { font-size: 16px; font-weight: 600; margin: 0; color: var(--textColor); }
+  .bbi-pdp-rfq__features { margin: 0; padding: 0 0 0 var(--space-4); font-size: 15px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); display: flex; flex-direction: column; gap: 2px; }
+  .bbi-pdp-rfq__features li { margin: 0; }
+  .bbi-pdp-rfq__actions { display: flex; flex-direction: column; gap: var(--space-2); }
+  .bbi-pdp-rfq__phone { font-size: 14px; color: rgba(var(--textColor-rgb),.65); text-align: center; }
+  .bbi-pdp-rfq__phone a { color: var(--textColor); text-decoration: underline; }
+
+  /* ── Variant swatches ────────────────────────────────────────────── */
+  .bbi-pdp-options { display: flex; flex-direction: column; gap: var(--space-4); }
+  .bbi-pdp-option { display: flex; flex-direction: column; gap: var(--space-2); }
+  .bbi-pdp-option__label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: rgba(var(--textColor-rgb),.7); }
+  .bbi-pdp-option__label em { font-style: normal; font-weight: 400; color: var(--textColor); text-transform: none; letter-spacing: 0; }
+  .bbi-pdp-swatches { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .bbi-pdp-swatch { position: relative; }
+  .bbi-pdp-swatch input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .bbi-pdp-swatch__chip { display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; font-weight: 500; border-radius: 99px; border: 2px solid var(--borderColor); transition: border-color .15s, box-shadow .15s; }
+  .bbi-pdp-swatch input:checked + .bbi-pdp-swatch__chip { border-color: var(--textColor); box-shadow: 0 0 0 1px var(--textColor); }
+  .bbi-pdp-swatch input:focus-visible + .bbi-pdp-swatch__chip { outline: 2px solid var(--textColor); outline-offset: 2px; }
+  .bbi-pdp-swatch--colour .bbi-pdp-swatch__chip { width: 30px; height: 30px; border-radius: 50%; }
+  .bbi-pdp-swatch--size .bbi-pdp-swatch__chip { padding: 4px 12px; border-radius: 6px; }
+  .bbi-pdp-swatch--text .bbi-pdp-swatch__chip { padding: 4px 12px; border-radius: 6px; }
+  .bbi-pdp-swatch__dot { width: 20px; height: 20px; border-radius: 50%; display: block; }
+
+  /* ── Shared section band ──────────────────────────────────────────── */
+  .bbi-pdp-band { padding: var(--space-12) var(--space-6); }
+  .bbi-pdp-band__inner { max-width: 1280px; margin: 0 auto; }
+  .bbi-pdp-band__label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(var(--textColor-rgb),.55); margin: 0 0 var(--space-4); }
+  .bbi-pdp-band__heading { font-family: var(--headingFont); font-size: clamp(24px,2.8vw,36px); font-weight: 600; letter-spacing: -.015em; line-height: 1.15; margin: 0 0 var(--space-6); }
+  .bbi-pdp-divider { border: none; border-top: 1px solid rgba(var(--borderColor-rgb),.6); margin: 0; }
+
+  /* ── Description ─────────────────────────────────────────────────── */
+  .bbi-pdp-desc { font-size: 16px; line-height: 1.7; color: rgba(var(--textColor-rgb),.82); max-width: 72ch; }
+  .bbi-pdp-desc p { margin: 0 0 var(--space-4); }
+  .bbi-pdp-desc p:last-child { margin: 0; }
+
+  /* ── Spec table ──────────────────────────────────────────────────── */
+  .bbi-pdp-specs-table { width: 100%; border-collapse: collapse; }
+  .bbi-pdp-specs-table tr { border-bottom: 1px solid rgba(var(--borderColor-rgb),.5); }
+  .bbi-pdp-specs-table tr:last-child { border-bottom: none; }
+  .bbi-pdp-specs-table th,
+  .bbi-pdp-specs-table td { padding: var(--space-3) var(--space-4); text-align: left; font-size: 15px; vertical-align: top; }
+  .bbi-pdp-specs-table th { font-weight: 600; width: 32%; color: rgba(var(--textColor-rgb),.7); background: rgba(var(--borderColor-rgb),.18); white-space: nowrap; }
+  .bbi-pdp-specs-table td { color: var(--textColor); }
+  .bbi-pdp-specs-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .bbi-pdp-specs-list li::before { content: "· "; opacity: .5; }
+
+  /* ── Related products ────────────────────────────────────────────── */
+  .bbi-pdp-related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-6); }
+  .bbi-pdp-related-card { text-decoration: none; color: var(--textColor); display: flex; flex-direction: column; border: 1px solid var(--borderColor); border-radius: 8px; overflow: hidden; transition: box-shadow .15s; }
+  .bbi-pdp-related-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+  .bbi-pdp-related-card__img-wrap { aspect-ratio: 4/3; overflow: hidden; background: #F5F5F5; }
+  .bbi-pdp-related-card__img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .bbi-pdp-related-card__body { padding: var(--space-4); flex: 1; display: flex; flex-direction: column; }
+  .bbi-pdp-related-card__title { font-size: 14px; font-weight: 600; line-height: 1.35; margin: 0 0 var(--space-2); }
+  .bbi-pdp-related-card__price { font-size: 13px; color: rgba(var(--textColor-rgb),.6); margin: auto 0 0; }
+
+  /* ── Brand block ─────────────────────────────────────────────────── */
+  .bbi-pdp-brand { background: var(--alternateBackground); border-radius: 10px; padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+  .bbi-pdp-brand__eyebrow { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: rgba(var(--textColor-rgb),.55); margin: 0; }
+  .bbi-pdp-brand__name { font-family: var(--headingFont); font-size: clamp(20px,2vw,26px); font-weight: 700; margin: 0; }
+  .bbi-pdp-brand__badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; background: rgba(200,16,46,.07); color: #C8102E; width: fit-content; }
+  .bbi-pdp-brand__blurb { font-size: 15px; line-height: 1.65; color: rgba(var(--textColor-rgb),.78); margin: 0; max-width: 60ch; }
+  .bbi-pdp-brand__link { font-size: 14px; font-weight: 600; color: var(--textColor); text-decoration: underline; text-underline-offset: 3px; }
+  .bbi-pdp-brand__link:hover { color: var(--accentRed, #C8102E); }
+
+  /* ── CTA closer ──────────────────────────────────────────────────── */
+  .bbi-pdp__cta-closer { padding: var(--space-16) var(--space-6); }
+  .bbi-pdp__cta-closer .bbi-pdp-band__inner { display: grid; grid-template-columns: 1fr; gap: var(--space-8); }
+  @media (min-width: 768px) { .bbi-pdp__cta-closer .bbi-pdp-band__inner { grid-template-columns: 1fr 1fr; align-items: center; } }
+  .bbi-pdp__cta-closer .cta-heading { font-family: var(--headingFont); font-size: clamp(28px,3.5vw,46px); font-weight: 600; letter-spacing: -.015em; line-height: 1.1; margin: 0 0 var(--space-4); text-wrap: balance; }
+  .bbi-pdp__cta-closer .cta-sub { font-size: 17px; line-height: 1.55; color: rgba(var(--textColor-rgb),.75); margin: 0; max-width: 48ch; }
+  .bbi-pdp__cta-closer .cta-actions { display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+
+  /* ── Shared buttons ──────────────────────────────────────────────── */
+  .bbi-pdp .bbi-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--bodyFont); font-size: 15px; font-weight: 600; letter-spacing: .01em; padding: 14px 22px; border-radius: 8px; border: 1.5px solid transparent; cursor: pointer; text-decoration: none; transition: background .15s, color .15s, border-color .15s; line-height: 1; }
+  .bbi-pdp .bbi-btn--lg { padding: 16px 28px; font-size: 16px; min-height: 52px; }
+  .bbi-pdp .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+  .bbi-pdp .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); }
+  .bbi-pdp .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
+  .bbi-pdp .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); }
+  .bbi-pdp .bbi-btn--ghost { background: transparent; color: var(--textColor); border-color: var(--borderColor); }
+  .bbi-pdp .bbi-btn--ghost:hover { border-color: var(--textColor); }
+  .bbi-pdp .scheme-inverse .bbi-btn--primary { background: #FFFFFF; color: #111112; border-color: #FFFFFF; }
+  .bbi-pdp .scheme-inverse .bbi-btn--primary:hover { background: #F0F0F0; }
+  .bbi-pdp .scheme-inverse .bbi-btn--ghost { border-color: rgba(255,255,255,.35); color: #FFFFFF; }
+  .bbi-pdp .scheme-inverse .bbi-btn--ghost:hover { border-color: #FFFFFF; }
+
+  /* ── Visually hidden (accessible labels) ────────────────────────── */
+  .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  /* ── RFQ Modal ───────────────────────────────────────────────────── */
+  .bbi-rfq-modal { display: none; }
+  .bbi-rfq-modal[open] { display: flex; }
+  dialog.bbi-rfq-modal { position: fixed; inset: 0; margin: auto; width: min(560px, calc(100vw - 32px)); background: var(--background); border: 1px solid var(--borderColor); border-radius: 12px; padding: var(--space-8); box-shadow: 0 12px 48px rgba(0,0,0,.18); flex-direction: column; gap: var(--space-4); z-index: 9999; }
+  dialog.bbi-rfq-modal::backdrop { background: rgba(0,0,0,.4); }
+  .bbi-rfq-modal__close { position: absolute; top: var(--space-4); right: var(--space-4); background: none; border: none; font-size: 22px; cursor: pointer; color: rgba(var(--textColor-rgb),.6); line-height: 1; padding: 4px; }
+  .bbi-rfq-modal__close:hover { color: var(--textColor); }
+  .bbi-rfq-modal__title { font-family: var(--headingFont); font-size: 22px; font-weight: 700; margin: 0; }
+  .bbi-rfq-modal__sub { font-size: 14px; color: rgba(var(--textColor-rgb),.65); margin: -8px 0 0; }
+  .bbi-rfq-modal form { display: flex; flex-direction: column; gap: var(--space-4); }
+  .bbi-rfq-modal label { font-size: 13px; font-weight: 600; display: flex; flex-direction: column; gap: 6px; }
+  .bbi-rfq-modal input,
+  .bbi-rfq-modal textarea { font-family: inherit; font-size: 15px; padding: 10px 12px; border: 1.5px solid var(--borderColor); border-radius: 6px; background: var(--background); color: var(--textColor); width: 100%; box-sizing: border-box; }
+  .bbi-rfq-modal textarea { min-height: 90px; resize: vertical; }
+  .bbi-rfq-modal input:focus,
+  .bbi-rfq-modal textarea:focus { outline: none; border-color: var(--textColor); }
+
+  /* ── Responsive adjustments ──────────────────────────────────────── */
+  @media (max-width: 599px) {
+    .bbi-pdp__hero { padding: var(--space-6) var(--space-4) var(--space-8); }
+    .bbi-pdp-band { padding: var(--space-8) var(--space-4); }
+    .bbi-pdp__cta-closer { padding: var(--space-12) var(--space-4); }
+  }
+</style>
+
+{%- comment -%} ── Nav ──────────────────────────────────────────────────────── {%- endcomment -%}
+{%- render 'bbi-nav', logo: section.settings.logo, active: 'shop' -%}
+
+{%- comment -%} ── Breadcrumbs ───────────────────────────────────────────────── {%- endcomment -%}
+{%- if _pdp_parent_hub_title != blank -%}
+  {%- render 'bbi-crumbs',
+      c2_label: 'Shop Furniture', c2_href: '/collections/business-furniture',
+      c3_label: _pdp_parent_hub_title, c3_href: _pdp_parent_hub_href,
+      c4_label: _pdp_sub_coll.title, c4_href: _pdp_sub_coll.url,
+      c5_label: product.title -%}
+{%- elsif _pdp_sub_coll != nil -%}
+  {%- render 'bbi-crumbs',
+      c2_label: 'Shop Furniture', c2_href: '/collections/business-furniture',
+      c3_label: _pdp_sub_coll.title, c3_href: _pdp_sub_coll.url,
+      c4_label: product.title -%}
+{%- else -%}
+  {%- render 'bbi-crumbs', c2_label: 'Shop Furniture', c2_href: '/collections/business-furniture', c3_label: product.title -%}
+{%- endif -%}
+
+<div class="bbi-pdp">
+
+  {%- comment -%} ── Hero: Gallery + Commerce panel ──────────────────────────── {%- endcomment -%}
+  <section class="bbi-pdp__hero" aria-label="Product overview">
+
+    {%- comment -%} Gallery — left column ─────────────────────── {%- endcomment -%}
+    <bbi-gallery class="bbi-pdp-gallery" aria-label="Product images">
+      <div class="bbi-pdp-gallery__main" id="bbi-gallery-main">
+        {%- if product.featured_image -%}
+          {{- product.featured_image | image_url: width: 900 | image_tag:
+              loading: 'eager',
+              alt: product.featured_image.alt | default: product.title,
+              width: product.featured_image.width,
+              height: product.featured_image.height,
+              id: 'bbi-gallery-active-img',
+              class: 'bbi-pdp-gallery__active' -}}
+        {%- else -%}
+          <img src="{{ 'placeholder.svg' | asset_url }}" alt="{{ product.title | escape }}" width="600" height="450" loading="eager">
+        {%- endif -%}
+        {%- if product.images.size > 1 -%}
+          <button class="bbi-pdp-gallery__nav bbi-pdp-gallery__prev" aria-label="Previous image">‹</button>
+          <button class="bbi-pdp-gallery__nav bbi-pdp-gallery__next" aria-label="Next image">›</button>
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="bbi-pdp-gallery__strip" role="list" aria-label="Thumbnail images">
+          {%- for image in product.images limit: 8 -%}
+            <button
+              class="bbi-pdp-gallery__thumb"
+              role="listitem"
+              aria-label="{{ image.alt | default: product.title | escape }} — image {{ forloop.index }}"
+              aria-selected="{{ forloop.first | default: 'false' }}"
+              data-src="{{ image | image_url: width: 900 }}"
+              data-full="{{ image | image_url: width: 900 }}">
+              {{- image | image_url: width: 144 | image_tag:
+                  loading: 'lazy',
+                  alt: image.alt | default: product.title,
+                  width: 72, height: 72 -}}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </bbi-gallery>
+
+    {%- comment -%} Commerce panel — right column ──────────────── {%- endcomment -%}
+    <div class="bbi-pdp-info">
+
+      {%- comment -%} Vendor / brand line {%- endcomment -%}
+      {%- if _pdp_brand_name != blank -%}
+        <p class="bbi-pdp-info__vendor">{{ _pdp_brand_name | escape }}</p>
+      {%- endif -%}
+
+      {%- comment -%} Title {%- endcomment -%}
+      <h1 class="bbi-pdp-info__title">{{ product.title | escape }}</h1>
+
+      {%- comment -%} Trust pills {%- endcomment -%}
+      {%- liquid
+        assign _pdp_show_badges = false
+        if product.available == false or product.price == 0
+          assign _pdp_show_badges = true
+        endif
+        if product.metafields.specs.country_of_manufacture.value == 'Canada'
+          assign _pdp_show_badges = true
+        endif
+        if product.tags contains 'oecm-eligible'
+          assign _pdp_show_badges = true
+        endif
+      -%}
+      {%- if _pdp_show_badges -%}
+        <div class="bbi-pdp-badges" role="list" aria-label="Product badges">
+          {%- if product.available == false or product.price == 0 -%}
+            <span class="bbi-pdp-badge bbi-pdp-badge--sold-out" role="listitem">Contact for availability</span>
+          {%- endif -%}
+          {%- if product.metafields.specs.country_of_manufacture.value == 'Canada' -%}
+            <span class="bbi-pdp-badge bbi-pdp-badge--canadian" role="listitem">
+              <svg class="bbi-pdp-badge__leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true">
+                <path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/>
+              </svg>
+              Made in Canada
+            </span>
+          {%- endif -%}
+          {%- if product.tags contains 'oecm-eligible' -%}
+            <span class="bbi-pdp-badge bbi-pdp-badge--oecm" role="listitem">OECM Eligible</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if _pdp_buyable -%}
+        {%- comment -%} ── Buyable flow ──────────────────────────────────────── {%- endcomment -%}
+        <div class="bbi-pdp-price">
+          <span>{{ product.price | money }}</span>
+          <p class="bbi-pdp-price__note">CAD · Price may vary by configuration</p>
+        </div>
+
+        {%- comment -%} Variant picker — visual swatches for colour/finish, pill chips for size {%- endcomment -%}
+        {%- unless product.has_only_default_variant -%}
+          {%- liquid
+            assign _colour_keywords = 'color,colour,finish,fabric,base colour,base color' | split: ','
+            assign _size_keywords   = 'size,width,height,depth' | split: ','
+          -%}
+          <div class="bbi-pdp-options">
+            {%- for option in product.options_with_values -%}
+              {%- liquid
+                assign _opt_name_lower = option.name | downcase
+                assign _is_colour = false
+                assign _is_size   = false
+                for kw in _colour_keywords
+                  if _opt_name_lower contains kw
+                    assign _is_colour = true
+                  endif
+                endfor
+                for kw in _size_keywords
+                  if _opt_name_lower contains kw
+                    assign _is_size = true
+                  endif
+                endfor
+                assign _opt_idx = forloop.index0
+              -%}
+              <div class="bbi-pdp-option" data-option-index="{{ _opt_idx }}">
+                <span class="bbi-pdp-option__label" id="bbi-opt-label-{{ _opt_idx }}">
+                  {{- option.name | escape -}}: <em class="bbi-opt-selected-val" data-opt="{{ _opt_idx }}">{{ option.selected_value | escape }}</em>
+                </span>
+                <div class="bbi-pdp-swatches" role="radiogroup" aria-labelledby="bbi-opt-label-{{ _opt_idx }}">
+                  {%- for value in option.values -%}
+                    {%- liquid
+                      assign _val_lower  = value | downcase | strip
+                      assign _hex        = ''
+                      case _val_lower
+                        when 'black'     then assign _hex = '#1A1A1A'
+                        when 'white'     then assign _hex = '#FFFFFF'
+                        when 'grey'      then assign _hex = '#888888'
+                        when 'gray'      then assign _hex = '#888888'
+                        when 'silver'    then assign _hex = '#C0C0C0'
+                        when 'chrome'    then assign _hex = '#B8C0CC'
+                        when 'blue'      then assign _hex = '#2563EB'
+                        when 'navy'      then assign _hex = '#1E3A5F'
+                        when 'red'       then assign _hex = '#DC2626'
+                        when 'green'     then assign _hex = '#16A34A'
+                        when 'brown'     then assign _hex = '#92400E'
+                        when 'beige'     then assign _hex = '#D4B896'
+                        when 'charcoal'  then assign _hex = '#36454F'
+                        when 'tan'       then assign _hex = '#D2B48C'
+                        when 'gold'      then assign _hex = '#B8860B'
+                        when 'yellow'    then assign _hex = '#EAB308'
+                        when 'orange'    then assign _hex = '#EA580C'
+                        when 'purple'    then assign _hex = '#7C3AED'
+                        when 'pink'      then assign _hex = '#EC4899'
+                        when 'teal'      then assign _hex = '#0D9488'
+                        when 'ivory'     then assign _hex = '#FFFFF0'
+                        when 'cream'     then assign _hex = '#FFF8E7'
+                        when 'espresso'  then assign _hex = '#3C1F0A'
+                        when 'walnut'    then assign _hex = '#5C3A1E'
+                        when 'maple'     then assign _hex = '#D4956A'
+                        when 'cherry'    then assign _hex = '#8B1A1A'
+                      endcase
+                      assign _checked = false
+                      if value == option.selected_value
+                        assign _checked = true
+                      endif
+                      assign _swatch_id = 'swatch-' | append: _opt_idx | append: '-' | append: forloop.index
+                    -%}
+                    <label class="bbi-pdp-swatch {%- if _is_colour and _hex != '' %} bbi-pdp-swatch--colour{%- elsif _is_size %} bbi-pdp-swatch--size{%- else %} bbi-pdp-swatch--text{%- endif %}">
+                      <input
+                        type="radio"
+                        name="option-{{ _opt_idx }}"
+                        value="{{ value | escape }}"
+                        id="{{ _swatch_id }}"
+                        {%- if _checked %} checked{%- endif %}>
+                      <span class="bbi-pdp-swatch__chip" title="{{ value | escape }}">
+                        {%- if _is_colour and _hex != '' -%}
+                          <span class="bbi-pdp-swatch__dot" style="background:{{ _hex }};{%- if _hex == '#FFFFFF' %} border:1px solid #E5E5E7;{%- endif %}"></span>
+                          <span class="visually-hidden">{{ value | escape }}</span>
+                        {%- else -%}
+                          {{ value | escape }}
+                        {%- endif -%}
+                      </span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+
+        {%- comment -%} Add to cart {%- endcomment -%}
+        <div class="bbi-pdp-atc">
+          <form action="/cart/add" method="post" enctype="multipart/form-data">
+            {%- if product.variants.size > 1 -%}
+              <select name="id" class="visually-hidden" aria-label="Variant">
+                {%- for variant in product.variants -%}
+                  <option value="{{ variant.id }}"
+                    {%- if variant.available == false %} disabled{%- endif -%}
+                    {%- if variant == product.selected_or_first_available_variant %} selected{%- endif -%}>
+                    {{ variant.title | escape }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            {%- else -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            {%- endif -%}
+            <button type="submit" name="add" class="bbi-btn bbi-btn--primary bbi-btn--lg">
+              Add to cart <span aria-hidden="true">→</span>
+            </button>
+          </form>
+        </div>
+
+      {%- else -%}
+        {%- comment -%} ── Unbuyable / RFQ flow (primary for ~92% of catalog) ── {%- endcomment -%}
+        <div class="bbi-pdp-rfq">
+          <p class="bbi-pdp-rfq__headline">Contact us for pricing and availability</p>
+
+          {%- if _pdp_has_key_features -%}
+            <ul class="bbi-pdp-rfq__features" aria-label="Key features">
+              {%- for feat in product.metafields.specs.key_features.value limit: 3 -%}
+                <li>{{ feat | escape }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          <div class="bbi-pdp-rfq__actions">
+            <button
+              class="bbi-btn bbi-btn--primary bbi-btn--lg"
+              onclick="document.getElementById('bbi-rfq-dialog').showModal()"
+              type="button"
+              aria-haspopup="dialog">
+              Request a Quote <span aria-hidden="true">→</span>
+            </button>
+            <p class="bbi-pdp-rfq__phone">
+              or call <a href="tel:+18008359565">1-800-835-9565</a>
+            </p>
+          </div>
+        </div>
+
+      {%- endif -%}
+
+    </div>{%- comment -%} /.bbi-pdp-info {%- endcomment -%}
+  </section>
+
+  {%- comment -%} ── About this product ────────────────────────────────────── {%- endcomment -%}
+  {%- if product.description != blank -%}
+    <hr class="bbi-pdp-divider">
+    <section class="bbi-pdp-band" aria-labelledby="bbi-pdp-desc-heading">
+      <div class="bbi-pdp-band__inner">
+        <p class="bbi-pdp-band__label">About this product</p>
+        <div class="bbi-pdp-desc" id="bbi-pdp-desc-heading">
+          {{ product.description }}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ── Specifications table ───────────────────────────────────── {%- endcomment -%}
+  {%- if _pdp_spec_row_count > 0 -%}
+    <hr class="bbi-pdp-divider">
+    <section class="bbi-pdp-band" aria-labelledby="bbi-pdp-specs-heading">
+      <div class="bbi-pdp-band__inner">
+        <p class="bbi-pdp-band__label">Specifications</p>
+        <h2 class="bbi-pdp-band__heading" id="bbi-pdp-specs-heading">Product details</h2>
+        <table class="bbi-pdp-specs-table">
+          <tbody>
+            {%- if _pdp_brand_name != blank -%}
+              <tr>
+                <th scope="row">Brand</th>
+                <td>{{ _pdp_brand_name | escape }}</td>
+              </tr>
+            {%- endif -%}
+            {%- if product.type != blank -%}
+              <tr>
+                <th scope="row">Category</th>
+                <td>{{ product.type | escape }}</td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_product_line -%}
+              <tr>
+                <th scope="row">Product line</th>
+                <td>{{ product.metafields.specs.product_line.value | escape }}</td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_model_codes -%}
+              <tr>
+                <th scope="row">Model no.</th>
+                <td>
+                  <ul class="bbi-pdp-specs-list">
+                    {%- for code in product.metafields.specs.model_codes.value -%}
+                      <li>{{ code | escape }}</li>
+                    {%- endfor -%}
+                  </ul>
+                </td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_dimensions -%}
+              <tr>
+                <th scope="row">Dimensions</th>
+                <td>{{ product.metafields.specs.dimensions.value | escape }}</td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_weight -%}
+              <tr>
+                <th scope="row">Weight</th>
+                <td>{{ product.metafields.specs.weight.value | escape }}</td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_weight_capacity -%}
+              <tr>
+                <th scope="row">Weight capacity</th>
+                <td>{{ product.metafields.specs.weight_capacity.value | escape }}</td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_materials -%}
+              <tr>
+                <th scope="row">Materials</th>
+                <td>{{ product.metafields.specs.materials.value | newline_to_br | escape }}</td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_finishes -%}
+              <tr>
+                <th scope="row">Finishes available</th>
+                <td>
+                  <ul class="bbi-pdp-specs-list">
+                    {%- for finish in product.metafields.specs.finishes_available.value -%}
+                      <li>{{ finish | escape }}</li>
+                    {%- endfor -%}
+                  </ul>
+                </td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_certifications -%}
+              <tr>
+                <th scope="row">Certifications</th>
+                <td>
+                  <ul class="bbi-pdp-specs-list">
+                    {%- for cert in product.metafields.specs.certifications.value -%}
+                      <li>{{ cert | escape }}</li>
+                    {%- endfor -%}
+                  </ul>
+                </td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_country -%}
+              <tr>
+                <th scope="row">Country of manufacture</th>
+                <td>{{ product.metafields.specs.country_of_manufacture.value | escape }}</td>
+              </tr>
+            {%- endif -%}
+            {%- if _pdp_has_warranty -%}
+              <tr>
+                <th scope="row">Warranty</th>
+                <td>{{ product.metafields.specs.warranty.value | escape }}</td>
+              </tr>
+            {%- endif -%}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ── Related products ──────────────────────────────────────── {%- endcomment -%}
+  {%- if _pdp_related_count >= 2 -%}
+    <hr class="bbi-pdp-divider">
+    <section class="bbi-pdp-band" aria-labelledby="bbi-pdp-related-heading">
+      <div class="bbi-pdp-band__inner">
+        <p class="bbi-pdp-band__label">You may also like</p>
+        <h2 class="bbi-pdp-band__heading" id="bbi-pdp-related-heading">Related products</h2>
+        <div class="bbi-pdp-related-grid">
+          {%- assign _rel_shown = 0 -%}
+          {%- for rp in collection.products -%}
+            {%- if _rel_shown >= 4 -%}{%- break -%}{%- endif -%}
+            {%- if rp.id == product.id -%}{%- continue -%}{%- endif -%}
+            {%- if rp.type != product.type -%}{%- continue -%}{%- endif -%}
+            {%- assign _rel_shown = _rel_shown | plus: 1 -%}
+            <a href="{{ rp.url }}" class="bbi-pdp-related-card" aria-label="{{ rp.title | escape }}">
+              <div class="bbi-pdp-related-card__img-wrap">
+                {%- if rp.featured_image -%}
+                  {{- rp.featured_image | image_url: width: 440 | image_tag:
+                      loading: 'lazy',
+                      alt: rp.featured_image.alt | default: rp.title,
+                      width: 440, height: 330 -}}
+                {%- endif -%}
+              </div>
+              <div class="bbi-pdp-related-card__body">
+                <p class="bbi-pdp-related-card__title">{{ rp.title | escape }}</p>
+                <p class="bbi-pdp-related-card__price">
+                  {%- if rp.price > 0 -%}{{ rp.price | money }}{%- else -%}Request a quote{%- endif -%}
+                </p>
+              </div>
+            </a>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ── About the Brand ───────────────────────────────────────── {%- endcomment -%}
+  {%- if _pdp_brand_key != 'generic' -%}
+    <hr class="bbi-pdp-divider">
+    <section class="bbi-pdp-band" aria-labelledby="bbi-pdp-brand-heading">
+      <div class="bbi-pdp-band__inner">
+        <p class="bbi-pdp-band__label">About the brand</p>
+        <div class="bbi-pdp-brand">
+          {%- if _pdp_brand_key == 'ergocentr' -%}
+            <p class="bbi-pdp-brand__eyebrow">Authorized Dealer</p>
+            <h2 class="bbi-pdp-brand__name" id="bbi-pdp-brand-heading">ergoCentric</h2>
+            <span class="bbi-pdp-brand__badge">
+              <svg viewBox="0 0 13 13" fill="currentColor" width="10" height="10" aria-hidden="true">
+                <path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/>
+              </svg>
+              Made in Canada · Concord, ON
+            </span>
+            <p class="bbi-pdp-brand__blurb">ergoCentric manufactures ergonomic task and 24/7 seating in Concord, Ontario. Chairs specified by Ontario hospitals, municipalities, and schools — available under OECM Agreement 2025-470. Quote in 1 business day.</p>
+            <a class="bbi-pdp-brand__link" href="/pages/brands-ergocentric">View all ergoCentric chairs →</a>
+
+          {%- elsif _pdp_brand_key == 'keilhauer' -%}
+            <p class="bbi-pdp-brand__eyebrow">Authorized Dealer</p>
+            <h2 class="bbi-pdp-brand__name" id="bbi-pdp-brand-heading">Keilhauer</h2>
+            <span class="bbi-pdp-brand__badge">
+              <svg viewBox="0 0 13 13" fill="currentColor" width="10" height="10" aria-hidden="true">
+                <path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/>
+              </svg>
+              Made in Canada · Toronto, ON
+            </span>
+            <p class="bbi-pdp-brand__blurb">Keilhauer is a Canadian furniture manufacturer known for workplace seating and lounge collections. Contract-grade construction built for healthcare, hospitality, and corporate environments. Authorized Brant Business Interiors dealer.</p>
+            <a class="bbi-pdp-brand__link" href="/pages/brands-keilhauer">View all Keilhauer products →</a>
+
+          {%- elsif _pdp_brand_key == 'global' -%}
+            <p class="bbi-pdp-brand__eyebrow">Authorized Dealer</p>
+            <h2 class="bbi-pdp-brand__name" id="bbi-pdp-brand-heading">{{ _pdp_brand_name | escape }}</h2>
+            <p class="bbi-pdp-brand__blurb">Global Furniture Group and its brands — including Offices to Go, Teknion, and United Chair — supply contract-grade office furniture to institutions across North America. Brant Business Interiors is an authorized Ontario dealer with access to the full commercial lineup.</p>
+            <a class="bbi-pdp-brand__link" href="/pages/brands-global-teknion">View all Global / Teknion products →</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ── OECM bar ──────────────────────────────────────────────── {%- endcomment -%}
+  {%- render 'bbi-oecm-bar' -%}
+
+  {%- comment -%} ── CTA closer ────────────────────────────────────────────── {%- endcomment -%}
+  <section class="bbi-pdp-band bbi-pdp__cta-closer scheme-inverse" aria-label="Get started">
+    <div class="bbi-pdp-band__inner">
+      <div>
+        <p class="bbi-pdp-band__label" style="color:rgba(255,255,255,.55)">Get started</p>
+        <h2 class="cta-heading">Ready to furnish your next space?</h2>
+        <p class="cta-sub">Ontario-owned since 1962. One team owns your file from quote through warranty — no out-of-province handoffs. Most quotes return within one business day.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">Request a Quote <span aria-hidden="true">→</span></a>
+        <a class="bbi-btn bbi-btn--ghost bbi-btn--lg" href="tel:+18008359565">Call 1-800-835-9565</a>
+      </div>
+    </div>
+  </section>
+
+</div>{%- comment -%} /.bbi-pdp {%- endcomment -%}
+
+{%- comment -%} ── Footer ────────────────────────────────────────────────────── {%- endcomment -%}
+{%- render 'bbi-footer', logo: section.settings.logo -%}
+
+{%- comment -%} ── RFQ Dialog (unbuyable products) ──────────────────────────── {%- endcomment -%}
+{%- unless _pdp_buyable -%}
+<dialog class="bbi-rfq-modal" id="bbi-rfq-dialog" aria-labelledby="bbi-rfq-modal-title" aria-modal="true">
+  <button class="bbi-rfq-modal__close" onclick="document.getElementById('bbi-rfq-dialog').close()" aria-label="Close">×</button>
+  <h2 class="bbi-rfq-modal__title" id="bbi-rfq-modal-title">Request a Quote</h2>
+  <p class="bbi-rfq-modal__sub">{{ product.title | escape }}</p>
+  <form action="/pages/quote" method="get">
+    <input type="hidden" name="product" value="{{ product.handle | escape }}">
+    <label>
+      Your name
+      <input type="text" name="name" autocomplete="name" required>
+    </label>
+    <label>
+      Email address
+      <input type="email" name="email" autocomplete="email" required>
+    </label>
+    <label>
+      Phone (optional)
+      <input type="tel" name="phone" autocomplete="tel">
+    </label>
+    <label>
+      Message / quantity / configuration notes
+      <textarea name="message" placeholder="e.g. 12 units, fabric grade 3, delivery to Hamilton, ON"></textarea>
+    </label>
+    <button type="submit" class="bbi-btn bbi-btn--primary bbi-btn--lg">Send quote request →</button>
+  </form>
+</dialog>
+{%- endunless -%}
+
+{%- comment -%} ── Gallery + Modal JS (Web Component) ────────────────────────── {%- endcomment -%}
+<script>
+  class BBIGallery extends HTMLElement {
+    connectedCallback() {
+      this._images = [
+        {%- for img in product.images limit: 8 -%}
+          { src: {{ img | image_url: width: 900 | json }}, alt: {{ img.alt | default: product.title | json }} }
+          {%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ];
+      this._idx = 0;
+      const mainImg = this.querySelector('#bbi-gallery-active-img');
+      if (!mainImg) return;
+      this.querySelectorAll('.bbi-pdp-gallery__thumb').forEach((btn, i) => {
+        btn.addEventListener('click', () => this._show(i));
+      });
+      const prev = this.querySelector('.bbi-pdp-gallery__prev');
+      const next = this.querySelector('.bbi-pdp-gallery__next');
+      if (prev) prev.addEventListener('click', () => this._show(this._idx - 1));
+      if (next) next.addEventListener('click', () => this._show(this._idx + 1));
+    }
+    _show(i) {
+      if (!this._images.length) return;
+      this._idx = ((i % this._images.length) + this._images.length) % this._images.length;
+      const img = this.querySelector('#bbi-gallery-active-img');
+      if (img) {
+        img.src = this._images[this._idx].src;
+        img.alt = this._images[this._idx].alt;
+      }
+      this.querySelectorAll('.bbi-pdp-gallery__thumb').forEach((btn, idx) => {
+        btn.setAttribute('aria-selected', String(idx === this._idx));
+      });
+    }
+  }
+  customElements.define('bbi-gallery', BBIGallery);
+
+  // Close RFQ dialog on backdrop click
+  const _rfqDialog = document.getElementById('bbi-rfq-dialog');
+  if (_rfqDialog) {
+    _rfqDialog.addEventListener('click', (e) => {
+      const rect = _rfqDialog.getBoundingClientRect();
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+        _rfqDialog.close();
+      }
+    });
+  }
+</script>
+
+{%- comment -%} ── Variant swatch JS ─────────────────────────────────────────── {%- endcomment -%}
+{%- unless product.has_only_default_variant -%}
+<script>
+  (function() {
+    const _sBBIColourHex = {
+      'black':'#1A1A1A','white':'#FFFFFF','grey':'#888','gray':'#888','silver':'#C0C0C0',
+      'chrome':'#B8C0CC','blue':'#2563EB','navy':'#1E3A5F','red':'#DC2626','green':'#16A34A',
+      'brown':'#92400E','beige':'#D4B896','charcoal':'#36454F','tan':'#D2B48C','gold':'#B8860B',
+      'yellow':'#EAB308','orange':'#EA580C','purple':'#7C3AED','pink':'#EC4899','teal':'#0D9488',
+      'ivory':'#FFFFF0','cream':'#FFF8E7','espresso':'#3C1F0A','walnut':'#5C3A1E','maple':'#D4956A',
+      'cherry':'#8B1A1A'
+    };
+    window.BBI = window.BBI || {};
+    window.BBI.colourHex = _sBBIColourHex;
+
+    // Sync swatch selection → hidden variant select + update label
+    document.querySelectorAll('.bbi-pdp-swatch input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const optIdx = Number(radio.closest('[data-option-index]').dataset.optionIndex);
+        const val    = radio.value;
+        // Update visible selected value label
+        const label = document.querySelector('.bbi-opt-selected-val[data-opt="' + optIdx + '"]');
+        if (label) label.textContent = val;
+        // Find best-matching variant
+        const sel = document.querySelector('select[name="id"]');
+        if (!sel) return;
+        let found = false;
+        Array.from(sel.options).forEach(opt => {
+          if (found) return;
+          const parts = opt.textContent.trim().split(' / ');
+          if (parts[optIdx] === val && !opt.disabled) {
+            found = true;
+            sel.value = opt.value;
+            sel.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        });
+      });
+    });
+  })();
+</script>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Product page",
+  "class": "bbi-pdp-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Store logo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product page"
+    }
+  ],
+  "blocks": [
+    { "type": "@app" }
+  ]
+}
+{% endschema %}
