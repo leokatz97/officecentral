@@ -186,6 +186,7 @@
 }
 @media(min-width:640px){.ds-cs__product-grid{grid-template-columns:repeat(3,1fr);}}
 @media(min-width:1024px){.ds-cs__product-grid{grid-template-columns:repeat(4,1fr);}}
+.ds-cs__product-grid>li{display:flex;}
 
 /* ── Product card ─────────────────────────────────────────────────── */
 .ds-cs__card{
@@ -193,7 +194,7 @@
   border-radius:var(--cardRadius);overflow:hidden;
   box-shadow:var(--shadow-sm);
   transition:transform 150ms ease,box-shadow 150ms ease;
-  display:flex;flex-direction:column;
+  display:flex;flex-direction:column;height:100%;
 }
 .ds-cs__card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
 .ds-cs__card-img{

@@ -486,3 +486,51 @@ Spot-checked 5 handles post-flip:
 2. **Three user-facing handles have hub-name suffix doubled** (`reception-desks-desks`, `lateral-file-cabinets-storage`, `vertical-file-cabinets-storage`). These are live, linked from hub tiles, and now correctly on `template_suffix=base`. Renaming requires a URL redirect strategy (301 old → new, update hub tile links, update metafield keys). Defer to a dedicated redirect stage.
 
 3. **`meeting-conference-room-tables` breadcrumb shows "Tables" from boardroom-hub clicks** — minor UX inconsistency. Acceptable until a dual-parent breadcrumb strategy is defined.
+
+---
+
+## Stage 3.2 Polish — Tile Height Variance Hotfix
+
+**Date:** 2026-05-07
+**Branch:** `chore/stage-3.2-tile-height-polish`
+
+### Root cause
+
+The product grid (`<ul class="ds-cs__product-grid">`) uses `display:grid`, which gives each `<li>` equal height across a row via `align-self:stretch`. However `.ds-cs__card` (the `<article>` inside `<li>`) had no `height` constraint, so it sized to its content rather than filling the `<li>`. Cards with 1-line titles rendered shorter than cards with 2-line titles.
+
+### CSS changes
+
+**Before:**
+```css
+@media(min-width:1024px){.ds-cs__product-grid{grid-template-columns:repeat(4,1fr);}}
+/* no li rule */
+.ds-cs__card{
+  ...
+  display:flex;flex-direction:column;
+  /* no height */
+}
+```
+
+**After:**
+```css
+@media(min-width:1024px){.ds-cs__product-grid{grid-template-columns:repeat(4,1fr);}}
+.ds-cs__product-grid>li{display:flex;}
+.ds-cs__card{
+  ...
+  display:flex;flex-direction:column;height:100%;
+}
+```
+
+`li{display:flex}` makes the `<li>` a flex container so `.ds-cs__card` stretches to fill it. `height:100%` ensures the card explicitly fills available space. The existing `flex:1` on `.ds-cs__card-body` and `flex:1` on `.ds-cs__card-title` already push the footer to the bottom — no further changes needed.
+
+### Push status
+
+- File: `sections/ds-cs-base.liquid`
+- Theme: dev `186373570873`
+- HTTP 200, `updated_at: 2026-05-07T22:32:36-04:00`
+- Spot-check: both new rules confirmed present in pulled asset ✓
+- Integrity check: bbi-nav ✓, bbi-crumbs ✓, bbi-footer ✓, {% schema %} ✓
+
+### Status
+
+Ready for visual verification. Halt before merge.
