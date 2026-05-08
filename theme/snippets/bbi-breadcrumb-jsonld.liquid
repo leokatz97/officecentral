@@ -1,0 +1,57 @@
+{%- comment -%}
+  Snippet: bbi-breadcrumb-jsonld
+  Purpose: Renders a BreadcrumbList JSON-LD block. Shared across PDPs, category
+           pages (ds-cc-base), and sub-collection pages (ds-cs-base).
+  Usage (render is sandboxed — pass named string params):
+    {%- render 'bbi-breadcrumb-jsonld',
+        bc1_name: 'Home',           bc1_url: shop.url,
+        bc2_name: 'Shop Furniture', bc2_url: shop.url | append: '/collections/business-furniture',
+        bc3_name: 'Seating',        bc3_url: shop.url | append: '/collections/seating',
+        bc4_name: product.title,    bc4_url: shop.url | append: product.url
+    -%}
+  Notes:
+    - Levels with blank bc*_name are omitted from the list.
+    - Up to 4 levels supported. Extend to bc5 if ever needed.
+    - bc1_url / bcN_url should be absolute (include shop.url prefix).
+{%- endcomment -%}
+
+{%- unless bc1_name == blank -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": {{ bc1_name | strip | json }},
+      "item": {{ bc1_url | json }}
+    }
+    {%- unless bc2_name == blank -%}
+    ,{
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ bc2_name | strip | json }},
+      "item": {{ bc2_url | json }}
+    }
+    {%- endunless -%}
+    {%- unless bc3_name == blank -%}
+    ,{
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ bc3_name | strip | json }},
+      "item": {{ bc3_url | json }}
+    }
+    {%- endunless -%}
+    {%- unless bc4_name == blank -%}
+    ,{
+      "@type": "ListItem",
+      "position": 4,
+      "name": {{ bc4_name | strip | json }},
+      "item": {{ bc4_url | json }}
+    }
+    {%- endunless -%}
+  ]
+}
+</script>
+{%- endunless -%}

@@ -1,0 +1,88 @@
+{%- comment -%}
+  Snippet: bbi-product-jsonld  (PDP-2 — absorbs Wave E AI-3)
+  Purpose: Product JSON-LD for every BBI PDP. Also renders BreadcrumbList via
+           bbi-breadcrumb-jsonld.liquid.
+  Called from: theme/sections/ds-pdp-base.liquid
+  Parameters:
+    product    — the Shopify product object (required)
+    cat_handle — collection handle string derived from product type:* tag (optional)
+    cat_label  — human-readable category label (optional)
+  Schema.org fields:
+    @type: Product
+    name, description, image (array), brand (Organization), sku, mpn (if present),
+    offers: { @type: Offer, price, priceCurrency: CAD, availability, url, seller }
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign product_url = shop.url | append: product.url
+
+  assign offer_availability = 'https://schema.org/InStock'
+  if product.available == false
+    assign offer_availability = 'https://schema.org/OutOfStock'
+  elsif product.price == 0
+    assign offer_availability = 'https://schema.org/InStock'
+  endif
+
+  assign offer_price = variant.price | divided_by: 100.0
+
+  assign mpn_val = variant.sku | default: ''
+-%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | truncate: 500 | json }},
+  "image": [
+    {%- for image in product.images limit: 5 -%}
+      {{ image | image_url: width: 1200 | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ],
+  {%- if product.vendor != blank -%}
+  "brand": {
+    "@type": "Brand",
+    "name": {{ product.vendor | json }}
+  },
+  {%- endif -%}
+  {%- if variant.sku != blank -%}
+  "sku": {{ variant.sku | json }},
+  {%- endif -%}
+  {%- if mpn_val != blank -%}
+  "mpn": {{ mpn_val | json }},
+  {%- endif -%}
+  "offers": {
+    "@type": "Offer",
+    "url": {{ product_url | json }},
+    "priceCurrency": "CAD",
+    {%- if product.price == 0 -%}
+    "price": "0",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "description": "Price available on request"
+    },
+    {%- else -%}
+    "price": {{ offer_price | round: 2 | json }},
+    {%- endif -%}
+    "availability": {{ offer_availability | json }},
+    "seller": {
+      "@type": "Organization",
+      "name": "Brant Business Interiors"
+    }
+  }
+}
+</script>
+
+{%- comment -%} BreadcrumbList — 4 levels: Home > Shop Furniture > Category > Product {%- endcomment -%}
+{%- assign bc_base = shop.url -%}
+{%- render 'bbi-breadcrumb-jsonld',
+    bc1_name: 'Home',
+    bc1_url: bc_base,
+    bc2_name: 'Shop Furniture',
+    bc2_url: bc_base | append: '/collections/business-furniture',
+    bc3_name: cat_label,
+    bc3_url: bc_base | append: '/collections/' | append: cat_handle,
+    bc4_name: product.title,
+    bc4_url: product_url
+-%}

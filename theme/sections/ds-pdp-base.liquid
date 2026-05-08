@@ -195,11 +195,6 @@
 .pdp-cta-closer__phone a:hover { color: var(--saleBadgeBackground); }
 </style>
 
-{%- comment -%} PDP-2: JSON-LD placeholder — render bbi-product-jsonld snippet when available {%- endcomment -%}
-{%- if templates.snippets contains 'bbi-product-jsonld' -%}
-  {%- render 'bbi-product-jsonld', product: product -%}
-{%- endif -%}
-
 {%- comment -%}
   Breadcrumb: derive category from product.type tag
   type:chairs → /collections/seating  "Seating"
@@ -244,6 +239,8 @@
     assign is_unbuyable = true
   endif
 -%}
+
+{%- render 'bbi-product-jsonld', product: product, cat_handle: cat_handle, cat_label: cat_label -%}
 
 <div class="bbi-pdp scheme-default">
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'shop' -%}
