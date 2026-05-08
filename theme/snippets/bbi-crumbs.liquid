@@ -1,24 +1,31 @@
 {%- comment -%}
   bbi-crumbs.liquid
-  Unified breadcrumb band — renders 2, 3, or 4 levels.
+  Unified breadcrumb band — renders 2, 3, 4, or 5 levels.
 
   Render:
     {%- render 'bbi-crumbs', c2_label: 'About Us' -%}
     {%- render 'bbi-crumbs', c2_label: 'Industries', c2_href: '/pages/industries', c3_label: 'Healthcare' -%}
     {%- render 'bbi-crumbs', c2_label: 'Shop Furniture', c2_href: '/collections/business-furniture',
         c3_label: parent_title, c3_href: parent_href, c4_label: collection.title -%}
+    {%- render 'bbi-crumbs', c2_label: 'Shop Furniture', c2_href: '/collections/business-furniture',
+        c3_label: hub_title, c3_href: hub_href,
+        c4_label: sub_coll_title, c4_href: sub_coll_href,
+        c5_label: product.title -%}
 
   Parameters (Level 1 = Home / is always rendered):
     c2_label {string} — Level 2 label (required; if blank, renders nothing)
     c2_href  {string} — Level 2 href; leave blank if c2 is the terminal (current) crumb
     c3_label {string} — Level 3 label; if present, c2_href must be set
     c3_href  {string} — Level 3 href; leave blank if c3 is terminal
-    c4_label {string} — Level 4 label; always terminal (no href); c3_href must be set
+    c4_label {string} — Level 4 label; terminal when c5_label is blank; c3_href must be set
+    c4_href  {string} — Level 4 href; only used when c5_label is also set (4 becomes a linked crumb)
+    c5_label {string} — Level 5 label; always terminal (no href); requires c4_href to be set
 
-  Locked depth pattern (Stage 2):
-    2-level: top-level pages           — Home > Page
-    3-level: industry/brand sub-pages  — Home > Section > Page
-    4-level: category hubs + sub-colls — Home > Shop Furniture > Category > Item
+  Locked depth pattern:
+    2-level: top-level pages              — Home > Page
+    3-level: industry/brand sub-pages     — Home > Section > Page
+    4-level: category hubs + sub-colls    — Home > Shop Furniture > Category > Item
+    5-level: product detail pages (PDPs)  — Home > Shop Furniture > Hub > Sub-Collection > Product
 {%- endcomment -%}
 <style>
   .bbi-crumbs-band{border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
@@ -39,7 +46,12 @@
         <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><a href="{{ c2_href }}">{{ c2_label }}</a></li>
         {%- if c4_label != blank -%}
           <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><a href="{{ c3_href }}">{{ c3_label }}</a></li>
-          <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><span aria-current="page">{{ c4_label }}</span></li>
+          {%- if c5_label != blank -%}
+            <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><a href="{{ c4_href }}">{{ c4_label }}</a></li>
+            <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><span aria-current="page">{{ c5_label }}</span></li>
+          {%- else -%}
+            <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><span aria-current="page">{{ c4_label }}</span></li>
+          {%- endif -%}
         {%- else -%}
           <li><span class="bbi-crumbs__sep" aria-hidden="true">›</span><span aria-current="page">{{ c3_label }}</span></li>
         {%- endif -%}
