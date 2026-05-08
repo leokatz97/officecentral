@@ -209,16 +209,18 @@ What remains is **launch hardening**: building the 4 missing templates, creating
 
 ---
 
-### Phase 6 — Wave E final: PERF + A11Y + DS-VERIFY + IMG
-**Scope:** Lighthouse + Core Web Vitals on top 10 pages (PERF-AUDIT-1), WCAG 2.1 AA audit (A11Y-AUDIT-1), design-system visual verification (DS-VERIFY), image coverage audit + waiver CSV (IMG-PHASE2).
+### Phase 6 — Wave E final: PERF + A11Y + DS-VERIFY + VISUAL-COMP + IMG + MOBILE
+**Scope:** Lighthouse + Core Web Vitals on top 10 pages (PERF-AUDIT-1), WCAG 2.1 AA audit (A11Y-AUDIT-1), design-system visual verification (DS-VERIFY), visual component comp audit (VISUAL-COMP), image coverage audit + waiver CSV (IMG-PHASE2), mobile-responsive verification at 375px on the 5 priority pages from audit 4.10 (homepage, seating hub, highback-seating sub-collection, healthcare industry, quote).
 **Exit criteria:**
 - Mobile Lighthouse ≥ 80 on all top 10 pages, or waived with documented reason
 - A11Y hard fails resolved (missing alt text, broken focus traps, contrast fails)
 - DS-VERIFY: brand-red unified, tokens intact, no dark-mode blocks
+- VISUAL-COMP: every page opened on dev theme URL and eyeballed against `data/design-photos/components-v1-2026-04-27/Components.html`; any section whose layout, card treatment, or CTA styling materially differs from the comp is documented and fixed in this phase
 - IMG-PHASE2: ≥80% product image coverage OR waiver CSV produced
-**Duration:** 2 dev days.
+- All 5 priority pages from audit 4.10 pass manual mobile review at 375px (no horizontal scroll, single bbi-header, hamburger nav functional, footer collapses to single column)
+**Duration:** 2.5–3 dev days.
 **Dependencies:** Phase 5 complete.
-**Prompt sketch:** "Run scripts/capture-bbi-baselines.py on all pages. Run Lighthouse CLI or DataForSEO MCP lighthouse tool on top 10 pages. Run pa11y CLI on same 10 pages. Fix hard fails. Check color tokens in style-variables.liquid against design-system.md."
+**Prompt sketch:** "Run scripts/capture-bbi-baselines.py on all pages. Run Lighthouse CLI or DataForSEO MCP lighthouse tool on top 10 pages. Run pa11y CLI on same 10 pages. Fix hard fails. Check color tokens in style-variables.liquid against design-system.md. Open each ds-lp-*.liquid page on the dev theme URL and compare against Components.html — document any layout/card/CTA mismatches and fix. Run capture-bbi-baselines.py at 375px viewport on the 5 priority pages from audit 4.10. Manual review against the checklist in that audit doc. Document any mobile-only breaks."
 **Merge:** `chore/phase-6-hardening` → main + tag `v2.4-phase-6`.
 
 ---
@@ -309,7 +311,7 @@ Session 10        Phase 4 — Steve: GSC DNS + policy pages + email inboxes (1 d
                   ← GSC verification running async (5–14 calendar days) →
 Session 11        Phase 5 — SEO-AUDIT-1 DataForSEO crawl (1 day, parallel to Phase 4)
                   ↓
-Sessions 12–13    Phase 6 — Lighthouse + A11Y + DS-VERIFY + IMG (2 days)
+Sessions 12–14    Phase 6 — Lighthouse + A11Y + DS-VERIFY + VISUAL-COMP + IMG + MOBILE (2.5–3 days)
                   ↓
 Session 14        Phase 7 — LAUNCH-0 → LAUNCH-1 → LAUNCH-2 (requires GSC confirmed)
                   ↓
