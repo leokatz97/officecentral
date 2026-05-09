@@ -87,6 +87,8 @@
           assign bbi_landing = true
         elsif template.name == 'collection'
           assign bbi_landing = true
+          {%- comment -%}Covers all collection templates: default, .category, .base,
+          .seating, .desks, etc., AND smart collections (same template.name){%- endcomment -%}
         elsif template == 'product'
           assign bbi_landing = true
         elsif template == '404'
