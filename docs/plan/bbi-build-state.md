@@ -212,6 +212,14 @@ Four deploy-error patterns recurred during P1 builds. The `/bbi-build-page` skil
 
 ---
 
+## Wave G-Fixes — Visual review bugfixes (2026-05-09)
+
+| ID | Task | Status | Evidence | Notes |
+|---|---|---|---|---|
+| WAVE-G-FIXES-1 | Bug-fix pass from live visual review of dev theme 186373570873 | ✅ | commits `a20b526`→`42c4227`; all files on dev theme | **BATCH-1** Smart collections chrome: `template.name == 'collection'` gate already correct; dev theme had stale layout.liquid — re-pushed via direct API. **BATCH-2** 11 PDP fixes: (2a) gallery thumb JS clears srcset; (2b) variant chips → `<button>` + `BbiPdpVariants` WC + variant JSON; (2c) description moved after variants, full HTML; (2d) has_specs checks all 11 fields, spec-row alternating via Liquid counter; (2e) both buttons 100% width 48px; (2f) delivery note absent; (2g) validation keeps chips horizontal; (2h) image 1024px square contain; (2i) quote btn `color:#fff` explicit; (2j) additional-services product unpublished → published via API; (2k) CTA closer btn `color:#fff` explicit. **BATCH-3** blog CTA `color:#fff`; footer Blog & Resources link added. **BATCH-4** `scripts/tag-products-by-collection.py` written + dry-run: 34 boardroom / 14 global-teknion candidates found; 6 collections DATA GAP (no vendor/type metadata) — awaiting Leo review. |
+
+---
+
 ## Wave G — Phase 5: Product + system templates
 
 **Pre-req:** Wave C complete (so brand pages link to live trust pages). Independent of Wave D.
