@@ -465,36 +465,36 @@
         <table class="pdp-specs-table">
           <tbody>
             {%- if s_manufacturer != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Manufacturer</th><td>{{ s_manufacturer | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Manufacturer</th><td>{{ s_manufacturer | escape }}</td></tr>
             {%- endif -%}
             {%- if s_product_line != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Product Line</th><td>{{ s_product_line | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Product Line</th><td>{{ s_product_line | escape }}</td></tr>
             {%- endif -%}
             {%- if s_model_codes != blank and s_model_codes.size > 0 -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Model</th><td>{{ s_model_codes | join: ', ' | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Model</th><td>{{ s_model_codes | join: ', ' | escape }}</td></tr>
             {%- endif -%}
             {%- if s_dimensions != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Dimensions</th><td>{{ s_dimensions | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Dimensions</th><td>{{ s_dimensions | escape }}</td></tr>
             {%- endif -%}
             {%- if s_weight != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight</th><td>{{ s_weight | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight</th><td>{{ s_weight | escape }}</td></tr>
             {%- endif -%}
             {%- if s_weight_cap != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight Capacity</th><td>{{ s_weight_cap | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight Capacity</th><td>{{ s_weight_cap | escape }}</td></tr>
             {%- endif -%}
             {%- if s_materials != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Materials</th><td>{{ s_materials | escape | newline_to_br }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Materials</th><td>{{ s_materials | escape | newline_to_br }}</td></tr>
             {%- endif -%}
             {%- if s_finishes != blank and s_finishes.size > 0 -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Finishes Available</th>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Finishes Available</th>
                 <td>
                   <ul>
                     {%- for f in s_finishes -%}<li>{{ f | escape }}</li>{%- endfor -%}
@@ -503,8 +503,8 @@
               </tr>
             {%- endif -%}
             {%- if s_certs != blank and s_certs.size > 0 -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Certifications</th>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Certifications</th>
                 <td>
                   <ul>
                     {%- for c in s_certs -%}<li>{{ c | escape }}</li>{%- endfor -%}
@@ -513,12 +513,12 @@
               </tr>
             {%- endif -%}
             {%- if s_warranty != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Warranty</th><td>{{ s_warranty | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Warranty</th><td>{{ s_warranty | escape }}</td></tr>
             {%- endif -%}
             {%- if s_country != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
-              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Made In</th><td>{{ s_country | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
+              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Made In</th><td>{{ s_country | escape }}</td></tr>
             {%- endif -%}
           </tbody>
         </table>
