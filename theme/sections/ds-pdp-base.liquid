@@ -82,8 +82,8 @@
 
 /* ── Gallery ─────────────────────────────────────────────────────────────── */
 .pdp-gallery {}
-.pdp-gallery__main { border: 1px solid var(--borderColor); border-radius: var(--cardRadius); overflow: hidden; background: var(--alternateBackground); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
-.pdp-gallery__main-img { width: 100%; height: 100%; object-fit: contain; transition: opacity 0.2s; cursor: zoom-in; }
+.pdp-gallery__main { border: 1px solid var(--borderColor); border-radius: var(--cardRadius); background: var(--alternateBackground); aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.pdp-gallery__main-img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; transition: opacity 0.2s; cursor: zoom-in; display: block; }
 .pdp-gallery__thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .pdp-gallery__thumb { width: 72px; height: 72px; border: 1px solid var(--borderColor); border-radius: 6px; overflow: hidden; cursor: pointer; background: var(--alternateBackground); padding: 0; transition: border-color 0.15s; flex-shrink: 0; }
 .pdp-gallery__thumb:hover, .pdp-gallery__thumb[aria-pressed="true"] { border-color: var(--saleBadgeBackground); }
@@ -110,22 +110,27 @@
 /* Description */
 .pdp-info__desc { font-size: 15px; line-height: 1.65; color: rgba(var(--textColor-rgb),0.78); margin: 0 0 24px; }
 
-/* Variant picker (simple — colour swatches) */
+/* Variant picker */
 .pdp-variants { margin-bottom: 24px; }
 .pdp-variants__label { font-size: 13px; font-weight: 500; margin-bottom: 10px; }
 .pdp-variants__options { display: flex; flex-wrap: wrap; gap: 8px; }
-.pdp-variant-opt { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; padding: 0 12px; border: 1px solid var(--borderColor); border-radius: var(--buttonRadius); font-size: 13px; cursor: pointer; background: var(--background); color: var(--textColor); transition: border-color 0.15s; }
-.pdp-variant-opt.selected, .pdp-variant-opt:hover { border-color: var(--textColor); }
+.pdp-variant-opt { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; padding: 0 12px; border: 1px solid var(--borderColor); border-radius: var(--buttonRadius); font-size: 13px; cursor: pointer; background: var(--background); color: var(--textColor); transition: border-color 0.15s, background 0.15s; font-family: var(--bodyFont); }
+.pdp-variant-opt.selected { border-color: var(--textColor); background: var(--textColor); color: var(--background); }
+.pdp-variant-opt:hover:not(.selected) { border-color: var(--textColor); }
+/* Validation state: red outline on unselected group, chips stay horizontal */
+.pdp-variants.needs-selection .pdp-variants__options { outline: 2px solid var(--saleBadgeBackground); border-radius: var(--buttonRadius); padding: 6px; }
 
-/* CTA buttons */
+/* CTA buttons — 2e: both 100% width, 48px height, matched pair */
 .pdp-cta { display: flex; flex-direction: column; gap: 10px; }
-.pdp-btn { display: flex; align-items: center; justify-content: center; height: 52px; border-radius: var(--buttonRadius); font-family: var(--bodyFont); font-size: 16px; font-weight: 500; letter-spacing: 0.01em; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
-.pdp-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
-.pdp-btn--primary:hover { background: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); color: #fff; }
+#pdp-add-to-cart { display: block; width: 100%; }
+.pdp-btn { display: flex; align-items: center; justify-content: center; width: 100%; height: 48px; border-radius: var(--buttonRadius); font-family: var(--bodyFont); font-size: 16px; font-weight: 500; letter-spacing: 0.01em; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background 0.15s, border-color 0.15s; box-sizing: border-box; }
+.pdp-btn--primary { background: var(--buttonBackground); color: #ffffff; border-color: var(--buttonBorder); }
+.pdp-btn--primary:hover { background: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); color: #ffffff; }
 .pdp-btn--outline { background: transparent; color: var(--textColor); border-color: var(--borderColor); }
 .pdp-btn--outline:hover { border-color: var(--textColor); }
-.pdp-btn--quote { background: var(--saleBadgeBackground); color: #fff; border-color: var(--saleBadgeBackground); }
-.pdp-btn--quote:hover { opacity: 0.9; }
+/* 2i: explicit white text — never inherit on red background */
+.pdp-btn--quote { background: var(--saleBadgeBackground); color: #ffffff; border-color: var(--saleBadgeBackground); }
+.pdp-btn--quote:hover { opacity: 0.9; color: #ffffff; }
 
 /* Trust pills */
 .pdp-trust { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--borderColor); }
@@ -137,20 +142,20 @@
 .pdp-phone-nudge a { color: var(--textColor); font-weight: 500; text-decoration: none; }
 .pdp-phone-nudge a:hover { color: var(--saleBadgeBackground); }
 
-/* ── Spec table ──────────────────────────────────────────────────────────── */
+/* ── Spec table — 2d: strict alternating rows via Liquid counter class ── */
 .pdp-specs { max-width: 1200px; margin: 0 auto; padding: 0 24px 64px; }
 .pdp-specs__heading { font-family: var(--headingFont); font-size: var(--fs-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 24px; letter-spacing: -0.01em; }
 .pdp-specs-table { width: 100%; border-collapse: collapse; border: 1px solid var(--borderColor); border-radius: var(--cardRadius); overflow: hidden; }
-.pdp-specs-table tr { border-bottom: 1px solid var(--borderColor); }
+.pdp-specs-table tr { border-bottom: 1px solid var(--borderColor); background: #ffffff; }
 .pdp-specs-table tr:last-child { border-bottom: none; }
-.pdp-specs-table tr:nth-child(even) { background: var(--alternateBackground); }
-.pdp-specs-table th { width: 200px; font-size: 13px; font-weight: 600; text-align: left; padding: 12px 16px; color: var(--textColor); background: var(--alternateBackground); white-space: nowrap; vertical-align: top; }
+.pdp-specs-table tr.spec-row-even { background: #f5f5f5; }
+.pdp-specs-table th { width: 200px; font-size: 13px; font-weight: 600; text-align: left; padding: 12px 16px; color: var(--textColor); background: inherit; white-space: nowrap; vertical-align: top; }
 .pdp-specs-table td { font-size: 14px; padding: 12px 16px; color: rgba(var(--textColor-rgb),0.85); vertical-align: top; }
 .pdp-specs-table ul { margin: 0; padding: 0 0 0 18px; }
 .pdp-specs-table li { margin-bottom: 4px; }
 @media (max-width: 640px) {
   .pdp-specs-table, .pdp-specs-table tbody, .pdp-specs-table tr, .pdp-specs-table th, .pdp-specs-table td { display: block; width: 100%; }
-  .pdp-specs-table th { background: var(--alternateBackground); padding-bottom: 4px; }
+  .pdp-specs-table th { padding-bottom: 4px; }
   .pdp-specs-table td { padding-top: 4px; }
 }
 
@@ -188,8 +193,9 @@
 .pdp-cta-closer__inner { max-width: 560px; margin: 0 auto; }
 .pdp-cta-closer h2 { font-family: var(--headingFont); font-size: var(--fs-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 8px; letter-spacing: -0.01em; }
 .pdp-cta-closer p { font-size: 16px; color: rgba(var(--textColor-rgb),0.7); margin: 0 0 24px; }
-.pdp-cta-closer__btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 28px; background: var(--buttonBackground); color: var(--buttonColor); border: 1px solid var(--buttonBorder); border-radius: var(--buttonRadius); font-family: var(--bodyFont); font-size: var(--fs-button); font-weight: 500; letter-spacing: var(--ls-button); text-decoration: none; transition: background 0.15s; }
-.pdp-cta-closer__btn:hover { background: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); color: #fff; }
+/* 2k: explicit #ffffff — never inherit on dark/red background */
+.pdp-cta-closer__btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 28px; background: var(--buttonBackground); color: #ffffff; border: 1px solid var(--buttonBorder); border-radius: var(--buttonRadius); font-family: var(--bodyFont); font-size: var(--fs-button); font-weight: 500; letter-spacing: var(--ls-button); text-decoration: none; transition: background 0.15s; }
+.pdp-cta-closer__btn:hover { background: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); color: #ffffff; }
 .pdp-cta-closer__phone { margin-top: 16px; font-size: 14px; color: rgba(var(--textColor-rgb),0.6); }
 .pdp-cta-closer__phone a { color: var(--textColor); font-weight: 500; text-decoration: none; }
 .pdp-cta-closer__phone a:hover { color: var(--saleBadgeBackground); }
@@ -270,7 +276,7 @@
         <div class="pdp-gallery__main">
           {%- if product.images.size > 0 -%}
             {{- product.images[0]
-                | image_url: width: 900
+                | image_url: width: 1024
                 | image_tag:
                     id: 'pdp-main-img',
                     class: 'pdp-gallery__main-img',
@@ -291,8 +297,8 @@
                 type="button"
                 aria-label="View image {{ forloop.index }}"
                 aria-pressed="{{ forloop.first }}"
-                data-src="{{ image | image_url: width: 900 }}"
-                data-full="{{ image | image_url: width: 1400 }}"
+                data-src="{{ image | image_url: width: 1024 }}"
+                data-full="{{ image | image_url: width: 1600 }}"
                 role="listitem"
               >
                 {{- image
@@ -309,7 +315,7 @@
       </bbi-pdp-gallery>
 
       <!-- Info panel -->
-      <div class="pdp-info">
+      <bbi-pdp-variants class="pdp-info">
         {%- if product.vendor != blank -%}
           <p class="pdp-info__vendor">{{ product.vendor }}</p>
         {%- endif -%}
@@ -345,28 +351,46 @@
           </p>
         {%- endif -%}
 
-        <!-- Short description -->
-        {%- if product.description != blank -%}
-          <div class="pdp-info__desc">
-            {{ product.description | strip_html | truncate: 280 }}
-          </div>
-        {%- endif -%}
-
-        <!-- Variant options (non-colour) -->
+        <!-- Variant options (non-colour) — 2b: wired to form via data attrs -->
         {%- unless product.has_only_default_variant -%}
           {%- for option in product.options_with_values -%}
             {%- unless option.name == 'Color' or option.name == 'Colour' -%}
-              <div class="pdp-variants">
-                <p class="pdp-variants__label">{{ option.name }}</p>
-                <div class="pdp-variants__options">
+              <div class="pdp-variants" data-option-pos="{{ option.position | minus: 1 }}">
+                <p class="pdp-variants__label">{{ option.name }}: <strong class="pdp-variants__selected-val">{{ option.values | first }}</strong></p>
+                <div class="pdp-variants__options" role="group" aria-label="{{ option.name }}">
                   {%- for value in option.values -%}
-                    <span class="pdp-variant-opt{% if forloop.first %} selected{% endif %}">{{ value }}</span>
+                    <button type="button"
+                      class="pdp-variant-opt{% if forloop.first %} selected{% endif %}"
+                      data-option-pos="{{ option.position | minus: 1 }}"
+                      data-value="{{ value | escape }}">{{ value }}</button>
                   {%- endfor -%}
                 </div>
               </div>
             {%- endunless -%}
           {%- endfor -%}
+          {%- comment -%}Variant data for JS chip wiring{%- endcomment -%}
+          <script id="pdp-variants-data" type="application/json">
+          {
+            "numOptions": {{ product.options.size }},
+            "variants": [
+              {%- for variant in product.variants -%}
+              {
+                "id": {{ variant.id }},
+                "available": {{ variant.available }},
+                "options": {{ variant.options | json }}
+              }{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            ]
+          }
+          </script>
         {%- endunless -%}
+
+        <!-- Description (2c): full HTML, after variants, before CTA -->
+        {%- if product.description != blank -%}
+          <div class="pdp-info__desc">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
 
         <!-- CTA block -->
         <div class="pdp-cta">
@@ -400,7 +424,7 @@
         <p class="pdp-phone-nudge">
           Questions? Call <a href="tel:18008359565">1-800-835-9565</a>
         </p>
-      </div>
+      </bbi-pdp-variants>
     </div>
 
     <!-- Key Features (from spec metafields) -->
@@ -430,9 +454,10 @@
       assign s_certs        = product.metafields.specs.certifications.value
       assign s_warranty     = product.metafields.specs.warranty.value
       assign s_country      = product.metafields.specs.country_of_manufacture.value
-      if s_manufacturer or s_dimensions or s_weight or s_materials or s_finishes or s_warranty
+      if s_manufacturer or s_product_line or s_model_codes or s_dimensions or s_weight or s_weight_cap or s_materials or s_finishes or s_certs or s_warranty or s_country
         assign has_specs = true
       endif
+      assign spec_row_i = 0
     -%}
     {%- if has_specs -%}
       <section class="pdp-specs">
@@ -440,28 +465,36 @@
         <table class="pdp-specs-table">
           <tbody>
             {%- if s_manufacturer != blank -%}
-              <tr><th scope="row">Manufacturer</th><td>{{ s_manufacturer | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Manufacturer</th><td>{{ s_manufacturer | escape }}</td></tr>
             {%- endif -%}
             {%- if s_product_line != blank -%}
-              <tr><th scope="row">Product Line</th><td>{{ s_product_line | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Product Line</th><td>{{ s_product_line | escape }}</td></tr>
             {%- endif -%}
             {%- if s_model_codes != blank and s_model_codes.size > 0 -%}
-              <tr><th scope="row">Model</th><td>{{ s_model_codes | join: ', ' | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Model</th><td>{{ s_model_codes | join: ', ' | escape }}</td></tr>
             {%- endif -%}
             {%- if s_dimensions != blank -%}
-              <tr><th scope="row">Dimensions</th><td>{{ s_dimensions | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Dimensions</th><td>{{ s_dimensions | escape }}</td></tr>
             {%- endif -%}
             {%- if s_weight != blank -%}
-              <tr><th scope="row">Weight</th><td>{{ s_weight | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight</th><td>{{ s_weight | escape }}</td></tr>
             {%- endif -%}
             {%- if s_weight_cap != blank -%}
-              <tr><th scope="row">Weight Capacity</th><td>{{ s_weight_cap | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight Capacity</th><td>{{ s_weight_cap | escape }}</td></tr>
             {%- endif -%}
             {%- if s_materials != blank -%}
-              <tr><th scope="row">Materials</th><td>{{ s_materials | escape | newline_to_br }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Materials</th><td>{{ s_materials | escape | newline_to_br }}</td></tr>
             {%- endif -%}
             {%- if s_finishes != blank and s_finishes.size > 0 -%}
-              <tr><th scope="row">Finishes Available</th>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Finishes Available</th>
                 <td>
                   <ul>
                     {%- for f in s_finishes -%}<li>{{ f | escape }}</li>{%- endfor -%}
@@ -470,7 +503,8 @@
               </tr>
             {%- endif -%}
             {%- if s_certs != blank and s_certs.size > 0 -%}
-              <tr><th scope="row">Certifications</th>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Certifications</th>
                 <td>
                   <ul>
                     {%- for c in s_certs -%}<li>{{ c | escape }}</li>{%- endfor -%}
@@ -479,10 +513,12 @@
               </tr>
             {%- endif -%}
             {%- if s_warranty != blank -%}
-              <tr><th scope="row">Warranty</th><td>{{ s_warranty | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Warranty</th><td>{{ s_warranty | escape }}</td></tr>
             {%- endif -%}
             {%- if s_country != blank -%}
-              <tr><th scope="row">Made In</th><td>{{ s_country | escape }}</td></tr>
+              {%- assign spec_row_i = spec_row_i | plus: 1 -%}
+              <tr{% if spec_row_i | modulo: 2 == 0 %} class="spec-row-even"{% endif %}><th scope="row">Made In</th><td>{{ s_country | escape }}</td></tr>
             {%- endif -%}
           </tbody>
         </table>
@@ -553,24 +589,122 @@
 </div>
 
 <script>
-/* bbi-pdp-gallery — Web Component for thumbnail image swap */
+/* 2a: bbi-pdp-gallery — thumbnail click swaps main image (clears srcset first) */
 class BbiPdpGallery extends HTMLElement {
   connectedCallback() {
     this.mainImg = this.querySelector('#pdp-main-img');
     if (!this.mainImg) return;
     this.querySelectorAll('.pdp-gallery__thumb').forEach(btn => {
       btn.addEventListener('click', () => this._swap(btn));
-      btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._swap(btn); } });
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._swap(btn); }
+      });
     });
   }
   _swap(btn) {
+    /* Clear srcset so browser doesn't override the explicit src change */
+    this.mainImg.srcset = '';
     this.mainImg.src = btn.dataset.src;
-    this.mainImg.setAttribute('data-full', btn.dataset.full);
+    this.mainImg.setAttribute('data-full', btn.dataset.full || btn.dataset.src);
     this.querySelectorAll('.pdp-gallery__thumb').forEach(b => b.setAttribute('aria-pressed', 'false'));
     btn.setAttribute('aria-pressed', 'true');
   }
 }
 customElements.define('bbi-pdp-gallery', BbiPdpGallery);
+
+/* 2b: BbiPdpVariants — chip click updates hidden form id input */
+class BbiPdpVariants extends HTMLElement {
+  connectedCallback() {
+    const dataEl = document.getElementById('pdp-variants-data');
+    if (!dataEl) return;
+    try {
+      const data = JSON.parse(dataEl.textContent);
+      this._variants = data.variants || [];
+    } catch (e) { return; }
+
+    /* Track currently selected value per option position */
+    this._selected = {};
+    this.querySelectorAll('.pdp-variant-opt').forEach(btn => {
+      if (btn.classList.contains('selected')) {
+        this._selected[btn.dataset.optionPos] = btn.dataset.value;
+      }
+      btn.addEventListener('click', () => this._select(btn));
+    });
+    this._updateFormId();
+  }
+
+  _select(btn) {
+    const pos = btn.dataset.optionPos;
+    /* Update selected state within this option group */
+    this.querySelectorAll(`.pdp-variant-opt[data-option-pos="${pos}"]`).forEach(b => {
+      b.classList.remove('selected');
+    });
+    btn.classList.add('selected');
+    this._selected[pos] = btn.dataset.value;
+
+    /* Update the label */
+    const group = btn.closest('.pdp-variants');
+    if (group) {
+      const lbl = group.querySelector('.pdp-variants__selected-val');
+      if (lbl) lbl.textContent = btn.dataset.value;
+    }
+    this._updateFormId();
+  }
+
+  _updateFormId() {
+    /* Find variant matching all currently selected options */
+    const form = document.getElementById('pdp-add-to-cart');
+    if (!form) return;
+    const idInput = form.querySelector('input[name="id"]');
+    if (!idInput) return;
+
+    const match = this._variants.find(v => {
+      return Object.keys(this._selected).every(pos => {
+        return v.options[parseInt(pos)] === this._selected[pos];
+      });
+    });
+    if (match) {
+      idInput.value = match.id;
+      /* Reflect availability on the submit button */
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.disabled = !match.available;
+        btn.textContent = match.available ? 'Add to Cart' : 'Unavailable';
+      }
+    }
+  }
+}
+customElements.define('bbi-pdp-variants', BbiPdpVariants);
+
+/* 2g: form validation — require all option groups selected, keep chips horizontal */
+(function() {
+  const form = document.getElementById('pdp-add-to-cart');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    const groups = document.querySelectorAll('.pdp-variants');
+    let valid = true;
+    groups.forEach(group => {
+      const hasSelected = group.querySelector('.pdp-variant-opt.selected');
+      if (!hasSelected) {
+        group.classList.add('needs-selection');
+        valid = false;
+      } else {
+        group.classList.remove('needs-selection');
+      }
+    });
+    if (!valid) {
+      e.preventDefault();
+      const first = document.querySelector('.pdp-variants.needs-selection');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+  /* Clear validation state on chip click */
+  document.querySelectorAll('.pdp-variant-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.pdp-variants')?.classList.remove('needs-selection');
+    });
+  });
+})();
 </script>
 
 {% schema %}
