@@ -94,24 +94,29 @@
 .pdp-info {}
 .pdp-info__vendor { font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(var(--textColor-rgb),0.5); margin: 0 0 8px; }
 .pdp-info__title { font-family: var(--headingFont); font-size: clamp(22px, 3vw, 32px); font-weight: 600; line-height: 1.1; letter-spacing: -0.015em; color: var(--headingColor); margin: 0 0 16px; }
-.pdp-info__sku { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; color: rgba(var(--textColor-rgb),0.4); margin: 0 0 20px; }
+.pdp-info__sku { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; color: rgba(var(--textColor-rgb),0.4); margin: 0 0 4px; }
+.pdp-info__variant-count { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; color: rgba(var(--textColor-rgb),0.35); margin: 0 0 16px; }
 
 /* Availability badge */
-.pdp-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 100px; margin-bottom: 20px; }
+.pdp-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 100px; }
 .pdp-badge--available { background: rgba(22,163,74,0.1); color: #15803D; }
 .pdp-badge--unavailable { background: rgba(var(--saleBadgeBackground-rgb),0.1); color: var(--saleBadgeBackground); }
 .pdp-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
-/* Price */
-.pdp-price { font-family: var(--headingFont); font-size: 28px; font-weight: 600; color: var(--headingColor); margin: 0 0 8px; }
-.pdp-price--zero { font-size: 16px; font-weight: 500; color: rgba(var(--textColor-rgb),0.6); }
-.pdp-price__compare { font-size: 16px; font-weight: 400; color: rgba(var(--textColor-rgb),0.45); text-decoration: line-through; margin-left: 8px; }
+/* OECM / Canadian / availability badges row */
+.pdp-badges-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 20px; }
+.pdp-tag-pill { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid; border-radius: 100px; padding: 3px 10px; display: inline-flex; align-items: center; gap: 5px; }
+.pdp-tag-pill--oecm { border-color: #15803D; color: #15803D; }
+.pdp-tag-pill--canadian { border-color: var(--saleBadgeBackground); color: var(--saleBadgeBackground); }
 
-/* Description + inline content sections */
-.pdp-info__desc { font-size: 15px; line-height: 1.65; color: rgba(var(--textColor-rgb),0.78); margin: 0; }
-.pdp-info-section { margin: 0 0 28px; padding-top: 24px; border-top: 1px solid var(--borderColor); }
-.pdp-info-section:first-of-type { border-top: none; padding-top: 0; }
-.pdp-info-section__heading { font-family: var(--headingFont); font-size: var(--fs-h3); font-weight: 600; color: var(--headingColor); margin: 0 0 14px; letter-spacing: -0.005em; }
+/* Short description in right column */
+.pdp-info__short-desc { font-size: 15px; line-height: 1.65; color: rgba(var(--textColor-rgb),0.78); margin: 0 0 24px; }
+.pdp-info__short-desc p { margin: 0 0 12px; }
+.pdp-info__short-desc p:last-child { margin-bottom: 0; }
+
+/* Section eyebrow */
+.pdp-section-eyebrow { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(var(--textColor-rgb),0.5); margin: 0 0 8px; }
+.pdp-section-eyebrow span[aria-hidden] { color: var(--saleBadgeBackground); margin-right: 6px; }
 
 /* Variant picker */
 .pdp-variants { margin-bottom: 24px; }
@@ -124,17 +129,30 @@
 /* !important required: Starlite leftover flex reset overrides class-only specificity */
 .pdp-variants.needs-selection .pdp-variants__options { display: flex !important; flex-wrap: wrap !important; outline: 2px solid var(--saleBadgeBackground); border-radius: var(--buttonRadius); padding: 6px; }
 
-/* CTA buttons — 2e: both 100% width, 48px height, matched pair */
-.pdp-cta { display: flex; flex-direction: column; gap: 10px; }
-#pdp-add-to-cart { display: block; width: 100%; }
-.pdp-btn { display: flex; align-items: center; justify-content: center; width: 100%; height: 48px; border-radius: var(--buttonRadius); font-family: var(--bodyFont); font-size: 16px; font-weight: 500; letter-spacing: 0.01em; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background 0.15s, border-color 0.15s; box-sizing: border-box; }
-.pdp-btn--primary { background: var(--buttonBackground); color: #ffffff; border-color: var(--buttonBorder); }
+/* CTA buttons */
+.pdp-btn { display: flex; align-items: center; justify-content: center; width: 100%; border-radius: var(--buttonRadius); font-family: var(--bodyFont); font-size: 16px; font-weight: 500; letter-spacing: 0.01em; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background 0.15s, border-color 0.15s; box-sizing: border-box; }
+.pdp-btn--primary { background: var(--buttonBackground); color: #ffffff; border-color: var(--buttonBorder); height: 48px; }
 .pdp-btn--primary:hover { background: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); color: #ffffff; }
-.pdp-btn--outline { background: transparent; color: var(--textColor); border-color: var(--borderColor); }
+/* Secondary outline — 44px, smaller than primary 48px to signal secondary action */
+.pdp-btn--outline { background: transparent; color: var(--textColor); border-color: var(--borderColor); height: 44px; }
 .pdp-btn--outline:hover { border-color: var(--textColor); }
 /* 2i: explicit white text — never inherit on red background */
-.pdp-btn--quote { background: var(--saleBadgeBackground); color: #ffffff; border-color: var(--saleBadgeBackground); }
+.pdp-btn--quote { background: var(--saleBadgeBackground); color: #ffffff; border-color: var(--saleBadgeBackground); height: 48px; }
 .pdp-btn--quote:hover { opacity: 0.9; color: #ffffff; }
+
+/* Add-to-cart wrapper (secondary, above quote card) */
+.pdp-atc-wrap { margin-bottom: 0; }
+#pdp-add-to-cart { display: block; width: 100%; }
+
+/* Quote card */
+.pdp-quote-card { border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: 20px 24px; margin-top: 24px; }
+.pdp-quote-card .pdp-section-eyebrow { margin: 0 0 8px; }
+.pdp-quote-card h3 { font-family: var(--headingFont); font-size: 18px; font-weight: 600; line-height: 1.25; color: var(--headingColor); margin: 0 0 8px; }
+.pdp-quote-card__sub { font-size: 14px; line-height: 1.5; color: rgba(var(--textColor-rgb),0.7); margin: 0 0 16px; }
+.pdp-quote-card__price { font-family: var(--headingFont); font-size: 22px; font-weight: 600; color: var(--headingColor); margin: 0 0 16px; }
+.pdp-quote-card__phone { font-size: 13px; color: rgba(var(--textColor-rgb),0.6); margin: 12px 0 0; text-align: center; }
+.pdp-quote-card__phone a { color: var(--textColor); font-weight: 500; text-decoration: none; }
+.pdp-quote-card__trust { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; line-height: 1.5; letter-spacing: 0.04em; color: rgba(var(--textColor-rgb),0.45); margin: 16px 0 0; text-align: center; }
 
 /* Trust pills */
 .pdp-trust { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--borderColor); }
@@ -146,7 +164,7 @@
 .pdp-phone-nudge a { color: var(--textColor); font-weight: 500; text-decoration: none; }
 .pdp-phone-nudge a:hover { color: var(--saleBadgeBackground); }
 
-/* ── Spec table ──────────────────────────────────────────────────────────── */
+/* ── Spec table (inline fallback — replaced by below-fold section in Fix 2) ── */
 .pdp-specs-table { width: 100%; border-collapse: collapse; border: 1px solid var(--borderColor); border-radius: var(--cardRadius); overflow: hidden; }
 .pdp-specs-table tr { border-bottom: 1px solid var(--borderColor); background: #ffffff; }
 .pdp-specs-table tr:last-child { border-bottom: none; }
@@ -325,31 +343,68 @@
         {%- if product.selected_or_first_available_variant.sku != blank -%}
           <p class="pdp-info__sku">SKU: {{ product.selected_or_first_available_variant.sku }}</p>
         {%- endif -%}
+        {%- unless product.has_only_default_variant -%}
+          <p class="pdp-info__variant-count">{{ product.variants.size }} configurations available</p>
+        {%- endunless -%}
 
-        <!-- Availability badge -->
-        {%- if is_unbuyable -%}
-          <span class="pdp-badge pdp-badge--unavailable">
-            <span class="pdp-badge__dot" aria-hidden="true"></span>
-            {%- if product.price == 0 -%}Showcase — Quote required{%- else -%}Sold out — Quote available{%- endif -%}
-          </span>
-        {%- else -%}
-          <span class="pdp-badge pdp-badge--available">
-            <span class="pdp-badge__dot" aria-hidden="true"></span>
-            In stock
-          </span>
+        <!-- Badges row: availability + OECM + Canadian-Made -->
+        {%- liquid
+          assign has_oecm = false
+          assign has_canadian = false
+          for tag in product.tags
+            assign tag_down = tag | downcase
+            if tag_down == 'oecm'
+              assign has_oecm = true
+            endif
+            if tag_down == 'canadian-made'
+              assign has_canadian = true
+            endif
+          endfor
+        -%}
+        <div class="pdp-badges-row">
+          {%- if is_unbuyable -%}
+            <span class="pdp-badge pdp-badge--unavailable">
+              <span class="pdp-badge__dot" aria-hidden="true"></span>
+              {%- if product.price == 0 -%}Showcase — Quote required{%- else -%}Sold out — Quote available{%- endif -%}
+            </span>
+          {%- else -%}
+            <span class="pdp-badge pdp-badge--available">
+              <span class="pdp-badge__dot" aria-hidden="true"></span>
+              In stock
+            </span>
+          {%- endif -%}
+          {%- if has_oecm -%}
+            <span class="pdp-tag-pill pdp-tag-pill--oecm">OECM Eligible</span>
+          {%- endif -%}
+          {%- if has_canadian -%}
+            <span class="pdp-tag-pill pdp-tag-pill--canadian">Canadian Made</span>
+          {%- endif -%}
+        </div>
+
+        <!-- Short description -->
+        {%- if product.description != blank -%}
+          <div class="pdp-info__short-desc">{{ product.description }}</div>
         {%- endif -%}
 
-        <!-- Price -->
-        {%- if is_unbuyable -%}
-          <p class="pdp-price pdp-price--zero">Contact us for pricing</p>
-        {%- else -%}
-          <p class="pdp-price">
-            {{ product.price | money }}
-            {%- if product.compare_at_price > product.price -%}
-              <span class="pdp-price__compare">{{ product.compare_at_price | money }}</span>
-            {%- endif -%}
-          </p>
-        {%- endif -%}
+        <!-- Spec metafield assignments — reused in below-fold sections -->
+        {%- liquid
+          assign kf_inline = product.metafields.specs.key_features.value
+          assign si_manufacturer = product.metafields.specs.manufacturer.value
+          assign si_product_line = product.metafields.specs.product_line.value
+          assign si_model_codes  = product.metafields.specs.model_codes.value
+          assign si_dimensions   = product.metafields.specs.dimensions.value
+          assign si_weight       = product.metafields.specs.weight.value
+          assign si_weight_cap   = product.metafields.specs.weight_capacity.value
+          assign si_materials    = product.metafields.specs.materials.value
+          assign si_finishes     = product.metafields.specs.finishes_available.value
+          assign si_certs        = product.metafields.specs.certifications.value
+          assign si_warranty     = product.metafields.specs.warranty.value
+          assign si_country      = product.metafields.specs.country_of_manufacture.value
+          assign has_specs = false
+          if si_manufacturer or si_product_line or si_model_codes or si_dimensions or si_weight or si_weight_cap or si_materials or si_finishes or si_certs or si_warranty or si_country
+            assign has_specs = true
+          endif
+        -%}
 
         <!-- Variant options (non-colour) — 2b: wired to form via data attrs -->
         {%- unless product.has_only_default_variant -%}
@@ -385,133 +440,35 @@
           </script>
         {%- endunless -%}
 
-        <!-- 3c: three labeled sections — About / Key Features / Specs (inline in info column) -->
-        {%- liquid
-          assign kf_inline = product.metafields.specs.key_features.value
-          assign si_manufacturer = product.metafields.specs.manufacturer.value
-          assign si_product_line = product.metafields.specs.product_line.value
-          assign si_model_codes  = product.metafields.specs.model_codes.value
-          assign si_dimensions   = product.metafields.specs.dimensions.value
-          assign si_weight       = product.metafields.specs.weight.value
-          assign si_weight_cap   = product.metafields.specs.weight_capacity.value
-          assign si_materials    = product.metafields.specs.materials.value
-          assign si_finishes     = product.metafields.specs.finishes_available.value
-          assign si_certs        = product.metafields.specs.certifications.value
-          assign si_warranty     = product.metafields.specs.warranty.value
-          assign si_country      = product.metafields.specs.country_of_manufacture.value
-          assign has_inline_specs = false
-          if si_manufacturer or si_product_line or si_model_codes or si_dimensions or si_weight or si_weight_cap or si_materials or si_finishes or si_certs or si_warranty or si_country
-            assign has_inline_specs = true
-          endif
-          assign si_row_i = 0
-        -%}
-
-        {%- if product.description != blank -%}
-          <div class="pdp-info-section">
-            <h3 class="pdp-info-section__heading">About this product</h3>
-            <div class="pdp-info__desc">{{ product.description }}</div>
-          </div>
-        {%- endif -%}
-
-        {%- if kf_inline != blank and kf_inline.size > 0 -%}
-          <div class="pdp-info-section">
-            <h3 class="pdp-info-section__heading">Key Features</h3>
-            <ul class="pdp-features__list">
-              {%- for feature in kf_inline -%}
-                <li class="pdp-features__item">{{ feature | escape }}</li>
-              {%- endfor -%}
-            </ul>
-          </div>
-        {%- endif -%}
-
-        {%- if has_inline_specs -%}
-          <div class="pdp-info-section">
-            <h3 class="pdp-info-section__heading">Specifications</h3>
-            <table class="pdp-specs-table">
-              <tbody>
-                {%- if si_manufacturer != blank -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Manufacturer</th><td>{{ si_manufacturer | escape }}</td></tr>
-                {%- endif -%}
-                {%- if si_product_line != blank -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Product Line</th><td>{{ si_product_line | escape }}</td></tr>
-                {%- endif -%}
-                {%- if si_model_codes != blank and si_model_codes.size > 0 -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Model</th><td>{{ si_model_codes | join: ', ' | escape }}</td></tr>
-                {%- endif -%}
-                {%- if si_dimensions != blank -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Dimensions</th><td>{{ si_dimensions | escape }}</td></tr>
-                {%- endif -%}
-                {%- if si_weight != blank -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight</th><td>{{ si_weight | escape }}</td></tr>
-                {%- endif -%}
-                {%- if si_weight_cap != blank -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight Capacity</th><td>{{ si_weight_cap | escape }}</td></tr>
-                {%- endif -%}
-                {%- if si_materials != blank -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Materials</th><td>{{ si_materials | escape | newline_to_br }}</td></tr>
-                {%- endif -%}
-                {%- if si_finishes != blank and si_finishes.size > 0 -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Finishes Available</th>
-                    <td><ul>{%- for f in si_finishes -%}<li>{{ f | escape }}</li>{%- endfor -%}</ul></td>
-                  </tr>
-                {%- endif -%}
-                {%- if si_certs != blank and si_certs.size > 0 -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Certifications</th>
-                    <td><ul>{%- for c in si_certs -%}<li>{{ c | escape }}</li>{%- endfor -%}</ul></td>
-                  </tr>
-                {%- endif -%}
-                {%- if si_warranty != blank -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Warranty</th><td>{{ si_warranty | escape }}</td></tr>
-                {%- endif -%}
-                {%- if si_country != blank -%}
-                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
-                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Made In</th><td>{{ si_country | escape }}</td></tr>
-                {%- endif -%}
-              </tbody>
-            </table>
-          </div>
-        {%- endif -%}
-
-        <!-- CTA block -->
-        <div class="pdp-cta">
-          {%- if is_unbuyable -%}
-            <!-- BBI Rule #2: unbuyable products → Quote CTA only (not hidden) -->
-            <button type="button"
-              class="pdp-btn pdp-btn--quote"
-              data-bbi-quote-trigger
-              data-lead-type="quote"
-              data-product-handle="{{ product.handle | escape }}"
-              data-product-title="{{ product.title | escape }}">
-              Request a Quote for This Product
-            </button>
-          {%- else -%}
-            <!-- In-stock: Add to cart + Quote -->
+        <!-- Add to Cart (in-stock only, secondary outline, above quote card) -->
+        {%- unless is_unbuyable -%}
+          <div class="pdp-atc-wrap">
             {%- form 'product', product, id: 'pdp-add-to-cart' -%}
               <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-              <button type="submit" class="pdp-btn pdp-btn--primary"
+              <button type="submit" class="pdp-btn pdp-btn--outline"
                 {%- if product.selected_or_first_available_variant.available == false %} disabled{%- endif -%}>
                 {%- if product.selected_or_first_available_variant.available -%}Add to Cart{%- else -%}Unavailable{%- endif -%}
               </button>
             {%- endform -%}
-            <button type="button"
-              class="pdp-btn pdp-btn--outline"
-              data-bbi-quote-trigger
-              data-lead-type="quote"
-              data-product-handle="{{ product.handle | escape }}"
-              data-product-title="{{ product.title | escape }}">
-              Request a Quote Instead
-            </button>
-          {%- endif -%}
+          </div>
+        {%- endunless -%}
+
+        <!-- Quote card -->
+        <div class="pdp-quote-card">
+          <p class="pdp-section-eyebrow"><span aria-hidden="true">—</span> PROJECT QUOTE</p>
+          <h3>Request a quote on this product</h3>
+          <p class="pdp-quote-card__sub">Volume pricing, lead time, OECM PO eligibility, freight, install — all confirmed within 1 business day.</p>
+          <button type="button"
+            class="pdp-btn pdp-btn--quote"
+            data-bbi-quote-trigger
+            data-lead-type="quote"
+            data-product-handle="{{ product.handle }}"
+            data-product-title="{{ product.title | escape }}"
+            data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+            Request a quote &rarr;
+          </button>
+          <p class="pdp-quote-card__phone">Or call <a href="tel:18008359565">1-800-835-9565</a></p>
+          <p class="pdp-quote-card__trust">OECM purchasers welcome &middot; Quotes within 1 business day &middot; Same Ontario team since 1962</p>
         </div>
 
         <!-- Trust pills -->
@@ -536,7 +493,7 @@
           <div class="pdp-related__inner">
             <div class="pdp-related__header">
               <h2>More {{ cat_label }}</h2>
-              <a href="/collections/{{ cat_handle }}" class="pdp-related__view-all">View all {{ cat_label }} →</a>
+              <a href="/collections/{{ cat_handle }}" class="pdp-related__view-all">View all {{ cat_label }} &rarr;</a>
             </div>
             <div class="pdp-related__grid">
               {%- assign shown = 0 -%}
