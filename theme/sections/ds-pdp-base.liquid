@@ -393,11 +393,6 @@
           {%- endif -%}
         </div>
 
-        <!-- Short description -->
-        {%- if product.description != blank -%}
-          <div class="pdp-info__short-desc">{{ product.description }}</div>
-        {%- endif -%}
-
         <!-- Spec metafield assignments — reused in below-fold sections -->
         {%- liquid
           assign kf_inline = product.metafields.specs.key_features.value
@@ -459,7 +454,7 @@
           <div class="pdp-atc-wrap">
             {%- form 'product', product, id: 'pdp-add-to-cart' -%}
               <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-              <button type="submit" class="pdp-btn pdp-btn--outline"
+              <button type="submit" class="pdp-btn pdp-btn--primary"
                 {%- if product.selected_or_first_available_variant.available == false %} disabled{%- endif -%}>
                 {%- if product.selected_or_first_available_variant.available -%}Add to Cart{%- else -%}Unavailable{%- endif -%}
               </button>
