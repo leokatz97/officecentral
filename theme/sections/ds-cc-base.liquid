@@ -551,7 +551,11 @@
 
         <div class="ds-cc__hero-cta-row">
           <a href="/collections/{{ collection.handle }}" class="bbi-btn bbi-btn--primary bbi-btn--lg">
-            {{ section.settings.cta_label | default: 'Shop all ' | escape }}{{ section.settings.hero_title | default: collection.title | escape }}
+            {%- if section.settings.cta_label != blank -%}
+              {{ section.settings.cta_label | escape }}
+            {%- else -%}
+              Shop all {{ section.settings.hero_title | default: collection.title | escape }}
+            {%- endif -%}
           </a>
         </div>
         <p class="ds-cc__hero-micro">
