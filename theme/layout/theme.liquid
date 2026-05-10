@@ -140,6 +140,9 @@
       {%- unless bbi_landing -%}
         {% sections 'header-group' %}
       {%- endunless -%}
+      {%- if bbi_landing -%}
+        {%- render 'bbi-quote-modal' -%}
+      {%- endif -%}
       
       {% if settings.enable_dl_mode_toggle %}
         <script>

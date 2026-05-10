@@ -1,0 +1,494 @@
+{%- comment -%}
+  LEAD-3 (UI-only — shipped early in WAVE-G-FIXES-2, 2026-05-10)
+  Form action is a placeholder. Per-type routing to quotes@/design@/info@
+  wires up in Phase 4 after LEAD-INBOX-1 (Steve provisions inboxes).
+  Do NOT change the routing destination here without updating the build state.
+
+  Snippet: bbi-quote-modal
+  Renders once from theme.liquid inside the bbi_landing gate.
+  Trigger: any [data-bbi-quote-trigger] button, OR any <a href*="/pages/quote"> click.
+  Context data-attributes on trigger:
+    data-lead-type         : quote | design | contact | oecm  (default: quote)
+    data-product-handle    : pre-fills product_handle hidden field
+    data-product-title     : pre-fills product_title hidden field
+    data-collection-handle : pre-fills collection_handle hidden field
+{%- endcomment -%}
+
+<style>
+/* ── bbi-quote-modal ─────────────────────────────────────────────────────── */
+.bbi-qm-dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: 640px;
+  max-height: 92dvh;
+  margin: auto;
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 8px 40px rgba(11,11,12,0.22);
+  overflow: hidden;
+  background: #FFFFFF;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color: #0B0B0C;
+  z-index: 9000;
+}
+.bbi-qm-dialog::backdrop {
+  background: rgba(11,11,12,0.55);
+  backdrop-filter: blur(4px);
+}
+/* Fallback for browsers that don't support <dialog> */
+.bbi-qm-dialog:not([open]) { display: none; }
+
+/* Scrollable inner wrapper */
+.bbi-qm-inner {
+  overflow-y: auto;
+  max-height: 92dvh;
+}
+
+/* Header */
+.bbi-qm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 0;
+  gap: 16px;
+}
+.bbi-qm-title {
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #0B0B0C;
+  margin: 0;
+  line-height: 1.2;
+}
+.bbi-qm-subtitle {
+  font-size: 13px;
+  color: rgba(11,11,12,0.55);
+  margin: 4px 0 0;
+}
+.bbi-qm-close {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #E5E5E7;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  color: rgba(11,11,12,0.6);
+  transition: background 0.15s, color 0.15s;
+  padding: 0;
+}
+.bbi-qm-close:hover { background: #F5F5F5; color: #0B0B0C; }
+.bbi-qm-close:focus-visible { outline: 2px solid #0B0B0C; outline-offset: 2px; }
+
+/* Context pill (shows product/collection name when pre-filled) */
+.bbi-qm-context {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(11,11,12,0.6);
+  padding: 6px 24px 0;
+}
+.bbi-qm-context[data-visible] { display: flex; }
+.bbi-qm-context-label {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #D4252A;
+}
+
+/* Form body */
+.bbi-qm-body {
+  padding: 20px 24px 0;
+}
+
+/* Field groups */
+.bbi-qm-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 480px) { .bbi-qm-row { grid-template-columns: 1fr; } }
+.bbi-qm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.bbi-qm-field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #0B0B0C;
+}
+.bbi-qm-field label .req { color: #D4252A; margin-left: 2px; }
+.bbi-qm-field input,
+.bbi-qm-field select,
+.bbi-qm-field textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #E5E5E7;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #0B0B0C;
+  background: #FFFFFF;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+}
+.bbi-qm-field input:focus,
+.bbi-qm-field select:focus,
+.bbi-qm-field textarea:focus {
+  outline: none;
+  border-color: #0B0B0C;
+}
+.bbi-qm-field textarea { resize: vertical; min-height: 88px; }
+.bbi-qm-field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%230B0B0C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+/* Footer */
+.bbi-qm-footer {
+  padding: 16px 24px 24px;
+  border-top: 1px solid #F0F0F0;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bbi-qm-submit {
+  width: 100%;
+  height: 48px;
+  background: #0B0B0C;
+  color: #FFFFFF;
+  border: 1px solid #0B0B0C;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.bbi-qm-submit:hover { background: #D4252A; border-color: #D4252A; }
+.bbi-qm-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.bbi-qm-trust {
+  font-size: 12px;
+  color: rgba(11,11,12,0.5);
+  text-align: center;
+  margin: 0;
+}
+
+/* Error message */
+.bbi-qm-error {
+  font-size: 13px;
+  color: #D4252A;
+  text-align: center;
+  display: none;
+}
+.bbi-qm-error[data-visible] { display: block; }
+
+/* Success panel */
+.bbi-qm-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 32px;
+  gap: 16px;
+}
+.bbi-qm-success[data-visible] { display: flex; }
+.bbi-qm-success-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(22,163,74,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.bbi-qm-success h2 {
+  font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #0B0B0C;
+  margin: 0;
+}
+.bbi-qm-success p { font-size: 15px; color: rgba(11,11,12,0.65); margin: 0; }
+.bbi-qm-success-close {
+  margin-top: 8px;
+  height: 44px;
+  padding: 0 28px;
+  background: #0B0B0C;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.bbi-qm-success-close:hover { background: #D4252A; }
+
+/* Inline text-link trigger style */
+button.bbi-quote-inline {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+button.bbi-quote-inline:hover { color: #D4252A; }
+</style>
+
+<bbi-quote-modal>
+  <dialog class="bbi-qm-dialog" id="bbi-quote-modal-dialog" aria-labelledby="bbi-qm-title" aria-modal="true">
+    <div class="bbi-qm-inner">
+
+      <!-- Success state -->
+      <div class="bbi-qm-success" id="bbi-qm-success" role="status" aria-live="polite">
+        <div class="bbi-qm-success-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#15803D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14l7 7L23 8"/></svg>
+        </div>
+        <h2>Thanks &mdash; we&rsquo;ll get back to you within one business day</h2>
+        <p>Our Ontario team will review your request and respond with a quote, usually the same business day.</p>
+        <button type="button" class="bbi-qm-success-close" id="bbi-qm-success-close">Close</button>
+      </div>
+
+      <!-- Form state -->
+      <div id="bbi-qm-form-wrap">
+        <div class="bbi-qm-header">
+          <div>
+            <h2 class="bbi-qm-title" id="bbi-qm-title">Request a Quote</h2>
+            <p class="bbi-qm-subtitle">We respond within 1 business day &middot; OECM-eligible supplier</p>
+          </div>
+          <button type="button" class="bbi-qm-close" aria-label="Close quote form" id="bbi-qm-close">&times;</button>
+        </div>
+
+        <div class="bbi-qm-context" id="bbi-qm-context">
+          <span class="bbi-qm-context-label">Product</span>
+          <span id="bbi-qm-context-text"></span>
+        </div>
+
+        <div class="bbi-qm-body">
+          {%- form 'contact', id: 'bbi-quote-contact-form' -%}
+            {%- comment -%} Hidden context fields — populated by JS on open {%- endcomment -%}
+            <input type="hidden" name="contact[tags]" value="bbi-quote-modal">
+            <input type="hidden" name="contact[lead_type]" id="bbi-qm-lead-type" value="quote">
+            <input type="hidden" name="contact[product_handle]" id="bbi-qm-product-handle" value="">
+            <input type="hidden" name="contact[product_title]" id="bbi-qm-product-title" value="">
+            <input type="hidden" name="contact[collection_handle]" id="bbi-qm-collection-handle" value="">
+
+            <div class="bbi-qm-row">
+              <div class="bbi-qm-field">
+                <label for="bbi-qm-name">Name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="bbi-qm-name" name="contact[name]" required autocomplete="name" placeholder="Jane Smith">
+              </div>
+              <div class="bbi-qm-field">
+                <label for="bbi-qm-email">Email <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="bbi-qm-email" name="contact[email]" required autocomplete="email" placeholder="jane@yourorg.ca">
+              </div>
+            </div>
+            <div class="bbi-qm-row">
+              <div class="bbi-qm-field">
+                <label for="bbi-qm-phone">Phone</label>
+                <input type="tel" id="bbi-qm-phone" name="contact[phone]" autocomplete="tel" placeholder="(705) 555-0100">
+              </div>
+              <div class="bbi-qm-field">
+                <label for="bbi-qm-company">Organization</label>
+                <input type="text" id="bbi-qm-company" name="contact[company]" autocomplete="organization" placeholder="School board, hospital, business…">
+              </div>
+            </div>
+            <div class="bbi-qm-field">
+              <label for="bbi-qm-enquiry">Enquiry type</label>
+              <select id="bbi-qm-enquiry" name="contact[enquiry_type]">
+                <option value="General quote">General quote</option>
+                <option value="OECM purchase">OECM purchase</option>
+                <option value="Design consultation">Design consultation</option>
+                <option value="Delivery / installation">Delivery &frasl; installation</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="bbi-qm-field">
+              <label for="bbi-qm-body">Scope &frasl; message <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="bbi-qm-body" name="contact[body]" required rows="4" placeholder="Describe what you need — product, quantity, room dimensions, budget range, timeline…"></textarea>
+            </div>
+
+            <p class="bbi-qm-error" id="bbi-qm-error">Something went wrong. Please try again or call 1-800-835-9565.</p>
+          {%- endform -%}
+        </div>
+
+        <div class="bbi-qm-footer">
+          <button type="submit" form="bbi-quote-contact-form" class="bbi-qm-submit" id="bbi-qm-submit">
+            Send quote request <span aria-hidden="true">→</span>
+          </button>
+          <p class="bbi-qm-trust">No minimums &middot; No sales pitch &middot; Ontario team since 1964</p>
+        </div>
+      </div>
+
+    </div>
+  </dialog>
+</bbi-quote-modal>
+
+<script>
+class BbiQuoteModal extends HTMLElement {
+  connectedCallback() {
+    this._dialog = this.querySelector('#bbi-quote-modal-dialog');
+    this._formWrap = this.querySelector('#bbi-qm-form-wrap');
+    this._success = this.querySelector('#bbi-qm-success');
+    this._form = document.getElementById('bbi-quote-contact-form');
+    this._submitBtn = this.querySelector('#bbi-qm-submit');
+    this._error = this.querySelector('#bbi-qm-error');
+    this._context = this.querySelector('#bbi-qm-context');
+    this._contextText = this.querySelector('#bbi-qm-context-text');
+
+    /* Close buttons */
+    this.querySelector('#bbi-qm-close').addEventListener('click', () => this.close());
+    this.querySelector('#bbi-qm-success-close').addEventListener('click', () => this.close());
+
+    /* Click-outside-to-close */
+    this._dialog.addEventListener('click', e => {
+      if (e.target === this._dialog) this.close();
+    });
+
+    /* Escape handled natively by <dialog> */
+    this._dialog.addEventListener('cancel', () => this._reset());
+
+    /* Form submit */
+    if (this._form) {
+      this._form.addEventListener('submit', e => this._handleSubmit(e));
+    }
+
+    /* Global trigger listeners */
+    document.addEventListener('click', e => {
+      /* data-bbi-quote-trigger buttons */
+      const trigger = e.target.closest('[data-bbi-quote-trigger]');
+      if (trigger) {
+        e.preventDefault();
+        this.open({
+          leadType: trigger.dataset.leadType || 'quote',
+          productHandle: trigger.dataset.productHandle || '',
+          productTitle: trigger.dataset.productTitle || '',
+          collectionHandle: trigger.dataset.collectionHandle || ''
+        });
+        return;
+      }
+
+      /* Intercept all <a href*="/pages/quote"> clicks */
+      const link = e.target.closest('a[href]');
+      if (link && link.getAttribute('href') && link.getAttribute('href').startsWith('/pages/quote')) {
+        e.preventDefault();
+        const url = new URL(link.href, location.origin);
+        this.open({
+          leadType: link.dataset.leadType || url.searchParams.get('lead_type') || 'quote',
+          productHandle: url.searchParams.get('product') || '',
+          productTitle: url.searchParams.get('title') || '',
+          collectionHandle: url.searchParams.get('collection') || ''
+        });
+      }
+    });
+  }
+
+  open(ctx = {}) {
+    /* Populate hidden context fields */
+    document.getElementById('bbi-qm-lead-type').value = ctx.leadType || 'quote';
+    document.getElementById('bbi-qm-product-handle').value = ctx.productHandle || '';
+    document.getElementById('bbi-qm-product-title').value = ctx.productTitle || '';
+    document.getElementById('bbi-qm-collection-handle').value = ctx.collectionHandle || '';
+
+    /* Update enquiry type select to match lead_type */
+    const sel = document.getElementById('bbi-qm-enquiry');
+    if (sel && ctx.leadType === 'oecm') sel.value = 'OECM purchase';
+    else if (sel && ctx.leadType === 'design') sel.value = 'Design consultation';
+    else if (sel) sel.value = 'General quote';
+
+    /* Context pill */
+    if (ctx.productTitle) {
+      this._contextText.textContent = ctx.productTitle;
+      this._context.setAttribute('data-visible', '');
+      const lbl = this._context.querySelector('.bbi-qm-context-label');
+      if (lbl) lbl.textContent = 'Product';
+    } else if (ctx.collectionHandle) {
+      this._contextText.textContent = ctx.collectionHandle.replace(/-/g, ' ');
+      this._context.setAttribute('data-visible', '');
+      const lbl = this._context.querySelector('.bbi-qm-context-label');
+      if (lbl) lbl.textContent = 'Category';
+    } else {
+      this._context.removeAttribute('data-visible');
+    }
+
+    /* Show form, hide success */
+    this._formWrap.hidden = false;
+    this._success.removeAttribute('data-visible');
+
+    this._dialog.showModal();
+
+    /* Focus first input */
+    const first = this._form && this._form.querySelector('input:not([type=hidden])');
+    if (first) setTimeout(() => first.focus(), 50);
+  }
+
+  close() {
+    this._dialog.close();
+    this._reset();
+  }
+
+  _reset() {
+    this._success.removeAttribute('data-visible');
+    this._error.removeAttribute('data-visible');
+    this._formWrap.hidden = false;
+    if (this._submitBtn) {
+      this._submitBtn.disabled = false;
+      this._submitBtn.textContent = 'Send quote request →';
+    }
+  }
+
+  async _handleSubmit(e) {
+    e.preventDefault();
+    if (!this._submitBtn) return;
+
+    this._submitBtn.disabled = true;
+    this._submitBtn.textContent = 'Sending…';
+    this._error.removeAttribute('data-visible');
+
+    try {
+      const data = new FormData(this._form);
+      const res = await fetch('/contact', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'text/html' }
+      });
+
+      if (res.ok || res.redirected) {
+        /* Success */
+        this._formWrap.hidden = true;
+        this._success.setAttribute('data-visible', '');
+        this.querySelector('#bbi-qm-success-close').focus();
+        this._form.reset();
+      } else {
+        throw new Error('Response ' + res.status);
+      }
+    } catch {
+      this._error.setAttribute('data-visible', '');
+      this._submitBtn.disabled = false;
+      this._submitBtn.textContent = 'Send quote request →';
+    }
+  }
+}
+customElements.define('bbi-quote-modal', BbiQuoteModal);
+</script>

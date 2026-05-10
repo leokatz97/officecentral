@@ -397,9 +397,14 @@
         <div class="pdp-cta">
           {%- if is_unbuyable -%}
             <!-- BBI Rule #2: unbuyable products → Quote CTA only (not hidden) -->
-            <a href="/pages/quote?product={{ product.handle | url_encode }}&amp;title={{ product.title | url_encode }}" class="pdp-btn pdp-btn--quote">
+            <button type="button"
+              class="pdp-btn pdp-btn--quote"
+              data-bbi-quote-trigger
+              data-lead-type="quote"
+              data-product-handle="{{ product.handle | escape }}"
+              data-product-title="{{ product.title | escape }}">
               Request a Quote for This Product
-            </a>
+            </button>
           {%- else -%}
             <!-- In-stock: Add to cart + Quote -->
             {%- form 'product', product, id: 'pdp-add-to-cart' -%}
@@ -409,9 +414,14 @@
                 {%- if product.selected_or_first_available_variant.available -%}Add to Cart{%- else -%}Unavailable{%- endif -%}
               </button>
             {%- endform -%}
-            <a href="/pages/quote?product={{ product.handle | url_encode }}&amp;title={{ product.title | url_encode }}" class="pdp-btn pdp-btn--outline">
+            <button type="button"
+              class="pdp-btn pdp-btn--outline"
+              data-bbi-quote-trigger
+              data-lead-type="quote"
+              data-product-handle="{{ product.handle | escape }}"
+              data-product-title="{{ product.title | escape }}">
               Request a Quote Instead
-            </a>
+            </button>
           {%- endif -%}
         </div>
 
@@ -579,7 +589,7 @@
       <div class="pdp-cta-closer__inner">
         <h2>Need a custom configuration?</h2>
         <p>Our team quotes single items to full office buildouts — usually within one business day.</p>
-        <a href="/pages/quote" class="pdp-cta-closer__btn">Request a Quote</a>
+        <button type="button" class="pdp-cta-closer__btn" data-bbi-quote-trigger data-lead-type="quote">Request a Quote</button>
         <p class="pdp-cta-closer__phone">Or call <a href="tel:18008359565">1-800-835-9565</a></p>
       </div>
     </section>
