@@ -271,11 +271,11 @@ def main():
     theme_info = info['theme']
     print(f'Theme   : {theme_info["name"]}  role={theme_info["role"]}')
     if theme_info['role'] == 'main':
-        print('WARNING : This is the LIVE theme. Only dev themes should be used here.')
-        answer = input('Type "yes" to continue anyway, or anything else to abort: ').strip().lower()
-        if answer != 'yes':
-            print('Aborted.')
-            return 1
+        print('⛔  HARD BLOCK: theme_id targets the LIVE theme (178274435385).')
+        print('   All writes must go to BBI Landing Dev (186373570873).')
+        print('   Incident 2026-05-10: live push broke brantbusinessinteriors.com for 30 min.')
+        print('   Aborting. Pass a dev theme ID.')
+        return 1
     print()
 
     # Upload files

@@ -1,11 +1,21 @@
 import urllib.request
 import json
 import sys
-
 import os
+
+# ⛔  HARD BLOCK — this script must never target the live theme.
+# All dev work goes to BBI Landing Dev (186373570873) only.
+LIVE_THEME_ID = '178274435385'
+DEV_THEME_ID  = '186373570873'
+
 TOKEN = os.environ['SHOPIFY_TOKEN']
 STORE = 'office-central-online.myshopify.com'
-THEME_ID = '178274435385'
+THEME_ID = DEV_THEME_ID
+
+if THEME_ID == LIVE_THEME_ID:
+    print('⛔  BLOCKED: push-file.py is hardcoded to the LIVE theme.')
+    print('   Change THEME_ID to DEV_THEME_ID (186373570873) before running.')
+    sys.exit(1)
 
 key = sys.argv[1]
 local_path = sys.argv[2] if len(sys.argv) > 2 else f'theme/{key}'

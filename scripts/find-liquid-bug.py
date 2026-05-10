@@ -6,7 +6,10 @@ import os
 
 TOKEN = os.environ['SHOPIFY_TOKEN']
 STORE = 'office-central-online.myshopify.com'
-THEME_ID = '178274435385'
+# Read-only audit script — targets live theme intentionally for comparison only.
+LIVE_THEME_ID = '178274435385'
+DEV_THEME_ID  = '186373570873'
+THEME_ID = LIVE_THEME_ID  # read-only: never writes to this theme
 API = f'https://{STORE}/admin/api/2026-04'
 
 def fetch_asset_list():

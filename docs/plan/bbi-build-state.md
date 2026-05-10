@@ -7,6 +7,21 @@
 
 ---
 
+## ⛔ HARD RULES — APPLY EVERY SESSION, NO EXCEPTIONS
+
+> **Incident 2026-05-10:** A session accidentally pushed `layout/theme.liquid`, `snippets/theme-variables.liquid`, and `assets/information-drawer.css` to the live theme (`178274435385`), breaking brantbusinessinteriors.com for ~30 min. These rules prevent recurrence.
+
+| Rule | Enforcement |
+|---|---|
+| All theme file writes go to `186373570873` (BBI Landing Dev) **only** | `push-file.py` now hard-aborts if `THEME_ID == LIVE_THEME_ID` |
+| Never run `shopify theme push` without `--theme 186373570873` | Bare push may default to live |
+| Never type `yes` at the bbi-push-landing.py live-theme prompt | That prompt means you've targeted the wrong theme |
+| `fetch-file.py` and `find-liquid-bug.py` may **read** live — never write | Both are labelled read-only in their headers |
+| Before writing any theme asset, print `THEME_ID` and confirm it is `186373570873` | Do this as a preflight check in every session |
+| If a script has `THEME_ID = '178274435385'` hardcoded — stop, fix it, then run | Never override or skip this check |
+
+---
+
 ## How to use this file
 
 Every wave below is a phase of work. Every row is a single piece of buildable scope with a stable ID. Status reflects **git + filesystem reality**, not intent. When you ship something, update its row in this file in the same commit. When the row says ✅ but the evidence is missing or 404, the row is wrong — fix the file before continuing.
