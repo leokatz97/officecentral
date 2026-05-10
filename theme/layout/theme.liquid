@@ -187,17 +187,17 @@
     {% endif %}
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        AOS.init({
-          easing: 'ease',
-          once: true,
-          duration: 1000,
-          offset: 60
-        });
-        setTimeout(function () {
-          if (AOS) {
+        if (typeof AOS !== 'undefined') {
+          AOS.init({
+            easing: 'ease',
+            once: true,
+            duration: 1000,
+            offset: 60
+          });
+          setTimeout(function () {
             AOS.refresh();
-          }
-        }, 1000);
+          }, 1000);
+        }
         new universalParallax().init({
           speed:10
         });
