@@ -107,8 +107,11 @@
 .pdp-price--zero { font-size: 16px; font-weight: 500; color: rgba(var(--textColor-rgb),0.6); }
 .pdp-price__compare { font-size: 16px; font-weight: 400; color: rgba(var(--textColor-rgb),0.45); text-decoration: line-through; margin-left: 8px; }
 
-/* Description */
-.pdp-info__desc { font-size: 15px; line-height: 1.65; color: rgba(var(--textColor-rgb),0.78); margin: 0 0 24px; }
+/* Description + inline content sections */
+.pdp-info__desc { font-size: 15px; line-height: 1.65; color: rgba(var(--textColor-rgb),0.78); margin: 0; }
+.pdp-info-section { margin: 0 0 28px; padding-top: 24px; border-top: 1px solid var(--borderColor); }
+.pdp-info-section:first-of-type { border-top: none; padding-top: 0; }
+.pdp-info-section__heading { font-family: var(--headingFont); font-size: var(--fs-h3); font-weight: 600; color: var(--headingColor); margin: 0 0 14px; letter-spacing: -0.005em; }
 
 /* Variant picker */
 .pdp-variants { margin-bottom: 24px; }
@@ -143,9 +146,7 @@
 .pdp-phone-nudge a { color: var(--textColor); font-weight: 500; text-decoration: none; }
 .pdp-phone-nudge a:hover { color: var(--saleBadgeBackground); }
 
-/* ── Spec table — 2d: strict alternating rows via Liquid counter class ── */
-.pdp-specs { max-width: 1200px; margin: 0 auto; padding: 0 24px 64px; }
-.pdp-specs__heading { font-family: var(--headingFont); font-size: var(--fs-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 24px; letter-spacing: -0.01em; }
+/* ── Spec table ──────────────────────────────────────────────────────────── */
 .pdp-specs-table { width: 100%; border-collapse: collapse; border: 1px solid var(--borderColor); border-radius: var(--cardRadius); overflow: hidden; }
 .pdp-specs-table tr { border-bottom: 1px solid var(--borderColor); background: #ffffff; }
 .pdp-specs-table tr:last-child { border-bottom: none; }
@@ -161,8 +162,6 @@
 }
 
 /* ── Key features list ───────────────────────────────────────────────────── */
-.pdp-features { max-width: 1200px; margin: 0 auto; padding: 0 24px 64px; }
-.pdp-features__heading { font-family: var(--headingFont); font-size: var(--fs-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 20px; letter-spacing: -0.01em; }
 .pdp-features__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 10px; }
 @media (min-width: 640px) { .pdp-features__list { grid-template-columns: 1fr 1fr; } }
 .pdp-features__item { display: flex; gap: 10px; font-size: 15px; line-height: 1.4; }
@@ -386,10 +385,100 @@
           </script>
         {%- endunless -%}
 
-        <!-- Description (2c): full HTML, after variants, before CTA -->
+        <!-- 3c: three labeled sections — About / Key Features / Specs (inline in info column) -->
+        {%- liquid
+          assign kf_inline = product.metafields.specs.key_features.value
+          assign si_manufacturer = product.metafields.specs.manufacturer.value
+          assign si_product_line = product.metafields.specs.product_line.value
+          assign si_model_codes  = product.metafields.specs.model_codes.value
+          assign si_dimensions   = product.metafields.specs.dimensions.value
+          assign si_weight       = product.metafields.specs.weight.value
+          assign si_weight_cap   = product.metafields.specs.weight_capacity.value
+          assign si_materials    = product.metafields.specs.materials.value
+          assign si_finishes     = product.metafields.specs.finishes_available.value
+          assign si_certs        = product.metafields.specs.certifications.value
+          assign si_warranty     = product.metafields.specs.warranty.value
+          assign si_country      = product.metafields.specs.country_of_manufacture.value
+          assign has_inline_specs = false
+          if si_manufacturer or si_product_line or si_model_codes or si_dimensions or si_weight or si_weight_cap or si_materials or si_finishes or si_certs or si_warranty or si_country
+            assign has_inline_specs = true
+          endif
+          assign si_row_i = 0
+        -%}
+
         {%- if product.description != blank -%}
-          <div class="pdp-info__desc">
-            {{ product.description }}
+          <div class="pdp-info-section">
+            <h3 class="pdp-info-section__heading">About this product</h3>
+            <div class="pdp-info__desc">{{ product.description }}</div>
+          </div>
+        {%- endif -%}
+
+        {%- if kf_inline != blank and kf_inline.size > 0 -%}
+          <div class="pdp-info-section">
+            <h3 class="pdp-info-section__heading">Key Features</h3>
+            <ul class="pdp-features__list">
+              {%- for feature in kf_inline -%}
+                <li class="pdp-features__item">{{ feature | escape }}</li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- if has_inline_specs -%}
+          <div class="pdp-info-section">
+            <h3 class="pdp-info-section__heading">Specifications</h3>
+            <table class="pdp-specs-table">
+              <tbody>
+                {%- if si_manufacturer != blank -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Manufacturer</th><td>{{ si_manufacturer | escape }}</td></tr>
+                {%- endif -%}
+                {%- if si_product_line != blank -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Product Line</th><td>{{ si_product_line | escape }}</td></tr>
+                {%- endif -%}
+                {%- if si_model_codes != blank and si_model_codes.size > 0 -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Model</th><td>{{ si_model_codes | join: ', ' | escape }}</td></tr>
+                {%- endif -%}
+                {%- if si_dimensions != blank -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Dimensions</th><td>{{ si_dimensions | escape }}</td></tr>
+                {%- endif -%}
+                {%- if si_weight != blank -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight</th><td>{{ si_weight | escape }}</td></tr>
+                {%- endif -%}
+                {%- if si_weight_cap != blank -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight Capacity</th><td>{{ si_weight_cap | escape }}</td></tr>
+                {%- endif -%}
+                {%- if si_materials != blank -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Materials</th><td>{{ si_materials | escape | newline_to_br }}</td></tr>
+                {%- endif -%}
+                {%- if si_finishes != blank and si_finishes.size > 0 -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Finishes Available</th>
+                    <td><ul>{%- for f in si_finishes -%}<li>{{ f | escape }}</li>{%- endfor -%}</ul></td>
+                  </tr>
+                {%- endif -%}
+                {%- if si_certs != blank and si_certs.size > 0 -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Certifications</th>
+                    <td><ul>{%- for c in si_certs -%}<li>{{ c | escape }}</li>{%- endfor -%}</ul></td>
+                  </tr>
+                {%- endif -%}
+                {%- if si_warranty != blank -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Warranty</th><td>{{ si_warranty | escape }}</td></tr>
+                {%- endif -%}
+                {%- if si_country != blank -%}
+                  {%- assign si_row_i = si_row_i | plus: 1 -%}{%- assign si_row_m = si_row_i | modulo: 2 -%}
+                  <tr{% if si_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Made In</th><td>{{ si_country | escape }}</td></tr>
+                {%- endif -%}
+              </tbody>
+            </table>
           </div>
         {%- endif -%}
 
@@ -437,104 +526,6 @@
         </p>
       </bbi-pdp-variants>
     </div>
-
-    <!-- Key Features (from spec metafields) -->
-    {%- assign kf = product.metafields.specs.key_features.value -%}
-    {%- if kf != blank and kf.size > 0 -%}
-      <section class="pdp-features">
-        <h2 class="pdp-features__heading">Key Features</h2>
-        <ul class="pdp-features__list">
-          {%- for feature in kf -%}
-            <li class="pdp-features__item">{{ feature | escape }}</li>
-          {%- endfor -%}
-        </ul>
-      </section>
-    {%- endif -%}
-
-    <!-- Spec table (from PE-2 metafields, namespace: specs) -->
-    {%- liquid
-      assign has_specs = false
-      assign s_manufacturer = product.metafields.specs.manufacturer.value
-      assign s_product_line = product.metafields.specs.product_line.value
-      assign s_model_codes  = product.metafields.specs.model_codes.value
-      assign s_dimensions   = product.metafields.specs.dimensions.value
-      assign s_weight       = product.metafields.specs.weight.value
-      assign s_weight_cap   = product.metafields.specs.weight_capacity.value
-      assign s_materials    = product.metafields.specs.materials.value
-      assign s_finishes     = product.metafields.specs.finishes_available.value
-      assign s_certs        = product.metafields.specs.certifications.value
-      assign s_warranty     = product.metafields.specs.warranty.value
-      assign s_country      = product.metafields.specs.country_of_manufacture.value
-      if s_manufacturer or s_product_line or s_model_codes or s_dimensions or s_weight or s_weight_cap or s_materials or s_finishes or s_certs or s_warranty or s_country
-        assign has_specs = true
-      endif
-      assign spec_row_i = 0
-    -%}
-    {%- if has_specs -%}
-      <section class="pdp-specs">
-        <h2 class="pdp-specs__heading">Specifications</h2>
-        <table class="pdp-specs-table">
-          <tbody>
-            {%- if s_manufacturer != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Manufacturer</th><td>{{ s_manufacturer | escape }}</td></tr>
-            {%- endif -%}
-            {%- if s_product_line != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Product Line</th><td>{{ s_product_line | escape }}</td></tr>
-            {%- endif -%}
-            {%- if s_model_codes != blank and s_model_codes.size > 0 -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Model</th><td>{{ s_model_codes | join: ', ' | escape }}</td></tr>
-            {%- endif -%}
-            {%- if s_dimensions != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Dimensions</th><td>{{ s_dimensions | escape }}</td></tr>
-            {%- endif -%}
-            {%- if s_weight != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight</th><td>{{ s_weight | escape }}</td></tr>
-            {%- endif -%}
-            {%- if s_weight_cap != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Weight Capacity</th><td>{{ s_weight_cap | escape }}</td></tr>
-            {%- endif -%}
-            {%- if s_materials != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Materials</th><td>{{ s_materials | escape | newline_to_br }}</td></tr>
-            {%- endif -%}
-            {%- if s_finishes != blank and s_finishes.size > 0 -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Finishes Available</th>
-                <td>
-                  <ul>
-                    {%- for f in s_finishes -%}<li>{{ f | escape }}</li>{%- endfor -%}
-                  </ul>
-                </td>
-              </tr>
-            {%- endif -%}
-            {%- if s_certs != blank and s_certs.size > 0 -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Certifications</th>
-                <td>
-                  <ul>
-                    {%- for c in s_certs -%}<li>{{ c | escape }}</li>{%- endfor -%}
-                  </ul>
-                </td>
-              </tr>
-            {%- endif -%}
-            {%- if s_warranty != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Warranty</th><td>{{ s_warranty | escape }}</td></tr>
-            {%- endif -%}
-            {%- if s_country != blank -%}
-              {%- assign spec_row_i = spec_row_i | plus: 1 -%}{%- assign spec_row_m = spec_row_i | modulo: 2 -%}
-              <tr{% if spec_row_m == 0 %} class="spec-row-even"{% endif %}><th scope="row">Made In</th><td>{{ s_country | escape }}</td></tr>
-            {%- endif -%}
-          </tbody>
-        </table>
-      </section>
-    {%- endif -%}
 
     <!-- Related products (same type tag, max 4) -->
     {%- if cat_handle != blank -%}
@@ -681,6 +672,19 @@ class BbiPdpVariants extends HTMLElement {
       if (btn) {
         btn.disabled = !match.available;
         btn.textContent = match.available ? 'Add to Cart' : 'Unavailable';
+      }
+      /* 3b: refresh displayed price when variant changes */
+      if (match.price != null) {
+        const priceEl = this.querySelector('.pdp-price');
+        if (priceEl) {
+          const formatted = new Intl.NumberFormat('en-CA', {
+            style: 'currency', currency: 'CAD', minimumFractionDigits: 2
+          }).format(match.price / 100);
+          /* Preserve any compare-at span */
+          const compareSpan = priceEl.querySelector('.pdp-price__compare');
+          priceEl.textContent = formatted;
+          if (compareSpan) priceEl.appendChild(compareSpan);
+        }
       }
     }
   }
