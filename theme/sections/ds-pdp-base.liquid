@@ -172,14 +172,15 @@
 
 /* ── Below-fold About section ────────────────────────────────────────────── */
 .pdp-about { border-top: 1px solid var(--borderColor); }
-.pdp-about__inner { max-width: 760px; margin: 0 auto; padding: 64px 24px; }
+.pdp-about__inner { max-width: 640px; margin: 0 auto; padding: 64px 24px; }
 .pdp-about .pdp-section-eyebrow { margin: 0 0 16px; }
-.pdp-about__body { font-size: 16px; line-height: 1.7; color: rgba(var(--textColor-rgb),0.85); }
-.pdp-about__body p { margin: 0 0 16px; }
+.pdp-about__tagline { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: var(--fs-h2); letter-spacing: -0.015em; margin: 0 0 24px; }
+.pdp-about__body { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb),0.82); }
+.pdp-about__body p { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb), 0.82); margin: 0 0 16px; }
 .pdp-about__body p:last-child { margin-bottom: 0; }
-.pdp-about__best-for { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--borderColor); }
-.pdp-about__best-for-label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(var(--textColor-rgb),0.5); margin: 0 0 6px; }
-.pdp-about__best-for-text { font-size: 15px; line-height: 1.55; color: var(--textColor); margin: 0; }
+.pdp-about__bestfor { border-top: 1px solid var(--borderColor); margin-top: 32px; padding-top: 24px; }
+.pdp-about__bestfor-label { font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; }
+.pdp-about__bestfor-text { font-size: 17px; line-height: 1.5; font-family: 'Inter Tight', sans-serif; font-weight: 500; margin: 0; }
 
 /* ── Below-fold Specifications section ───────────────────────────────────── */
 .pdp-specs-section { background: var(--alternateBackground); border-top: 1px solid var(--borderColor); padding: 64px 0; }
@@ -508,12 +509,16 @@
     <section class="pdp-about">
       <div class="pdp-about__inner">
         <p class="pdp-section-eyebrow">About this product</p>
+        {%- assign tagline = product.metafields.specs.tagline.value -%}
+        {%- if tagline != blank -%}
+          <h2 class="pdp-about__tagline">{{ tagline | escape }}</h2>
+        {%- endif -%}
         <div class="pdp-about__body">{{ product.description }}</div>
-        {%- assign who_for = product.metafields.specs.who_its_for.value -%}
-        {%- if who_for != blank -%}
-          <div class="pdp-about__best-for">
-            <p class="pdp-about__best-for-label">Best for</p>
-            <p class="pdp-about__best-for-text">{{ who_for | escape }}</p>
+        {%- assign who_its_for = product.metafields.specs.who_its_for.value -%}
+        {%- if who_its_for != blank -%}
+          <div class="pdp-about__bestfor">
+            <p class="pdp-about__bestfor-label">BEST FOR</p>
+            <p class="pdp-about__bestfor-text">{{ who_its_for }}</p>
           </div>
         {%- endif -%}
       </div>
