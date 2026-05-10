@@ -14,7 +14,7 @@
                 {% assign blockCount = blockCount | plus: 1 %}
                 {%- capture headingData -%}
                   <li class="help-list-tab-item{% if contentHeadings == '' %} active{% endif %}" data-tab="help-list-tab-content-{{ block.id }}" data-help-tab>
-                    <span class="cursor-pointer help-list-tab-link"> 
+                    <span class="cursor-pointer help-list-tab-link">
                         {% if section.settings.show_icons %}
                             <span class="help-list-tab-link-icon">
                                 {% render 'icons', icon: block.settings.icon %}
@@ -36,7 +36,7 @@
                           {% endif %}
                           {% if block.settings.description != blank %}
                           <div class="help-list-desc-body rte">
-                            {{ block.settings.description | replace: '<p></p>', '<br/>' 
+                            {{ block.settings.description | replace: '<p></p>', '<br/>'
                               | replace: '<h1></h1>', '<br/>'
                               | replace: '<h2></h2>', '<br/>'
                               | replace: '<h3></h3>', '<br/>'
@@ -267,7 +267,7 @@
       ]
     }
   ],
-  "default":{ 
+  "default":{
       "blocks": [
         {
           "type": "information"
