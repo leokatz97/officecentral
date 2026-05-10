@@ -198,9 +198,11 @@
             AOS.refresh();
           }, 1000);
         }
-        new universalParallax().init({
-          speed:10
-        });
+        if (typeof universalParallax !== 'undefined') {
+          new universalParallax().init({
+            speed:10
+          });
+        }
       })
     </script>
   </body>
