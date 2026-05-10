@@ -164,26 +164,38 @@
 .pdp-phone-nudge a { color: var(--textColor); font-weight: 500; text-decoration: none; }
 .pdp-phone-nudge a:hover { color: var(--saleBadgeBackground); }
 
-/* ── Spec table (inline fallback — replaced by below-fold section in Fix 2) ── */
-.pdp-specs-table { width: 100%; border-collapse: collapse; border: 1px solid var(--borderColor); border-radius: var(--cardRadius); overflow: hidden; }
-.pdp-specs-table tr { border-bottom: 1px solid var(--borderColor); background: #ffffff; }
+/* ── Below-fold About section ────────────────────────────────────────────── */
+.pdp-about { border-top: 1px solid var(--borderColor); }
+.pdp-about__inner { max-width: 760px; margin: 0 auto; padding: 64px 24px; }
+.pdp-about .pdp-section-eyebrow { margin: 0 0 16px; }
+.pdp-about__body { font-size: 16px; line-height: 1.7; color: rgba(var(--textColor-rgb),0.85); }
+.pdp-about__body p { margin: 0 0 16px; }
+.pdp-about__body p:last-child { margin-bottom: 0; }
+.pdp-about__best-for { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--borderColor); }
+.pdp-about__best-for-label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(var(--textColor-rgb),0.5); margin: 0 0 6px; }
+.pdp-about__best-for-text { font-size: 15px; line-height: 1.55; color: var(--textColor); margin: 0; }
+
+/* ── Below-fold Specifications section ───────────────────────────────────── */
+.pdp-specs-section { background: var(--alternateBackground); border-top: 1px solid var(--borderColor); padding: 64px 0; }
+.pdp-specs-section__inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.pdp-specs-section .pdp-section-eyebrow { margin: 0 0 16px; }
+.pdp-specs-section__heading { font-family: var(--headingFont); font-size: clamp(24px, 3vw, 32px); font-weight: 600; line-height: 1.15; letter-spacing: -0.015em; color: var(--headingColor); margin: 0 0 24px; }
+.pdp-specs-section__rule { border: none; border-top: 1px solid var(--borderColor); margin: 0 0 32px; }
+
+/* Restyled spec table — no alternating rows, border-bottom only */
+.pdp-specs-table { width: 100%; border-collapse: collapse; }
+.pdp-specs-table tr { border-bottom: 1px solid var(--borderColor); }
 .pdp-specs-table tr:last-child { border-bottom: none; }
-.pdp-specs-table tr.spec-row-even { background: #f5f5f5; }
-.pdp-specs-table th { width: 200px; font-size: 13px; font-weight: 600; text-align: left; padding: 12px 16px; color: var(--textColor); background: inherit; white-space: nowrap; vertical-align: top; }
-.pdp-specs-table td { font-size: 14px; padding: 12px 16px; color: rgba(var(--textColor-rgb),0.85); vertical-align: top; }
+.pdp-specs-table th { width: 180px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--textColor-rgb),0.45); text-align: left; padding: 16px 20px 16px 0; vertical-align: top; }
+.pdp-specs-table td { font-size: 15px; line-height: 1.55; color: var(--textColor); padding: 16px 0; vertical-align: top; }
 .pdp-specs-table ul { margin: 0; padding: 0 0 0 18px; }
 .pdp-specs-table li { margin-bottom: 4px; }
+.pdp-specs-table li:last-child { margin-bottom: 0; }
 @media (max-width: 640px) {
-  .pdp-specs-table, .pdp-specs-table tbody, .pdp-specs-table tr, .pdp-specs-table th, .pdp-specs-table td { display: block; width: 100%; }
-  .pdp-specs-table th { padding-bottom: 4px; }
-  .pdp-specs-table td { padding-top: 4px; }
+  .pdp-specs-table tr, .pdp-specs-table th, .pdp-specs-table td { display: block; width: 100%; }
+  .pdp-specs-table th { padding: 16px 0 4px; }
+  .pdp-specs-table td { padding: 0 0 16px; }
 }
-
-/* ── Key features list ───────────────────────────────────────────────────── */
-.pdp-features__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 10px; }
-@media (min-width: 640px) { .pdp-features__list { grid-template-columns: 1fr 1fr; } }
-.pdp-features__item { display: flex; gap: 10px; font-size: 15px; line-height: 1.4; }
-.pdp-features__item::before { content: "→"; color: var(--saleBadgeBackground); font-weight: 600; flex-shrink: 0; }
 
 /* ── Related products ────────────────────────────────────────────────────── */
 .pdp-related { padding: 56px 0; background: var(--alternateBackground); border-top: 1px solid var(--borderColor); }
@@ -483,6 +495,83 @@
         </p>
       </bbi-pdp-variants>
     </div>
+
+    <!-- About this product (full-width, below fold) -->
+    <section class="pdp-about">
+      <div class="pdp-about__inner">
+        <p class="pdp-section-eyebrow"><span aria-hidden="true">—</span> About this product</p>
+        <div class="pdp-about__body">{{ product.description }}</div>
+        {%- assign who_for = product.metafields.specs.who_its_for.value -%}
+        {%- if who_for != blank -%}
+          <div class="pdp-about__best-for">
+            <p class="pdp-about__best-for-label">Best for</p>
+            <p class="pdp-about__best-for-text">{{ who_for | escape }}</p>
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+
+    <!-- Specifications (full-width, below fold) -->
+    {%- if has_specs or kf_inline != blank -%}
+      <section class="pdp-specs-section">
+        <div class="pdp-specs-section__inner">
+          <p class="pdp-section-eyebrow"><span aria-hidden="true">—</span> Specifications</p>
+          <h2 class="pdp-specs-section__heading">Everything we'd put on the spec sheet.</h2>
+          <hr class="pdp-specs-section__rule">
+          <table class="pdp-specs-table">
+            <tbody>
+              {%- if kf_inline != blank and kf_inline.size > 0 -%}
+                <tr>
+                  <th scope="row">Key Features</th>
+                  <td>
+                    <ul>
+                      {%- for f in kf_inline -%}<li>{{ f | escape }}</li>{%- endfor -%}
+                    </ul>
+                  </td>
+                </tr>
+              {%- endif -%}
+              {%- if si_manufacturer != blank -%}
+                <tr><th scope="row">Manufacturer</th><td>{{ si_manufacturer | escape }}</td></tr>
+              {%- endif -%}
+              {%- if si_product_line != blank -%}
+                <tr><th scope="row">Product Line</th><td>{{ si_product_line | escape }}</td></tr>
+              {%- endif -%}
+              {%- if si_model_codes != blank and si_model_codes.size > 0 -%}
+                <tr><th scope="row">Model</th><td>{{ si_model_codes | join: ', ' | escape }}</td></tr>
+              {%- endif -%}
+              {%- if si_dimensions != blank -%}
+                <tr><th scope="row">Dimensions</th><td>{{ si_dimensions | escape }}</td></tr>
+              {%- endif -%}
+              {%- if si_weight != blank -%}
+                <tr><th scope="row">Weight</th><td>{{ si_weight | escape }}</td></tr>
+              {%- endif -%}
+              {%- if si_weight_cap != blank -%}
+                <tr><th scope="row">Weight Capacity</th><td>{{ si_weight_cap | escape }}</td></tr>
+              {%- endif -%}
+              {%- if si_materials != blank -%}
+                <tr><th scope="row">Materials</th><td>{{ si_materials | escape | newline_to_br }}</td></tr>
+              {%- endif -%}
+              {%- if si_finishes != blank and si_finishes.size > 0 -%}
+                <tr><th scope="row">Finishes Available</th>
+                  <td><ul>{%- for f in si_finishes -%}<li>{{ f | escape }}</li>{%- endfor -%}</ul></td>
+                </tr>
+              {%- endif -%}
+              {%- if si_certs != blank and si_certs.size > 0 -%}
+                <tr><th scope="row">Certifications</th>
+                  <td><ul>{%- for c in si_certs -%}<li>{{ c | escape }}</li>{%- endfor -%}</ul></td>
+                </tr>
+              {%- endif -%}
+              {%- if si_warranty != blank -%}
+                <tr><th scope="row">Warranty</th><td>{{ si_warranty | escape }}</td></tr>
+              {%- endif -%}
+              {%- if si_country != blank -%}
+                <tr><th scope="row">Made In</th><td>{{ si_country | escape }}</td></tr>
+              {%- endif -%}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    {%- endif -%}
 
     <!-- Related products (same type tag, max 4) -->
     {%- if cat_handle != blank -%}
