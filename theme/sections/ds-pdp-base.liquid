@@ -444,6 +444,8 @@
               {
                 "id": {{ variant.id }},
                 "available": {{ variant.available }},
+                "price": {{ variant.price }},
+                "compare_at_price": {{ variant.compare_at_price | default: 0 }},
                 "options": {{ variant.options | json }}
               }{%- unless forloop.last -%},{%- endunless -%}
               {%- endfor -%}
@@ -470,6 +472,9 @@
           <p class="pdp-section-eyebrow"><span aria-hidden="true">—</span> PROJECT QUOTE</p>
           <h3>Request a quote on this product</h3>
           <p class="pdp-quote-card__sub">Volume pricing, lead time, OECM PO eligibility, freight, install — all confirmed within 1 business day.</p>
+          {%- unless product.price == 0 -%}
+            <p class="pdp-quote-card__price">{{ product.selected_or_first_available_variant.price | money }}</p>
+          {%- endunless -%}
           <button type="button"
             class="pdp-btn pdp-btn--quote"
             data-bbi-quote-trigger
@@ -701,36 +706,34 @@ class BbiPdpVariants extends HTMLElement {
 
   _updateFormId() {
     /* Find variant matching all currently selected options */
-    const form = document.getElementById('pdp-add-to-cart');
-    if (!form) return;
-    const idInput = form.querySelector('input[name="id"]');
-    if (!idInput) return;
-
     const match = this._variants.find(v => {
       return Object.keys(this._selected).every(pos => {
         return v.options[parseInt(pos)] === this._selected[pos];
       });
     });
     if (match) {
-      idInput.value = match.id;
-      /* Reflect availability on the submit button */
-      const btn = form.querySelector('button[type="submit"]');
-      if (btn) {
-        btn.disabled = !match.available;
-        btn.textContent = match.available ? 'Add to Cart' : 'Unavailable';
-      }
-      /* 3b: refresh displayed price when variant changes */
-      if (match.price != null) {
-        const priceEl = this.querySelector('.pdp-price');
-        if (priceEl) {
-          const formatted = new Intl.NumberFormat('en-CA', {
-            style: 'currency', currency: 'CAD', minimumFractionDigits: 2
-          }).format(match.price / 100);
-          /* Preserve any compare-at span */
-          const compareSpan = priceEl.querySelector('.pdp-price__compare');
-          priceEl.textContent = formatted;
-          if (compareSpan) priceEl.appendChild(compareSpan);
+      /* Update hidden form input (only exists for in-stock products) */
+      const form = document.getElementById('pdp-add-to-cart');
+      if (form) {
+        const idInput = form.querySelector('input[name="id"]');
+        if (idInput) idInput.value = match.id;
+        /* Reflect availability on the submit button */
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.disabled = !match.available;
+          submitBtn.textContent = match.available ? 'Add to Cart' : 'Unavailable';
         }
+      }
+      /* Update quote button variant id */
+      const quoteBtn = this.querySelector('[data-bbi-quote-trigger]');
+      if (quoteBtn) quoteBtn.dataset.variantId = match.id;
+      /* Update price displayed in quote card (Shopify prices are in cents) */
+      const priceEl = this.querySelector('.pdp-quote-card__price');
+      if (priceEl && match.price != null) {
+        priceEl.textContent = new Intl.NumberFormat('en-CA', {
+          style: 'currency',
+          currency: 'CAD'
+        }).format(match.price / 100);
       }
     }
   }
