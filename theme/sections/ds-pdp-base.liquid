@@ -187,21 +187,17 @@
 .pdp-specs-section__inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .pdp-specs-section .pdp-section-eyebrow { margin: 0 0 16px; }
 .pdp-specs-section__heading { font-family: var(--headingFont); font-size: clamp(24px, 3vw, 32px); font-weight: 600; line-height: 1.15; letter-spacing: -0.015em; color: var(--headingColor); margin: 0 0 24px; }
-.pdp-specs-section__rule { border: none; border-top: 1px solid var(--borderColor); margin: 0 0 32px; }
 
-/* Restyled spec table — no alternating rows, border-bottom only */
-.pdp-specs-table { width: 100%; border-collapse: collapse; }
-.pdp-specs-table tr { border-bottom: 1px solid var(--borderColor); }
-.pdp-specs-table tr:last-child { border-bottom: none; }
-.pdp-specs-table th { width: 180px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--textColor-rgb),0.45); text-align: left; padding: 16px 20px 16px 0; vertical-align: top; }
-.pdp-specs-table td { font-size: 15px; line-height: 1.55; color: var(--textColor); padding: 16px 0; vertical-align: top; }
-.pdp-specs-table ul { margin: 0; padding: 0 0 0 18px; }
-.pdp-specs-table li { margin-bottom: 4px; }
-.pdp-specs-table li:last-child { margin-bottom: 0; }
+/* Spec grid — CSS grid divs replacing legacy <table> */
+.pdp-specs-table { border-top: 1px solid var(--textColor); }
+.pdp-spec-row { display: grid; grid-template-columns: 28% 72%; gap: 24px; padding: 14px 0; border-bottom: 1px solid var(--borderColor); }
+.pdp-spec-row__label { font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--textColor-rgb), 0.6); }
+.pdp-spec-row__value { font-size: 15px; line-height: 1.55; color: var(--textColor); }
+.pdp-spec-row__value ul { list-style: none; padding: 0; margin: 0; }
+.pdp-spec-row__value li { position: relative; padding-left: 20px; margin-bottom: 4px; }
+.pdp-spec-row__value li::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 10px; height: 1px; background: var(--textColor); }
 @media (max-width: 640px) {
-  .pdp-specs-table tr, .pdp-specs-table th, .pdp-specs-table td { display: block; width: 100%; }
-  .pdp-specs-table th { padding: 16px 0 4px; }
-  .pdp-specs-table td { padding: 0 0 16px; }
+  .pdp-spec-row { grid-template-columns: 1fr; gap: 4px; }
 }
 
 /* ── Related products ────────────────────────────────────────────────────── */
@@ -530,58 +526,53 @@
         <div class="pdp-specs-section__inner">
           <p class="pdp-section-eyebrow">Specifications</p>
           <h2 class="pdp-specs-section__heading">Everything we'd put on the spec sheet.</h2>
-          <hr class="pdp-specs-section__rule">
-          <table class="pdp-specs-table">
-            <tbody>
-              {%- if kf_inline != blank and kf_inline.size > 0 -%}
-                <tr>
-                  <th scope="row">Key Features</th>
-                  <td>
-                    <ul>
-                      {%- for f in kf_inline -%}<li>{{ f | escape }}</li>{%- endfor -%}
-                    </ul>
-                  </td>
-                </tr>
-              {%- endif -%}
-              {%- if si_manufacturer != blank -%}
-                <tr><th scope="row">Manufacturer</th><td>{{ si_manufacturer | escape }}</td></tr>
-              {%- endif -%}
-              {%- if si_product_line != blank -%}
-                <tr><th scope="row">Product Line</th><td>{{ si_product_line | escape }}</td></tr>
-              {%- endif -%}
-              {%- if si_model_codes != blank and si_model_codes.size > 0 -%}
-                <tr><th scope="row">Model</th><td>{{ si_model_codes | join: ', ' | escape }}</td></tr>
-              {%- endif -%}
-              {%- if si_dimensions != blank -%}
-                <tr><th scope="row">Dimensions</th><td>{{ si_dimensions | escape }}</td></tr>
-              {%- endif -%}
-              {%- if si_weight != blank -%}
-                <tr><th scope="row">Weight</th><td>{{ si_weight | escape }}</td></tr>
-              {%- endif -%}
-              {%- if si_weight_cap != blank -%}
-                <tr><th scope="row">Weight Capacity</th><td>{{ si_weight_cap | escape }}</td></tr>
-              {%- endif -%}
-              {%- if si_materials != blank -%}
-                <tr><th scope="row">Materials</th><td>{{ si_materials | escape | newline_to_br }}</td></tr>
-              {%- endif -%}
-              {%- if si_finishes != blank and si_finishes.size > 0 -%}
-                <tr><th scope="row">Finishes Available</th>
-                  <td><ul>{%- for f in si_finishes -%}<li>{{ f | escape }}</li>{%- endfor -%}</ul></td>
-                </tr>
-              {%- endif -%}
-              {%- if si_certs != blank and si_certs.size > 0 -%}
-                <tr><th scope="row">Certifications</th>
-                  <td><ul>{%- for c in si_certs -%}<li>{{ c | escape }}</li>{%- endfor -%}</ul></td>
-                </tr>
-              {%- endif -%}
-              {%- if si_warranty != blank -%}
-                <tr><th scope="row">Warranty</th><td>{{ si_warranty | escape }}</td></tr>
-              {%- endif -%}
-              {%- if si_country != blank -%}
-                <tr><th scope="row">Made In</th><td>{{ si_country | escape }}</td></tr>
-              {%- endif -%}
-            </tbody>
-          </table>
+          <div class="pdp-specs-table">
+            {%- if kf_inline != blank and kf_inline.size > 0 -%}
+              <div class="pdp-spec-row">
+                <span class="pdp-spec-row__label">Key Features</span>
+                <span class="pdp-spec-row__value"><ul>{%- for f in kf_inline -%}<li>{{ f | escape }}</li>{%- endfor -%}</ul></span>
+              </div>
+            {%- endif -%}
+            {%- if si_manufacturer != blank -%}
+              <div class="pdp-spec-row"><span class="pdp-spec-row__label">Manufacturer</span><span class="pdp-spec-row__value">{{ si_manufacturer | escape }}</span></div>
+            {%- endif -%}
+            {%- if si_product_line != blank -%}
+              <div class="pdp-spec-row"><span class="pdp-spec-row__label">Product Line</span><span class="pdp-spec-row__value">{{ si_product_line | escape }}</span></div>
+            {%- endif -%}
+            {%- if si_model_codes != blank and si_model_codes.size > 0 -%}
+              <div class="pdp-spec-row"><span class="pdp-spec-row__label">Model</span><span class="pdp-spec-row__value">{{ si_model_codes | join: ', ' | escape }}</span></div>
+            {%- endif -%}
+            {%- if si_dimensions != blank -%}
+              <div class="pdp-spec-row"><span class="pdp-spec-row__label">Dimensions</span><span class="pdp-spec-row__value">{{ si_dimensions | escape }}</span></div>
+            {%- endif -%}
+            {%- if si_weight != blank -%}
+              <div class="pdp-spec-row"><span class="pdp-spec-row__label">Weight</span><span class="pdp-spec-row__value">{{ si_weight | escape }}</span></div>
+            {%- endif -%}
+            {%- if si_weight_cap != blank -%}
+              <div class="pdp-spec-row"><span class="pdp-spec-row__label">Weight Capacity</span><span class="pdp-spec-row__value">{{ si_weight_cap | escape }}</span></div>
+            {%- endif -%}
+            {%- if si_materials != blank -%}
+              <div class="pdp-spec-row"><span class="pdp-spec-row__label">Materials</span><span class="pdp-spec-row__value">{{ si_materials | escape | newline_to_br }}</span></div>
+            {%- endif -%}
+            {%- if si_finishes != blank and si_finishes.size > 0 -%}
+              <div class="pdp-spec-row">
+                <span class="pdp-spec-row__label">Finishes Available</span>
+                <span class="pdp-spec-row__value"><ul>{%- for f in si_finishes -%}<li>{{ f | escape }}</li>{%- endfor -%}</ul></span>
+              </div>
+            {%- endif -%}
+            {%- if si_certs != blank and si_certs.size > 0 -%}
+              <div class="pdp-spec-row">
+                <span class="pdp-spec-row__label">Certifications</span>
+                <span class="pdp-spec-row__value"><ul>{%- for c in si_certs -%}<li>{{ c | escape }}</li>{%- endfor -%}</ul></span>
+              </div>
+            {%- endif -%}
+            {%- if si_warranty != blank -%}
+              <div class="pdp-spec-row"><span class="pdp-spec-row__label">Warranty</span><span class="pdp-spec-row__value">{{ si_warranty | escape }}</span></div>
+            {%- endif -%}
+            {%- if si_country != blank -%}
+              <div class="pdp-spec-row"><span class="pdp-spec-row__label">Made In</span><span class="pdp-spec-row__value">{{ si_country | escape }}</span></div>
+            {%- endif -%}
+          </div>
         </div>
       </section>
     {%- endif -%}
