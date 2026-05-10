@@ -91,7 +91,8 @@
 .s404-cta p { font-size: 16px; color: rgba(var(--textColor-rgb),0.7); margin: 0 0 28px; }
 .s404-cta__btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 .s404-btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; border-radius: var(--buttonRadius); font-family: var(--bodyFont); font-size: var(--fs-button); font-weight: 500; letter-spacing: var(--ls-button); text-decoration: none; transition: background 0.15s, border-color 0.15s; }
-.s404-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border: 1px solid var(--buttonBorder); }
+/* !important required: .bbi-system-404 a selector (class+element, specificity 0,1,1) beats class-only .s404-btn--primary */
+.s404-btn--primary { background: var(--buttonBackground); color: #ffffff !important; border: 1px solid var(--buttonBorder); }
 .s404-btn--primary:hover { background: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); color: #fff; }
 .s404-btn--outline { background: transparent; color: var(--textColor); border: 1px solid var(--borderColor); }
 .s404-btn--outline:hover { border-color: var(--textColor); }

@@ -118,7 +118,8 @@
 .pdp-variant-opt.selected { border-color: var(--textColor); background: var(--textColor); color: var(--background); }
 .pdp-variant-opt:hover:not(.selected) { border-color: var(--textColor); }
 /* Validation state: red outline on unselected group, chips stay horizontal */
-.pdp-variants.needs-selection .pdp-variants__options { outline: 2px solid var(--saleBadgeBackground); border-radius: var(--buttonRadius); padding: 6px; }
+/* !important required: Starlite leftover flex reset overrides class-only specificity */
+.pdp-variants.needs-selection .pdp-variants__options { display: flex !important; flex-wrap: wrap !important; outline: 2px solid var(--saleBadgeBackground); border-radius: var(--buttonRadius); padding: 6px; }
 
 /* CTA buttons — 2e: both 100% width, 48px height, matched pair */
 .pdp-cta { display: flex; flex-direction: column; gap: 10px; }
