@@ -76,13 +76,19 @@
 
 {%- comment -%} BreadcrumbList — 4 levels: Home > Shop Furniture > Category > Product {%- endcomment -%}
 {%- assign bc_base = shop.url -%}
+{%- assign bc3_n = cat_label | default: 'Other' -%}
+{%- if cat_handle != blank -%}
+  {%- assign bc3_u = bc_base | append: '/collections/' | append: cat_handle -%}
+{%- else -%}
+  {%- assign bc3_u = bc_base | append: '/collections/other' -%}
+{%- endif -%}
 {%- render 'bbi-breadcrumb-jsonld',
     bc1_name: 'Home',
     bc1_url: bc_base,
     bc2_name: 'Shop Furniture',
     bc2_url: bc_base | append: '/collections/business-furniture',
-    bc3_name: cat_label,
-    bc3_url: bc_base | append: '/collections/' | append: cat_handle,
+    bc3_name: bc3_n,
+    bc3_url: bc3_u,
     bc4_name: product.title,
     bc4_url: product_url
 -%}

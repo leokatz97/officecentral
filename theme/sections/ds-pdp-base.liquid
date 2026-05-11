@@ -193,9 +193,12 @@ body { background: #FFFFFF !important; }
 /* Constrain prose paragraphs only — headings, lists, tables use full container */
 .pdp-about__body p { max-width: 640px; font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb), 0.82); margin: 0 0 16px; }
 .pdp-about__body p:last-child { margin-bottom: 0; }
-/* h2/h3 inside product description → eyebrow treatment, not giant headings */
+/* h2–h6 inside product description → eyebrow treatment, not giant headings */
 .pdp-about__body h2,
-.pdp-about__body h3 {
+.pdp-about__body h3,
+.pdp-about__body h4,
+.pdp-about__body h5,
+.pdp-about__body h6 {
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 11px;
   font-weight: 700;
@@ -205,7 +208,10 @@ body { background: #FFFFFF !important; }
   margin: 32px 0 8px;
 }
 .pdp-about__body h2::before,
-.pdp-about__body h3::before {
+.pdp-about__body h3::before,
+.pdp-about__body h4::before,
+.pdp-about__body h5::before,
+.pdp-about__body h6::before {
   content: '';
   display: block;
   width: 18px;
@@ -214,7 +220,10 @@ body { background: #FFFFFF !important; }
   margin-bottom: 8px;
 }
 .pdp-about__body h2:first-child,
-.pdp-about__body h3:first-child { margin-top: 0; }
+.pdp-about__body h3:first-child,
+.pdp-about__body h4:first-child,
+.pdp-about__body h5:first-child,
+.pdp-about__body h6:first-child { margin-top: 0; }
 .pdp-about__bestfor { border-top: 1px solid var(--borderColor); margin-top: 32px; padding-top: 24px; }
 .pdp-about__bestfor-label { font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; }
 .pdp-about__bestfor-text { font-size: 17px; line-height: 1.5; font-family: 'Inter Tight', sans-serif; font-weight: 500; margin: 0; }
@@ -407,9 +416,11 @@ body { background: #FFFFFF !important; }
         <a href="/">Home</a>
         <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
         <a href="/collections/business-furniture">Shop Furniture</a>
+        <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
         {%- if cat_handle != blank -%}
-          <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
           <a href="/collections/{{ cat_handle }}">{{ cat_label }}</a>
+        {%- else -%}
+          <a href="/collections/other">Other</a>
         {%- endif -%}
         <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
         <span aria-current="page">{{ product.title }}</span>
@@ -540,7 +551,8 @@ body { background: #FFFFFF !important; }
         <!-- Variant options (non-colour) — 2b: wired to form via data attrs -->
         {%- unless product.has_only_default_variant -%}
           {%- for option in product.options_with_values -%}
-            {%- unless option.name == 'Color' or option.name == 'Colour' -%}
+            {%- assign _opt_down = option.name | downcase -%}
+            {%- unless _opt_down contains 'color' or _opt_down contains 'colour' -%}
               <div class="pdp-variants" data-option-pos="{{ option.position | minus: 1 }}">
                 <p class="pdp-variants__label">{{ option.name }}: <strong class="pdp-variants__selected-val">{{ option.values | first }}</strong></p>
                 <div class="pdp-variants__options" role="group" aria-label="{{ option.name }}">
@@ -709,42 +721,18 @@ body { background: #FFFFFF !important; }
       </section>
     {%- endif -%}
 
-    <!-- Related products — 3-tier best-sellers fallback -->
+    <!-- Related products — Tier 1 only: best sellers in same category -->
     {%- liquid
       assign _rc = nil
-      assign _rt = 0
-      assign _rv = '/collections/all-business-furniture'
-      assign _rl = 'Shop all furniture'
+      assign _rv = ''
+      assign _rl = ''
 
       if all_cat_handle != blank
         assign _t1 = collections[all_cat_handle]
         if _t1 != blank
           assign _rc = _t1
-          assign _rt = 1
           assign _rv = '/collections/' | append: all_cat_handle
           assign _rl = 'View all ' | append: cat_label
-        endif
-      endif
-
-      if _rt == 0
-        for tag in product.tags
-          if tag contains 'room:'
-            assign _rh = tag | remove: 'room:'
-            assign _t2 = collections[_rh]
-            if _t2 != blank
-              assign _rc = _t2
-              assign _rt = 2
-            endif
-            break
-          endif
-        endfor
-      endif
-
-      if _rt == 0
-        assign _t3 = collections['all-business-furniture']
-        if _t3 != blank
-          assign _rc = _t3
-          assign _rt = 3
         endif
       endif
     -%}
@@ -785,11 +773,7 @@ body { background: #FFFFFF !important; }
         <section class="pdp-related">
           <div class="pdp-related__inner">
             <div class="pdp-related__header">
-              {%- if _rt == 1 -%}
-                <h2>Best sellers in {{ cat_label }}</h2>
-              {%- else -%}
-                <h2>Customers also bought</h2>
-              {%- endif -%}
+              <h2>Best sellers in {{ cat_label }}</h2>
               <a href="{{ _rv }}" class="pdp-related__view-all">{{ _rl }} &rarr;</a>
             </div>
             <div class="pdp-related__grid">{{ _cards }}</div>
@@ -914,6 +898,13 @@ class BbiPdpGallery extends HTMLElement {
 }
 customElements.define('bbi-pdp-gallery', BbiPdpGallery);
 
+/* Format cents to match Shopify money filter output: $1,234.56 */
+function _fmtMoney(cents) {
+  const n = (cents / 100).toFixed(2);
+  const [int, dec] = n.split('.');
+  return '$' + int.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + dec;
+}
+
 /* 2b: BbiPdpVariants — chip click updates hidden form id input */
 class BbiPdpVariants extends HTMLElement {
   connectedCallback() {
@@ -979,10 +970,7 @@ class BbiPdpVariants extends HTMLElement {
       /* Update price row above variant chips (Shopify prices are in cents) */
       const priceEl = this.querySelector('.pdp-price-row');
       if (priceEl && match.price != null) {
-        priceEl.textContent = new Intl.NumberFormat('en-CA', {
-          style: 'currency',
-          currency: 'CAD'
-        }).format(match.price / 100);
+        priceEl.textContent = _fmtMoney(match.price);
       }
     }
   }
