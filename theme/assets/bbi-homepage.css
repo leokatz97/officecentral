@@ -564,3 +564,16 @@
 /* Hides compare-widget containers (compare-btn-sidebar, compare-model-items)
    which carry class="… hidden" and rely on this rule to stay off-screen */
 .hidden { display: none !important; }
+
+/* compare-basket sticky bar — pushed below viewport by default, slides in
+   when JS adds .open; mirrors style.css on LIVE which isn't loaded on DEV */
+.compare-basket {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 9;
+  transform: translateY(120%);
+}
+.compare-basket.open {
+  transform: translateY(0%);
+}
