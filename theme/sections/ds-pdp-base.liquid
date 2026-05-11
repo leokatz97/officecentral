@@ -259,6 +259,58 @@
 .pdp-cta-closer__phone { margin-top: 16px; font-size: 14px; color: rgba(var(--textColor-rgb),0.6); }
 .pdp-cta-closer__phone a { color: var(--textColor); font-weight: 500; text-decoration: none; }
 .pdp-cta-closer__phone a:hover { color: var(--saleBadgeBackground); }
+
+/* ── Quantity selector ───────────────────────────────────────────────────── */
+.pdp-quantity {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--borderColor);
+  border-radius: var(--cardRadius);
+  overflow: hidden;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+.pdp-quantity__btn {
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--textColor);
+  line-height: 1;
+  transition: background 0.15s;
+}
+.pdp-quantity__btn:hover {
+  background: var(--alternateBackground);
+}
+.pdp-quantity__input {
+  width: 48px;
+  text-align: center;
+  border: none;
+  border-left: 1px solid var(--borderColor);
+  border-right: 1px solid var(--borderColor);
+  font-size: 15px;
+  padding: 10px 0;
+  -moz-appearance: textfield;
+  color: var(--textColor);
+  background: none;
+}
+.pdp-quantity__input::-webkit-outer-spin-button,
+.pdp-quantity__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* ── Buy Now button ──────────────────────────────────────────────────────── */
+.pdp-btn--buy-now {
+  width: 100%;
+  margin-bottom: 10px;
+  background: var(--textColor);
+  color: var(--background);
+  border: 2px solid var(--textColor);
+}
+.pdp-btn--buy-now:hover {
+  opacity: 0.85;
+}
 </style>
 
 {%- comment -%}
@@ -490,6 +542,24 @@
           <div class="pdp-atc-wrap">
             {%- form 'product', product, id: 'pdp-add-to-cart' -%}
               <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <div class="pdp-quantity">
+                <button class="pdp-quantity__btn" data-quantity-minus
+                        aria-label="Decrease quantity" type="button">−</button>
+                <input class="pdp-quantity__input"
+                       type="number"
+                       name="quantity"
+                       id="pdp-quantity-input"
+                       value="1"
+                       min="1"
+                       aria-label="Quantity">
+                <button class="pdp-quantity__btn" data-quantity-plus
+                        aria-label="Increase quantity" type="button">+</button>
+              </div>
+              <button type="button"
+                      class="pdp-btn pdp-btn--primary pdp-btn--buy-now"
+                      data-buy-now>
+                Buy now
+              </button>
               <button type="submit" class="pdp-btn pdp-btn--primary"
                 {%- if product.selected_or_first_available_variant.available == false %} disabled{%- endif -%}>
                 {%- if product.selected_or_first_available_variant.available -%}Add to Cart{%- else -%}Unavailable{%- endif -%}
@@ -797,6 +867,53 @@ customElements.define('bbi-pdp-variants', BbiPdpVariants);
     });
   });
 })();
+
+/* Quantity stepper */
+document.addEventListener('DOMContentLoaded', function () {
+  const minus = document.querySelector('[data-quantity-minus]');
+  const plus  = document.querySelector('[data-quantity-plus]');
+  const input = document.getElementById('pdp-quantity-input');
+  if (!minus || !plus || !input) return;
+  minus.addEventListener('click', function () {
+    const val = parseInt(input.value, 10);
+    if (val > 1) input.value = val - 1;
+  });
+  plus.addEventListener('click', function () {
+    input.value = parseInt(input.value, 10) + 1;
+  });
+});
+
+/* Buy Now */
+document.addEventListener('DOMContentLoaded', function () {
+  const buyNow = document.querySelector('[data-buy-now]');
+  if (!buyNow) return;
+  buyNow.addEventListener('click', async function () {
+    buyNow.disabled = true;
+    buyNow.textContent = 'Adding…';
+    try {
+      const variantInput = document.querySelector(
+        '[name="id"], [data-selected-variant]'
+      );
+      const variantId = variantInput
+        ? (variantInput.value || variantInput.dataset.selectedVariant)
+        : null;
+      const qty = parseInt(
+        document.getElementById('pdp-quantity-input')?.value || '1', 10
+      );
+      if (!variantId) throw new Error('No variant selected');
+      await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: variantId, quantity: qty })
+      });
+      window.location.href = '/checkout';
+    } catch (e) {
+      buyNow.disabled = false;
+      buyNow.textContent = 'Buy now';
+      console.error('Buy Now failed:', e);
+    }
+  });
+});
 </script>
 
 {% schema %}
