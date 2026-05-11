@@ -171,9 +171,37 @@
 .pdp-phone-nudge a { color: var(--textColor); font-weight: 500; text-decoration: none; }
 .pdp-phone-nudge a:hover { color: var(--saleBadgeBackground); }
 
+/* Price row — above variant chips */
+.pdp-price-row {
+  font-size: 22px;
+  font-weight: 600;
+  font-family: 'Inter Tight', sans-serif;
+  margin: 12px 0 16px;
+}
+
+/* Volume label inside quote card */
+.pdp-quote-card__volume-label {
+  font-size: 13px;
+  color: rgba(var(--textColor-rgb), 0.6);
+  margin: 0 0 12px;
+  font-family: var(--font-mono, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 /* ── Below-fold About section ────────────────────────────────────────────── */
-.pdp-about { border-top: 1px solid var(--borderColor); }
-.pdp-about__inner { max-width: 640px; margin: 0 auto; padding: 64px 24px; }
+.pdp-about {
+  border-top: 1px solid var(--borderColor);
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.pdp-about__inner { padding: 64px 0; }
+.pdp-about__body { max-width: 640px; }
 .pdp-about .pdp-section-eyebrow { margin: 0 0 16px; }
 .pdp-about__tagline { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: var(--fs-h2); letter-spacing: -0.015em; margin: 0 0 24px; }
 .pdp-about__body { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb),0.82); }
@@ -394,6 +422,10 @@
           {%- endif -%}
         </div>
 
+        <div class="pdp-price-row">
+          {{ product.selected_or_first_available_variant.price | money }}
+        </div>
+
         {%- assign standfirst = product.metafields.specs.standfirst.value -%}
         {%- if standfirst != blank -%}
           <p class="pdp-standfirst">{{ standfirst }}</p>
@@ -473,9 +505,7 @@
           <p class="pdp-section-eyebrow">PROJECT QUOTE</p>
           <h3>Request a quote on this product</h3>
           <p class="pdp-quote-card__sub">Volume pricing, lead time, OECM PO eligibility, freight, install — all confirmed within 1 business day.</p>
-          {%- unless product.price == 0 -%}
-            <p class="pdp-quote-card__price">{{ product.selected_or_first_available_variant.price | money }}</p>
-          {%- endunless -%}
+          <p class="pdp-quote-card__volume-label">Ordering 5 or more?</p>
           <button type="button"
             class="pdp-btn pdp-btn--quote"
             data-bbi-quote-trigger
@@ -727,8 +757,8 @@ class BbiPdpVariants extends HTMLElement {
       /* Update quote button variant id */
       const quoteBtn = this.querySelector('[data-bbi-quote-trigger]');
       if (quoteBtn) quoteBtn.dataset.variantId = match.id;
-      /* Update price displayed in quote card (Shopify prices are in cents) */
-      const priceEl = this.querySelector('.pdp-quote-card__price');
+      /* Update price row above variant chips (Shopify prices are in cents) */
+      const priceEl = this.querySelector('.pdp-price-row');
       if (priceEl && match.price != null) {
         priceEl.textContent = new Intl.NumberFormat('en-CA', {
           style: 'currency',

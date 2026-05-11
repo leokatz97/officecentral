@@ -256,7 +256,7 @@ button.bbi-quote-inline {
 button.bbi-quote-inline:hover { color: #D4252A; }
 </style>
 
-<bbi-quote-modal>
+<bbi-quote-modal id="bbi-quote-modal">
   <dialog class="bbi-qm-dialog" id="bbi-quote-modal-dialog" aria-labelledby="bbi-qm-title" aria-modal="true">
     <div class="bbi-qm-inner">
 
@@ -293,6 +293,7 @@ button.bbi-quote-inline:hover { color: #D4252A; }
             <input type="hidden" name="contact[product_handle]" id="bbi-qm-product-handle" value="">
             <input type="hidden" name="contact[product_title]" id="bbi-qm-product-title" value="">
             <input type="hidden" name="contact[collection_handle]" id="bbi-qm-collection-handle" value="">
+            <input type="hidden" name="product" id="bbi-qm-product" data-product-title="" value="">
 
             <div class="bbi-qm-row">
               <div class="bbi-qm-field">
@@ -437,6 +438,16 @@ class BbiQuoteModal extends HTMLElement {
     this._success.removeAttribute('data-visible');
 
     this._dialog.showModal();
+
+    /* Pre-fill product name field */
+    const productField = document.querySelector(
+      '#bbi-quote-modal input[name="product"], ' +
+      '#bbi-quote-modal textarea[name="product"]'
+    );
+    if (productField) {
+      productField.dataset.productTitle = ctx.productTitle || '';
+      productField.value = productField.dataset.productTitle || '';
+    }
 
     /* Focus first input */
     const first = this._form && this._form.querySelector('input:not([type=hidden])');
