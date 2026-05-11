@@ -550,7 +550,7 @@
         </div>
 
         <div class="ds-cc__hero-cta-row">
-          <a href="/collections/{{ collection.handle }}" class="bbi-btn bbi-btn--primary bbi-btn--lg">
+          <a href="{{ collection.url }}?view=base" class="bbi-btn bbi-btn--primary bbi-btn--lg">
             {%- if section.settings.cta_label != blank -%}
               {{ section.settings.cta_label | escape }}
             {%- else -%}
@@ -623,7 +623,7 @@
   <nav class="ds-cc__filter-bar" aria-label="Sub-categories">
     <div class="ds-cc__inner ds-cc__filter-bar-inner">
       {%- comment -%} "All" pill links to parent collection, shows total count {%- endcomment -%}
-      <a class="ds-cc__filter-chip" href="{{ collection.url }}">
+      <a class="ds-cc__filter-chip" href="{{ collection.url }}?view=base">
         All
         <span class="ds-cc__filter-pill-count">{{ collection.products_count }}</span>
       </a>
@@ -634,7 +634,7 @@
             assign _sub_handle = _sub_raw | remove: '/'
             assign _sub_col = collections[_sub_handle]
           -%}
-          <a class="ds-cc__filter-chip" href="{{ block.settings.link }}">
+          <a class="ds-cc__filter-chip" href="{{ block.settings.link }}?view=base">
             {{ block.settings.title | escape }}
             {%- if _sub_col != nil -%}
               <span class="ds-cc__filter-pill-count">{{ _sub_col.products_count }}</span>
@@ -686,7 +686,7 @@
       {%- comment -%} View all CTA — FIX 1: smart-collection escape hatch {%- endcomment -%}
       {%- if section.settings.show_view_all_cta -%}
         <div class="ds-cc__view-all">
-          <a href="/collections/{{ collection.handle }}" class="bbi-btn bbi-btn--secondary">
+          <a href="{{ collection.url }}?view=base" class="bbi-btn bbi-btn--secondary">
             {{ section.settings.view_all_label | default: 'View all' | escape }}
           </a>
         </div>
