@@ -199,11 +199,11 @@
 /* ── Below-fold About section ────────────────────────────────────────────── */
 .pdp-about { border-top: 1px solid var(--borderColor); }
 .pdp-about__inner { max-width: 1320px; margin: 0 auto; padding: 64px 24px; }
-.pdp-about__body { max-width: 640px; }
 .pdp-about .pdp-section-eyebrow { margin: 0 0 16px; }
-.pdp-about__tagline { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: var(--fs-h2); letter-spacing: -0.015em; margin: 0 0 24px; }
+.pdp-about__tagline { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: var(--fs-h2); letter-spacing: -0.015em; margin: 0 0 24px; max-width: 780px; }
 .pdp-about__body { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb),0.82); }
-.pdp-about__body p { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb), 0.82); margin: 0 0 16px; }
+/* Constrain prose paragraphs only — headings, lists, tables use full container */
+.pdp-about__body p { max-width: 640px; font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb), 0.82); margin: 0 0 16px; }
 .pdp-about__body p:last-child { margin-bottom: 0; }
 .pdp-about__bestfor { border-top: 1px solid var(--borderColor); margin-top: 32px; padding-top: 24px; }
 .pdp-about__bestfor-label { font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; }
