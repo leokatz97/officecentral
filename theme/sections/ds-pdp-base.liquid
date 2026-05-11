@@ -69,9 +69,12 @@
   margin: 0 !important;
 }
 
+/* Override Starlite's dark body scheme on product pages */
+body { background: #FFFFFF !important; }
+
 /* ── Base ────────────────────────────────────────────────────────────────── */
 .bbi-pdp *, .bbi-pdp *::before, .bbi-pdp *::after { box-sizing: border-box; }
-.bbi-pdp { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
+.bbi-pdp { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 .bbi-pdp img { display: block; max-width: 100%; height: auto; }
 .bbi-pdp a { color: var(--linkColor); }
 
@@ -145,22 +148,16 @@
 .pdp-btn--outline { background: transparent; color: var(--textColor); border-color: var(--borderColor); height: 44px; }
 .pdp-btn--outline:hover { border-color: var(--textColor); }
 /* 2i: explicit white text — never inherit on red background */
-.pdp-btn--quote { background: var(--saleBadgeBackground); color: #ffffff; border-color: var(--saleBadgeBackground); height: 48px; }
-.pdp-btn--quote:hover { opacity: 0.9; color: #ffffff; }
-
-/* Add-to-cart wrapper (secondary, above quote card) */
+/* Add-to-cart wrapper */
 .pdp-atc-wrap { margin-bottom: 0; }
 #pdp-add-to-cart { display: block; width: 100%; }
 
-/* Quote card */
-.pdp-quote-card { border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: 20px 24px; margin-top: 24px; background: var(--alternateBackground); }
-.pdp-quote-card .pdp-section-eyebrow { margin: 0 0 8px; }
-.pdp-quote-card h3 { font-family: var(--headingFont); font-size: 18px; font-weight: 600; line-height: 1.25; color: var(--headingColor); margin: 0 0 8px; }
-.pdp-quote-card__sub { font-size: 14px; line-height: 1.5; color: rgba(var(--textColor-rgb),0.7); margin: 0 0 16px; }
-.pdp-quote-card__price { font-family: var(--headingFont); font-size: 22px; font-weight: 600; color: var(--headingColor); margin: 0 0 16px; }
-.pdp-quote-card__phone { font-size: 13px; color: rgba(var(--textColor-rgb),0.6); margin: 12px 0 0; text-align: center; }
-.pdp-quote-card__phone a { color: var(--textColor); font-weight: 500; text-decoration: none; }
-.pdp-quote-card__trust { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; line-height: 1.5; letter-spacing: 0.04em; color: rgba(var(--textColor-rgb),0.45); margin: 16px 0 0; text-align: center; }
+/* Quote strip — compact secondary block */
+.pdp-quote-strip { border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: 14px 16px; margin-top: 16px; }
+.pdp-quote-strip__inner { display: flex; flex-direction: column; gap: 8px; }
+.pdp-btn--quote-outline { background: transparent; color: var(--textColor); border-color: var(--borderColor); height: 44px; font-size: 14px; }
+.pdp-btn--quote-outline:hover { border-color: var(--textColor); }
+.pdp-quote-strip__sub { font-size: 11px; line-height: 1.5; color: rgba(var(--textColor-rgb),0.45); margin: 0; text-align: center; font-family: "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.04em; }
 
 /* Trust pills */
 .pdp-trust { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--borderColor); }
@@ -186,15 +183,6 @@
   margin: 12px 0 16px;
 }
 
-/* Volume label inside quote card */
-.pdp-quote-card__volume-label {
-  font-size: 13px;
-  color: rgba(var(--textColor-rgb), 0.6);
-  margin: 0 0 12px;
-  font-family: var(--font-mono, monospace);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
 
 /* ── Below-fold About section ────────────────────────────────────────────── */
 .pdp-about { border-top: 1px solid var(--borderColor); }
@@ -300,16 +288,10 @@
   -webkit-appearance: none;
 }
 
-/* ── Buy Now button ──────────────────────────────────────────────────────── */
+/* ── Buy Now button — secondary outline, below Add to Cart ──────────────── */
 .pdp-btn--buy-now {
   width: 100%;
-  margin-bottom: 10px;
-  background: var(--textColor);
-  color: var(--background);
-  border: 2px solid var(--textColor);
-}
-.pdp-btn--buy-now:hover {
-  opacity: 0.85;
+  margin-top: 8px;
 }
 </style>
 
@@ -537,7 +519,7 @@
           </script>
         {%- endunless -%}
 
-        <!-- Add to Cart (in-stock only, secondary outline, above quote card) -->
+        <!-- Add to Cart + Buy now -->
         {%- unless is_unbuyable -%}
           <div class="pdp-atc-wrap">
             {%- form 'product', product, id: 'pdp-add-to-cart' -%}
@@ -555,36 +537,33 @@
                 <button class="pdp-quantity__btn" data-quantity-plus
                         aria-label="Increase quantity" type="button">+</button>
               </div>
-              <button type="button"
-                      class="pdp-btn pdp-btn--primary pdp-btn--buy-now"
-                      data-buy-now>
-                Buy now
-              </button>
               <button type="submit" class="pdp-btn pdp-btn--primary"
                 {%- if product.selected_or_first_available_variant.available == false %} disabled{%- endif -%}>
                 {%- if product.selected_or_first_available_variant.available -%}Add to Cart{%- else -%}Unavailable{%- endif -%}
+              </button>
+              <button type="button"
+                      class="pdp-btn pdp-btn--outline pdp-btn--buy-now"
+                      data-buy-now>
+                Buy now
               </button>
             {%- endform -%}
           </div>
         {%- endunless -%}
 
-        <!-- Quote card -->
-        <div class="pdp-quote-card">
-          <p class="pdp-section-eyebrow">PROJECT QUOTE</p>
-          <h3>Request a quote on this product</h3>
-          <p class="pdp-quote-card__sub">Volume pricing, lead time, OECM PO eligibility, freight, install — all confirmed within 1 business day.</p>
-          <p class="pdp-quote-card__volume-label">Ordering 5 or more?</p>
-          <button type="button"
-            class="pdp-btn pdp-btn--quote"
-            data-bbi-quote-trigger
-            data-lead-type="quote"
-            data-product-handle="{{ product.handle }}"
-            data-product-title="{{ product.title | escape }}"
-            data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-            Request a quote &rarr;
-          </button>
-          <p class="pdp-quote-card__phone">Or call <a href="tel:18008359565">1-800-835-9565</a></p>
-          <p class="pdp-quote-card__trust">OECM purchasers welcome &middot; Quotes within 1 business day &middot; Same Ontario team since 1962</p>
+        <!-- Quote strip (compact) -->
+        <div class="pdp-quote-strip">
+          <div class="pdp-quote-strip__inner">
+            <button type="button"
+              class="pdp-btn pdp-btn--quote-outline"
+              data-bbi-quote-trigger
+              data-lead-type="quote"
+              data-product-handle="{{ product.handle }}"
+              data-product-title="{{ product.title | escape }}"
+              data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+              Request a quote &rarr;
+            </button>
+            <p class="pdp-quote-strip__sub">Volume orders &middot; OECM PO eligibility &middot; confirmed within 1 business day</p>
+          </div>
         </div>
 
         <!-- Trust pills -->
@@ -838,33 +817,62 @@ class BbiPdpVariants extends HTMLElement {
 }
 customElements.define('bbi-pdp-variants', BbiPdpVariants);
 
-/* 2g: form validation — require all option groups selected, keep chips horizontal */
+/* 2g: AJAX Add to Cart — validates options, posts to /cart/add.js, dispatches cart:updated */
 (function() {
   const form = document.getElementById('pdp-add-to-cart');
   if (!form) return;
-  form.addEventListener('submit', function(e) {
-    const groups = document.querySelectorAll('.pdp-variants');
-    let valid = true;
-    groups.forEach(group => {
-      const hasSelected = group.querySelector('.pdp-variant-opt.selected');
-      if (!hasSelected) {
-        group.classList.add('needs-selection');
-        valid = false;
-      } else {
-        group.classList.remove('needs-selection');
-      }
-    });
-    if (!valid) {
-      e.preventDefault();
-      const first = document.querySelector('.pdp-variants.needs-selection');
-      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  });
+
   /* Clear validation state on chip click */
   document.querySelectorAll('.pdp-variant-opt').forEach(btn => {
     btn.addEventListener('click', () => {
       btn.closest('.pdp-variants')?.classList.remove('needs-selection');
     });
+  });
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    /* Validate all option groups have a selection */
+    const groups = document.querySelectorAll('.pdp-variants');
+    let valid = true;
+    groups.forEach(group => {
+      const hasSelected = group.querySelector('.pdp-variant-opt.selected');
+      if (!hasSelected) { group.classList.add('needs-selection'); valid = false; }
+      else group.classList.remove('needs-selection');
+    });
+    if (!valid) {
+      const first = document.querySelector('.pdp-variants.needs-selection');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const idInput   = form.querySelector('input[name="id"]');
+    const qtyInput  = document.getElementById('pdp-quantity-input');
+    const variantId = idInput?.value;
+    const qty       = parseInt(qtyInput?.value || '1', 10);
+
+    if (!variantId) return;
+
+    const original = submitBtn?.textContent || 'Add to Cart';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Adding…'; }
+
+    try {
+      const res = await fetch('/cart/add.js', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body:    JSON.stringify({ id: variantId, quantity: qty })
+      });
+      if (!res.ok) throw new Error('Cart add failed');
+      document.dispatchEvent(new CustomEvent('cart:updated'));
+      if (submitBtn) { submitBtn.textContent = 'Added ✓'; }
+      setTimeout(() => {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = original; }
+      }, 2000);
+    } catch (err) {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = original; }
+      console.error('Add to cart error:', err);
+    }
   });
 })();
 
