@@ -120,11 +120,31 @@
   margin-top:4px;
 }
 
-/* ---- Utility bar (phone + CTA + hamburger) ---- */
+/* ---- Utility bar (phone + CTA + cart + hamburger) ---- */
 .bbi-header__utility{
   display:flex;align-items:center;gap:16px;
   flex-shrink:0;font-size:14px;
 }
+
+/* Cart icon link */
+.bbi-header__cart{
+  position:relative;display:inline-flex;align-items:center;
+  color:var(--headerColor,#0B0B0C);text-decoration:none;
+  padding:6px;border-radius:4px;
+  transition:color 100ms ease;
+}
+.bbi-header__cart:hover{color:var(--headerHoverColor,#A81E22);}
+.bbi-header__cart:focus-visible{outline:2px solid var(--saleBadgeBackground,#D4252A);outline-offset:2px;}
+.bbi-header__cart-count{
+  position:absolute;top:-4px;right:-6px;
+  min-width:17px;height:17px;padding:0 4px;
+  border-radius:9px;
+  background:var(--saleBadgeBackground,#D4252A);
+  color:#ffffff;
+  font-size:10px;font-weight:700;line-height:1;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.bbi-header__cart-count[hidden]{display:none !important;}
 .bbi-header__phone{
   color:var(--headerColor,#0B0B0C);text-decoration:none;
   font-weight:500;white-space:nowrap;
@@ -368,12 +388,21 @@
 
     </nav>
 
-    {%- comment -%} Utility — phone + Quote CTA + mobile hamburger {%- endcomment -%}
+    {%- comment -%} Utility — phone + Quote CTA + cart + mobile hamburger {%- endcomment -%}
     <div class="bbi-header__utility">
       <a href="tel:18008359565" class="bbi-header__phone" aria-label="Call Brant Business Interiors at 1-800-835-9565">
         1-800-835-9565
       </a>
       <button type="button" class="bbi-btn bbi-btn--primary" data-bbi-quote-trigger data-lead-type="quote">Request a Quote</button>
+      <a href="/cart" class="bbi-header__cart" aria-label="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          <path d="M16 10a4 4 0 01-8 0" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="bbi-header__cart-count" data-bbi-cart-count
+          {%- if cart.item_count == 0 %} hidden{%- endif -%}>{{ cart.item_count }}</span>
+      </a>
       <button class="bbi-hamburger" type="button"
         aria-label="Open navigation menu"
         aria-controls="bbi-mobile-overlay"
@@ -533,6 +562,22 @@
       if (!group.contains(e.relatedTarget)) setExpanded(false);
     });
   });
+
+  /* Cart count badge — refresh via cart:updated event */
+  (function () {
+    const badge = document.querySelector('[data-bbi-cart-count]');
+    if (!badge) return;
+    async function refreshCount() {
+      try {
+        const r = await fetch('/cart.js', { headers: { Accept: 'application/json' } });
+        const cart = await r.json();
+        badge.textContent = cart.item_count;
+        if (cart.item_count > 0) badge.removeAttribute('hidden');
+        else badge.setAttribute('hidden', '');
+      } catch (_) {}
+    }
+    document.addEventListener('cart:updated', refreshCount);
+  })();
 
   /* Mobile: Web Component with WCAG focus trap + Escape close */
   if (customElements.get('bbi-nav-mobile')) return;
