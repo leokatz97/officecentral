@@ -199,16 +199,16 @@
   display:block;width:100%;
   padding:11px 16px;
   background:transparent;
-  color:var(--textColor,#0B0B0C);
-  border:1px solid var(--borderColor,#E5E5E7);
+  color:rgb(var(--saleBadgeBackground,212,37,42));
+  border:1px solid rgb(var(--saleBadgeBackground,212,37,42));
   border-radius:var(--buttonRadius,4px);
   text-align:center;text-decoration:none;
   font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
   font-size:14px;font-weight:600;
   margin-bottom:8px;box-sizing:border-box;
-  transition:background-color 100ms ease;
+  transition:background-color 100ms ease,color 100ms ease;
 }
-.bbi-minicart__view-cart:hover{background:rgb(var(--alternateBackground,250,250,250));}
+.bbi-minicart__view-cart:hover{background:rgba(212,37,42,.06);}
 .bbi-minicart__checkout-btn{
   display:block;width:100%;
   padding:11px 16px;

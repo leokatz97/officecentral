@@ -145,8 +145,8 @@ body { background: #FFFFFF !important; }
 .pdp-btn--primary { background: var(--buttonBackground); color: #ffffff; border-color: var(--buttonBorder); height: 48px; }
 .pdp-btn--primary:hover { background: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); color: #ffffff; }
 /* Secondary outline — 44px, smaller than primary 48px to signal secondary action */
-.pdp-btn--outline { background: transparent; color: var(--textColor); border-color: var(--borderColor); height: 44px; }
-.pdp-btn--outline:hover { border-color: var(--textColor); }
+.pdp-btn--outline { background: transparent; color: var(--textColor); border-color: var(--textColor); height: 44px; }
+.pdp-btn--outline:hover { background: var(--alternateBackground); }
 /* 2i: explicit white text — never inherit on red background */
 /* Add-to-cart wrapper */
 .pdp-atc-wrap { margin-bottom: 0; }
@@ -155,8 +155,8 @@ body { background: #FFFFFF !important; }
 /* Quote strip — compact secondary block */
 .pdp-quote-strip { border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: 14px 16px; margin-top: 16px; }
 .pdp-quote-strip__inner { display: flex; flex-direction: column; gap: 8px; }
-.pdp-btn--quote-outline { background: transparent; color: var(--textColor); border-color: var(--borderColor); height: 44px; font-size: 14px; }
-.pdp-btn--quote-outline:hover { border-color: var(--textColor); }
+.pdp-btn--quote-outline { background: transparent; color: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); height: 44px; font-size: 14px; }
+.pdp-btn--quote-outline:hover { background: rgba(212,37,42,.06); }
 .pdp-quote-strip__sub { font-size: 11px; line-height: 1.5; color: rgba(var(--textColor-rgb),0.45); margin: 0; text-align: center; font-family: "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.04em; }
 
 /* Trust pills */
