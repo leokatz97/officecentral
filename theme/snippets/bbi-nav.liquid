@@ -152,7 +152,13 @@
   max-height:320px;overflow-y:auto;
   padding:12px 16px;
   display:flex;flex-direction:column;gap:0;
+  scrollbar-width:thin;
+  scrollbar-color:#DEDEDE transparent;
 }
+.bbi-minicart__items::-webkit-scrollbar{width:3px;}
+.bbi-minicart__items::-webkit-scrollbar-track{background:transparent;}
+.bbi-minicart__items::-webkit-scrollbar-thumb{background:#DEDEDE;border-radius:2px;}
+.bbi-minicart__items::-webkit-scrollbar-thumb:hover{background:#C0C0C0;}
 .bbi-minicart__item{
   display:grid;
   grid-template-columns:56px 1fr;
@@ -198,22 +204,22 @@
 .bbi-minicart__view-cart{
   display:block;width:100%;
   padding:11px 16px;
-  background:transparent;
-  color:rgb(var(--saleBadgeBackground,212,37,42));
-  border:1px solid rgb(var(--saleBadgeBackground,212,37,42));
+  background:#F2F2F2;
+  color:#3A3A3C;
+  border:1px solid #E0E0E0;
   border-radius:var(--buttonRadius,4px);
   text-align:center;text-decoration:none;
   font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
   font-size:14px;font-weight:600;
   margin-bottom:8px;box-sizing:border-box;
-  transition:background-color 100ms ease,color 100ms ease;
+  transition:background-color 100ms ease;
 }
-.bbi-minicart__view-cart:hover{background:rgba(212,37,42,.06);}
+.bbi-minicart__view-cart:hover{background:#E8E8E8;}
 .bbi-minicart__checkout-btn{
   display:block;width:100%;
   padding:11px 16px;
-  background:rgb(var(--buttonBackground,11,11,12));
-  color:rgb(var(--buttonColor,255,255,255));
+  background:#2C2C2E;
+  color:#ffffff;
   border:none;
   border-radius:var(--buttonRadius,4px);
   text-align:center;
@@ -222,7 +228,7 @@
   cursor:pointer;box-sizing:border-box;
   transition:background-color 120ms ease;
 }
-.bbi-minicart__checkout-btn:hover{background:rgb(var(--buttonBackgroundHover,168,30,34));}
+.bbi-minicart__checkout-btn:hover{background:#D4252A;}
 .bbi-header__cart:hover{color:var(--headerHoverColor,#A81E22);}
 .bbi-header__cart:focus-visible{outline:2px solid var(--saleBadgeBackground,#D4252A);outline-offset:2px;}
 .bbi-header__cart-count{
