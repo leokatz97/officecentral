@@ -1,0 +1,366 @@
+{%- comment -%}
+  Section: ds-cart-base
+  Purpose: BBI-styled cart page — 60/40 line-items/summary grid on desktop,
+           stacked on mobile. Uses BBI design tokens exclusively (no Starlite
+           classes). Quantity steppers call /cart/change.js via AJAX.
+  Template: cart.json
+{%- endcomment -%}
+
+{%- render 'bbi-nav', logo: section.settings.logo, active: '' -%}
+
+<style>
+/* ── Cart page — BBI design system ──────────────────────────────────────── */
+.bbi-cart{
+  background:var(--background,#ffffff);
+  color:var(--textColor,#0B0B0C);
+  min-height:60vh;
+}
+.bbi-cart__inner{
+  max-width:1320px;margin:0 auto;
+  padding:40px 32px 80px;
+}
+.bbi-cart__heading{
+  font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
+  font-size:clamp(24px,3vw,32px);font-weight:700;
+  margin:0 0 32px;letter-spacing:-0.02em;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+.bbi-cart__grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:32px;
+  align-items:start;
+}
+@media(min-width:960px){
+  .bbi-cart__grid{grid-template-columns:60fr 40fr;}
+}
+
+/* ── Line items ─────────────────────────────────────────────────────────── */
+.bbi-cart__items{display:flex;flex-direction:column;gap:0;}
+.bbi-cart__item{
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  gap:16px;align-items:center;
+  padding:20px 0;
+  border-bottom:1px solid var(--borderColor,#E5E5E7);
+}
+.bbi-cart__item:first-child{border-top:1px solid var(--borderColor,#E5E5E7);}
+
+.bbi-cart__thumb{
+  display:block;
+  width:80px;height:80px;
+  border-radius:var(--cardRadius,8px);
+  overflow:hidden;
+  border:1px solid var(--borderColor,#E5E5E7);
+  flex-shrink:0;
+}
+.bbi-cart__thumb img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+
+.bbi-cart__meta{min-width:0;}
+.bbi-cart__title{
+  font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
+  font-size:15px;font-weight:600;
+  color:var(--textColor,#0B0B0C);
+  text-decoration:none;
+  display:block;margin-bottom:4px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.bbi-cart__title:hover{color:var(--headerHoverColor,#A81E22);}
+.bbi-cart__variant{
+  font-size:13px;color:rgba(11,11,12,.5);margin:0 0 12px;
+}
+.bbi-cart__qty{
+  display:inline-flex;align-items:center;
+  border:1px solid var(--borderColor,#E5E5E7);
+  border-radius:var(--buttonRadius,4px);
+  overflow:hidden;
+}
+.bbi-cart__qty-btn{
+  width:32px;height:32px;
+  background:none;border:none;cursor:pointer;
+  font-size:16px;font-weight:500;
+  color:var(--textColor,#0B0B0C);
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background-color 100ms ease;
+}
+.bbi-cart__qty-btn:hover{background:var(--alternateBackground,#FAFAFA);}
+.bbi-cart__qty-input{
+  width:36px;height:32px;border:none;
+  text-align:center;font-size:14px;font-weight:500;
+  color:var(--textColor,#0B0B0C);
+  background:transparent;
+  border-left:1px solid var(--borderColor,#E5E5E7);
+  border-right:1px solid var(--borderColor,#E5E5E7);
+  -moz-appearance:textfield;
+}
+.bbi-cart__qty-input::-webkit-inner-spin-button,
+.bbi-cart__qty-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+
+.bbi-cart__right{
+  display:flex;flex-direction:column;align-items:flex-end;gap:12px;
+  flex-shrink:0;
+}
+.bbi-cart__line-price{
+  font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
+  font-size:16px;font-weight:700;
+  white-space:nowrap;
+}
+.bbi-cart__remove{
+  background:none;border:none;cursor:pointer;
+  font-size:12px;color:rgba(11,11,12,.4);
+  text-decoration:underline;padding:0;
+  transition:color 100ms ease;
+}
+.bbi-cart__remove:hover{color:var(--saleBadgeBackground,#D4252A);}
+
+/* ── Order summary card ─────────────────────────────────────────────────── */
+.bbi-cart__summary{
+  background:var(--alternateBackground,#FAFAFA);
+  border:1px solid var(--borderColor,#E5E5E7);
+  border-radius:var(--cardRadius,8px);
+  padding:28px;
+}
+@media(min-width:960px){
+  .bbi-cart__summary{position:sticky;top:90px;}
+}
+.bbi-cart__summary-heading{
+  font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
+  font-size:18px;font-weight:700;
+  margin:0 0 20px;
+}
+.bbi-cart__summary-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:12px;font-size:15px;
+}
+.bbi-cart__summary-row--total{
+  font-weight:700;font-size:18px;
+  border-top:1px solid var(--borderColor,#E5E5E7);
+  padding-top:16px;margin-top:8px;
+}
+.bbi-cart__summary-note{
+  font-size:12px;color:rgba(11,11,12,.5);
+  margin:12px 0 20px;line-height:1.5;
+}
+.bbi-cart__checkout{
+  display:block;width:100%;
+  padding:14px 24px;
+  background:#0B0B0C;color:#ffffff;
+  font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
+  font-size:15px;font-weight:700;letter-spacing:0.01em;
+  border:none;border-radius:var(--buttonRadius,4px);
+  cursor:pointer;text-align:center;
+  transition:background-color 120ms ease;
+}
+.bbi-cart__checkout:hover{background:var(--saleBadgeBackground,#D4252A);}
+.bbi-cart__continue{
+  display:block;text-align:center;margin-top:12px;
+  font-size:13px;color:rgba(11,11,12,.5);text-decoration:underline;
+}
+.bbi-cart__continue:hover{color:var(--textColor,#0B0B0C);}
+
+/* ── Empty state ────────────────────────────────────────────────────────── */
+.bbi-cart__empty{
+  text-align:center;padding:80px 24px;
+}
+.bbi-cart__empty-heading{
+  font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
+  font-size:clamp(22px,2.5vw,28px);font-weight:700;
+  margin:0 0 12px;
+}
+.bbi-cart__empty-sub{
+  font-size:15px;color:rgba(11,11,12,.5);margin:0 0 28px;
+}
+.bbi-cart__empty-cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:13px 28px;
+  background:#0B0B0C;color:#ffffff;
+  font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
+  font-size:14px;font-weight:700;letter-spacing:0.01em;
+  border-radius:var(--buttonRadius,4px);text-decoration:none;
+  transition:background-color 120ms ease;
+}
+.bbi-cart__empty-cta:hover{background:var(--saleBadgeBackground,#D4252A);}
+
+/* Mobile tightening */
+@media(max-width:600px){
+  .bbi-cart__inner{padding:24px 16px 60px;}
+  .bbi-cart__item{grid-template-columns:64px 1fr auto;gap:12px;}
+  .bbi-cart__thumb{width:64px;height:64px;}
+}
+</style>
+
+<div class="bbi-cart">
+  <div class="bbi-cart__inner">
+
+    {%- if cart.item_count == 0 -%}
+
+      <div class="bbi-cart__empty">
+        <p class="bbi-cart__empty-heading">Your cart is empty</p>
+        <p class="bbi-cart__empty-sub">Browse our full catalogue to find the right fit for your workspace.</p>
+        <a href="/collections/all" class="bbi-cart__empty-cta">Continue shopping</a>
+      </div>
+
+    {%- else -%}
+
+      <h1 class="bbi-cart__heading">Your Cart ({{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %})</h1>
+
+      <div class="bbi-cart__grid">
+
+        {%- comment -%} ── Line items ── {%- endcomment -%}
+        <div class="bbi-cart__items" id="bbi-cart-items">
+          {%- for item in cart.items -%}
+            <div class="bbi-cart__item" data-line="{{ forloop.index }}">
+
+              <a href="{{ item.url }}" class="bbi-cart__thumb" aria-label="{{ item.title | escape }}">
+                {%- if item.image -%}
+                  {{ item.image | image_url: width: 160
+                    | image_tag:
+                        width: 80, height: 80,
+                        loading: 'lazy',
+                        alt: item.image.alt | default: item.title | escape }}
+                {%- endif -%}
+              </a>
+
+              <div class="bbi-cart__meta">
+                <a href="{{ item.url }}" class="bbi-cart__title">{{ item.product.title }}</a>
+                {%- if item.variant.title != 'Default Title' -%}
+                  <p class="bbi-cart__variant">{{ item.variant.title }}</p>
+                {%- else -%}
+                  <p class="bbi-cart__variant" style="display:none;"></p>
+                {%- endif -%}
+                <div class="bbi-cart__qty" data-line-qty="{{ forloop.index }}">
+                  <button class="bbi-cart__qty-btn" type="button"
+                    data-qty-minus data-line="{{ forloop.index }}"
+                    aria-label="Decrease quantity">−</button>
+                  <input class="bbi-cart__qty-input" type="number"
+                    value="{{ item.quantity }}" min="0"
+                    data-line="{{ forloop.index }}"
+                    aria-label="Quantity">
+                  <button class="bbi-cart__qty-btn" type="button"
+                    data-qty-plus data-line="{{ forloop.index }}"
+                    aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+
+              <div class="bbi-cart__right">
+                <span class="bbi-cart__line-price" data-line-price="{{ forloop.index }}">
+                  {{ item.final_line_price | money }}
+                </span>
+                <button class="bbi-cart__remove" type="button"
+                  data-remove-line="{{ forloop.index }}"
+                  aria-label="Remove {{ item.title | escape }} from cart">Remove</button>
+              </div>
+
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} ── Summary ── {%- endcomment -%}
+        <div class="bbi-cart__summary">
+          <p class="bbi-cart__summary-heading">Order Summary</p>
+          <div class="bbi-cart__summary-row">
+            <span>Subtotal</span>
+            <span id="bbi-cart-subtotal">{{ cart.total_price | money }}</span>
+          </div>
+          <div class="bbi-cart__summary-row bbi-cart__summary-row--total">
+            <span>Total</span>
+            <span id="bbi-cart-total">{{ cart.total_price | money }}</span>
+          </div>
+          <p class="bbi-cart__summary-note">Taxes and shipping calculated at checkout.</p>
+          <form action="/cart" method="post" novalidate>
+            <button type="submit" name="checkout" class="bbi-cart__checkout">Checkout</button>
+          </form>
+          <a href="/collections/all" class="bbi-cart__continue">Continue shopping</a>
+        </div>
+
+      </div>
+
+    {%- endif -%}
+  </div>
+</div>
+
+{%- render 'bbi-footer', logo: section.settings.logo -%}
+
+<script>
+/* ds-cart-base — quantity steppers + remove via /cart/change.js */
+(function () {
+  'use strict';
+
+  async function changeQty(line, delta, newQty) {
+    const payload = newQty !== undefined
+      ? { line, quantity: newQty }
+      : { line, quantity: delta };
+    try {
+      const res = await fetch('/cart/change.js', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body:    JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('cart/change.js failed');
+      const cart = await res.json();
+      document.dispatchEvent(new CustomEvent('cart:updated'));
+      /* Reload page to reflect updated line items + totals */
+      window.location.reload();
+    } catch (e) {
+      console.error('Cart update error:', e);
+    }
+  }
+
+  function lineNum(el) {
+    return parseInt(el.dataset.line || el.closest('[data-line]')?.dataset.line, 10);
+  }
+
+  document.addEventListener('click', function (e) {
+    /* Minus button */
+    const minus = e.target.closest('[data-qty-minus]');
+    if (minus) {
+      const line  = lineNum(minus);
+      const input = document.querySelector(`.bbi-cart__qty-input[data-line="${line}"]`);
+      const cur   = parseInt(input?.value || '1', 10);
+      if (cur > 1) changeQty(line, undefined, cur - 1);
+      else changeQty(line, undefined, 0); /* remove */
+      return;
+    }
+    /* Plus button */
+    const plus = e.target.closest('[data-qty-plus]');
+    if (plus) {
+      const line  = lineNum(plus);
+      const input = document.querySelector(`.bbi-cart__qty-input[data-line="${line}"]`);
+      const cur   = parseInt(input?.value || '1', 10);
+      changeQty(line, undefined, cur + 1);
+      return;
+    }
+    /* Remove button */
+    const remove = e.target.closest('[data-remove-line]');
+    if (remove) {
+      changeQty(parseInt(remove.dataset.removeLine, 10), undefined, 0);
+    }
+  });
+
+  /* Direct input change */
+  document.querySelectorAll('.bbi-cart__qty-input').forEach(input => {
+    input.addEventListener('change', function () {
+      const line = parseInt(this.dataset.line, 10);
+      const qty  = Math.max(0, parseInt(this.value, 10) || 0);
+      changeQty(line, undefined, qty);
+    });
+  });
+}());
+</script>
+
+{% schema %}
+{
+  "name": "BBI Cart",
+  "class": "bbi-cart-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    }
+  ]
+}
+{% endschema %}
