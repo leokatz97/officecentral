@@ -1,0 +1,15 @@
+{% capture drawerContent %}
+{{ 'cart.css' | asset_url | stylesheet_tag }} 
+{% if settings.enable_confetti_effect %}
+<div class="confetti-container-wrapper">
+    <div class="confetti-container"></div>
+</div>
+{% endif %}
+<div class="cart-drawer-content-main" data-cart-drwaer-body >
+{% render 'cart-drawer-content'%}
+</div>
+{% endcapture %}
+{% capture cartRecommendationpopup %}
+  {% render 'cart-recommendation-popup'%}
+{% endcapture %}
+{% render 'side-drawer', id: 'ajax-cart-drawer', class: 'cart-drawer', drawerContent: drawerContent, cartRecommendationpopup: cartRecommendationpopup %}
