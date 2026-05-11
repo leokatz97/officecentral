@@ -193,6 +193,28 @@ body { background: #FFFFFF !important; }
 /* Constrain prose paragraphs only — headings, lists, tables use full container */
 .pdp-about__body p { max-width: 640px; font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb), 0.82); margin: 0 0 16px; }
 .pdp-about__body p:last-child { margin-bottom: 0; }
+/* h2/h3 inside product description → eyebrow treatment, not giant headings */
+.pdp-about__body h2,
+.pdp-about__body h3 {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(var(--textColor-rgb), 0.5);
+  margin: 32px 0 8px;
+}
+.pdp-about__body h2::before,
+.pdp-about__body h3::before {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 1px;
+  background: var(--saleBadgeBackground);
+  margin-bottom: 8px;
+}
+.pdp-about__body h2:first-child,
+.pdp-about__body h3:first-child { margin-top: 0; }
 .pdp-about__bestfor { border-top: 1px solid var(--borderColor); margin-top: 32px; padding-top: 24px; }
 .pdp-about__bestfor-label { font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; }
 .pdp-about__bestfor-text { font-size: 17px; line-height: 1.5; font-family: 'Inter Tight', sans-serif; font-weight: 500; margin: 0; }
@@ -337,6 +359,26 @@ body { background: #FFFFFF !important; }
   assign is_unbuyable = false
   if product.price == 0 or product.available == false
     assign is_unbuyable = true
+  endif
+  assign all_cat_handle = ''
+  if cat_handle == 'seating'
+    assign all_cat_handle = 'all-seating'
+  elsif cat_handle == 'desks'
+    assign all_cat_handle = 'all-desks'
+  elsif cat_handle == 'storage'
+    assign all_cat_handle = 'all-storage'
+  elsif cat_handle == 'tables'
+    assign all_cat_handle = 'all-tables'
+  elsif cat_handle == 'boardroom'
+    assign all_cat_handle = 'all-boardroom'
+  elsif cat_handle == 'ergonomic-products'
+    assign all_cat_handle = 'all-ergonomic'
+  elsif cat_handle == 'panels-room-dividers'
+    assign all_cat_handle = 'all-panels'
+  elsif cat_handle == 'accessories'
+    assign all_cat_handle = 'all-accessories'
+  elsif cat_handle == 'quiet-spaces'
+    assign all_cat_handle = 'all-quiet-spaces'
   endif
 -%}
 
@@ -655,49 +697,90 @@ body { background: #FFFFFF !important; }
       </section>
     {%- endif -%}
 
-    <!-- Related products (same type tag, max 4) -->
-    {%- if cat_handle != blank -%}
-      {%- assign related_col = collections[cat_handle] -%}
-      {%- if related_col != blank -%}
-        {%- assign related_products = related_col.products | where: 'id', product.id | map: 'id' -%}
+    <!-- Related products — 3-tier best-sellers fallback -->
+    {%- liquid
+      assign _rc = nil
+      assign _rt = 0
+      assign _rv = '/collections/all-business-furniture'
+      assign _rl = 'Shop all furniture'
+
+      if all_cat_handle != blank
+        assign _t1 = collections[all_cat_handle]
+        if _t1 != blank
+          assign _rc = _t1
+          assign _rt = 1
+          assign _rv = '/collections/' | append: all_cat_handle
+          assign _rl = 'View all ' | append: cat_label
+        endif
+      endif
+
+      if _rt == 0
+        for tag in product.tags
+          if tag contains 'room:'
+            assign _rh = tag | remove: 'room:'
+            assign _t2 = collections[_rh]
+            if _t2 != blank
+              assign _rc = _t2
+              assign _rt = 2
+            endif
+            break
+          endif
+        endfor
+      endif
+
+      if _rt == 0
+        assign _t3 = collections['all-business-furniture']
+        if _t3 != blank
+          assign _rc = _t3
+          assign _rt = 3
+        endif
+      endif
+    -%}
+    {%- if _rc != blank -%}
+      {%- capture _cards -%}
+        {%- assign _shown = 0 -%}
+        {%- for rp in _rc.products -%}
+          {%- if rp.id != product.id and _shown < 4 -%}
+            {%- assign _shown = _shown | plus: 1 -%}
+            <a href="{{ rp.url }}" class="pdp-prod-card">
+              {%- if rp.featured_image -%}
+                <div class="pdp-prod-card__img-wrap">
+                  {{- rp.featured_image
+                      | image_url: width: 480
+                      | image_tag:
+                          class: 'pdp-prod-card__img',
+                          loading: 'lazy',
+                          width: rp.featured_image.width,
+                          height: rp.featured_image.height,
+                          alt: rp.featured_image.alt | default: rp.title | escape -}}
+                </div>
+              {%- endif -%}
+              <div class="pdp-prod-card__body">
+                {%- if rp.vendor != blank -%}
+                  <p class="pdp-prod-card__vendor">{{ rp.vendor }}</p>
+                {%- endif -%}
+                <p class="pdp-prod-card__title">{{ rp.title }}</p>
+                <p class="pdp-prod-card__price">
+                  {%- if rp.price == 0 or rp.available == false -%}Quote only
+                  {%- else -%}{{ rp.price | money }}{%- endif -%}
+                </p>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {%- if _cards != blank -%}
         <section class="pdp-related">
           <div class="pdp-related__inner">
             <div class="pdp-related__header">
-              <h2>More {{ cat_label }}</h2>
-              <a href="/collections/{{ cat_handle }}" class="pdp-related__view-all">View all {{ cat_label }} &rarr;</a>
+              {%- if _rt == 1 -%}
+                <h2>Best sellers in {{ cat_label }}</h2>
+              {%- else -%}
+                <h2>Customers also bought</h2>
+              {%- endif -%}
+              <a href="{{ _rv }}" class="pdp-related__view-all">{{ _rl }} &rarr;</a>
             </div>
-            <div class="pdp-related__grid">
-              {%- assign shown = 0 -%}
-              {%- for rp in related_col.products -%}
-                {%- if rp.id != product.id and shown < 4 -%}
-                  {%- assign shown = shown | plus: 1 -%}
-                  <a href="{{ rp.url }}" class="pdp-prod-card">
-                    {%- if rp.featured_image -%}
-                      <div class="pdp-prod-card__img-wrap">
-                        {{- rp.featured_image
-                            | image_url: width: 480
-                            | image_tag:
-                                class: 'pdp-prod-card__img',
-                                loading: 'lazy',
-                                width: rp.featured_image.width,
-                                height: rp.featured_image.height,
-                                alt: rp.featured_image.alt | default: rp.title | escape -}}
-                      </div>
-                    {%- endif -%}
-                    <div class="pdp-prod-card__body">
-                      {%- if rp.vendor != blank -%}
-                        <p class="pdp-prod-card__vendor">{{ rp.vendor }}</p>
-                      {%- endif -%}
-                      <p class="pdp-prod-card__title">{{ rp.title }}</p>
-                      <p class="pdp-prod-card__price">
-                        {%- if rp.price == 0 or rp.available == false -%}Quote only
-                        {%- else -%}{{ rp.price | money }}{%- endif -%}
-                      </p>
-                    </div>
-                  </a>
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
+            <div class="pdp-related__grid">{{ _cards }}</div>
           </div>
         </section>
       {%- endif -%}

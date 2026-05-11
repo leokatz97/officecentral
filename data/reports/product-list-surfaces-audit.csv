@@ -1,0 +1,12 @@
+file,line,collection_handle,sort_applied,needs_action,notes
+theme/sections/ds-cc-base.liquid,635,_sub_handle (dynamic from block setting),saved collection sort,NO,reads products_count only — no product iteration
+theme/sections/ds-article.liquid,233,article.metafields.custom.related_collection,saved collection sort,NO,iterates products limit:4 — no sort override; inherits best-selling from collection
+theme/sections/ds-pdp-base.liquid,707,all_cat_handle (tier 1),best-selling,NO,new 3-tier logic; all-* collections already on best-selling
+theme/sections/ds-pdp-base.liquid,717,room_handle (tier 2),saved collection sort,NO,room-* collections kept on manual (editorial); tier 2 only fires if tier 1 empty
+theme/sections/ds-pdp-base.liquid,727,all-business-furniture (tier 3),best-selling,NO,fallback; already on best-selling
+theme/snippets/collection-tab-style-1.liquid,34,schema setting collection handle,saved collection sort,NO,Starlite snippet — no sort override; inherits best-selling from collection
+theme/snippets/collection-tab-style-2.liquid,30,schema setting collection handle,saved collection sort,NO,Starlite snippet — no sort override; inherits best-selling from collection
+theme/sections/main-collection.liquid,14,URL collection handle,sort_by URL param then default_sort_by,NO,user sort dropdown supported; default now best-selling after Step 3
+theme/sections/main-search.liquid,8,URL collection handle,sort_by URL param then default_sort_by,NO,same as main-collection — no conflict
+theme/sections/main-list-collections.liquid,8,N/A,sort by all_products_count or published_at,NO,sorts collection list not products within collections
+theme/snippets/product-blocks.liquid,292,N/A,sort by quantity (volume price breaks),NO,sorts quantity_price_breaks array — unrelated to collections
