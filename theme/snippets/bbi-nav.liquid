@@ -126,13 +126,103 @@
   flex-shrink:0;font-size:14px;
 }
 
-/* Cart icon link */
+/* Cart icon button */
 .bbi-header__cart{
   position:relative;display:inline-flex;align-items:center;
   color:var(--headerColor,#0B0B0C);text-decoration:none;
   padding:6px;border-radius:4px;
+  background:none;border:none;cursor:pointer;
   transition:color 100ms ease;
 }
+
+/* Mini-cart dropdown */
+.bbi-header__utility{position:relative;}
+.bbi-minicart{
+  position:absolute;top:calc(100% + 8px);right:0;
+  width:340px;
+  background:#ffffff;
+  border:1px solid var(--borderColor,#E5E5E7);
+  border-radius:var(--cardRadius,8px);
+  box-shadow:0 8px 24px rgba(11,11,12,.12);
+  z-index:210;
+}
+.bbi-minicart[hidden]{display:none !important;}
+.bbi-minicart__inner{display:flex;flex-direction:column;}
+.bbi-minicart__items{
+  max-height:320px;overflow-y:auto;
+  padding:12px 16px;
+  display:flex;flex-direction:column;gap:0;
+}
+.bbi-minicart__item{
+  display:grid;
+  grid-template-columns:56px 1fr;
+  gap:12px;align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid var(--borderColor,#E5E5E7);
+}
+.bbi-minicart__item:last-child{border-bottom:none;}
+.bbi-minicart__thumb{
+  width:56px;height:56px;
+  border-radius:var(--cardRadius,6px);
+  overflow:hidden;
+  border:1px solid var(--borderColor,#E5E5E7);
+  flex-shrink:0;
+  background:rgb(var(--alternateBackground,250,250,250));
+}
+.bbi-minicart__thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.bbi-minicart__item-meta{min-width:0;}
+.bbi-minicart__item-title{
+  font-size:13px;font-weight:600;
+  color:var(--textColor,#0B0B0C);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  display:block;margin-bottom:4px;
+}
+.bbi-minicart__item-line{font-size:12px;color:rgba(11,11,12,.55);}
+.bbi-minicart__empty{
+  padding:32px 16px;text-align:center;
+  font-size:14px;color:rgba(11,11,12,.5);
+}
+.bbi-minicart__empty a{
+  display:block;margin-top:10px;
+  font-size:13px;color:var(--headerHoverColor,#A81E22);text-decoration:underline;
+}
+.bbi-minicart__footer{
+  border-top:1px solid var(--borderColor,#E5E5E7);
+  padding:14px 16px 16px;
+}
+.bbi-minicart__footer[hidden]{display:none !important;}
+.bbi-minicart__subtotal{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:14px;font-weight:600;margin-bottom:12px;
+}
+.bbi-minicart__view-cart{
+  display:block;width:100%;
+  padding:11px 16px;
+  background:transparent;
+  color:var(--textColor,#0B0B0C);
+  border:1px solid var(--borderColor,#E5E5E7);
+  border-radius:var(--buttonRadius,4px);
+  text-align:center;text-decoration:none;
+  font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
+  font-size:14px;font-weight:600;
+  margin-bottom:8px;box-sizing:border-box;
+  transition:background-color 100ms ease;
+}
+.bbi-minicart__view-cart:hover{background:rgb(var(--alternateBackground,250,250,250));}
+.bbi-minicart__checkout-btn{
+  display:block;width:100%;
+  padding:11px 16px;
+  background:rgb(var(--buttonBackground,11,11,12));
+  color:rgb(var(--buttonColor,255,255,255));
+  border:none;
+  border-radius:var(--buttonRadius,4px);
+  text-align:center;
+  font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
+  font-size:14px;font-weight:700;
+  cursor:pointer;box-sizing:border-box;
+  transition:background-color 120ms ease;
+}
+.bbi-minicart__checkout-btn:hover{background:rgb(var(--buttonBackgroundHover,168,30,34));}
 .bbi-header__cart:hover{color:var(--headerHoverColor,#A81E22);}
 .bbi-header__cart:focus-visible{outline:2px solid var(--saleBadgeBackground,#D4252A);outline-offset:2px;}
 .bbi-header__cart-count{
@@ -394,7 +484,7 @@
         1-800-835-9565
       </a>
       <button type="button" class="bbi-btn bbi-btn--primary" data-bbi-quote-trigger data-lead-type="quote">Request a Quote</button>
-      <a href="/cart" class="bbi-header__cart" aria-label="Cart">
+      <button type="button" class="bbi-header__cart" aria-label="Cart" aria-haspopup="true" aria-expanded="false" data-bbi-cart-toggle>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
           <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
@@ -402,7 +492,24 @@
         </svg>
         <span class="bbi-header__cart-count" data-bbi-cart-count
           {%- if cart.item_count == 0 %} hidden{%- endif -%}>{{ cart.item_count }}</span>
-      </a>
+      </button>
+      <div class="bbi-minicart" data-bbi-minicart hidden role="dialog" aria-label="Cart preview">
+        <div class="bbi-minicart__inner">
+          <div class="bbi-minicart__items" id="bbi-minicart-items">
+            {%- comment -%}Populated by JS{%- endcomment -%}
+          </div>
+          <div class="bbi-minicart__footer" id="bbi-minicart-footer" hidden>
+            <div class="bbi-minicart__subtotal">
+              <span>Subtotal</span>
+              <span id="bbi-minicart-total"></span>
+            </div>
+            <a href="/cart" class="bbi-minicart__view-cart">View Cart</a>
+            <form action="/cart" method="post">
+              <button type="submit" name="checkout" class="bbi-minicart__checkout-btn">Checkout</button>
+            </form>
+          </div>
+        </div>
+      </div>
       <button class="bbi-hamburger" type="button"
         aria-label="Open navigation menu"
         aria-controls="bbi-mobile-overlay"
@@ -577,6 +684,84 @@
       } catch (_) {}
     }
     document.addEventListener('cart:updated', refreshCount);
+  })();
+
+  /* ---- Mini-cart dropdown ---- */
+  (function () {
+    var toggleBtn = document.querySelector('[data-bbi-cart-toggle]');
+    var panel     = document.querySelector('[data-bbi-minicart]');
+    var itemsEl   = document.getElementById('bbi-minicart-items');
+    var totalEl   = document.getElementById('bbi-minicart-total');
+    var footerEl  = document.getElementById('bbi-minicart-footer');
+    if (!toggleBtn || !panel) return;
+
+    function fmt(cents) {
+      return '$' + (cents / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function render(cart) {
+      if (!itemsEl) return;
+      if (cart.item_count === 0) {
+        itemsEl.innerHTML = '<div class="bbi-minicart__empty">Your cart is empty'
+          + '<a href="/collections/all">Start shopping</a></div>';
+        if (footerEl) footerEl.hidden = true;
+        return;
+      }
+      if (footerEl) footerEl.hidden = false;
+      if (totalEl)  totalEl.textContent = fmt(cart.total_price);
+      itemsEl.innerHTML = cart.items.map(function (item) {
+        var imgSrc = item.featured_image ? item.featured_image.url : '';
+        var imgHtml = imgSrc
+          ? '<img src="' + imgSrc + '" alt="' + (item.product_title || '').replace(/"/g, '&quot;')
+            + '" width="56" height="56" loading="lazy">'
+          : '';
+        return '<div class="bbi-minicart__item">'
+          + '<div class="bbi-minicart__thumb">' + imgHtml + '</div>'
+          + '<div class="bbi-minicart__item-meta">'
+          + '<span class="bbi-minicart__item-title">' + (item.product_title || item.title) + '</span>'
+          + '<span class="bbi-minicart__item-line">Qty ' + item.quantity
+          + ' &times; ' + fmt(item.final_line_price) + '</span>'
+          + '</div></div>';
+      }).join('');
+    }
+
+    async function loadAndOpen() {
+      try {
+        var r = await fetch('/cart.js', { headers: { Accept: 'application/json' } });
+        render(await r.json());
+      } catch (_) {}
+      panel.hidden = false;
+      toggleBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closePanel() {
+      panel.hidden = true;
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    toggleBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (!panel.hidden) { closePanel(); return; }
+      loadAndOpen();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!panel.hidden && !panel.contains(e.target) && e.target !== toggleBtn) {
+        closePanel();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) { closePanel(); toggleBtn.focus(); }
+    });
+
+    document.addEventListener('cart:updated', function () {
+      if (panel.hidden) return;
+      fetch('/cart.js', { headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(render)
+        .catch(function () {});
+    });
   })();
 
   /* Mobile: Web Component with WCAG focus trap + Escape close */

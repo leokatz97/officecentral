@@ -86,7 +86,7 @@
   display:inline-flex;align-items:center;justify-content:center;
   transition:background-color 100ms ease;
 }
-.bbi-cart__qty-btn:hover{background:var(--alternateBackground,#FAFAFA);}
+.bbi-cart__qty-btn:hover{background:rgb(var(--alternateBackground,250,250,250));}
 .bbi-cart__qty-input{
   width:36px;height:32px;border:none;
   text-align:center;font-size:14px;font-weight:500;
@@ -118,7 +118,7 @@
 
 /* ── Order summary card ─────────────────────────────────────────────────── */
 .bbi-cart__summary{
-  background:var(--alternateBackground,#FAFAFA);
+  background:rgb(var(--alternateBackground,250,250,250));
   border:1px solid var(--borderColor,#E5E5E7);
   border-radius:var(--cardRadius,8px);
   padding:28px;
@@ -147,14 +147,14 @@
 .bbi-cart__checkout{
   display:block;width:100%;
   padding:14px 24px;
-  background:#0B0B0C;color:#ffffff;
+  background:rgb(var(--buttonBackground,11,11,12));color:rgb(var(--buttonColor,255,255,255));
   font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
   font-size:15px;font-weight:700;letter-spacing:0.01em;
   border:none;border-radius:var(--buttonRadius,4px);
   cursor:pointer;text-align:center;
   transition:background-color 120ms ease;
 }
-.bbi-cart__checkout:hover{background:var(--saleBadgeBackground,#D4252A);}
+.bbi-cart__checkout:hover{background:rgb(var(--buttonBackgroundHover,168,30,34));}
 .bbi-cart__continue{
   display:block;text-align:center;margin-top:12px;
   font-size:13px;color:rgba(11,11,12,.5);text-decoration:underline;
@@ -176,13 +176,13 @@
 .bbi-cart__empty-cta{
   display:inline-flex;align-items:center;justify-content:center;
   padding:13px 28px;
-  background:#0B0B0C;color:#ffffff;
+  background:rgb(var(--buttonBackground,11,11,12));color:rgb(var(--buttonColor,255,255,255));
   font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
   font-size:14px;font-weight:700;letter-spacing:0.01em;
   border-radius:var(--buttonRadius,4px);text-decoration:none;
   transition:background-color 120ms ease;
 }
-.bbi-cart__empty-cta:hover{background:var(--saleBadgeBackground,#D4252A);}
+.bbi-cart__empty-cta:hover{background:rgb(var(--buttonBackgroundHover,168,30,34));}
 
 /* Mobile tightening */
 @media(max-width:600px){
