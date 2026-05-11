@@ -62,6 +62,13 @@
   --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
 }
 
+/* Strip Starlite's content-for-layout constraints on BBI pages */
+.content-for-layout--bbi {
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 /* ── Base ────────────────────────────────────────────────────────────────── */
 .bbi-pdp *, .bbi-pdp *::before, .bbi-pdp *::after { box-sizing: border-box; }
 .bbi-pdp { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
