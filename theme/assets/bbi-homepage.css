@@ -536,3 +536,31 @@
   font-size: 12px !important;
   color: rgba(255,255,255,0.7) !important;
 }
+
+/* ============================================================
+   Utility rules — ported from LIVE style.css + base.css
+   Required because the DEV theme does not load those files.
+   ============================================================ */
+
+/* Keeps the accessibility skip link off-screen until keyboard focus */
+.skip-to-content-link {
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  word-wrap: normal !important;
+}
+.skip-to-content-link:focus-visible {
+  z-index: 99 !important;
+  width: auto;
+  height: auto;
+  clip: auto;
+}
+
+/* Hides compare-widget containers (compare-btn-sidebar, compare-model-items)
+   which carry class="… hidden" and rely on this rule to stay off-screen */
+.hidden { display: none !important; }
