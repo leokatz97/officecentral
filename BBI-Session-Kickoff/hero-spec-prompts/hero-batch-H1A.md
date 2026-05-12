@@ -129,3 +129,20 @@ Write results to `data/reports/hero-spec-gaps-output.json` using this format:
 
 If a field cannot be found after thorough search, omit it from the output (do not include an empty value).
 If the product cannot be identified at all, use `"status": "skip"` and note what was searched.
+
+---
+
+## End of Session — Run This When All Handles Are Done
+
+When every handle in this batch has been written to `data/reports/hero-spec-gaps-output.json` (status `done`, `skip`, or `service`), run the merge + push in one command:
+
+```bash
+python3 scripts/merge-hero-specs.py --live --push
+```
+
+This merges the new spec fields into `data/specs.json` and pushes all changes to Shopify immediately. No separate push step needed.
+
+**Then tell Steve:**
+
+> ✅ Hero spec session H1A complete. Merged and pushed to Shopify.
+> **Next session → open `BBI-Session-Kickoff/hero-spec-prompts/hero-batch-H1B.md` in a new Claude session.**

@@ -384,3 +384,21 @@ Write results to `data/reports/hero-spec-gaps-output.json` using this format:
 - If a field cannot be found after thorough search, omit it.
 - Use `"status": "skip"` if data cannot be found.
 - Work through H3A → H3B → H3C → H3D → H3E in order; checkpoint save after every 5 products.
+
+---
+
+## End of Session — Run This When All Handles Are Done
+
+When every handle in this batch has been written to `data/reports/hero-spec-gaps-output.json` (status `done`, `skip`, or `service`), run the merge + push in one command:
+
+```bash
+python3 scripts/merge-hero-specs.py --live --push
+```
+
+This merges the new spec fields into `data/specs.json` and pushes all changes to Shopify immediately. No separate push step needed.
+
+**Then tell Steve:**
+
+> ✅ Hero spec session H3 complete. Merged and pushed to Shopify.
+> **All 4 hero spec gap sessions are done. Hero 100 specs are fully enriched.**
+> Return to the main enrichment queue in `BBI-Session-Kickoff/enrichment-prompts/` if not already complete.

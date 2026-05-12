@@ -135,13 +135,12 @@ When presenting a completed product, use this format in the session chat:
 
 ## Merge Script
 
-After a session, Leo runs:
+At the end of every session, run this single command:
 ```bash
-python3 scripts/merge-hero-specs.py          # dry run first
-python3 scripts/merge-hero-specs.py --live   # apply changes
+python3 scripts/merge-hero-specs.py --live --push
 ```
 
-The script reads `data/reports/hero-spec-gaps-output.json` and merges non-empty fields into `data/specs.json` without overwriting any existing values.
+Merges filled fields into `data/specs.json` (never overwrites existing values) and immediately pushes to Shopify. Each batch file has an **End of Session** block with this command and tells Steve which batch to open next.
 
 ---
 
