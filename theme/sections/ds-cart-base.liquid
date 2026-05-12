@@ -6,8 +6,6 @@
   Template: cart.json
 {%- endcomment -%}
 
-{%- render 'bbi-nav', logo: section.settings.logo, active: '' -%}
-
 <style>
 /* ── Scoped token overrides — same pattern as ds-pdp-base ───────────────── */
 .bbi-cart {
@@ -297,8 +295,6 @@ body { background: #FFFFFF !important; }
   </div>
 </div>
 
-{%- render 'bbi-footer', logo: section.settings.logo -%}
-
 <script>
 /* ds-cart-base — quantity steppers + remove via /cart/change.js */
 (function () {
@@ -370,12 +366,6 @@ body { background: #FFFFFF !important; }
 {
   "name": "BBI Cart",
   "class": "bbi-cart-section",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
-    }
-  ]
+  "settings": []
 }
 {% endschema %}

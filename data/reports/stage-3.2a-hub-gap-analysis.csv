@@ -1,0 +1,52 @@
+parent_hub,sample_sub_handle,element,current_state,t4_expected,gap
+seating,active-seating,header,bbi-nav with active='shop',bbi-nav with active='shop',none
+seating,active-seating,breadcrumb,4-level Home > Shop Furniture > Seating > Active Seating,4-level breadcrumb (correct structure),none
+seating,active-seating,hero,H1 + mono eyebrow label + product count; no CTA button,"H1 + label + count + ""Shop all Seating"" CTA button",add
+seating,active-seating,hero_stats_line,absent,not specified in any locked screen (T4 gap),none — defer to decision doc
+seating,active-seating,product_grid,0 products shown (empty state); grid CSS uses 4:3 aspect ratio with object-fit:cover,4:5 ratio per component spec; 1:1 preferred for actual square catalog images,change — aspect ratio fix required
+seating,active-seating,product_card_cta,quote-only links to /pages/quote bypassing PDP,all tiles must link to PDP (PDP decides quote vs add-to-cart),change — BBI rule #2 fix required
+seating,active-seating,brand_plates,absent,not specified for T4,none — gap flagged; recommend omit
+seating,active-seating,oecm_bar,absent (snippet doesn't exist yet),not specified for T4 but referenced in T3 + T5,none — deferred to when bbi-oecm-bar.liquid snippet created
+seating,active-seating,phone_cta_band,charcoal inverse; correct; no OECM trust line,charcoal inverse; OECM trust line recommended,change — add OECM copy
+seating,active-seating,footer,bbi-footer,bbi-footer,none
+desks,executive-desks,header,bbi-nav with active='shop',bbi-nav with active='shop',none
+desks,executive-desks,breadcrumb,defaults to parent_category_handle='seating' (wrong!),should show Desks & Workstations as Level 3,change — per-collection schema config required
+desks,executive-desks,hero,H1 + mono eyebrow (defaults to Seating); no CTA,correct parent label + CTA button,change — schema config + add CTA
+desks,executive-desks,product_grid,0 products; same card issues as seating,same fixes needed,change
+desks,executive-desks,product_card_cta,same quote→/pages/quote bug,all to PDP,change
+desks,executive-desks,phone_cta_band,same as seating,same as seating,change
+storage,personal-storage,header,bbi-nav with active='shop',bbi-nav with active='shop',none
+storage,personal-storage,breadcrumb,defaults to Seating (wrong),should show Storage & Filing,change — schema config
+storage,personal-storage,hero,same issues,same fixes,change
+storage,personal-storage,product_grid,0 products; same card issues,same fixes,change
+storage,personal-storage,product_card_cta,same bug,same fix,change
+tables,cafe-tables,header,bbi-nav with active='shop',bbi-nav with active='shop',none
+tables,cafe-tables,breadcrumb,defaults to Seating (wrong),should show Tables,change — schema config
+tables,cafe-tables,hero,same issues,same fixes,change
+tables,cafe-tables,product_grid,0 products; same card issues,same fixes,change
+tables,cafe-tables,product_card_cta,same bug,same fix,change
+boardroom,boardroom-seating,header,bbi-nav with active='shop',bbi-nav with active='shop',none
+boardroom,boardroom-seating,breadcrumb,defaults to Seating (wrong),should show Boardroom,change — schema config
+boardroom,boardroom-seating,hero,same issues,same fixes,change
+boardroom,boardroom-seating,product_grid,0 products; same card issues,same fixes,change
+boardroom,boardroom-seating,product_card_cta,same bug,same fix,change
+ergonomic-products,ergonomic-accessories,header,bbi-nav with active='shop',bbi-nav with active='shop',none
+ergonomic-products,ergonomic-accessories,breadcrumb,defaults to Seating (wrong),should show Ergonomic Products,change — schema config
+ergonomic-products,ergonomic-accessories,hero,same issues,same fixes,change
+ergonomic-products,ergonomic-accessories,product_grid,0 products; same card issues,same fixes,change
+ergonomic-products,ergonomic-accessories,product_card_cta,same bug,same fix,change
+panels-room-dividers,privacy-screens,header,bbi-nav with active='shop',bbi-nav with active='shop',none
+panels-room-dividers,privacy-screens,breadcrumb,defaults to Seating (wrong),should show Panels & Room Dividers,change — schema config
+panels-room-dividers,privacy-screens,hero,same issues,same fixes,change
+panels-room-dividers,privacy-screens,product_grid,0 products; same card issues,same fixes,change
+panels-room-dividers,privacy-screens,product_card_cta,same bug,same fix,change
+quiet-spaces,acoustic-pods,header,bbi-nav with active='shop',bbi-nav with active='shop',none
+quiet-spaces,acoustic-pods,breadcrumb,defaults to Seating (wrong),should show Quiet Spaces,change — schema config
+quiet-spaces,acoustic-pods,hero,same issues,same fixes,change
+quiet-spaces,acoustic-pods,product_grid,0 products; same card issues,same fixes,change
+quiet-spaces,acoustic-pods,product_card_cta,same bug,same fix,change
+accessories,desk-accessories,header,bbi-nav with active='shop',bbi-nav with active='shop',none
+accessories,desk-accessories,breadcrumb,defaults to Seating (wrong),should show Accessories,change — schema config
+accessories,desk-accessories,hero,same issues,same fixes,change
+accessories,desk-accessories,product_grid,0 products; same card issues,same fixes,change
+accessories,desk-accessories,product_card_cta,same bug,same fix,change

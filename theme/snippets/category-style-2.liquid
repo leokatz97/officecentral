@@ -1,0 +1,114 @@
+{%- liquid
+    assign isProductImages = false
+    assign isCollectionImages = false
+
+    assign categoryBlock = section.blocks | where: 'type', 'category_mega_menu'
+    assign link_title = link.title | handleize
+    for block in categoryBlock
+
+        assign block_label = block.settings.title | handleize
+        if block_label == link_title
+            assign isProductImages = block.settings.show_product_images
+            assign isCollectionImages = block.settings.show_collection_images
+        endif
+
+    endfor
+-%}
+
+<div class="sub-category-menu-content-2-inner">
+    <ul class="categories-inner-second-level-menu-items{% if widthForUL == 'large' %} categories-mega-menu-only{% endif %}" data-second-level>
+        {% for childLink in link.links %}
+            {% liquid
+               
+                assign childLinkIndex = forloop.index
+            %}
+            <li>  
+                <a href="{{ childLink.url }}" class="categories-inner-second-level-menu-heading{% if childLinkIndex == 1 %} active{% endif %}" title="{{ childLink.title }}" {% if childLink.links.size > 0 %} data-child data-child-index="{{ childLinkIndex }}" {% endif %}>
+                    {{- childLink.title -}}
+                    {% if childLink.links.size > 0 %}
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="none">
+                            <path d="M5.63197 4.80477L1.77513 0.852904C1.61769 0.692547 1.40473 0.602539 1.18274 0.602539C0.960751 0.602539 0.747783 0.692547 0.590348 0.852904C0.51159 0.932942 0.449079 1.02817 0.40642 1.13308C0.36376 1.238 0.341797 1.35054 0.341797 1.46419C0.341797 1.57785 0.36376 1.69039 0.40642 1.79531C0.449079 1.90022 0.51159 1.99545 0.590348 2.07549L4.45559 6.01874C4.53435 6.09878 4.59686 6.19401 4.63952 6.29892C4.68218 6.40384 4.70414 6.51638 4.70414 6.63003C4.70414 6.74369 4.68218 6.85623 4.63952 6.96115C4.59686 7.06606 4.53435 7.16129 4.45559 7.24133L0.590348 11.1846C0.432121 11.3456 0.342788 11.5644 0.342 11.7928C0.341213 12.0213 0.429035 12.2407 0.586147 12.4029C0.743259 12.565 0.95679 12.6565 1.17977 12.6573C1.40275 12.6581 1.6169 12.5681 1.77513 12.4072L5.63197 8.4553C6.10404 7.971 6.36919 7.31451 6.36919 6.63003C6.36919 5.94556 6.10404 5.28907 5.63197 4.80477Z" fill="currentColor"/>
+                        </svg>
+                    {% endif %}
+                </a>
+                {% if childLink.links.size > 0 %}
+                <div class="categories-inner-third-level-menu-box{% if childLinkIndex == 1 %} active{% endif %}" data-grandchild data-grandchild-index="third-level-menu-{{ childLinkIndex }}">
+                    <ul class="categories-inner-third-level-menu-items" data-img="{{ isProductImages }}" data-coll="{{ isCollectionImages }}">
+                        {% for grandChildLink in childLink.links %}
+                            {% assign grandChildLinkIndex = forloop.index %}
+                           
+                            {% if isProductImages and grandChildLink.type == 'product_link' %}
+                                <li>
+                                    <a class="categories-inner-link" href="{{ grandChildLink.url }}" title="{{ grandChildLink.title }}"></a>
+                                    {% if grandChildLink.type == 'product_link' %}
+                                        {% assign category_image = grandChildLink.object.featured_image %}
+                                        <div class="categories-inner-product">
+                                            <div class="categories-product-img">
+                                                <div class="media" style="--imageRatio:100%">
+                                                    {% if category_image != blank  %}
+                                                        {{ category_image | image_url: width: 600 | image_tag: widths: '300, 600' }}
+                                                    {% else %}
+                                                        {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="categories-product-content">
+                                                <span class="product-title">{{ grandChildLink.title }}</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}    
+                                </li>
+                            {% else %}
+                                {% if grandChildLink.type == 'product_link' %}
+                                    <li>
+                                        <a class="categories-inner-third-level-menu-link" href="{{ grandChildLink.url }}" title="{{ grandChildLink.title }}" data-index="{{ grandChildLinkIndex }}">{{ grandChildLink.title }}</a>
+                                    </li>
+                                {% endif %} 
+                            {% endif %}
+
+                            {% if isCollectionImages and grandChildLink.type == 'collection_link' %}
+                                <li>
+                                    <a class="categories-inner-link" href="{{ grandChildLink.url }}" title="{{ grandChildLink.title }}"></a>
+                                    {% if grandChildLink.type == 'collection_link' %}
+                                        {% assign category_image = grandChildLink.object.featured_image %}
+                                        <div class="categories-inner-collection">
+                                            <div class="categories-collection-img">
+                                                <div class="media" style="--imageRatio:100%">
+                                                    {% if category_image != blank  %}
+                                                        {{ category_image | image_url: width: 600 | image_tag: widths: '300, 600' }}
+                                                    {% else %}
+                                                        {{ 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="categories-collection-content">
+                                                {{ grandChildLink.title }} 
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% else %}
+                                {% if grandChildLink.type == 'collection_link' %}
+                                    <li>
+                                        <a class="categories-inner-third-level-menu-link" href="{{ grandChildLink.url }}" title="{{ grandChildLink.title }}" data-index="{{ grandChildLinkIndex }}">{{ grandChildLink.title }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+
+                            {% unless grandChildLink.type == 'collection_link' or grandChildLink.type == 'product_link' %}
+                                <li>
+                                    <a class="categories-inner-third-level-menu-link" href="{{ grandChildLink.url }}" title="{{ grandChildLink.title }}" data-index="{{ grandChildLinkIndex }}">{{ grandChildLink.title }}</a>
+                                </li>
+                            {% endunless %}
+
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            </li>
+        {% endfor %}
+        <li class="categories-mega-menu{% if widthForUL == 'large' %} categories-mega-menu-only-list{% endif %}">
+            {{ categoryMegaMenuData }} 
+        </li> 
+    </ul>
+</div>

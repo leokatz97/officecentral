@@ -1,0 +1,57 @@
+<div class="shipping-calculator">
+  <details open>
+    <summary>
+      <h5>{{ 'sections.cart.estimate_shipping' | t }}</h5>
+      <span class="shipping-icon">
+        <svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.91442 7.03802L1.93955 10.0862C1.81811 10.2099 1.65385 10.2793 1.48262 10.2793C1.3114 10.2793 1.14713 10.2099 1.0257 10.0862C0.96495 10.0244 0.916734 9.951 0.88383 9.87007C0.850925 9.78915 0.833984 9.70235 0.833984 9.61468C0.833984 9.52701 0.850925 9.44021 0.88383 9.35929C0.916734 9.27836 0.96495 9.20491 1.0257 9.14318L4.00705 6.10165C4.0678 6.03992 4.11602 5.96647 4.14892 5.88554C4.18183 5.80462 4.19877 5.71781 4.19877 5.63015C4.19877 5.54248 4.18183 5.45568 4.14892 5.37475C4.11602 5.29383 4.0678 5.22038 4.00705 5.15864L1.0257 2.11712C0.903654 1.99295 0.834749 1.82419 0.834141 1.64796C0.833534 1.47174 0.901273 1.30248 1.02246 1.17743C1.14364 1.05238 1.30834 0.981777 1.48033 0.981154C1.65232 0.980532 1.8175 1.04994 1.93955 1.17411L4.91442 4.22228C5.27854 4.59583 5.48306 5.10219 5.48306 5.63015C5.48306 6.1581 5.27854 6.66446 4.91442 7.03802Z" fill="black"/>
+          </svg>          
+      </span>
+    </summary>
+    <div class="shipping-calculator-content">
+      <div class="shipping-calculator-cell form-group">
+        <label for="shippingCountry">{{ 'sections.cart.country' | t }}</label>
+        <select
+          class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+          id="shippingCountry"
+          name="shipping_address[country]"
+          data-address-country-select
+          name="address[country]"
+          data-default="{% if shop.customer_accounts_enabled and customer %}{{ customer.default_address.country }}{% else %}{{ shop.address.country}}{% endif %}"
+          autocomplete="country"
+          placeholder="country"
+        >
+          {{ country_option_tags }}
+        </select>
+      </div>
+      <div class="shipping-calculator-cell form-group" id="shippingProvinceContainer" style="display:none;">
+        <label class="address_province" for="address_province">{{ 'sections.cart.province' | t }}</label>
+        <select
+          class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+          id="address_province"
+          name="address[province]"
+          data-default="{% if shop.customer_accounts_enabled and customer and customer.default_address.province != '' %}{{ customer.default_address.province }}{% endif %}"
+        ></select>
+      </div>
+      <div class="shipping-calculator-cell form-group">
+        <label for="address_zip">{{ 'sections.cart.zipcode' | t }}</label>
+        <input
+          class="form-control{% if settings.enable_input_shadow %} small-shadow-enabled{% endif %}"
+          type="text"
+          id="address_zip"
+          name="address[zip]"
+          placeholder="Enter postal code"
+          {% if shop.customer_accounts_enabled and customer %}
+            value="{{ customer.default_address.zip }}"
+          {% endif %}
+        >
+      </div>
+      <div class="shipping-calculator-cell form-group">
+        <button type="button" id="getShippingEstimates" class="button medium-btn btn-block{% if settings.enable_button_shadow %} button-shadow{% endif %}">
+          {{ 'sections.cart.get_estimate' | t }}
+        </button>
+      </div>
+      <div id="shipping-wrapper-response" style="display:none;"></div>
+    </div>
+  </details>
+</div>

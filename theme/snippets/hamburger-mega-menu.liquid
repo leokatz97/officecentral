@@ -1,0 +1,43 @@
+{%- if menuType == 'main' -%}
+  <div class="hamburger-megamenu">
+    <ul class="hamburger-megamenu-columns">
+      {%- for i in (1..5) -%}
+        {%- liquid
+          assign headingSetting = 'content_title_' | append: i
+          assign linkSetting = 'content_link_' | append: i
+          assign imageSetting = 'content_image_' | append: i
+          assign overlaySetting = 'content_overlay_opacity_' | append: i
+        -%}
+        {%- if block.settings[headingSetting] != blank or block.settings[imageSetting] != blank -%}
+          <li
+            class="hamburger-megamenu-item"
+            style="--overlayOpacity:{{ block.settings[overlaySetting] | divided_by: 100.0}}"
+          >
+            <div class="hamburger-megamenu-promotion{% if block.settings.text_overlay %} content-overlay{% endif %} img-zoom">
+              {%- if block.settings[imageSetting] != blank -%}
+                {% assign mega_imageratio = 1
+                  | divided_by: block.settings[imageSetting].aspect_ratio
+                  | times: 100
+                  | append: '%'
+                %}
+                <div class="hamburger-megamenu-promotion-img">
+                  <div class="media" style="--imageRatio: {{mega_imageratio}}">
+                    {% render 'lazy-image', image: block.settings[imageSetting], sizes: '[400]' %}
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings[headingSetting] != blank -%}
+                <div class="hamburger-megamenu-promotion-content">
+                  <h6 class="hamburger-megamenu-promotion-title">{{ block.settings[headingSetting] }}</h6>
+                </div>
+              {%- endif -%}
+              {%- if block.settings[linkSetting] != blank -%}
+                <a href="{{ block.settings[linkSetting] }}" class="hamburger-megamenu-promotion-link focus-inside"></a>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+{% endif %}

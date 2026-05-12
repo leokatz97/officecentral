@@ -20,9 +20,23 @@
         "top_space_mobile": 15,
         "bottom_space_mobile": 15
       }
+    },
+    "bbi-nav-wrap": {
+      "type": "bbi-nav-wrap",
+      "settings": {
+        "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png"
+      }
+    },
+    "bbi-footer-wrap": {
+      "type": "bbi-footer-wrap",
+      "settings": {
+        "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png"
+      }
     }
   },
   "order": [
-    "main-page"
+    "bbi-nav-wrap",
+    "main-page",
+    "bbi-footer-wrap"
   ]
 }

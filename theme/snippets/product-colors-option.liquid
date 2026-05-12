@@ -1,0 +1,102 @@
+{% unless cardProduct.has_only_default_variant %}
+{% if cardProduct != blank  and cardProduct.options_with_values %}
+  {% capture productColorSwatchs %}
+    <div  
+      class="product-selector-option select-color color-option"
+    >
+      {%- for option in cardProduct.options_with_values -%}
+        {%- liquid
+          assign colorOptions = 'Color,Colour' | downcase
+          assign downOption = option.name | downcase
+        
+
+          assign min = 1 
+          assign max = 1000
+          assign diff = max | minus: min 
+          assign loopindex = "now" | date: "%N" | modulo: diff | plus: min 
+          assign loopindex=loopindex| plus:forloop.index
+        -%}
+        {% if colorOptions contains downOption %}
+          <ul class="unstylish-list product-selector-option-list" data-swatch-colors>
+            {% for value in option.values limit: 4  %}
+              {% liquid
+                if forloop.first
+                endif
+                assign variantOption = 'option' | append: option.position
+                assign colorVariant = cardProduct.variants | where: variantOption, value | first
+                assign variantValue = cardProduct.variants | where: variantOption, value | compact: 'featured_media' | first
+                if cardProduct.url contains '?'
+                  assign productUrl = cardProduct.url | split: '&variant=' | first | append: '&variant=' | append: colorVariant.id
+                else
+                  assign productUrl = cardProduct.url | append: '?variant=' | append: colorVariant.id
+                endif 
+               
+                if value.swatch.image
+                assign image_url = value.swatch.image | image_url: width: 50
+                assign swatch_value = 'background-image: url(' | append: image_url | append: ')'
+                assign swatch_focal_point = value.swatch.image.presentation.focal_point
+                elsif value.swatch.color
+                  assign swatch_value = 'background-color: rgb(' | append: value.swatch.color.rgb | append: ')'
+                else
+                  assign swatch_value = null
+                endif
+              -%}
+              <li class="variant-option {% if forloop.first %}selected{% endif %} {% if swatch_focal_point %} variant-image-focal{% endif %}">
+                <input
+                  id="product-{{ cardProduct.id }}_option-{{ forloop.index }}-{{ loopindex }}-{{ section.id }}"
+                  name="option-{{index}}-{{ section.id }}"
+                  type="radio"
+                  value="{{ value | escape }}"
+                  title="{{ value | escape }}"
+                  class="product-option"
+                  data-val="{{ option.selected_value | escape }}"
+                  {% if option.selected_value == value %}
+                    checked="checked"
+                  {% endif %}
+                  data-option
+                  tabindex="-1"
+                >
+                <label
+                  for="product-{{ cardProduct.id }}_option-{{ forloop.index }}-{{ loopindex }}-{{ section.id }}"
+                  class="option"
+                  {% unless colorOptions contains optionTitle %}
+                    {% if variantValue and settings.show_variant_image %}
+                      style="background-image:url({{ variantValue.featured_media.preview_image | image_url: width: 100 }});"
+                    {% else %}
+                    {% if swatch_value != null %}style="{{ swatch_value }}; {% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}" {% else %}
+                      data-color="{{ value | escape }}"
+                      style="background-color: {{ value | escape }}"
+                    {% endif %}
+                    {% endif %}
+                  {% endunless %}
+                >
+                </label>
+                {% if variantValue != blank %}
+                  <div class="hidden">
+                    {% render 'lazy-image', image: variantValue.featured_media.preview_image,class:'lazypreload' %}
+                  </div>
+                  {% endif %}
+              </li>
+             
+            {% endfor %}
+            {% if option.values.size > 4 %}
+              <li class="variant-more" tabindex="-1">
+                {% liquid
+                  assign productUrl = cardProduct.url | within: collection
+                  if settings.hide_collection_from_url
+                    assign productUrl = cardProduct.url 
+                  endif
+                 %}
+                <a href="{{ productUrl }}" class="unstyled-link variant-more-option" tabindex="-1"
+                  >+{{ option.values.size | minus: 4 -}}
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endcapture %}
+  {{ productColorSwatchs }}
+{%- endif %}
+{% endunless %}

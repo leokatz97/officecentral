@@ -1,0 +1,208 @@
+.countdown-wrapper {
+    border-radius: var(--cardRadius);
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.countdown-bg-color {
+    background: var(--countdownProductBg);
+}
+
+.countdown-bg-image>img,
+.countdown-bg-image>noscript,
+.countdown-bg-image>noscript img {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--cardRadius);
+}
+
+.countdown-offer-text {
+    max-width: 100%;
+    flex: 0 0 100%;
+    padding: 30px 15px;
+    position: relative;
+}
+
+.countdown-offer-text.text-center .countdown-timer-wrapper .countdown-timer {
+    justify-content: center;
+}
+
+.countdown-offer-text.text-right .countdown-timer-wrapper .countdown-timer {
+    justify-content: flex-end;
+}
+
+.countdown-offer-products {
+    max-width: 100%;
+    flex: 0 0 100%;
+    z-index: 1;
+}
+
+.countdown-offer-products.background-enabled {
+    background-color: rgb(var(--background));
+    border-radius: var(--cardRadius);
+    padding: 15px 20px;
+}
+
+.countdown-timer-wrapper .countdown-timer {
+    position: static;
+    justify-content: flex-start;
+    margin-top: 6px;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.countdown-timer-wrapper {
+    margin-top: 20px;
+}
+
+.offer-heading {
+    color: var(--countdownTextColor);
+    margin-bottom: 20px;
+}
+
+.off-text {
+    color: var(--countdownHighlightTextColor);
+    font-size: var(--text-font-size);
+}
+
+.large-case.off-text {
+    font-size: 80px;
+}
+
+.medium-case.off-text {
+    font-size: 60px;
+}
+
+.small-case.off-text {
+    font-size: 40px;
+}
+
+.countdown-timer-wrapper p {
+    color: var(--countdownTextColor);
+    margin-bottom: 15px;
+}
+
+.countdown-timer-wrapper .countdown-timer div {
+    background: rgb(var(--alternateBackground));
+    padding: 8px;
+    border: 1px solid rgb(var(--alternateBackground));
+    border-radius: 6px;
+    min-width: 60px;
+}
+
+.countdown-timer-wrapper .countdown-timer .time {
+    color: rgb(var(--textColor));
+    font-size: var(--largeText);
+    line-height: 24px;
+}
+
+.countdown-section .flickity-viewport {
+    overflow: visible;
+}
+
+@media screen and (min-width:768px) {
+    .countdown-offer-text {
+        max-width: 40%;
+        flex: 0 0 40%;
+    }
+    .countdown-offer-products {
+        max-width: 60%;
+        flex: 0 0 60%;
+    }
+    .countdown-wrapper {
+        padding: 5px;
+    }
+    .countdown-offer-product-wrapper .product-grid-box {
+        padding: 0 4px;
+    }
+    .countdown-wrapper .product-grid-wrapper {
+        margin: 0 -4px;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .countdown-offer-text {
+        max-width: 25%;
+        flex: 0 0 25%;
+        padding: 10px 30px;
+    }
+    .countdown-offer-products {
+        max-width: 75%;
+        flex: 0 0 75%;
+    }
+    .countdown-offer-products.background-enabled {
+        background-color: rgb(var(--background));
+        border-radius: var(--cardRadius);
+        padding: 12px 18px;
+    }
+    .countdown-wrapper {
+        padding: 18px;
+    }
+}
+
+@media screen and (min-width:1441px) {
+    .countdown-offer-text {
+        padding: 10px 40px;
+    }
+}
+
+@media screen and (max-width:1440px) {
+    .medium-case.off-text {
+        font-size: 50px;
+    }
+    .countdown-timer-wrapper .countdown-timer div {
+        padding: 5px;
+        min-width: 50px;
+    }
+}
+
+@media screen and (max-width:1280px) {
+    .countdown-offer-text {
+        padding: 10px 20px;
+    }
+    .medium-case.off-text {
+        font-size: 45px;
+    }
+    .countdown-timer div {
+        min-width: 40px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .countdown-offer-products {
+        padding: 10px;
+    }
+    .medium-case.off-text {
+        font-size: 40px;
+    }
+    .countdown-offer-text {
+        padding: 30px 15px;
+    }
+    .countdown-timer div {
+        padding: 4px 2px 4px;
+        min-width: 30px;
+    }
+    .countdown-timer .time {
+        line-height: 12px;
+    }
+    .offer-heading {
+        margin-bottom: 10px;
+    }
+    .countdown-timer-wrapper {
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width:360px) {
+    .countdown-timer div {
+        min-width: 25px;
+    }
+}

@@ -1,0 +1,50 @@
+{%  if block.settings.variation_products != blank %}
+    <div class="product-selector-option no-js-hidden select-variation  variation-option">
+        <span class="variant-title heading-font">
+            {%- if block.settings.heading != blank -%}
+                {{- block.settings.heading -}}:
+            {%- else -%}
+                {{- 'products.product.onboarding.options.option1.label' | t -}}:
+            {%- endif -%}
+        </span>
+        <ul class="unstylish-list product-variations-option-list" {{ block.shopify_attributes }}>
+            {%- for variationProduct in block.settings.variation_products -%}
+                <li class="product-variations-option">
+                    <a class="product-variations-option-link" href="{{ variationProduct.url }}" title="{{ variationProduct.title | escape }}">
+                        {%- liquid
+                            assign variantImage = ''
+                            if block.settings.show_image and variationProduct.featured_media != blank
+                                assign variantImage = variationProduct.featured_media.preview_image
+                            endif                    
+                            assign colorOptions = settings.custom_colors_options | downcase
+                            assign variantOption = ''
+                            for option in variationProduct.options_with_values
+                                assign downOption = option.name | downcase
+                                if colorOptions contains downOption
+                                    assign variantOption = option.values.first
+                                    break
+                                endif
+                            endfor
+                        -%}
+                        {%- assign variantColorImage = variantOption | handleize | append: '.png' -%}
+                        <span class="product-variations-option-item"
+                            {% if variantImage == blank and variantOption != blank %}
+                                data-color="{{ variantOption }}"
+                                style="background-color: {{ variantOption }}"
+                              {% endif %}>
+                            {%- if variantImage != blank  -%}
+                                <img
+                                    src="{{ variantImage | image_url: width: 65 }}"
+                                    width="34"
+                                    height="34"
+                                    alt="{{ variantImage.alt | strip_html | escape }}"
+                                    loading="lazy"
+                                >
+                            {%- endif -%}
+                        </span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

@@ -70,6 +70,15 @@
       }
     </script>
     {{ 'bbi-homepage.css' | asset_url | stylesheet_tag }}
+    {%- if template == 'product' -%}
+    <style>
+      /* Force white body on PDP regardless of dark-mode toggle */
+      html[color-mode] body, html[color-mode="dark"] body, html body, body {
+        background-color: #ffffff !important;
+        background: #ffffff !important;
+      }
+    </style>
+    {%- endif -%}
 </head>
   <body class="btn-hover-effect-{{ settings.button_hover_effect }}">
     <a class="unstyled-link skip-to-content-link button focus-inside{% if settings.enable_button_shadow %} button-shadow{% endif %}" href="#MainContent">
@@ -84,6 +93,8 @@
       {%- liquid
         assign bbi_landing = false
         if template == 'index'
+          assign bbi_landing = true
+        elsif template == 'cart'
           assign bbi_landing = true
         elsif template.name == 'collection'
           assign bbi_landing = true
@@ -146,7 +157,7 @@
 
       {% if settings.enable_dl_mode_toggle %}
         <script>
-          if (localStorage.darkMode == 'true') {
+          if (localStorage.darkMode == 'true' && {{ template | json }} !== 'product') {
             document.querySelector('html').setAttribute('color-mode', 'dark');
             const dlTogglecheckboxes = document.querySelectorAll('[data-dark-toggle]');
             Array.from(dlTogglecheckboxes).forEach(function(checkbox){

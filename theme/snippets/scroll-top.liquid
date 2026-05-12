@@ -1,0 +1,19 @@
+{% if settings.enableScrollToTop %}
+    <button
+      class="{% if settings.enable_button_shadow %}scroll-shadow-enabled {% endif %}scroll-top hidden pos-{{ settings.scrollToTop_position }} {{ settings.scrollToTop_width }}"
+      id="back_to_top"
+      title="Go to top"
+      style="--vertical-position:{{ settings.scrollToTop_position_vertical }}px"
+    >
+      <span class="scroll-top-text">
+        {% if settings.custom_scrollToTop_svg != blank %}
+          {{ settings.custom_scrollToTop_svg }}
+        {% else %}
+        <svg viewBox="0 0 249.91 285.16">
+          <g><path d="m123.43,285.16c6.18,0,11.2-5.02,11.2-11.2V36.73s96.15,96.15,96.15,96.15c2.19,2.18,5.05,3.28,7.92,3.28s5.73-1.09,7.93-3.28c4.38-4.38,4.38-11.46,0-15.84L132.88,3.28c-4.38-4.38-11.46-4.38-15.84,0L3.28,117.03c-4.38,4.38-4.38,11.46,0,15.84,4.38,4.38,11.46,4.38,15.84,0L112.23,39.76v234.2c0,6.18,5.02,11.2,11.2,11.2h0Z"></path></g>
+        </svg>
+        {% endif %}
+      </span>
+    </button>
+  {% endif %}
+  

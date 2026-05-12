@@ -1,0 +1,95 @@
+.featured-product-card-wrapper .featured-product-card {
+    width: 100%;
+    flex: 0 0 100%;
+    background: rgb(var(--alternateBackground));
+    border-radius: var(--cardRadius);
+    border: 2px solid rgb(var(--borderColor));
+    padding: 18px;
+    overflow: hidden;
+}
+
+.featured-product-card-wrapper .featured-product-card,
+.featured-product-card-wrapper.single-featured-product .featured-product-card {
+    width: 100%;
+    flex: 0 0 100%;
+}
+
+.featured-products-section .featured-product-card .quantity-input {
+    background: rgb(var(--background));
+}
+
+.featured-products-section .featured-product-card .quantity-button {
+    background: rgb(var(--background));
+}
+
+.featured-product-card {
+    margin-right: 10px;
+}
+
+.featured-product-card-wrapper.single-featured-product .featured-product-card {
+    margin: 0;
+}
+
+@media (min-width:768px) {
+    .featured-product-card-wrapper.flickity-enabled {
+        padding-top: 10px;
+    }
+    .featured-product-card-wrapper>.flickity-button {
+        top: -50px;
+        transform: unset;
+    }
+    .featured-product-card-wrapper>.flickity-button.previous {
+        left: unset;
+        right: calc(0px + var(--sliderArrowWidth) + 10px);
+    }
+    .featured-product-card-wrapper>.flickity-button.next {
+        right: 0;
+    }
+    .featured-products-section .section-title {
+        padding-right: calc(var(--sliderArrowWidth) * 2.5);
+    }
+}
+
+@media (min-width:1025px) {
+    .featured-products-section {
+        overflow-x: hidden;
+    }
+    .featured-product-card-wrapper>.flickity-viewport {
+        overflow: visible;
+    }
+    .featured-product-card-wrapper .featured-product-card {
+        width: 80%;
+        flex: 0 0 80%;
+    }
+    .featured-product-card {
+        margin-right: 25px;
+    }
+    .featured-product-card-wrapper .featured-product-card {
+        padding: 30px;
+    }
+}
+
+@media (min-width:1441px) {
+    .featured-product-card-wrapper .featured-product-card {
+        width: 70%;
+        flex: 0 0 70%;
+    }
+}
+
+@media (max-width:767px) {
+    .featured-product-card-wrapper.flickity-enabled {
+        padding-bottom: 45px;
+    }
+    .featured-product-card-wrapper>.flickity-button {
+        top: unset;
+        bottom: 0;
+        transform: unset;
+    }
+    .featured-product-card-wrapper>.flickity-button.previous {
+        left: calc(49% - var(--sliderArrowWidth));
+        right: unset;
+    }
+    .featured-product-card-wrapper>.flickity-button.next {
+        right: calc(49% - var(--sliderArrowWidth));
+    }
+}

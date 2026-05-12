@@ -1,0 +1,20 @@
+{%- if settings.enable_gift_wrap -%}
+  <div class="cart-gift-card" data-gift-card>
+    {%- if settings.gift_wrap_product != blank
+      and settings.gift_wrap_text != blank
+      and settings.gift_wrap_product.available
+      and giftWrapProductStatus == false
+    -%}
+      {%- form 'product',
+        settings.gift_wrap_product,
+        id: product_form_id,
+        class: 'form main-product-form',
+        novalidate: 'novalidate',
+        data-type: 'add-to-cart-form'
+      -%}
+        <input type="hidden" name="id"  value="{{ settings.gift_wrap_product.first_available_variant.id }}" >
+        <a href="{{settings.gift_wrap_product.url}}" class="hyperlink" data-gift-atc>{{ settings.gift_wrap_text }}</a>
+      {%- endform -%}
+    {%- endif -%}
+  </div>
+{%- endif -%}

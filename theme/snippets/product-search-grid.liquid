@@ -1,0 +1,48 @@
+{%- liquid
+    if gridImageSize == 'landscape'
+      assign productImageRatio = 'var(--img-landscape)'
+    elsif gridImageSize == 'square'
+      assign productImageRatio = 'var(--img-square)'
+    elsif gridImageSize == 'portrait'
+      assign productImageRatio = 'var(--img-portrait)'
+    else
+      if product.featured_media != blank
+        assign productImageRatio = 1 | divided_by: product.featured_media.preview_image.aspect_ratio | times: 100 | append: '%'
+      else
+        assign productImageRatio = 100 | append: '%'
+      endif
+    endif
+  -%}
+<li class="tranding-product-item">
+    <div class="search-product-card{% if searchDrawerStyle == 'side' and settings.image_border %} product-border-enabled{% endif %}">
+      <a href="{{ product.url }}" class="search-product-img{% if settings.image_border and searchDrawerStyle != 'side' %} product-border-enabled{% endif %}">
+        <div class="media" Style="--imageRatio:{{ productImageRatio }}">
+          {% liquid
+            assign placeholder_image_index = forloop.index0 | modulo: 5 | plus: 1
+            if product.featured_media != blank
+              render 'lazy-image', image: product.featured_media.preview_image, imageSize: 250
+            else
+              echo 'product-apparel-' | append: placeholder_image_index | placeholder_svg_tag: 'placeholder-svg'
+            endif
+          %}
+        </div>
+      </a>
+      <div class="search-product-info{% if searchDrawerStyle == 'side' %} text-{{ settings.content_alignment }}{% endif %}">
+        <a href="{{ product.url }}" class="product-title text-medium">
+          {% if settings.product_card_title_style == 'bold' and searchDrawerStyle == 'side' %}
+              <strong>
+          {% endif %}
+            {{ product.title }}
+          {% if settings.product_card_title_style == 'bold' and searchDrawerStyle == 'side' %}
+              </strong>
+          {% endif %}
+        </a>
+        {% render 'price',
+          cardProduct: product,
+          current_variant: product.selected_or_first_available_variant,
+          showSaving: false,
+          hideComparePrice:true
+        %}
+      </div>
+    </div>
+  </li>

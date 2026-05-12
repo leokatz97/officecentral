@@ -1,0 +1,100 @@
+.horizontal-product-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.product-list-wrapper.enable-background .horizontal-product-card {
+    padding: 5px;
+    background: rgb(var(--alternateBackground));
+    border-radius: var(--productRadius);
+}
+
+.horizontal-product-card-image {
+    width: 80px;
+    border-radius: var(--productRadius);
+    overflow: hidden;
+    display: block;
+}
+
+.horizontal-product-card+.horizontal-product-card {
+    margin-top: 10px;
+}
+
+.product-list-item-inner summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 20px;
+    padding-left: 0;
+    border-bottom: 1px solid rgb(var(--borderColor));
+    margin-bottom: 30px;
+}
+
+.product-list-collapsible-content .horizontal-product-card-info .product-title {
+    display: inline-flex;
+    background-image: linear-gradient(transparent calc(100% - 1px),currentColor 1px);
+    background-size: 0 100%;
+    transition: .35s background-size cubic-bezier(.215,.61,.355,1);
+    background-position-x: 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 0;
+    margin-bottom: 4px;
+}
+
+
+@media (min-width:768px) {
+    .product-list-item-inner summary span {
+        display: none;
+    }
+    .product-list-item-inner summary {
+        pointer-events: none;
+    }
+    .product-list-wrapper {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        gap: 30px;
+    }
+}
+
+@media (min-width:1025px) {
+    .product-list-collapsible-content .horizontal-product-card:hover .product-title {
+        background-size: 100% 100%;
+        background-position-x: 0;
+    }
+    .product-list-collapsible-content .horizontal-product-card:hover .horizontal-product-card-image {
+        transform: translateY(-3px);
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px)  {
+    .product-list-wrapper {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(40%, 1fr);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        grid-template-columns: unset;
+        padding-bottom: 10px;
+    }
+    
+}
+
+@media (max-width:767px) {
+.product-list-item-inner summary {
+    margin-bottom: 0;
+}
+.product-list-collapsible-content {
+    margin-top: 24px;
+}
+.product-list-item-inner[open] summary span {
+    transform: rotate(-180deg);
+}
+.product-list-item-inner summary span {
+    transition: .5s ease;
+}
+}
+details[data-accordion].accordion-open {
+    display: block;
+  }
+  

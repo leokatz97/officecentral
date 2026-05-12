@@ -1,0 +1,109 @@
+hub_handle,element,current_state,t3_expected,gap,notes
+seating,header,bbi-nav snippet (full),".bbi-header shared",none,Functionally identical
+seating,breadcrumbs,bbi-crumbs snippet (Home > Business Furniture > Seating),".cn-crumb-band same 3-level path",none,Class name differs; content correct
+seating,intro_band,"Hero: H1 + standfirst + 1 CTA + micro trust","H1 + standfirst + brand count + warranty headline",change,Missing brand count stat and warranty headline copy (GAP-A)
+seating,hero_image,Image picker (5:4) — currently blank for seating,T3 does not show an image in intro band — text-only,change,"Remove image slot or make optional; T3 intro band is text-only"
+seating,sub_category_filter,ABSENT,".cn-filter-bar pill strip",add (DEFER),"0% subcategory: tag coverage — defer to 3.1c; use navigation pills in 3.1b instead"
+seating,product_grid,ABSENT — current is sub-collection tile grid,".cn-product-grid with bbi-card--product",add,Core 3.1b build; 194 products in collection
+seating,tile_grid,16 tile blocks linking to sub-collections,NOT in T3 spec,remove or convert,"Tiles become nav pills in filter bar (Option A) — remove standalone tile grid section"
+seating,brand_plates,2 brand_callout blocks (Keilhauer + ergoCentric) — text cards no badges,".cn-brand-section 8 brands with Canadian + authorized badges",change,"Expand to 8 brands; add Canadian/authorized badges; spec doesn't list which 8 (GAP-E)"
+seating,pagination,ABSENT,".cn-pagination 5-page strip",add,"Use Shopify paginate tag; 194 products needs pagination"
+seating,oecm_bar,ABSENT,Shared OECM bar,add,No bbi-oecm-bar.liquid snippet exists yet (GAP-H)
+seating,cta_closer,".ds-cc__phone-cta inverse — phone + quote CTA",".bbi-cta-section .scheme-inverse",change,"Content matches; class/styling may need alignment to T3 spec"
+seating,footer,bbi-footer snippet,".bbi-footer shared",none,Identical
+desks,header,bbi-nav snippet,".bbi-header shared",none,
+desks,breadcrumbs,bbi-crumbs (3-level),".cn-crumb-band",none,
+desks,intro_band,Hero H1+standfirst+1 CTA,H1+standfirst+brand count+warranty,change,GAP-A
+desks,hero_image,Image picker (blank),T3 intro band text-only,change,
+desks,sub_category_filter,ABSENT,".cn-filter-bar",add (DEFER),0% tag coverage
+desks,product_grid,ABSENT,".cn-product-grid",add,98 products
+desks,tile_grid,9 tiles linking to sub-collections,NOT in T3,remove or convert,
+desks,brand_plates,1 brand_callout (Global/Teknion) — no badges,8 brands with badges,change,GAP-E
+desks,pagination,ABSENT,".cn-pagination",add,
+desks,oecm_bar,ABSENT,Shared OECM bar,add,GAP-H
+desks,cta_closer,".ds-cc__phone-cta inverse",".bbi-cta-section .scheme-inverse",change,
+desks,footer,bbi-footer,".bbi-footer",none,
+storage,header,bbi-nav,".bbi-header",none,
+storage,breadcrumbs,bbi-crumbs (3-level),".cn-crumb-band",none,
+storage,intro_band,Hero H1+standfirst+1 CTA,H1+standfirst+brand count+warranty,change,GAP-A
+storage,hero_image,Image picker (blank),T3 text-only,change,
+storage,sub_category_filter,ABSENT,".cn-filter-bar",add (DEFER),0% tag coverage
+storage,product_grid,ABSENT,".cn-product-grid",add,82 products
+storage,tile_grid,14 tiles,NOT in T3,remove or convert,
+storage,brand_plates,0 brand_callouts,8 brands with badges,add,GAP-E
+storage,pagination,ABSENT,".cn-pagination",add,
+storage,oecm_bar,ABSENT,Shared OECM bar,add,GAP-H
+storage,cta_closer,".ds-cc__phone-cta inverse",".bbi-cta-section .scheme-inverse",change,
+storage,footer,bbi-footer,".bbi-footer",none,
+tables,header,bbi-nav,".bbi-header",none,
+tables,breadcrumbs,bbi-crumbs (3-level),".cn-crumb-band",none,
+tables,intro_band,Hero H1+standfirst+1 CTA,H1+standfirst+brand count+warranty,change,GAP-A
+tables,hero_image,Image picker (blank),T3 text-only,change,
+tables,sub_category_filter,ABSENT,".cn-filter-bar",add (DEFER),0% tag coverage
+tables,product_grid,ABSENT,".cn-product-grid",add,104 products
+tables,tile_grid,10 tiles,NOT in T3,remove or convert,
+tables,brand_plates,0 brand_callouts,8 brands with badges,add,GAP-E
+tables,pagination,ABSENT,".cn-pagination",add,
+tables,oecm_bar,ABSENT,Shared OECM bar,add,GAP-H
+tables,cta_closer,".ds-cc__phone-cta inverse",".bbi-cta-section .scheme-inverse",change,
+tables,footer,bbi-footer,".bbi-footer",none,
+boardroom,header,bbi-nav,".bbi-header",none,
+boardroom,breadcrumbs,bbi-crumbs (3-level),".cn-crumb-band",none,
+boardroom,intro_band,Hero H1+standfirst+1 CTA,H1+standfirst+brand count+warranty,change,GAP-A
+boardroom,hero_image,Image picker (blank),T3 text-only,change,
+boardroom,sub_category_filter,ABSENT,".cn-filter-bar",add (DEFER),0% tag coverage
+boardroom,product_grid,ABSENT,".cn-product-grid",add,87 products
+boardroom,tile_grid,3 tiles,NOT in T3,remove or convert,
+boardroom,brand_plates,1 brand_callout (Keilhauer) — no badges,8 brands with badges,change,GAP-E
+boardroom,pagination,ABSENT,".cn-pagination",add,
+boardroom,oecm_bar,ABSENT,Shared OECM bar,add,GAP-H
+boardroom,cta_closer,".ds-cc__phone-cta inverse",".bbi-cta-section .scheme-inverse",change,
+boardroom,footer,bbi-footer,".bbi-footer",none,
+ergonomic-products,header,bbi-nav,".bbi-header",none,
+ergonomic-products,breadcrumbs,bbi-crumbs (3-level),".cn-crumb-band",none,
+ergonomic-products,intro_band,Hero H1+standfirst+1 CTA,H1+standfirst+brand count+warranty,change,GAP-A
+ergonomic-products,hero_image,Image picker (blank),T3 text-only,change,
+ergonomic-products,sub_category_filter,ABSENT,".cn-filter-bar",add (DEFER),0% tag coverage
+ergonomic-products,product_grid,ABSENT — collection has 0 products (smart collection tag mismatch),".cn-product-grid",add (blocked),"RISK: collection empty — tags type:ergonomic etc. don't exist in catalog; only type:chairs/tables/desks/accessories/storage/lounge/outdoor exist. Must re-tag products before product grid can render."
+ergonomic-products,tile_grid,4 tiles,NOT in T3,remove or convert,
+ergonomic-products,brand_plates,1 brand_callout (ergoCentric) — no badges,8 brands with badges,change,GAP-E
+ergonomic-products,pagination,ABSENT,".cn-pagination",add,
+ergonomic-products,oecm_bar,ABSENT,Shared OECM bar,add,GAP-H
+ergonomic-products,cta_closer,".ds-cc__phone-cta inverse",".bbi-cta-section .scheme-inverse",change,
+ergonomic-products,footer,bbi-footer,".bbi-footer",none,
+panels-room-dividers,header,bbi-nav,".bbi-header",none,
+panels-room-dividers,breadcrumbs,bbi-crumbs (3-level),".cn-crumb-band",none,
+panels-room-dividers,intro_band,Hero H1+standfirst+1 CTA,H1+standfirst+brand count+warranty,change,GAP-A
+panels-room-dividers,hero_image,Image picker (blank),T3 text-only,change,
+panels-room-dividers,sub_category_filter,ABSENT,".cn-filter-bar",add (DEFER),0% tag coverage
+panels-room-dividers,product_grid,ABSENT — collection has 0 products (smart collection tag mismatch),".cn-product-grid",add (blocked),"RISK: tags type:panels / type:dividers / type:acoustic-panels don't exist; must re-tag"
+panels-room-dividers,tile_grid,3 tiles,NOT in T3,remove or convert,
+panels-room-dividers,brand_plates,1 brand_callout (Global/Teknion) — no badges,8 brands with badges,change,GAP-E
+panels-room-dividers,pagination,ABSENT,".cn-pagination",add,
+panels-room-dividers,oecm_bar,ABSENT,Shared OECM bar,add,GAP-H
+panels-room-dividers,cta_closer,".ds-cc__phone-cta inverse",".bbi-cta-section .scheme-inverse",change,
+panels-room-dividers,footer,bbi-footer,".bbi-footer",none,
+accessories,header,bbi-nav,".bbi-header",none,
+accessories,breadcrumbs,bbi-crumbs (3-level),".cn-crumb-band",none,
+accessories,intro_band,Hero H1+standfirst+1 CTA,H1+standfirst+brand count+warranty,change,GAP-A
+accessories,hero_image,Image picker (blank),T3 text-only,change,
+accessories,sub_category_filter,ABSENT,".cn-filter-bar",add (DEFER),0% tag coverage
+accessories,product_grid,ABSENT,".cn-product-grid",add,91 products
+accessories,tile_grid,4 tiles,NOT in T3,remove or convert,
+accessories,brand_plates,0 brand_callouts,8 brands with badges,add,GAP-E
+accessories,pagination,ABSENT,".cn-pagination",add,
+accessories,oecm_bar,ABSENT,Shared OECM bar,add,GAP-H
+accessories,cta_closer,".ds-cc__phone-cta inverse",".bbi-cta-section .scheme-inverse",change,
+accessories,footer,bbi-footer,".bbi-footer",none,
+quiet-spaces,header,bbi-nav,".bbi-header",none,
+quiet-spaces,breadcrumbs,bbi-crumbs (3-level),".cn-crumb-band",none,
+quiet-spaces,intro_band,Hero H1+standfirst+1 CTA,H1+standfirst+brand count+warranty,change,GAP-A
+quiet-spaces,hero_image,Image picker (blank),T3 text-only,change,
+quiet-spaces,sub_category_filter,ABSENT,".cn-filter-bar",add (DEFER),0% tag coverage
+quiet-spaces,product_grid,ABSENT — collection has 0 products (smart collection tag mismatch),".cn-product-grid",add (blocked),"RISK: tags type:acoustic-pods / type:phone-booths / type:focus-pods don't exist; must re-tag"
+quiet-spaces,tile_grid,5 tiles,NOT in T3,remove or convert,
+quiet-spaces,brand_plates,0 brand_callouts,8 brands with badges,add,GAP-E
+quiet-spaces,pagination,ABSENT,".cn-pagination",add,
+quiet-spaces,oecm_bar,ABSENT,Shared OECM bar,add,GAP-H
+quiet-spaces,cta_closer,".ds-cc__phone-cta inverse",".bbi-cta-section .scheme-inverse",change,
+quiet-spaces,footer,bbi-footer,".bbi-footer",none,

@@ -1,0 +1,37 @@
+.breadcrumb {
+    color: rgb(var(--textColor));
+    border-bottom: 1px solid rgb(var(--borderColor));
+}
+
+.breadcrumb-item {
+    position: relative;
+    display: inline-flex;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+.breadcrumb-item:after {
+    position: absolute;
+    content: "/";
+    right: -3px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    color: currentColor;
+    opacity: 0.7;
+}
+
+.breadcrumb-item:last-of-type:after {
+    display: none;
+}
+
+.breadcrumb-link {
+    color: rgb(var(--linkColor));
+    font-size: 14px;
+}
+
+.breadcrumb-link.breadcrumb-text {
+    color: rgb(var(--textColor));
+}

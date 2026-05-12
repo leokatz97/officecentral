@@ -1,0 +1,31 @@
+<div class="account-sidebar">
+  <ul class="unstylish-list">
+    <li>
+      <a
+        href="{{ routes.account_url }}"
+        class="h6 {% if request.path == routes.account_url or request.path contains '/orders/' %}active{% endif %}"
+      >
+        {{- 'customer.orders.title' | t }}
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" viewBox="0 0 6 9" fill="none">
+            <path d="M4.95961 4.10694L4.95352 4.10096L1.84509 1.03673L1.84514 1.03668L1.84221 1.03397C1.61449 0.823399 1.26113 0.819757 1.0404 1.03657L1.04039 1.03658C0.819864 1.25323 0.819875 1.61651 1.04039 1.83318L1.04039 1.83319L3.75495 4.5L1.04039 7.16681L1.04035 7.16677L1.03774 7.1695C0.822204 7.39445 0.818421 7.74532 1.04039 7.96342L1.04039 7.96342C1.26111 8.18026 1.61446 8.17659 1.8422 7.96604L1.84224 7.96608L1.84494 7.96342L4.95961 4.90355L4.95965 4.90359L4.96226 4.90086C5.1778 4.6759 5.18158 4.32504 4.95961 4.10694Z" fill="black" stroke="black" stroke-width="0.25"/>
+          </svg></span
+      ></a>
+    </li>
+    <li>
+      <a
+        href="{{ routes.account_addresses_url }}"
+        class="h6 {% if request.path == routes.account_addresses_url %}active{% endif %}"
+      >
+        {{- 'customer.addresses.title' | t }}
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" viewBox="0 0 6 9" fill="none">
+            <path d="M4.95961 4.10694L4.95352 4.10096L1.84509 1.03673L1.84514 1.03668L1.84221 1.03397C1.61449 0.823399 1.26113 0.819757 1.0404 1.03657L1.04039 1.03658C0.819864 1.25323 0.819875 1.61651 1.04039 1.83318L1.04039 1.83319L3.75495 4.5L1.04039 7.16681L1.04035 7.16677L1.03774 7.1695C0.822204 7.39445 0.818421 7.74532 1.04039 7.96342L1.04039 7.96342C1.26111 8.18026 1.61446 8.17659 1.8422 7.96604L1.84224 7.96608L1.84494 7.96342L4.95961 4.90355L4.95965 4.90359L4.96226 4.90086C5.1778 4.6759 5.18158 4.32504 4.95961 4.10694Z" fill="black" stroke="black" stroke-width="0.25"/>
+          </svg></span
+      ></a>
+    </li>
+    <li>
+      <a href="{{ routes.account_logout_url }}" class="h6">{{ 'customer.log_out' | t }}</a>
+    </li>
+  </ul>
+</div>

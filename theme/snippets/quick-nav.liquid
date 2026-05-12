@@ -1,0 +1,181 @@
+<div
+  id="block-{{ block.id }}"
+  class="categories-media-grid-item categories-media-grid-item-{{ loopIndex }}"
+  {{ block.shopify_attributes }}
+  
+>
+  <div class="product-filter-nav {% if block.settings.bg_image != blank %}filters-bg-image{% else %}filters-bg-color{% endif %}">
+    {% if block.settings.bg_image != blank %}
+      <div class="filter-nav-image">
+        {%liquid
+          if section.index < 3
+            assign height = block.settings.bg_image.width | divided_by: block.settings.bg_image.aspect_ratio | round
+            assign sizes = '100vw'
+            assign widths = '890'
+            if i == 1
+              assign fetch_priority = 'high'
+            else
+              assign fetch_priority = 'low'
+            endif
+            echo block.settings.bg_image | image_url: width: 3840 | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority
+          else
+            render 'lazy-image', image: block.settings.bg_image, imageSize:890
+          endif
+        %}
+      </div>
+    {% endif %}
+    <div class="product-filter-wrapper">
+      {% if block.settings.heading != blank %}
+        <div class="product-filter-wrapper-item section-title {{ block.settings.heading_alignment }}">
+          {%- comment -%}
+            <h2 class="{{ block.settings.heading_size }}">
+              {{ block.settings.heading }}
+            </h2>
+          {%- endcomment -%}
+          <{{ block.settings.seo_heading }} class="{{ block.settings.heading_size }} section-heading">
+            {{ block.settings.heading }}
+          </{{ block.settings.seo_heading }}>
+        </div>
+      {% endif %}
+      <div class="product-filter-inner product-filter-wrapper-item">
+        <div class="product-filter-inner-box" data-multiboxes-filter>
+          <div data-level="1" class="product-filter-boxes">
+            <div class="detail-box custom-select fullwidth">
+              <button class="detail-summary custom-select-button form-control">
+                {% liquid
+                  assign defaultText = 'Category 1'
+                  if block.settings.menu_1_text != blank
+                    assign defaultText = block.settings.menu_1_text
+                  endif
+                %}
+                <span class="custom-select-text text_btn">{{ defaultText }}</span>
+                <span class="custom-select-arrow">
+                  <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 1L4 4L1 1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </button>
+              <div class="detail-expand custom-select-content">
+                <ul
+                  class="quick-nav__listbox custom-select-list"
+                  role="listbox"
+                >
+                  {% for link in block.settings.menu.links %}
+                    <li
+                      class="custom-select-item custom-select__option"
+                      id="_1-opt-{{ forloop.index }}"
+                      role="option"
+                      data-value="{{ link.handle | escape }}"
+                      data-url="{{ link.url }}"
+                      aria-selected="false"
+                      tabindex="-1"
+                    >
+                      <span class="navigation_title cursor-pointer">{{ link.title }}</span>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div data-level="2" class="product-filter-boxes">
+            <div class="detail-box custom-select fullwidth disabled_btn">
+              <button class="detail-summary custom-select-button form-control">
+                {% liquid
+                  assign defaultText = 'Category 2'
+                  if block.settings.menu_2_text != blank
+                    assign defaultText = block.settings.menu_2_text
+                  endif
+                %}
+                <span class="custom-select-text text_btn" data-placeholder-text="{{ defaultText }}">
+                  {{- defaultText -}}
+                </span>
+                <span class="custom-select-arrow">
+                  <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 1L4 4L1 1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </button>
+              <div class="detail-expand custom-select-content">
+                <ul
+                  class="quick-nav__listbox custom-select-list"
+                  role="listbox"
+                >
+                  {% for link in block.settings.menu.links %}
+                    {% for nestedLink in link.links %}
+                      <li
+                        class="custom-select-item custom-select__option"
+                        id="_2-opt-{{ forloop.index }}"
+                        role="option"
+                        data-value="{{ link.handle }}_{{ nestedLink.handle }}"
+                        data-parent-handle="{{ link.handle | escape }}"
+                        data-url="{{ nestedLink.url }}"
+                        aria-selected="true"
+                        tabindex="-1"
+                      >
+                        <span class="navigation_title cursor-pointer">{{ nestedLink.title }}</span>
+                      </li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div data-level="3" class="product-filter-boxes">
+            <div class="detail-box custom-select fullwidth disabled_btn">
+              <button class="detail-summary custom-select-button form-control">
+                {% liquid
+                  assign defaultText = 'Category 3'
+                  if block.settings.menu_3_text != blank
+                    assign defaultText = block.settings.menu_3_text
+                  endif
+                %}
+                <span class="custom-select-text text_btn" data-placeholder-text="{{ defaultText }}">
+                  {{- defaultText -}}
+                </span>
+                <span class="custom-select-arrow">
+                  <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 1L4 4L1 1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </button>
+              <div class="detail-expand custom-select-content">
+                <ul
+                  class="quick-nav__listbox custom-select-list"
+                  role="listbox"
+                >
+                  {% for link in block.settings.menu.links %}
+                    {% for nestedLink in link.links %}
+                      {% for grandnestedLink in nestedLink.links %}
+                        {% if grandnestedLink.links %}
+                          <li
+                            class="custom-select-item custom-select__option"
+                            id="_3-opt-{{ forloop.index }}"
+                            role="option"
+                            data-value="{{grandnestedLink.handle }}"
+                            data-parent-handle="{{ link.handle }}_{{ nestedLink.handle }}"
+                            data-url="{{ grandnestedLink.url }}"
+                            aria-selected="false"
+                            tabindex="-1"
+                          >
+                            <span class="navigation_title cursor-pointer">{{ grandnestedLink.title }} </span>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {% if block.settings.button_text != blank %}
+            <div class="search-button">
+              <button type="button" class="button btn-block medium-btn disabled_btn{% if settings.enable_button_shadow %} button-shadow{% endif %}" data-navigation-url>
+                {{- block.settings.button_text -}}
+              </button>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

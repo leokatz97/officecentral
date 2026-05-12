@@ -1,0 +1,22 @@
+{% if sizeGuide %}
+    {% if sizeChart != blank %}
+      {%- capture popupContent -%}
+  <div class="sd-sidebar-container">
+  <div class="size-chart-head">
+      <h3 class="h3">Size Chart</h3>
+     
+  </div>
+  {{ sizeChart.content   | replace: '<table', '<div class="table-responsive"><table'
+    | replace: '</table>', '</table></div>'}}
+  </div>
+  {%- endcapture -%}
+      {% if popupContent != blank %}
+        {% render 'popup', id: 'sizeGuide', 
+          class: 'size-chart-popup  position-center',
+          popupsize:"medium",
+          popupContent: popupContent
+        %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  

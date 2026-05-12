@@ -1,0 +1,18 @@
+<a href="{{ routes.root_url }}" class="logo h6" aria-label="{{ shop.name }}">
+  {% if section.settings.logo != blank %}
+    {%- assign logo_alt = section.settings.logo.alt | default: shop.name | escape -%}
+    {%- assign logo_height = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio -%}
+    {{
+      section.settings.logo
+      | image_url: width: 200
+      | image_tag:
+        class: 'header__heading-logo',
+        widths: '50, 100, 150, 200, 250',
+        height: logo_height,
+        width: section.settings.logo_width,
+        alt: logo_alt
+    }}
+  {%- else -%}
+    {{ shop.name }}
+  {% endif %}
+</a>

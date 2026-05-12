@@ -1,0 +1,702 @@
+[
+  {
+    "handle": "type-accessories",
+    "title": "Accessories",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:accessories"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 91
+  },
+  {
+    "handle": "accessories",
+    "title": "Accessories",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:accessories"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:desk-accessories"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:power-modules"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:chair-accessories"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 91
+  },
+  {
+    "handle": "avada-best-sellers",
+    "title": "AVADA - Best Sellers",
+    "rules": [
+      {
+        "column": "variant_price",
+        "relation": "greater_than",
+        "condition": "0"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 624
+  },
+  {
+    "handle": "room-boardroom",
+    "title": "Boardroom",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:boardroom"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 87
+  },
+  {
+    "handle": "boardroom",
+    "title": "Boardroom",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:boardroom"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:boardroom-tables"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:conference-tables"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 87
+  },
+  {
+    "handle": "room-break-room",
+    "title": "Break Room",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:break-room"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 0
+  },
+  {
+    "handle": "bundle-builder-products",
+    "title": "Bundle Builder Products",
+    "rules": [
+      {
+        "column": "type",
+        "relation": "equals",
+        "condition": "Custom Bundle"
+      },
+      {
+        "column": "type",
+        "relation": "not_contains",
+        "condition": "mws_fee_generated"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 0
+  },
+  {
+    "handle": "business-furniture",
+    "title": "Business Furniture",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "not_equals",
+        "condition": "industry:educational"
+      },
+      {
+        "column": "tag",
+        "relation": "not_equals",
+        "condition": "industry:daycare"
+      },
+      {
+        "column": "tag",
+        "relation": "not_equals",
+        "condition": "industry:healthcare"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 624
+  },
+  {
+    "handle": "type-chairs",
+    "title": "Chairs",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:chairs"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 184
+  },
+  {
+    "handle": "type-desks",
+    "title": "Desks",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:desks"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 98
+  },
+  {
+    "handle": "desks",
+    "title": "Desks & Workstations",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:desks"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:benching"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:workstations"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:sit-stand"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 98
+  },
+  {
+    "handle": "ergonomic-products",
+    "title": "Ergonomic Products",
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "monitor arm"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "keyboard tray"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "sit-stand"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "anti-fatigue"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 16
+  },
+  {
+    "handle": "fees-products",
+    "title": "Fees products",
+    "rules": [
+      {
+        "column": "type",
+        "relation": "not_contains",
+        "condition": "mws_fee_generated"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 653
+  },
+  {
+    "handle": "room-lounge",
+    "title": "Lounge",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:lounge"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 10
+  },
+  {
+    "handle": "lounge-reception",
+    "title": "Lounge & Reception",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "waiting-room"
+      },
+      {
+        "column": "type",
+        "relation": "contains",
+        "condition": "lounge"
+      },
+      {
+        "column": "type",
+        "relation": "contains",
+        "condition": "reception"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "lounge"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "reception"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 16
+  },
+  {
+    "handle": "type-lounge",
+    "title": "Lounge Seating",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:lounge"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 10
+  },
+  {
+    "handle": "mandatory-fees",
+    "title": "Mandatory Fees",
+    "rules": [
+      {
+        "column": "type",
+        "relation": "equals",
+        "condition": "Fee"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      },
+      {
+        "column": "type",
+        "relation": "not_contains",
+        "condition": "mws_fee_generated"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 1
+  },
+  {
+    "handle": "room-open-plan",
+    "title": "Open Plan",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:open-plan"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 11
+  },
+  {
+    "handle": "orderly-emails-recommended-products",
+    "title": "Orderly Emails - Recommended Products",
+    "rules": [
+      {
+        "column": "variant_inventory",
+        "relation": "greater_than",
+        "condition": "0"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 100
+  },
+  {
+    "handle": "type-outdoor",
+    "title": "Outdoor",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:outdoor"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 5
+  },
+  {
+    "handle": "panels-room-dividers",
+    "title": "Panels & Room Dividers",
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "partition"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "room divider"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "modesty panel"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "otg panel"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "divider"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 16
+  },
+  {
+    "handle": "room-private-office",
+    "title": "Private Office",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:private-office"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 168
+  },
+  {
+    "handle": "products",
+    "title": "Products",
+    "rules": [
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "Avis-add-charge"
+      },
+      {
+        "column": "type",
+        "relation": "not_contains",
+        "condition": "mws_fee_generated"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 648
+  },
+  {
+    "handle": "products-1",
+    "title": "Products",
+    "rules": [
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "Avis-add-charge"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 648
+  },
+  {
+    "handle": "all",
+    "title": "Products",
+    "rules": [
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "Avis-add-charge"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 648
+  },
+  {
+    "handle": "quiet-spaces",
+    "title": "Quiet Spaces",
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "acoustic"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "sound dampener"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "phone booth"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "soft pod"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 9
+  },
+  {
+    "handle": "room-reception",
+    "title": "Reception",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:reception"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 21
+  },
+  {
+    "handle": "seating",
+    "title": "Seating",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:chairs"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:lounge"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:ergonomic-seating"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:bariatric-seating"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:stacking"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:seating"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 194
+  },
+  {
+    "handle": "smart-products-filter-index-do-not-delete",
+    "title": "Smart Products Filter Index - Do not delete",
+    "rules": [
+      {
+        "column": "variant_price",
+        "relation": "greater_than",
+        "condition": "-9999"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 653
+  },
+  {
+    "handle": "type-storage",
+    "title": "Storage",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:storage"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 82
+  },
+  {
+    "handle": "storage",
+    "title": "Storage & Filing",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:storage"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:filing"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:bookcases"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:cabinets"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:lateral-files"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 82
+  },
+  {
+    "handle": "type-tables",
+    "title": "Tables",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:tables"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 104
+  },
+  {
+    "handle": "tables",
+    "title": "Tables",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:tables"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:folding-tables"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:training-tables"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:cafeteria-tables"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 104
+  },
+  {
+    "handle": "task-chairs",
+    "title": "Task Chairs",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "task-chair"
+      },
+      {
+        "column": "type",
+        "relation": "contains",
+        "condition": "task"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "task chair"
+      }
+    ],
+    "disjunctive": true,
+    "product_count": 10
+  },
+  {
+    "handle": "room-training-room",
+    "title": "Training Room",
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:training-room"
+      }
+    ],
+    "disjunctive": false,
+    "product_count": 5
+  }
+]

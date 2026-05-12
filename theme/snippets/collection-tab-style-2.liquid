@@ -1,0 +1,114 @@
+<div class="tab-wrapper-list {% if section.settings.tab_bg_image != blank %}tab_bg_image{% else %}tab-bg-color{% endif %}">
+  {% if section.settings.tab_bg_image != blank %}
+    {% render 'lazy-image', image: section.settings.tab_bg_image %}
+  {% endif %}
+  <div class="tab-wrapper-list-text">
+    {% if section.settings.heading != blank %}
+      {%- capture highlightPrefix -%}
+        <span class="line-marker {% if section.settings.highlight_style == 'background' %}highlight-background {% if section.settings.highlight_bg__color == 'gradient' %}highlight-background-gradient{% else %}highlight-background-solid{% endif %}{% endif %}">
+      {%- endcapture -%}
+      {%- capture highlightSuffix -%}
+      {% if section.settings.highlight_style != 'background' %}
+        {% render 'marker', marker: section.settings.highlight_style %}
+     {% endif %}
+        </span>
+      {%- endcapture -%}
+
+      <{{ section.settings.seo_heading }} class="{{ section.settings.heading_size }} {{ section.settings.heading_alignment }} section-heading {% if section.settings.heading_animation %} linear-animation{% endif %}">
+        {% if section.settings.heading_animation %}
+          {{ section.settings.heading }}
+        {% else %}   
+          {{ section.settings.heading | replace:"[", highlightPrefix | replace:"]",highlightSuffix}}
+        {% endif %}
+      </{{ section.settings.seo_heading }}>
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+    <div class="tab-wrapper-list-details tab-wrapper">
+      {% assign tabContent = '' %}
+      <ul class="unstylish-list tab-main product-tab-main text-{{ section.settings.tab_alignment }}">
+        {% for block in section.blocks %}
+          {% assign collection = collections[block.settings.collection] %}
+          {% unless section.blocks.size == 1 and section.settings.hide_tab_heading %}
+            <li
+              class="tab-item product-tab-item {% if forloop.first %}active{% endif %}"
+              data-tab="tabs-{{ block.id }}"
+            >
+              <span class="tab-link product-tab-link cursor-pointer">
+                {% liquid 
+                  if block.settings.tab-heading != blank
+                    echo block.settings.tab-heading
+                  elsif collection.title == blank and block.settings.tab-heading == blank
+                    echo 'sections.header.tab' | t 
+                  else
+                    echo collection.title
+                  endif 
+                %}
+              </span>
+            </li>
+          {% endunless %}
+          {% capture content %}
+            <div id="tabs-{{ block.id }}" class="tab-contents-item {% if forloop.first %}visible{% else %}hidden{% endif %}">
+              <div class="product-grid-wrapper {% if section.settings.collection_style == 'carousel' %} slider{% else %} stacked{% endif%}" {% if section.settings.collection_style == 'carousel' %} 
+                      data-slideshow='{
+                      "cellAlign":"left",
+                      "contain": true,
+                      "pageDots": {% if section.settings.slider_thumbnail == 'dots' %}true{% else %}false{% endif %},
+                      "draggable": true,
+                      "prevNextButtons": false,
+                      "wrapAround":false,
+                      "groupCells": true,
+                      "cellSelector":".product-grid-box"
+                      }'
+                      {% else %}
+                      data-grid
+                      {% endif %}>
+                      {% liquid
+                      assign cycleGroup = 'cycle' | append: section.id
+                      %}
+                        {% for product in collection.products limit: section.settings.products_to_show %}
+                        
+                          {% liquid 
+                            capture placeholderIndex 
+                              cycle cycleGroup: '1', '2', '3', '4'
+                            endcapture 
+                          %}
+                          <div class="{% if cardSize == 'large' %}card-size-large{% elsif cardSize == 'medium' %}card-size-medium{% elsif cardSize == 'small' %}card-size-small{% else %} card-size-default{% endif %} product-grid-box">
+                            {% render 'product-card-grid',section:section, cardProduct: product, showCount:true, text_alignment: section.settings.text_alignment, comparePrice: true, unitPrice: true, cycleIndex: placeholderIndex, gridImageSize: section.settings.grid_image_size, quickViewtrue: true, compareTrue: true %}
+                          </div>
+                        {% else %}
+                          {% for i in (1..section.settings.products_to_show) %}
+                           
+                            {% liquid 
+                              capture placeholderIndex 
+                              cycle cycleGroup: '1', '2', '3', '4'
+                              endcapture 
+                            %}
+                            <div class="card-size-medium  product-grid-box">
+                                {% render 'product-card-grid', cycleIndex: placeholderIndex, gridImageSize: section.settings.grid_image_size %}
+                            </div>
+                          {% endfor %}
+                        {% endfor %}
+                      {% if section.settings.collection_style == 'carousel' %}
+                         {% if section.settings.slider_thumbnail == 'only-arrow' %}
+                           {% render 'carousal-arrows',class:'custom-navigation-button-icon' %}
+                         {% endif %}
+                      {% endif %}
+                   </div>
+                  </div>
+            {% endcapture %}
+          {% assign tabContent = tabContent | append: content %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  </div>
+  {% if section.blocks.size > 0 %}
+      <deferred-slider class="deferred-slider tab-wrapper-list-products" style="display: block;height:auto">
+          <template>
+              <div class="product-tab-content tab-content">
+              {{ tabContent }}
+              </div>
+        </template>
+      </deferred-slider>
+{% endif %}
+</div>

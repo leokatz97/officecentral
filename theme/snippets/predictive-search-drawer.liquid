@@ -1,0 +1,90 @@
+{% liquid
+  assign showSuggestions = false
+  if settings.enable_suggestions and settings.product_suggestions != blank
+    assign showSuggestions = true
+  elsif settings.suggestions_queries != blank
+    assign showSuggestions = true
+  endif
+%}
+{% if drawerformobile %}
+  {{ 'search.css' | asset_url | stylesheet_tag }}
+  {% capture drawerContent %}
+  <div class="search-drawer-content-main" data-search-drwaer-body >
+    <div class="search-drawer-content" data-suggestionStatus="{{showSuggestions}}"
+      data-header="{{ section.settings.header_style }}"
+      data-search-drawer>
+      <div class="search-drawer-content-header">
+        <h3 class="search-drawer-heading">
+          Search 
+        </h3>
+       {% render 'header-search-bar' %}
+      </div>
+      <div class="search-drawer-content-body">
+      
+        {% liquid
+          if showSuggestions
+            render 'predictive-search-suggestions' section:section
+          endif
+        %}
+        <div class="predictive-search-results " data-result-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endcapture %}
+    {% render 'side-drawer', id: 'side-ajax-search-drawer', class: 'side-search-drawer', drawerContent: drawerContent, colorScheme: settings.search_color_scheme %}
+    
+{% else %}
+{% if settings.search_drawer_style == 'full_width' or section.settings.header_style == 'logo_with_search_bar' %}
+<div class="serach-fullwidth" data-search-parent>
+  <div class="scheme-{{ settings.search_color_scheme }}{% if settings.search_enable_gradient %} gradiant{% endif %} search-content hidden"
+    data-suggestionStatus="{{showSuggestions}}"
+    data-header="{{ section.settings.header_style }}"
+    data-search-drawer
+    data-fullwidth="{{ fullWidth }}">
+    <div class="container">
+      {% liquid
+        if fullWidth
+          render 'header-search-bar'
+        endif
+        if showSuggestions
+          render 'predictive-search-suggestions'
+        endif
+      %}
+      <div class="predictive-search-results hidden" data-result-container
+      
+      ></div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+{{ 'search.css' | asset_url | stylesheet_tag }}
+{% capture drawerContent %}
+<div class="search-drawer-content-main" data-search-drwaer-body >
+  <div class="search-drawer-content" data-suggestionStatus="{{showSuggestions}}"
+    data-header="{{ section.settings.header_style }}"
+    data-search-drawer>
+    <div class="search-drawer-content-header">
+      <h3 class="search-drawer-heading">
+        Search 
+      </h3>
+     {% render 'header-search-bar' %}
+    </div>
+    <div class="search-drawer-content-body">
+    
+      {% liquid
+        if showSuggestions
+          render 'predictive-search-suggestions' section:section
+        endif
+      %}
+      <div class="predictive-search-results " data-result-container>
+      </div>
+    </div>
+  </div>
+</div>
+{% endcapture %}
+  {% render 'side-drawer', id: 'side-ajax-search-drawer', class: 'side-search-drawer', drawerContent: drawerContent, colorScheme: settings.search_color_scheme %}
+  
+{% endif %}
+  {% endif %}

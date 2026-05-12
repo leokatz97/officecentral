@@ -1,0 +1,45 @@
+{%- assign featuredMedia = product.selected_or_first_available_variant.featured_media -%}
+<div
+  class="slider product-gallery-thumbnail-slider productThumb-{{ product.id }} {% if product.media.size > 5 %}arrow-enabled{% endif %}"
+  {% if thumbnails_slider %}
+    {% if product.media.size > 1 %}
+      data-slideshow='
+        {
+          "asNavFor": "#productMainSlider-{{ section.id }}-{{ product.id }}",
+          "imagesLoaded": true,
+          "contain": true,
+          "cellAlign": "left",
+          "lazyLoad": true,
+          "pageDots": false,
+          "draggable": {% if product.media.size > 5 %}true{% else %}false{%endif%},
+          "prevNextButtons":{% if product.media.size > 5 %}true{% else %}false{%endif%}
+        }
+      '
+    {% endif %}
+  {% endif %}
+>
+  {% if featuredMedia != blank %}
+    <div class="product-thumbnail-item"> 
+      <div
+        class="product-thumbnail-inner"
+      >
+        <div class="media" style="--imageRatio:{{ 1 | divided_by : featuredMedia.aspect_ratio | times: 100 }}%">
+          {% render 'lazy-image', image: featuredMedia.preview_image, sizes: '[100]' %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {% for media in product.media %}
+    {% unless media.id == featuredMedia.id %}
+      <div class="product-thumbnail-item">
+        <div
+          class="product-thumbnail-inner"
+        >
+          <div class="media" style="--imageRatio:{{ 1 | divided_by : media.aspect_ratio | times: 100 }}%">
+            {% render 'lazy-image', image: media.preview_image, sizes: '[100]' %}
+          </div>
+        </div>
+      </div>
+    {% endunless %}
+  {% endfor %}
+</div>

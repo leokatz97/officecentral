@@ -1,0 +1,103 @@
+.media-gallery-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.media-gallery-item {
+    flex: 2;
+    position: relative;
+    overflow: hidden;
+    transition: all .3s ease;
+    border-radius: var(--cardRadius);
+    height:var(--media-height)
+}
+
+.media-gallery-wrapper.enable-overlay .media-gallery-image:after {
+    content: "";
+    background: var(--overlayBackground);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+.media-gallery-hover-content, .media-gallery-content {
+    width: 100%;
+    max-height: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: min(5%,36px);
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.media-gallery-content .media-gallery-heading {
+    transform: translateY(0);
+    transition: all .3s cubic-bezier(0,.25,.4,1);
+    opacity: 1;
+}
+
+
+.media-gallery-heading, .media-gallery-desc {
+    margin-bottom: 12px;
+    max-width: min(500px,100%);
+}
+.media-gallery-heading {
+    color: var(--headingColor);
+}
+.media-gallery-desc {
+    color: var(--textColor);
+}
+
+.media-gallery-btn {
+    margin-top:12px;
+}
+
+@media (min-width:768px) {
+.media-gallery-wrapper {
+    flex-direction: row;
+}
+}
+
+@media (min-width:1025px) {
+    .media-gallery-item:hover {
+        flex: 3;
+    }
+    .media-gallery-item:hover {
+        flex: 3;
+    }
+    .media-gallery-item:hover .media-gallery-hover-content {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    .media-gallery-hover-content {
+        transform: translateY(100%);
+        opacity: 0;
+        transition: all .3s cubic-bezier(0,.25,.4,1);
+    }
+    .media-gallery-item:hover .media-gallery-content .media-gallery-heading {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    .media-gallery-item:hover .media-gallery-image:after {
+        opacity: 0.8;
+    }
+    .media-gallery-image {
+        width: calc(60vw + 2px);
+    }
+    .media-gallery-item:only-child .media-gallery-image {
+        width: 100%;
+    }
+}
+
+@media (max-width:1024px) {
+    .media-gallery-content {
+        display: none;
+    }
+}

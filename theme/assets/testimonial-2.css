@@ -1,0 +1,289 @@
+.testimonial-style2-main {
+    background: rgb(var(--alternateBackground));
+    box-shadow: 0 1px 7px #00000017;
+    border-radius: var(--cardRadius);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.testimonial-data-content {
+    max-width: 100%;
+    flex: 0 0 100%;
+    padding: 20px;
+}
+
+.testimonial-content-slides {
+    padding-top: 20px;
+    max-width: 90%;
+}
+
+.testimonial-style2-main .testimonial-item {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+}
+
+.testimonial-style2-main .testimonial-item.active {
+    opacity: 1;
+    visibility: visible;
+    max-height: 100%;
+    transition: all 0.8s ease;
+}
+
+.testimonial-star-rating {
+    display: flex;
+    align-items: center;
+    column-gap: 3px;
+    color: rgb(var(--ratingStarColor));
+    margin: 0 0 25px 0;
+}
+
+.testimonial-text {
+    padding-top: 10px;
+}
+
+.testimonial-style2-main .testimonial-text {
+    font-size: var(--largeText);
+}
+
+.testimonial-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.testimonial-details.image-position-top {
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.testimonial-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    margin-right: 20px;
+}
+
+.testimonial-details .testimonial-image img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.country-name {
+    padding-top: 3px;
+    font-size: var(--smallText);
+}
+
+.testimonial-details.image-position-top .testimonial-details-credentials {
+    padding-top: 8px;
+}
+
+.testimonial-logos-holder {
+    background-image: url(/cdn/shop/files/test_e6713160-3572-4a44-a327-e94968eee337.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.testimonial-logo-wrapper-box {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    row-gap: 16px;
+}
+
+.testimonial-logo-wrapper {
+    display: grid;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(9, 1fr);
+    grid-auto-columns: 1fr;
+}
+
+.testimonial-logo-holder {
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.testimonial-logo-holder-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.testimonial-logo-holder-inner img {
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    box-shadow: 0 1px 7px #00000017;
+    background-color: rgb(var(--alternateBackground));
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.testimonial-logo-holder.active img {
+    border-color: rgb(var(--line-color));
+}
+
+.testimonial-logo-wrapper-item {
+    animation: horizontal-marquee 30s linear infinite;
+}
+
+@keyframes horizontal-marquee {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.testimonial-logo-wrapper-box:hover .testimonial-logo-wrapper-item {
+    animation-play-state: paused;
+}
+
+@media screen and (min-width:768px) {
+    .testimonial-data-content {
+        max-width: 55%;
+        flex: 0 0 55%;
+        padding: 30px;
+    }
+    .testimonial-logo-wrapper {
+        grid-row-gap: 16px;
+        grid-column-gap: 16px;
+        grid-template-rows: auto auto auto;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .testimonial-logo-wrapper-box {
+        flex-wrap: wrap;
+    }
+    .testimonial-logos-holder {
+        position: absolute;
+        right: 0;
+        max-width: 50%;
+        flex: 0 0 50%;
+        width: 50%;
+        padding: 0;
+    }
+    .testimonial-logo-holder.logo1 {
+        top: -16px;
+        padding: 16px;
+    }
+    .testimonial-logo-holder.logo2 {
+        top: 0;
+        padding: 0px;
+    }
+    .testimonial-logo-holder.logo3 {
+        top: 0;
+        padding: 25px;
+        right: -25px;
+    }
+    .testimonial-logo-holder.logo4 {
+        top: -20px;
+        left: 65px;
+        padding: 0px;
+    }
+    .testimonial-logo-holder.logo5 {
+        top: 10px;
+        padding: 16px;
+        left: 72px;
+    }
+    .testimonial-logo-holder.logo6 {
+        top: -36px;
+        padding: 30px;
+        right: -30px;
+    }
+    .testimonial-logo-holder.logo7 {
+        top: 0;
+        padding: 15px;
+        left: 50px;
+    }
+    .testimonial-logo-holder.logo8 {
+        top: 0px;
+        padding: 20px;
+        left: 52px;
+    }
+    .testimonial-logo-holder.logo9 {
+        top: -40px;
+        padding: 30px;
+        right: -30px;
+    }
+    .testimonial-logo-wrapper-item {
+        animation: marquee 30s linear infinite;
+        width: 100%;
+    }
+    @keyframes marquee {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-100%);
+        }
+    }
+}
+
+@media screen and (min-width:992px) {
+    .testimonial-logo-holder {
+        width: 128px;
+        height: 128px;
+    }
+    .testimonial-logo-holder-inner img {
+        padding: 6px;
+    }
+    .testimonial-logos-holder {
+        max-width: 45%;
+        flex: 0 0 45%;
+        width: 45%;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .testimonial-data-content {
+        max-width: 60%;
+        flex: 0 0 60%;
+        padding: 60px;
+    }
+    .testimonial-content-slides {
+        padding-top: 40px;
+        max-width: 80%;
+    }
+    .testimonial-logos-holder {
+        max-width: 40%;
+        flex: 0 0 40%;
+        width: 40%;
+    }
+}
+
+@media screen and (min-width:1441px) {
+    .testimonial-logo-holder {
+        width: 148px;
+        height: 148px;
+    }
+}

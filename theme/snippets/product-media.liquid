@@ -1,0 +1,344 @@
+{%liquid
+  case  section.settings.product_image_size
+  when 'landscape'
+    assign productImageRatio = 'var(--img-landscape)'
+  when 'square'
+   assign productImageRatio = 'var(--img-square)'
+  when 'portrait'
+    assign productImageRatio = 'var(--img-portrait)'
+  endcase
+
+ %}
+
+
+{%- assign featuredMedia = product.selected_or_first_available_variant.featured_media -%}
+{% assign countmedia = 0 %}
+<div
+  id="productMainSlider-{{ section.id }}-{{ product.id }}"
+  class="product-gallery-img-slider{% if main_slider %} slider{% endif %}"
+  {% if main_slider %}
+    {% if product.media.size > 1 %}
+      data-slideshow='
+        {
+        "contain": true,
+        "cellAlign": "left",
+        "imagesLoaded": true,
+        "lazyLoad": true,
+        "wrapAround": false,
+        "pageDots": false,
+        "autoPlay": false,
+        "draggable": {% if draggable %}true{% else %}false{% endif %},
+        "prevNextButtons": false,
+        "cellSelector":".product-gallery-img-item"
+        }
+      '
+      data-product-main-media
+    {% endif %}
+  {% endif %}
+>
+  {% if main_slider and product.media.size > 1 %}
+    {% render 'carousal-arrows', class: 'custom-navigation-button-icon' %}
+  {% endif %}
+
+  {% if featuredMedia != blank %}
+    <div
+      id="productmedia-{{ featuredMedia.id }}"
+      class="product-gallery-img-item{% if featuredProduct %} featured_product_image_item{% endif %}"
+    >
+      <div class="product-gallery-img-inner {% if fixed_height %}{% if section.settings.media_fixed %}{{ section.settings.height_fixed }}{% endif %}{% endif %}">
+        <div
+          class="media"
+          style="--imageRatio:{% if section.settings.product_image_size != 'auto' %}{{ productImageRatio }}{% else %}{{ 1 | divided_by : featuredMedia.preview_image.aspect_ratio | times: 100 }}%{% endif %}"
+        >
+          {% comment %} {% render 'lazy-image', image: featuredMedia.preview_image, imageSize: 620 %} {% endcomment %}
+          {%liquid  
+            if forloop.index <= 1
+              assign height = featuredMedia.preview_image.width | divided_by: featuredMedia.preview_image.aspect_ratio | round
+              assign sizes = 'auto'
+              assign widths = '54, 74, 104, 162, 208, 324, 416'
+              echo featuredMedia.preview_image | image_url: width: 416 | image_tag: sizes: sizes, widths: widths
+            else
+              render 'lazy-image', image: featuredMedia.preview_image, imageSize: 620
+            endif 
+          %}
+        </div>
+      </div>
+      {% if media_popup == true and template contains "product" %}
+        <a href="#product-fetured-media-popup" data-side-drawer-open data-index="{{ countmedia }}" data-media-id="{{ media.id }}" data-thumb="{{ media | image_url }}" class="product-zoom-image no-js-hidden"  aria-label="{{ media.alt | downcase | default: product.title | strip_html }}" data-media-popup>
+          <span class="product-zoom-image-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" >
+              <path d="M13.125 3.75H16.25V6.875" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M11.875 8.125L16.25 3.75" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M6.875 16.25H3.75V13.125" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M8.125 11.875L3.75 16.25" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M16.25 13.125V16.25H13.125" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M11.875 11.875L16.25 16.25" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M3.75 6.875V3.75H6.875" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M8.125 8.125L3.75 3.75" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+          </span>
+        </a>
+        {% assign countmedia = countmedia | plus:1 %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% for media in product.media %}
+    {% unless media.id == featuredMedia.id %}
+      {% case media.media_type %}
+        {% when 'image' %}
+          <div
+            id="productmedia-{{ media.id }}"
+            class="product-gallery-img-item{% if featuredProduct %} featured_product_image_item{% endif %}"
+          >
+            <div class="product-gallery-img-inner {% if fixed_height %}{% if section.settings.media_fixed %}{{ section.settings.height_fixed }}{% endif %}{% endif %}">
+              <div
+                class="media"
+                style="--imageRatio:{% if section.settings.product_image_size != 'auto' %}{{ productImageRatio }}{% else %}{{ 1 | divided_by : media.preview_image.aspect_ratio | times: 100 }}%{% endif %}"
+              >
+                {% comment %} {% render 'lazy-image', image: media.preview_image, imageSize: 620 %} {% endcomment %}
+                {%liquid  
+                  if forloop.index <= 1
+                    assign height = media.preview_image.width | divided_by: media.preview_image.aspect_ratio | round
+                    assign sizes = 'auto'
+                    assign widths = '54, 74, 104, 162, 208, 324, 416'
+                    echo media.preview_image | image_url: width: 416 | image_tag: sizes: sizes, widths: widths
+                  else
+                    render 'lazy-image', image: media.preview_image, imageSize: 620
+                  endif 
+                %}
+              </div>
+            </div>
+           
+            {% if media_popup == true and template contains "product" %}
+              <a href="#product-fetured-media-popup" data-side-drawer-open data-index="{{ countmedia }}" data-media-id="{{ media.id }}" data-thumb="{{ media | image_url }}" class="product-zoom-image no-js-hidden"  aria-label="{{ media.alt | downcase | default: product.title | strip_html }}" data-media-popup>
+                <span class="product-zoom-image-icon">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" >
+                    <path d="M13.125 3.75H16.25V6.875" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M11.875 8.125L16.25 3.75" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M6.875 16.25H3.75V13.125" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M8.125 11.875L3.75 16.25" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M16.25 13.125V16.25H13.125" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M11.875 11.875L16.25 16.25" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M3.75 6.875V3.75H6.875" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M8.125 8.125L3.75 3.75" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </span>
+              </a>
+              {% assign countmedia = countmedia | plus:1 %}
+            {% endif %}
+          </div>
+        {% when 'external_video' %}
+          {% liquid
+            assign videoUrl = media | external_video_url
+            assign videoClass = 'youtube_video sr-youtube-video'
+            assign videoId = 'sr-youtube-video-' | append: media.id
+            assign dataType= 'youtube'
+            if videoUrl contains 'vimeo'
+              assign videoClass = 'vimeo_video sr-vimeo-video'
+              assign videoId = 'sr-vimeo-video-' | append: media.id
+              assign dataType= 'vimeo'
+            endif
+          %}
+          <div
+            id="productmedia-{{ media.id }}"
+            class="product-gallery-img-item {% if featuredProduct %}featured-product-media-item{%endif %} {% if fixed_height %}{% if section.settings.media_fixed %}{{ section.settings.height_fixed }}{% endif %}{% endif %} sr-product-video-item"
+          >
+            <div class="media" style="--imageRatio:{% if section.settings.product_image_size != 'auto' %}{{ productImageRatio }}{% else %}{{ 1 | divided_by : media.aspect_ratio | times: 100 }}%{% endif %}">
+            <deferred-media class="deferred-media" >
+              <template>
+                {{ media| external_video_url: autoplay: false | external_video_tag: id: videoId, class: videoClass, height: 538, loading: 'lazy'}}
+              </template>
+              <noscript>
+                  <a
+                    href="{{ videoUrl }}"
+                    target="_blank"
+                    aria-label="{{ media.alt | default: product.title | strip_html }}"
+                  >
+                    {% comment %}theme-check-disable ImgWidthAndHeight{% endcomment %}
+                    <img
+                      src="{{ media.preview_image | image_url: width: 2048 }}"
+                      alt="{{ media.preview_image.alt | escape }}"
+                      loading="lazy"
+                    >
+                    {% comment %}theme-check-enable ImgWidthAndHeight{% endcomment %}
+                  </a>
+                </noscript>
+            </deferred-media>
+             
+            </div>
+          </div>
+        {% when 'video' %}
+          {%- liquid
+            assign htmlVideo = media.sources[0]
+            if media.sources[1] != blank
+              assign htmlVideo = media.sources[1]
+            endif
+            assign videoId = 'video-' | append: media.id
+          -%}
+          <div
+            id="productmedia-{{ media.id }}"
+            class="product-gallery-img-item {% if featuredProduct %}featured-product-media-item {% endif%}{% if fixed_height %}{% if section.settings.media_fixed %}{{ section.settings.height_fixed }}{% endif %}{% endif %} sr-product-video-item"
+          >
+            <div class="media" style="--imageRatio:{% if section.settings.product_image_size != 'auto' %}{{ productImageRatio }}{% else %}{{ 1 | divided_by : media.aspect_ratio | times: 100 }}%{% endif %}">
+              <div class="deferred-media-placeholder">
+                  {% render 'lazy-image', image:  media.preview_image , imageSize: 1100 %}
+                  <span class="js-load-media cursor-pointer media-play-button" role="button" title="Play button" data-video-play-button="">
+                    <svg width="33" height="38" viewBox="0 0 33 38" fill="none">
+                      <path d="M3.3001 38C2.69618 38 2.09556 37.81 1.56425 37.4338C1.08631 37.0923 0.691864 36.6161 0.418164 36.0503C0.144463 35.4845 0.000544022 34.8476 0 34.1999V3.79939C0 2.48076 0.594018 1.25714 1.56425 0.565529C2.04324 0.226415 2.58926 0.0331475 3.15097 0.00389818C3.71268 -0.0253512 4.27163 0.110378 4.77524 0.398326L31.176 15.5986C31.7242 15.9148 32.1851 16.4004 32.5073 17.001C32.8294 17.6017 33 18.2937 33 18.9997C33 19.7056 32.8294 20.3977 32.5073 20.9983C32.1851 21.599 31.7242 22.0846 31.176 22.4007L4.77524 37.601C4.31323 37.867 3.80172 38 3.3001 38Z" fill="currentColor"></path>
+                    </svg>
+                  </span>
+              </div>
+              <deferred-media class="deferred-media">
+                    <template>
+                          {{
+                            media
+                            | media_tag:
+                              loading: 'lazy',
+                              id: videoId,
+                              class: 'local_videos',
+                              autoplay: false,
+                              controls: true,
+                              preload: 'none'
+                          
+                          }}
+                    </template>
+                   <noscript>
+                      <a href="{{ htmlVideo }}" target="_blank">
+                        {% comment %}theme-check-disable ImgWidthAndHeight{% endcomment %}
+                        <img
+                          src="{{ media.preview_image | image_url: width: 2048 }}"
+                          alt="{{ media.preview_image.alt | escape }}"
+                          loading="lazy"
+                          aria-label="{{ media.alt | default: product.title | strip_html }}"
+                        >
+                        {% comment %}theme-check-enable ImgWidthAndHeight{% endcomment %}
+                      </a>
+                    </noscript>
+                </deferred-media>
+            </div>
+          </div>
+        {% when 'model' %}
+          {%- liquid
+            if media.preview_image.aspect_ratio
+              assign media_aspect_ratio = media.preview_image.aspect_ratio
+            endif
+          -%}
+          {% if featuredProduct %}
+            <div
+              id="productmedia-{{ media.id }}"
+              class="product-gallery-img-item{% if featuredProduct %} featured_product_image_item{% endif %}"
+            >
+              <div class="product-gallery-img-inner {% if fixed_height %}{% if section.settings.media_fixed %}{{ section.settings.height_fixed }}{% endif %}{% endif %}">
+                <div
+                  class="media"
+                  style="--imageRatio:{% if section.settings.product_image_size != 'auto' %}{{ productImageRatio }}{% else %}{{ 1 | divided_by : media.preview_image.aspect_ratio | times: 100 }}%{% endif %}"
+                >
+                  {% comment %} {% render 'lazy-image', image: media.preview_image, imageSize: 620 %} {% endcomment %}
+                  {%liquid  
+                    if forloop.index <= 1
+                      assign height = media.preview_image.width | divided_by: media.preview_image.aspect_ratio | round
+                      assign sizes = 'auto'
+                      assign widths = '54, 74, 104, 162, 208, 324, 416'
+                      echo media.preview_image | image_url: width: 416 | image_tag: sizes: sizes, widths: widths
+                    else
+                      render 'lazy-image', image: media.preview_image, imageSize: 620
+                    endif 
+                  %}
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div
+              id="productmedia-{{ media.id }}"
+              class="product-gallery-img-item {% if featuredProduct %}featured-product-media-item{% endif %} {% if fixed_height %}{% if section.settings.media_fixed %}{{ section.settings.height_fixed }}{% endif %}{% endif %} featured_product_image_item sr-product-model-item"
+            >
+              <div
+                class="media"
+                style="--imageRatio:{% if section.settings.product_image_size != 'auto' %}{{ productImageRatio }}{% else %}{{ 1 | divided_by : media_aspect_ratio | times: 100 }}%{% endif %}"
+                data-media-id="{{ media.id }}"
+              >
+                {{
+                  media
+                  | model_viewer_tag: image_size: true, reveal: 'interaction', toggleable: true, data-model-id: media.id
+                }}
+
+                <button class="close-product-model hidden">
+                  <svg
+                    focusable="false"
+                    role="presentation"
+                    class="icon icon-close"
+                    viewBox="0 0 40 40"
+                  >
+                    <path d="M23.868 20.015L39.117 4.78c1.11-1.108 1.11-2.77 0-3.877-1.109-1.108-2.773-1.108-3.882 0L19.986 16.137 4.737.904C3.628-.204 1.965-.204.856.904c-1.11 1.108-1.11 2.77 0 3.877l15.249 15.234L.855 35.248c-1.108 1.108-1.108 2.77 0 3.877.555.554 1.248.831 1.942.831s1.386-.277 1.94-.83l15.25-15.234 15.248 15.233c.555.554 1.248.831 1.941.831s1.387-.277 1.941-.83c1.11-1.109 1.11-2.77 0-3.878L23.868 20.015z" class="layer"></path>
+                  </svg>
+                </button>
+                <button
+                  class="product-model-button button button--full-width product__xr-button d-md-none d-lg-none no-js-hidden{% if settings.enable_button_shadow %} button-shadow{% endif %}"
+                  type="button"
+                  aria-label="{{ 'products.product.media.view_in_ar_button' | t }}"
+                  data-shopify-xr
+                  data-shopify-model3d-id="{{ media.id }}"
+                  data-shopify-title="title"
+                  data-shopify-xr-hidden
+                >
+                  {{ 'products.product.media.view_in_ar_button' | t }}
+                </button>
+              </div>
+              <noscript>
+                    {% comment %}theme-check-disable ImgWidthAndHeight{% endcomment %}
+                <img
+                  src="{{ media.preview_image | image_url: width: 2048 }}"
+                  alt="{{ media.preview_image.alt | escape }}"
+                  loading="lazy"
+                  aria-label="{{ media.alt | downcase | default: product.title | strip_html }}"
+                  style="object-position:{{ image.presentation.focal_point }}"
+                >
+                    {% comment %}theme-check-enable ImgWidthAndHeight{% endcomment %}
+              </noscript>
+            </div>
+          {% endif %}
+      {% endcase %}
+    {% endunless %}
+  {% endfor %}
+
+  {% if product == blank or product.media.size == 0 %}
+    <div
+      id="productmedia-placeholder"
+      class="product-gallery-img-inner {% if fixed_height %}{% if section.settings.media_fixed %}{{ section.settings.height_fixed }}{% endif %}{% endif %} {% if featuredProduct %}featured_product_image_item {% endif %}{% if section.settings.show_more_less %}{% if forloop.index > 4 %} hidden-media{% endif %}{% endif %}"
+    >
+      <div class="media" style="--imageRatio:{% if section.settings.product_image_size != 'auto' %}{{ productImageRatio }}{% else %}100%{% endif %}">
+        {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% if custom_icon and product.media.size > 0 %}
+  <div class="feature-product-badge">
+    {% render 'icons', icon: 'crown' %}
+  </div>
+{% endif %}
+<style>
+  .hidden-media {
+    display: none;
+  }
+  .product-media-item {
+    flex: 0 0 calc(50% - 7.5px);
+    position: relative;
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .product-media-item.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .show-more-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+</style>

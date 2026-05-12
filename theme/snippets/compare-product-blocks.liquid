@@ -1,0 +1,159 @@
+<div class="table-responsive">
+  <table>
+    <tbody>
+      {% for block in blocks %}
+        {%- case block.type -%}
+          {%- when 'productimageinfo' -%}
+            <tr class="product-info-column">
+              <th></th>
+              {% for product in search.results %}
+                <td>
+                  <div class="compare-media-wrapper {% if settings.image_border %} product-border-enabled {% endif %}">
+                    {% if product.featured_media != blank %}
+                      <div
+                        class="media"
+                        style="--imageRatio:100%"
+                      >
+                        {% render 'lazy-image', image: product.featured_media.preview_image, imageSize: '400' %}
+                      </div>
+                    {% else %}
+                      <div class="media" style="--imageRatio:100%">
+                        {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {% endif %}
+                    {% if search.results.size > 2 %}
+                    <button class="remove-product-card compare-item-model" data-remove-icon>
+                      <span class="remove_icon" data-remove="{{ product.id }}">
+                        {% render 'icons', icon: 'close' %}
+                      </span>
+                    </button>
+                      {% endif %}
+                  </div>
+                  <div class="compare-product-info">
+                    <a href="{{ product.url }}" class="heading-font compare-product-title">{{ product.title }}</a>
+                    <a href="{{ product.url }}" class="button small-btn{% if settings.enable_button_shadow %} button-shadow{% endif %}">
+                      <span>{{ 'products.product.view_products' | t }}</span>
+                    </a>
+                  </div>
+                </td>
+              {% endfor %}
+            </tr>
+            <tr >
+              <th>{{ 'sections.cart.headings.price' | t }}</th>
+              {% for product in search.results %}
+                <td>
+                    {% render 'price',
+                      cardProduct: product,
+                      current_variant: product,
+                      comparePrice: true,
+                      unitPrice: true
+                    %}
+                </td>
+              {% endfor %}
+            </tr>
+          {%- when 'sku' -%}
+            <tr>
+              <th>{{ 'products.product.sku' | t }}</th>
+              {% for product in search.results %}
+                <td>{{ product.selected_or_first_available_variant.sku | default: '--' }}</td>
+              {% endfor %}
+            </tr>
+          {%- when 'discount' -%}
+            <tr>
+              <th>{{ 'products.product.discount' | t }}</th>
+              {% for product in search.results %}
+                {% liquid
+                  assign compare_at_price = product.selected_or_first_available_variant.compare_at_price
+                  assign price = product.selected_or_first_available_variant.price
+                  assign money_price = price | money
+                  assign offText = 'Off'
+                %}
+                <td>
+                  {% if compare_at_price > price -%}
+                    {% if settings.sale_label_type == 'percent-off' %}
+                      {{ compare_at_price | minus: price | times: 100 | divided_by: compare_at_price | append: '% ' }}
+                      {{ offText }}
+                    {% else %}
+                      {{ compare_at_price | minus: price | money }}
+                      {{ offText }}
+                    {% endif %}
+                  {% else %}
+                    --
+                  {%- endif %}
+                </td>
+              {% endfor %}
+            </tr>
+          {%- when 'type' -%}
+            <tr>
+              <th>{{ 'products.product.type' | t }}</th>
+              {% for product in search.results %}
+                <td>{{ product.type | default:'--' }}</td>
+              {% endfor %}
+            </tr>
+          {%- when 'vendor' -%}
+            <tr>
+              <th>{{ 'products.product.vendor' | t }}</th>
+              {% for product in search.results %}
+                <td>{{ product.vendor | default:'--' }}</td>
+              {% endfor %}
+            </tr>
+          {%- when 'rating' -%}
+            <tr>
+              <th>{{ 'products.product.rating' | t }}</th>
+              {% for product in search.results %}
+                <td>{% if product.metafields.reviews.rating_count > 0 %}{% render 'reviews-count', product: product %}{% else %}--{% endif %}</td>
+              {% endfor %}
+            </tr>
+          {%- when 'weight' -%}
+            <tr>
+              <th>{{ 'products.product.weight' | t }}</th>
+              {% for product in search.results %}
+                <td>{{ product.selected_or_first_available_variant.weight | weight_with_unit | default : '--' }}</td>
+              {% endfor %}
+            </tr>
+          {%- when 'tags' -%}
+            <tr>
+              <th>{{ 'products.product.tag' | t }}</th>
+              {% for product in search.results %}
+                <td>
+                  {% if product.tags.size > 0 %}
+                    {% for tag in product.tags %}
+                      {% assign tag_coll = '/collections/all/' | append: tag %}
+                      {{ tag | capitalize | link_to: tag_coll -}}
+                      {%- unless forloop.last %},{% endunless %}
+                    {% endfor %}
+                  {% else %}
+                    --
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+          {%- when 'stock' -%}
+            <tr>
+              <th>{{ 'products.product.stock' | t }}</th>
+              {% for product in search.results %}
+                <td>
+                  {% if product.selected_or_first_available_variant.inventory_management == 'shopify'
+                    and product.selected_or_first_available_variant.inventory_policy != 'continue'
+                    or product.selected_or_first_available_variant.inventory_quantity > 0
+                  %}
+                    {{ product.selected_or_first_available_variant.inventory_quantity }}
+                    {{ 'products.product.inventory_in_stock' | t }}
+                  {% elsif product.selected_or_first_available_variant.inventory_policy == 'continue' %}
+                    --
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+          {%- when 'description' -%}
+            <tr>
+              <th>{{ 'products.product.short_description' | t }}</th>
+              {% for product in search.results %}
+                <td>{{ product.description | strip_html | truncate: 100 | default : '--'}}</td>
+              {% endfor %}
+            </tr>
+        {%- endcase -%}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

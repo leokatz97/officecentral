@@ -1,0 +1,196 @@
+.stories-grid-wrapper {
+    display: grid;
+    grid-auto-rows: var(--gridMobileHeight);
+    grid-template-columns: 1fr;
+    gap: var(--gridGap);
+}
+
+.stories-grid-item {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.container .stories-grid-item {
+    border-radius: var(--imageRadius);
+}
+
+.stories-grid-item-inner {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    flex: 0 0 100%;
+}
+
+.stories-grid-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: rgb(var(--background));
+    overflow: hidden;
+}
+
+.stories-grid-image .media-fixed {
+    height: 100%;
+}
+
+.stories-grid-content {
+    position: absolute;
+    max-height: 90%;
+    overflow-y: auto;
+    padding: 25px 0;
+    width: 100%;
+    max-width: 90%;
+    z-index: 2;
+}
+
+.stories-grid-content-description {
+    padding-top: 10px;
+}
+
+.stories-grid-content.background-enabled .center-left,
+.stories-grid-content.background-enabled .bottom-left {
+    left: 20px;
+}
+
+.stories-grid-content.background-enabled .center-right,
+.stories-grid-content.background-enabled .bottom-right {
+    right: 20px;
+}
+
+.stories-grid-content-button {
+    padding-top: 15px;
+}
+
+.stories-grid-image:before {
+    content: "";
+    background: rgba(var(--imgOverlayColor), var(--imgOverlayOpacity));
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: all .3s ease;
+    z-index: 1;
+}
+
+.stories-section .flickity-page-dots {
+    position: absolute;
+    top: 0;
+    bottom: unset;
+    display: flex;
+    justify-content: center;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+}
+
+.stories-section .pagination-position-bottom .flickity-page-dots {
+    bottom: 10px;
+    top: auto;
+}
+
+.stories-section .flickity-page-dots .dot {
+    flex-grow: 1;
+    border-radius: 0;
+    box-shadow: none;
+    height: 2px;
+    width: max-content;
+    opacity: 1;
+    position: relative;
+    background: rgba(var(--sliderArrowBackground), 0.5);
+}
+
+.stories-section .pagination-style-dots .flickity-page-dots .dot {
+    width: 10px;
+    height: 10px;
+    flex-grow: unset;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.stories-section .pagination-style-dots .flickity-page-dots .dot.is-selected {
+    width: 10px;
+}
+
+.stories-section .flickity-page-dots .dot.is-selected {
+    width: max-content;
+    background: rgba(var(--sliderArrowBackground), 0.5);
+}
+
+.stories-section .flickity-page-dots .dot:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgb(var(--sliderArrowBackground));
+}
+
+.stories-section .flickity-page-dots .dot.is-selected:after {
+    animation: fill var(--slide-transition-time, 3s) linear infinite;
+}
+
+@keyframes fill {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@media (min-width:768px) {
+    .stories-grid-wrapper {
+        grid-auto-rows: var(--gridDesktopHeight);
+        grid-template-columns: repeat(var(--columnCount), minmax(0, 1fr));
+    }
+}
+
+@media (min-width:1025px) {
+    .content-on-hover .stories-grid-content {
+        opacity: 0;
+        visibility: hidden;
+        transition: .3s ease;
+    }
+    .content-on-hover:hover .stories-grid-content {
+        opacity: 1;
+        visibility: visible;
+    }
+    .content-on-hover .stories-grid-content>* {
+        transform: translateY(10px);
+        transition: .3s ease;
+        transition-delay: .2s ease;
+    }
+    .content-on-hover:hover .stories-grid-content>* {
+        transform: translateY(0);
+    }
+}
+
+@media (min-width:1200px) {
+    .stories-grid-content {
+        max-width: 80%;
+    }
+}
+
+@media (min-width:1441px) {
+    .stories-grid-content {
+        max-width: 70%;
+    }
+}
+
+@media (max-width:767px) {
+.stories-grid-wrapper.enable-swipe {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(calc(90vw - 30px), 1fr);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    grid-template-columns: unset;
+    padding-bottom: 20px;
+}
+.stories-grid-wrapper.enable-swipe .stories-grid-block {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+}

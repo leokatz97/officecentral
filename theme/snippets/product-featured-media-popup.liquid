@@ -1,0 +1,42 @@
+{%- capture popupContent -%}
+    <div class="product-media-popup-content">
+      {% assign countmedia = 0 %}
+        <div class="product-media-popup-slider slider"  {% if product.media.size > 1 %}
+          data-slideshow='{
+            "contain": true,
+            "cellAlign": "left",
+            "imagesLoaded": true,
+            "lazyLoad": true,
+            "wrapAround": false,
+            "pageDots": false,
+            "autoPlay": false,
+            "draggable": {% if draggable %}true{% else %}false{% endif %},
+            "prevNextButtons": false,
+            "cellSelector":".product-media-popup-slider-item"
+            }'{% endif %}>
+            {% if product.media.size > 1 %}
+              {% render 'carousal-arrows', class: 'custom-navigation-button-icon' %}
+            {% endif %}
+           
+            {% for media in product.media %}
+              {% case media.media_type %}
+                {% when 'image' %}
+                  <div id="{{ media.id }}" class="product-media-popup-slider-item" data-index="{{ countmedia}}">
+                    <div class="product-media-popup-slider-item-img">
+                      {% render 'lazy-image', image: media.preview_image %}
+                    </div>
+                  </div>
+                  {% assign countmedia = countmedia | plus:1 %}
+              {% endcase %}
+            {% endfor %}
+        </div>
+    </div>
+{% endcapture %}
+
+{% if popupContent != blank %}
+    {% render 'popup', id: 'product-fetured-media-popup', 
+      class: 'product-media-popup  position-center',
+      popupsize:"fullwidth",
+      popupContent: popupContent
+    %}
+  {% endif %}

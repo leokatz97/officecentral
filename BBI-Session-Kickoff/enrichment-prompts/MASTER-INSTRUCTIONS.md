@@ -70,22 +70,25 @@ Progress saves after every product. Sessions are resumable.
 
 ## Description format Claude always writes (matching Hero 100)
 
+**body_html** (written to Shopify product description):
 ```html
 <p><strong>[Bold hook sentence.]</strong></p>
 <p>[2-3 sentences about the product — what it does, who it's built for, why it matters in Ontario institutional context.]</p>
 
-<h3>Key features</h3>
+<p class="pdp-section-eyebrow">Key features</p>
 <ul>
   <li>[Feature 1]</li>
   <li>[Feature 2]</li>
   <li>[Feature 3]</li>
 </ul>
 
-<h3>Who it's for</h3>
-<p>[Specific buyer type in Ontario institutional context.]</p>
-
 <p>Available from Brant Business Interiors — Canada's OECM-eligible commercial furniture supplier since 1964. Delivery across Canada; installation available in Ontario and Western Canada. Call <strong>1-800-835-9565</strong> for current pricing, lead times, or volume quotes.</p>
 ```
+
+**"Who it's for"** — stored as `specs.who_its_for` (single line of text), NOT in body_html.
+The PDP template renders it via the metafield block using `.pdp-about__bestfor` with a `pdp-section-eyebrow` label.
+
+**Section label rule:** Use `<p class="pdp-section-eyebrow">Label</p>` for all in-body section headers. Never use `<h3>` for PDP section labels.
 
 ---
 

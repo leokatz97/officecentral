@@ -1,0 +1,365 @@
+{%- comment -%}
+  Section: ds-collection-base
+  Purpose: BBI-styled collection page — 4-col product grid, breadcrumb, count, pagination.
+           Cards use .bbi-card--product from bbi-homepage.css (loaded globally).
+           BBI Rule #2: price==0 or unavailable → Request a Quote CTA, not Add to Cart.
+  Template: collection.json
+  Gate: template.name == 'collection' (in bbi_landing gate in theme.liquid)
+{%- endcomment -%}
+
+<style>
+/* ── Scoped tokens ───────────────────────────────────────────────────────── */
+.bbi-coll {
+  --background: #FFFFFF;
+  --alternateBackground: #FAFAFA;
+  --textColor: #0B0B0C;
+  --borderColor: #E5E5E7;
+  --cardBackground: #FFFFFF;
+  --buttonBackground: #0B0B0C;
+  --buttonColor: #FFFFFF;
+  --buttonBackgroundHover: #D4252A;
+  --saleBadgeBackground: #D4252A;
+  --headerHoverColor: #A81E22;
+}
+
+/* ── Page shell ──────────────────────────────────────────────────────────── */
+.bbi-coll {
+  background: var(--background);
+  color: var(--textColor);
+  min-height: 60vh;
+}
+.bbi-coll__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 28px 32px 80px;
+}
+
+/* ── Breadcrumb ──────────────────────────────────────────────────────────── */
+.bbi-coll__crumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(11,11,12,.45);
+  margin-bottom: 24px;
+}
+.bbi-coll__crumbs a {
+  color: rgba(11,11,12,.45);
+  text-decoration: none;
+}
+.bbi-coll__crumbs a:hover { color: var(--textColor); }
+.bbi-coll__crumbs span { font-size: 11px; opacity: .6; }
+
+/* ── Collection header ───────────────────────────────────────────────────── */
+.bbi-coll__header { margin-bottom: 32px; }
+.bbi-coll__title {
+  font-family: var(--headingFont, "Inter Tight", "Inter", sans-serif);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+  line-height: 1.1;
+}
+.bbi-coll__count {
+  font-size: 13px;
+  color: rgba(11,11,12,.45);
+  margin: 0;
+}
+
+/* ── Collection banner ───────────────────────────────────────────────────── */
+.bbi-coll__banner {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--cardRadius, 8px);
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.bbi-coll__banner img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+/* ── Description ─────────────────────────────────────────────────────────── */
+.bbi-coll__description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(11,11,12,.65);
+  max-width: 680px;
+  margin: 0 0 32px;
+}
+
+/* ── Card image — square crop matching live Starlite "square" grid setting ── */
+.bbi-coll__grid .bbi-card__media {
+  aspect-ratio: 1 / 1;
+}
+.bbi-coll__grid .bbi-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ── Product grid ────────────────────────────────────────────────────────── */
+.bbi-coll__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (min-width: 640px) {
+  .bbi-coll__grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 960px) {
+  .bbi-coll__grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── Card price + quote CTA (extends bbi-homepage.css .bbi-card) ─────────── */
+.bbi-card__price {
+  font-family: var(--headingFont, "Inter Tight", "Inter", sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  margin: 4px 0 0;
+  letter-spacing: -0.01em;
+}
+.bbi-card__price-compare {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(11,11,12,.4);
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+.bbi-card__quote {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--textColor);
+  text-decoration: none;
+  gap: 4px;
+}
+.bbi-card__quote:hover { color: var(--headerHoverColor); }
+
+/* ── Pagination ──────────────────────────────────────────────────────────── */
+.bbi-coll__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding-top: 48px;
+}
+.bbi-coll__pagination a,
+.bbi-coll__pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: var(--buttonRadius, 4px);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--textColor);
+  border: 1px solid var(--borderColor);
+  background: var(--background);
+  transition: background-color 100ms ease, color 100ms ease;
+}
+.bbi-coll__pagination a:hover { background: var(--alternateBackground); }
+.bbi-coll__pagination span.current {
+  background: var(--buttonBackground);
+  color: var(--buttonColor);
+  border-color: var(--buttonBackground);
+}
+.bbi-coll__pagination .prev,
+.bbi-coll__pagination .next { width: auto; padding: 0 14px; gap: 4px; }
+
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+.bbi-coll__empty {
+  text-align: center;
+  padding: 80px 24px;
+}
+.bbi-coll__empty-heading {
+  font-family: var(--headingFont, "Inter Tight", "Inter", sans-serif);
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+.bbi-coll__empty-sub {
+  font-size: 15px;
+  color: rgba(11,11,12,.5);
+  margin: 0 0 28px;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .bbi-coll__inner { padding: 20px 16px 60px; }
+  .bbi-coll__grid { gap: 12px; }
+}
+</style>
+
+{%- assign products_per_page = section.settings.products_per_page | default: 28 -%}
+
+{%- paginate collection.products by products_per_page -%}
+
+<div class="bbi-coll">
+  <div class="bbi-coll__inner">
+
+    {%- comment -%} ── Breadcrumb ── {%- endcomment -%}
+    <nav class="bbi-coll__crumbs" aria-label="{{ 'general.breadcrumbs.aria_label' | t | default: 'Breadcrumb' }}">
+      <a href="/">Home</a>
+      <span aria-hidden="true">›</span>
+      <span>{{ collection.title | escape }}</span>
+    </nav>
+
+    {%- comment -%} ── Header ── {%- endcomment -%}
+    <div class="bbi-coll__header">
+      <h1 class="bbi-coll__title">{{ collection.title | escape }}</h1>
+      <p class="bbi-coll__count">{{ collection.products_count }} product{%- if collection.products_count != 1 -%}s{%- endif -%}</p>
+    </div>
+
+    {%- comment -%} ── Banner image ── {%- endcomment -%}
+    {%- if collection.image != blank and section.settings.show_banner -%}
+      {%- assign banner_alt = collection.image.alt | default: collection.title | escape -%}
+      <div class="bbi-coll__banner">
+        {{- collection.image | image_url: width: 1320 | image_tag: loading: 'eager', alt: banner_alt, width: 1320, height: 200 -}}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ── Description ── {%- endcomment -%}
+    {%- if collection.description != blank -%}
+      <div class="bbi-coll__description">{{ collection.description }}</div>
+    {%- endif -%}
+
+    {%- comment -%} ── Product grid ── {%- endcomment -%}
+    {%- if collection.products_count == 0 -%}
+
+      <div class="bbi-coll__empty">
+        <p class="bbi-coll__empty-heading">No products found</p>
+        <p class="bbi-coll__empty-sub">Try browsing a different category or contact us for help finding the right fit.</p>
+        <a href="/collections/all" class="bbi-btn bbi-btn--primary">Browse all products</a>
+      </div>
+
+    {%- else -%}
+
+      <div class="bbi-coll__grid">
+        {%- for product in collection.products -%}
+
+          {%- assign quote_only = false -%}
+          {%- if product.price == 0 or product.available == false -%}
+            {%- assign quote_only = true -%}
+          {%- endif -%}
+
+          {%- assign on_sale = false -%}
+          {%- if product.compare_at_price > product.price and product.compare_at_price != blank -%}
+            {%- assign on_sale = true -%}
+          {%- endif -%}
+
+          <article class="bbi-card bbi-card--product">
+
+            <a href="{{ product.url }}" class="bbi-card__media" aria-label="{{ product.title | escape }}" tabindex="-1">
+              {%- if product.featured_image != blank -%}
+                {%- assign img_alt = product.featured_image.alt | default: product.title | escape -%}
+                {{- product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: img_alt, width: 600, height: 338 -}}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+
+              {%- if on_sale and quote_only == false -%}
+                <span class="bbi-badge bbi-badge--sale" aria-label="On sale">Sale</span>
+              {%- endif -%}
+            </a>
+
+            <div class="bbi-card__body">
+              {%- if section.settings.show_vendor and product.vendor != blank -%}
+                <p class="bbi-card__brand">{{ product.vendor | escape }}</p>
+              {%- endif -%}
+
+              <h2 class="bbi-card__title">
+                <a href="{{ product.url }}">{{ product.title | escape }}</a>
+              </h2>
+
+              {%- if quote_only -%}
+                <a href="/pages/quote" class="bbi-card__quote">
+                  Request a Quote →
+                </a>
+              {%- else -%}
+                <p class="bbi-card__price">
+                  {%- if product.price_varies -%}From {% endif -%}
+                  {{- product.price | money -}}
+                  {%- if on_sale -%}
+                    <span class="bbi-card__price-compare">{{ product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+            </div>
+
+          </article>
+
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} ── Pagination ── {%- endcomment -%}
+      {%- if paginate.pages > 1 -%}
+        <nav class="bbi-coll__pagination" aria-label="Pagination">
+          {%- if paginate.previous -%}
+            <a href="{{ paginate.previous.url }}" class="prev" aria-label="Previous page">← Prev</a>
+          {%- endif -%}
+
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <a href="{{ part.url }}">{{ part.title }}</a>
+            {%- else -%}
+              {%- if part.title == paginate.current_page -%}
+                <span class="current" aria-current="page">{{ part.title }}</span>
+              {%- else -%}
+                <span>{{ part.title }}</span>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="next" aria-label="Next page">Next →</a>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "BBI Collection",
+  "class": "bbi-collection-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "default": 28
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor / brand label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Show collection banner image",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "BBI Collection"
+    }
+  ],
+  "blocks": [{ "type": "@app" }]
+}
+{% endschema %}

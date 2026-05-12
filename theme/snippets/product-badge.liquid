@@ -1,0 +1,109 @@
+{%- if cardProduct.available -%}
+{% if settings.new_label %}
+{% if settings.new_collection_label %}
+    {% for collection in settings.add_new_collection %}
+        {% for collection_product in collection.products %}
+        {% if collection_product.handle == cardProduct.handle %}
+            <span class="product-badge new">{{ 'products.product.badges.new' | t }}</span>
+        {% endif %}
+    {% endfor %}
+    {% endfor %}
+{% elsif settings.new_date_tag %}
+{% assign days = settings.days_ago_created %}
+{% assign period_time = days | times: 24 | times: 60 | times: 60 %}
+{% assign date_now = 'now' | date:'%s' | divided_by:86400 %}
+{% assign date_finished = cardProduct.published_at | date:'%s' | divided_by:86400 %}
+{% assign dayDifference = date_now | minus:date_finished  %}
+{% if dayDifference <= days %}
+<span class="product-badge new">{{ 'products.product.badges.new' | t }}</span>
+{% endif %}
+{% endif %}
+{% endif %}
+
+
+{% if settings.sale_label_with_percentage and settings.sale_label_type == 'percent-off' and cardProduct.compare_at_price_max %}  
+    {% if cardProduct.compare_at_price_max > cardProduct.price %} 
+   
+        <span class="product-badge sale-percentage">
+            {{ 'products.product.badges.sale' | t }}
+            <span class="sale-percentage-off">{{ cardProduct.compare_at_price_min | minus: cardProduct.price_min | times: 100 | divided_by: cardProduct.compare_at_price_min | append: '% ' -}}</span>
+        </span>
+    {% endif %}
+{% elsif settings.sale_label and cardProduct.compare_at_price_max %}
+    {% if cardProduct.compare_at_price_max > cardProduct.price %} 
+        <span class="product-badge sale">{{ 'products.product.badges.sale' | t }}</span>
+    {% endif %}
+{% endif %}
+
+
+{% if settings.preorder_label %}
+{% if cardProduct.selected_or_first_available_variant.inventory_quantity <= 0
+and cardProduct.selected_or_first_available_variant.inventory_policy == 'continue'
+%}
+<span class="product-badge preorder-badge">{{ 'products.product.badges.preorder' | t }}</span>
+{% endif %}
+{% endif %}
+    {% assign custom_tags = settings.custom_tag | downcase | split:',' %}
+      {% if settings.custom_tag_label != blank %}
+          {% liquid
+              assign tagStatus = false
+              for tag in custom_tags 
+                  for productTag in cardProduct.tags 
+                      assign productTagnew = productTag | downcase 
+                      if productTagnew == tag 
+                          assign tagStatus = true
+                      endif 
+                  endfor
+              endfor
+           %}
+          {% if tagStatus == true %}
+            <span class="product-badge custom-badge">
+                {{ settings.custom_tag_label }}
+            </span> 
+        {% endif %}
+      {% endif %}
+   {% assign custom_tags_1 = settings.custom_tag_1 | downcase | split:',' %}
+      {% if settings.custom_tag_label_1 != blank %}
+          {% liquid
+              assign tagStatus_1 = false
+              for tag_1 in custom_tags_1 
+                  for productTag in cardProduct.tags 
+                      assign productTagnew_1 = productTag | downcase 
+                      if productTagnew_1 == tag_1 
+                          assign tagStatus_1 = true
+                      endif 
+                  endfor
+              endfor
+           %}
+          {% if tagStatus_1 == true %}
+            <span class="product-badge custom-badge">
+                {{ settings.custom_tag_label_1 }}
+            </span> 
+        {% endif %}
+      {% endif %}
+   {% assign custom_tags_2 = settings.custom_tag_2 | downcase | split:',' %}
+      {% if settings.custom_tag_label_2 != blank %}
+          {% liquid
+              assign tagStatus_2 = false
+              for tag_2 in custom_tags_2 
+                  for productTag in cardProduct.tags 
+                      assign productTagnew_2 = productTag | downcase 
+                      if productTagnew_2 == tag_2 
+                          assign tagStatus_2 = true
+                      endif 
+                  endfor
+              endfor
+           %}
+          {% if tagStatus_2 == true %}
+            <span class="product-badge custom-badge">
+                {{ settings.custom_tag_label_2 }}
+            </span> 
+        {% endif %}
+      {% endif %}
+{% else %}
+{% if settings.soldout_label %}
+<span class="product-badge sold-badge">
+    {{ 'products.product.badges.soldout' | t }}
+</span>
+{% endif %}
+{% endif %}
