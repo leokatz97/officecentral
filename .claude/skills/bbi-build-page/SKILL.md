@@ -38,7 +38,7 @@ Parse the page name from the arguments. If he didn't include one, ask once: "Whi
 - **Plan:** Shopify Basic — no CLI. All edits via Shopify Admin → Edit Code or Customizer
 - **Business:** Brant Business Interiors (BBI), part of Office Central Group of Companies
 - **Credentials:** OECM Supplier Partner (Agreement 2025-470), authorized ergoCentric dealer
-- **Buyers:** B2B institutional — schools, healthcare, government, non-profit across Ontario. Everything is quote-based — no cart checkout.
+- **Buyers:** B2B — two co-primary ICPs across Ontario + Western Canada (BC, AB, SK, MB): (A) institutional/non-profit (schools, hospitals, municipalities, non-profits) and (B) SMB private-sector (law firms, clinics, manufacturing, trades). **Dual buying mode:** quick-ship standard SKUs lead with `Add to cart`; project-scale/custom-config SKUs lead with `Request a Quote`. Never force a quote-only path on items a buyer can transact in one click.
 - **Address:** 295 George St N, Peterborough, ON K9J 3H2
 - **Phone:** 1-800-835-9565
 - **Email:** info@brantbusinessinteriors.com
@@ -378,7 +378,9 @@ Three sub-steps in order. Do not collapse them — each gates the next. The outp
 
 Before writing any copy, lock the voice for this page. Ask Leo explicitly:
 
-> **Which ICP is this page targeting — Primary (institutional Ontario: school boards, hospitals, municipalities, OECM buyers) or Secondary (SMB private-sector: Ontario commercial offices, dental/medical clinics, professional services firms)?**
+> **Which ICP is this page targeting — ICP A (institutional/non-profit, Ontario + Western Canada: school boards, hospitals, municipalities, non-profits, band offices), ICP B (SMB private-sector, Ontario + Western Canada: law firms, clinics, manufacturing, trades, services), or both?**
+
+> **Also confirm buying mode: quick-ship SKU (lead with `Add to cart`) or project SKU (lead with `Request a Quote`) or both (dual CTA)?**
 
 Default the suggestion based on the Pre-Step item 2 reading of `docs/strategy/icp.md` and the page tips, but require Leo to confirm — don't assume.
 
@@ -421,7 +423,7 @@ Output a table — Leo edits in place if he wants different wording:
 | "View all" link (category pages) | Link | _e.g._ View all [Category] → |
 | "Shop [Brand] products" link (brand pages) | Link | _e.g._ Shop Keilhauer products → |
 | Breadcrumb separator | Layout | `>` (chevron, not slash) |
-| Card CTA (product/sub-collection tiles) | Button | _e.g._ Request a Quote (NOT "Add to cart" — no checkout) |
+| Card CTA (product/sub-collection tiles) | Button | **Quick-ship SKU:** `Add to cart` (primary) + `Request a Quote` (secondary link). **Project SKU:** `Request a Quote` only. **Both:** dual CTA — cart leads, quote below. |
 | Phone link aria-label | a11y | _e.g._ Call Brant Business Interiors at 1-800-835-9565 |
 | Empty state (if any) | Body | (e.g. for filtered results) |
 
@@ -431,7 +433,7 @@ Output a table — Leo edits in place if he wants different wording:
 - Form submit button: **"Send request"** (never "Submit")
 - Form helper after submit: **"We respond within 1 business day."** (never "24 hours", "ASAP")
 - Brand name in body copy: **"Brant Business Interiors"** — NEVER abbreviate to "BBI" in customer-facing copy
-- Card CTA on product/sub-collection tiles: **"Request a Quote"** (never "Add to cart" — no checkout)
+- Card CTA — **quick-ship SKU:** `Add to cart` (primary) + `Request a Quote` link (secondary). **Project SKU:** `Request a Quote` only. **Both modes:** dual CTA, cart leads.
 - Breadcrumb separator: `>` chevron (never `/`)
 
 If this page introduces a new microcopy element not in icp.md's Microcopy lockup table, flag it to Leo and add it to icp.md before using it on the page — never let one-off variants leak in via Claude Design output.
