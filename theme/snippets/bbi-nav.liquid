@@ -120,6 +120,114 @@
   margin-top:4px;
 }
 
+/* ---- Inline search bar (desktop) ---- */
+.bbi-header__search-bar{
+  position:relative;
+  flex:0 0 220px;
+}
+.bbi-header__search-form{
+  display:flex;align-items:center;gap:0;
+  height:38px;
+  border:1.5px solid var(--borderColor,#E5E5E7);
+  border-radius:6px;
+  background:#F7F7F8;
+  transition:border-color 140ms ease, background 140ms ease;
+  overflow:visible;
+}
+.bbi-header__search-form:focus-within{
+  border-color:#0B0B0C;
+  background:#ffffff;
+}
+.bbi-header__search-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;flex-shrink:0;
+  color:rgba(11,11,12,.4);
+  pointer-events:none;
+}
+.bbi-header__search-input{
+  flex:1;min-width:0;
+  padding:0 10px 0 0;
+  height:100%;
+  font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
+  font-size:13px;color:var(--textColor,#0B0B0C);
+  background:none;border:none;outline:none;
+}
+.bbi-header__search-input::placeholder{color:rgba(11,11,12,.38);font-size:13px;}
+
+/* Predictive results dropdown */
+.bbi-search-results{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;
+  border:1px solid var(--borderColor,#E5E5E7);
+  border-radius:6px;overflow:hidden;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(11,11,12,.10);
+  list-style:none;margin:0;padding:0;
+  z-index:210;
+}
+.bbi-search-results:empty{display:none;}
+.bbi-search-results__item a{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;
+  text-decoration:none;
+  color:var(--textColor,#0B0B0C);
+  font-size:13px;
+  transition:background-color 80ms ease,color 80ms ease;
+}
+.bbi-search-results__item a:hover,
+.bbi-search-results__item a:focus-visible{
+  background:var(--alternateBackground,#FAFAFA);
+  color:var(--headerHoverColor,#A81E22);
+  outline:none;
+}
+.bbi-search-results__thumb{
+  width:36px;height:36px;flex-shrink:0;
+  border-radius:4px;overflow:hidden;
+  border:1px solid var(--borderColor,#E5E5E7);
+  background:#f5f5f5;
+}
+.bbi-search-results__thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.bbi-search-results__title{
+  flex:1;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-weight:500;
+}
+.bbi-search-results__all{
+  display:block;padding:9px 12px;
+  font-size:12px;font-weight:600;
+  color:var(--headerHoverColor,#A81E22);
+  text-decoration:none;
+  border-top:1px solid var(--borderColor,#E5E5E7);
+}
+.bbi-search-results__all:hover{text-decoration:underline;}
+
+/* Mobile search — inside mobile nav header */
+.bbi-mobile-nav__search-row{
+  padding:14px 24px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.bbi-mobile-nav__search-form{
+  display:flex;align-items:center;
+  border:1.5px solid rgba(255,255,255,.2);
+  border-radius:6px;overflow:hidden;
+  background:rgba(255,255,255,.07);
+}
+.bbi-mobile-nav__search-input{
+  flex:1;
+  padding:10px 14px;
+  font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
+  font-size:14px;color:#ffffff;
+  background:none;border:none;outline:none;min-width:0;
+}
+.bbi-mobile-nav__search-input::placeholder{color:rgba(255,255,255,.4);}
+.bbi-mobile-nav__search-submit{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:0 14px;height:100%;
+  background:rgba(255,255,255,.1);border:none;cursor:pointer;
+  color:rgba(255,255,255,.8);flex-shrink:0;
+  transition:background-color 100ms ease;
+}
+.bbi-mobile-nav__search-submit:hover{background:#D4252A;color:#fff;}
+
 /* ---- Utility bar (phone + CTA + cart + hamburger) ---- */
 .bbi-header__utility{
   display:flex;align-items:center;gap:16px;
@@ -364,6 +472,7 @@
 @media(max-width:1023px){
   .bbi-header__nav,.bbi-header__phone{display:none;}
   .bbi-header .bbi-btn--primary{display:none;}
+  .bbi-header__search-bar{display:none;}
   .bbi-hamburger{display:flex;}
 }
 @media(min-width:1024px){
@@ -484,6 +593,25 @@
 
     </nav>
 
+    {%- comment -%} Inline search bar (desktop only) {%- endcomment -%}
+    <div class="bbi-header__search-bar">
+      <form class="bbi-header__search-form" action="/search" method="get" role="search">
+        <input type="hidden" name="type" value="product">
+        <span class="bbi-header__search-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 18 18" fill="none">
+            <circle cx="7.5" cy="7.5" r="5.25" stroke="currentColor" stroke-width="1.75"/>
+            <path d="M11.25 11.25L15.75 15.75" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <input class="bbi-header__search-input" type="search" name="q"
+          placeholder="Search products…"
+          autocomplete="off" autocorrect="off" spellcheck="false"
+          aria-label="Search products"
+          data-bbi-search-input>
+      </form>
+      <ul class="bbi-search-results" data-bbi-search-results aria-live="polite" aria-label="Search suggestions"></ul>
+    </div>
+
     {%- comment -%} Utility — phone + Quote CTA + cart + mobile hamburger {%- endcomment -%}
     <div class="bbi-header__utility">
       <a href="tel:18008359565" class="bbi-header__phone" aria-label="Call Brant Business Interiors at 1-800-835-9565">
@@ -553,6 +681,22 @@
           <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
         </svg>
       </button>
+    </div>
+
+    <div class="bbi-mobile-nav__search-row">
+      <form class="bbi-mobile-nav__search-form" action="/search" method="get">
+        <input type="hidden" name="type" value="product">
+        <input class="bbi-mobile-nav__search-input" type="search" name="q"
+          placeholder="Search products…"
+          autocomplete="off" autocorrect="off" spellcheck="false"
+          aria-label="Search products">
+        <button class="bbi-mobile-nav__search-submit" type="submit" aria-label="Submit search">
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <circle cx="7.5" cy="7.5" r="5.25" stroke="currentColor" stroke-width="1.75"/>
+            <path d="M11.25 11.25L15.75 15.75" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </form>
     </div>
 
     <div class="bbi-mobile-nav__scroll">
@@ -662,6 +806,60 @@
    ============================================================ */
 (function () {
   'use strict';
+
+  /* ---- Predictive search (inline bar) ---- */
+  (function () {
+    var input       = document.querySelector('[data-bbi-search-input]');
+    var resultsList = document.querySelector('[data-bbi-search-results]');
+    if (!input || !resultsList) return;
+
+    var _debounce;
+
+    function _esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function renderResults(products, q) {
+      if (!products.length) { resultsList.innerHTML = ''; return; }
+      var html = products.map(function (p) {
+        var img = p.featured_image && p.featured_image.url
+          ? '<div class="bbi-search-results__thumb"><img src="' + p.featured_image.url + '&width=72" alt="" width="36" height="36" loading="lazy"></div>'
+          : '<div class="bbi-search-results__thumb"></div>';
+        return '<li class="bbi-search-results__item"><a href="' + p.url + '">'
+          + img + '<span class="bbi-search-results__title">' + _esc(p.title) + '</span>'
+          + '</a></li>';
+      }).join('');
+      html += '<li><a class="bbi-search-results__all" href="/search?type=product&q='
+        + encodeURIComponent(q) + '">See all results for "' + _esc(q) + '" &rarr;</a></li>';
+      resultsList.innerHTML = html;
+    }
+
+    input.addEventListener('input', function () {
+      clearTimeout(_debounce);
+      var q = input.value.trim();
+      if (q.length < 2) { resultsList.innerHTML = ''; return; }
+      _debounce = setTimeout(function () {
+        fetch('/search/suggest?q=' + encodeURIComponent(q)
+          + '&resources[type]=product&resources[limit]=5', { headers: { Accept: 'application/json' } })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            renderResults((data.resources && data.resources.results && data.resources.results.products) || [], q);
+          })
+          .catch(function () {});
+      }, 200);
+    });
+
+    /* Clear results when clicking outside */
+    document.addEventListener('click', function (e) {
+      if (!input.closest('.bbi-header__search-bar').contains(e.target)) {
+        resultsList.innerHTML = '';
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') resultsList.innerHTML = '';
+    });
+  })();
 
   /* Desktop: keep aria-expanded in sync with hover / focus state */
   document.querySelectorAll('[data-nav-group]').forEach(function (group) {

@@ -6,20 +6,9 @@
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png"
       }
     },
-    "main-search": {
-      "type": "main-search",
-      "settings": {
-        "enable_filtering": false,
-        "open_filtering": false,
-        "open_all_filtering": false,
-        "enable_sorting": false,
-        "color_scheme": "primary",
-        "enable_gradient": false,
-        "top_space_desktop": 70,
-        "bottom_space_desktop": 70,
-        "top_space_mobile": 40,
-        "bottom_space_mobile": 40
-      }
+    "ds-search-results": {
+      "type": "ds-search-results",
+      "settings": {}
     },
     "bbi-footer-wrap": {
       "type": "bbi-footer-wrap",
@@ -30,7 +19,7 @@
   },
   "order": [
     "bbi-nav-wrap",
-    "main-search",
+    "ds-search-results",
     "bbi-footer-wrap"
   ]
 }

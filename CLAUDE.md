@@ -191,6 +191,8 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 
 | Need | File |
 |---|---|
+| **🔴 Tech-debt audit (2026-05-12)** | [data/reports/audit-tech-debt-2026-05-12.md](data/reports/audit-tech-debt-2026-05-12.md) |
+| **🔴 Empty collections snapshot** | [data/reports/empty-collections-snapshot-2026-05-12.csv](data/reports/empty-collections-snapshot-2026-05-12.csv) |
 | **🔴 Hero spec batch prompts** | [BBI-Session-Kickoff/hero-spec-prompts/](BBI-Session-Kickoff/hero-spec-prompts/) |
 | **🔴 Hero spec gaps output** | [data/reports/hero-spec-gaps-output.json](data/reports/hero-spec-gaps-output.json) |
 | **Track D — Design System (DS-0 → DS-4 COMPLETE)** | [docs/plan/track-d-design-system/README.md](docs/plan/track-d-design-system/README.md) |
