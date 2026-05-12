@@ -27,6 +27,10 @@ READ THESE FIRST (in order):
   4. data/reports/pe-pass2-products.json    (pre-filled data for each product)
   5. docs/strategy/icp.md                  (voice + audience rules)
   6. docs/strategy/voice-samples.md        (approved copy reference)
+  7. docs/strategy/brand-canonical-map.md  (canonical brand vocabulary
+     + sub-brand decisions — required reading for vendor_override)
+  8. docs/strategy/brand-canonical-map.csv (machine-readable map for
+     string variant → canonical_brand lookup)
 
 BATCH HANDLES (30 products, work through in this order):
    1. 2-drawer-legal-width-vertical-file
@@ -118,9 +122,23 @@ OUTPUT JSON FORMAT (write to pe-pass2-output.json after each product):
       "warranty": "...",
       "country_of_manufacture": "..."
     },
+    "vendor_override": "...",
     "steve_notes": "...",
     "timestamp": "..."
   }
+
+VENDOR_OVERRIDE RULES:
+  - Set vendor_override to the exact canonical_brand from
+    docs/strategy/brand-canonical-map.csv where is_standalone_brand=True.
+  - For Global Furniture Group divisions, use the STOREFRONT-FACING brand:
+    "OTG / Offices to Go" not "Global Upholstery Co.";
+    "Global Furniture Group" not "Global Fileworks", "Newland", or "Global Basics".
+    Folded sub-brands (is_standalone_brand=False) roll up to their parent_brand.
+  - Unknown manufacturer after reasonable research: set vendor_override =
+    "Brant Business Interiors" AND add research_failed_reason field explaining
+    why (e.g., "no model code in title", "model code matches no known brand").
+  - Case-sensitive — match canonical_brand spelling exactly as in the CSV.
+  - Never null, never empty string.
 
 CHECKPOINT FORMAT (write to pe-pass2-checkpoint.json after each product):
   completed["handle"] = {
@@ -128,6 +146,20 @@ CHECKPOINT FORMAT (write to pe-pass2-checkpoint.json after each product):
     "batch": "Batch 6",
     "timestamp": "..."
   }
+
+VALIDATION (run before reporting batch complete):
+  - Every product in the batch output has vendor_override populated
+    (never null, never empty string).
+  - Every vendor_override value matches a canonical_brand from
+    brand-canonical-map.csv exactly (case-sensitive). Use:
+
+      python3 -c "
+      import csv
+      with open('docs/strategy/brand-canonical-map.csv') as f:
+          canonical = {r['canonical_brand'] for r in csv.DictReader(f)
+                       if r.get('is_standalone_brand', '').lower() == 'true'}
+      # Then check each batch output row's vendor_override is in canonical
+      "
 
 Confirm you have read all files listed above, then start with the first
 unprocessed handle in this batch. Show me the product card and wait for my input.
