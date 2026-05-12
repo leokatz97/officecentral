@@ -10,6 +10,7 @@
   Schema.org fields:
     @type: Product
     name, description, image (array), brand (Organization), sku, mpn (if present),
+    additionalProperty (array) — one PropertyValue per filled specs.* metafield
     offers: { @type: Offer, price, priceCurrency: CAD, availability, url, seller }
 {%- endcomment -%}
 
@@ -25,8 +26,24 @@
   endif
 
   assign offer_price = variant.price | divided_by: 100.0
-
   assign mpn_val = variant.sku | default: ''
+
+  assign _ap_manufacturer  = product.metafields.specs.manufacturer.value
+  assign _ap_product_line  = product.metafields.specs.product_line.value
+  assign _ap_model_codes   = product.metafields.specs.model_codes.value
+  assign _ap_dimensions    = product.metafields.specs.dimensions.value
+  assign _ap_weight        = product.metafields.specs.weight.value
+  assign _ap_weight_cap    = product.metafields.specs.weight_capacity.value
+  assign _ap_materials     = product.metafields.specs.materials.value
+  assign _ap_finishes      = product.metafields.specs.finishes_available.value
+  assign _ap_certifications = product.metafields.specs.certifications.value
+  assign _ap_warranty      = product.metafields.specs.warranty.value
+  assign _ap_country       = product.metafields.specs.country_of_manufacture.value
+
+  assign _has_ap = false
+  if _ap_manufacturer or _ap_product_line or _ap_model_codes or _ap_dimensions or _ap_weight or _ap_weight_cap or _ap_materials or _ap_finishes or _ap_certifications or _ap_warranty or _ap_country
+    assign _has_ap = true
+  endif
 -%}
 
 <script type="application/ld+json">
@@ -51,6 +68,65 @@
   {%- endif -%}
   {%- if mpn_val != blank -%}
   "mpn": {{ mpn_val | json }},
+  {%- endif -%}
+  {%- if _has_ap -%}
+  "additionalProperty": [
+    {%- assign _ap_first = true -%}
+    {%- if _ap_manufacturer != blank -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Manufacturer","value":{{ _ap_manufacturer | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_product_line != blank -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Product Line","value":{{ _ap_product_line | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_model_codes != blank and _ap_model_codes.size > 0 -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Model","value":{{ _ap_model_codes | join: ', ' | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_dimensions != blank -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Dimensions","value":{{ _ap_dimensions | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_weight != blank -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Weight","value":{{ _ap_weight | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_weight_cap != blank -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Weight Capacity","value":{{ _ap_weight_cap | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_materials != blank -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Materials","value":{{ _ap_materials | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_finishes != blank and _ap_finishes.size > 0 -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Finishes Available","value":{{ _ap_finishes | join: ', ' | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_certifications != blank and _ap_certifications.size > 0 -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Certifications","value":{{ _ap_certifications | join: ', ' | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_warranty != blank -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Warranty","value":{{ _ap_warranty | json }}}
+      {%- assign _ap_first = false -%}
+    {%- endif -%}
+    {%- if _ap_country != blank -%}
+      {%- unless _ap_first -%},{%- endunless -%}
+      {"@type":"PropertyValue","name":"Country of Manufacture","value":{{ _ap_country | json }}}
+    {%- endif -%}
+  ],
   {%- endif -%}
   "offers": {
     "@type": "Offer",
