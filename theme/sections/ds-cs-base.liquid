@@ -291,6 +291,13 @@
     assign _cs_parent_href = '/collections/' | append: parent_handle
   -%}
   {%- render 'bbi-crumbs', c2_label: 'Shop Furniture', c2_href: '/collections/business-furniture', c3_label: parent_title, c3_href: _cs_parent_href, c4_label: page_title -%}
+  {%- comment -%} AI-6: BreadcrumbList JSON-LD — 4-level: Home > Shop Furniture > Category > Sub-collection {%- endcomment -%}
+  {%- render 'bbi-breadcrumb-jsonld',
+      bc1_name: 'Home', bc1_url: shop.url,
+      bc2_name: 'Shop Furniture', bc2_url: shop.url | append: '/collections/business-furniture',
+      bc3_name: parent_title, bc3_url: shop.url | append: _cs_parent_href,
+      bc4_name: page_title, bc4_url: shop.url | append: collection.url
+  -%}
 
   {%- comment -%} ── Hero strip ── {%- endcomment -%}
   <section class="ds-cs__hero">

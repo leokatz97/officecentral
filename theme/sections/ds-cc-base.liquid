@@ -506,8 +506,19 @@
   -%}
   {%- if section.settings.breadcrumb_parent_label != blank -%}
     {%- render 'bbi-crumbs', c2_label: section.settings.breadcrumb_parent_label, c2_href: _cc_parent_href, c3_label: _cc_title -%}
+    {%- comment -%} AI-6: BreadcrumbList JSON-LD — 3-level: Home > Shop Furniture > Category {%- endcomment -%}
+    {%- render 'bbi-breadcrumb-jsonld',
+        bc1_name: 'Home', bc1_url: shop.url,
+        bc2_name: section.settings.breadcrumb_parent_label, bc2_url: shop.url | append: _cc_parent_href,
+        bc3_name: _cc_title, bc3_url: shop.url | append: collection.url
+    -%}
   {%- else -%}
     {%- render 'bbi-crumbs', c2_label: _cc_title -%}
+    {%- comment -%} AI-6: BreadcrumbList JSON-LD — 2-level: Home > Category {%- endcomment -%}
+    {%- render 'bbi-breadcrumb-jsonld',
+        bc1_name: 'Home', bc1_url: shop.url,
+        bc2_name: _cc_title, bc2_url: shop.url | append: collection.url
+    -%}
   {%- endif -%}
 
   {%- comment -%} ── Hero ── {%- endcomment -%}
