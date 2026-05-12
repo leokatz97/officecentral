@@ -225,8 +225,8 @@ body { background: #FFFFFF !important; }
 .pdp-about__body h5:first-child,
 .pdp-about__body h6:first-child { margin-top: 0; }
 .pdp-about__bestfor { border-top: 1px solid var(--borderColor); margin-top: 32px; padding-top: 24px; }
-.pdp-about__bestfor-label { font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; }
-.pdp-about__bestfor-text { font-size: 17px; line-height: 1.5; font-family: 'Inter Tight', sans-serif; font-weight: 500; margin: 0; }
+.pdp-about__bestfor .pdp-section-eyebrow { margin: 0 0 8px; }
+.pdp-about__bestfor-text { font-size: 17px; line-height: 1.6; font-family: 'Inter Tight', sans-serif; font-weight: 400 !important; color: rgba(var(--textColor-rgb), 0.82); max-width: 640px; margin: 0; }
 
 /* ── Below-fold Specifications section ───────────────────────────────────── */
 .pdp-specs-section { background: var(--alternateBackground); border-top: 1px solid var(--borderColor); padding: 64px 0; }
@@ -664,7 +664,7 @@ body { background: #FFFFFF !important; }
         {%- assign who_its_for = product.metafields.specs.who_its_for.value -%}
         {%- if who_its_for != blank -%}
           <div class="pdp-about__bestfor">
-            <p class="pdp-about__bestfor-label">BEST FOR</p>
+            <p class="pdp-section-eyebrow">Who it's for</p>
             <p class="pdp-about__bestfor-text">{{ who_its_for }}</p>
           </div>
         {%- endif -%}

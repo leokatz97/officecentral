@@ -30,7 +30,8 @@ SPECS_DIR = "data/specs"
 SPEC_FIELDS = [
     "manufacturer", "product_line", "model_codes", "dimensions",
     "weight", "weight_capacity", "materials", "finishes_available",
-    "key_features", "certifications", "warranty", "country_of_manufacture"
+    "key_features", "certifications", "warranty", "country_of_manufacture",
+    "who_its_for"
 ]
 
 DRY_RUN = "--live" not in sys.argv

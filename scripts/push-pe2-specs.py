@@ -50,6 +50,7 @@ FIELD_MAP = [
     ('certifications',         'list.single_line_text_field', True),
     ('warranty',               'single_line_text_field',      False),
     ('country_of_manufacture', 'single_line_text_field',      False),
+    ('who_its_for',            'single_line_text_field',      False),
 ]
 INTERNAL_KEYS = {'confidence', 'source_urls', 'notes'}
 
