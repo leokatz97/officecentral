@@ -653,7 +653,14 @@ body { background: #FFFFFF !important; }
         {%- if tagline != blank -%}
           <h2 class="pdp-about__tagline">{{ tagline | escape }}</h2>
         {%- endif -%}
-        <div class="pdp-about__body">{{ product.description }}</div>
+        {%- comment -%}
+          Strip everything from the first <h3> onward — Key features / Who it's for /
+          closing boilerplate all live in the Specs section or the BEST FOR block below.
+          For legacy products with no <h3>, the split returns a single-item array and
+          [0] is the full description — no content lost.
+        {%- endcomment -%}
+        {%- assign _desc_intro = product.description | split: '<h3>' | first -%}
+        <div class="pdp-about__body">{{ _desc_intro }}</div>
         {%- assign who_its_for = product.metafields.specs.who_its_for.value -%}
         {%- if who_its_for != blank -%}
           <div class="pdp-about__bestfor">
