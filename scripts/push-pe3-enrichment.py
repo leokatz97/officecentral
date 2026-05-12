@@ -24,9 +24,13 @@ Sources:
   • Enrichment 157:  data/reports/pe-pass2-output.json  (from PE-PASS-2 sessions)
   • Hero 100:        data/specs.json  (from lookup-specs.py, --hero flag)
 """
-import json, os, sys, time, urllib.request, urllib.error
+import json, os, re, sys, time, urllib.request, urllib.error
 from datetime import datetime
 from pathlib import Path
+
+
+def slugify(text):
+    return re.sub(r'[^a-z0-9]+', '-', text.lower()).strip('-')
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_PATH  = ROOT / 'data/reports/pe-pass2-output.json'
@@ -137,8 +141,8 @@ def fetch_products(handles):
 
 
 def fetch_product_body(numeric_id):
-    """Fetch current body_html via REST (GraphQL body is stripped HTML)."""
-    url = f'{REST}/products/{numeric_id}.json?fields=id,body_html,vendor'
+    """Fetch current body_html and tags via REST (GraphQL body is stripped HTML)."""
+    url = f'{REST}/products/{numeric_id}.json?fields=id,body_html,vendor,tags'
     req = urllib.request.Request(url, headers={'X-Shopify-Access-Token': TOKEN})
     with urllib.request.urlopen(req, timeout=30) as r:
         return json.loads(r.read())['product']
@@ -188,23 +192,36 @@ def set_metafields(product_gid, fields):
             raise RuntimeError(f'metafieldsSet errors: {errs}')
 
 
-def update_product_body(numeric_id, body_html, vendor=None):
+def update_product_body(numeric_id, body_html, vendor=None, tags=None):
     payload = {'product': {'id': numeric_id, 'body_html': body_html}}
     if vendor:
         payload['product']['vendor'] = vendor
+    if tags is not None:
+        payload['product']['tags'] = tags
     rest_put(f'/products/{numeric_id}.json', payload)
 
 
 # ── Source loaders ───────────────────────────────────────────────────────────
 
 def load_enrichment_products():
-    """Load pe-pass2-output.json — enrichment session outputs."""
+    """Load pe-pass2-output.json — enrichment session outputs.
+
+    Reads both the nested 'products' dict (Batches 1+2) and top-level
+    product entries (Batch 3+) which share the same record schema.
+    """
     with open(OUTPUT_PATH) as f:
         data = json.load(f)
-    products = data.get('products', {})
+    # Merge nested 'products' key with top-level handle entries
+    merged = {}
+    merged.update(data.get('products', {}))
+    for k, v in data.items():
+        if k in ('created', 'last_updated', 'products'):
+            continue
+        if isinstance(v, dict) and 'action' in v:
+            merged[k] = v
     ready = {}
-    for handle, rec in products.items():
-        if rec.get('status') in ('skip', 'other'):
+    for handle, rec in merged.items():
+        if rec.get('action') in ('skip', 'other'):
             continue
         ready[handle] = rec
     return ready
@@ -306,8 +323,9 @@ def main():
                 continue
             spec_fields.append((jkey, mtype, new_val))
 
-        # Description diff
-        new_body = rec.get('description')
+        # Description diff — field may be 'draft_body_html' (enrichment sessions)
+        # or 'description' (legacy)
+        new_body = rec.get('draft_body_html') or rec.get('description')
         current_body = backup.get(handle, {}).get('body_html', '')
         body_changed = new_body and new_body.strip() != (current_body or '').strip()
 
@@ -315,7 +333,20 @@ def main():
         vendor_override = rec.get('vendor_override')
         vendor_changed  = vendor_override and vendor_override != current_vendor
 
-        if not spec_fields and not body_changed and not vendor_changed:
+        # Brand tag diff — always apply when vendor_override is set
+        new_tags_str = None
+        tag_changed = False
+        if vendor_override:
+            slug = f'brand:{slugify(vendor_override)}'
+            current_tags_raw = backup.get(handle, {}).get('tags', '') or ''
+            current_tags = {t.strip() for t in current_tags_raw.split(',') if t.strip()}
+            non_brand = {t for t in current_tags if not t.startswith('brand:')}
+            new_tag_set = non_brand | {slug}
+            tag_changed = new_tag_set != current_tags
+            if tag_changed:
+                new_tags_str = ', '.join(sorted(new_tag_set))
+
+        if not spec_fields and not body_changed and not vendor_changed and not tag_changed:
             plan.append({'handle': handle, 'status': 'UNCHANGED',
                          'numeric_id': numeric_id}); continue
 
@@ -329,21 +360,25 @@ def main():
             'new_body':        new_body if body_changed else None,
             'vendor_changed':  vendor_changed,
             'new_vendor':      vendor_override if vendor_changed else None,
+            'tag_changed':     tag_changed,
+            'new_tags':        new_tags_str,
         })
 
     will      = [p for p in plan if p['status'] == 'WILL_UPDATE']
     unchanged = [p for p in plan if p['status'] == 'UNCHANGED']
     not_found = [p for p in plan if p['status'] == 'NOT_FOUND']
 
-    spec_writes  = sum(len(p['spec_fields']) for p in will)
-    body_writes  = sum(1 for p in will if p.get('body_changed'))
+    spec_writes   = sum(len(p['spec_fields']) for p in will)
+    body_writes   = sum(1 for p in will if p.get('body_changed'))
     vendor_writes = sum(1 for p in will if p.get('vendor_changed'))
+    tag_writes    = sum(1 for p in will if p.get('tag_changed'))
 
     print(f'\nPlan:')
     print(f'  Products to update: {len(will)}')
     print(f'    Spec field writes: {spec_writes}')
     print(f'    Description rewrites: {body_writes}')
     print(f'    Vendor overrides: {vendor_writes}')
+    print(f'    Brand tag updates: {tag_writes}')
     print(f'  Products unchanged: {len(unchanged)}')
     print(f'  Products not found: {len(not_found)}')
 
@@ -356,6 +391,8 @@ def main():
                 print(f'    ↳ description: {preview}…')
             if p.get('vendor_changed'):
                 print(f'    ↳ vendor → {p["new_vendor"]}')
+            if p.get('tag_changed'):
+                print(f'    ↳ tags → {p["new_tags"]}')
             for k, _, v in p['spec_fields']:
                 vs = v if len(v) < 80 else v[:77] + '…'
                 print(f'    + specs.{k:<25s} {vs}')
@@ -370,12 +407,13 @@ def main():
             # Spec metafields
             if p['spec_fields']:
                 set_metafields(p['product_gid'], p['spec_fields'])
-            # Description + vendor via REST
-            if p.get('body_changed') or p.get('vendor_changed'):
+            # Description + vendor + tags via REST
+            if p.get('body_changed') or p.get('vendor_changed') or p.get('tag_changed'):
                 update_product_body(
                     p['numeric_id'],
                     p.get('new_body') or backup.get(p['handle'], {}).get('body_html', ''),
                     p.get('new_vendor'),
+                    p.get('new_tags'),
                 )
             ok_p += 1
             log.append({
@@ -384,11 +422,13 @@ def main():
                 'spec_fields_set': [k for k, _, _ in p['spec_fields']],
                 'description_updated': bool(p.get('body_changed')),
                 'vendor_updated': bool(p.get('vendor_changed')),
+                'tag_updated': bool(p.get('tag_changed')),
             })
             print(f'[{i:3d}/{len(will)}] OK  {p["handle"]}  '
                   f'({len(p["spec_fields"])} specs'
                   f'{", desc" if p.get("body_changed") else ""}'
-                  f'{", vendor" if p.get("vendor_changed") else ""})')
+                  f'{", vendor" if p.get("vendor_changed") else ""}'
+                  f'{", tag" if p.get("tag_changed") else ""})')
         except Exception as e:
             fail_p += 1
             log.append({'handle': p['handle'], 'status': 'FAIL', 'error': str(e)[:300]})
