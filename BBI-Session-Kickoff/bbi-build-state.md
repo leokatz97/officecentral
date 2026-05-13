@@ -1,6 +1,6 @@
 # BBI Build State — Single Source of Truth
 
-**Last updated:** 2026-05-13 (PE Pass 3 COMPLETE — 143/157 products live; Batch 4, INNOVATIONS-FIX, Batch 6 logged; 10 pending canonical brand map additions catalogued for COLLECTION-CLEANUP-1; re-push idempotency confirmed)
+**Last updated:** 2026-05-13 (Sub-steps A+B+C1+C2 COMPLETE — canonical map 30 brands; 15 products re-tagged; 164 collections unpublished; 207 active collections; 164 redirects in data/url-redirects-bulk.csv ready for manual import)
 **Dev theme:** BBI Landing Dev (`186373570873`) — never publish to live until LAUNCH-2
 **Live theme:** brantbusinessinteriors.com (production — untouched)
 **Replaces:** the status sections in `shopify-fix-plan.md` and the localStorage-bound `SEEDS` in `website-fix-checklist.html`
@@ -265,6 +265,33 @@ products had byte-identical body_html before and after re-push.
 Future batch sessions can expect push counts higher than the
 batch's product count; this is feature, not bug.
 
+**RESOLUTION 2026-05-13:** All 15 affected products re-tagged
+in commit 66a0bff (APPLY-MAP-ADDITIONS, Sub-step B).
+Canonical map total: 30 brands (added Safco, Humanscale, Victor
+Technology LLC, Rocelco, HDL, Kensington, Sentry Safe, FireKing,
+Tayco in commit 29bcbad — Sub-step A). Heartwood slug migration
+surfaced 0 stragglers — already migrated in earlier sessions.
+
+### Global-Teknion smart collection — restored to intent (2026-05-13)
+The brands-global-teknion smart collection was found to be running
+on a single legacy rule `tag equals brand:global-teknion`, matching
+21 unenriched products carrying the merged legacy tag. The rule
+was broken — it would have collapsed to 0 products as remaining
+stragglers got normalized. COLLECTION-CLEANUP-APPLY (commit 737f6f6)
+updated the rule to disjunctive `brand:global-furniture-group OR
+brand:teknion`, restoring the hybrid Wave C intent. Collection now
+shows 72 products (all GFG + Teknion combined). 18 unenriched
+stragglers had the legacy tag stripped; they will receive correct
+canonical brand tags during Phase 1b post-launch enrichment.
+
+### Collections — post-COLLECTION-CLEANUP-APPLY state (2026-05-13)
+Active collections post-COLLECTION-CLEANUP-APPLY: 207
+(was 371 before 2026-05-13 audit + cleanup). 164 unpublished —
+either ARCHIVE (legacy / 0-product / not in nav) or REDIRECT
+(legacy brand collections folded into /pages/brands).
+data/url-redirects-bulk.csv contains 164 rows ready for
+Shopify Admin import.
+
 ---
 
 ## Wave A — Foundations + Phase 2 build
@@ -383,7 +410,7 @@ batch's product count; this is feature, not bug.
 | KF-STRIP | Key Features de-duplication in About section | ✅ | commit `5f4a3bc` · `theme/sections/ds-pdp-base.liquid` | `product.description \| split: '<h3>' \| first` strips Key Features / Who it's for / closing boilerplate from the About block. Legacy products with no `<h3>` unaffected (single-item array, full description returned). Verified via API on 2600 Series (789 chars, 2 h3 sections stripped) and visually on Arlo chair. |
 | SPEC-HERO-PUSH | Hero 100 spec gap-fill + metafield push | ✅ | `data/specs.json` (100) + `data/logs/pe2-push-20260511-230357.json` (final push) | **All hero spec sessions complete (2026-05-11).** Steve ran H1A (12), H1B (11), H2 (19), H3 (~35), and a bonus `hero-batch-other.md` (9). Output file: 99 products (49 done + 33 auto-patched OTG/Global + 16 skip + 1 service). All pushed: `merge-hero-specs.py --live --push` confirmed. Final push log: `pe2-push-20260511-230357.json`. |
 | HERO-SPEC-SESSIONS | Hero 100 spec gap enrichment sessions (H1A → H3) | ✅ | `data/reports/hero-spec-gaps-output.json` — 99 products complete | **All 4 batches run by Steve (H1A/H1B/H2/H3) + bonus `hero-batch-other.md`.** 49 done + 33 auto-patched (OTG/Global warranty + country) + 16 skip + 1 service. Merge+push confirmed via `scripts/merge-hero-specs.py --live --push`. |
-| PE-PASS-3 | Push enrichment to Shopify (descriptions + specs + vendor) | ✅ | `scripts/push-pe3-enrichment.py` · `data/logs/pe3-push-20260511-235643.json` · `data/logs/pe3-push-20260512-224332.json` · commits d898b12 (Batch 4) · a4582ea (INNOVATIONS-FIX) · a44d14c (Batch 6) | **COMPLETE 2026-05-13. Final progress: 143 of 157 products enriched and live on storefront.** Batches shipped: 1 (25), 2 (26), 3 (19), 4 (25), 5 (10), 6 (30), 7 (13) = 148 total batch rows; 143 enriched + live, 14 are routed-to-Other or intentional skip rows. 10 new brand singletons surfaced across Batches 4 + 6 + TAG-AUDIT-1 — catalogued in Known Data Hygiene Issues → Canonical brand map gaps; none are blockers. Closes Step 8 of the launch tracker. |
+| PE-PASS-3 | Push enrichment to Shopify (descriptions + specs + vendor) | ✅ | `scripts/push-pe3-enrichment.py` · `data/logs/pe3-push-20260511-235643.json` · `data/logs/pe3-push-20260512-224332.json` · commits d898b12 (Batch 4) · a4582ea (INNOVATIONS-FIX) · a44d14c (Batch 6) | **COMPLETE 2026-05-13. Final progress: 143 of 157 products enriched and live on storefront.** Batches shipped: 1 (25), 2 (26), 3 (19), 4 (25), 5 (10), 6 (30), 7 (13) = 148 total batch rows; 143 enriched + live, 14 are routed-to-Other or intentional skip rows. 10 new brand singletons surfaced across Batches 4 + 6 + TAG-AUDIT-1 — catalogued in Known Data Hygiene Issues → Canonical brand map gaps; none are blockers. Closes Step 8 of the launch tracker. **PE Pass 3 COMPLETE 2026-05-13. 143/157 products enriched and live. Remaining 14 are intentional skip / routed-to-Other.** |
 | SPEC-CANARY | Live canary test — Google Rich Results Test | 🟡 | `bbi-product-jsonld.liquid` + `ds-pdp-base.liquid` pushed to live theme `178274435385` | Both files live on `178274435385`. **Note:** live site brantbusinessinteriors.com uses Avada's `main-product` section (not `ds-pdp-base`) — so additionalProperty won't render on the live public site until the dev theme is set as the main theme. Dev theme (186373570873) verified on localhost:9292: additionalProperty rendered, About section clean. **Remaining:** Google Rich Results Test on a Hero product URL once dev theme preview is accessible — defers to pre-launch SEO-AUDIT-1. |
 | ICP-V2 | ICP v2 approved + cascaded to all prompt files | ✅ | commit `1d6684c` · `docs/strategy/icp.md`, `.claude/skills/bbi-build-page/SKILL.md`, 8 enrichment batch files | Steve approved 2026-05-06 draft. Changes: co-primary ICPs A+B (institutional + SMB equal weight), Ontario + Western Canada co-primary geography, dual buying mode (cart + quote), install in Ontario + Western Canada. Cascaded to: SKILL.md (buyers context, ICP gate question, card CTA dual-mode), all 8 enrichment prompts (closing ¶ delivery/install language, OECM Ontario-vs-national distinction). |
 | AUDIT-1 | Pre-launch tech-debt + state audit | ✅ | `data/reports/audit-tech-debt-2026-05-12.md` · `data/reports/empty-collections-snapshot-2026-05-12.csv` | 15 findings total. 4 blockers promoted to launch path Steps 1–4. 11 deferred. Surfaced vendor data hygiene issues now catalogued in "Known Data Hygiene Issues" section above. |
@@ -391,6 +418,10 @@ batch's product count; this is feature, not bug.
 | PE-PASS-3-BATCH-4 | Desks & Tables Part 1 enrichment batch | ✅ | commit d898b12 | 2026-05-13 · 25 products enriched + pushed (9 OTG, 7 GFG, 2 Office Star, 1 Fellowes, 1 Heartwood, 5 BBI fallback) · 5/5 storefront verification · 5 research_failed_reasons surfaced (Victor Technology, Rocelco, HDL identified for canonical map addition) |
 | INNOVATIONS-FIX | Corrected canonical brand map — Innovations re-attributed from Global Furniture Group to Heartwood Manufacturing Ltd. | ✅ | commit a4582ea | 2026-05-13 · as_standalone=False, parent=Heartwood · 5 products re-tagged (vendor + metafield + brand tag) · surfaced during Batch 4 enrichment research, confirmed via heartwooddl.com · 5/5 verification |
 | PE-PASS-3-BATCH-6 | Storage & Accessories enrichment batch — LAST PE Pass 3 batch | ✅ | commit a44d14c | 2026-05-13 · 30 products enriched + pushed (9 Heartwood, 7 OTG, 4 Fellowes, 1 Deflecto, 9 BBI fallback) · 5/5 storefront verification · 4 new brand singletons surfaced (Kensington, Sentry Safe, FireKing, Tayco — all flagged for canonical map addition) · Step 8 closes |
+| CANONICAL-MAP-ADDITIONS | Add 9 new canonical brands to brand map | ✅ | commit 29bcbad | 2026-05-13 (Sub-step A) · added 9 new canonical brands to docs/strategy/brand-canonical-map.md + .csv (Safco, Humanscale, Victor Technology LLC, Rocelco, HDL, Kensington, Sentry Safe, FireKing, Tayco) · canonical brand total 20 → 30 · Heartwood slug migration captured in notes |
+| APPLY-MAP-ADDITIONS | Re-tag 15 products to match new canonical entries | ✅ | commit 66a0bff | 2026-05-13 (Sub-step B) · re-tagged 15 products to match new canonical entries · vendor field + specs.manufacturer metafield + brand:* tag now agree per product across the full canonical brand map · 15/15 verification clean |
+| COLLECTION-AUDIT | Audit all 371 collections — read-only | ✅ | commit a24b9e3 | 2026-05-13 (Sub-step C1, read-only) · 371 collections audited (49 smart, 322 custom) · 148 zero-product · 30 dead tile links surfaced · /collections/other browsable with 337 archived products flagged urgent · 39 INVESTIGATE flagged for human review · output data/reports/collection-audit-2026-05-13.md |
+| COLLECTION-CLEANUP-APPLY | Apply audit dispositions — 164 collections unpublished | ✅ | commit 737f6f6 | 2026-05-13 (Sub-step C2) · applied audit dispositions · 164 collections unpublished (161 ARCHIVE + 3 REDIRECT) · 18 unenriched stragglers stripped of brand:global-teknion tag · global-teknion smart collection rule converted to disjunctive (GFG OR Teknion), now 72 products · /collections/other unpublished · 10 dead tile blocks removed from 4 category templates · 1 dead link updated · 164 redirects added to data/url-redirects-bulk.csv · Steve must manually import redirects via Shopify Admin |
 
 ---
 
