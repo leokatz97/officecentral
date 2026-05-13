@@ -119,6 +119,17 @@ _Sorted by enriched product count, descending. Counts reflect only the 152 curre
 
 ---
 
+### Safco
+
+- **Product count:** 4
+- **Standalone storefront brand:** Yes
+- **Storefront callable:** No (below ≥10 threshold)
+- **Mapped from variants:**
+  - "Safco" (4 products)
+- **Reasoning:** Safco manufactures office storage products and chair mats. 4 products surfaced during TAG-AUDIT-1; below the ≥10 storefront callout threshold.
+
+---
+
 ### Fellowes
 
 - **Product count:** 3
@@ -158,6 +169,28 @@ _Sorted by enriched product count, descending. Counts reflect only the 152 curre
 
 ---
 
+### Humanscale
+
+- **Product count:** 2
+- **Standalone storefront brand:** Yes
+- **Storefront callable:** No (below ≥10 threshold)
+- **Mapped from variants:**
+  - "Humanscale" (2 products)
+- **Reasoning:** Humanscale is a premium ergonomic tool and accessory manufacturer. 2 products surfaced during TAG-AUDIT-1; below the ≥10 storefront callout threshold.
+
+---
+
+### Sentry Safe
+
+- **Product count:** 2
+- **Standalone storefront brand:** Yes
+- **Storefront callable:** No (below ≥10 threshold)
+- **Mapped from variants:**
+  - "Sentry Safe" (2 products)
+- **Reasoning:** Sentry Safe (Sentry Group parent) manufactures security safes. 2 products (SFW082DTB + X125) surfaced during PE Pass 3 Batch 6; below the ≥10 storefront callout threshold.
+
+---
+
 ### ergoCentric
 
 - **Product count:** 1
@@ -179,6 +212,17 @@ _Sorted by enriched product count, descending. Counts reflect only the 152 curre
 - **Mapped from variants:**
   - "Axis Bar Leaners" (1 product)
 - **Reasoning:** Single product (`bar-leaner-1-span-collaborative`). **Manufacturer attribution uncertain** — `specs.json` confidence=low; source was BBI's own product page only; `country_of_manufacture=Australia`; certifications include GECA and AFRDI (exclusively Australian certification bodies). Likely Axis Workspace Group (Australian commercial furniture manufacturer). **Verify against BBI purchase records before PE Pass 3 batches enrich more similar products.**
+
+---
+
+### FireKing
+
+- **Product count:** 1
+- **Standalone storefront brand:** Yes
+- **Storefront callable:** No (below ≥10 threshold)
+- **Mapped from variants:**
+  - "FireKing" (1 product)
+- **Reasoning:** FireKing manufactures fire-resistant storage cabinets. Single product (fireking-storage-cabinet-44-high) surfaced during PE Pass 3 Batch 6; below the ≥10 storefront callout threshold.
 
 ---
 
@@ -206,6 +250,17 @@ _Sorted by enriched product count, descending. Counts reflect only the 152 curre
 
 ---
 
+### HDL
+
+- **Product count:** 1
+- **Standalone storefront brand:** Yes
+- **Storefront callable:** No (below ≥10 threshold)
+- **Mapped from variants:**
+  - "HDL" (1 product)
+- **Reasoning:** HDL manufactures resin folding tables, distributed in Canada by Grand & Toy. Single product (hdl-5-resin-folding-table) surfaced during PE Pass 3 Batch 4; below the ≥10 storefront callout threshold.
+
+---
+
 ### Keilhauer
 
 - **Product count:** 0 _(not yet in enriched set)_
@@ -214,6 +269,17 @@ _Sorted by enriched product count, descending. Counts reflect only the 152 curre
 - **Storefront callable:** No (0 enriched products — re-evaluate after PE Pass 3)
 - **Mapped from variants:** _(none in current enriched set)_
 - **Reasoning:** BBI has an existing brand page (`/pages/brands-keilhauer`) and smart collection infrastructure, but 0 enriched products. Added to canonical map so PE Pass 3 batches can tag any Keilhauer products correctly when surfaced. **Re-evaluate callable after PE Pass 3 completes.**
+
+---
+
+### Kensington
+
+- **Product count:** 1
+- **Standalone storefront brand:** Yes
+- **Storefront callable:** No (below ≥10 threshold)
+- **Mapped from variants:**
+  - "Kensington" (1 product)
+- **Reasoning:** Kensington manufactures tech security and charging accessories (e.g. AC12 security charging cabinet). Single product surfaced during PE Pass 3 Batch 6; below the ≥10 storefront callout threshold.
 
 ---
 
@@ -277,6 +343,28 @@ _Sorted by enriched product count, descending. Counts reflect only the 152 curre
 
 ---
 
+### Rocelco
+
+- **Product count:** 1
+- **Standalone storefront brand:** Yes
+- **Storefront callable:** No (below ≥10 threshold)
+- **Mapped from variants:**
+  - "Rocelco" (1 product)
+- **Reasoning:** Rocelco manufactures sit-stand desk risers and ergonomic accessories. Single product (sit-stand-adjustable-desk-riser-32-wide) surfaced during PE Pass 3 Batch 4; below the ≥10 storefront callout threshold.
+
+---
+
+### Tayco
+
+- **Product count:** 1
+- **Standalone storefront brand:** Yes
+- **Storefront callable:** No (below ≥10 threshold)
+- **Mapped from variants:**
+  - "Tayco" (1 product)
+- **Reasoning:** Tayco is a Toronto, ON manufacturer of the Halifax office furniture line. Single product (halifax-typical-4) surfaced during PE Pass 3 Batch 6; below the ≥10 storefront callout threshold.
+
+---
+
 ### Teknion
 
 - **Product count:** 0 _(not yet in enriched set)_
@@ -297,6 +385,17 @@ _Sorted by enriched product count, descending. Counts reflect only the 152 curre
 - **Mapped from variants:**
   - "Uline" (1 product)
 - **Reasoning:** Uline is primarily a North American industrial/office supply distributor, not a manufacturer. Attribution for `height-adjustable-base-pneumatic` may be wrong. Single product, not callable.
+
+---
+
+### Victor Technology LLC
+
+- **Product count:** 1
+- **Standalone storefront brand:** Yes
+- **Storefront callable:** No (below ≥10 threshold)
+- **Mapped from variants:**
+  - "Victor Technology LLC" (1 product)
+- **Reasoning:** Victor Technology LLC manufactures monitor arms and ergonomic desktop accessories. Single product (electric-dual-monitor-arm dc450) surfaced during PE Pass 3 Batch 4; below the ≥10 storefront callout threshold.
 
 ---
 
@@ -337,12 +436,32 @@ Global Furniture Group is a publicly traded Canadian conglomerate. The divisions
 |---|---|
 | Enriched products analysed | 152 |
 | Raw `specs.manufacturer` string variants | 50 |
-| Canonical brands resolved | **20** |
+| Canonical brands resolved | **30** |
 | Standalone storefront brands | 18 |
 | **Storefront callable** | **4** (OTG / Offices to Go, Global Furniture Group, Heartwood Manufacturing Ltd., ObusForme) |
 | Callable pending re-evaluation after PE Pass 3 | 2 (ergoCentric, Keilhauer) |
 | Folded GFG sub-brands | 4 (Global Upholstery Co., Global Fileworks, Newland, Global Basics) |
 | Added as forward references (0 enriched products) | 2 (Keilhauer, Teknion) |
+
+---
+
+## Updates and corrections
+
+### 2026-05-13 — 10 brand additions + Heartwood slug migration
+
+Sources: PE Pass 3 Batch 4 (Victor Technology, Rocelco, HDL),
+PE Pass 3 Batch 6 (Kensington, Sentry Safe, FireKing, Tayco),
+TAG-AUDIT-1 (Safco, Humanscale, Heartwood slug). All 10 brands
+added as is_standalone=True with storefront_callable=False due to
+low product counts. Pending product re-tagging in Sub-step B
+(APPLY-MAP-ADDITIONS).
+
+### 2026-05-13 — Heartwood slug migration
+
+One product carries the legacy `brand:heartwood` tag instead of the
+canonical `brand:heartwood-manufacturing-ltd`. Sub-step B will
+migrate this single tag. The canonical Heartwood entry remains
+unchanged.
 
 ---
 
