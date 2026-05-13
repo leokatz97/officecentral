@@ -1,0 +1,4356 @@
+[
+  {
+    "id": 525906346297,
+    "handle": "type-accessories",
+    "title": "Accessories",
+    "type": "smart",
+    "product_count": 14,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:accessories"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526847541561,
+    "handle": "accessories",
+    "title": "Accessories",
+    "type": "smart",
+    "product_count": 14,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:accessories"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:desk-accessories"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:power-modules"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:chair-accessories"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 526906589497,
+    "handle": "all-accessories",
+    "title": "All Accessories",
+    "type": "smart",
+    "product_count": 14,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:accessories"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526906491193,
+    "handle": "all-boardroom",
+    "title": "All Boardroom & Conference",
+    "type": "smart",
+    "product_count": 25,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:boardroom"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 526906655033,
+    "handle": "all-business-furniture",
+    "title": "All Business Furniture",
+    "type": "smart",
+    "product_count": 190,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:chairs"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:desks"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:storage"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:tables"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:boardroom"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:ergonomic"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:panels"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:accessories"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:quiet-spaces"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 526906360121,
+    "handle": "all-desks",
+    "title": "All Desks & Workstations",
+    "type": "smart",
+    "product_count": 30,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:desks"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526906523961,
+    "handle": "all-ergonomic",
+    "title": "All Ergonomic Products",
+    "type": "smart",
+    "product_count": 16,
+    "published": true,
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "monitor arm"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "keyboard tray"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "sit-stand"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "anti-fatigue"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:ergonomic"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 526906556729,
+    "handle": "all-panels",
+    "title": "All Panels & Dividers",
+    "type": "smart",
+    "product_count": 16,
+    "published": true,
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "partition"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "room divider"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "modesty panel"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "otg panel"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "divider"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:panels"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 526906622265,
+    "handle": "all-quiet-spaces",
+    "title": "All Quiet Spaces",
+    "type": "smart",
+    "product_count": 9,
+    "published": true,
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "acoustic"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "sound dampener"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "phone booth"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "soft pod"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:quiet-spaces"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 526906327353,
+    "handle": "all-seating",
+    "title": "All Seating",
+    "type": "smart",
+    "product_count": 96,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:chairs"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526906392889,
+    "handle": "all-storage",
+    "title": "All Storage & Filing",
+    "type": "smart",
+    "product_count": 18,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:storage"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526906425657,
+    "handle": "all-tables",
+    "title": "All Tables",
+    "type": "smart",
+    "product_count": 32,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:tables"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 488825553209,
+    "handle": "avada-best-sellers",
+    "title": "AVADA - Best Sellers",
+    "type": "smart",
+    "product_count": 624,
+    "published": false,
+    "rules": [
+      {
+        "column": "variant_price",
+        "relation": "greater_than",
+        "condition": "0"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 525906477369,
+    "handle": "room-boardroom",
+    "title": "Boardroom",
+    "type": "smart",
+    "product_count": 25,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:boardroom"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526847443257,
+    "handle": "boardroom",
+    "title": "Boardroom",
+    "type": "smart",
+    "product_count": 25,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:boardroom"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:boardroom-tables"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:conference-tables"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 525906608441,
+    "handle": "room-break-room",
+    "title": "Break Room",
+    "type": "smart",
+    "product_count": 0,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:break-room"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 476076998969,
+    "handle": "bundle-builder-products",
+    "title": "Bundle Builder Products",
+    "type": "smart",
+    "product_count": 0,
+    "published": false,
+    "rules": [
+      {
+        "column": "type",
+        "relation": "equals",
+        "condition": "Custom Bundle"
+      },
+      {
+        "column": "type",
+        "relation": "not_contains",
+        "condition": "mws_fee_generated"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526326333753,
+    "handle": "business-furniture",
+    "title": "Business Furniture",
+    "type": "smart",
+    "product_count": 624,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "not_equals",
+        "condition": "industry:educational"
+      },
+      {
+        "column": "tag",
+        "relation": "not_equals",
+        "condition": "industry:daycare"
+      },
+      {
+        "column": "tag",
+        "relation": "not_equals",
+        "condition": "industry:healthcare"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 525906215225,
+    "handle": "type-chairs",
+    "title": "Chairs",
+    "type": "smart",
+    "product_count": 96,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:chairs"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 525906247993,
+    "handle": "type-desks",
+    "title": "Desks",
+    "type": "smart",
+    "product_count": 30,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:desks"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526847344953,
+    "handle": "desks",
+    "title": "Desks & Workstations",
+    "type": "smart",
+    "product_count": 30,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:desks"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:benching"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:workstations"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:sit-stand"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 526906818873,
+    "handle": "ergocentric",
+    "title": "ergoCentric",
+    "type": "smart",
+    "product_count": 1,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "brand:ergocentric"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526847476025,
+    "handle": "ergonomic-products",
+    "title": "Ergonomic Products",
+    "type": "smart",
+    "product_count": 16,
+    "published": true,
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "monitor arm"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "keyboard tray"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "sit-stand"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "anti-fatigue"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 487722713401,
+    "handle": "fees-products",
+    "title": "Fees products",
+    "type": "smart",
+    "product_count": 653,
+    "published": true,
+    "rules": [
+      {
+        "column": "type",
+        "relation": "not_contains",
+        "condition": "mws_fee_generated"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526906786105,
+    "handle": "global-teknion",
+    "title": "Global / Teknion",
+    "type": "smart",
+    "product_count": 21,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "brand:global-teknion"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526906753337,
+    "handle": "keilhauer",
+    "title": "Keilhauer",
+    "type": "smart",
+    "product_count": 0,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "brand:keilhauer"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 525906641209,
+    "handle": "room-lounge",
+    "title": "Lounge",
+    "type": "smart",
+    "product_count": 6,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:lounge"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526379123001,
+    "handle": "lounge-reception",
+    "title": "Lounge & Reception",
+    "type": "smart",
+    "product_count": 16,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "waiting-room"
+      },
+      {
+        "column": "type",
+        "relation": "contains",
+        "condition": "lounge"
+      },
+      {
+        "column": "type",
+        "relation": "contains",
+        "condition": "reception"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "lounge"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "reception"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 525906379065,
+    "handle": "type-lounge",
+    "title": "Lounge Seating",
+    "type": "smart",
+    "product_count": 6,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:lounge"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 487773503801,
+    "handle": "mandatory-fees",
+    "title": "Mandatory Fees",
+    "type": "smart",
+    "product_count": 1,
+    "published": true,
+    "rules": [
+      {
+        "column": "type",
+        "relation": "equals",
+        "condition": "Fee"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      },
+      {
+        "column": "type",
+        "relation": "not_contains",
+        "condition": "mws_fee_generated"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526906687801,
+    "handle": "oecm-eligible",
+    "title": "OECM-Eligible Products",
+    "type": "smart",
+    "product_count": 592,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "oecm-eligible"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 525906542905,
+    "handle": "room-open-plan",
+    "title": "Open Plan",
+    "type": "smart",
+    "product_count": 4,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:open-plan"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 511513428281,
+    "handle": "orderly-emails-recommended-products",
+    "title": "Orderly Emails - Recommended Products",
+    "type": "smart",
+    "product_count": 100,
+    "published": false,
+    "rules": [
+      {
+        "column": "variant_inventory",
+        "relation": "greater_than",
+        "condition": "0"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 525906411833,
+    "handle": "type-outdoor",
+    "title": "Outdoor",
+    "type": "smart",
+    "product_count": 4,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:outdoor"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526847508793,
+    "handle": "panels-room-dividers",
+    "title": "Panels & Room Dividers",
+    "type": "smart",
+    "product_count": 16,
+    "published": true,
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "partition"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "room divider"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "modesty panel"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "otg panel"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "divider"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 525906444601,
+    "handle": "room-private-office",
+    "title": "Private Office",
+    "type": "smart",
+    "product_count": 45,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:private-office"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 477689938233,
+    "handle": "products",
+    "title": "Products",
+    "type": "smart",
+    "product_count": 648,
+    "published": true,
+    "rules": [
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "Avis-add-charge"
+      },
+      {
+        "column": "type",
+        "relation": "not_contains",
+        "condition": "mws_fee_generated"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 500415299897,
+    "handle": "products-1",
+    "title": "Products",
+    "type": "smart",
+    "product_count": 648,
+    "published": false,
+    "rules": [
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "Avis-add-charge"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 501173649721,
+    "handle": "all",
+    "title": "Products",
+    "type": "smart",
+    "product_count": 648,
+    "published": false,
+    "rules": [
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "Avis-add-charge"
+      },
+      {
+        "column": "type",
+        "relation": "not_equals",
+        "condition": "mws_apo_generated"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526847574329,
+    "handle": "quiet-spaces",
+    "title": "Quiet Spaces",
+    "type": "smart",
+    "product_count": 9,
+    "published": true,
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "acoustic"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "sound dampener"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "phone booth"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "soft pod"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 525906510137,
+    "handle": "room-reception",
+    "title": "Reception",
+    "type": "smart",
+    "product_count": 7,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:reception"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526847312185,
+    "handle": "seating",
+    "title": "Seating",
+    "type": "smart",
+    "product_count": 102,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:chairs"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:lounge"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:ergonomic-seating"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:bariatric-seating"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:stacking"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:seating"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 491637047609,
+    "handle": "smart-products-filter-index-do-not-delete",
+    "title": "Smart Products Filter Index - Do not delete",
+    "type": "smart",
+    "product_count": 653,
+    "published": false,
+    "rules": [
+      {
+        "column": "variant_price",
+        "relation": "greater_than",
+        "condition": "-9999"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 525906313529,
+    "handle": "type-storage",
+    "title": "Storage",
+    "type": "smart",
+    "product_count": 18,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:storage"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526847377721,
+    "handle": "storage",
+    "title": "Storage & Filing",
+    "type": "smart",
+    "product_count": 18,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:storage"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:filing"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:bookcases"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:cabinets"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:lateral-files"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 525906280761,
+    "handle": "type-tables",
+    "title": "Tables",
+    "type": "smart",
+    "product_count": 32,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:tables"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 526847410489,
+    "handle": "tables",
+    "title": "Tables",
+    "type": "smart",
+    "product_count": 32,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:tables"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:folding-tables"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:training-tables"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:cafeteria-tables"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 526379024697,
+    "handle": "task-chairs",
+    "title": "Task Chairs",
+    "type": "smart",
+    "product_count": 10,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "task-chair"
+      },
+      {
+        "column": "type",
+        "relation": "contains",
+        "condition": "task"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "task chair"
+      }
+    ],
+    "disjunctive": true
+  },
+  {
+    "id": 525906575673,
+    "handle": "room-training-room",
+    "title": "Training Room",
+    "type": "smart",
+    "product_count": 4,
+    "published": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "room:training-room"
+      }
+    ],
+    "disjunctive": false
+  },
+  {
+    "id": 473194987833,
+    "handle": "24-hour-seating",
+    "title": "24 Hour (Seating)",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867497273,
+    "handle": "acoustic-panels",
+    "title": "Acoustic Panels",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867562809,
+    "handle": "acoustic-pods",
+    "title": "Acoustic Pods",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526866907449,
+    "handle": "active-seating",
+    "title": "Active Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502852976953,
+    "handle": "adjustable-2-shelf-units",
+    "title": "Adjustable 2 Shelf Units",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853108025,
+    "handle": "adjustable-block-shelf-units",
+    "title": "Adjustable Block Shelf Units",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853009721,
+    "handle": "adjustable-hinged-units",
+    "title": "Adjustable Hinged Units",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 488788427065,
+    "handle": "air-quality-management",
+    "title": "Air Quality Management",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471844290873,
+    "handle": "anti-fatigue-mats",
+    "title": "Anti-Fatigue Mats",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853697849,
+    "handle": "art-easel",
+    "title": "Art Easel",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851830073,
+    "handle": "arts-crafts",
+    "title": "Arts & Crafts",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 487507263801,
+    "handle": "audio-visual-equipment",
+    "title": "Audio Visual Equipment",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 500230586681,
+    "handle": "av-stand",
+    "title": "AV Stand",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196495161,
+    "handle": "bar-height-tables",
+    "title": "Bar Height (Tables)",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476853502265,
+    "handle": "bariatric-seating",
+    "title": "Bariatric Seating",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508414198073,
+    "handle": "bariatric-seating-1",
+    "title": "Bariatric Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 493802160441,
+    "handle": "bases",
+    "title": "Bases",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526866940217,
+    "handle": "beam-seating",
+    "title": "Beam Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508417737017,
+    "handle": "beds-matresses",
+    "title": "Beds & Mattresses",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508405154105,
+    "handle": "bedside-tables",
+    "title": "Bedside Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526866841913,
+    "handle": "bench-seating",
+    "title": "Bench Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502854156601,
+    "handle": "benches",
+    "title": "Benches",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476571205945,
+    "handle": "benching-1",
+    "title": "Benching",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196101945,
+    "handle": "benching-desks",
+    "title": "Benching (Desks)",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473195086137,
+    "handle": "big-heavy-seating",
+    "title": "Big & Heavy (Seating)",
+    "type": "custom",
+    "product_count": 10,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853402937,
+    "handle": "bin-storage-tower",
+    "title": "Bin Storage Tower",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471512482105,
+    "handle": "binder-accessories",
+    "title": "Binder & Accessories",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471512547641,
+    "handle": "binder-pockets",
+    "title": "Binder Pockets",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471512678713,
+    "handle": "blinder",
+    "title": "Blinder",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853075257,
+    "handle": "block-shelf-units",
+    "title": "Block Shelf Units",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473198788921,
+    "handle": "boardroom-conference-meeting",
+    "title": "Boardroom / Conference / Meeting",
+    "type": "custom",
+    "product_count": 11,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 477692231993,
+    "handle": "boardroom-conference-meeting-1",
+    "title": "Boardroom / Conference / Meeting",
+    "type": "custom",
+    "product_count": 10,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867398969,
+    "handle": "boardroom-seating",
+    "title": "Boardroom Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867431737,
+    "handle": "boardroom-storage",
+    "title": "Boardroom Storage",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855042361,
+    "handle": "book-carts",
+    "title": "Book Carts",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853501241,
+    "handle": "book-carts-easels",
+    "title": "Book Carts & Easels",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853468473,
+    "handle": "book-display-book-racks",
+    "title": "Book Display & Book Racks",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851699001,
+    "handle": "book-displays-storage",
+    "title": "Book Displays & Storage",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471750443321,
+    "handle": "bookcases",
+    "title": "Bookcases",
+    "type": "custom",
+    "product_count": 9,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853140793,
+    "handle": "bookcases-1",
+    "title": "Bookcases",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473349914937,
+    "handle": "bookcases-storage",
+    "title": "Bookcases (Storage)",
+    "type": "custom",
+    "product_count": 13,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502854058297,
+    "handle": "boot-cubby",
+    "title": "Boot Cubby",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 498337218873,
+    "handle": "buy-canadian",
+    "title": "Buy Canadian",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471686054201,
+    "handle": "cabinets-racks-accessories",
+    "title": "Cabinets & Racks Accessories",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867628345,
+    "handle": "cafe-tables",
+    "title": "Caf\u00e9 & Bistro Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854878521,
+    "handle": "cafe-lounge-seating",
+    "title": "Cafe/Lounge Seating",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471844749625,
+    "handle": "cafeteria-breakroom-tables",
+    "title": "Cafeteria & Breakroom Tables",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196462393,
+    "handle": "cafeteria-kitchen-tables",
+    "title": "Cafeteria / Kitchen (Tables)",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471685005625,
+    "handle": "carpet-chair-mats",
+    "title": "Carpet Chair Mats",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471835377977,
+    "handle": "carts",
+    "title": "Carts",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471835410745,
+    "handle": "carts-stands",
+    "title": "Carts & Stands",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471844880697,
+    "handle": "casters",
+    "title": "Casters",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473266258233,
+    "handle": "casters-wheels",
+    "title": "Casters / Wheels",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473195151673,
+    "handle": "castors-seating",
+    "title": "Castors (Seating)",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471844815161,
+    "handle": "chair-accessories",
+    "title": "Chair Accessories",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471684972857,
+    "handle": "chair-mats",
+    "title": "Chair Mats",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473349849401,
+    "handle": "chairmat-accessories",
+    "title": "Chairmat (Accessories)",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197150521,
+    "handle": "chairmats",
+    "title": "Chairmats",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473354928441,
+    "handle": "chairmats-accessories",
+    "title": "Chairmats (Accessories)",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471653253433,
+    "handle": "chairs",
+    "title": "Chairs",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502854189369,
+    "handle": "change-tables",
+    "title": "Change Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855009593,
+    "handle": "charging-units",
+    "title": "Charging Units",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851567929,
+    "handle": "classroom-storage",
+    "title": "Classroom Storage",
+    "type": "custom",
+    "product_count": 0,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854518073,
+    "handle": "clinician-screens",
+    "title": "Clinician Screens",
+    "type": "custom",
+    "product_count": 3,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 506551140665,
+    "handle": "cluster-seating",
+    "title": "Cluster Seating",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502854091065,
+    "handle": "coat-cubbies",
+    "title": "Coat Cubbies",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851928377,
+    "handle": "coat-cubbies-lockers",
+    "title": "Coat Cubbies & Lockers",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197216057,
+    "handle": "coat-racks",
+    "title": "Coat Racks",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473354797369,
+    "handle": "coat-racks-accessories",
+    "title": "Coat Racks (Accessories)",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471835181369,
+    "handle": "coat-garment-hooks",
+    "title": "Coat/Garment Hooks",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196364089,
+    "handle": "coffee-tables",
+    "title": "Coffee Tables",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 493802684729,
+    "handle": "combo-units",
+    "title": "Combo Units",
+    "type": "custom",
+    "product_count": 18,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471845142841,
+    "handle": "computer-accessories",
+    "title": "Computer Accessories",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526866809145,
+    "handle": "conference-seating",
+    "title": "Conference Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471685464377,
+    "handle": "contemporary-laminate",
+    "title": "Contemporary - Laminate",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471834919225,
+    "handle": "contemporary-veneer",
+    "title": "Contemporary - Veneer",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473347948857,
+    "handle": "convertisseur-de-bureau",
+    "title": "Convertisseur de bureau",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 487507067193,
+    "handle": "credenzas",
+    "title": "Credenza's",
+    "type": "custom",
+    "product_count": 9,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855206201,
+    "handle": "cribs",
+    "title": "Cribs",
+    "type": "custom",
+    "product_count": 3,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853271865,
+    "handle": "cubby-storage-units",
+    "title": "Cubby Storage Units",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867071289,
+    "handle": "desk-accessories",
+    "title": "Desk Accessories",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473266061625,
+    "handle": "desk-top-stand",
+    "title": "DESK TOP / STAND",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196659001,
+    "handle": "desk-top-dividers",
+    "title": "Desk Top Dividers",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473266520377,
+    "handle": "desk-top-sit-stand",
+    "title": "Desk Top Sit / Stand",
+    "type": "custom",
+    "product_count": 9,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473348211001,
+    "handle": "desk-top-sit-stand-ergonomic-products",
+    "title": "Desk Top Sit / Stand (Ergonomic Products)",
+    "type": "custom",
+    "product_count": 7,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471685366073,
+    "handle": "desk-tables-sit-stand-classroom",
+    "title": "Desk, Tables, Sit Stand & Classroom",
+    "type": "custom",
+    "product_count": 2,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473278808377,
+    "handle": "desks-benching-units",
+    "title": "Desks (Benching Units)",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476570943801,
+    "handle": "desks-straight",
+    "title": "Desks-Straight",
+    "type": "custom",
+    "product_count": 18,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867333433,
+    "handle": "desktop-accessories",
+    "title": "Desktop Accessories",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471844618553,
+    "handle": "desktop-risers",
+    "title": "Desktop Risers",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196298553,
+    "handle": "desktop-sit-stand",
+    "title": "Desktop Sit Stand",
+    "type": "custom",
+    "product_count": 10,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854616377,
+    "handle": "diagnostic-carts-arms",
+    "title": "Diagnostic Carts/Arms",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502854222137,
+    "handle": "diaper-shelves",
+    "title": "Diaper Shelves",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854485305,
+    "handle": "dining-room",
+    "title": "dining room",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508412461369,
+    "handle": "dinning-furniture",
+    "title": "Dinning Furniture",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508412657977,
+    "handle": "dinning-seating",
+    "title": "Dinning Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508412526905,
+    "handle": "dinning-tables",
+    "title": "Dinning Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853959993,
+    "handle": "doll-furniture",
+    "title": "Doll Furniture",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471686086969,
+    "handle": "doors",
+    "title": "Doors",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 486609649977,
+    "handle": "dorm-penitentiary-furniture",
+    "title": "Dorm & Penitentiary Furniture",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 487507525945,
+    "handle": "drafting-tables",
+    "title": "Drafting Tables",
+    "type": "custom",
+    "product_count": 7,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851895609,
+    "handle": "dramatic-play",
+    "title": "Dramatic Play",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508406235449,
+    "handle": "dressers",
+    "title": "Dressers",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 475033698617,
+    "handle": "educational",
+    "title": "Educational",
+    "type": "custom",
+    "product_count": 0,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473199345977,
+    "handle": "educational-furniture",
+    "title": "Educational Furniture",
+    "type": "custom",
+    "product_count": 7,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473361875257,
+    "handle": "end-tab-file-cabinets-storage-coming-soon",
+    "title": "End Tab File Cabinets (Storage)  Coming Soon",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196921145,
+    "handle": "end-tab-filing-storage",
+    "title": "End Tab Filing (Storage)",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196396857,
+    "handle": "end-tables-tables",
+    "title": "End tables (Tables)",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469949317433,
+    "handle": "epson",
+    "title": "Epson",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867464505,
+    "handle": "ergonomic-accessories",
+    "title": "Ergonomic Accessories",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508416459065,
+    "handle": "exam-room-seating",
+    "title": "Exam Room Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867005753,
+    "handle": "executive-desks",
+    "title": "Executive Desks",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526866776377,
+    "handle": "executive-seating",
+    "title": "Executive Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471844192569,
+    "handle": "facility-breakroom",
+    "title": "Facility & Breakroom",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471844225337,
+    "handle": "facility-supplies",
+    "title": "Facility Supplies",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526810579257,
+    "handle": "featured-homepage",
+    "title": "Featured \u2014 Homepage",
+    "type": "custom",
+    "product_count": 3,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471657185593,
+    "handle": "filing-storage-accessories",
+    "title": "Filing, Storage & Accessories",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473263341881,
+    "handle": "fire-resistant-file-cabinets",
+    "title": "Fire Resistant File Cabinets",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471684383033,
+    "handle": "fire-resistant-file-cabinets-safes",
+    "title": "Fire Resistant File Cabinets & Safes",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473349620025,
+    "handle": "fire-resistant-file-cabinets-storage",
+    "title": "Fire Resistant File Cabinets (Storage)",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197052217,
+    "handle": "fire-resistant-safes",
+    "title": "Fire Resistant Safes",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473349423417,
+    "handle": "fire-resistant-safes-storage",
+    "title": "Fire Resistant Safes (Storage)",
+    "type": "custom",
+    "product_count": 11,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853173561,
+    "handle": "fixed-shelf-units",
+    "title": "Fixed Shelf Units",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471844258105,
+    "handle": "floor-mats",
+    "title": "Floor Mats",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867595577,
+    "handle": "focus-rooms",
+    "title": "Focus Room Furniture",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473350734137,
+    "handle": "folding-chair-chair",
+    "title": "Folding Chair",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471834198329,
+    "handle": "folding-tables",
+    "title": "Folding Tables",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473350209849,
+    "handle": "folding-tables-tables",
+    "title": "Folding Tables (Tables)",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471653286201,
+    "handle": "folding-stacking-chairs-carts",
+    "title": "Folding/Stacking Chairs & Carts",
+    "type": "custom",
+    "product_count": 7,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471653187897,
+    "handle": "furniture",
+    "title": "Furniture",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471835083065,
+    "handle": "furniture-accessories",
+    "title": "Furniture Accessories",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471685431609,
+    "handle": "furniture-collections",
+    "title": "Furniture Collections",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476853895481,
+    "handle": "gaming",
+    "title": "Gaming",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471835115833,
+    "handle": "garment-care",
+    "title": "Garment Care",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526866743609,
+    "handle": "global-furniture",
+    "title": "Global Furniture Group",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 472894112057,
+    "handle": "guest-seating",
+    "title": "Guest (Seating)",
+    "type": "custom",
+    "product_count": 39,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508420325689,
+    "handle": "headboards-footboards",
+    "title": "Headboards & Footboards",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 475033502009,
+    "handle": "healthcare",
+    "title": "Healthcare",
+    "type": "custom",
+    "product_count": 1,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526866874681,
+    "handle": "healthcare-seating",
+    "title": "Healthcare Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469949120825,
+    "handle": "heaters",
+    "title": "Heaters",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473195905337,
+    "handle": "height-adjustable-tables",
+    "title": "Height Adjustable Tables",
+    "type": "custom",
+    "product_count": 19,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476571140409,
+    "handle": "height-adjustable-tables-1",
+    "title": "Height Adjustable Tables",
+    "type": "custom",
+    "product_count": 18,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 474620920121,
+    "handle": "height-adjustable-tables-desks",
+    "title": "Height Adjustable Tables (Desks)",
+    "type": "custom",
+    "product_count": 21,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 472894046521,
+    "handle": "higback",
+    "title": "Higback",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867300665,
+    "handle": "high-density-storage",
+    "title": "High-Density Storage",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473194529081,
+    "handle": "highback-seating",
+    "title": "Highback (Seating)",
+    "type": "custom",
+    "product_count": 46,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469948334393,
+    "handle": "home-page",
+    "title": "Home page",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508625256761,
+    "handle": "frontpage",
+    "title": "Home page",
+    "type": "custom",
+    "product_count": 0,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469949251897,
+    "handle": "hp",
+    "title": "HP",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 494681751865,
+    "handle": "hutch",
+    "title": "Hutch",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 491934023993,
+    "handle": "industrial-seating",
+    "title": "Industrial Seating",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851961145,
+    "handle": "infant-toddler",
+    "title": "Infant & Toddler",
+    "type": "custom",
+    "product_count": 0,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469949186361,
+    "handle": "ink-and-toner",
+    "title": "Ink and Toner",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471833411897,
+    "handle": "insulated-file-cabinets",
+    "title": "Insulated File Cabinets",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853992761,
+    "handle": "interactive-play-funriture",
+    "title": "Interactive Play Funriture",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 520219099449,
+    "handle": "ipad-holder",
+    "title": "iPad Holder",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196265785,
+    "handle": "keyboard-trays",
+    "title": "Keyboard Trays",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855370041,
+    "handle": "kids-bookcases",
+    "title": "Kids Bookcases",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502852485433,
+    "handle": "kids-chairs",
+    "title": "Kids Chairs",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855140665,
+    "handle": "kids-couches-coming-soon",
+    "title": "Kids Couches-coming soon",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855107897,
+    "handle": "kids-desks",
+    "title": "Kids Desks",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855337273,
+    "handle": "kids-display-stands",
+    "title": "Kids Display Stands",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855304505,
+    "handle": "kids-play-tables",
+    "title": "Kids Play Tables",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471835902265,
+    "handle": "l-shape",
+    "title": "L-Shape",
+    "type": "custom",
+    "product_count": 27,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473195872569,
+    "handle": "l-shape-desks",
+    "title": "L-Shape Desks",
+    "type": "custom",
+    "product_count": 31,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473351094585,
+    "handle": "l-shape-desks-desks",
+    "title": "L-Shape Desks",
+    "type": "custom",
+    "product_count": 31,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476571107641,
+    "handle": "l-shape-desks-1",
+    "title": "L-Shape Desks",
+    "type": "custom",
+    "product_count": 30,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854976825,
+    "handle": "laboratory-furniture",
+    "title": "Laboratory Furniture",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471750476089,
+    "handle": "laminate-bookcases",
+    "title": "Laminate Bookcases",
+    "type": "custom",
+    "product_count": 9,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473370100025,
+    "handle": "lateral-storage-combo-storage",
+    "title": "Lateral / Storage Combo (Storage)",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473361416505,
+    "handle": "lateral-file-cabinets-storage",
+    "title": "Lateral File Cabinets (Storage)",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471657972025,
+    "handle": "lateral-files-storage",
+    "title": "Lateral Files (Storage)",
+    "type": "custom",
+    "product_count": 7,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473194627385,
+    "handle": "leather-faux-seating",
+    "title": "Leather / Faux (Seating)",
+    "type": "custom",
+    "product_count": 32,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 487507231033,
+    "handle": "lecterns-podiums",
+    "title": "Lecterns / Podiums",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854812985,
+    "handle": "lecture-hall-seating",
+    "title": "Lecture Hall Seating",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854944057,
+    "handle": "library-shelving",
+    "title": "Library Shelving",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854911289,
+    "handle": "library-study-tables",
+    "title": "Library Study Tables",
+    "type": "custom",
+    "product_count": 11,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197248825,
+    "handle": "lighting",
+    "title": "Lighting",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 487017021753,
+    "handle": "lighting-1",
+    "title": "Lighting",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 487201374521,
+    "handle": "lockers",
+    "title": "Lockers",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 472894144825,
+    "handle": "lounge",
+    "title": "Lounge",
+    "type": "custom",
+    "product_count": 10,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473194823993,
+    "handle": "lounge-chairs",
+    "title": "Lounge Chairs",
+    "type": "custom",
+    "product_count": 11,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473280184633,
+    "handle": "lounge-chairs-seating",
+    "title": "Lounge Chairs (Seating)",
+    "type": "custom",
+    "product_count": 16,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508412756281,
+    "handle": "lounge-seating",
+    "title": "Lounge Seating",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867104057,
+    "handle": "mailboxes",
+    "title": "Mailboxes & Sorters",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851862841,
+    "handle": "manipulative-play",
+    "title": "Manipulative Play",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 516546298169,
+    "handle": "manufacturers-we-support",
+    "title": "Manufacturers we support",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508421636409,
+    "handle": "mattresses",
+    "title": "Mattresses",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867136825,
+    "handle": "media-storage",
+    "title": "Media & AV Storage",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473194561849,
+    "handle": "medium-back-seating",
+    "title": "Medium Back (Seating)",
+    "type": "custom",
+    "product_count": 49,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471835541817,
+    "handle": "meeting-conference-room-tables",
+    "title": "Meeting & Conference Room Tables",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196560697,
+    "handle": "meeting-tables",
+    "title": "Meeting Tables",
+    "type": "custom",
+    "product_count": 12,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 472894013753,
+    "handle": "mesh-seating",
+    "title": "Mesh (Seating)",
+    "type": "custom",
+    "product_count": 44,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853632313,
+    "handle": "metal-frame-adjustable-tables",
+    "title": "Metal Frame Adjustable Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 516839506233,
+    "handle": "metal-shelving",
+    "title": "Metal Shelving",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471782293817,
+    "handle": "metal-vertical-files",
+    "title": "Metal Vertical Files",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851993913,
+    "handle": "mirrors-room-dividers",
+    "title": "Mirrors & Room Dividers",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502854123833,
+    "handle": "mobile-coat-cubby",
+    "title": "Mobile Coat Cubby",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471836066105,
+    "handle": "mobile-files-carts",
+    "title": "Mobile Files & Carts",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471836033337,
+    "handle": "mobile-pedestals",
+    "title": "Mobile Pedestals",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867169593,
+    "handle": "mobile-storage",
+    "title": "Mobile Storage Carts",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 495571730745,
+    "handle": "modesty-panels",
+    "title": "Modesty Panels",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526866972985,
+    "handle": "modular-workstations",
+    "title": "Modular Workstations",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471845175609,
+    "handle": "monitor-machine-stands",
+    "title": "Monitor & Machine Stands",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196233017,
+    "handle": "monitor-arms",
+    "title": "Monitor Arms",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471845208377,
+    "handle": "monitor-stands-risers",
+    "title": "Monitor Stands/Risers",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473195938105,
+    "handle": "multi-person-workstations",
+    "title": "Multi Person Workstations",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476571173177,
+    "handle": "multi-person-workstations-1",
+    "title": "Multi Person Workstations",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 474621018425,
+    "handle": "multi-person-workstations-desks",
+    "title": "Multi Person Workstations (Desks)",
+    "type": "custom",
+    "product_count": 9,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853337401,
+    "handle": "multi-storage-units",
+    "title": "Multi Storage Units",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867661113,
+    "handle": "multipurpose-tables",
+    "title": "Multi-Purpose Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867792185,
+    "handle": "nesting-tables",
+    "title": "Nesting & Folding Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473350930745,
+    "handle": "nesting-chairs-chair",
+    "title": "Nesting Chairs (Chair)",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508410888505,
+    "handle": "occasional-tables",
+    "title": "Occasional Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854714681,
+    "handle": "office-teachers-chairs",
+    "title": "Office / Teachers Chairs",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469949022521,
+    "handle": "office-furniture",
+    "title": "Office Furniture",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473351258425,
+    "handle": "office-suites-desks",
+    "title": "Office Suites (Desks)",
+    "type": "custom",
+    "product_count": 13,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471512383801,
+    "handle": "office-supplies",
+    "title": "Office Supplies",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 527013085497,
+    "handle": "other",
+    "title": "Other",
+    "type": "custom",
+    "product_count": 337,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 527021408569,
+    "handle": "other-1",
+    "title": "Other",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 492979781945,
+    "handle": "ottomans",
+    "title": "Ottomans",
+    "type": "custom",
+    "product_count": 7,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855435577,
+    "handle": "outdoor-seating",
+    "title": "Outdoor Seating",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867759417,
+    "handle": "outdoor-tables",
+    "title": "Outdoor Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469949153593,
+    "handle": "outerwear",
+    "title": "Outerwear",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508409905465,
+    "handle": "overbed-tables",
+    "title": "Overbed Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471848059193,
+    "handle": "overhead-storage-cabinets",
+    "title": "Overhead Storage Cabinets",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853665081,
+    "handle": "paint-dryers",
+    "title": "Paint Dryers",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471834329401,
+    "handle": "panel-systems",
+    "title": "Panel Systems",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473267634489,
+    "handle": "panels-dividers",
+    "title": "Panels/Dividers",
+    "type": "custom",
+    "product_count": 12,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471834362169,
+    "handle": "panels-partitions",
+    "title": "Panels/Partitions",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473278906681,
+    "handle": "pedestal-drawers-storage",
+    "title": "Pedestal / Drawers (Storage)",
+    "type": "custom",
+    "product_count": 9,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197019449,
+    "handle": "pedestal-drawers",
+    "title": "Pedestal Drawers",
+    "type": "custom",
+    "product_count": 7,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476856156473,
+    "handle": "pedestal-drawers-1",
+    "title": "Pedestal Drawers",
+    "type": "custom",
+    "product_count": 7,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855992633,
+    "handle": "pedestals",
+    "title": "Pedestals",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867267897,
+    "handle": "personal-storage",
+    "title": "Personal Storage",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855599417,
+    "handle": "picnic-tables",
+    "title": "Picnic Tables",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854190393,
+    "handle": "planters",
+    "title": "Planters",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197412665,
+    "handle": "podiums",
+    "title": "Podiums",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197183289,
+    "handle": "power-modules-accessories",
+    "title": "Power Modules (Accessories)",
+    "type": "custom",
+    "product_count": 10,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853861689,
+    "handle": "preschool-couches-chairs",
+    "title": "Preschool Couches & Chairs",
+    "type": "custom",
+    "product_count": 0,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867530041,
+    "handle": "privacy-screens",
+    "title": "Privacy Screens",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853534009,
+    "handle": "puzzle-shelf",
+    "title": "Puzzle Shelf",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476571271481,
+    "handle": "reception",
+    "title": "Reception",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473369837881,
+    "handle": "reception-low-tables",
+    "title": "Reception / Low (Tables)",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 472131469625,
+    "handle": "reception-area-accent-tables",
+    "title": "Reception Area & Accent Tables",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473362235705,
+    "handle": "reception-desks-desks",
+    "title": "Reception Desks (Desks)",
+    "type": "custom",
+    "product_count": 9,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471781015865,
+    "handle": "reception-side-guest-chairs",
+    "title": "Reception, Side & Guest Chairs",
+    "type": "custom",
+    "product_count": 28,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476729213241,
+    "handle": "recliners",
+    "title": "Recliners",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 487507329337,
+    "handle": "refreshment-carts-stands",
+    "title": "Refreshment Carts / Stands",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508412592441,
+    "handle": "resident-room-seating",
+    "title": "Resident Room Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508411904313,
+    "handle": "room-accessories",
+    "title": "Room Accessories",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196626233,
+    "handle": "room-dividers",
+    "title": "Room Dividers",
+    "type": "custom",
+    "product_count": 7,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473347686713,
+    "handle": "room-dividers-panels-dividers",
+    "title": "Room Dividers (Panels / Dividers)",
+    "type": "custom",
+    "product_count": 13,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196429625,
+    "handle": "round-square-tables",
+    "title": "Round & Square Tables",
+    "type": "custom",
+    "product_count": 9,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471684415801,
+    "handle": "safes",
+    "title": "Safes",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469949219129,
+    "handle": "samsung",
+    "title": "Samsung",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853763385,
+    "handle": "sand-water-tables",
+    "title": "Sand & Water Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851797305,
+    "handle": "seating-1",
+    "title": "Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855501113,
+    "handle": "sectionals",
+    "title": "Sectionals",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851600697,
+    "handle": "shelving",
+    "title": "Shelving",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867726649,
+    "handle": "side-tables",
+    "title": "Side & Occasional Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473266389305,
+    "handle": "side-coffee-table",
+    "title": "Side / Coffee Table",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473369936185,
+    "handle": "side-coffee-table-tables",
+    "title": "Side / Coffee Table (Tables)",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471844585785,
+    "handle": "sit-stand-workstations",
+    "title": "Sit-Stand Workstations",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853304633,
+    "handle": "small-bin-cubby-storage-units",
+    "title": "Small Bin Cubby Storage Units",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469949088057,
+    "handle": "snow-and-ice-melts",
+    "title": "Snow and Ice Melts",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854419769,
+    "handle": "sound-dampeners",
+    "title": "Sound Dampeners",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473194922297,
+    "handle": "stacking-seating",
+    "title": "Stacking (Seating)",
+    "type": "custom",
+    "product_count": 16,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473355256121,
+    "handle": "stacking-chairs-chair",
+    "title": "Stacking Chairs (Chair)",
+    "type": "custom",
+    "product_count": 18,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867693881,
+    "handle": "standing-tables",
+    "title": "Standing & High Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 500230553913,
+    "handle": "stands",
+    "title": "Stands",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502854254905,
+    "handle": "step-stools",
+    "title": "Step Stools",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473194692921,
+    "handle": "stools",
+    "title": "Stools",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471847960889,
+    "handle": "stools-drafting-chairs",
+    "title": "Stools & Drafting Chairs",
+    "type": "custom",
+    "product_count": 11,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473280315705,
+    "handle": "stools-seating",
+    "title": "Stools (Seating)",
+    "type": "custom",
+    "product_count": 15,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469948924217,
+    "handle": "storage-and-filing",
+    "title": "Storage and filing",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471845929273,
+    "handle": "storage-cabinets",
+    "title": "Storage Cabinets",
+    "type": "custom",
+    "product_count": 8,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471845962041,
+    "handle": "storage-cabinets-lockers",
+    "title": "Storage Cabinets & Lockers",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473279463737,
+    "handle": "storage-cabinets-storage",
+    "title": "Storage Cabinets (Storage)",
+    "type": "custom",
+    "product_count": 13,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196200249,
+    "handle": "straight-desks",
+    "title": "Straight Desks",
+    "type": "custom",
+    "product_count": 12,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473362202937,
+    "handle": "straight-desks-desks",
+    "title": "Straight Desks",
+    "type": "custom",
+    "product_count": 17,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855173433,
+    "handle": "strollers",
+    "title": "Strollers",
+    "type": "custom",
+    "product_count": 2,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197314361,
+    "handle": "student-chairs",
+    "title": "Student Chairs",
+    "type": "custom",
+    "product_count": 5,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 472130978105,
+    "handle": "student-desks",
+    "title": "Student Desks",
+    "type": "custom",
+    "product_count": 5,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197379897,
+    "handle": "student-tables",
+    "title": "Student Tables",
+    "type": "custom",
+    "product_count": 4,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473366626617,
+    "handle": "student-tables-educational-furniture",
+    "title": "Student Tables (Educational Furniture)",
+    "type": "custom",
+    "product_count": 13,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502405628217,
+    "handle": "table-bases",
+    "title": "Table Bases",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473196134713,
+    "handle": "table-desks",
+    "title": "Table Desks",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476571238713,
+    "handle": "table-desks-1",
+    "title": "Table Desks",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 493802193209,
+    "handle": "table-tops",
+    "title": "Table Tops",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502851764537,
+    "handle": "tables-1",
+    "title": "Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854747449,
+    "handle": "tablet-chairs",
+    "title": "Tablet Chairs",
+    "type": "custom",
+    "product_count": 3,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853239097,
+    "handle": "teachers-cabinets",
+    "title": "Teachers Cabinets",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471845110073,
+    "handle": "technology",
+    "title": "Technology",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 491514396985,
+    "handle": "teknion-upscale-products",
+    "title": "Teknion Upscale Products",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854354233,
+    "handle": "telephone-booths",
+    "title": "Telephone Booths",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502854025529,
+    "handle": "toddler-lockers",
+    "title": "Toddler Lockers",
+    "type": "custom",
+    "product_count": 0,
+    "published": false,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 519201685817,
+    "handle": "tops",
+    "title": "Tops",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 486802522425,
+    "handle": "training-flip-top-tables",
+    "title": "Training Flip Top Tables",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867038521,
+    "handle": "training-desks",
+    "title": "Training Room Desks",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471845404985,
+    "handle": "training-room-tables",
+    "title": "Training Room Tables",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508408824121,
+    "handle": "tv-units",
+    "title": "TV Units",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473195184441,
+    "handle": "u-shape-desks",
+    "title": "U-Shape Desks",
+    "type": "custom",
+    "product_count": 15,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 474620821817,
+    "handle": "u-shape-desks-desks",
+    "title": "U-Shape Desks",
+    "type": "custom",
+    "product_count": 16,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476571074873,
+    "handle": "u-shape-desks-1",
+    "title": "U-Shape Desks",
+    "type": "custom",
+    "product_count": 15,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476855763257,
+    "handle": "umbrellas",
+    "title": "Umbrellas",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471835443513,
+    "handle": "utility-service-carts",
+    "title": "Utility/Service Carts",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473348997433,
+    "handle": "vertical-file-cabinets-storage",
+    "title": "Vertical File Cabinets",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471782261049,
+    "handle": "vertical-files",
+    "title": "Vertical Files",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508412821817,
+    "handle": "waiting-room-seating",
+    "title": "Waiting Room Seating",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867235129,
+    "handle": "wall-storage",
+    "title": "Wall-Mounted Storage",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 476854288697,
+    "handle": "walls",
+    "title": "walls",
+    "type": "custom",
+    "product_count": 5,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197117753,
+    "handle": "wardrobe-storage",
+    "title": "Wardrobe (Storage)",
+    "type": "custom",
+    "product_count": 6,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 508407513401,
+    "handle": "wardrobes",
+    "title": "Wardrobes",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853796153,
+    "handle": "wash-stands",
+    "title": "Wash Stands",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 526867366201,
+    "handle": "waste-recycling",
+    "title": "Waste & Recycling",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 515143467321,
+    "handle": "white-board",
+    "title": "white board",
+    "type": "custom",
+    "product_count": 1,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 469949055289,
+    "handle": "winter-supplies",
+    "title": "Winter Supplies",
+    "type": "custom",
+    "product_count": 4,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 473197347129,
+    "handle": "wobble-chairs",
+    "title": "Wobble Chairs",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853566777,
+    "handle": "wood-frame-tables",
+    "title": "Wood Frame Tables",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 502853435705,
+    "handle": "workstation",
+    "title": "Workstation",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  },
+  {
+    "id": 471845568825,
+    "handle": "workstations-computer-desks",
+    "title": "Workstations/Computer Desks",
+    "type": "custom",
+    "product_count": 0,
+    "published": true,
+    "rules": null,
+    "disjunctive": null
+  }
+]
