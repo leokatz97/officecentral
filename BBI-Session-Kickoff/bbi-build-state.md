@@ -1,6 +1,6 @@
 # BBI Build State — Single Source of Truth
 
-**Last updated:** 2026-05-13 (Sub-steps A+B+C1+C2 COMPLETE — canonical map 30 brands; 15 products re-tagged; 164 collections unpublished; 207 active collections; 164 redirects in data/url-redirects-bulk.csv ready for manual import)
+**Last updated:** 2026-05-13 (Sub-steps A+B+C1+C2+D COMPLETE — canonical map 30 brands; 15 products re-tagged; 164 collections unpublished; 207 active collections; 164 redirects in data/url-redirects-bulk.csv ready for manual import; brand callouts on 10 Phase 2 category pages updated to reflect canonical brand depth)
 **Dev theme:** BBI Landing Dev (`186373570873`) — never publish to live until LAUNCH-2
 **Live theme:** brantbusinessinteriors.com (production — untouched)
 **Replaces:** the status sections in `shopify-fix-plan.md` and the localStorage-bound `SEEDS` in `website-fix-checklist.html`
@@ -422,6 +422,7 @@ Shopify Admin import.
 | APPLY-MAP-ADDITIONS | Re-tag 15 products to match new canonical entries | ✅ | commit 66a0bff | 2026-05-13 (Sub-step B) · re-tagged 15 products to match new canonical entries · vendor field + specs.manufacturer metafield + brand:* tag now agree per product across the full canonical brand map · 15/15 verification clean |
 | COLLECTION-AUDIT | Audit all 371 collections — read-only | ✅ | commit a24b9e3 | 2026-05-13 (Sub-step C1, read-only) · 371 collections audited (49 smart, 322 custom) · 148 zero-product · 30 dead tile links surfaced · /collections/other browsable with 337 archived products flagged urgent · 39 INVESTIGATE flagged for human review · output data/reports/collection-audit-2026-05-13.md |
 | COLLECTION-CLEANUP-APPLY | Apply audit dispositions — 164 collections unpublished | ✅ | commit 737f6f6 | 2026-05-13 (Sub-step C2) · applied audit dispositions · 164 collections unpublished (161 ARCHIVE + 3 REDIRECT) · 18 unenriched stragglers stripped of brand:global-teknion tag · global-teknion smart collection rule converted to disjunctive (GFG OR Teknion), now 72 products · /collections/other unpublished · 10 dead tile blocks removed from 4 category templates · 1 dead link updated · 164 redirects added to data/url-redirects-bulk.csv · Steve must manually import redirects via Shopify Admin |
+| BRAND-CALLOUT-AUDIT | Audit + fix brand callouts on Phase 2 category pages | ✅ | commit 326241f | 2026-05-13 (Sub-step D, Step 14) · audited 10 Phase 2 templates · 6 templates updated · Keilhauer callouts removed from business-furniture/seating/boardroom (0 products) · ergoCentric callouts removed from business-furniture/seating/ergonomic-products (1 product) · 2 dead brand tiles removed from seating · GFG callout added to storage/tables/boardroom (→ /collections/global-teknion, 72 products) · Global/Teknion callout kept on desks/panels (valid) · accessories/quiet-spaces unchanged · brand plates band deferred to BRAND-PAGES-1 (Step 24) · audit report: data/reports/brand-callout-audit-2026-05-13.md · backups: data/backups/brand-callout-audit-20260513-190930/ |
 
 ---
 
