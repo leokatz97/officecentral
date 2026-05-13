@@ -1,6 +1,6 @@
 # BBI Build State — Single Source of Truth
 
-**Last updated:** 2026-05-12 (AUDIT-1 data-hygiene audit complete; Known Data Hygiene Issues section added; NAV-5 + ds-search-results also this date)
+**Last updated:** 2026-05-12 (AUDIT-1 data-hygiene audit complete; Known Data Hygiene Issues section added; NAV-5 + ds-search-results also this date; PUSH-FIX-1: PE Pass 2/3 push script silent-failure bugs fixed + 88 products re-pushed body_html + vendor + brand:* tags)
 **Dev theme:** BBI Landing Dev (`186373570873`) — never publish to live until LAUNCH-2
 **Live theme:** brantbusinessinteriors.com (production — untouched)
 **Replaces:** the status sections in `shopify-fix-plan.md` and the localStorage-bound `SEEDS` in `website-fix-checklist.html`
@@ -183,6 +183,50 @@ Vendor / brand data lives in three places that don't agree:
 
 All three must agree per product before the storefront's brand smart collections + brand callouts function correctly. The canonical brand map (VENDOR-NORMALIZE-1) is the bridge between them.
 
+### Historical push script silent failures (resolved 2026-05-12)
+
+Between PE Pass 2 (first Hero 100 batches) and Batch 3 of
+PE Pass 3 (2026-05-12), `scripts/push-pe3-enrichment.py` had four
+bugs that caused it to silently skip writes for body_html,
+Shopify vendor field, and brand:* tag — while correctly writing
+specs.* metafields. As a result, PE Pass 2/3 enrichment work
+appeared as "live" in build state and tracker but only the
+metafield specs were actually live on the storefront. Buyer-facing
+descriptions, vendor attribution, and brand tags remained the
+raw pre-enrichment import data.
+
+**Bugs in push-pe3-enrichment.py (all fixed in commit 58e8a27):**
+1. Script read `rec.get('description')` but batch output uses
+   `draft_body_html` — descriptions never written.
+2. Output JSON shape mismatch: products at top level vs under
+   'products' key — script saw 0 products in some batch files.
+3. Filter used `rec.get('status')` but data field is `action` —
+   action='other' products would have been pushed if any matched.
+4. No brand:* tag write logic — tags from batch output ignored.
+5. Vendor field also wasn't being written — bundled with the
+   brand-tag-write fix in 58e8a27.
+
+**Resolution 2026-05-12:**
+- Push script bugs fixed in commit 58e8a27.
+- All 88 affected products (69 from Batches 1+2 + 19 from
+  Batch 3) had body_html + vendor + brand:* tag pushed live.
+  Evidence: `data/logs/pe3-push-20260512-224332.json` (88 products_ok, 0 failures, live: true).
+  **Note for Steve:** `data/logs/` is gitignored — no standalone git commit for the Shopify push itself.
+  The push occurred between commits 58e8a27 (script fix) and 33a2c35 (kody patch post-verification).
+- `kody-mesh-chair-otg13110` had a draft-side copywriting gap
+  (missing BBI close paragraph in the original Batch 2 draft);
+  fixed in commit 33a2c35.
+- Post-push verification confirmed 5/5 sample products clean on
+  storefront, spec metafield average 9.4 per product.
+
+**Lesson — required for future batch sessions:**
+- Every batch's --live push must include the defensive
+  prerequisite check (verify push script field names match batch
+  output schema before run) AND a post-push 5-product storefront
+  verification.
+- The PE Pass 3 batch kickoff prompt pattern (added 2026-05-12)
+  bakes both checks in by default.
+
 ---
 
 ## Wave A — Foundations + Phase 2 build
@@ -301,10 +345,11 @@ All three must agree per product before the storefront's brand smart collections
 | KF-STRIP | Key Features de-duplication in About section | ✅ | commit `5f4a3bc` · `theme/sections/ds-pdp-base.liquid` | `product.description \| split: '<h3>' \| first` strips Key Features / Who it's for / closing boilerplate from the About block. Legacy products with no `<h3>` unaffected (single-item array, full description returned). Verified via API on 2600 Series (789 chars, 2 h3 sections stripped) and visually on Arlo chair. |
 | SPEC-HERO-PUSH | Hero 100 spec gap-fill + metafield push | ✅ | `data/specs.json` (100) + `data/logs/pe2-push-20260511-230357.json` (final push) | **All hero spec sessions complete (2026-05-11).** Steve ran H1A (12), H1B (11), H2 (19), H3 (~35), and a bonus `hero-batch-other.md` (9). Output file: 99 products (49 done + 33 auto-patched OTG/Global + 16 skip + 1 service). All pushed: `merge-hero-specs.py --live --push` confirmed. Final push log: `pe2-push-20260511-230357.json`. |
 | HERO-SPEC-SESSIONS | Hero 100 spec gap enrichment sessions (H1A → H3) | ✅ | `data/reports/hero-spec-gaps-output.json` — 99 products complete | **All 4 batches run by Steve (H1A/H1B/H2/H3) + bonus `hero-batch-other.md`.** 49 done + 33 auto-patched (OTG/Global warranty + country) + 16 skip + 1 service. Merge+push confirmed via `scripts/merge-hero-specs.py --live --push`. |
-| PE-PASS-3 | Push enrichment to Shopify (descriptions + specs + vendor) | 🟡 | `scripts/push-pe3-enrichment.py` · `data/logs/pe3-push-20260511-235643.json` | **Partial — 69/157 enrichment products pushed (2026-05-11).** Script: reads `pe-pass2-output.json`, writes `body_html` + 12 `specs.*` metafields + vendor. Completed batches pushed: 1 (25), 2 (26), 5 (10), 7 (13) = 74 in output, 69 pushed. Remaining 83 products need enrichment sessions (batches 3 Chairs Pt3 0/25, 4 Desks Pt1 0/27, 6 Storage 0/30, 1 remaining Batch 1). **After each new enrichment session, re-run:** `python3 scripts/push-pe3-enrichment.py --live` · **⚠️ IMPORTANT — Vendor data requirement for batches 3 / 4 / 6:** Every batch prompt must populate the `vendor_override` field per product using the canonical brand vocabulary from VENDOR-NORMALIZE-1 (launch tracker Step 1). Products pushed without `vendor_override` perpetuate the fragmentation documented in "Known Data Hygiene Issues" above. If VENDOR-NORMALIZE-1 has not yet produced the canonical brand map, do NOT run PE Pass 3 batches — the batch prompts need the map as input to populate `vendor_override` correctly. Sequence is: **VENDOR-NORMALIZE-1 → update batch prompt templates → run batches.** |
+| PE-PASS-3 | Push enrichment to Shopify (descriptions + specs + vendor) | 🟡 | `scripts/push-pe3-enrichment.py` · `data/logs/pe3-push-20260511-235643.json` · `data/logs/pe3-push-20260512-224332.json` | **Partial — 69/157 enrichment products pushed (2026-05-11).** Script: reads `pe-pass2-output.json`, writes `body_html` + 12 `specs.*` metafields + vendor. Completed batches pushed: 1 (25), 2 (26), 5 (10), 7 (13) = 74 in output, 69 pushed. Remaining 83 products need enrichment sessions (batches 3 Chairs Pt3 0/25, 4 Desks Pt1 0/27, 6 Storage 0/30, 1 remaining Batch 1). **After each new enrichment session, re-run:** `python3 scripts/push-pe3-enrichment.py --live` · **⚠️ IMPORTANT — Vendor data requirement for batches 3 / 4 / 6:** Every batch prompt must populate the `vendor_override` field per product using the canonical brand vocabulary from VENDOR-NORMALIZE-1 (launch tracker Step 1). Products pushed without `vendor_override` perpetuate the fragmentation documented in "Known Data Hygiene Issues" above. If VENDOR-NORMALIZE-1 has not yet produced the canonical brand map, do NOT run PE Pass 3 batches — the batch prompts need the map as input to populate `vendor_override` correctly. Sequence is: **VENDOR-NORMALIZE-1 → update batch prompt templates → run batches.** ⚠️ **Body_html + vendor field + brand:* tag not actually live on storefront until 2026-05-12 push (see Known Data Hygiene Issues → Historical push script silent failures). Specs metafields were live since original batch push dates.** |
 | SPEC-CANARY | Live canary test — Google Rich Results Test | 🟡 | `bbi-product-jsonld.liquid` + `ds-pdp-base.liquid` pushed to live theme `178274435385` | Both files live on `178274435385`. **Note:** live site brantbusinessinteriors.com uses Avada's `main-product` section (not `ds-pdp-base`) — so additionalProperty won't render on the live public site until the dev theme is set as the main theme. Dev theme (186373570873) verified on localhost:9292: additionalProperty rendered, About section clean. **Remaining:** Google Rich Results Test on a Hero product URL once dev theme preview is accessible — defers to pre-launch SEO-AUDIT-1. |
 | ICP-V2 | ICP v2 approved + cascaded to all prompt files | ✅ | commit `1d6684c` · `docs/strategy/icp.md`, `.claude/skills/bbi-build-page/SKILL.md`, 8 enrichment batch files | Steve approved 2026-05-06 draft. Changes: co-primary ICPs A+B (institutional + SMB equal weight), Ontario + Western Canada co-primary geography, dual buying mode (cart + quote), install in Ontario + Western Canada. Cascaded to: SKILL.md (buyers context, ICP gate question, card CTA dual-mode), all 8 enrichment prompts (closing ¶ delivery/install language, OECM Ontario-vs-national distinction). |
 | AUDIT-1 | Pre-launch tech-debt + state audit | ✅ | `data/reports/audit-tech-debt-2026-05-12.md` · `data/reports/empty-collections-snapshot-2026-05-12.csv` | 15 findings total. 4 blockers promoted to launch path Steps 1–4. 11 deferred. Surfaced vendor data hygiene issues now catalogued in "Known Data Hygiene Issues" section above. |
+| PUSH-FIX-1 | Surfaced + fixed 5 silent-failure bugs in `scripts/push-pe3-enrichment.py` · body_html / vendor field / brand:* tag writes restored · 88 products affected, all pushed live 2026-05-12 | ✅ | commits 58e8a27 (script fix), 33a2c35 (kody patch); push evidence: `data/logs/pe3-push-20260512-224332.json` (88 products_ok, 0 failures, live: true) | See Known Data Hygiene Issues → Historical push script silent failures for full bug list and root-cause analysis. Post-push verification: 5/5 sample products clean on storefront, avg 9.4 spec metafields per product. |
 
 ---
 
