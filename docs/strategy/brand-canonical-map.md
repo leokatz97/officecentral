@@ -70,7 +70,6 @@ _Sorted by enriched product count, descending. Counts reflect only the 152 curre
   - "Global Furniture Group (Offices to Go)" (1 product)
   - "Global Furniture Group / Offices to Go" (1 product)
   - "Likely Global Furniture Group" (1 product)
-  - "Innovations laminate desking line (likely Global / OTG private label)" (1 product)
   - "Global Upholstery Co. / Global Furniture Group (Offices To Go)" (1 product)
 - **Reasoning:** Top-level parent brand with deep catalog presence. Folded sub-brands are internal corporate divisions, not consumer-facing brand names. Standalone and callable per Steve's call.
 
@@ -85,8 +84,9 @@ _Sorted by enriched product count, descending. Counts reflect only the 152 curre
 - **Mapped from variants:**
   - "Heartwood Manufacturing Ltd." (13 products)
   - "Heartwood Manufacturing Ltd" (4 products)
+  - "Innovations laminate desking line (likely Global / OTG private label)" (5 products — Innovations is Heartwood's flagship desking line, sold via heartwooddl.com)
 - **Reasoning:** Canadian manufacturer with its own recognizable storefront identity. Second-largest brand in the enriched set. Standalone and callable per Steve's call.
-- **Notes:** The variant without trailing period is a typo in enrichment sessions. Canonical form includes the period.
+- **Notes:** The variant without trailing period is a typo in enrichment sessions. Canonical form includes the period. The Innovations product line is Heartwood's own, not a GFG line — corrected 2026-05-13 (INNOVATIONS-FIX).
 
 ---
 
@@ -319,7 +319,7 @@ Global Furniture Group is a publicly traded Canadian conglomerate. The divisions
 
 | String | Resolution |
 |---|---|
-| "Innovations laminate desking line (likely Global / OTG private label)" | → Global Furniture Group (Innovations is a GFG desking series; "(likely)" qualifier scrubbed) |
+| "Innovations laminate desking line (likely Global / OTG private label)" | → ~~Global Furniture Group~~ → **Heartwood Manufacturing Ltd.** (CORRECTED 2026-05-13: was originally classified as a GFG private label based on low-confidence enrichment notes. heartwooddl.com — the distribution arm of Heartwood Manufacturing Ltd., Kelowna BC — explicitly lists Innovations as "their most comprehensive series" with 100+ components. 5 products re-attributed in INNOVATIONS-FIX.) |
 | "Likely Global Furniture Group" | → Global Furniture Group (low-confidence enrichment note scrubbed) |
 | "OTG / Offices to Go (likely)" | → OTG / Offices to Go ("(likely)" scrubbed) |
 | "Fellowes (likely)" | → Fellowes ("(likely)" scrubbed) |
