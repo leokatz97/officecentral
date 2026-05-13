@@ -1,6 +1,6 @@
 # BBI Build State — Single Source of Truth
 
-**Last updated:** 2026-05-13 (Sub-steps A+B+C1+C2+D COMPLETE — canonical map 30 brands; 15 products re-tagged; 164 collections unpublished; 207 active collections; 164 redirects in data/url-redirects-bulk.csv ready for manual import; brand callouts on 10 Phase 2 category pages updated to reflect canonical brand depth)
+**Last updated:** 2026-05-13 (Sub-steps A+B+C1+C2+D COMPLETE — canonical map 30 brands; 15 products re-tagged; 164 collections unpublished; 207 active collections; 164 redirects in data/url-redirects-bulk.csv ready for manual import; brand callouts on 10 Phase 2 category pages updated to reflect canonical brand depth · Phase 1: 10 of 15 steps done after Sub-step D · 5 steps remain (BUG-FIX-2, BUG-FIX-3, TAG-INDUSTRY-CHECK, BUG-FIX-4, PROMPT-5))
 **Dev theme:** BBI Landing Dev (`186373570873`) — never publish to live until LAUNCH-2
 **Live theme:** brantbusinessinteriors.com (production — untouched)
 **Replaces:** the status sections in `shopify-fix-plan.md` and the localStorage-bound `SEEDS` in `website-fix-checklist.html`
