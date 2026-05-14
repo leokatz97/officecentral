@@ -290,6 +290,7 @@ button.bbi-quote-inline:hover { color: #D4252A; }
             {%- comment -%} Hidden context fields — populated by JS on open {%- endcomment -%}
             <input type="hidden" name="contact[tags]" value="bbi-quote-modal">
             <input type="hidden" name="contact[lead_type]" id="bbi-qm-lead-type" value="quote">
+            <input type="hidden" name="contact[subject]" id="bbi-qm-subject" value="[Quote Request] via Brant Business Interiors">
             <input type="hidden" name="contact[product_handle]" id="bbi-qm-product-handle" value="">
             <input type="hidden" name="contact[product_title]" id="bbi-qm-product-title" value="">
             <input type="hidden" name="contact[collection_handle]" id="bbi-qm-collection-handle" value="">
@@ -407,10 +408,21 @@ class BbiQuoteModal extends HTMLElement {
 
   open(ctx = {}) {
     /* Populate hidden context fields */
-    document.getElementById('bbi-qm-lead-type').value = ctx.leadType || 'quote';
+    const leadType = ctx.leadType || 'quote';
+    document.getElementById('bbi-qm-lead-type').value = leadType;
     document.getElementById('bbi-qm-product-handle').value = ctx.productHandle || '';
     document.getElementById('bbi-qm-product-title').value = ctx.productTitle || '';
     document.getElementById('bbi-qm-collection-handle').value = ctx.collectionHandle || '';
+
+    /* Populate subject for inbox routing */
+    const subjectMap = {
+      'quote':   '[Quote Request] via Brant Business Interiors',
+      'design':  '[Design Consultation] via Brant Business Interiors',
+      'oecm':    '[OECM Inquiry] via Brant Business Interiors',
+      'contact': '[General Contact] via Brant Business Interiors'
+    };
+    const subjectEl = document.getElementById('bbi-qm-subject');
+    if (subjectEl) subjectEl.value = subjectMap[leadType] || subjectMap['quote'];
 
     /* Update enquiry type select to match lead_type */
     const sel = document.getElementById('bbi-qm-enquiry');

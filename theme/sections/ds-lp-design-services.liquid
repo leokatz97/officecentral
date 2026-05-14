@@ -359,67 +359,17 @@
           <h2 class="lp-form-split__heading">Tell us about your project</h2>
           <p class="lp-form-split__sub">We'll have a first draft back to you within 3–5 business days.</p>
         </div>
-        <form action="mailto:{{ section.settings.form_email | default: 'sales@brantbusinessinteriors.com' }}" method="POST" enctype="text/plain" novalidate>
-          <div class="lp-form__row">
-            <div class="lp-form__field">
-              <label class="lp-form__label" for="ds-project-type">Project type</label>
-              <select class="lp-form__select" id="ds-project-type" name="project_type">
-                <option value="">Select…</option>
-                <option value="new-office">New office fit-out</option>
-                <option value="refresh">Office refresh / renovation</option>
-                <option value="workstations">Workstation additions</option>
-                <option value="boardroom">Boardroom / meeting room</option>
-                <option value="reception">Reception / lobby</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="lp-form__field">
-              <label class="lp-form__label" for="ds-sqft">Approx. square footage</label>
-              <input class="lp-form__input" type="text" id="ds-sqft" name="square_footage" placeholder="e.g. 1,200 sq ft">
-            </div>
-          </div>
-          <div class="lp-form__row">
-            <div class="lp-form__field">
-              <label class="lp-form__label" for="ds-timeline">Timeline</label>
-              <select class="lp-form__select" id="ds-timeline" name="timeline">
-                <option value="">Select…</option>
-                <option value="asap">As soon as possible</option>
-                <option value="1-3mo">1–3 months</option>
-                <option value="3-6mo">3–6 months</option>
-                <option value="planning">Still planning</option>
-              </select>
-            </div>
-            <div class="lp-form__field">
-              <label class="lp-form__label" for="ds-budget">Budget range</label>
-              <select class="lp-form__select" id="ds-budget" name="budget">
-                <option value="">Select…</option>
-                <option value="under-5k">Under $5,000</option>
-                <option value="5k-15k">$5,000 – $15,000</option>
-                <option value="15k-50k">$15,000 – $50,000</option>
-                <option value="50k-plus">$50,000+</option>
-                <option value="unknown">Not sure yet</option>
-              </select>
-            </div>
-          </div>
-          <div class="lp-form__row">
-            <div class="lp-form__field">
-              <label class="lp-form__label" for="ds-name">Name</label>
-              <input class="lp-form__input" type="text" id="ds-name" name="name" placeholder="Your name" autocomplete="name">
-            </div>
-            <div class="lp-form__field">
-              <label class="lp-form__label" for="ds-company">Company / Organization</label>
-              <input class="lp-form__input" type="text" id="ds-company" name="company" placeholder="Company name" autocomplete="organization">
-            </div>
-          </div>
-          <div class="lp-form__field">
-            <label class="lp-form__label" for="ds-email">Email</label>
-            <input class="lp-form__input" type="email" id="ds-email" name="email" placeholder="you@company.com" autocomplete="email">
-          </div>
+        <div class="lp-form__modal-trigger-wrap">
+          <p class="lp-form-split__sub lp-form-split__sub--detail">Include your project type, approximate square footage, timeline, and budget in the message field — we'll use these to build your floor plan.</p>
           <div class="lp-form__submit-wrap">
-            <button class="bbi-btn bbi-btn--primary bbi-btn--lg bbi-btn--full" type="submit">Send request <span class="arrow" aria-hidden="true">→</span></button>
+            <button class="bbi-btn bbi-btn--primary bbi-btn--lg bbi-btn--full" type="button"
+              data-bbi-quote-trigger
+              data-lead-type="design">
+              Get My Free Layout <span class="arrow" aria-hidden="true">→</span>
+            </button>
             <p class="lp-form__helper">We respond within 1 business day.</p>
           </div>
-        </form>
+        </div>
       </div>
 
       <div class="lp-form-split__photo">
