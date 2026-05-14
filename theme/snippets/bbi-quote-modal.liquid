@@ -204,10 +204,30 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 48px 32px;
+  padding: 48px 32px 40px;
   gap: 16px;
+  position: relative;
 }
 .bbi-qm-success[data-visible] { display: flex; }
+.bbi-qm-success-x {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: rgba(11,11,12,0.45);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+.bbi-qm-success-x:hover { color: #0B0B0C; background: rgba(11,11,12,0.06); }
 .bbi-qm-success-icon {
   width: 56px;
   height: 56px;
@@ -225,22 +245,51 @@
   color: #0B0B0C;
   margin: 0;
 }
-.bbi-qm-success p { font-size: 15px; color: rgba(11,11,12,0.65); margin: 0; }
-.bbi-qm-success-close {
-  margin-top: 8px;
-  height: 44px;
-  padding: 0 28px;
-  background: #0B0B0C;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 4px;
-  font-family: inherit;
+.bbi-qm-success-sub { font-size: 15px; color: rgba(11,11,12,0.65); margin: 0; }
+.bbi-qm-success-timeline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(22,163,74,0.08);
+  border: 1px solid rgba(22,163,74,0.2);
+  border-radius: 6px;
+  padding: 10px 18px;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s;
+  color: #15803D;
 }
-.bbi-qm-success-close:hover { background: #D4252A; }
+.bbi-qm-success-recap {
+  width: 100%;
+  background: rgba(11,11,12,0.04);
+  border-radius: 8px;
+  padding: 16px 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+.bbi-qm-success-recap-row {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.bbi-qm-success-recap-label {
+  color: rgba(11,11,12,0.5);
+  min-width: 90px;
+  flex-shrink: 0;
+}
+.bbi-qm-success-recap-value {
+  color: #0B0B0C;
+  font-weight: 500;
+  word-break: break-word;
+}
+.bbi-qm-success-note {
+  font-size: 13px;
+  color: rgba(11,11,12,0.5);
+  margin: 0;
+}
 
 /* Inline text-link trigger style */
 button.bbi-quote-inline {
@@ -262,12 +311,20 @@ button.bbi-quote-inline:hover { color: #D4252A; }
 
       <!-- Success state -->
       <div class="bbi-qm-success" id="bbi-qm-success" role="status" aria-live="polite">
+        <button type="button" class="bbi-qm-success-x" id="bbi-qm-success-close" aria-label="Close">&times;</button>
         <div class="bbi-qm-success-icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#15803D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14l7 7L23 8"/></svg>
         </div>
-        <h2>Thanks &mdash; we&rsquo;ll get back to you within one business day</h2>
-        <p>Our Ontario team will review your request and respond with a quote, usually the same business day.</p>
-        <button type="button" class="bbi-qm-success-close" id="bbi-qm-success-close">Close</button>
+        <h2>Quote request received</h2>
+        <p class="bbi-qm-success-sub">Our Ontario team will review your request and follow up with a quote.</p>
+        <div class="bbi-qm-success-timeline" aria-label="Expected response time">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Response within <strong>1 business day</strong> &mdash; usually same day
+        </div>
+        <div class="bbi-qm-success-recap" id="bbi-qm-success-recap" aria-label="Submission summary">
+          <!-- populated by JS -->
+        </div>
+        <p class="bbi-qm-success-note">We&rsquo;ll reply to the email address you provided. Check your spam folder if you don&rsquo;t hear from us.</p>
       </div>
 
       <!-- Form state -->
@@ -363,9 +420,9 @@ class BbiQuoteModal extends HTMLElement {
     this.querySelector('#bbi-qm-close').addEventListener('click', () => this.close());
     this.querySelector('#bbi-qm-success-close').addEventListener('click', () => this.close());
 
-    /* Click-outside-to-close */
+    /* Click-outside-to-close — disabled on success state so user must read and X out */
     this._dialog.addEventListener('click', e => {
-      if (e.target === this._dialog) this.close();
+      if (e.target === this._dialog && !this._success.hasAttribute('data-visible')) this.close();
     });
 
     /* Escape handled natively by <dialog> */
@@ -481,6 +538,29 @@ class BbiQuoteModal extends HTMLElement {
     }
   }
 
+  _populateRecap() {
+    const recap = this.querySelector('#bbi-qm-success-recap');
+    if (!recap) return;
+    const name     = (this._form.querySelector('#bbi-qm-name')?.value || '').trim();
+    const email    = (this._form.querySelector('#bbi-qm-email')?.value || '').trim();
+    const enquiry  = this._form.querySelector('#bbi-qm-enquiry')?.value || '';
+    const product  = (document.getElementById('bbi-qm-product-title')?.value || '').trim();
+
+    const rows = [
+      { label: 'Name',         value: name    },
+      { label: 'Email',        value: email   },
+      { label: 'Enquiry type', value: enquiry },
+      { label: 'Product',      value: product },
+    ].filter(r => r.value);
+
+    recap.innerHTML = rows.map(r =>
+      `<div class="bbi-qm-success-recap-row">
+        <span class="bbi-qm-success-recap-label">${r.label}</span>
+        <span class="bbi-qm-success-recap-value">${r.value.replace(/</g,'&lt;')}</span>
+      </div>`
+    ).join('');
+  }
+
   async _handleSubmit(e) {
     e.preventDefault();
     if (!this._submitBtn) return;
@@ -500,6 +580,7 @@ class BbiQuoteModal extends HTMLElement {
          completes without throwing, the submission reached Shopify and the
          notification email was sent. Treat any completed response as success. */
       this._formWrap.hidden = true;
+      this._populateRecap();
       this._success.setAttribute('data-visible', '');
       this.querySelector('#bbi-qm-success-close').focus();
       this._form.reset();
