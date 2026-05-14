@@ -55,49 +55,21 @@ All form submissions from the BBI quote modal will then land at `info@brantbusin
 
 ---
 
-## ⚠️ Subject-line behaviour: what to verify + fallback
+## Subject-line behaviour: confirmed 2026-05-14
 
-### What `contact[subject]` does in Shopify
+Tested on DEV theme 186373570873. Findings:
 
-Shopify's native `{% form 'contact' %}` sends a "Customer message" notification email to the store's `customer_email` address. The `contact[subject]` field we added appears as a labeled body field in that email — it shows up inside the email content as "Subject: [Quote Request] via Brant Business Interiors".
+- **SMTP subject line:** `New customer message on May 14, 2026 at 3:24 pm` — Shopify's fixed template. `contact[subject]` does NOT override the SMTP subject.
+- **Email body:** `[Quote Request] via Brant Business Interiors` IS present — appears as the value under the Shopify-generated "New customer message on %{creation_date}:" label in the notification body.
+- All other fields confirmed present: Lead Type, Tags, Enquiry Type, Name, Email, Phone, Company, Body.
 
-**Whether it also sets the actual SMTP subject line of the notification depends on the store's email notification template.** Shopify's default contact notification subject is typically a fixed string like `"Customer enquiry"`. However, Shopify notification templates support Liquid — if the subject template is edited to reference the contact subject field, it will appear in the SMTP subject.
+**Path B is the correct path.** Inbox rules match body content.
 
-### Test to confirm (Steve runs once)
-
-After updating `customer_email` to `info@brantbusinessinteriors.com`:
-
-1. Open `https://www.brantbusinessinteriors.com/pages/quote` (or use the DEV preview)
-2. Click any "Request a Quote" button — the BBI quote modal opens
-3. Fill in a real email address (your own — `steve@brantbusinessinteriors.com` or personal)
-4. Submit the form
-5. Check the email that arrives at `info@` → forwarded to `steve@`
-6. Look at **two things**:
-   - **The SMTP subject line** of the email (what you see in your inbox preview): does it say `[Quote Request] via Brant Business Interiors`?
-   - **The email body**: does it include a "Subject:" line with `[Quote Request] via Brant Business Interiors`?
-
-**If the SMTP subject line shows `[Quote Request]`:** Inbox rules matching on subject work as-is (Path A below).
-
-**If the SMTP subject line is something generic like `"Customer enquiry"`:** The routing tag is in the body only (Path B below).
+Path A (subject rules) and the test section below are superseded — leaving Path B+ (Shopify template edit) as the optional upgrade path.
 
 ---
 
-## Path A: Inbox rules matching email SUBJECT (if subject test passes)
-
-Set up one inbox rule on the `info@brantbusinessinteriors.com` mailbox (or `steve@`, since info@ forwards there):
-
-**In GoDaddy M365 admin → Users → info@ → Mail → Inbox Rules → Add rule:**
-
-| Condition | Action |
-|---|---|
-| Subject contains `[Quote Request]` | Move to folder "Quotes" (or flag / forward copy to quotes@) |
-| Subject contains `[Design Consultation]` | Move to folder "Design" (or forward to design@) |
-| Subject contains `[OECM Inquiry]` | Move to folder "OECM" (or forward to quotes@) |
-| Subject contains `[General Contact]` | Move to folder "General" |
-
----
-
-## Path B: Inbox rules matching email BODY (fallback if SMTP subject is generic)
+## Path B: Inbox rules matching email BODY (confirmed correct path)
 
 If Shopify sends `"Customer enquiry"` as the subject regardless of the form field, use M365 body-content rules instead.
 

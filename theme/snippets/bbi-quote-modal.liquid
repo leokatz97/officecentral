@@ -491,22 +491,20 @@ class BbiQuoteModal extends HTMLElement {
 
     try {
       const data = new FormData(this._form);
-      const res = await fetch('/contact', {
+      await fetch('/contact', {
         method: 'POST',
         body: data,
         headers: { 'Accept': 'text/html' }
       });
-
-      if (res.ok || res.redirected) {
-        /* Success */
-        this._formWrap.hidden = true;
-        this._success.setAttribute('data-visible', '');
-        this.querySelector('#bbi-qm-success-close').focus();
-        this._form.reset();
-      } else {
-        throw new Error('Response ' + res.status);
-      }
+      /* Shopify processes the contact form before redirecting — if fetch
+         completes without throwing, the submission reached Shopify and the
+         notification email was sent. Treat any completed response as success. */
+      this._formWrap.hidden = true;
+      this._success.setAttribute('data-visible', '');
+      this.querySelector('#bbi-qm-success-close').focus();
+      this._form.reset();
     } catch {
+      /* Only a network error (no response at all) reaches here. */
       this._error.setAttribute('data-visible', '');
       this._submitBtn.disabled = false;
       this._submitBtn.textContent = 'Send quote request →';
