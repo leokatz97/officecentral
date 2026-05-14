@@ -1,0 +1,99 @@
+section_file,section_type,classification,templates_using_it,notes
+bbi-footer-wrap,BBI Footer (wrapper),USED-OTHER,"cart.json,search.json,collection.json,index.json,page.json",Nav/footer wrapper used in generic fallback templates and index; not in any BBI-specific named template directly
+bbi-nav-wrap,BBI Nav (wrapper),USED-OTHER,"cart.json,search.json,collection.json,index.json,page.json",Same as bbi-footer-wrap — used in fallback/global templates
+ds-article,Article,USED-PHASE2,article.json,Clean 1:1 mapping
+ds-blog-list,Blog — Resources Hub,USED-PHASE2,blog.json,Clean 1:1 mapping
+ds-cart-base,BBI Cart,USED-PHASE2,cart.json,Clean 1:1 mapping
+ds-cc-base,BBI Category Page,USED-PHASE2,"collection.accessories.json,collection.boardroom.json,collection.business-furniture.json,collection.category.json,collection.desks.json,collection.ergonomic-products.json,collection.panels-room-dividers.json,collection.quiet-spaces.json,collection.seating.json,collection.storage.json,collection.tables.json",DRIFT: collection.business-furniture.json has setting key ""cta_url"" not defined in schema
+ds-collection-base,BBI Collection,USED-OTHER,collection.json,Only used in the generic collection.json fallback template
+ds-cs-base,Sub-Collection Page,USED-PHASE2,collection.base.json,Clean 1:1 mapping
+ds-lp-about,About BBI,USED-PHASE2,page.about.json,Clean 1:1 mapping
+ds-lp-brands,Brands Hub,USED-PHASE2,page.brands.json,Clean 1:1 mapping
+ds-lp-brands-ergocentric,ergoCentric Brand Page,USED-PHASE2,page.brands-ergocentric.json,Clean 1:1 mapping
+ds-lp-brands-global-teknion,Global & Teknion Brands,USED-PHASE2,page.brands-global-teknion.json,Clean 1:1 mapping
+ds-lp-brands-keilhauer,Keilhauer Brand Page,USED-PHASE2,page.brands-keilhauer.json,Clean 1:1 mapping
+ds-lp-contact,Contact Page,USED-PHASE2,page.contact.json,Clean 1:1 mapping
+ds-lp-customer-stories,Customer Stories,USED-PHASE2,page.customer-stories.json,Clean 1:1 mapping
+ds-lp-delivery,Delivery & Installation,USED-PHASE2,page.delivery.json,Clean 1:1 mapping
+ds-lp-design-services,Design Services Landing Page,USED-PHASE2,page.design-services.json,Clean 1:1 mapping
+ds-lp-education,Education Landing Page,USED-PHASE2,page.education.json,Clean 1:1 mapping
+ds-lp-faq,FAQ Landing Page,USED-PHASE2,page.faq.json,Clean 1:1 mapping
+ds-lp-government,Government Landing Page,USED-PHASE2,page.government.json,Clean 1:1 mapping
+ds-lp-healthcare,Healthcare Landing Page,USED-PHASE2,page.healthcare.json,Clean 1:1 mapping
+ds-lp-industries,Industries Hub,USED-PHASE2,page.industries.json,Clean 1:1 mapping
+ds-lp-non-profit,Non-Profit Landing Page,USED-PHASE2,page.non-profit.json,Clean 1:1 mapping
+ds-lp-oecm,OECM Office Furniture Purchasing,USED-PHASE2,page.oecm.json,Clean 1:1 mapping
+ds-lp-our-work,Our Work Gallery,USED-PHASE2,page.our-work.json,Clean 1:1 mapping
+ds-lp-professional-services,Pro Services Landing,USED-PHASE2,page.professional-services.json,Clean 1:1 mapping
+ds-lp-quote,Furniture Quote Request,USED-PHASE2,page.quote.json,Clean 1:1 mapping
+ds-lp-relocation,Relocation Management,USED-PHASE2,page.relocation.json,Clean 1:1 mapping
+ds-pdp-base,Product Detail Page,USED-PHASE2,product.json,Clean 1:1 mapping
+ds-search-results,BBI Search Results,USED-PHASE2,search.json,Clean 1:1 mapping
+ds-system-404,404 Page,USED-PHASE2,404.json,Clean 1:1 mapping
+Collapsible-content,Starlite — Collapsible Content,LEGACY-STARLITE,,Not referenced by any template
+accordion-boxes,Starlite — Accordion Boxes,LEGACY-STARLITE,,Not referenced by any template
+age-verification,Starlite — Age Verification,LEGACY-STARLITE,,Not referenced by any template
+ajax-cart-drawer,Starlite — Ajax Cart Drawer (no schema),LEGACY-STARLITE,,No schema block; not referenced by any template
+announcement-bar,Starlite — Announcement Bar,LEGACY-STARLITE,,Not referenced by any template
+before-after-image,Starlite — Before/After Image,LEGACY-STARLITE,,Not referenced by any template
+blinking-icons,Starlite — Blinking Icons,LEGACY-STARLITE,,Not referenced by any template
+blog-posts,Starlite — Blog Posts,LEGACY-STARLITE,,Not referenced by any template
+breadcrumb,Starlite — Breadcrumb,LEGACY-STARLITE,,Not referenced by any template
+cart,Starlite — Cart,LEGACY-STARLITE,,Not referenced by any template (BBI uses ds-cart-base)
+categories,Starlite — Categories,LEGACY-STARLITE,,Not referenced by any template
+collection-carousel,Starlite — Collection Carousel,LEGACY-STARLITE,,Not referenced by any template
+collection-list,Starlite — Collection List,LEGACY-STARLITE,,Not referenced by any template
+collection-tab,Starlite — Collection Tab,LEGACY-STARLITE,,Not referenced by any template
+compare-products-content,Starlite — Compare Products,LEGACY-STARLITE,,Not referenced by any template
+contact-form,Starlite — Contact Form,LEGACY-STARLITE,,Not referenced by any template (BBI uses ds-lp-contact)
+countdown,Starlite — Countdown,LEGACY-STARLITE,,Not referenced by any template
+country-list,Starlite — Country List (no schema),LEGACY-STARLITE,,No schema block; not referenced by any template
+custom-liquid,Starlite — Custom Liquid,USED-OTHER,index.json,Used 8× in index.json as BBI homepage blocks (inline HTML) — not a BBI DS section but actively used
+featured-collection,Starlite — Featured Collection,LEGACY-STARLITE,,Not referenced by any template
+featured-content,Starlite — Featured Content,LEGACY-STARLITE,,Not referenced by any template
+featured-images,Starlite — Featured Images,LEGACY-STARLITE,,Not referenced by any template
+featured-product,Starlite — Featured Product,LEGACY-STARLITE,,Not referenced by any template
+featured-products,Starlite — Featured Products,LEGACY-STARLITE,,Not referenced by any template
+footer,Starlite — Footer,LEGACY-STARLITE,,Not referenced by any template (BBI uses bbi-footer-wrap)
+header,Starlite — Header,LEGACY-STARLITE,,Not referenced by any template (BBI uses bbi-nav-wrap)
+image-with-text-carousel,Starlite — Image with Text Carousel,LEGACY-STARLITE,,Not referenced by any template
+images-banner,Starlite — Images Banner,LEGACY-STARLITE,,Not referenced by any template
+images-grid,Starlite — Images Grid,LEGACY-STARLITE,,Not referenced by any template
+information-drawer,Starlite — Information Drawer,LEGACY-STARLITE,,Not referenced by any template
+logo-list,Starlite — Logo List,LEGACY-STARLITE,,Not referenced by any template
+main-404,Starlite — 404 Page,LEGACY-STARLITE,,Not referenced by any template (BBI uses ds-system-404)
+main-account,Starlite — Account,LEGACY-STARLITE,,Not referenced by any template; account pages use Shopify default
+main-activate-account,Starlite — Activate Account,LEGACY-STARLITE,,Not referenced by any template
+main-addresses,Starlite — Addresses,LEGACY-STARLITE,,Not referenced by any template
+main-article,Starlite — Article,LEGACY-STARLITE,,Not referenced by any template (BBI uses ds-article)
+main-blog,Starlite — Blog,LEGACY-STARLITE,,Not referenced by any template (BBI uses ds-blog-list)
+main-collection,Starlite — Collection,LEGACY-STARLITE,,Not referenced by any template (BBI uses ds-collection-base / ds-cc-base)
+main-list-collections,Starlite — List Collections,LEGACY-STARLITE,,Not referenced by any template
+main-login,Starlite — Login,LEGACY-STARLITE,,Not referenced by any template
+main-order,Starlite — Order,LEGACY-STARLITE,,Not referenced by any template
+main-page,Starlite — Main Page,USED-OTHER,page.json,Used in generic page.json fallback only — legacy catch-all; BBI-specific pages all use ds-lp-* sections
+main-password-section,Starlite — Password,LEGACY-STARLITE,,Not referenced by any template
+main-product,Starlite — Product,LEGACY-STARLITE,,Not referenced by any template (BBI uses ds-pdp-base)
+main-register,Starlite — Register,LEGACY-STARLITE,,Not referenced by any template
+main-reset-password,Starlite — Reset Password,LEGACY-STARLITE,,Not referenced by any template
+main-search,Starlite — Search,LEGACY-STARLITE,,Not referenced by any template (BBI uses ds-search-results)
+map,Starlite — Map,LEGACY-STARLITE,,Not referenced by any template
+marquee,Starlite — Marquee,LEGACY-STARLITE,,Not referenced by any template
+media-gallery,Starlite — Media Gallery,LEGACY-STARLITE,,Not referenced by any template
+media-grid,Starlite — Media Grid,LEGACY-STARLITE,,Not referenced by any template
+multi-column,Starlite — Multi Column,LEGACY-STARLITE,,Not referenced by any template
+multiboxes,Starlite — Multiboxes,LEGACY-STARLITE,,Not referenced by any template
+newsletter-offer-popup,Starlite — Newsletter Popup,LEGACY-STARLITE,,Not referenced by any template
+newsletter,Starlite — Newsletter,LEGACY-STARLITE,,Not referenced by any template
+numbers,Starlite — Numbers,LEGACY-STARLITE,,Not referenced by any template
+offer-banner,Starlite — Offer Banner,LEGACY-STARLITE,,Not referenced by any template
+offer-card,Starlite — Offer Card,LEGACY-STARLITE,,Not referenced by any template
+parallax,Starlite — Parallax,LEGACY-STARLITE,,Not referenced by any template
+pickup-availability,Starlite — Pickup Availability (no schema),LEGACY-STARLITE,,No schema block; not referenced by any template
+predictive-search,Starlite — Predictive Search (no schema),LEGACY-STARLITE,,No schema block; not referenced by any template
+product-short-videos,Starlite — Product Short Videos,LEGACY-STARLITE,,Not referenced by any template
+recently-viewed-products,Starlite — Recently Viewed Products,LEGACY-STARLITE,,Not referenced by any template
+shapes,Starlite — Shapes,LEGACY-STARLITE,,Not referenced by any template
+split-banner,Starlite — Split Banner,LEGACY-STARLITE,,Not referenced by any template
+tab-media,Starlite — Tab Media,LEGACY-STARLITE,,Not referenced by any template
+video-banner,Starlite — Video Banner,LEGACY-STARLITE,,Not referenced by any template
