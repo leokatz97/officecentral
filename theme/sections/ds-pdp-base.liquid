@@ -419,7 +419,7 @@ body { background: #FFFFFF !important; }
         {%- if cat_handle != blank -%}
           <a href="/collections/{{ cat_handle }}">{{ cat_label }}</a>
         {%- else -%}
-          <a href="/collections/other">Other</a>
+          <span>Other</span>
         {%- endif -%}
         <span class="pdp-breadcrumb__sep" aria-hidden="true">/</span>
         <span aria-current="page">{{ product.title }}</span>
