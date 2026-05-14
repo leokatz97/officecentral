@@ -148,3 +148,40 @@ Each blog post in the SEO content strategy needs a 1200×630 featured image. Aco
 One 1200×630 OG image per major page (~20 total) — what appears when a URL is shared on LinkedIn, email, or Teams. High priority for B2B buyers who forward procurement links to colleagues. Images should be text-overlay-safe with BBI brand colours as a CSS overlay layer (not baked into the image). Generate in a batch once the page heroes are finalized — reuse or crop from hero images where possible.
 
 - Notes:
+
+---
+
+## Post-launch PDP enhancement candidates
+_Surfaced during COMP-SCRAPE-1 audit (2026-05-14). Items here are NOT in Wave E scope. Review post-launch when prioritizing v1.1 / v2 work._
+
+### 11. PDP ergonomic-features panel
+- **Source:** COMP-SCRAPE-1 audit 2026-05-14 (`docs/strategy/competitor-audit-ugoburo.md`, section 6 — PDP findings)
+- **Pattern:** Icon + one-sentence plain-language explainer per ergonomic adjustment feature — e.g., "Seat Height — Raise or lower to allow your feet to rest flat on the floor. Avoids pressure under your thighs, easing blood flow." Ugoburo's Vion PDP carries 10 of these blocks.
+- **Why valuable:** AI-search-friendly (clear semantic content that LLMs can extract and cite); institutional-buyer-friendly (helps less-technical procurement officers understand product specs without jargon).
+- **Where applicable:** Chair PDPs first, then sit-stand desks, monitor arms, and other ergonomic product types.
+- **Effort estimate:** Section template + small icon library (~half a day) + ~2 hrs per-product copy for the top 30 ergonomic SKUs. Roughly half a day of Claude Code work + ~3–4 hrs of content/curation. Resume-safe if broken into product batches.
+- **When:** v1.1 or v2 post-launch enhancement. **Not Wave E.**
+
+### 12. OECM eligibility callout snippet on all furniture-grade PDPs
+- **Source:** COMP-SCRAPE-1 audit 2026-05-14 (`docs/strategy/competitor-audit-ugoburo.md`, post-launch backlog list + gap analysis row #5)
+- **Pattern:** Small callout block on every furniture-grade PDP: "OECM Agreement 2025-470 eligible — institutional buyers can purchase without open tender. [Request a quote →]" Links to `/pages/oecm`. Ugoburo misses this entirely on their PDPs despite having a government page.
+- **Why valuable:** BBI's single biggest competitive edge vs ugoburo is the OECM moat; surfacing it at PDP level converts procurement-officer traffic that landed on a specific product.
+- **Where applicable:** All `oecm-eligible`-tagged products (~584 active SKUs). Implement as a Liquid snippet that checks the tag and renders conditionally.
+- **Effort estimate:** ~1–2 hrs for the snippet + conditional Liquid logic. Content is already written on `/pages/oecm`.
+- **When:** Could ship as a quick v1.1 win immediately post-launch. **Not Wave E** (defer if scope grows during INTERLINK-3).
+
+### 13. Above-the-fold lead time display on PDPs
+- **Source:** COMP-SCRAPE-1 audit 2026-05-14 (`docs/strategy/competitor-audit-ugoburo.md`, section 6 — PDP findings)
+- **Pattern:** Institutional buyers need lead time *before* they engage, not buried in a spec table. Ugoburo hides it in "More Information" rows. Surface it prominently above the fold (e.g., "Lead time: 6–8 weeks for qty 20+") for chairs and desks with the `leadtime` metafield populated.
+- **Why valuable:** Reduces pre-quote back-and-forth; signals operational credibility to procurement officers who need delivery windows for project planning.
+- **Where applicable:** Any PDP with `product.metafields.custom.leadtime` populated (currently: chair + desk spec products from the Hero 100 spec batch at `data/specs/`).
+- **Effort estimate:** ~1 hr Liquid change to surface existing metafield value above the fold. Larger effort if `leadtime` metafield is sparsely populated and needs backfill.
+- **When:** v1.1 post-launch. **Not Wave E.**
+
+### 14. Find Your Chair guided wizard
+- **Source:** COMP-SCRAPE-1 audit 2026-05-14 (`docs/strategy/competitor-audit-ugoburo.md`, methodology note + gap analysis row #8)
+- **Pattern:** Ugoburo's `/en/find-your-office-ergonomic-chair.html` — a step-through wizard (body type, use case, budget, adjustability needs) that narrows to a recommended SKU. Skipped in the audit as out-of-Wave-E scope.
+- **Why valuable:** High-intent conversion tool; reduces support load for undecided buyers; strong AI-search footprint ("best ergonomic chair for [X]" queries where a structured recommendation page ranks).
+- **Where applicable:** Ergonomic seating category. Could extend to desks (sit-stand vs fixed, use case, size).
+- **Effort estimate:** Multi-week build. Requires a decision-tree data model, conditional Liquid or JS rendering, and curated product recommendations per path. Not feasible as a Claude Code solo session.
+- **When:** Wave 2+ backlog. **Not Wave E.**
