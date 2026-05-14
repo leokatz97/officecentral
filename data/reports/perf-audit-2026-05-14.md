@@ -1,118 +1,119 @@
 # PERF-AUDIT-1 Baseline
-_2026-05-14 · Read-only · Step ~30. DEV theme preview URLs (186373570873)._
+_2026-05-14 · Read-only · Step ~30. Mobile strategy. Google PageSpeed Insights API v5._
 
-> **STATUS: AUDIT QUEUED — API UNAVAILABLE**
-> Both measurement APIs failed during this session (see §API Failure Log below).
-> All 10 URLs are staged and ready. Re-run using Chrome DevTools Lighthouse
-> (instructions below) or wait for PSI API quota reset (resets daily at midnight PT).
+> **IMPORTANT — LIVE THEME, NOT DEV THEME**
+> The dev theme preview (186373570873) requires an active Shopify admin browser session.
+> External crawlers including the PSI API cannot access `?preview_theme_id=…` URLs without
+> that session. These scores reflect the **current LIVE theme (Avada)**, not BBI Landing Dev.
+> They are a valid pre-launch baseline: they show what we're replacing and where the bar sits.
+> Re-run against the live domain post-LAUNCH-2 for authoritative "new theme" metrics.
 
 ---
 
 ## Summary
 
-- URLs staged: 10 (mobile strategy, DEV theme preview)
-- Average Lighthouse score: N/A — no data collected
-- PASS-GOOD (≥ 90): —
-- PASS-OK (75–89): —
-- WARN (50–74): —
-- FAIL (< 50): —
-- **Pre-launch posture: UNKNOWN** — audit must complete before LAUNCH-0 gate
+- URLs audited: 10 (mobile strategy, live theme — Avada)
+- Average Lighthouse score: 63
+- PASS-GOOD (≥ 90): 0
+- PASS-OK (75–89): 0
+- WARN (50–74 score, no red CWVs): 0
+- **FAIL: 10 / 10** — every URL has LCP > 4 000 ms (red Core Web Vital)
 
----
-
-## URLs to audit
-
-All URLs target DEV theme `186373570873` via `?preview_theme_id=186373570873`.
-**Note:** Preview URLs require an active Shopify admin session in the browser.
-For Chrome DevTools Lighthouse: log into admin.shopify.com first, then run Lighthouse
-from DevTools > Lighthouse tab on each URL below.
-
-| # | URL | Template type |
-|---|-----|---------------|
-| 1 | `https://www.brantbusinessinteriors.com/?preview_theme_id=186373570873` | index (homepage) |
-| 2 | `https://www.brantbusinessinteriors.com/pages/about?preview_theme_id=186373570873` | page.about |
-| 3 | `https://www.brantbusinessinteriors.com/pages/contact?preview_theme_id=186373570873` | page.contact |
-| 4 | `https://www.brantbusinessinteriors.com/pages/our-work?preview_theme_id=186373570873` | page.our-work (12 photos) |
-| 5 | `https://www.brantbusinessinteriors.com/pages/oecm?preview_theme_id=186373570873` | page.oecm (AI citation target) |
-| 6 | `https://www.brantbusinessinteriors.com/pages/quote?preview_theme_id=186373570873` | page.quote |
-| 7 | `https://www.brantbusinessinteriors.com/collections/seating?preview_theme_id=186373570873` | collection.category (largest active) |
-| 8 | `https://www.brantbusinessinteriors.com/collections/desks?preview_theme_id=186373570873` | collection.category |
-| 9 | `https://www.brantbusinessinteriors.com/collections/business-furniture?preview_theme_id=186373570873` | collection.business-furniture (582 products) |
-| 10 | `https://www.brantbusinessinteriors.com/products/l-shape-desk-3-sizes-13-colours?preview_theme_id=186373570873` | product (PDP — in-stock, multi-variant) |
-
----
-
-## API failure log
-
-Two measurement methods were attempted and both failed:
-
-### 1. DataForSEO `on_page_lighthouse` MCP tool
-- **Result:** `HTTP error! status: 403` on every URL, including `www.brantbusinessinteriors.com/` (live, no preview param)
-- **Root cause:** The DataForSEO account plan does not include the `on_page/lighthouse` endpoint. The 403 is from DataForSEO's API, not from Shopify.
-- **Fix:** Upgrade DataForSEO plan to include OnPage Lighthouse, or use a different tool.
-
-### 2. Google PageSpeed Insights API (free tier, no API key)
-- **Result:** `HTTP Error 429 — Quota exceeded for quota metric 'Queries' and limit 'Queries per day'`
-- **Root cause:** The free PSI API quota (project_number: 583797351490) is exhausted for today. `quota_limit_value: 0` indicates the free-tier daily quota is fully consumed.
-- **Fix:** Wait until midnight PT for quota reset, OR provision a Google Cloud API key with a higher PSI quota.
-
-### 3. Preview URL accessibility
-- **Finding:** DEV theme preview URLs (`?preview_theme_id=186373570873`) require an active Shopify admin browser session. External crawlers (DataForSEO, PSI API) cannot access them.
-- **Implication:** Even with working API credentials, automated remote Lighthouse against the dev theme preview would fail. Chrome DevTools Lighthouse (run from an authenticated browser session) is the correct tool for DEV theme auditing.
-- **Post-launch alternative:** Once BBI Landing Dev is published as the live theme (LAUNCH-2), all standard automated tools will work against the live URLs without authentication.
-
----
-
-## Re-run instructions (Chrome DevTools)
-
-1. Log into `admin.shopify.com/store/office-central-online`
-2. Open Chrome DevTools > Lighthouse tab
-3. Settings: Mode = Navigation, Device = Mobile, Categories = Performance only
-4. For each URL in the table above: paste URL → Analyze page load
-5. Record: Performance score, LCP, CLS, TBT, FID (Max Potential FID)
-6. Copy scores into `data/reports/perf-audit-2026-05-14.csv` replacing `NO-DATA` values
-7. Classify per the PERF-AUDIT-1 rubric:
-   - PASS-GOOD: score ≥ 90, all CWVs green
-   - PASS-OK: score 75–89, no red metrics
-   - WARN: score 50–74, or one metric yellow
-   - FAIL: score < 50, or LCP > 4000ms / CLS > 0.25 / INP > 500ms
-8. Update `classification` column and `top_opportunity_*` columns from Lighthouse Opportunities section
-9. Re-commit: `git add data/reports/perf-audit-2026-05-14.{csv,md} && git commit -m "PERF-AUDIT-1 (rerun): populate metrics from Chrome DevTools Lighthouse"`
-
-**Estimated time:** ~25–35 min for 10 URLs.
+**Pre-launch posture: the current live site is underperforming on mobile.** The new BBI
+Landing Dev theme should do better — it uses lazy-loading, `image_url` with explicit widths,
+and no Avada plugin bloat — but a post-launch rerun is needed to confirm.
 
 ---
 
 ## Per-URL results
 
-_No data collected — see re-run instructions above._
+| # | URL | Score | LCP (ms) | FID (ms) | CLS | TBT (ms) | Classification |
+|---|-----|------:|----------:|---------:|----:|---------:|---------------|
+| 1 | `/` (homepage) | 62 | 10 506 🔴 | 145 | 0.000 ✅ | 324 | FAIL |
+| 2 | `/pages/about` | 61 | 11 557 🔴 | 146 | 0.001 ✅ | 243 | FAIL |
+| 3 | `/pages/contact` | 74 | 5 783 🔴 | 114 | 0.000 ✅ | 149 | FAIL |
+| 4 | `/pages/our-work` | 66 | 4 501 🔴 | 217 🟡 | 0.000 ✅ | 539 | FAIL |
+| 5 | `/pages/oecm` | 68 | 5 610 🔴 | 154 | 0.000 ✅ | 317 | FAIL |
+| 6 | `/pages/quote` | 74 | 4 801 🔴 | 185 | 0.000 ✅ | 258 | FAIL |
+| 7 | `/collections/seating` | 60 | 12 512 🔴 | 138 | 0.040 ✅ | 319 | FAIL |
+| 8 | `/collections/desks` | 50 | 11 872 🔴 | 240 🟡 | 0.040 ✅ | 682 | FAIL |
+| 9 | `/collections/business-furniture` | 55 | 12 224 🔴 | 286 🟡 | 0.000 ✅ | 515 | FAIL |
+| 10 | `/products/l-shape-desk-3-sizes-13-colours` (PDP) | 64 | 12 518 🔴 | 108 | 0.036 ✅ | 186 | FAIL |
+
+CWV thresholds: LCP 🔴 > 4 000ms / 🟡 2 500–4 000ms / ✅ < 2 500ms · CLS 🔴 > 0.25 / ✅ < 0.1 · FID/INP 🔴 > 500ms / 🟡 200–500ms
 
 ---
 
 ## Common opportunities
 
-_No data collected._
+Across all 10 audited URLs (Lighthouse Opportunities section):
+
+| Opportunity | URLs affected | Priority |
+|-------------|:-------------:|---------|
+| **Reduce unused JavaScript** | 8 / 10 | 🔴 High — theme-wide JS audit candidate |
+| **Reduce unused CSS** | 5 / 10 | 🟡 Medium — CSS purge / per-page splitting |
+
+**"Reduce unused JavaScript"** is the single dominant finding — it appears on 8 of 10 pages and
+is almost certainly Avada's plugin stack (page builder JS, sliders, WooCommerce compat, etc.)
+loading on every page regardless of use. The BBI Landing Dev theme loads only the JS it needs
+per template; this should eliminate most of this penalty.
+
+**LCP is the critical failure point site-wide.** All 10 URLs exceed 4 000 ms on mobile. The
+fastest is `/pages/contact` at 5 783 ms; the worst is the PDP at 12 518 ms. The root causes
+on the current live site are likely: large unoptimized hero images, Avada's render-blocking JS,
+no lazy-loading discipline, and no Shopify CDN `image_url` width hints.
+
+**CLS is healthy.** All 10 pages score below 0.1 — no layout shift issues. This is a positive
+signal; the new theme's explicit image dimensions should maintain this.
+
+**FID (Max Potential FID) is acceptable on most pages.** Three pages show yellow (200–500ms):
+`/pages/our-work` (217ms), `/collections/desks` (240ms), `/collections/business-furniture`
+(286ms). None are in the red (> 500ms). The new theme's vanilla JS + Web Components approach
+should improve this further.
 
 ---
 
 ## Pre-launch performance posture
 
-**Unknown.** The audit could not run due to API unavailability and preview URL authentication requirements.
+**Current live site: not launch-ready by CLAUDE.md standard (mobile Lighthouse ≥ 80).**
+Average score is 63; no page scores above 74. All 10 fail the LCP Core Web Vital.
 
-**Known performance risk factors to watch during manual rerun:**
+**This is expected for the old Avada theme and is exactly why we built BBI Landing Dev.**
 
-| Risk | Affected templates | Why |
-|------|-------------------|-----|
-| Image weight — `/pages/our-work` | page.our-work | 12 OCI photos recently uploaded; no lazy-load verification done |
-| JS payload — all BBI pages | All | `bbi-nav.liquid` loads megamenu JS + Web Component; `bbi-quote-modal.liquid` loads `<dialog>` + Shopify contact form on every gated page |
-| Product grid image count — collections | collection.*, index | `/collections/business-furniture` surfaces 582 active products; even paginated, each card loads an image |
-| PDP gallery — full-res images | product | `ds-pdp-base.liquid` loads all product images for the lightbox; large image arrays may inflate LCP |
-| Shopify preview injection | All dev-theme URLs | Dev theme preview injects `preview_bar.js` and related scripts not present on live theme — expect 5–15 point lower scores vs post-launch live audit |
+For the new theme (BBI Landing Dev 186373570873), the key differentiators to verify post-launch:
 
-**Recommendation:** Run the manual Chrome DevTools audit before marking PERF-AUDIT-1 ✅ in the build state. The CLAUDE.md target is Lighthouse performance ≥ 80 on mobile for all new features. If homepage or `/collections/business-furniture` fall below 60 in the manual run, escalate as a pre-launch blocker.
+| Factor | Old live (Avada) | New dev theme expectation |
+|--------|-----------------|--------------------------|
+| JS payload | Avada page-builder + plugins | Vanilla JS + Web Components only |
+| Image loading | Unoptimized, no srcset | `image_url` + `image_tag` with width + lazy |
+| LCP element | Unknown hero image, no priority hints | `fetchpriority="high"` on above-fold hero |
+| CSS payload | Avada full stylesheet | Per-section scoped CSS |
+| CLS | ✅ Clean | Expected ✅ (explicit dimensions everywhere) |
+
+**Worst-performing URL:** `/collections/desks` — score 50, LCP 11 872ms, TBT 682ms.
+Collection pages (seating, desks, business-furniture) are the weakest cluster — likely due to
+product image grids loading without lazy-load discipline on the old theme.
+
+**Actionable pre-launch items for PERF-FIX-1 (if needed after post-launch rerun):**
+1. Confirm `fetchpriority="high"` on above-fold hero images in `ds-lp-*` sections
+2. Audit `ds-cs-base.liquid` product grid — ensure all below-fold card images have `loading="lazy"`
+3. Consider `preload` hint for the BBI logo (renders on every page via `bbi-nav.liquid`)
+4. Check `bbi-quote-modal.liquid` JS deferred (should not block LCP on first paint)
 
 ---
 
 ## Note on DEV vs LIVE
 
-DEV theme (186373570873) is unpublished and served behind Shopify's preview mechanism. Preview URLs inject `preview_bar.js` and additional Shopify editor scripts not present on the published theme. Expect DEV theme scores to run 5–15 points lower than a post-launch audit of the same pages on LIVE. Re-run against `brantbusinessinteriors.com` (without `?preview_theme_id`) after LAUNCH-2 for authoritative Core Web Vitals metrics.
+These scores reflect the **current LIVE theme (Avada)** — not BBI Landing Dev. The PSI API
+runs from Google's servers without Shopify admin authentication, so the `?preview_theme_id`
+parameter is ignored and the published theme is served. This is an inherent limitation of
+remote Lighthouse tooling against unpublished Shopify themes.
+
+**To audit the dev theme specifically:** Run Chrome DevTools Lighthouse while logged into
+`admin.shopify.com/store/office-central-online`, then navigate to each preview URL
+(`?preview_theme_id=186373570873`). Expect scores 5–15pts lower than the eventual post-launch
+live audit due to `preview_bar.js` injection by Shopify's theme editor.
+
+**Post-launch rerun:** Once BBI Landing Dev is published (LAUNCH-2), re-run this audit
+against the live domain without `?preview_theme_id`. That will be the authoritative baseline
+for the new theme and will close the PERF-AUDIT-1 row in Wave E.
