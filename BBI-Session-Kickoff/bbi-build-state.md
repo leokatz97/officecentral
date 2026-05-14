@@ -1,6 +1,6 @@
 # BBI Build State — Single Source of Truth
 
-**Last updated:** 2026-05-13 (BUG-FIX-4 COMPLETE — 12 OCI photos uploaded to Shopify Files · page.our-work.json all 12 photo slots populated · DEBT-04 resolved · commit 588ce31 · Phase 1: 12 of 15 steps done · 3 steps remain (BUG-FIX-2, BUG-FIX-3, TAG-INDUSTRY-CHECK))
+**Last updated:** 2026-05-13 (BUG-FIX-4 COMPLETE — 12 OCI photos uploaded to Shopify Files · page.our-work.json all 12 photo slots populated · DEBT-04 resolved · commit 588ce31 · Phase 1: 13 of 15 done · 2 steps remain (BUG-FIX-2 OECM investigation, BUG-FIX-3 OECM + industry:* remediation))
 **Dev theme:** BBI Landing Dev (`186373570873`) — never publish to live until LAUNCH-2
 **Live theme:** brantbusinessinteriors.com (production — untouched)
 **Replaces:** the status sections in `shopify-fix-plan.md` and the localStorage-bound `SEEDS` in `website-fix-checklist.html`
