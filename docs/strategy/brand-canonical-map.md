@@ -465,6 +465,32 @@ unchanged.
 
 ---
 
+## Catalog exclusion tag conventions
+
+### `exclude:business-furniture`
+
+Applied to products that are **intentionally excluded from the `/collections/business-furniture` smart collection** despite being active products in the catalog. The smart collection rule is `tag not_equals exclude:business-furniture` (single rule, disjunctive: false) — set during BUG-FIX-3 (2026-05-14) to replace the legacy `industry:*` exclusion rules.
+
+**Current products carrying this tag (as of 2026-05-14):**
+
+| Handle | Reason |
+|---|---|
+| `foundations-sport-splash-quad-strollers` | Pediatric/daycare product — not office furniture |
+| `willow-bariatric-chair` | Bariatric healthcare product — niche, not standard B2B office furniture |
+| `delivery` | Delivery service line item — not a product |
+| `delivery-charge-175-00` | Delivery fee SKU |
+| `delivery-charge-85-00` | Delivery fee SKU |
+| `installation-1` | Installation service line item |
+| `installation1000` | Installation fee SKU |
+| `installation475` | Installation fee SKU |
+| `dispose` | Disposal service line item |
+| `colour` | Placeholder/dummy SKU |
+| `diet` | Non-furniture placeholder SKU |
+
+**Convention:** If a future active product should be excluded from business-furniture (e.g., another niche non-office item, a new service SKU), add `exclude:business-furniture` to its tags. No smart collection rule change needed.
+
+---
+
 ## Downstream consumers
 
 - **VENDOR-NORMALIZE-2 (Step 4):** Applies this map to the 152 already-enriched products — normalises `specs.manufacturer` metafield values and sets `vendor` field per canonical brand.

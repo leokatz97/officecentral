@@ -1,6 +1,6 @@
 # BBI Build State — Single Source of Truth
 
-**Last updated:** 2026-05-13 (BUG-FIX-4 COMPLETE — 12 OCI photos uploaded to Shopify Files · page.our-work.json all 12 photo slots populated · DEBT-04 resolved · commit 588ce31 · Phase 1: 13 of 15 done · 2 steps remain (BUG-FIX-2 OECM investigation, BUG-FIX-3 OECM + industry:* remediation))
+**Last updated:** 2026-05-14 (BUG-FIX-3 COMPLETE — combined OECM + industry:* remediation · business-furniture smart collection rebuilt (exclude:business-furniture tag convention, 11 products tagged) · 489 industry:* tags stripped · oecm-eligible stripped from 9 service/fee items · oecm-eligible added to 61 missing furniture products · final state: 584 oecm-eligible products · Phase 1: 15 of 15 done · PHASE 1 COMPLETE)
 **Dev theme:** BBI Landing Dev (`186373570873`) — never publish to live until LAUNCH-2
 **Live theme:** brantbusinessinteriors.com (production — untouched)
 **Replaces:** the status sections in `shopify-fix-plan.md` and the localStorage-bound `SEEDS` in `website-fix-checklist.html`
