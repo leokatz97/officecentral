@@ -32,6 +32,16 @@ Chair Mats & Floor Protection (`/collections/chair-mats`) and Whiteboards & Pinb
 
 ---
 
+## PAGE-IMG-1 deferred slots (added 2026-05-15)
+
+### Education trust_image_3 (LOW confidence)
+The `trust_image_3` slot on `page.education.json` was left empty — no education-specific asset exists in the current image library. `OCI-Education-1.jpg` was already used for the Stacking & Training tile on the Seating page. To fill this slot: either source an education-sector interior photo (classroom, school library, admin office) or commission a new AI page image at `data/page-images/education/education-space.jpg`.
+
+### Brand logos for brand_callout blocks (7 slots)
+7 `brand_callout` blocks across category templates have an empty `brand_logo` image slot. These require manufacturer logo files (GFG, Global Furniture Group, Teknion, etc.) in a consistent format. When BBI secures logo usage rights from manufacturers, upload to Shopify Files and set `brand_logo` in the relevant blocks. List of affected templates: collection.seating, collection.desks, collection.storage, collection.tables, collection.boardroom, collection.business-furniture, collection.ergonomic-products.
+
+---
+
 ## CATEGORY-TILE-FIX-1 future categories (added 2026-05-15)
 
 ### Quiet Spaces — future category page

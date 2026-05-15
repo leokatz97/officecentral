@@ -867,7 +867,8 @@
     </div>
   </section>
 
-  {%- comment -%}TESTIMONIAL STRIP{%- endcomment -%}
+  {%- comment -%}TESTIMONIAL STRIP — hidden when testimonial_logo is blank{%- endcomment -%}
+  {%- if section.settings.testimonial_logo != blank -%}
   <section class="lp-quote-strip" aria-label="Client testimonial">
     <div class="lp-quote-strip__inner">
       <blockquote class="lp-quote-strip__quote">
@@ -875,12 +876,11 @@
         <cite>Kawartha Dairy &mdash; Est. 1937, Ontario</cite>
       </blockquote>
       <div class="lp-quote-strip__logo">
-        {%- if section.settings.testimonial_logo != blank -%}
-          {{ section.settings.testimonial_logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: 'Kawartha Dairy', height: 48 }}
-        {%- endif -%}
+        {{ section.settings.testimonial_logo | image_url: width: 300 | image_tag: loading: 'lazy', alt: 'Kawartha Dairy', height: 48 }}
       </div>
     </div>
   </section>
+  {%- endif -%}
 
   {%- comment -%}FAQ{%- endcomment -%}
   <section class="lp-faq" aria-label="Frequently asked questions">

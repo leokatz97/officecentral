@@ -196,7 +196,7 @@ Commits: `790ec26`, `324df1f` (audit), `e7e0f4b` (extension)
 
 ## Phase 2 → 5 completion details
 
-No done steps in Phases 2–5 yet. Phase 2 (PAGE-IMG-1) is the current next step after Phase 1 closes.
+- **PAGE-IMG-1** 2026-05-15 · Image slot fills across all 28 templates + 6 sections · 40 fills + 4 REPLACE-WRONG-IMAGE + 6 kawartha-dairy testimonial_logo clears + 49 tile slot fills = 99 total slot writes · 40 images uploaded to Shopify Files (40 new; 17 for tile slots) · 6 section .liquid files patched to wrap testimonial strip in `{%- if testimonial_logo != blank -%}` guard · 1 slot deferred (education trust_image_3 — LOW confidence, no education-specific asset) · 7 brand_callout brand_logo slots deferred (no local brand logo assets) · 34/34 assets pushed to DEV theme 186373570873 · 4/4 spot-checks pass · backup at `data/backups/page-img-1-continuation-pre-20260515-134837/` · commits: `[see commit]`
 
 ---
 
