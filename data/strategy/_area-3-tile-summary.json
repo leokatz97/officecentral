@@ -1,0 +1,526 @@
+{
+  "task-chairs": {
+    "label": "Task Seating",
+    "count": 10,
+    "type_dist": {
+      "type:chairs": 2,
+      "type:lounge": 1
+    },
+    "is_brand_rule": false,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "task-chair"
+      },
+      {
+        "column": "type",
+        "relation": "contains",
+        "condition": "task"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "task chair"
+      }
+    ]
+  },
+  "executive-seating": {
+    "label": "Executive Seating",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "guest-seating": {
+    "label": "Guest & Visitor Seating",
+    "count": 39,
+    "type_dist": {
+      "type:chairs": 14
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "lounge-seating": {
+    "label": "Lounge Seating",
+    "count": 2,
+    "type_dist": {
+      "type:lounge": 1
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "conference-seating": {
+    "label": "Conference Seating",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "stacking-seating": {
+    "label": "Training & Stacking",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "stools": {
+    "label": "Stools & Counter Seating",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "bench-seating": {
+    "label": "Benches & Tandem",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "healthcare-seating": {
+    "label": "Healthcare Seating",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "outdoor-seating": {
+    "label": "Outdoor & Caf\u00e9 Seating",
+    "count": 4,
+    "type_dist": {
+      "type:outdoor": 2,
+      "type:chairs": 1
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "global-teknion": {
+    "label": "Global Furniture Group (brand)",
+    "count": 72,
+    "type_dist": {
+      "type:chairs": 32,
+      "type:tables": 10,
+      "type:storage": 5,
+      "type:desks": 5,
+      "type:lounge": 2
+    },
+    "is_brand_rule": true,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "brand:global-furniture-group"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "brand:teknion"
+      }
+    ]
+  },
+  "active-seating": {
+    "label": "Active Seating",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "beam-seating": {
+    "label": "Beam Seating",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "height-adjustable-tables-desks": {
+    "label": "Height-Adjustable Desks",
+    "count": 21,
+    "type_dist": {
+      "type:desks": 3,
+      "type:tables": 5
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "l-shape-desks": {
+    "label": "L-Shape Desks",
+    "count": 31,
+    "type_dist": {
+      "type:desks": 11,
+      "type:tables": 1,
+      "type:accessories": 1
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "straight-desks": {
+    "label": "Straight Desks",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "reception-desks-desks": {
+    "label": "Reception Desks",
+    "count": 9,
+    "type_dist": {
+      "type:desks": 1
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "multi-person-workstations-desks": {
+    "label": "Computer Desks",
+    "count": 9,
+    "type_dist": {
+      "type:desks": 2,
+      "type:chairs": 1
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "modular-workstations": {
+    "label": "Modular Workstations",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "office-suites-desks": {
+    "label": "Executive Desks",
+    "count": 13,
+    "type_dist": {
+      "type:desks": 1
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "training-desks": {
+    "label": "Training Room Desks",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "meeting-conference-room-tables": {
+    "label": "Conference Tables / Boardroom Tables",
+    "count": 8,
+    "type_dist": {
+      "type:tables": 3
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "training-room-tables": {
+    "label": "Training Tables",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "height-adjustable-tables": {
+    "label": "Height-Adjustable Tables",
+    "count": 19,
+    "type_dist": {
+      "type:desks": 2,
+      "type:tables": 5
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "standing-tables": {
+    "label": "Standing & High Tables",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "meeting-tables": {
+    "label": "Collaborative Tables",
+    "count": 12,
+    "type_dist": {
+      "type:tables": 4
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "lateral-file-cabinets-storage": {
+    "label": "Lateral Filing",
+    "count": 8,
+    "type_dist": {
+      "type:storage": 1
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "vertical-file-cabinets-storage": {
+    "label": "Vertical Filing",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "mobile-pedestals": {
+    "label": "Mobile Pedestals",
+    "count": 8,
+    "type_dist": {
+      "type:storage": 2
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "storage-cabinets": {
+    "label": "Storage Cabinets",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "bookcases": {
+    "label": "Bookcases & Shelving",
+    "count": 9,
+    "type_dist": {
+      "type:storage": 1
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "lockers": {
+    "label": "Lockers",
+    "count": 6,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "credenzas": {
+    "label": "Credenzas",
+    "count": 9,
+    "type_dist": {
+      "type:storage": 1
+    },
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "wardrobe-storage": {
+    "label": "Wardrobe Storage",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "mobile-storage": {
+    "label": "Mobile Storage Carts",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "wall-storage": {
+    "label": "Wall-Mounted Storage",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "personal-storage": {
+    "label": "Personal Storage",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "high-density-storage": {
+    "label": "High-Density Storage",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "boardroom-seating": {
+    "label": "Boardroom Seating",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "boardroom-storage": {
+    "label": "Credenzas & Storage",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "lighting": {
+    "label": "Lighting",
+    "count": 4,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "white-board": {
+    "label": "Whiteboards & Boards",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "acoustic-panels": {
+    "label": "Acoustic Panels",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "room-dividers": {
+    "label": "Room Dividers",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "privacy-screens": {
+    "label": "Privacy Screens",
+    "count": 0,
+    "type_dist": {},
+    "is_brand_rule": false,
+    "rules": []
+  },
+  "seating": {
+    "label": "Seating (top)",
+    "count": 102,
+    "type_dist": {
+      "type:chairs": 96,
+      "type:lounge": 6
+    },
+    "is_brand_rule": false,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:chairs"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:lounge"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:ergonomic-seating"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:bariatric-seating"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:stacking"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:seating"
+      }
+    ]
+  },
+  "desks": {
+    "label": "Desks (top)",
+    "count": 30,
+    "type_dist": {
+      "type:desks": 30
+    },
+    "is_brand_rule": false,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:desks"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:benching"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:workstations"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:sit-stand"
+      }
+    ]
+  },
+  "storage": {
+    "label": "Storage (top)",
+    "count": 18,
+    "type_dist": {
+      "type:storage": 18
+    },
+    "is_brand_rule": false,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:storage"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:filing"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:bookcases"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:cabinets"
+      },
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "type:lateral-files"
+      }
+    ]
+  },
+  "ergonomic-products": {
+    "label": "Ergonomic Products (top)",
+    "count": 16,
+    "type_dist": {
+      "type:accessories": 1,
+      "type:desks": 1
+    },
+    "is_brand_rule": false,
+    "rules": [
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "monitor arm"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "keyboard tray"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "sit-stand"
+      },
+      {
+        "column": "title",
+        "relation": "contains",
+        "condition": "anti-fatigue"
+      }
+    ]
+  }
+}
