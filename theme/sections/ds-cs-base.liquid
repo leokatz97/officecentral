@@ -149,6 +149,7 @@
   display:none;padding:var(--space-2) 0;font-size:13px;color:var(--accentRed);
   background:none;border:none;cursor:pointer;text-align:left;
 }
+li.ds-cs__card--hidden{display:none;}
 .ds-cs__filter-clear.visible{display:block;}
 .ds-cs__filter-price{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-3) 0;}
 .ds-cs__price-range{display:flex;align-items:center;gap:var(--space-2);}
@@ -337,15 +338,21 @@
         {%- comment -%} ── Filter sidebar ── {%- endcomment -%}
         <aside class="ds-cs__sidebar" aria-label="Filter products">
           {%- liquid
-            # Collect distinct type: and room: tags from this collection
+            # Collect distinct type:, room: tags and vendor names from this collection
             assign type_tags = '' | split: ','
             assign room_tags = '' | split: ','
+            assign vendor_list = '' | split: ','
             for tag in collection.all_tags
               if tag contains 'type:'
                 assign type_tags = type_tags | push: tag
               elsif tag contains 'room:'
                 assign room_tags = room_tags | push: tag
               endif
+            endfor
+            for product in collection.products
+              unless product.vendor == blank or vendor_list contains product.vendor
+                assign vendor_list = vendor_list | push: product.vendor
+              endunless
             endfor
           -%}
 
@@ -395,6 +402,27 @@
                         <input type="checkbox" name="filter-room" value="{{ tag | url_param_escape }}"
                           {% if current_tags contains tag %}checked{% endif %}>
                         <span>{{ label }}</span>
+                      </label>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+            {%- endunless -%}
+
+            {%- unless vendor_list == blank -%}
+            <div class="ds-cs__filter-section" data-filter-group="brand">
+              <button class="ds-cs__filter-toggle" aria-expanded="true" aria-controls="ds-cs-filter-brand">
+                <span>Brand</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="ds-cs__filter-group" id="ds-cs-filter-brand">
+                <ul class="ds-cs__filter-list">
+                  {%- for vendor in vendor_list -%}
+                    <li class="ds-cs__filter-item">
+                      <label>
+                        <input type="checkbox" name="filter-brand" value="{{ vendor | downcase | url_param_escape }}">
+                        <span>{{ vendor | escape }}</span>
                       </label>
                     </li>
                   {%- endfor -%}
@@ -466,7 +494,7 @@
                   assign product_url = product.url
                 -%}
                 <li>
-                  <article class="ds-cs__card" itemscope itemtype="https://schema.org/Product">
+                  <article class="ds-cs__card" data-vendor="{{ product.vendor | downcase | url_param_escape }}" itemscope itemtype="https://schema.org/Product">
                     <a href="{{ product_url }}" tabindex="-1" aria-hidden="true">
                       <div class="ds-cs__card-img">
                         {%- if product.featured_media -%}
@@ -633,10 +661,30 @@
     });
   }
 
+  // Brand filter checkboxes → client-side vendor filtering
+  document.querySelectorAll('input[name="filter-brand"]').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      var checked = Array.from(document.querySelectorAll('input[name="filter-brand"]:checked'))
+                         .map(function(i) { return i.value; });
+      document.querySelectorAll('.ds-cs__card').forEach(function(card) {
+        var li = card.closest('li');
+        if (!li) return;
+        if (checked.length === 0) {
+          li.classList.remove('ds-cs__card--hidden');
+        } else {
+          var v = (card.getAttribute('data-vendor') || '').toLowerCase();
+          li.classList.toggle('ds-cs__card--hidden', !checked.includes(v));
+        }
+      });
+    });
+  });
+
   // Clear filters
   var clearBtn = document.getElementById('clear-filters');
   if (clearBtn) {
     clearBtn.addEventListener('click', function() {
+      document.querySelectorAll('input[name="filter-brand"]:checked').forEach(function(cb) { cb.checked = false; });
+      document.querySelectorAll('li.ds-cs__card--hidden').forEach(function(li) { li.classList.remove('ds-cs__card--hidden'); });
       window.location.href = window.location.pathname;
     });
   }

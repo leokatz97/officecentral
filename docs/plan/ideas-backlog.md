@@ -4,6 +4,22 @@ Parking lot for Shopify / BBI improvement ideas. Not active tasks — come back 
 
 ---
 
+## CATEGORY-TILE-FIX-1 future categories (added 2026-05-15)
+
+### Quiet Spaces — future category page
+Build when BBI carries acoustic privacy inventory (phone booths, acoustic meeting pods, focus rooms). Target products: POD (Privacy On Demand) phone booths, Hushoffice, Framery, or equivalent. Current inventory: 1 phone booth model only — not enough for a standalone page. The 5 genuine acoustic/soundproofing products (ceiling baffles, felt panels, hardware) have been migrated to **Accessories > Acoustic Solutions**.
+
+### Executive Chairs & Specialty Seating — manual curation post-launch
+Seating page currently shows broad office chairs / stacking / lounge tiles. Post-launch refinement: manually curate Executive Chairs and Meeting Room Chair collections by having Steve hand-pick 8–12 models per category. Requires creating new custom collections in Shopify Admin and assigning products. Could also use a `feature:executive` tag push once the product catalog is more fully tagged.
+
+### Waste & Recycling — add if BBI brings on janitorial line
+BBI currently carries zero waste/recycling products. Add tile under Accessories when BBI brings on Rubbermaid, Safco, Busch Systems, or equivalent janitorial line. Strong demand signal from B2B institutional buyers (schools, hospitals, municipalities).
+
+### Ergonomic Accessories — populate and re-add tile
+Removed from Ergonomic Products page (Step 44) because the `ergonomic-accessories` custom collection had 0 products. Re-add tile when BBI explicitly carries and tags footrests, wrist rests, lumbar supports, anti-fatigue mats, and document holders as standalone SKUs.
+
+---
+
 ## 1. Shopify AI Toolkit
 Research what's in Shopify's native AI toolkit (Sidekick, Magic, product description AI, etc.) and which pieces apply to BBI.
 
