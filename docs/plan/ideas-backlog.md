@@ -4,6 +4,34 @@ Parking lot for Shopify / BBI improvement ideas. Not active tasks — come back 
 
 ---
 
+## Post-launch tile curation (from TILE-CLEANUP-1, 2026-05-15)
+
+The following sub-category tiles were removed from Phase 2 category pages at launch because their underlying collections had 0 products. All underlying collections remain published — they can be re-added to category pages once populated.
+
+### Removed tiles by parent category
+
+- **Storage:**
+  - High-Density Storage (/collections/high-density-storage) — institutional-grade compact shelving. Add back once BBI curates products for schools/healthcare high-density systems.
+
+- **Desks:**
+  - Modular Workstations (/collections/modular-workstations) — open-plan configurable workstation systems. Add back once products are tagged `type:desks` and assigned to this collection.
+
+- **Tables:**
+  - Standing & Pub Tables (/collections/standing-tables) — counter-height and bar-height tables for café/breakroom segments. Add back when BBI adds standing-height inventory.
+
+- **Boardroom:**
+  - Boardroom Chairs (/collections/boardroom-seating) — executive and leather boardroom chairs. Manual curation needed: hand-pick 8–12 boardroom-grade chairs from existing `type:chairs` inventory and assign to the collection.
+
+- **Panels & Room Dividers:**
+  - Acoustic Wall Panels (/collections/acoustic-panels) — wall-mounted and freestanding acoustic panels. Empty collection; add products when BBI grows acoustic panel line.
+  - Privacy Screens (/collections/privacy-screens) — desk-mounted and freestanding privacy screens. Empty collection; add products as inventory comes in.
+
+### Tag review needed — low-count accessories collections
+
+Chair Mats & Floor Protection (`/collections/chair-mats`) and Whiteboards & Pinboards (`/collections/white-board`) were kept on the Accessories page (1 product each at TILE-CLEANUP-1 audit). These low counts suggest TYPE-APPLY-1's title-match rules didn't catch all eligible products. Post-launch: audit Deflecto floor mats and any whiteboard/pinboard products in the full catalog — re-tag with appropriate `type:accessories` or collection assignment if eligible products were missed.
+
+---
+
 ## CATEGORY-TILE-FIX-1 future categories (added 2026-05-15)
 
 ### Quiet Spaces — future category page
