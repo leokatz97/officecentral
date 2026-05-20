@@ -239,3 +239,11 @@ _Surfaced during COMP-SCRAPE-1 audit (2026-05-14). Items here are NOT in Wave E 
 - **Where applicable:** Ergonomic seating category. Could extend to desks (sit-stand vs fixed, use case, size).
 - **Effort estimate:** Multi-week build. Requires a decision-tree data model, conditional Liquid or JS rendering, and curated product recommendations per path. Not feasible as a Claude Code solo session.
 - **When:** Wave 2+ backlog. **Not Wave E.**
+
+### 15. Refresh homepage bbi-featured 3-card showcase with current callable brands
+- **Source:** BRAND-PAGES-1 Phase 4C HALT 11 (2026-05-20)
+- **Current state:** `theme/templates/index.json` `bbi-featured` section names 3 products: ergoCentric tCentric Hybrid Task Chair (deprecated callable, 1 active product); Keilhauer Wish Side Chair (deprecated callable, 0 active products; link goes to `/collections/seating` not a PDP); Global Furniture Group Furtif Executive Desk (link goes to `/collections/desks` not a PDP). Two of three brands are now deprecated as storefront-callable, and two of three links are generic catalog pages rather than real PDPs.
+- **Why valuable:** Above-the-fold homepage real estate. Replacing deprecates-on-flagship anchoring; surfaces real OTG / Heartwood / GFG SKUs with PDP-quality images and links. Strengthens AI-Overview-friendly "specific product as flagship" framing.
+- **What's needed:** Steve picks 3 real, high-volume products (one each from OTG/GFG/Heartwood ideally, or 2x GFG-family + 1x Heartwood). Each card needs: brand label, exact product name, real PDP handle, curated image (16:9 product photography). Hero 100 candidates: OTG bestseller from `otg-chairs` (42 products), Heartwood Innovations desk from `heartwood-desks` (11), Global bestseller from `gfg-chairs` (45).
+- **Effort estimate:** 1–2 hr product selection + image curation + Liquid edit + push. Folds into Step 46 IMAGE-SOURCING-V2 if curated product photography is being sourced as part of that workstream.
+- **When:** v1.0 launch-readiness or post-LAUNCH-2 content pass. **Not blocking BRAND-PAGES-1 close.**

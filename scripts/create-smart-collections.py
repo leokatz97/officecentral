@@ -222,6 +222,116 @@ COLLECTIONS = [
         [{"column": "tag", "relation": "equals", "condition": "oecm-eligible"}],
         False,
     ),
+    # ── BRAND-PAGES-1 brand×category (15 collections, 2026-05-20) ─────────────
+    # OTG (Offices to Go) — 7 collections, rule: brand:otg-offices-to-go AND type:<cat>
+    (
+        "otg-chairs",
+        "OTG Seating",
+        [{"column": "tag", "relation": "equals", "condition": "brand:otg-offices-to-go"},
+         {"column": "tag", "relation": "equals", "condition": "type:chairs"}],
+        False,
+    ),
+    (
+        "otg-desks",
+        "OTG Desks & Workstations",
+        [{"column": "tag", "relation": "equals", "condition": "brand:otg-offices-to-go"},
+         {"column": "tag", "relation": "equals", "condition": "type:desks"}],
+        False,
+    ),
+    (
+        "otg-storage",
+        "OTG Storage & Filing",
+        [{"column": "tag", "relation": "equals", "condition": "brand:otg-offices-to-go"},
+         {"column": "tag", "relation": "equals", "condition": "type:storage"}],
+        False,
+    ),
+    (
+        "otg-tables",
+        "OTG Tables",
+        [{"column": "tag", "relation": "equals", "condition": "brand:otg-offices-to-go"},
+         {"column": "tag", "relation": "equals", "condition": "type:tables"}],
+        False,
+    ),
+    (
+        "otg-accessories",
+        "OTG Accessories",
+        [{"column": "tag", "relation": "equals", "condition": "brand:otg-offices-to-go"},
+         {"column": "tag", "relation": "equals", "condition": "type:accessories"}],
+        False,
+    ),
+    (
+        "otg-lounge",
+        "OTG Lounge Seating",
+        [{"column": "tag", "relation": "equals", "condition": "brand:otg-offices-to-go"},
+         {"column": "tag", "relation": "equals", "condition": "type:lounge"}],
+        False,
+    ),
+    (
+        "otg-panels",
+        "OTG Panels & Dividers",
+        [{"column": "tag", "relation": "equals", "condition": "brand:otg-offices-to-go"},
+         {"column": "tag", "relation": "equals", "condition": "type:panels"}],
+        False,
+    ),
+    # Heartwood — 3 collections, rule: brand:heartwood-manufacturing-ltd AND type:<cat>
+    (
+        "heartwood-desks",
+        "Heartwood Desks & Workstations",
+        [{"column": "tag", "relation": "equals", "condition": "brand:heartwood-manufacturing-ltd"},
+         {"column": "tag", "relation": "equals", "condition": "type:desks"}],
+        False,
+    ),
+    (
+        "heartwood-storage",
+        "Heartwood Storage & Casegoods",
+        [{"column": "tag", "relation": "equals", "condition": "brand:heartwood-manufacturing-ltd"},
+         {"column": "tag", "relation": "equals", "condition": "type:storage"}],
+        False,
+    ),
+    (
+        "heartwood-tables",
+        "Heartwood Tables",
+        [{"column": "tag", "relation": "equals", "condition": "brand:heartwood-manufacturing-ltd"},
+         {"column": "tag", "relation": "equals", "condition": "type:tables"}],
+        False,
+    ),
+    # ObusForme — 1 collection (thin catalog), rule: brand:obusforme AND type:chairs
+    (
+        "obusforme-chairs",
+        "ObusForme Seating",
+        [{"column": "tag", "relation": "equals", "condition": "brand:obusforme"},
+         {"column": "tag", "relation": "equals", "condition": "type:chairs"}],
+        False,
+    ),
+    # Global Furniture Group — 4 collections, rule: brand:global-furniture-group AND type:<cat>
+    (
+        "gfg-chairs",
+        "Global Seating",
+        [{"column": "tag", "relation": "equals", "condition": "brand:global-furniture-group"},
+         {"column": "tag", "relation": "equals", "condition": "type:chairs"}],
+        False,
+    ),
+    (
+        "gfg-tables",
+        "Global Tables",
+        [{"column": "tag", "relation": "equals", "condition": "brand:global-furniture-group"},
+         {"column": "tag", "relation": "equals", "condition": "type:tables"}],
+        False,
+    ),
+    (
+        "gfg-desks",
+        "Global Desks & Workstations",
+        [{"column": "tag", "relation": "equals", "condition": "brand:global-furniture-group"},
+         {"column": "tag", "relation": "equals", "condition": "type:desks"}],
+        False,
+    ),
+    (
+        "gfg-storage",
+        "Global Storage & Filing",
+        [{"column": "tag", "relation": "equals", "condition": "brand:global-furniture-group"},
+         {"column": "tag", "relation": "equals", "condition": "type:storage"}],
+        False,
+    ),
 ]
 
 

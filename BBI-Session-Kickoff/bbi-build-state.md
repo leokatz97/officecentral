@@ -1,9 +1,11 @@
 # BBI Build State — Single Source of Truth
 
-**Last updated:** 2026-05-14 (BUG-FIX-3 COMPLETE — combined OECM + industry:* remediation · business-furniture smart collection rebuilt (exclude:business-furniture tag convention, 11 products tagged) · 489 industry:* tags stripped · oecm-eligible stripped from 9 service/fee items · oecm-eligible added to 61 missing furniture products · final state: 584 oecm-eligible products · Phase 1: 15 of 15 done · PHASE 1 COMPLETE)
+**Last updated:** 2026-05-20 (BRAND-PAGES-1 + A11Y bundle COMPLETE — 3 new brand pages (OTG, Heartwood, ObusForme) via Approach A clone · Global/Teknion rescoped to GFG-family per Option A · 15 brand×category smart collections live + populated (177 product memberships) · Brands hub updated to 6 tiles · nav menu (desktop + mobile) + footer Brands column (new 5th col) + homepage meta description + about page + Phase 5 Fix D (duplicate role="main" removed) · branch feature/brand-pages-1)
 **Dev theme:** BBI Landing Dev (`186373570873`) — never publish to live until LAUNCH-2
 **Live theme:** brantbusinessinteriors.com (production — untouched)
 **Replaces:** the status sections in `shopify-fix-plan.md` and the localStorage-bound `SEEDS` in `website-fix-checklist.html`
+
+**2026-05-20 — BRAND-PAGES-1 + A11Y bundle COMPLETE (Claude Code session).** Followed the Wave E execution plan and the Cowork handoff brief. Built 3 new brand hub pages (OTG / Offices to Go, Heartwood Manufacturing, ObusForme) via Approach A clone of `ds-lp-brands-ergocentric.liquid`; rescoped `ds-lp-brands-global-teknion.liquid` to GFG-family experience (Option A — copy/scope update, not rebuild); created 15 brand×category smart collections via `scripts/create-smart-collections.py --live` (all populated, sort_order=best-selling); extended Brands hub `/pages/brands` from 3 tiles to 6; added 3 new brands to nav (desktop + mobile) and re-ordered to put currently-callable brands first; added a new 5th "Brands" column to `bbi-footer.liquid`; rewrote homepage `<meta name="description">` and 2 in-section homepage brand-mention spots (Bucket A + C); about-page brand-mention reorder (line 144 + 169 of `ds-lp-about.liquid`); A11Y critical bundle re-audited against actual BBI theme state (Fix A/B/C found no-ops; Fix D — duplicate `role="main"` on `ds-cs-base.liquid:462` — fixed; Fix E DEV-3 legacy gate completion deferred). All writes to DEV `186373570873` only — LIVE untouched. Branch `feature/brand-pages-1` ready for merge. Follow-up tasks logged for separate sessions: DEV-3 legacy gate completion (search + customers/* still inherit Avada chrome) and homepage image rot (11 `bbi-hp-*.jpg` URLs return 404, belongs to Step 46 IMAGE-SOURCING-V2). SEO-AUDIT-1 remains blocked on DataForSEO MCP + dev-preview crawl access.
 
 ---
 
@@ -566,7 +568,17 @@ All Hero 100 product enrichment is LIVE on Shopify.
 
 1. **Canonical nav** — landing pages render `Shop · Brands · Verticals · Our work · Services · About`, spec says `Shop Furniture · Industries · Brands · Services · About`. NAV-1 needs Steve's call.
 2. **brand-dealer reconciliation** — section file is on a separate branch, suffix is in the gate. Merge or de-gate? (PB-13)
-3. **BBI logo** — `bbi-logo-v2` is Brant Basics wordmark. Lock it or source a true BBI wordmark? (CONTENT-1)
+3. ~~**BBI logo** — `bbi-logo-v2` is Brant Basics wordmark. Lock it or source a true BBI wordmark? (CONTENT-1)~~ → **RESOLVED 2026-05-20: lock `bbi-logo-v2`** (no schedule impact; revisit only if a distinct BBI wordmark is later desired).
+
+---
+
+### Resolved 2026-05-20 (Wave E execution planning)
+
+- **BRAND-PAGES-1 build approach → Approach A** (copy an existing per-brand section per new brand: clone `theme/sections/ds-lp-brands-ergocentric.liquid`, rescope `.lp-ergo`→`.lp-<brand>`, swap copy). Not the generic Approach B.
+- **Global / Teknion page → Option A** (keep the existing `brands-global-teknion` page bundled; rename/expand to a GFG-family experience — copy/scope update, not a rebuild).
+- **CONTENT-1 logo → lock `bbi-logo-v2`.**
+- **Build venue → Claude Code.** BRAND-PAGES-1 + the rest of the Wave E chain are to be built in Claude Code, not Cowork. Handoff: `docs/plan/bbi-brand-pages-1-handoff-2026-05-20.md`; full plan: `docs/plan/wave-e-execution-plan-2026-05-20.md`.
+- **New brand pages to build:** OTG (`brands-otg`, 54 products), Heartwood (`brands-heartwood`, 17), ObusForme (`brands-obusforme`, 5) + 24 brand×category smart collections + gate suffixes + Brands Hub tiles + A11Y-AUDIT-1.
 4. **Smart Collection migration timing** — confirmed: before Phase 3 (Wave B step 1)
 5. **Customer Stories source content** — CS-1 (Wave G) needs 5–8 testimonials with photos. Pull from `data/oci-photos/catalog.json` (project photos) + voice-samples.md, or does Steve have testimonial copy approved by clients we can quote on the public site? Permission matters for Review schema.
 
