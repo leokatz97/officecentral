@@ -70,10 +70,10 @@
   <section class="lp-page-head">
     <div class="lp-page-head__inner">
       <div class="lp-page-head__eyebrow">
-        <span class="bbi-mono lp-page-head__eyebrow-label">Project gallery</span>
+        <span class="bbi-mono lp-page-head__eyebrow-label">Project gallery &middot; Ontario-owned since 1964</span>
       </div>
-      <h1>Workspaces we've furnished across Ontario</h1>
-      <p class="lp-page-head__sub">From Mattamy Homes boardrooms to healthcare waiting areas — a selection of commercial furniture projects delivered by our team. Every space is quote-based, measurement-confirmed, and professionally installed.</p>
+      <h1>Workspaces we&rsquo;ve furnished across Ontario.</h1>
+      <p class="lp-page-head__sub">A representative cross-section of commercial furniture projects delivered by our Ontario account team &mdash; from corporate boardrooms and healthcare waiting areas to municipal service halls and education facilities. Every space quote-based, measurement-confirmed, and installed by our own crew. <b>Brant Basics</b> (our OECM-registered legal entity) holds Supplier Partner Agreement 2025-470 for institutional procurement; private-sector buyers purchase on PO with NET 30 terms.</p>
     </div>
   </section>
 
@@ -94,12 +94,12 @@
         <div class="lp-photo-card lp-photo-card--wide">
           <div class="lp-photo-card__media">
             {%- if section.settings.photo_1 != blank -%}
-              {{ section.settings.photo_1 | image_url: width: 1400 | image_tag: loading: 'eager', alt: 'Mattamy Homes — boardroom installation' }}
+              {{ section.settings.photo_1 | image_url: width: 1400 | image_tag: loading: 'eager', alt: 'Corporate boardroom installation, Ontario' }}
             {%- else -%}
-              <div class="lp-photo-card__ph"><span>Mattamy Homes — Boardroom</span></div>
+              <div class="lp-photo-card__ph"><span>Corporate Boardroom</span></div>
             {%- endif -%}
           </div>
-          <p class="lp-photo-card__caption">Mattamy Homes — Corporate boardroom, Milton, ON</p>
+          <p class="lp-photo-card__caption">Corporate boardroom &mdash; Global Furniture Group tables, executive seating, Greater Toronto Area</p>
         </div>
         <div class="lp-photo-card">
           <div class="lp-photo-card__media">
@@ -158,12 +158,12 @@
         <div class="lp-photo-card lp-photo-card--wide">
           <div class="lp-photo-card__media">
             {%- if section.settings.photo_7 != blank -%}
-              {{ section.settings.photo_7 | image_url: width: 1400 | image_tag: loading: 'lazy', alt: 'Mattamy Homes — multi-office installation' }}
+              {{ section.settings.photo_7 | image_url: width: 1400 | image_tag: loading: 'lazy', alt: 'Open-plan multi-office installation, Ontario' }}
             {%- else -%}
-              <div class="lp-photo-card__ph"><span>Mattamy Homes — Open Office</span></div>
+              <div class="lp-photo-card__ph"><span>Open-Plan Office</span></div>
             {%- endif -%}
           </div>
-          <p class="lp-photo-card__caption">Mattamy Homes — Multi-office open floor, Milton, ON</p>
+          <p class="lp-photo-card__caption">Open-plan multi-office floor &mdash; sit-stand workstations, collaborative zones, Greater Toronto Area</p>
         </div>
 
         {%- comment -%} Row 4 — three standard {%- endcomment -%}
@@ -224,16 +224,50 @@
     </div>
   </section>
 
+  {%- comment -%} Browse-categories crosslinks (Session A standardization) {%- endcomment -%}
+  <section style="padding:48px 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);" aria-label="Browse furniture categories">
+    <div style="max-width:1280px;margin:0 auto;padding:0 var(--space-6);">
+      <div style="margin-bottom:24px;">
+        <p class="bbi-mono" style="display:inline-flex;align-items:center;gap:8px;color:rgba(var(--textColor-rgb),0.6);margin-bottom:12px;">Browse categories</p>
+        <h2 style="font-family:var(--headingFont);font-size:var(--fs-h3);line-height:var(--lh-h3);font-weight:600;color:var(--headingColor);margin:0;">Specify from the same catalog we install &mdash; every category.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <a href="/collections/seating" style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:24px;background:var(--background);border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);">
+          <span style="width:28px;height:28px;color:rgba(var(--textColor-rgb),0.55);"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg></span>
+          <span style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:var(--headingFont);font-size:18px;font-weight:600;color:var(--headingColor);">Seating</span><span style="font-size:13px;color:rgba(var(--textColor-rgb),0.6);font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Task &middot; exec &middot; lounge &middot; bariatric</span></span>
+          <span style="width:18px;height:18px;color:rgba(var(--textColor-rgb),0.55);"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/collections/desks" style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:24px;background:var(--background);border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);">
+          <span style="width:28px;height:28px;color:rgba(var(--textColor-rgb),0.55);"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg></span>
+          <span style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:var(--headingFont);font-size:18px;font-weight:600;color:var(--headingColor);">Desks &amp; Workstations</span><span style="font-size:13px;color:rgba(var(--textColor-rgb),0.6);font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Single &middot; L-shape &middot; sit-stand &middot; benching</span></span>
+          <span style="width:18px;height:18px;color:rgba(var(--textColor-rgb),0.55);"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/collections/business-furniture" style="display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:24px;background:var(--background);border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);">
+          <span style="width:28px;height:28px;color:rgba(var(--textColor-rgb),0.55);"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4" y="6" width="20" height="16" rx="2"/><path d="M4 12 H24"/><path d="M10 6 V22 M18 6 V22"/></svg></span>
+          <span style="display:flex;flex-direction:column;gap:2px;"><span style="font-family:var(--headingFont);font-size:18px;font-weight:600;color:var(--headingColor);">Full catalog</span><span style="font-size:13px;color:rgba(var(--textColor-rgb),0.6);font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;">Storage &middot; tables &middot; acoustic &middot; accessories</span></span>
+          <span style="width:18px;height:18px;color:rgba(var(--textColor-rgb),0.55);"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Entity note (Session A / AI-8 standardization) {%- endcomment -%}
+  <section style="padding:24px 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);" aria-label="Legal entity and registration">
+    <div style="max-width:1280px;margin:0 auto;padding:0 var(--space-6);">
+      <p style="font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),0.6);margin:0;text-wrap:pretty;max-width:92ch;"><b style="color:rgba(var(--textColor-rgb),0.85);font-weight:600;">Brant Business Interiors</b> is the operating brand of <b style="color:rgba(var(--textColor-rgb),0.85);font-weight:600;">Brant Basics</b>, our OECM-registered legal entity holding Supplier Partner Agreement 2025-470. Ontario-owned since 1964, headquartered at 296 George St N, Peterborough, ON K9J 3H2. Part of the Office Central group. Photo captions name product brands and project types only; customer organizations are anonymized where NDA applies. Named-customer references available on request.</p>
+    </div>
+  </section>
+
   {%- comment -%} CTA Closer {%- endcomment -%}
   <section class="lp-closer" style="background:var(--alternateBackground);padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);">
     <div class="lp-closer__inner">
       <h2>Have a project in mind?</h2>
-      <p class="lp-closer__sub">Request a quote and tell us about your space. We'll put together a plan with product recommendations, a CAD layout if needed, and delivery &amp; installation pricing. OECM-eligible. No obligation.</p>
+      <p class="lp-closer__sub">Request a quote and tell us about your space. We&rsquo;ll put together a plan with product recommendations, a CAD layout if needed, and delivery &amp; installation pricing. OECM-eligible. Ontario-owned since 1964 &mdash; one team from quote through warranty.</p>
       <div class="lp-closer__cta-row">
-        <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Request a Quote <span style="display:inline-block;transform:translateY(-0.5px);">→</span></a>
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Request a Quote <span style="display:inline-block;transform:translateY(-0.5px);">&rarr;</span></a>
         <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg">Call 1-800-835-9565</a>
       </div>
-      <p class="lp-closer__trust">OECM Agreement 2025-470 · Quote in 1 business day · Ontario-wide delivery</p>
+      <p class="lp-closer__trust">OECM Agreement 2025-470 &middot; Quote in 1 business day &middot; Ontario-wide delivery + install &middot; Western Canada install</p>
     </div>
   </section>
   {%- render 'bbi-footer', logo: section.settings.logo -%}
@@ -250,13 +284,13 @@
       "id": "logo",
       "label": "Logo"
     },
-    { "type": "image_picker", "id": "photo_1", "label": "Photo 1 (wide) — Mattamy boardroom" },
+    { "type": "image_picker", "id": "photo_1", "label": "Photo 1 (wide) — Corporate boardroom" },
     { "type": "image_picker", "id": "photo_2", "label": "Photo 2 — Executive office" },
     { "type": "image_picker", "id": "photo_3", "label": "Photo 3 — Conference room" },
     { "type": "image_picker", "id": "photo_4", "label": "Photo 4 — Open-plan workstations" },
     { "type": "image_picker", "id": "photo_5", "label": "Photo 5 — Reception" },
     { "type": "image_picker", "id": "photo_6", "label": "Photo 6 — Healthcare waiting" },
-    { "type": "image_picker", "id": "photo_7", "label": "Photo 7 (wide) — Mattamy open office" },
+    { "type": "image_picker", "id": "photo_7", "label": "Photo 7 (wide) — Open-plan office" },
     { "type": "image_picker", "id": "photo_8", "label": "Photo 8 — Ergonomic workstation" },
     { "type": "image_picker", "id": "photo_9", "label": "Photo 9 — Breakroom" },
     { "type": "image_picker", "id": "photo_10", "label": "Photo 10 — Acoustic pods" },
