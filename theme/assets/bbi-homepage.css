@@ -614,3 +614,69 @@
   font-family: var(--headingFont);
   font-size: 14px; letter-spacing: 0; font-weight: 600;
 }
+
+/* ============================================================
+   HOMEPAGE COLOUR + LAYOUT POLISH 2026-05-21
+   Full-width about section, visible button outlines, and subtle
+   BBI-design-system colour accents on trust strip, about glance,
+   OECM bar, services grid, and case-study tiles.
+   ============================================================ */
+
+/* About section — title + body span full container width */
+.hp-about .bbi-section-head__title { max-width: none; }
+
+/* Visible button outline for secondary buttons (BBI ink on white) */
+.hp-root .bbi-btn--secondary,
+.bbi-section .bbi-btn--secondary {
+  background: #FFFFFF;
+  color: #0B0B0C;
+  border-color: #0B0B0C;
+}
+.hp-root .bbi-btn--secondary:hover,
+.bbi-section .bbi-btn--secondary:hover {
+  background: #0B0B0C;
+  color: #F7F8FA;
+  border-color: #0B0B0C;
+}
+
+/* Trust strip — subtle paper-raised background + colored bullets per chip */
+.hp-trust { background: #F3F4F6; } /* --bbi-gray-50 */
+.hp-trust__chip { opacity: 1; gap: 8px; }
+.hp-trust__chip::before {
+  content: ""; width: 6px; height: 6px; border-radius: 99px;
+  background: #D4252A; /* --bbi-accent default */
+  flex: 0 0 auto;
+}
+.hp-trust__chip:has(.leaf)::before { display: none; }
+.hp-trust__inner > .hp-trust__chip:nth-of-type(2)::before { background: #2E4A7A; } /* info blue */
+.hp-trust__inner > .hp-trust__chip:nth-of-type(3)::before { background: #1F6E3E; } /* success green */
+.hp-trust__inner > .hp-trust__chip:nth-of-type(4)::before { background: #A8691A; } /* warn amber */
+.hp-trust__inner > .hp-trust__chip:nth-of-type(5)::before { background: #D4252A; } /* accent red */
+
+/* About glance — 2px coloured left accent bar per item */
+.hp-about__glance-item { position: relative; padding-left: 14px !important; }
+.hp-about__glance-item::before {
+  content: ""; position: absolute; left: 0; top: 22px; bottom: 22px;
+  width: 2px; background: #D4252A; /* --bbi-accent */
+}
+.hp-about__glance-item:nth-child(2)::before { background: #2E4A7A; } /* OECM blue */
+.hp-about__glance-item:nth-child(3)::before { background: #1F6E3E; } /* Reach green */
+
+/* OECM bar — subtle accent-tint wash */
+.hp-oecm { background: #FBECEC; } /* --bbi-accent-tint */
+.hp-oecm__copy { opacity: 0.9; }
+
+/* Services grid — 2px red accent top border */
+.hp-services__grid { border-top: 2px solid #D4252A; } /* --bbi-accent */
+
+/* Case study cards — year badge in a small accent-tint pill */
+.hp-case__year {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #FBECEC;
+  color: #A81C20 !important;        /* --bbi-accent-press */
+  border-radius: 2px;
+  font-weight: 600;
+  opacity: 1 !important;
+  align-self: flex-start;
+}
