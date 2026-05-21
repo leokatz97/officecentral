@@ -19,7 +19,7 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 - ✅ **AI-5** (Step 20): FAQPage JSON-LD on /pages/design-services **verified, no writes** — Session B already shipped both the `HowTo` and `FAQPage` JSON-LD blocks; OECM no-regression confirmed (8 valid Q&As emit cleanly); blog post `BlogPosting` schema gap deferred to BLOG-SEED-1. Branch `feature/ai-5` carries build-state row only.
 
 **Up next today:**
-- **A11Y Phase 1.5**: PSI re-run on DEV preview URLs (~15–20 min, mechanical).
+- ~~**A11Y Phase 1.5**~~ ✅ Done — PSI re-run complete (15 URLs × 2 strategies); no regressions vs Phase 1 baseline; `data/reports/a11y-audit-1-phase-1.5-2026-05-21.{csv,md}`.
 - **Task #12 DEV-3** if quick (~45–60 min, else defer post-launch).
 - Tracker + build-state EOD update (~15 min, Cowork).
 - **Outcome:** all voice + schema work complete.
@@ -93,9 +93,10 @@ Tracker step → build-state Wave row, with one-line status.
 
 Mirrors the tracker's Completed Archive. Full commits/counts/rationale in `docs/project/launch-tracker-archive.md` and the Wave A–H tables preserved below.
 
-**Day 8 · 2026-05-21 — 5 items**
+**Day 8 · 2026-05-21 — 6 items**
 - Step 19 AI-9 — FAQ blocks + FAQPage JSON-LD on 9 category collection pages. 36 procurement-actionable Q&As across Seating (5) + Desks/Storage/Tables/Boardroom/Accessories/Ergonomic/Quiet Spaces (4 each) + Panels & Room Dividers (3). Pattern centralized in `ds-cc-base.liquid` (FAQ render + accordion JS + auto-built FAQPage JSON-LD from `faq_item` blocks); per-collection JSON templates add `faq_item` blocks. Schema differentiator vs ugoburo (zero JSON-LD anywhere).
 - Step 20 AI-5 — FAQPage JSON-LD on /pages/design-services **verified, no writes** — Session B already shipped both the `HowTo` and `FAQPage` JSON-LD blocks in `ds-lp-design-services.liquid` (lines 14–42) alongside 5 `faq_item` blocks in `page.design-services.json` (commit 6c33b60). Simulated emit parses cleanly (5 valid Q&As). OECM no-regression confirmed: deployed `ds-lp-oecm.liquid` FAQPage block intact at lines 322–334, `page.oecm.json` 8 `faq_item` blocks, simulated emit parses cleanly. Blog: 1 published article (_How to adjust your chair_) currently emits no `BlogPosting` JSON-LD — gap deferred to BLOG-SEED-1 (Step 36) per scope. Branch `feature/ai-5` carries the build-state row only.
+- Step 50 A11Y-AUDIT-1 Phase 1.5 — PSI re-run on LIVE Avada (15 URLs × 2 strategies, all 4 Lighthouse categories, authenticated PSI API key). Read-only; no theme writes. **Result:** mobile P 58 / A 98 / BP 93 / SEO 95 · desktop P 83 / A 95 / BP 94 / SEO 95. **No regressions from Wave E** (content + schema shipped on dev theme only, not on LIVE). Mobile LCP still red on 15/15 URLs (Avada page-builder bloat); CLS clean 30/30. Three a11y binary audits fail across most pages — `heading-order` 26/30, `target-size` 15/30, `color-contrast` 4/30 — worth confirming on new theme. Outputs: `data/reports/a11y-audit-1-phase-1.5-2026-05-21.{csv,md}`. Authoritative new-theme re-baseline gated by **Phase 2 post-LAUNCH-2**.
 - Step 34 CONTENT-1 — ✅ Done; logo locked to `bbi-logo-v2` at BRAND-PAGES-1 (commit 70c242c); no new wordmark sourcing
 - Step 54 CONTENT-POLISH-1 — Session A + B complete (13 pages refreshed total); Session B shipped 7 service + adjacent pages (quote, delivery, design-services, relocation, customer-stories, our-work, faq); commit 6c33b60 · merged via PR #10 to main (merge commit 24ade31)
 - Step 55 STEVE-FACT-CHECK — ✅ Resolved; 3 claims verified (proof-bar "340+ OECM POs / 90+ Ontario buyers" numbers · entity-name rule Brant Basics ↔ Brant Business Interiors · ownership framing Ontario-owned vs family-owned); LAUNCH-2 unblocked on this vector
