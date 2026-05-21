@@ -2,7 +2,7 @@
 
 > **Source of truth.** This file is canonical. The `bbi-launch-tracker` Cowork artifact is the visual dashboard view of it — both update together. Both files were rebuilt to the same navigation-optimized functional grouping on **2026-05-21 (Day 7 EOD)**: a CURRENT FOCUS / ACTIVE / HOMEWORK navigation layer on top, with the full session log, technical sections, Wave A–H tables, and backlog preserved verbatim below the divider. Full ship history lives in `docs/project/launch-tracker-archive.md`.
 
-**Current state:** 2026-05-21 (Day 8 in progress) · **40 of 54 launch steps done (74%)** · Day 8 in progress · launch target Day 10.
+**Current state:** 2026-05-21 (Day 8 in progress) · **41 of 54 launch steps done (76%)** · Day 8 in progress · launch target Day 10.
 
 ---
 
@@ -17,10 +17,11 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 - ✅ **Session B** — CONTENT-POLISH-1 part 2 (tracker Step 54): 7 service + adjacent pages shipped · commit `6c33b60` · branch `feature/content-polish-1-session-b` merged via PR #10 to main (merge commit `24ade31`). Closes CONTENT-POLISH-1 (Session A + B = 13 pages refreshed).
 - ✅ **AI-9** (Step 19): FAQ blocks + FAQPage JSON-LD on 9 category collection pages · commit `4f2aafe` · merged via PR #11 to main (merge commit `d5800da`).
 - ✅ **AI-5** (Step 20): FAQPage JSON-LD on /pages/design-services **verified, no writes** — Session B already shipped both the `HowTo` and `FAQPage` JSON-LD blocks; OECM no-regression confirmed (8 valid Q&As emit cleanly); blog post `BlogPosting` schema gap deferred to BLOG-SEED-1. Branch `feature/ai-5` carries build-state row only.
+- ✅ **Task #12 DEV-3** — migrated `templates/search.json` + 7 `templates/customers/*.json` (login, register, account, order, addresses, reset_password, activate_account) into `bbi_landing` gate. Closes A11Y Fix E (deferred from A11Y-AUDIT-1 Phase 1). Two-line gate addition in `layout/theme.liquid` (`template.name == 'search'` + `template.directory == 'customers'`); 7 new local JSON templates wrap Avada `main-<x>` sections with `bbi-nav-wrap` + `bbi-footer-wrap`. Customers/* templates **did not previously exist on DEV** — this also closes a latent launch gap. Branch `feature/dev-3-task-12`. Spot-checks: /search + /account/login + /account/register confirmed BBI chrome.
 
 **Up next today:**
 - ~~**A11Y Phase 1.5**~~ ✅ Done — PSI re-run complete (15 URLs × 2 strategies); no regressions vs Phase 1 baseline; `data/reports/a11y-audit-1-phase-1.5-2026-05-21.{csv,md}`.
-- **Task #12 DEV-3** if quick (~45–60 min, else defer post-launch).
+- ~~**Task #12 DEV-3**~~ ✅ Done (above).
 - Tracker + build-state EOD update (~15 min, Cowork).
 - **Outcome:** all voice + schema work complete.
 
