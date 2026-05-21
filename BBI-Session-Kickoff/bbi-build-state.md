@@ -2,7 +2,7 @@
 
 > **Source of truth.** This file is canonical. The `bbi-launch-tracker` Cowork artifact is the visual dashboard view of it — both update together. Both files were rebuilt to the same navigation-optimized functional grouping on **2026-05-21 (Day 7 EOD)**: a CURRENT FOCUS / ACTIVE / HOMEWORK navigation layer on top, with the full session log, technical sections, Wave A–H tables, and backlog preserved verbatim below the divider. Full ship history lives in `docs/project/launch-tracker-archive.md`.
 
-**Current state:** 2026-05-21 (Day 8 in progress) · **38 of 54 launch steps done (70%)** · Day 8 in progress · launch target Day 10.
+**Current state:** 2026-05-21 (Day 8 in progress) · **39 of 54 launch steps done (72%)** · Day 8 in progress · launch target Day 10.
 
 ---
 
@@ -89,14 +89,15 @@ Tracker step → build-state Wave row, with one-line status.
 
 ---
 
-## ✅ COMPLETED STEPS — condensed, by day (38 items)
+## ✅ COMPLETED STEPS — condensed, by day (39 items)
 
 Mirrors the tracker's Completed Archive. Full commits/counts/rationale in `docs/project/launch-tracker-archive.md` and the Wave A–H tables preserved below.
 
-**Day 8 · 2026-05-21 — 3 items**
+**Day 8 · 2026-05-21 — 4 items**
+- Step 19 AI-9 — FAQ blocks + FAQPage JSON-LD on 9 category collection pages. 36 procurement-actionable Q&As across Seating (5) + Desks/Storage/Tables/Boardroom/Accessories/Ergonomic/Quiet Spaces (4 each) + Panels & Room Dividers (3). Pattern centralized in `ds-cc-base.liquid` (FAQ render + accordion JS + auto-built FAQPage JSON-LD from `faq_item` blocks); per-collection JSON templates add `faq_item` blocks. Schema differentiator vs ugoburo (zero JSON-LD anywhere).
+- Step 34 CONTENT-1 — ✅ Done; logo locked to `bbi-logo-v2` at BRAND-PAGES-1 (commit 70c242c); no new wordmark sourcing
 - Step 54 CONTENT-POLISH-1 — Session A + B complete (13 pages refreshed total); Session B shipped 7 service + adjacent pages (quote, delivery, design-services, relocation, customer-stories, our-work, faq); commit 6c33b60 · merged via PR #10 to main (merge commit 24ade31)
 - Step 55 STEVE-FACT-CHECK — ✅ Resolved; 3 claims verified (proof-bar "340+ OECM POs / 90+ Ontario buyers" numbers · entity-name rule Brant Basics ↔ Brant Business Interiors · ownership framing Ontario-owned vs family-owned); LAUNCH-2 unblocked on this vector
-- Step 34 CONTENT-1 — ✅ Done; logo locked to `bbi-logo-v2` at BRAND-PAGES-1 (commit 70c242c); no new wordmark sourcing
 
 > Operational (not counted as tracker steps): build-state.md restructure committed (commit 45cad41); PR-MERGE-3 — PR #10 merged as merge commit 24ade31.
 
