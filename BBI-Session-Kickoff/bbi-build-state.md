@@ -22,6 +22,8 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 
 **Count:** 38 → **40 of 54 (74%)**. Only AI-9 + AI-5 are new numbered-step closures; A11Y Phase 1.5 (Step 50 upgrade) and Task #12 DEV-3 (sub-work) shipped cleanly but don't move the /54.
 
+**Day 8 evening addendum 2026-05-21 — Homepage bug fix (Task #13 cosmetic):** Replaced all 14 broken `bbi-hp-*.jpg` `<img>` refs in `theme/templates/index.json` (hero + 4 shop tiles + 3 featured cards + 5 industries + Kawartha avatar) with safe `<div class="bbi-hp-ph bbi-hp-ph--*" role="img" aria-label="...">` placeholders styled in `theme/assets/bbi-homepage.css` using literal hex from the BBI design system gray ramp + semantic surfaces. Hero gets a gradient (ink → gray-700 → accent-press); shop tiles + industries get solid color blocks (overlays/numerals still readable on top); featured cards get light gray blocks; Kawartha avatar becomes a "KD" monogram on `--bbi-accent-tint`. Hero H1 also trimmed to "Commercial furniture for the way Canadian offices actually work." Font work in Phase 2 of the original prompt was started then reverted — turned out the homepage layout doesn't load `ds-landing.css` so the BBI font tokens (`--bbi-font-sans` / `--bbi-font-mono`) are undefined on the homepage; reverting kept the visible site uniform. **Real images still come Day 9 (IMAGE-SOURCING-V2 / Step 46) — Task #13 is fully covered by tonight's cosmetic fix until then.** Branch `feature/homepage-bug-fix`. *(cosmetic fix, not a numbered-step closure — does NOT increment /54)*
+
 **Status:** Closed for the day. Day 9 image plan ready (below).
 
 ### Day 9 — ▶ NEXT · Image work (full day) → ~46–48 of 54 (85–89%)

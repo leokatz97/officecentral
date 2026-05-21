@@ -577,3 +577,40 @@
 .compare-basket.open {
   transform: translateY(0%);
 }
+
+/* ============================================================
+   HOMEPAGE BUG FIX 2026-05-21 · safe placeholders for Day 9 image rot
+   The bbi-hp-*.jpg refs (CDN t/24 slot) returned 404. Task #13 →
+   Step 46 IMAGE-SOURCING-V2 swaps these for real images on Day 9.
+   Colors are literal hex from the BBI design system (ds-landing.css
+   --bbi-gray ramp + semantic surfaces) so they resolve without
+   needing ds-landing.css loaded on the homepage layout.
+   ============================================================ */
+.bbi-hp-ph {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: #F7F8FA;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  text-align: center;
+}
+.bbi-hp-ph--hero      { background: linear-gradient(140deg, #0B0B0C 0%, #363A42 55%, #A81C20 100%); }
+.bbi-hp-ph--seating   { background: #363A42; } /* --bbi-gray-700 */
+.bbi-hp-ph--desks     { background: #22252B; } /* --bbi-gray-800 */
+.bbi-hp-ph--storage   { background: #525863; } /* --bbi-gray-600 */
+.bbi-hp-ph--boardroom { background: #6F7580; } /* --bbi-gray-500 */
+.bbi-hp-ph--featured-1 { background: #E9EBEF; color: #363A42; } /* gray-100 / gray-700 */
+.bbi-hp-ph--featured-2 { background: #F3F4F6; color: #363A42; } /* gray-50  / gray-700 */
+.bbi-hp-ph--featured-3 { background: #DEE1E6; color: #363A42; } /* gray-200 / gray-700 */
+.bbi-hp-ph--healthcare    { background: #2E4A7A; } /* --bbi-info */
+.bbi-hp-ph--education     { background: #363A42; } /* gray-700 */
+.bbi-hp-ph--government    { background: #22252B; } /* gray-800 */
+.bbi-hp-ph--non-profit    { background: #1F6E3E; } /* --bbi-success */
+.bbi-hp-ph--pro-services  { background: #525863; } /* gray-600 */
+.hp-industry__media { aspect-ratio: 4/3; }
+.bbi-hp-ph--avatar {
+  background: #FBECEC; /* --bbi-accent-tint */
+  color: #D4252A;      /* --bbi-accent (Brant red) */
+  font-family: var(--headingFont);
+  font-size: 14px; letter-spacing: 0; font-weight: 600;
+}
