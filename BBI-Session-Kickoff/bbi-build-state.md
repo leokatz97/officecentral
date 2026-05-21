@@ -2,7 +2,7 @@
 
 > **Source of truth.** This file is canonical. The `bbi-launch-tracker` Cowork artifact is the visual dashboard view of it — both update together. Both files were rebuilt to the same navigation-optimized functional grouping on **2026-05-21 (Day 7 EOD)**: a CURRENT FOCUS / ACTIVE / HOMEWORK navigation layer on top, with the full session log, technical sections, Wave A–H tables, and backlog preserved verbatim below the divider. Full ship history lives in `docs/project/launch-tracker-archive.md`.
 
-**Current state:** 2026-05-21 (Day 8 in progress) · **41 of 54 launch steps done (76%)** · Day 8 in progress · launch target Day 10.
+**Current state:** 2026-05-21 (Day 8 EOD) · **40 of 54 launch steps done (74%)** · Day 8 closed · Day 9 (image work) next · launch target Day 10.
 
 ---
 
@@ -10,22 +10,21 @@
 
 The next three days are the launch sequence. This mirrors the tracker's "Next 3 days" block.
 
-### Day 8 — Today / in progress (content polish + schema) → ~41–43 of 54 (76–80%)
+### Day 8 — ✅ EOD / closed (content polish + schema) → 38 → 40 of 54 (74%)
 
-**Done today:**
-- ✅ Housekeeping — bbi-build-state.md restructure applied + committed + pushed (commit `45cad41`).
-- ✅ **Session B** — CONTENT-POLISH-1 part 2 (tracker Step 54): 7 service + adjacent pages shipped · commit `6c33b60` · branch `feature/content-polish-1-session-b` merged via PR #10 to main (merge commit `24ade31`). Closes CONTENT-POLISH-1 (Session A + B = 13 pages refreshed).
-- ✅ **AI-9** (Step 19): FAQ blocks + FAQPage JSON-LD on 9 category collection pages · commit `4f2aafe` · merged via PR #11 to main (merge commit `d5800da`).
-- ✅ **AI-5** (Step 20): FAQPage JSON-LD on /pages/design-services **verified, no writes** — Session B already shipped both the `HowTo` and `FAQPage` JSON-LD blocks; OECM no-regression confirmed (8 valid Q&As emit cleanly); blog post `BlogPosting` schema gap deferred to BLOG-SEED-1. Branch `feature/ai-5` carries build-state row only.
-- ✅ **Task #12 DEV-3** — migrated `templates/search.json` + 7 `templates/customers/*.json` (login, register, account, order, addresses, reset_password, activate_account) into `bbi_landing` gate. Closes A11Y Fix E (deferred from A11Y-AUDIT-1 Phase 1). Two-line gate addition in `layout/theme.liquid` (`template.name == 'search'` + `template.directory == 'customers'`); 7 new local JSON templates wrap Avada `main-<x>` sections with `bbi-nav-wrap` + `bbi-footer-wrap`. Customers/* templates **did not previously exist on DEV** — this also closes a latent launch gap. Branch `feature/dev-3-task-12`. Spot-checks: /search + /account/login + /account/register confirmed BBI chrome.
+**Shipped today** (all merged to `main`, HEAD `5ec8f19`):
+- ✅ Housekeeping — bbi-build-state.md restructure + mid-day audit (closed Steps 34/54/55, removed dup Step 29, split Wave D) · commits `45cad41` + `59a7eec`.
+- ✅ **Session B** — CONTENT-POLISH-1 part 2 (tracker Step 54): 7 service + adjacent pages shipped · commit `6c33b60` · PR #10 → `24ade31`. Closes CONTENT-POLISH-1 (Session A + B = 13 pages refreshed).
+- ✅ **AI-9** (Step 19): FAQ blocks + FAQPage JSON-LD on 9 category collection pages (36 Q&As) · commit `4f2aafe` · PR #11 → `d5800da`. *(new numbered-step closure — counts toward /54)*
+- ✅ **AI-5** (Step 20): FAQPage JSON-LD on /pages/design-services **verified, no writes** — Session B already shipped both the `HowTo` and `FAQPage` JSON-LD blocks; OECM no-regression confirmed (8 valid Q&As emit cleanly); blog post `BlogPosting` schema gap deferred to BLOG-SEED-1. Branch `feature/ai-5` · PR #12 → `1df3cff`. *(new numbered-step closure — counts toward /54)*
+- ✅ **A11Y Phase 1.5** (Step 50): PSI re-run complete (15 URLs × 2 strategies); no regressions vs Phase 1 baseline; `data/reports/a11y-audit-1-phase-1.5-2026-05-21.{csv,md}` · PR #13 → `b0e29b4`. *(upgrade to already-counted Step 50 — does NOT increment /54; Phase 2 post-LAUNCH-2)*
+- ✅ **Task #12 DEV-3** — migrated `templates/search.json` + 7 `templates/customers/*.json` (login, register, account, order, addresses, reset_password, activate_account) into `bbi_landing` gate. Closes A11Y Fix E (deferred from A11Y-AUDIT-1 Phase 1). Two-line gate addition in `layout/theme.liquid` (`template.name == 'search'` + `template.directory == 'customers'`); 7 new local JSON templates wrap Avada `main-<x>` sections with `bbi-nav-wrap` + `bbi-footer-wrap`. Customers/* templates **did not previously exist on DEV** — this also closes a latent launch gap. Branch `feature/dev-3-task-12` · PR #14 → `5ec8f19`. *(sub-work, not a numbered step — does NOT increment /54)*
 
-**Up next today:**
-- ~~**A11Y Phase 1.5**~~ ✅ Done — PSI re-run complete (15 URLs × 2 strategies); no regressions vs Phase 1 baseline; `data/reports/a11y-audit-1-phase-1.5-2026-05-21.{csv,md}`.
-- ~~**Task #12 DEV-3**~~ ✅ Done (above).
-- Tracker + build-state EOD update (~15 min, Cowork).
-- **Outcome:** all voice + schema work complete.
+**Count:** 38 → **40 of 54 (74%)**. Only AI-9 + AI-5 are new numbered-step closures; A11Y Phase 1.5 (Step 50 upgrade) and Task #12 DEV-3 (sub-work) shipped cleanly but don't move the /54.
 
-### Day 9 — Image work (full day) → ~46–48 of 54 (85–89%)
+**Status:** Closed for the day. Day 9 image plan ready (below).
+
+### Day 9 — ▶ NEXT · Image work (full day) → ~46–48 of 54 (85–89%)
 
 **Prereq:** Step 53 INSTALL-PHOTO-QUERY answered by Steve before the session fires (gates approach: real photos vs stock vs mixed). **Also flag W0-1** (GSC + GA4) — Steve homework that must be set up before LAUNCH-2 (Day 10).
 
@@ -58,7 +57,7 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 Tracker step → build-state Wave row, with one-line status.
 
 - **LEAD-2** (Step 22, Wave E) — lead routing gap analysis. Owner: Claude Code. Open.
-- **INTERLINK-3** (Step 26, Wave E) — final cross-link audit. Owner: Claude Code. Was blocked until BRAND-PAGES-1 merged to main; CONTENT-POLISH-1 now merged (PR #10) so this can fire next.
+- **INTERLINK-3** (Step 26, Wave E) — final cross-link audit. Owner: Claude Code. ✅ Unblocked — CONTENT-POLISH-1 merged to main (PR #10); ready to fire any time post-Wave-E.
 - **INSTALL-PHOTO-QUERY** (Step 53) — does BBI have an installation photo library? Owner: Steve. 🟡 homework; gates the Day 9 approach. Fire ASAP.
 - **SEO-AUDIT-1** (Step 35, Wave E) — technical SEO audit via DataForSEO MCP (HARD GATE before LAUNCH-0). Owner: Claude Code. Blocked: DataForSEO MCP not connected + dev preview not externally crawlable.
 - **BLOG-SEED-1** (Step 36, Phase 4 / Backlog) — 3 cornerstone blog posts. Owner: Cowork + Steve. Mostly post-launch but a hard launch gate per CLAUDE.md; PREREQ Article/BlogPosting JSON-LD on `ds-article.liquid`.
@@ -86,23 +85,25 @@ Tracker step → build-state Wave row, with one-line status.
 - **W0-3 (redirects CSV upload)** — pre-LAUNCH-2 (Day 10): upload `data/url-redirects.csv` in Shopify Admin.
 - **LAUNCH-0 (Step 37)** — row-by-row image CSV approval. Hard gate before LAUNCH-1 (Day 10).
 - **LAUNCH-2 (Step 39)** — the manual Publish click in Shopify Admin. Never automated (Day 10).
-- **Git push + merge** — `feature/brand-pages-1` → `feature/ai-7-ai-8` → `feature/content-polish-1-session-a` to origin in sequence (branches local-only after their sessions; brittle if laptop fails before push).
+- ~~**Git push + merge** — `feature/brand-pages-1` → `feature/ai-7-ai-8` → `feature/content-polish-1` → AI-9/AI-5/A11Y-1.5/DEV-3~~ — ✅ all merged to `main` via PRs #8–#14 (HEAD `5ec8f19`). No local-only branches outstanding.
 
 ---
 
-## ✅ COMPLETED STEPS — condensed, by day (39 items)
+## ✅ COMPLETED STEPS — condensed, by day (40 items)
 
 Mirrors the tracker's Completed Archive. Full commits/counts/rationale in `docs/project/launch-tracker-archive.md` and the Wave A–H tables preserved below.
 
-**Day 8 · 2026-05-21 — 6 items**
-- Step 19 AI-9 — FAQ blocks + FAQPage JSON-LD on 9 category collection pages. 36 procurement-actionable Q&As across Seating (5) + Desks/Storage/Tables/Boardroom/Accessories/Ergonomic/Quiet Spaces (4 each) + Panels & Room Dividers (3). Pattern centralized in `ds-cc-base.liquid` (FAQ render + accordion JS + auto-built FAQPage JSON-LD from `faq_item` blocks); per-collection JSON templates add `faq_item` blocks. Schema differentiator vs ugoburo (zero JSON-LD anywhere).
-- Step 20 AI-5 — FAQPage JSON-LD on /pages/design-services **verified, no writes** — Session B already shipped both the `HowTo` and `FAQPage` JSON-LD blocks in `ds-lp-design-services.liquid` (lines 14–42) alongside 5 `faq_item` blocks in `page.design-services.json` (commit 6c33b60). Simulated emit parses cleanly (5 valid Q&As). OECM no-regression confirmed: deployed `ds-lp-oecm.liquid` FAQPage block intact at lines 322–334, `page.oecm.json` 8 `faq_item` blocks, simulated emit parses cleanly. Blog: 1 published article (_How to adjust your chair_) currently emits no `BlogPosting` JSON-LD — gap deferred to BLOG-SEED-1 (Step 36) per scope. Branch `feature/ai-5` carries the build-state row only.
-- Step 50 A11Y-AUDIT-1 Phase 1.5 — PSI re-run on LIVE Avada (15 URLs × 2 strategies, all 4 Lighthouse categories, authenticated PSI API key). Read-only; no theme writes. **Result:** mobile P 58 / A 98 / BP 93 / SEO 95 · desktop P 83 / A 95 / BP 94 / SEO 95. **No regressions from Wave E** (content + schema shipped on dev theme only, not on LIVE). Mobile LCP still red on 15/15 URLs (Avada page-builder bloat); CLS clean 30/30. Three a11y binary audits fail across most pages — `heading-order` 26/30, `target-size` 15/30, `color-contrast` 4/30 — worth confirming on new theme. Outputs: `data/reports/a11y-audit-1-phase-1.5-2026-05-21.{csv,md}`. Authoritative new-theme re-baseline gated by **Phase 2 post-LAUNCH-2**.
-- Step 34 CONTENT-1 — ✅ Done; logo locked to `bbi-logo-v2` at BRAND-PAGES-1 (commit 70c242c); no new wordmark sourcing
+**Day 8 · 2026-05-21 — 5 items**
+- Step 19 AI-9 — FAQ blocks + FAQPage JSON-LD on 9 category collection pages. 36 procurement-actionable Q&As across Seating (5) + Desks/Storage/Tables/Boardroom/Accessories/Ergonomic/Quiet Spaces (4 each) + Panels & Room Dividers (3). Pattern centralized in `ds-cc-base.liquid` (FAQ render + accordion JS + auto-built FAQPage JSON-LD from `faq_item` blocks); per-collection JSON templates add `faq_item` blocks. Schema differentiator vs ugoburo (zero JSON-LD anywhere). Commit 4f2aafe · PR #11 → d5800da.
+- Step 20 AI-5 — FAQPage JSON-LD on /pages/design-services **verified, no writes** — Session B already shipped both the `HowTo` and `FAQPage` JSON-LD blocks in `ds-lp-design-services.liquid` (lines 14–42) alongside 5 `faq_item` blocks in `page.design-services.json` (commit 6c33b60). Simulated emit parses cleanly (5 valid Q&As). OECM no-regression confirmed: deployed `ds-lp-oecm.liquid` FAQPage block intact at lines 322–334, `page.oecm.json` 8 `faq_item` blocks, simulated emit parses cleanly. Blog: 1 published article (_How to adjust your chair_) currently emits no `BlogPosting` JSON-LD — gap deferred to BLOG-SEED-1 (Step 36) per scope. Branch `feature/ai-5` · PR #12 → 1df3cff.
 - Step 54 CONTENT-POLISH-1 — Session A + B complete (13 pages refreshed total); Session B shipped 7 service + adjacent pages (quote, delivery, design-services, relocation, customer-stories, our-work, faq); commit 6c33b60 · merged via PR #10 to main (merge commit 24ade31)
 - Step 55 STEVE-FACT-CHECK — ✅ Resolved; 3 claims verified (proof-bar "340+ OECM POs / 90+ Ontario buyers" numbers · entity-name rule Brant Basics ↔ Brant Business Interiors · ownership framing Ontario-owned vs family-owned); LAUNCH-2 unblocked on this vector
+- Step 34 CONTENT-1 — ✅ Done; logo locked to `bbi-logo-v2` at BRAND-PAGES-1 (commit 70c242c); no new wordmark sourcing
 
-> Operational (not counted as tracker steps): build-state.md restructure committed (commit 45cad41); PR-MERGE-3 — PR #10 merged as merge commit 24ade31.
+> **Also shipped Day 8 but NOT counted in the /54** (so the count moved 38 → 40, not 42):
+> - **Step 50 A11Y-AUDIT-1 Phase 1.5** — PSI re-run on LIVE Avada (15 URLs × 2 strategies, all 4 Lighthouse categories, authenticated PSI API key). Read-only; no theme writes. **Result:** mobile P 58 / A 98 / BP 93 / SEO 95 · desktop P 83 / A 95 / BP 94 / SEO 95. **No regressions from Wave E** (content + schema shipped on dev theme only, not on LIVE). Mobile LCP still red on 15/15 URLs (Avada page-builder bloat); CLS clean 30/30. Three a11y binary audits fail across most pages — `heading-order` 26/30, `target-size` 15/30, `color-contrast` 4/30 — worth confirming on new theme. Outputs: `data/reports/a11y-audit-1-phase-1.5-2026-05-21.{csv,md}` · PR #13 → b0e29b4. *(Upgrade to already-counted Step 50 — authoritative new-theme re-baseline gated by Phase 2 post-LAUNCH-2.)*
+> - **Task #12 DEV-3** — search.json + 7 customers/* templates migrated into `bbi_landing` gate (closes A11Y Fix E + a latent launch gap) · branch `feature/dev-3-task-12` · PR #14 → 5ec8f19. *(Sub-work, not a numbered launch step.)*
+> - Operational: build-state.md restructure committed (commit 45cad41) + mid-day audit (commit 59a7eec); PR-MERGE-3 — PR #10 merged as merge commit 24ade31.
 
 **Day 6 · 2026-05-20 — 9 items**
 - Step 17 AI-7 — homepage entity-clarity copy (Version B plainspoken); commit 17da6cc
