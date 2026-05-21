@@ -85,9 +85,12 @@ Tracker step → build-state Wave row, with one-line status.
 
 ---
 
-## ✅ COMPLETED STEPS — condensed, by day (35 items)
+## ✅ COMPLETED STEPS — condensed, by day (36 items)
 
 Mirrors the tracker's Completed Archive. Full commits/counts/rationale in `docs/project/launch-tracker-archive.md` and the Wave A–H tables preserved below.
+
+**Day 8 · 2026-05-21 — 1 item**
+- Step 19 AI-9 — FAQ blocks + FAQPage JSON-LD on 9 category collection pages. 36 procurement-actionable Q&As across Seating (5) + Desks/Storage/Tables/Boardroom/Accessories/Ergonomic/Quiet Spaces (4 each) + Panels & Room Dividers (3). Pattern centralized in `ds-cc-base.liquid` (FAQ render + accordion JS + auto-built FAQPage JSON-LD from `faq_item` blocks); per-collection JSON templates add `faq_item` blocks. Schema differentiator vs ugoburo (zero JSON-LD anywhere).
 
 **Day 6 · 2026-05-20 — 9 items**
 - Step 17 AI-7 — homepage entity-clarity copy (Version B plainspoken); commit 17da6cc

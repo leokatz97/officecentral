@@ -474,6 +474,35 @@
 .ds-cc__pagination span.current{background:var(--textColor);color:var(--buttonColor);border-color:var(--textColor);}
 .ds-cc__pagination a:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
 
+/* ---- FAQ (AI-9) ---- */
+.ds-cc__faq{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.ds-cc__faq-inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
+.ds-cc__faq-head{margin-bottom:var(--space-6);}
+.ds-cc__faq-eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);
+  color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.ds-cc__faq-eyebrow::before{content:"";display:inline-block;width:18px;height:1px;
+  background:var(--saleBadgeBackground);}
+.ds-cc__faq-heading{font-family:var(--headingFont);font-size:var(--fs-h2);
+  line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;}
+.ds-cc__faq-list{border-top:1px solid rgba(var(--borderColor-rgb),0.8);}
+.ds-cc__faq-item{border-bottom:1px solid rgba(var(--borderColor-rgb),0.8);}
+.ds-cc__faq-trigger{display:grid;grid-template-columns:auto 1fr auto;
+  align-items:center;gap:var(--space-4);width:100%;padding:var(--space-6) 0;
+  background:transparent;border:none;text-align:left;cursor:pointer;
+  font-family:var(--headingFont);font-size:17px;font-weight:600;color:var(--headingColor);}
+.ds-cc__faq-trigger:focus{outline:none;}
+.ds-cc__faq-trigger:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+.ds-cc__faq-trigger-num{font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:0.08em;color:rgba(var(--textColor-rgb),0.55);font-weight:400;}
+.ds-cc__faq-chevron{width:16px;height:16px;color:rgba(var(--textColor-rgb),0.55);
+  transition:transform 200ms ease;}
+.ds-cc__faq-item--open .ds-cc__faq-chevron{transform:rotate(180deg);color:var(--textColor);}
+.ds-cc__faq-answer{display:none;padding:var(--space-4) 0 var(--space-5) calc(36px + var(--space-4));
+  font-size:15px;line-height:1.6;color:rgba(var(--textColor-rgb),0.78);}
+.ds-cc__faq-item--open .ds-cc__faq-answer{display:block;}
+.ds-cc__faq-answer p{margin:0 0 var(--space-3);text-wrap:pretty;}
+.ds-cc__faq-answer p:last-child{margin-bottom:0;}
+
 /* ---- Responsive ---- */
 @media(max-width:1023px){
   .ds-cc__hero-inner{grid-template-columns:1fr;gap:var(--space-8);}
@@ -486,12 +515,36 @@
   .ds-cc__phone-cta-inner{flex-direction:column;align-items:flex-start;}
   .ds-cc__inner{padding:0 var(--space-4);}
   .ds-cc__product-grid{grid-template-columns:repeat(2,1fr);gap:var(--space-3);}
+  .ds-cc__faq{padding:var(--space-8) 0;}
+  .ds-cc__faq-inner{padding:0 var(--space-4);}
+  .ds-cc__faq-trigger{font-size:16px;padding:var(--space-5) 0;}
+  .ds-cc__faq-answer{padding-left:calc(28px + var(--space-3));}
 }
 @media(max-width:479px){
   .ds-cc__tiles-grid{grid-template-columns:1fr;}
   .ds-cc__product-grid{grid-template-columns:1fr;}
 }
 </style>
+
+{%- comment -%} AI-9: FAQPage JSON-LD — auto-builds from faq_item blocks. Conditional on at least one FAQ block present. {%- endcomment -%}
+{%- assign cc_faq_blocks = section.blocks | where: "type", "faq_item" -%}
+{%- if cc_faq_blocks.size > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for block in cc_faq_blocks -%}
+    {
+      "@type": "Question",
+      "name": {{ block.settings.question | json }},
+      "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} }
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
 
 {%- comment -%}PAGE{%- endcomment -%}
 <div class="ds-cc">
@@ -876,6 +929,50 @@
   {%- comment -%} ── OECM bar (shared snippet) ── {%- endcomment -%}
   {%- render 'bbi-oecm-bar' -%}
 
+  {%- comment -%} ── FAQ (AI-9) — only renders when faq_item blocks are present ── {%- endcomment -%}
+  {%- if cc_faq_blocks.size > 0 -%}
+    <section class="ds-cc__faq" aria-label="Frequently asked questions">
+      <div class="ds-cc__faq-inner">
+        <div class="ds-cc__faq-head">
+          <p class="ds-cc__faq-eyebrow bbi-mono">FAQ</p>
+          <h2 class="ds-cc__faq-heading">{{ section.settings.faq_heading | default: 'Questions Ontario buyers ask before sending the PO.' | escape }}</h2>
+        </div>
+        <div class="ds-cc__faq-list" id="cc-faq-list">
+          {%- for block in cc_faq_blocks -%}
+            <div class="ds-cc__faq-item{% if forloop.first %} ds-cc__faq-item--open{% endif %}" {{ block.shopify_attributes }}>
+              <button class="ds-cc__faq-trigger" type="button" aria-expanded="{{ forloop.first | json }}">
+                <span class="ds-cc__faq-trigger-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                <span class="ds-cc__faq-trigger-text">{{ block.settings.question | escape }}</span>
+                <span class="ds-cc__faq-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+              </button>
+              <div class="ds-cc__faq-answer">{{ block.settings.answer }}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+    <script>
+      (function(){
+        var list = document.getElementById('cc-faq-list');
+        if(!list) return;
+        list.addEventListener('click', function(e){
+          var trigger = e.target.closest('.ds-cc__faq-trigger');
+          if(!trigger) return;
+          var item = trigger.closest('.ds-cc__faq-item');
+          var isOpen = item.classList.contains('ds-cc__faq-item--open');
+          list.querySelectorAll('.ds-cc__faq-item--open').forEach(function(el){
+            el.classList.remove('ds-cc__faq-item--open');
+            el.querySelector('.ds-cc__faq-trigger').setAttribute('aria-expanded','false');
+          });
+          if(!isOpen){
+            item.classList.add('ds-cc__faq-item--open');
+            trigger.setAttribute('aria-expanded','true');
+          }
+        });
+      })();
+    </script>
+  {%- endif -%}
+
   {%- comment -%} ── Phone CTA closer ── {%- endcomment -%}
   {%- if section.settings.show_phone_cta -%}
     <section class="ds-cc__phone-cta" aria-label="Contact">
@@ -1050,6 +1147,17 @@
       "id": "phone_cta_label",
       "label": "Phone CTA label",
       "default": "Speak with a furniture consultant"
+    },
+    {
+      "type": "header",
+      "content": "FAQ"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ section heading",
+      "default": "Questions Ontario buyers ask before sending the PO.",
+      "info": "Shown above the accordion. Hidden when no FAQ items are configured."
     }
   ],
   "blocks": [
@@ -1147,6 +1255,25 @@
           "id": "brand_plate_canadian",
           "label": "Canadian-owned / made",
           "default": false
+        }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "info": "1 sentence. Procurement-actionable (specific + useful)."
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "info": "1–3 sentences. Plainspoken. No invented specs, warranties, or certifications. Plain text is mirrored into FAQPage JSON-LD."
         }
       ]
     },
