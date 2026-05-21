@@ -71,7 +71,7 @@
     --fs-small: 14px;
   }
 }
-.bbi-lp-design-services.scheme-default {
+.lp-ds.scheme-default {
   --background: #FFFFFF; --background-rgb: 255,255,255;
   --alternateBackground: #FAFAFA; --alternateBackground-rgb: 250,250,250;
   --cardBackground: #FFFFFF;
@@ -84,7 +84,7 @@
   --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
   --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
 }
-.bbi-lp-design-services .scheme-inverse {
+.lp-ds .scheme-inverse {
   --background: #0B0B0C; --background-rgb: 11,11,12;
   --alternateBackground: #161618;
   --textColor: #FFFFFF; --textColor-rgb: 255,255,255;
@@ -99,12 +99,12 @@
 /* ============================================================
    Base + Shared Components
    ============================================================ */
-.bbi-lp-design-services *, .bbi-lp-design-services *::before, .bbi-lp-design-services *::after { box-sizing: border-box; }
-.bbi-lp-design-services { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
-.bbi-lp-design-services img { display: block; max-width: 100%; height: auto; }
-.bbi-lp-design-services a { color: var(--linkColor); }
-.bbi-lp-design-services .bbi-mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
-.bbi-lp-design-services .bbi-btn {
+.lp-ds *, .lp-ds *::before, .lp-ds *::after { box-sizing: border-box; }
+.lp-ds { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
+.lp-ds img { display: block; max-width: 100%; height: auto; }
+.lp-ds a { color: var(--linkColor); }
+.lp-ds .bbi-mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.lp-ds .bbi-btn {
   display: inline-flex; align-items: center; justify-content: center;
   gap: var(--space-2); padding: 12px 20px; min-height: 44px;
   font-family: var(--bodyFont); font-size: var(--fs-button); line-height: var(--lh-button);
@@ -113,22 +113,22 @@
   transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
   white-space: nowrap;
 }
-.bbi-lp-design-services .bbi-btn:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
-.bbi-lp-design-services .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
-.bbi-lp-design-services .bbi-btn--full { width: 100%; }
-.bbi-lp-design-services .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
-.bbi-lp-design-services .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
-.bbi-lp-design-services .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
-.bbi-lp-design-services .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
-.bbi-lp-design-services .arrow { display: inline-block; transition: transform 120ms ease; }
-.bbi-lp-design-services .bbi-btn:hover .arrow { transform: translateX(3px); }
-.bbi-lp-design-services .bbi-badge--oecm {
+.lp-ds .bbi-btn:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
+.lp-ds .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
+.lp-ds .bbi-btn--full { width: 100%; }
+.lp-ds .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.lp-ds .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.lp-ds .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
+.lp-ds .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
+.lp-ds .arrow { display: inline-block; transition: transform 120ms ease; }
+.lp-ds .bbi-btn:hover .arrow { transform: translateX(3px); }
+.lp-ds .bbi-badge--oecm {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 5px 10px; background: #F0F4FF; color: #0B0B0C;
   border: 1px solid #CBD5F0; border-radius: 4px;
   font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
 }
-.bbi-lp-design-services .bbi-badge--oecm .dot { width: 6px; height: 6px; border-radius: 50%; background: #2563EB; flex-shrink: 0; }
+.lp-ds .bbi-badge--oecm .dot { width: 6px; height: 6px; border-radius: 50%; background: #2563EB; flex-shrink: 0; }
 
 /* ============================================================
    Hero
@@ -148,10 +148,10 @@
    Intro
    ============================================================ */
 .lp-intro { background: var(--background); padding: var(--space-16) 0; }
-.lp-intro__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-intro__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
 .lp-intro__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
-.lp-intro__inner h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-8); max-width: 700px; }
-.lp-intro__body { display: grid; grid-template-columns: 1fr; gap: var(--space-6); max-width: 820px; }
+.lp-intro__inner h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-8); }
+.lp-intro__body { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
 @media (min-width: 768px) { .lp-intro__body { grid-template-columns: 1fr 1fr; } }
 .lp-intro__body p { margin: 0; line-height: 1.7; }
 
@@ -210,7 +210,7 @@
 .lp-client-trust__testimonial { flex: 1 1 340px; }
 .lp-client-trust__quote { font-size: 18px; line-height: 1.55; font-style: italic; color: var(--textColor); margin: 0 0 var(--space-6); }
 .lp-client-trust__attribution { display: flex; align-items: center; gap: var(--space-4); }
-.bbi-lp-design-services .lp-client-trust__logo { height: 36px; width: auto; max-width: 100px; object-fit: contain; flex-shrink: 0; }
+.lp-ds .lp-client-trust__logo { height: 36px; width: auto; max-width: 100px; object-fit: contain; flex-shrink: 0; }
 .lp-client-trust__attribution-text { min-width: 0; }
 .lp-client-trust__client-name { font-weight: 600; font-size: 14px; color: var(--headingColor); }
 .lp-client-trust__client-sub { font-size: 12px; color: var(--textColor); opacity: 0.55; margin-top: 2px; }
@@ -253,15 +253,69 @@
 .bbi-cta-section__trust a { color: var(--linkColor); }
 
 @media(max-width:980px){
-  .bbi-lp-design-services .bbi-footer__top{grid-template-columns:1fr;gap:var(--space-8);}
-  .bbi-lp-design-services .bbi-footer__cols{grid-template-columns:repeat(2,1fr);}
+  .lp-ds .bbi-footer__top{grid-template-columns:1fr;gap:var(--space-8);}
+  .lp-ds .bbi-footer__cols{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:640px){
-  .bbi-lp-design-services .bbi-footer__cols{grid-template-columns:1fr;}
+  .lp-ds .bbi-footer__cols{grid-template-columns:1fr;}
 }
+/* Browse crosslinks (Session A standardization) */
+.lp-ds .lp-crosslinks{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-ds .lp-crosslinks__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ds .lp-crosslinks__head{margin-bottom:var(--space-6);}
+.lp-ds .lp-crosslinks__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.lp-ds .lp-crosslinks__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ds .lp-crosslinks h2{font-family:var(--headingFont);font-size:var(--fs-h3);line-height:var(--lh-h3);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-ds .lp-crosslinks__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);}
+.lp-ds .lp-crosslinks__tile{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--space-4);padding:var(--space-6);background:var(--background);border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);transition:background-color 160ms ease,border-color 160ms ease;}
+.lp-ds .lp-crosslinks__tile:hover{background:var(--alternateBackground);}
+.lp-ds .lp-crosslinks__tile-icon{width:28px;height:28px;color:rgba(var(--textColor-rgb),0.55);}
+.lp-ds .lp-crosslinks__tile-label{display:flex;flex-direction:column;gap:2px;}
+.lp-ds .lp-crosslinks__tile-name{font-family:var(--headingFont);font-size:18px;font-weight:600;color:var(--headingColor);}
+.lp-ds .lp-crosslinks__tile-meta{font-size:13px;color:rgba(var(--textColor-rgb),0.6);font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.04em;}
+.lp-ds .lp-crosslinks__tile-arrow{width:18px;height:18px;color:rgba(var(--textColor-rgb),0.55);transition:transform 160ms ease;}
+.lp-ds .lp-crosslinks__tile:hover .lp-crosslinks__tile-arrow{transform:translateX(4px);color:var(--textColor);}
+/* How-to-Purchase */
+.lp-ds .lp-howto{padding:var(--space-12) 0;background:var(--alternateBackground);}
+.lp-ds .lp-howto__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ds .lp-howto__head{margin-bottom:var(--space-8);max-width:640px;}
+.lp-ds .lp-howto__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);}
+.lp-ds .lp-howto__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ds .lp-howto h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-ds .lp-howto__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);}
+.lp-ds .lp-howto__step{background:var(--cardBackground);padding:var(--space-6);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);display:grid;grid-template-rows:auto auto 1fr;gap:var(--space-3);}
+.lp-ds .lp-howto__step-num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;color:rgba(var(--textColor-rgb),.6);}
+.lp-ds .lp-howto__step-title{font-family:var(--headingFont);font-size:18px;line-height:1.3;font-weight:600;color:var(--headingColor);margin:0;}
+.lp-ds .lp-howto__step-body{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),.78);margin:0;text-wrap:pretty;}
+/* Top Products */
+.lp-ds .lp-products{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ds .lp-products__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ds .lp-products__head{margin-bottom:var(--space-8);}
+.lp-ds .lp-products__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-ds .lp-products__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ds .lp-products h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-ds .lp-products__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);}
+.lp-ds .lp-product-card{display:flex;flex-direction:column;background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-ds .lp-product-card__media{position:relative;display:block;aspect-ratio:1/1;background:#fff;padding:var(--space-6);overflow:hidden;}
+.lp-ds .lp-product-card__media img{width:100%;height:100%;object-fit:contain;}
+.lp-ds .lp-product-card__body{padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);flex:1;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ds .lp-product-card__vendor{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.55);margin:0;}
+.lp-ds .lp-product-card__title{font-family:var(--headingFont);font-size:15px;font-weight:600;color:var(--headingColor);margin:0;line-height:1.3;}
+.lp-ds .lp-product-card__title a{color:inherit;text-decoration:none;}
+.lp-ds .lp-product-card__title a:hover{text-decoration:underline;}
+.lp-ds .lp-product-card__price{font-size:14px;color:rgba(var(--textColor-rgb),.7);margin:0 0 var(--space-2);flex:1;}
+.lp-ds .lp-product-card__cta{display:block;text-align:center;padding:10px 16px;border:1px solid var(--borderColor);border-radius:var(--buttonRadius);font-size:14px;font-weight:500;color:var(--textColor);text-decoration:none;transition:background-color 160ms;}
+.lp-ds .lp-product-card__cta:hover{background:var(--alternateBackground);}
+/* Entity note */
+.lp-ds .lp-entity-note{padding:var(--space-6) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-ds .lp-entity-note__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ds .lp-entity-note p{font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),0.6);margin:0;text-wrap:pretty;max-width:92ch;}
+.lp-ds .lp-entity-note b{color:rgba(var(--textColor-rgb),0.85);font-weight:600;}
+@media(max-width:1023px){.lp-ds .lp-crosslinks__grid{grid-template-columns:1fr;}.lp-ds .lp-howto__steps{grid-template-columns:1fr;}.lp-ds .lp-products__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:639px){.lp-ds .lp-products__grid{grid-template-columns:1fr;}}
 </style>
 
-<div class="bbi-lp-design-services scheme-default">
+<div class="lp-ds scheme-default">
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'services' -%}
 
@@ -277,7 +331,7 @@
           <span class="lp-hero__eyebrow-label">{{ section.settings.hero_eyebrow | default: 'Service · Design' }}</span>
         </p>
         <h1>{{ section.settings.hero_heading | default: 'A free CAD floor plan for your office — no obligation.' }}</h1>
-        <p class="lp-hero__standfirst">{{ section.settings.hero_standfirst | default: 'Brant Business Interiors is an OECM Supplier Partner (Agreement 2025-470) and Canadian-owned office furniture dealer serving Ontario businesses. Our free design layout service delivers a to-scale CAD floor plan with furniture placement — at no cost and with no obligation to purchase. Call 1-800-835-9565 to talk it through first.' }}</p>
+        <p class="lp-hero__standfirst">{{ section.settings.hero_standfirst | default: 'Brant Business Interiors is a family-owned Ontario office furniture dealer (since 1964) and OECM Supplier Partner under Agreement 2025-470 (held by our legal entity, Brant Basics). Our free design layout service delivers a to-scale CAD floor plan with furniture placement — at no cost and no obligation to purchase. Call 1-800-835-9565 to talk it through first.' }}</p>
         <div class="lp-hero__cta-row">
           <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="#design-form">{{ section.settings.cta_primary_label | default: 'Get My Free Layout' }} <span class="arrow" aria-hidden="true">→</span></a>
           <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }}</a>
@@ -301,6 +355,34 @@
       <div class="lp-intro__body">
         <p>{{ section.settings.intro_para1 | default: 'Send us your room dimensions and project scope. Our Ontario-based team builds a to-scale CAD floor plan with every desk, chair, and storage unit placed where it actually fits. Same format our commercial install crews work from — not a rough sketch.' }}</p>
         <p>{{ section.settings.intro_para2 | default: 'The floor plan is yours, free, whether you order from us or not. Most clients do place an order once they see the layout — but that decision is yours, not ours.' }}</p>
+        <p>{{ section.settings.intro_para3 | default: 'Brant Business Interiors is the family-run Ontario office furniture dealer most buyers know us by. The legal entity behind our OECM agreement is Brant Basics — same team, same address at 296 George St N, Peterborough. Family-owned since 1964; the designer drafting your layout is on the same Ontario team that handles delivery and install.' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BROWSE CATEGORIES (Session A standardization) -->
+  <section class="lp-crosslinks" aria-label="Browse furniture categories">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
+        <h2>Specify from the same catalog we install &mdash; every category.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+        <a href="/collections/seating" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Seating</span><span class="lp-crosslinks__tile-meta">Task &middot; exec &middot; lounge &middot; bariatric</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/collections/desks" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Desks &amp; Workstations</span><span class="lp-crosslinks__tile-meta">Single &middot; L-shape &middot; sit-stand &middot; benching</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/collections/business-furniture" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4" y="6" width="20" height="16" rx="2"/><path d="M4 12 H24"/><path d="M10 6 V22 M18 6 V22"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Full catalog</span><span class="lp-crosslinks__tile-meta">Storage &middot; tables &middot; acoustic &middot; accessories</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
       </div>
     </div>
   </section>
@@ -418,6 +500,66 @@
     </div>
   </section>
 
+  <!-- HOW IT WORKS 3-STEP (Session A standardization) -->
+  <section class="lp-howto" aria-label="How a design engagement works">
+    <div class="lp-howto__inner">
+      <div class="lp-howto__head">
+        <p class="lp-howto__eyebrow bbi-mono">How a design engagement works</p>
+        <h2>Three steps from your dimensions to a placement-ready layout.</h2>
+      </div>
+      <div class="lp-howto__steps">
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 01</span>
+          <h3 class="lp-howto__step-title">Send your project details</h3>
+          <p class="lp-howto__step-body">Room dimensions, headcount, project type (clinic / school / open office / boardroom), timeline, and rough budget range. Floor plan PDF if you have one; a sketch is fine. We confirm receipt within 1 business day.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 02</span>
+          <h3 class="lp-howto__step-title">CAD draft in 3&ndash;5 business days</h3>
+          <p class="lp-howto__step-body">To-scale CAD floor plan with every piece placed. Traffic flow, sightlines, ergonomic clearances, ADA paths accounted for. SKU list paired with each placement so you can read it against the quote.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 03</span>
+          <h3 class="lp-howto__step-title">Refine, quote, decide</h3>
+          <p class="lp-howto__step-body">We walk through the layout, adjust placement or product selection on your feedback, and roll the spec into a line-item quote. Order from us if it works for you, or keep the floor plan for reference. No obligation.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOP PRODUCTS (Session A standardization) -->
+  {%- assign tp1 = section.settings.top_product_1 -%}
+  {%- assign tp2 = section.settings.top_product_2 -%}
+  {%- assign tp3 = section.settings.top_product_3 -%}
+  {%- assign tp4 = section.settings.top_product_4 -%}
+  {%- if tp1 == blank -%}{%- assign tp1 = collections['height-adjustable-tables-desks'].products.first -%}{%- endif -%}
+  {%- if tp1 == blank -%}{%- assign tp1 = collections.desks.products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections.seating.products.first -%}{%- endif -%}
+  {%- if tp3 == blank -%}{%- assign tp3 = collections.storage.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.boardroom.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.tables.products.first -%}{%- endif -%}
+  <section class="lp-products" aria-label="Top products to spec">
+    <div class="lp-products__inner">
+      <div class="lp-products__head">
+        <p class="lp-products__eyebrow">Top products to spec</p>
+        <h2>{{ section.settings.top_products_heading | default: 'Workhorse picks the design team specs most often.' }}</h2>
+      </div>
+      <div class="lp-products__grid">
+        {%- if tp1 != blank and tp1 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp1.url }}">{%- if tp1.featured_image -%}{{ tp1.featured_image | image_url: width: 600 | image_tag: alt: tp1.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp1.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp1.url }}">{{ tp1.title }}</a></h3><p class="lp-product-card__price">From {{ tp1.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp1.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp2 != blank and tp2 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp2.url }}">{%- if tp2.featured_image -%}{{ tp2.featured_image | image_url: width: 600 | image_tag: alt: tp2.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp2.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp2.url }}">{{ tp2.title }}</a></h3><p class="lp-product-card__price">From {{ tp2.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp2.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp3 != blank and tp3 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp3.url }}">{%- if tp3.featured_image -%}{{ tp3.featured_image | image_url: width: 600 | image_tag: alt: tp3.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp3.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp3.url }}">{{ tp3.title }}</a></h3><p class="lp-product-card__price">From {{ tp3.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp3.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp4 != blank and tp4 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp4.url }}">{%- if tp4.featured_image -%}{{ tp4.featured_image | image_url: width: 600 | image_tag: alt: tp4.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp4.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp4.url }}">{{ tp4.title }}</a></h3><p class="lp-product-card__price">From {{ tp4.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp4.url }}">View product</a></div></article>{%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTITY NOTE (Session A / AI-8 standardization) -->
+  <section class="lp-entity-note" aria-label="Legal entity and registration">
+    <div class="lp-entity-note__inner">
+      <p><b>Brant Business Interiors</b> is the operating brand of <b>Brant Basics</b>, our OECM-registered legal entity holding Supplier Partner Agreement 2025-470. Family-owned since 1964, headquartered at 296 George St N, Peterborough, ON K9J 3H2. Part of the Office Central group.</p>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section class="lp-faq" aria-label="Frequently asked questions">
     <div class="lp-faq__inner">
@@ -467,7 +609,7 @@
 
   {%- render 'bbi-footer', logo: section.settings.logo -%}
 
-</div><!-- /bbi-lp-design-services -->
+</div><!-- /lp-ds -->
 
 <script>
 (function() {
@@ -499,7 +641,7 @@
     { "type": "header", "content": "Hero" },
     { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Service · Design" },
     { "type": "text", "id": "hero_heading", "label": "H1 heading", "default": "A free CAD floor plan for your office — no obligation." },
-    { "type": "textarea", "id": "hero_standfirst", "label": "Standfirst paragraph", "default": "Brant Business Interiors is an OECM Supplier Partner (Agreement 2025-470) and Canadian-owned office furniture dealer serving Ontario businesses. Our free design layout service delivers a to-scale CAD floor plan with furniture placement — at no cost and with no obligation to purchase. Call 1-800-835-9565 to talk it through first." },
+    { "type": "textarea", "id": "hero_standfirst", "label": "Standfirst paragraph", "default": "Brant Business Interiors is a family-owned Ontario office furniture dealer (since 1964) and OECM Supplier Partner under Agreement 2025-470 (held by our legal entity, Brant Basics). Our free design layout service delivers a to-scale CAD floor plan with furniture placement — at no cost and no obligation to purchase. Call 1-800-835-9565 to talk it through first." },
     { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
     { "type": "header", "content": "Phone" },
     { "type": "text", "id": "phone", "label": "Phone (display)", "default": "1-800-835-9565" },
@@ -511,6 +653,7 @@
     { "type": "text", "id": "intro_heading", "label": "Heading", "default": "We deliver the floor plan. You decide what to do with it." },
     { "type": "textarea", "id": "intro_para1", "label": "Paragraph 1", "default": "Send us your room dimensions and project scope. Our Ontario-based team builds a to-scale CAD floor plan with every desk, chair, and storage unit placed where it actually fits. Same format our commercial install crews work from — not a rough sketch." },
     { "type": "textarea", "id": "intro_para2", "label": "Paragraph 2", "default": "The floor plan is yours, free, whether you order from us or not. Most clients do place an order once they see the layout — but that decision is yours, not ours." },
+    { "type": "textarea", "id": "intro_para3", "label": "Paragraph 3 (entity-clarity)", "default": "Brant Business Interiors is the family-run Ontario office furniture dealer most buyers know us by. The legal entity behind our OECM agreement is Brant Basics — same team, same address at 296 George St N, Peterborough. Family-owned since 1964; the designer drafting your layout is on the same Ontario team that handles delivery and install." },
     { "type": "header", "content": "Differentiators" },
     { "type": "text", "id": "diff_eyebrow", "label": "Eyebrow", "default": "What's included" },
     { "type": "text", "id": "diff_heading", "label": "Heading", "default": "Everything in the free design layout." },
@@ -527,7 +670,13 @@
     { "type": "text", "id": "faq_heading", "label": "FAQ heading", "default": "Five questions before you fill out the form." },
     { "type": "header", "content": "Closer" },
     { "type": "text", "id": "closer_heading", "label": "Heading", "default": "Prefer to talk it through first?" },
-    { "type": "textarea", "id": "closer_sub", "label": "Sub-copy", "default": "Our team is on the phone Monday to Friday. Floor plan, square footage, or just a rough idea — any starting point works." }
+    { "type": "textarea", "id": "closer_sub", "label": "Sub-copy", "default": "Our team is on the phone Monday to Friday. Floor plan, square footage, or just a rough idea — any starting point works." },
+    { "type": "header", "content": "Top Products" },
+    { "type": "text", "id": "top_products_heading", "label": "Section heading", "default": "Workhorse picks the design team specs most often." },
+    { "type": "product", "id": "top_product_1", "label": "Product 1 (default: top sit-stand desk)" },
+    { "type": "product", "id": "top_product_2", "label": "Product 2 (default: top seating)" },
+    { "type": "product", "id": "top_product_3", "label": "Product 3 (default: top storage)" },
+    { "type": "product", "id": "top_product_4", "label": "Product 4 (default: top boardroom/table)" }
   ],
   "blocks": [
     {

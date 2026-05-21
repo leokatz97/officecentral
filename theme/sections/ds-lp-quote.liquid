@@ -40,7 +40,7 @@
     --fs-small: 14px;
   }
 }
-.bbi-lp-quote.scheme-default {
+.lp-quote.scheme-default {
   --background: #FFFFFF; --background-rgb: 255,255,255;
   --alternateBackground: #FAFAFA; --alternateBackground-rgb: 250,250,250;
   --cardBackground: #FFFFFF;
@@ -53,7 +53,7 @@
   --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
   --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
 }
-.bbi-lp-quote .scheme-inverse {
+.lp-quote .scheme-inverse {
   --background: #0B0B0C; --background-rgb: 11,11,12;
   --alternateBackground: #161618;
   --textColor: #FFFFFF; --textColor-rgb: 255,255,255;
@@ -69,13 +69,13 @@
 /* ============================================================
    Base + Shared Components
    ============================================================ */
-.bbi-lp-quote *, .bbi-lp-quote *::before, .bbi-lp-quote *::after { box-sizing: border-box; }
-.bbi-lp-quote { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
-.bbi-lp-quote img { display: block; max-width: 100%; height: auto; }
-.bbi-lp-quote a { color: var(--linkColor); text-decoration: none; }
+.lp-quote *, .lp-quote *::before, .lp-quote *::after { box-sizing: border-box; }
+.lp-quote { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
+.lp-quote img { display: block; max-width: 100%; height: auto; }
+.lp-quote a { color: var(--linkColor); text-decoration: none; }
 .bbi-icon--leaf{display:inline-block;width:14px;height:14px;vertical-align:-2px;color:#D4252A;flex-shrink:0;}
-.bbi-lp-quote .bbi-mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
-.bbi-lp-quote .bbi-btn {
+.lp-quote .bbi-mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.lp-quote .bbi-btn {
   display: inline-flex; align-items: center; justify-content: center;
   gap: var(--space-2); padding: 12px 20px; min-height: 44px;
   font-family: var(--bodyFont); font-size: var(--fs-button); line-height: var(--lh-button);
@@ -84,193 +84,271 @@
   transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
   white-space: nowrap;
 }
-.bbi-lp-quote .bbi-btn:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
-.bbi-lp-quote .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
-.bbi-lp-quote .bbi-btn--full { width: 100%; }
-.bbi-lp-quote .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
-.bbi-lp-quote .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
-.bbi-lp-quote .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
-.bbi-lp-quote .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
-.bbi-lp-quote .arrow { display: inline-block; transition: transform 120ms ease; }
-.bbi-lp-quote .bbi-btn:hover .arrow { transform: translateX(3px); }
+.lp-quote .bbi-btn:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
+.lp-quote .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
+.lp-quote .bbi-btn--full { width: 100%; }
+.lp-quote .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.lp-quote .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.lp-quote .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
+.lp-quote .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
+.lp-quote .arrow { display: inline-block; transition: transform 120ms ease; }
+.lp-quote .bbi-btn:hover .arrow { transform: translateX(3px); }
 
 /* CTA Section */
-.bbi-lp-quote .bbi-cta-section { background: var(--background); color: var(--textColor); }
-.bbi-lp-quote .bbi-cta-section__inner { max-width: 1320px; margin: 0 auto; padding: 96px 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
-.bbi-lp-quote .bbi-cta-section__inner > * { min-width: 0; }
-.bbi-lp-quote .lp-contact__inner > * { min-width: 0; }
-.bbi-lp-quote .bbi-cta-section__eyebrow { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--textColor-rgb),.7); margin: 0 0 16px; }
-.bbi-lp-quote .bbi-cta-section__heading { font-family: var(--headingFont); font-size: clamp(32px,4.2vw,56px); line-height: 1.05; letter-spacing: -0.015em; font-weight: 600; margin: 0 0 20px; text-wrap: balance; }
-.bbi-lp-quote .bbi-cta-section__sub { font-size: 17px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78); max-width: 52ch; margin: 0; }
-.bbi-lp-quote .bbi-cta-section__actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
-.bbi-lp-quote .bbi-cta-section__trust { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgba(var(--textColor-rgb),.78); }
-.bbi-lp-quote .bbi-cta-section__trust .dot { flex: 0 0 auto; margin-top: 7px; width: 6px; height: 6px; border-radius: 99px; background: var(--saleBadgeBackground); }
-.bbi-lp-quote .bbi-cta-section__trust b { color: var(--textColor); font-weight: 600; }
-.bbi-lp-quote .bbi-cta-section__trust a { color: var(--textColor); text-decoration: underline; }
+.lp-quote .bbi-cta-section { background: var(--background); color: var(--textColor); }
+.lp-quote .bbi-cta-section__inner { max-width: 1320px; margin: 0 auto; padding: 96px 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
+.lp-quote .bbi-cta-section__inner > * { min-width: 0; }
+.lp-quote .lp-contact__inner > * { min-width: 0; }
+.lp-quote .bbi-cta-section__eyebrow { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--textColor-rgb),.7); margin: 0 0 16px; }
+.lp-quote .bbi-cta-section__heading { font-family: var(--headingFont); font-size: clamp(32px,4.2vw,56px); line-height: 1.05; letter-spacing: -0.015em; font-weight: 600; margin: 0 0 20px; text-wrap: balance; }
+.lp-quote .bbi-cta-section__sub { font-size: 17px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78); max-width: 52ch; margin: 0; }
+.lp-quote .bbi-cta-section__actions { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+.lp-quote .bbi-cta-section__trust { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgba(var(--textColor-rgb),.78); }
+.lp-quote .bbi-cta-section__trust .dot { flex: 0 0 auto; margin-top: 7px; width: 6px; height: 6px; border-radius: 99px; background: var(--saleBadgeBackground); }
+.lp-quote .bbi-cta-section__trust b { color: var(--textColor); font-weight: 600; }
+.lp-quote .bbi-cta-section__trust a { color: var(--textColor); text-decoration: underline; }
 
 /* ============================================================
    Landing Page Sections
    ============================================================ */
 
 /* Hero */
-.bbi-lp-quote .lp-hero { padding: var(--space-12) 0; border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
-.bbi-lp-quote .lp-hero__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: var(--space-12); align-items: center; }
-.bbi-lp-quote .lp-hero__text { max-width: 560px; }
-.bbi-lp-quote .lp-hero__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
-.bbi-lp-quote .lp-hero__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
-.bbi-lp-quote .lp-hero__eyebrow-label { color: rgba(var(--textColor-rgb),.6); }
-.bbi-lp-quote .lp-hero__badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: 6px 12px; border: 1px solid rgba(var(--borderColor-rgb),.8); border-radius: 999px; margin-bottom: var(--space-6); font-size: 12px; color: rgba(var(--textColor-rgb),.78); }
-.bbi-lp-quote .lp-hero__badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saleBadgeBackground); }
-.bbi-lp-quote .lp-hero h1 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-4); text-wrap: balance; }
-.bbi-lp-quote .lp-hero__standfirst { font-size: 18px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-6); text-wrap: pretty; }
-.bbi-lp-quote .lp-hero__cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
-.bbi-lp-quote .lp-hero__media { position: relative; aspect-ratio: 5 / 4; background: var(--alternateBackground); border-radius: var(--cardRadius); overflow: hidden; }
-.bbi-lp-quote .lp-hero__media img { width: 100%; height: 100%; object-fit: cover; }
-.bbi-lp-quote .lp-hero__media-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground); color: rgba(var(--textColor-rgb),.5); font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.lp-quote .lp-hero { padding: var(--space-12) 0; border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.lp-quote .lp-hero__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: var(--space-12); align-items: center; }
+.lp-quote .lp-hero__text { max-width: 560px; }
+.lp-quote .lp-hero__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); }
+.lp-quote .lp-hero__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-quote .lp-hero__eyebrow-label { color: rgba(var(--textColor-rgb),.6); }
+.lp-quote .lp-hero__badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: 6px 12px; border: 1px solid rgba(var(--borderColor-rgb),.8); border-radius: 999px; margin-bottom: var(--space-6); font-size: 12px; color: rgba(var(--textColor-rgb),.78); }
+.lp-quote .lp-hero__badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saleBadgeBackground); }
+.lp-quote .lp-hero h1 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-4); text-wrap: balance; }
+.lp-quote .lp-hero__standfirst { font-size: 18px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-6); text-wrap: pretty; }
+.lp-quote .lp-hero__cta-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.lp-quote .lp-hero__media { position: relative; aspect-ratio: 5 / 4; background: var(--alternateBackground); border-radius: var(--cardRadius); overflow: hidden; }
+.lp-quote .lp-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.lp-quote .lp-hero__media-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground); color: rgba(var(--textColor-rgb),.5); font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
 
 /* Intro */
-.bbi-lp-quote .lp-intro { padding: var(--space-12) 0; }
-.bbi-lp-quote .lp-intro__inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); }
-.bbi-lp-quote .lp-intro__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-4); }
-.bbi-lp-quote .lp-intro__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
-.bbi-lp-quote .lp-intro h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-6); text-wrap: balance; }
-.bbi-lp-quote .lp-intro__body p { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-4); text-wrap: pretty; }
-.bbi-lp-quote .lp-intro__body a { color: var(--linkColor); text-decoration: underline; text-underline-offset: 3px; }
+.lp-quote .lp-intro { padding: var(--space-12) 0; }
+.lp-quote .lp-intro__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-quote .lp-intro__body { max-width: none; }
+.lp-quote .lp-intro__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-4); }
+.lp-quote .lp-intro__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-quote .lp-intro h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-6); text-wrap: balance; }
+.lp-quote .lp-intro__body p { font-size: 17px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-4); text-wrap: pretty; }
+.lp-quote .lp-intro__body a { color: var(--linkColor); text-decoration: underline; text-underline-offset: 3px; }
 
 /* Contact section */
-.bbi-lp-quote .lp-contact { padding: var(--space-12) 0; background: var(--alternateBackground); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
-.bbi-lp-quote .lp-contact__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: start; }
-.bbi-lp-quote .lp-contact__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
-.bbi-lp-quote .lp-contact__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
-.bbi-lp-quote .lp-contact h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-3); text-wrap: balance; }
-.bbi-lp-quote .lp-contact__body { font-size: 16px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-6); }
-.bbi-lp-quote .lp-contact__channels { display: flex; flex-direction: column; gap: var(--space-3); }
-.bbi-lp-quote .lp-contact__channel { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); background: var(--cardBackground); border: 1px solid rgba(var(--borderColor-rgb),.8); border-radius: var(--cardRadius); text-decoration: none; color: var(--textColor); transition: border-color 160ms ease; }
-.bbi-lp-quote .lp-contact__channel:hover { border-color: var(--textColor); }
-.bbi-lp-quote .lp-contact__channel-icon { width: 20px; height: 20px; color: rgba(var(--textColor-rgb),.6); flex-shrink: 0; }
-.bbi-lp-quote .lp-contact__channel-label { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
-.bbi-lp-quote .lp-contact__channel-name { font-family: var(--headingFont); font-size: 15px; font-weight: 600; color: var(--headingColor); }
-.bbi-lp-quote .lp-contact__channel-meta { font-size: 13px; color: rgba(var(--textColor-rgb),.6); }
-.bbi-lp-quote .lp-contact__channel-arrow { color: rgba(var(--textColor-rgb),.4); transition: transform 160ms ease; }
-.bbi-lp-quote .lp-contact__channel:hover .lp-contact__channel-arrow { transform: translateX(3px); color: var(--textColor); }
-.bbi-lp-quote .lp-oecm-callout { padding: var(--space-8); background: var(--cardBackground); border: 1px solid rgba(var(--borderColor-rgb),.8); border-left: 3px solid var(--saleBadgeBackground); border-radius: var(--cardRadius); }
-.bbi-lp-quote .lp-oecm-callout__eyebrow { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--saleBadgeBackground); }
-.bbi-lp-quote .lp-oecm-callout__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saleBadgeBackground); flex-shrink: 0; }
-.bbi-lp-quote .lp-oecm-callout h3 { font-family: var(--headingFont); font-size: 20px; font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-3); line-height: 1.3; }
-.bbi-lp-quote .lp-oecm-callout__body { font-size: 15px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-4); }
-.bbi-lp-quote .lp-oecm-callout__detail { font-size: 12px; line-height: 1.55; color: rgba(var(--textColor-rgb),.65); padding: var(--space-3) var(--space-4); background: rgba(var(--saleBadgeBackground-rgb),.04); border-radius: 4px; margin-bottom: var(--space-6); font-family: "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.03em; }
+.lp-quote .lp-contact { padding: var(--space-12) 0; background: var(--alternateBackground); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.lp-quote .lp-contact__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: start; }
+.lp-quote .lp-contact__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
+.lp-quote .lp-contact__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-quote .lp-contact h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-3); text-wrap: balance; }
+.lp-quote .lp-contact__body { font-size: 16px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-6); }
+.lp-quote .lp-contact__channels { display: flex; flex-direction: column; gap: var(--space-3); }
+.lp-quote .lp-contact__channel { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); background: var(--cardBackground); border: 1px solid rgba(var(--borderColor-rgb),.8); border-radius: var(--cardRadius); text-decoration: none; color: var(--textColor); transition: border-color 160ms ease; }
+.lp-quote .lp-contact__channel:hover { border-color: var(--textColor); }
+.lp-quote .lp-contact__channel-icon { width: 20px; height: 20px; color: rgba(var(--textColor-rgb),.6); flex-shrink: 0; }
+.lp-quote .lp-contact__channel-label { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.lp-quote .lp-contact__channel-name { font-family: var(--headingFont); font-size: 15px; font-weight: 600; color: var(--headingColor); }
+.lp-quote .lp-contact__channel-meta { font-size: 13px; color: rgba(var(--textColor-rgb),.6); }
+.lp-quote .lp-contact__channel-arrow { color: rgba(var(--textColor-rgb),.4); transition: transform 160ms ease; }
+.lp-quote .lp-contact__channel:hover .lp-contact__channel-arrow { transform: translateX(3px); color: var(--textColor); }
+.lp-quote .lp-oecm-callout { padding: var(--space-8); background: var(--cardBackground); border: 1px solid rgba(var(--borderColor-rgb),.8); border-left: 3px solid var(--saleBadgeBackground); border-radius: var(--cardRadius); }
+.lp-quote .lp-oecm-callout__eyebrow { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--saleBadgeBackground); }
+.lp-quote .lp-oecm-callout__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saleBadgeBackground); flex-shrink: 0; }
+.lp-quote .lp-oecm-callout h3 { font-family: var(--headingFont); font-size: 20px; font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-3); line-height: 1.3; }
+.lp-quote .lp-oecm-callout__body { font-size: 15px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); margin: 0 0 var(--space-4); }
+.lp-quote .lp-oecm-callout__detail { font-size: 12px; line-height: 1.55; color: rgba(var(--textColor-rgb),.65); padding: var(--space-3) var(--space-4); background: rgba(var(--saleBadgeBackground-rgb),.04); border-radius: 4px; margin-bottom: var(--space-6); font-family: "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.03em; }
 
 /* Differentiators */
-.bbi-lp-quote .lp-diff { padding: var(--space-12) 0; border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
-.bbi-lp-quote .lp-diff__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
-.bbi-lp-quote .lp-diff__head { margin-bottom: var(--space-8); max-width: 640px; }
-.bbi-lp-quote .lp-diff__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
-.bbi-lp-quote .lp-diff__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
-.bbi-lp-quote .lp-diff h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance; }
-.bbi-lp-quote .lp-diff__grid { display: grid; grid-template-columns: repeat(2,1fr); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-left: 1px solid rgba(var(--borderColor-rgb),.6); }
-.bbi-lp-quote .lp-diff-card { background: var(--cardBackground); padding: var(--space-8); border-right: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); border-radius: 0; display: grid; grid-template-rows: auto auto auto 1fr; gap: var(--space-3); transition: background-color 160ms ease; }
-.bbi-lp-quote .lp-diff-card:hover { background: rgba(var(--shadowColor-rgb),.02); }
-.bbi-lp-quote .lp-diff-card__num { font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.6); }
-.bbi-lp-quote .lp-diff-card__icon { width: 32px; height: 32px; color: var(--textColor); display: flex; align-items: center; }
-.bbi-lp-quote .lp-diff-card__label { font-family: var(--headingFont); font-size: 22px; line-height: 1.3; font-weight: 600; color: var(--headingColor); margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
-.bbi-lp-quote .lp-diff-card__label::after { content: ""; display: block; width: 24px; height: 1px; background: var(--saleBadgeBackground); }
-.bbi-lp-quote .lp-diff-card__sentence { font-size: 15px; line-height: 1.55; color: rgba(var(--textColor-rgb),.7); margin: 0; text-wrap: pretty; }
+.lp-quote .lp-diff { padding: var(--space-12) 0; border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.lp-quote .lp-diff__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-quote .lp-diff__head { margin-bottom: var(--space-8); max-width: 640px; }
+.lp-quote .lp-diff__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
+.lp-quote .lp-diff__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-quote .lp-diff h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance; }
+.lp-quote .lp-diff__grid { display: grid; grid-template-columns: repeat(2,1fr); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-left: 1px solid rgba(var(--borderColor-rgb),.6); }
+.lp-quote .lp-diff-card { background: var(--cardBackground); padding: var(--space-8); border-right: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); border-radius: 0; display: grid; grid-template-rows: auto auto auto 1fr; gap: var(--space-3); transition: background-color 160ms ease; }
+.lp-quote .lp-diff-card:hover { background: rgba(var(--shadowColor-rgb),.02); }
+.lp-quote .lp-diff-card__num { font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.6); }
+.lp-quote .lp-diff-card__icon { width: 32px; height: 32px; color: var(--textColor); display: flex; align-items: center; }
+.lp-quote .lp-diff-card__label { font-family: var(--headingFont); font-size: 22px; line-height: 1.3; font-weight: 600; color: var(--headingColor); margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.lp-quote .lp-diff-card__label::after { content: ""; display: block; width: 24px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-quote .lp-diff-card__sentence { font-size: 15px; line-height: 1.55; color: rgba(var(--textColor-rgb),.7); margin: 0; text-wrap: pretty; }
 
 /* Proof bar */
-.bbi-lp-quote .lp-proof-bar { background: var(--alternateBackground); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
-.bbi-lp-quote .lp-proof-bar__inner { max-width: 1280px; margin: 0 auto; padding: var(--space-8) var(--space-6); display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-8); }
-.bbi-lp-quote .lp-proof-bar__stat { display: flex; flex-direction: column; gap: var(--space-2); }
-.bbi-lp-quote .lp-proof-bar__stat + .lp-proof-bar__stat { border-left: 1px solid rgba(var(--borderColor-rgb),.6); padding-left: var(--space-8); }
-.bbi-lp-quote .lp-proof-bar__stat-num { font-family: var(--headingFont); font-size: 40px; line-height: 1; font-weight: 600; color: var(--headingColor); display: flex; align-items: center; gap: var(--space-3); }
-.bbi-lp-quote .lp-proof-bar__stat-num::before { content: ""; display: inline-block; width: 14px; height: 1px; background: var(--saleBadgeBackground); }
-.bbi-lp-quote .lp-proof-bar__stat-label { font-size: 13px; color: rgba(var(--textColor-rgb),.6); font-family: "JetBrains Mono",ui-monospace,monospace; letter-spacing: 0.04em; text-transform: uppercase; }
-.bbi-lp-quote .lp-proof-bar__stat-detail { font-size: 14px; color: rgba(var(--textColor-rgb),.78); line-height: 1.5; margin-top: var(--space-2); }
+.lp-quote .lp-proof-bar { background: var(--alternateBackground); border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.lp-quote .lp-proof-bar__inner { max-width: 1280px; margin: 0 auto; padding: var(--space-8) var(--space-6); display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-8); }
+.lp-quote .lp-proof-bar__stat { display: flex; flex-direction: column; gap: var(--space-2); }
+.lp-quote .lp-proof-bar__stat + .lp-proof-bar__stat { border-left: 1px solid rgba(var(--borderColor-rgb),.6); padding-left: var(--space-8); }
+.lp-quote .lp-proof-bar__stat-num { font-family: var(--headingFont); font-size: 40px; line-height: 1; font-weight: 600; color: var(--headingColor); display: flex; align-items: center; gap: var(--space-3); }
+.lp-quote .lp-proof-bar__stat-num::before { content: ""; display: inline-block; width: 14px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-quote .lp-proof-bar__stat-label { font-size: 13px; color: rgba(var(--textColor-rgb),.6); font-family: "JetBrains Mono",ui-monospace,monospace; letter-spacing: 0.04em; text-transform: uppercase; }
+.lp-quote .lp-proof-bar__stat-detail { font-size: 14px; color: rgba(var(--textColor-rgb),.78); line-height: 1.5; margin-top: var(--space-2); }
 
 /* OECM callout CTA spacing */
-.bbi-lp-quote .lp-oecm-callout .bbi-btn--primary { margin-bottom: var(--space-3); }
+.lp-quote .lp-oecm-callout .bbi-btn--primary { margin-bottom: var(--space-3); }
 
 /* FAQ */
-.bbi-lp-quote .lp-faq { padding: var(--space-12) 0; background: var(--background); border-top: 1px solid rgba(var(--borderColor-rgb),.6); }
-.bbi-lp-quote .lp-faq__inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); }
-.bbi-lp-quote .lp-faq__head { margin-bottom: var(--space-6); }
-.bbi-lp-quote .lp-faq__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
-.bbi-lp-quote .lp-faq__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
-.bbi-lp-quote .lp-faq h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance; }
-.bbi-lp-quote .lp-faq__list { border-top: 1px solid rgba(var(--borderColor-rgb),.8); }
-.bbi-lp-quote .lp-faq__item { border-bottom: 1px solid rgba(var(--borderColor-rgb),.8); }
-.bbi-lp-quote .lp-faq__trigger { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); width: 100%; padding: var(--space-6) 0; background: transparent; border: none; text-align: left; cursor: pointer; font-family: var(--headingFont); font-size: 17px; font-weight: 600; color: var(--headingColor); }
-.bbi-lp-quote .lp-faq__trigger:focus { outline: none; }
-.bbi-lp-quote .lp-faq__trigger:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
-.bbi-lp-quote .lp-contact__channel:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; border-color: var(--textColor); }
-.bbi-lp-quote .lp-faq__trigger-num { font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.55); font-weight: 400; }
-.bbi-lp-quote .lp-faq__chevron { width: 16px; height: 16px; color: rgba(var(--textColor-rgb),.55); transition: transform 200ms ease; }
-.bbi-lp-quote .lp-faq__item--open .lp-faq__chevron { transform: rotate(180deg); color: var(--textColor); }
-.bbi-lp-quote .lp-faq__answer { display: none; padding: var(--space-4) 0 var(--space-5) calc(36px + var(--space-4)); font-size: 15px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); }
-.bbi-lp-quote .lp-faq__item--open .lp-faq__answer { display: block; }
-.bbi-lp-quote .lp-faq__answer p { margin: 0 0 var(--space-3); text-wrap: pretty; }
-.bbi-lp-quote .lp-faq__answer p:last-child { margin-bottom: 0; }
-.bbi-lp-quote .lp-faq__answer a { color: var(--linkColor); text-decoration: underline; text-underline-offset: 3px; }
+.lp-quote .lp-faq { padding: var(--space-12) 0; background: var(--background); border-top: 1px solid rgba(var(--borderColor-rgb),.6); }
+.lp-quote .lp-faq__inner { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-quote .lp-faq__head { margin-bottom: var(--space-6); }
+.lp-quote .lp-faq__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
+.lp-quote .lp-faq__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.lp-quote .lp-faq h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance; }
+.lp-quote .lp-faq__list { border-top: 1px solid rgba(var(--borderColor-rgb),.8); }
+.lp-quote .lp-faq__item { border-bottom: 1px solid rgba(var(--borderColor-rgb),.8); }
+.lp-quote .lp-faq__trigger { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); width: 100%; padding: var(--space-6) 0; background: transparent; border: none; text-align: left; cursor: pointer; font-family: var(--headingFont); font-size: 17px; font-weight: 600; color: var(--headingColor); }
+.lp-quote .lp-faq__trigger:focus { outline: none; }
+.lp-quote .lp-faq__trigger:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
+.lp-quote .lp-contact__channel:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; border-color: var(--textColor); }
+.lp-quote .lp-faq__trigger-num { font-family: "JetBrains Mono",ui-monospace,monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.55); font-weight: 400; }
+.lp-quote .lp-faq__chevron { width: 16px; height: 16px; color: rgba(var(--textColor-rgb),.55); transition: transform 200ms ease; }
+.lp-quote .lp-faq__item--open .lp-faq__chevron { transform: rotate(180deg); color: var(--textColor); }
+.lp-quote .lp-faq__answer { display: none; padding: var(--space-4) 0 var(--space-5) calc(36px + var(--space-4)); font-size: 15px; line-height: 1.6; color: rgba(var(--textColor-rgb),.78); }
+.lp-quote .lp-faq__item--open .lp-faq__answer { display: block; }
+.lp-quote .lp-faq__answer p { margin: 0 0 var(--space-3); text-wrap: pretty; }
+.lp-quote .lp-faq__answer p:last-child { margin-bottom: 0; }
+.lp-quote .lp-faq__answer a { color: var(--linkColor); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Browse crosslinks (Session A standardization) */
+.lp-quote .lp-crosslinks{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-quote .lp-crosslinks__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-quote .lp-crosslinks__head{margin-bottom:var(--space-6);}
+.lp-quote .lp-crosslinks__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.lp-quote .lp-crosslinks__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-quote .lp-crosslinks h2{font-family:var(--headingFont);font-size:var(--fs-h3);line-height:var(--lh-h3);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-quote .lp-crosslinks__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);}
+.lp-quote .lp-crosslinks__tile{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--space-4);padding:var(--space-6);background:var(--background);border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);transition:background-color 160ms ease,border-color 160ms ease;}
+.lp-quote .lp-crosslinks__tile:hover{background:var(--alternateBackground);}
+.lp-quote .lp-crosslinks__tile-icon{width:28px;height:28px;color:rgba(var(--textColor-rgb),0.55);}
+.lp-quote .lp-crosslinks__tile-label{display:flex;flex-direction:column;gap:2px;}
+.lp-quote .lp-crosslinks__tile-name{font-family:var(--headingFont);font-size:18px;font-weight:600;color:var(--headingColor);}
+.lp-quote .lp-crosslinks__tile-meta{font-size:13px;color:rgba(var(--textColor-rgb),0.6);font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.04em;}
+.lp-quote .lp-crosslinks__tile-arrow{width:18px;height:18px;color:rgba(var(--textColor-rgb),0.55);transition:transform 160ms ease;}
+.lp-quote .lp-crosslinks__tile:hover .lp-crosslinks__tile-arrow{transform:translateX(4px);color:var(--textColor);}
+
+/* Intake checklist (Quote-specific) */
+.lp-quote .lp-intake{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-quote .lp-intake__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-quote .lp-intake__head{margin-bottom:var(--space-8);max-width:720px;}
+.lp-quote .lp-intake__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);}
+.lp-quote .lp-intake__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-quote .lp-intake h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-3);text-wrap:balance;}
+.lp-quote .lp-intake__sub{font-size:15px;line-height:1.6;color:rgba(var(--textColor-rgb),.7);margin:0;max-width:62ch;text-wrap:pretty;}
+.lp-quote .lp-intake__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4) var(--space-8);}
+.lp-quote .lp-intake__item{display:grid;grid-template-columns:auto 1fr;gap:var(--space-4);padding:var(--space-5) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),.5);}
+.lp-quote .lp-intake__num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;color:rgba(var(--textColor-rgb),.55);padding-top:3px;}
+.lp-quote .lp-intake__body strong{display:block;font-family:var(--headingFont);font-size:16px;font-weight:600;color:var(--headingColor);margin:0 0 var(--space-2);}
+.lp-quote .lp-intake__body p{font-size:14px;line-height:1.55;color:rgba(var(--textColor-rgb),.7);margin:0;text-wrap:pretty;}
+
+/* How-to-Purchase 3-step (Session A standardization) */
+.lp-quote .lp-howto{padding:var(--space-12) 0;background:var(--alternateBackground);}
+.lp-quote .lp-howto__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-quote .lp-howto__head{margin-bottom:var(--space-8);max-width:640px;}
+.lp-quote .lp-howto__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);}
+.lp-quote .lp-howto__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-quote .lp-howto h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-quote .lp-howto__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);}
+.lp-quote .lp-howto__step{background:var(--cardBackground);padding:var(--space-6);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);display:grid;grid-template-rows:auto auto 1fr;gap:var(--space-3);}
+.lp-quote .lp-howto__step-num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;color:rgba(var(--textColor-rgb),.6);}
+.lp-quote .lp-howto__step-title{font-family:var(--headingFont);font-size:18px;line-height:1.3;font-weight:600;color:var(--headingColor);margin:0;}
+.lp-quote .lp-howto__step-body{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),.78);margin:0;text-wrap:pretty;}
+
+/* Top Products grid (Session A standardization) */
+.lp-quote .lp-products{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-quote .lp-products__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-quote .lp-products__head{margin-bottom:var(--space-8);}
+.lp-quote .lp-products__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-quote .lp-products__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-quote .lp-products h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-quote .lp-products__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);}
+.lp-quote .lp-product-card{display:flex;flex-direction:column;background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-quote .lp-product-card__media{position:relative;display:block;aspect-ratio:1/1;background:#fff;padding:var(--space-6);overflow:hidden;}
+.lp-quote .lp-product-card__media img{width:100%;height:100%;object-fit:contain;}
+.lp-quote .lp-product-card__sale{position:absolute;top:var(--space-3);left:var(--space-3);background:var(--saleBadgeBackground);color:#fff;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px;font-weight:600;}
+.lp-quote .lp-product-card__body{padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);flex:1;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-quote .lp-product-card__vendor{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.55);margin:0;}
+.lp-quote .lp-product-card__title{font-family:var(--headingFont);font-size:15px;font-weight:600;color:var(--headingColor);margin:0;line-height:1.3;}
+.lp-quote .lp-product-card__title a{color:inherit;text-decoration:none;}
+.lp-quote .lp-product-card__title a:hover{text-decoration:underline;}
+.lp-quote .lp-product-card__price{font-size:14px;color:rgba(var(--textColor-rgb),.7);margin:0 0 var(--space-2);flex:1;}
+.lp-quote .lp-product-card__cta{display:block;text-align:center;padding:10px 16px;border:1px solid var(--borderColor);border-radius:var(--buttonRadius);font-size:14px;font-weight:500;color:var(--textColor);text-decoration:none;transition:background-color 160ms;}
+.lp-quote .lp-product-card__cta:hover{background:var(--alternateBackground);}
+
+/* Entity note (Session A / AI-8 standardization) */
+.lp-quote .lp-entity-note{padding:var(--space-6) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-quote .lp-entity-note__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-quote .lp-entity-note p{font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),0.6);margin:0;text-wrap:pretty;max-width:92ch;}
+.lp-quote .lp-entity-note b{color:rgba(var(--textColor-rgb),0.85);font-weight:600;}
 
 /* Responsive */
 @media (max-width: 980px) {
-  .bbi-lp-quote .lp-hero__inner { grid-template-columns: 1fr; gap: var(--space-8); }
-  .bbi-lp-quote .lp-hero__media { aspect-ratio: 16 / 10; }
-  .bbi-lp-quote .lp-contact__inner { grid-template-columns: 1fr; gap: var(--space-8); }
-  .bbi-lp-quote .lp-diff__grid { grid-template-columns: 1fr; }
-  .bbi-lp-quote .lp-proof-bar__inner { grid-template-columns: 1fr; gap: var(--space-6); }
-  .bbi-lp-quote .lp-proof-bar__stat + .lp-proof-bar__stat { border-left: none; border-top: 1px solid rgba(var(--borderColor-rgb),.6); padding-left: 0; padding-top: var(--space-6); }
-  .bbi-lp-quote .bbi-cta-section__inner { grid-template-columns: 1fr; gap: 48px; }
+  .lp-quote .lp-hero__inner { grid-template-columns: 1fr; gap: var(--space-8); }
+  .lp-quote .lp-crosslinks__grid { grid-template-columns: 1fr; }
+  .lp-quote .lp-intake__grid { grid-template-columns: 1fr; }
+  .lp-quote .lp-howto__steps { grid-template-columns: 1fr; }
+  .lp-quote .lp-products__grid { grid-template-columns: repeat(2,1fr); }
+  .lp-quote .lp-hero__media { aspect-ratio: 16 / 10; }
+  .lp-quote .lp-contact__inner { grid-template-columns: 1fr; gap: var(--space-8); }
+  .lp-quote .lp-diff__grid { grid-template-columns: 1fr; }
+  .lp-quote .lp-proof-bar__inner { grid-template-columns: 1fr; gap: var(--space-6); }
+  .lp-quote .lp-proof-bar__stat + .lp-proof-bar__stat { border-left: none; border-top: 1px solid rgba(var(--borderColor-rgb),.6); padding-left: 0; padding-top: var(--space-6); }
+  .lp-quote .bbi-cta-section__inner { grid-template-columns: 1fr; gap: 48px; }
 }
 @media (max-width: 640px) {
-  .bbi-lp-quote .lp-hero { padding: var(--space-8) 0; }
-  .bbi-lp-quote .lp-hero h1 { font-size: 32px; }
-  .bbi-lp-quote .lp-hero__standfirst { font-size: 16px; }
-  .bbi-lp-quote .lp-intro, .bbi-lp-quote .lp-diff, .bbi-lp-quote .lp-faq,
-  .bbi-lp-quote .lp-contact { padding: var(--space-8) 0; }
-  .bbi-lp-quote .lp-diff-card { padding: var(--space-6); }
-  .bbi-lp-quote .lp-proof-bar__stat-num { font-size: 32px; }
-  .bbi-lp-quote .bbi-cta-section__inner { padding: 64px 24px; }
+  .lp-quote .lp-hero { padding: var(--space-8) 0; }
+  .lp-quote .lp-hero h1 { font-size: 32px; }
+  .lp-quote .lp-hero__standfirst { font-size: 16px; }
+  .lp-quote .lp-intro, .lp-quote .lp-diff, .lp-quote .lp-faq,
+  .lp-quote .lp-contact, .lp-quote .lp-crosslinks, .lp-quote .lp-intake,
+  .lp-quote .lp-howto, .lp-quote .lp-products { padding: var(--space-8) 0; }
+  .lp-quote .lp-diff-card { padding: var(--space-6); }
+  .lp-quote .lp-proof-bar__stat-num { font-size: 32px; }
+  .lp-quote .bbi-cta-section__inner { padding: 64px 24px; }
+  .lp-quote .lp-products__grid { grid-template-columns: 1fr; }
 }
 
 /* ---- Header ---- */
-.bbi-lp-quote .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
-.bbi-lp-quote .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
-.bbi-lp-quote .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
-.bbi-lp-quote .bbi-header__logo img{height:36px;width:auto;}
-.bbi-lp-quote .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
-.bbi-lp-quote .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;position:relative;}
-.bbi-lp-quote .bbi-nav-item:hover{color:var(--headerHoverColor);}
-.bbi-lp-quote .bbi-nav-item.is-current::after{content:"";position:absolute;left:14px;right:14px;bottom:18px;height:1px;background:var(--textColor);}
-.bbi-lp-quote .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
-.bbi-lp-quote .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
+.lp-quote .bbi-header{background:var(--headerBg);border-bottom:1px solid var(--borderColor);position:relative;z-index:10;}
+.lp-quote .bbi-header__inner{max-width:1320px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;gap:32px;}
+.lp-quote .bbi-header__logo{display:inline-flex;align-items:center;height:40px;text-decoration:none;}
+.lp-quote .bbi-header__logo img{height:36px;width:auto;}
+.lp-quote .bbi-header__nav{display:flex;align-items:center;gap:4px;margin-left:16px;}
+.lp-quote .bbi-nav-item{display:inline-flex;align-items:center;height:72px;padding:0 14px;color:var(--headerColor);font-size:14px;font-weight:500;text-decoration:none;position:relative;}
+.lp-quote .bbi-nav-item:hover{color:var(--headerHoverColor);}
+.lp-quote .bbi-nav-item.is-current::after{content:"";position:absolute;left:14px;right:14px;bottom:18px;height:1px;background:var(--textColor);}
+.lp-quote .bbi-header__utility{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;}
+.lp-quote .bbi-header__utility a:not(.bbi-btn){color:var(--headerColor);text-decoration:none;}
 
 /* ---- Footer ---- */
-.bbi-lp-quote .bbi-footer{--background:#0B0B0C;--background-rgb:11,11,12;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--borderColor:#1F1F21;--borderColor-rgb:31,31,33;background:var(--background);color:var(--textColor);}
-.bbi-lp-quote .bbi-footer__inner{max-width:1320px;margin:0 auto;padding:64px 32px 24px;}
-.bbi-lp-quote .bbi-footer__top{display:grid;grid-template-columns:1.1fr 3fr;gap:64px;padding-bottom:48px;border-bottom:1px solid var(--borderColor);}
-.bbi-lp-quote .bbi-footer__brand-plate{display:inline-block;background:#FFFFFF;padding:16px 20px;border-radius:8px;}
-.bbi-lp-quote .bbi-footer__brand-plate img{height:44px;width:auto;display:block;}
-.bbi-lp-quote .bbi-footer__tagline{margin:20px 0 16px;font-size:14px;line-height:1.55;max-width:32ch;color:rgba(var(--textColor-rgb),0.78);}
-.bbi-lp-quote .bbi-footer__canadian{display:inline-flex;align-items:center;gap:8px;font-size:13px;}
-.bbi-lp-quote .bbi-footer__canadian .leaf{width:14px;height:14px;color:#D4252A;}
-.bbi-lp-quote .bbi-footer__cols{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
-.bbi-lp-quote .bbi-footer__col h4{font-family:var(--headingFont);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;}
-.bbi-lp-quote .bbi-footer__col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
-.bbi-lp-quote .bbi-footer__col a{color:rgba(var(--textColor-rgb),0.78);text-decoration:none;font-size:14px;}
-.bbi-lp-quote .bbi-footer__col a:hover{color:var(--textColor);text-decoration:underline;}
-.bbi-lp-quote .bbi-footer__col--contact .row{display:grid;grid-template-columns:80px 1fr;gap:8px;font-size:14px;margin-bottom:12px;line-height:1.45;}
-.bbi-lp-quote .bbi-footer__col--contact .lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.55);padding-top:2px;}
-.bbi-lp-quote .bbi-footer__col--contact .row a,.bbi-lp-quote .bbi-footer__col--contact .row span:not(.lbl){color:var(--textColor);}
-.bbi-lp-quote .bbi-footer__bottom{padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(var(--textColor-rgb),0.55);}
-.bbi-lp-quote .bbi-footer__legal{display:flex;gap:24px;}
-.bbi-lp-quote .bbi-footer__legal a{color:rgba(var(--textColor-rgb),0.55);text-decoration:none;}
-.bbi-lp-quote .bbi-footer__legal a:hover{color:var(--textColor);}
+.lp-quote .bbi-footer{--background:#0B0B0C;--background-rgb:11,11,12;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--borderColor:#1F1F21;--borderColor-rgb:31,31,33;background:var(--background);color:var(--textColor);}
+.lp-quote .bbi-footer__inner{max-width:1320px;margin:0 auto;padding:64px 32px 24px;}
+.lp-quote .bbi-footer__top{display:grid;grid-template-columns:1.1fr 3fr;gap:64px;padding-bottom:48px;border-bottom:1px solid var(--borderColor);}
+.lp-quote .bbi-footer__brand-plate{display:inline-block;background:#FFFFFF;padding:16px 20px;border-radius:8px;}
+.lp-quote .bbi-footer__brand-plate img{height:44px;width:auto;display:block;}
+.lp-quote .bbi-footer__tagline{margin:20px 0 16px;font-size:14px;line-height:1.55;max-width:32ch;color:rgba(var(--textColor-rgb),0.78);}
+.lp-quote .bbi-footer__canadian{display:inline-flex;align-items:center;gap:8px;font-size:13px;}
+.lp-quote .bbi-footer__canadian .leaf{width:14px;height:14px;color:#D4252A;}
+.lp-quote .bbi-footer__cols{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+.lp-quote .bbi-footer__col h4{font-family:var(--headingFont);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 16px;}
+.lp-quote .bbi-footer__col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
+.lp-quote .bbi-footer__col a{color:rgba(var(--textColor-rgb),0.78);text-decoration:none;font-size:14px;}
+.lp-quote .bbi-footer__col a:hover{color:var(--textColor);text-decoration:underline;}
+.lp-quote .bbi-footer__col--contact .row{display:grid;grid-template-columns:80px 1fr;gap:8px;font-size:14px;margin-bottom:12px;line-height:1.45;}
+.lp-quote .bbi-footer__col--contact .lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.55);padding-top:2px;}
+.lp-quote .bbi-footer__col--contact .row a,.lp-quote .bbi-footer__col--contact .row span:not(.lbl){color:var(--textColor);}
+.lp-quote .bbi-footer__bottom{padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(var(--textColor-rgb),0.55);}
+.lp-quote .bbi-footer__legal{display:flex;gap:24px;}
+.lp-quote .bbi-footer__legal a{color:rgba(var(--textColor-rgb),0.55);text-decoration:none;}
+.lp-quote .bbi-footer__legal a:hover{color:var(--textColor);}
 @media(max-width:980px){
-  .bbi-lp-quote .bbi-footer__top{grid-template-columns:1fr;gap:var(--space-8);}
-  .bbi-lp-quote .bbi-footer__cols{grid-template-columns:repeat(2,1fr);}
+  .lp-quote .bbi-footer__top{grid-template-columns:1fr;gap:var(--space-8);}
+  .lp-quote .bbi-footer__cols{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:640px){
-  .bbi-lp-quote .bbi-footer__cols{grid-template-columns:1fr;}
+  .lp-quote .bbi-footer__cols{grid-template-columns:1fr;}
 }
 </style>
 
@@ -326,7 +404,7 @@
 {%- assign _email = section.settings.email | default: 'info@brantbusinessinteriors.com' -%}
 {%- assign _hero_alt = section.settings.hero_image.alt | default: '' -%}
 
-<div class="bbi-lp-quote scheme-default">
+<div class="lp-quote scheme-default">
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'services' -%}
 
@@ -368,7 +446,60 @@
       <h2>{{ section.settings.intro_heading | default: 'Send a scope. Get a quote. Place a PO.' }}</h2>
       <div class="lp-intro__body">
         <p>{{ section.settings.intro_para1 }}</p>
-        <p>For larger fit-outs — full offices, multi-room schools, healthcare waiting areas — we include a free space plan with your quote. Our designers work from your floor plan and return a furniture layout with the quote so you can show your team exactly what you&#8217;re buying before the PO is cut. <a href="/pages/design-services">Learn about our free design layout service &#x2192;</a></p>
+        <p>{{ section.settings.intro_para2 }}</p>
+        <p>For larger fit-outs — full offices, multi-room schools, healthcare waiting areas — our designers work from your floor plan and return a furniture layout with the quote so you can show your team exactly what you&#8217;re buying before the PO is cut. <a href="/pages/design-services">Learn about our free design layout service &#x2192;</a></p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} BROWSE CATEGORIES (Session A standardization) {%- endcomment -%}
+  <section class="lp-crosslinks" aria-label="Browse furniture categories before requesting a quote">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
+        <h2>Not sure what you need? Browse the catalog first.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+
+        <a href="/collections/seating" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Seating</span>
+            <span class="lp-crosslinks__tile-meta">Task &middot; executive &middot; lounge &middot; bariatric</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/desks" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Desks &amp; Workstations</span>
+            <span class="lp-crosslinks__tile-meta">Single &middot; L-shape &middot; sit-stand &middot; benching</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/business-furniture" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4" y="6" width="20" height="16" rx="2"/><path d="M4 12 H24"/><path d="M10 6 V22 M18 6 V22"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Full catalog</span>
+            <span class="lp-crosslinks__tile-meta">Storage &middot; tables &middot; acoustic &middot; accessories</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
       </div>
     </div>
   </section>
@@ -437,6 +568,43 @@
     </div>
   </section>
 
+  {%- comment -%} QUOTE INTAKE CHECKLIST (Session B addition) {%- endcomment -%}
+  <section class="lp-intake" aria-label="What to include in your quote request">
+    <div class="lp-intake__inner">
+      <div class="lp-intake__head">
+        <p class="lp-intake__eyebrow bbi-mono">Quote intake checklist</p>
+        <h2>What to include &mdash; and what we&rsquo;ll ask if it&rsquo;s missing.</h2>
+        <p class="lp-intake__sub">Anything you can share helps. Even a sketch on a napkin counts. If you only have one or two of the items below, send what you have and we&rsquo;ll work the rest out by email.</p>
+      </div>
+      <div class="lp-intake__grid">
+        <div class="lp-intake__item">
+          <span class="lp-intake__num">01</span>
+          <div class="lp-intake__body"><strong>Scope summary</strong><p>Line items, headcount, room count, or a one-line description (&ldquo;80 task chairs to standardize a school board&rdquo;).</p></div>
+        </div>
+        <div class="lp-intake__item">
+          <span class="lp-intake__num">02</span>
+          <div class="lp-intake__body"><strong>Floor plan or measurements (optional)</strong><p>PDF, CAD, or sketch with rough dimensions. We&rsquo;ll free-design a layout for any fit-out above ~6 stations.</p></div>
+        </div>
+        <div class="lp-intake__item">
+          <span class="lp-intake__num">03</span>
+          <div class="lp-intake__body"><strong>OECM membership status</strong><p>Your organization&rsquo;s OECM member number, if you&rsquo;re purchasing under Agreement 2025-470. (Not sure? Call &mdash; we&rsquo;ll confirm in 5 minutes.)</p></div>
+        </div>
+        <div class="lp-intake__item">
+          <span class="lp-intake__num">04</span>
+          <div class="lp-intake__body"><strong>PO routing details</strong><p>Billing address, PO number format, and any account-setup paperwork your A/P team needs first.</p></div>
+        </div>
+        <div class="lp-intake__item">
+          <span class="lp-intake__num">05</span>
+          <div class="lp-intake__body"><strong>Lead-time window</strong><p>When you need delivery (&ldquo;ASAP&rdquo;, &ldquo;summer install&rdquo;, &ldquo;before Q3&rdquo;). We&rsquo;ll match SKUs to your window.</p></div>
+        </div>
+        <div class="lp-intake__item">
+          <span class="lp-intake__num">06</span>
+          <div class="lp-intake__body"><strong>Existing furniture</strong><p>Anything we&rsquo;re replacing, refitting, or working around. We handle removal as a line item if needed.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   {%- comment -%} DIFFERENTIATORS {%- endcomment -%}
   <section class="lp-diff" aria-label="Why quote with Brant Business Interiors">
     <div class="lp-diff__inner">
@@ -463,8 +631,8 @@
         <article class="lp-diff-card">
           <span class="lp-diff-card__num">03</span>
           <span class="lp-diff-card__icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 28 L6 12 C6 9 8 7 11 7 L21 7 C24 7 26 9 26 12 L26 28"/><path d="M3 28 H29"/><rect x="13" y="18" width="6" height="10"/><rect x="9" y="12" width="5" height="5"/><rect x="18" y="12" width="5" height="5"/></svg></span>
-          <h3 class="lp-diff-card__label"><span>Canadian-owned</span></h3>
-          <p class="lp-diff-card__sentence">Canadian-owned. Ontario-based. <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg> Head office in Peterborough, showroom in Mississauga &#x2014; one Ontario team manages your quote, delivery, and installation.</p>
+          <h3 class="lp-diff-card__label"><span>Ontario-owned</span></h3>
+          <p class="lp-diff-card__sentence">Ontario-owned and family-run since 1964. <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg> Headquarters at 296 George St N Peterborough, showroom in Mississauga &mdash; one Ontario team manages your quote, delivery, and installation.</p>
         </article>
 
         <article class="lp-diff-card">
@@ -478,13 +646,40 @@
     </div>
   </section>
 
+  {%- comment -%} HOW TO PURCHASE 3-STEP (Session A standardization) {%- endcomment -%}
+  <section class="lp-howto" aria-label="How a quote becomes a PO">
+    <div class="lp-howto__inner">
+      <div class="lp-howto__head">
+        <p class="lp-howto__eyebrow bbi-mono">How it works</p>
+        <h2>Three steps from scope to install.</h2>
+      </div>
+      <div class="lp-howto__steps">
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 01</span>
+          <h3 class="lp-howto__step-title">Tell us what you need</h3>
+          <p class="lp-howto__step-body">Email, call 1-800-835-9565, or use the form. A scope summary, a product list, a floor plan, or a sketch &mdash; whatever you have. OECM buyers: include your member number.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 02</span>
+          <h3 class="lp-howto__step-title">We send back a quote</h3>
+          <p class="lp-howto__step-body">Line-item quote in your inbox, usually within one business day. SKUs, freight, install, lead times. OECM-eligible lines flagged at Agreement 2025-470 pricing where applicable. Free space plan included on larger fit-outs.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 03</span>
+          <h3 class="lp-howto__step-title">You issue a PO; we deliver and install</h3>
+          <p class="lp-howto__step-body">Cut your PO against the quote &mdash; we handle everything from order placement through delivery, in-room placement, assembly, levelling, and old-furniture removal. After-hours and weekend installs available for occupied spaces. One Ontario account team, start to finish.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   {%- comment -%} PROOF BAR {%- endcomment -%}
   <section class="lp-proof-bar" aria-label="Track record">
     <div class="lp-proof-bar__inner">
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">Since 1964</span>
-        <span class="lp-proof-bar__stat-label">Serving Ontario buyers</span>
-        <span class="lp-proof-bar__stat-detail">Over six decades of commercial furniture expertise. Canadian-owned and operated since the beginning.</span>
+        <span class="lp-proof-bar__stat-label">Ontario-owned family business</span>
+        <span class="lp-proof-bar__stat-detail">Brant Basics holds our OECM Agreement (2025-470); Brant Business Interiors is our operating brand. Six decades serving Ontario buyers.</span>
       </div>
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">OECM</span>
@@ -496,6 +691,39 @@
         <span class="lp-proof-bar__stat-label">Quote turnaround</span>
         <span class="lp-proof-bar__stat-detail">Most itemised quotes return within one business day of receiving your scope &#x2014; no minimums, no RFQ overhead.</span>
       </div>
+    </div>
+  </section>
+
+  {%- comment -%} TOP PRODUCTS (Session A standardization) {%- endcomment -%}
+  {%- assign tp1 = section.settings.top_product_1 -%}
+  {%- assign tp2 = section.settings.top_product_2 -%}
+  {%- assign tp3 = section.settings.top_product_3 -%}
+  {%- assign tp4 = section.settings.top_product_4 -%}
+  {%- if tp1 == blank -%}{%- assign tp1 = collections.seating.products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections['height-adjustable-tables-desks'].products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections.desks.products.first -%}{%- endif -%}
+  {%- if tp3 == blank -%}{%- assign tp3 = collections.storage.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.boardroom.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.tables.products.first -%}{%- endif -%}
+  <section class="lp-products" aria-label="Top products to quote">
+    <div class="lp-products__inner">
+      <div class="lp-products__head">
+        <p class="lp-products__eyebrow">Top products to quote</p>
+        <h2>{{ section.settings.top_products_heading | default: 'Workhorse picks across the four most-quoted categories.' }}</h2>
+      </div>
+      <div class="lp-products__grid">
+        {%- if tp1 != blank and tp1 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp1.url }}">{%- if tp1.compare_at_price_max > tp1.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp1.featured_image -%}{{ tp1.featured_image | image_url: width: 600 | image_tag: alt: tp1.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp1.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp1.url }}">{{ tp1.title }}</a></h3><p class="lp-product-card__price">From {{ tp1.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp1.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp2 != blank and tp2 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp2.url }}">{%- if tp2.compare_at_price_max > tp2.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp2.featured_image -%}{{ tp2.featured_image | image_url: width: 600 | image_tag: alt: tp2.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp2.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp2.url }}">{{ tp2.title }}</a></h3><p class="lp-product-card__price">From {{ tp2.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp2.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp3 != blank and tp3 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp3.url }}">{%- if tp3.compare_at_price_max > tp3.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp3.featured_image -%}{{ tp3.featured_image | image_url: width: 600 | image_tag: alt: tp3.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp3.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp3.url }}">{{ tp3.title }}</a></h3><p class="lp-product-card__price">From {{ tp3.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp3.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp4 != blank and tp4 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp4.url }}">{%- if tp4.compare_at_price_max > tp4.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp4.featured_image -%}{{ tp4.featured_image | image_url: width: 600 | image_tag: alt: tp4.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp4.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp4.url }}">{{ tp4.title }}</a></h3><p class="lp-product-card__price">From {{ tp4.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp4.url }}">View product</a></div></article>{%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ENTITY NOTE (Session A / AI-8 standardization) {%- endcomment -%}
+  <section class="lp-entity-note" aria-label="Legal entity and registration">
+    <div class="lp-entity-note__inner">
+      <p><b>Brant Business Interiors</b> is the operating brand of <b>Brant Basics</b>, our OECM-registered legal entity holding Supplier Partner Agreement 2025-470. Ontario-owned and family-run since 1964, headquartered at 296 George St N, Peterborough, ON K9J 3H2. Part of the Office Central group.</p>
     </div>
   </section>
 
@@ -544,7 +772,7 @@
         </div>
         <div class="bbi-cta-section__trust">
           <span class="dot"></span>
-          <span>Canadian-owned. Ontario-based. <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg> Serving institutional buyers since 1964.</span>
+          <span><b>Ontario-owned &middot; Family-run since 1964.</b> <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg> Brant Basics OECM 2025-470. Send us a rough scope &mdash; no minimums, no sales pitch.</span>
         </div>
       </div>
     </div>
@@ -552,7 +780,7 @@
 
   {%- render 'bbi-footer', logo: section.settings.logo -%}
 
-</div><!-- /bbi-lp-quote -->
+</div><!-- /lp-quote -->
 
 <script>
 (function() {
@@ -593,25 +821,25 @@
       "type": "text",
       "id": "hero_eyebrow",
       "label": "Eyebrow label",
-      "default": "Quoting · Ontario & Canada"
+      "default": "Quoting · Ontario buyers welcome"
     },
     {
       "type": "text",
       "id": "hero_badge",
       "label": "Badge text",
-      "default": "We respond within 1 business day"
+      "default": "Quote back in 1 business day"
     },
     {
       "type": "text",
       "id": "hero_heading",
       "label": "Heading",
-      "default": "Your quote, back within 24 hours."
+      "default": "Tell us what you need. We'll send back a quote."
     },
     {
       "type": "textarea",
       "id": "hero_standfirst",
       "label": "Standfirst",
-      "default": "Tell us what your space needs — chair count, desk specs, floor plan, or just a rough scope. Brant Business Interiors turns requests into itemised quotes, fast. OECM Supplier Partner (Agreement 2025-470) — Ontario school boards, hospitals, and municipalities skip the RFP. No minimums. No sales pitch."
+      "default": "Whether it's two chairs or two hundred, an exam room or a whole school board — describe what you're after and Brant Business Interiors will return an itemised quote, usually within one business day. Ontario school boards, hospitals, and municipalities can purchase under our OECM Agreement 2025-470 (held by our legal entity, Brant Basics) — no separate RFP required."
     },
     {
       "type": "image_picker",
@@ -631,8 +859,14 @@
     {
       "type": "textarea",
       "id": "intro_para1",
-      "label": "Intro paragraph 1",
-      "default": "Most quotes start with a message or a call. Share your space details — room dimensions, headcount, product preferences, or links to items you've seen — and our Ontario-based team will assemble a line-item quote, typically within one business day. No travel, no showroom visit required before you have numbers on paper."
+      "label": "Intro paragraph 1 (entity-clarity opener)",
+      "default": "Brant Business Interiors is the family-run Ontario office furniture dealer most buyers know us by. The legal entity behind our OECM agreement is Brant Basics — same team, same address at 296 George St N Peterborough, Ontario-owned since 1964. Procurement-eligible Ontario institutions purchase under the existing OECM agreement (number 2025-470) without running a separate RFP."
+    },
+    {
+      "type": "textarea",
+      "id": "intro_para2",
+      "label": "Intro paragraph 2",
+      "default": "Most quotes start with a scope email or a phone call. Floor plan, headcount, a list of links from the site, a sketch on a napkin — we'll work with whatever you have. Our Ontario account team writes back with a line-item quote, usually within one business day. Free design layout included for any fit-out above a few stations."
     },
     {
       "type": "header",
@@ -728,6 +962,36 @@
     },
     {
       "type": "header",
+      "content": "Top Products"
+    },
+    {
+      "type": "text",
+      "id": "top_products_heading",
+      "label": "Section heading",
+      "default": "Workhorse picks across the four most-quoted categories."
+    },
+    {
+      "type": "product",
+      "id": "top_product_1",
+      "label": "Product 1 (default: top seating)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_2",
+      "label": "Product 2 (default: top sit-stand desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_3",
+      "label": "Product 3 (default: top storage)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_4",
+      "label": "Product 4 (default: top boardroom/table)"
+    },
+    {
+      "type": "header",
       "content": "FAQ"
     },
     {
@@ -779,7 +1043,7 @@
           "type": "faq_item",
           "settings": {
             "question": "I'm an OECM buyer. What do I include in my quote request?",
-            "answer": "<p>Mention that you're purchasing under OECM and include your organisation's OECM member number. Brant Business Interiors holds Agreement 2025-470 in the office furniture category. We'll format the quote against pre-tendered pricing and flag which line items are OECM-eligible so your purchasing team can approve it cleanly — no extra steps on your end.</p><p>Not sure if your organisation is OECM-eligible? <a href='/pages/oecm'>See our OECM overview</a> or call 1-800-835-9565 and we'll confirm in five minutes.</p>"
+            "answer": "<p>Brant Basics is our OECM-registered legal entity holding Agreement 2025-470 in the Office Furniture category. Mention that you're purchasing under OECM and include your organisation's OECM member number. We'll format the quote against Agreement 2025-470 pricing and flag which line items are OECM-eligible so your purchasing team can approve it cleanly — no extra steps on your end.</p><p>Not sure if your organisation is OECM-eligible? <a href='/pages/oecm'>See our OECM overview</a> or call 1-800-835-9565 and we'll confirm in five minutes.</p>"
           }
         },
         {
@@ -793,7 +1057,14 @@
           "type": "faq_item",
           "settings": {
             "question": "Can I pay by purchase order (PO)?",
-            "answer": "<p>Yes. Government bodies, school boards, hospitals, non-profits, and established businesses can place orders on account with a PO. Mention this when you request your quote and we'll set up your account during the quoting process.</p>"
+            "answer": "<p>Yes. Government bodies, school boards, hospitals, non-profits, and established businesses can place orders on account with a PO. Mention this when you request your quote and we'll set up your account during the quoting process. NET 30 available for approved accounts.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's your typical lead time?",
+            "answer": "<p>Lead times vary by manufacturer and configuration. Stock items ship in 1–2 weeks. Custom-build items (configurable seating, build-to-order desks, custom-laminate storage) typically run 6–12 weeks from PO. We flag every line in your quote with its lead time so you can plan around installation windows — particularly important for school summer installs, hospital project deadlines, and end-of-fiscal-year cutoffs.</p>"
           }
         }
       ]

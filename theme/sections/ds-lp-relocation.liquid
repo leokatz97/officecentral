@@ -42,7 +42,48 @@
 .lp-reloc .lp-hero__media img{width:100%;height:100%;object-fit:cover;}
 .lp-reloc .lp-hero__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground);color:rgba(var(--textColor-rgb),.5);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
 .lp-reloc .lp-intro{padding:var(--space-12) 0;}
-.lp-reloc .lp-intro__inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
+.lp-reloc .lp-intro__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-reloc .lp-intro__body{max-width:none;}
+/* Browse crosslinks */
+.lp-reloc .lp-crosslinks{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-reloc .lp-crosslinks__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-reloc .lp-crosslinks__head{margin-bottom:var(--space-6);}
+.lp-reloc .lp-crosslinks__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.lp-reloc .lp-crosslinks__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-reloc .lp-crosslinks h2{font-family:var(--headingFont);font-size:var(--fs-h3);line-height:var(--lh-h3);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-reloc .lp-crosslinks__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);}
+.lp-reloc .lp-crosslinks__tile{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--space-4);padding:var(--space-6);background:var(--background);border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);transition:background-color 160ms ease,border-color 160ms ease;}
+.lp-reloc .lp-crosslinks__tile:hover{background:var(--alternateBackground);}
+.lp-reloc .lp-crosslinks__tile-icon{width:28px;height:28px;color:rgba(var(--textColor-rgb),0.55);}
+.lp-reloc .lp-crosslinks__tile-label{display:flex;flex-direction:column;gap:2px;}
+.lp-reloc .lp-crosslinks__tile-name{font-family:var(--headingFont);font-size:18px;font-weight:600;color:var(--headingColor);}
+.lp-reloc .lp-crosslinks__tile-meta{font-size:13px;color:rgba(var(--textColor-rgb),0.6);font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.04em;}
+.lp-reloc .lp-crosslinks__tile-arrow{width:18px;height:18px;color:rgba(var(--textColor-rgb),0.55);transition:transform 160ms ease;}
+.lp-reloc .lp-crosslinks__tile:hover .lp-crosslinks__tile-arrow{transform:translateX(4px);color:var(--textColor);}
+/* Top Products */
+.lp-reloc .lp-products{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-reloc .lp-products__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-reloc .lp-products__head{margin-bottom:var(--space-8);}
+.lp-reloc .lp-products__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-reloc .lp-products__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-reloc .lp-products h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-reloc .lp-products__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);}
+.lp-reloc .lp-product-card{display:flex;flex-direction:column;background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-reloc .lp-product-card__media{position:relative;display:block;aspect-ratio:1/1;background:#fff;padding:var(--space-6);overflow:hidden;}
+.lp-reloc .lp-product-card__media img{width:100%;height:100%;object-fit:contain;}
+.lp-reloc .lp-product-card__body{padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);flex:1;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-reloc .lp-product-card__vendor{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.55);margin:0;}
+.lp-reloc .lp-product-card__title{font-family:var(--headingFont);font-size:15px;font-weight:600;color:var(--headingColor);margin:0;line-height:1.3;}
+.lp-reloc .lp-product-card__title a{color:inherit;text-decoration:none;}
+.lp-reloc .lp-product-card__title a:hover{text-decoration:underline;}
+.lp-reloc .lp-product-card__price{font-size:14px;color:rgba(var(--textColor-rgb),.7);margin:0 0 var(--space-2);flex:1;}
+.lp-reloc .lp-product-card__cta{display:block;text-align:center;padding:10px 16px;border:1px solid var(--borderColor);border-radius:var(--buttonRadius);font-size:14px;font-weight:500;color:var(--textColor);text-decoration:none;transition:background-color 160ms;}
+.lp-reloc .lp-product-card__cta:hover{background:var(--alternateBackground);}
+/* Entity note */
+.lp-reloc .lp-entity-note{padding:var(--space-6) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-reloc .lp-entity-note__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-reloc .lp-entity-note p{font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),0.6);margin:0;text-wrap:pretty;max-width:92ch;}
+.lp-reloc .lp-entity-note b{color:rgba(var(--textColor-rgb),0.85);font-weight:600;}
 .lp-reloc .lp-intro__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
 .lp-reloc .lp-intro__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
 .lp-reloc .lp-intro h2{font-family:var(--headingFont);font-size:var(--fs-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-6);}
@@ -88,8 +129,8 @@
 .lp-reloc .lp-closer__sub{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.72);margin:0 0 var(--space-8);}
 .lp-reloc .lp-closer__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-4);}
 .lp-reloc .lp-closer__trust{font-size:13px;color:rgba(var(--textColor-rgb),0.5);}
-@media(max-width:1023px){.lp-reloc .lp-hero__inner{grid-template-columns:1fr;}.lp-reloc .lp-process__grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:639px){.lp-reloc .lp-process__grid{grid-template-columns:1fr;}}
+@media(max-width:1023px){.lp-reloc .lp-hero__inner{grid-template-columns:1fr;}.lp-reloc .lp-process__grid{grid-template-columns:repeat(2,1fr);}.lp-reloc .lp-crosslinks__grid{grid-template-columns:1fr;}.lp-reloc .lp-products__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:639px){.lp-reloc .lp-process__grid{grid-template-columns:1fr;}.lp-reloc .lp-products__grid{grid-template-columns:1fr;}}
 </style>
 
 <div class="lp-reloc scheme-default">
@@ -103,10 +144,10 @@
     <div class="lp-hero__inner">
       <div class="lp-hero__text">
         <div class="lp-hero__eyebrow">
-          <span class="bbi-mono lp-hero__eyebrow-label">Services</span>
+          <span class="bbi-mono lp-hero__eyebrow-label">Services &middot; Relocation Management</span>
         </div>
-        <h1>Office relocation managed start to finish — no disruption, no surprises</h1>
-        <p class="lp-hero__standfirst">From decommissioning your old space to full installation in the new one, we coordinate every phase of your office move. Ontario-wide. OECM-eligible supplier. Quote in 1 business day.</p>
+        <h1>One project team. Vacate, decommission, install &mdash; without taking your operations offline.</h1>
+        <p class="lp-hero__standfirst">Brant Business Interiors runs office relocations end-to-end &mdash; not just the furniture moving piece. Inventory audit, decommission, responsible disposal, phased install in your new space, post-move punch-list. Family-owned since 1964 &mdash; the project coordinator who scopes your move is the one who runs it. Multi-site and multi-floor moves a specialty.</p>
         <div class="lp-hero__cta-row">
           <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Request a Quote <span class="arrow">→</span></a>
           <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg">1-800-835-9565</a>
@@ -128,11 +169,38 @@
       <div class="lp-intro__eyebrow">
         <span class="bbi-mono">Full-scope relocation</span>
       </div>
-      <h2>Move your office without moving your team off-track</h2>
+      <h2>Move your office without moving your team off-track.</h2>
       <div class="lp-intro__body">
-        <p>Office relocations fail when logistics aren't coordinated. We manage the complete scope — furniture decommissioning, inventory audits, responsible disposal or resale, new space installation, and post-move punch-lists — so your facilities team isn't juggling three contractors at once.</p>
-        <p>Whether you're moving a 10-person office or a multi-floor institution, our project coordinators build a phased plan around your occupancy dates and access windows. Disruption to your staff stays minimal.</p>
-        <p>OECM Agreement 2025-470 allows eligible Ontario public-sector organizations to engage relocation management services without a separate open tender process.</p>
+        <p>Brant Business Interiors is the family-run Ontario office furniture dealer most buyers know us by. The legal entity behind our OECM agreement is <b>Brant Basics</b> &mdash; same team, same address at 296 George St N, Peterborough. Family-owned since 1964; we run relocations as a single project, not a hand-off between vendors.</p>
+        <p>Office relocations fail when logistics aren&rsquo;t coordinated. We manage the complete scope &mdash; furniture decommission, inventory audit, responsible disposal or resale, phased install in the new space, and post-move punch-list. Your facilities team isn&rsquo;t juggling three contractors. One project coordinator, one Ontario account team, from PO to staff move-in day.</p>
+        <p>Whether you&rsquo;re moving a 10-person office, a multi-floor institutional site, or coordinating phased moves across multiple buildings, the project plan is built around your occupancy dates and operational access windows. OECM Agreement 2025-470 covers relocation services for eligible Ontario broader-public-sector buyers &mdash; no separate tender required.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Browse-categories crosslinks (Session A standardization) {%- endcomment -%}
+  <section class="lp-crosslinks" aria-label="Browse furniture categories for your new space">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
+        <h2>Refreshing or replacing? Browse the catalog for your new space.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+        <a href="/collections/seating" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Seating</span><span class="lp-crosslinks__tile-meta">Task &middot; exec &middot; lounge &middot; bariatric</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/collections/desks" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Desks &amp; Workstations</span><span class="lp-crosslinks__tile-meta">Single &middot; L-shape &middot; sit-stand &middot; benching</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/collections/business-furniture" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4" y="6" width="20" height="16" rx="2"/><path d="M4 12 H24"/><path d="M10 6 V22 M18 6 V22"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Full catalog</span><span class="lp-crosslinks__tile-meta">Storage &middot; tables &middot; acoustic &middot; accessories</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
       </div>
     </div>
   </section>
@@ -179,6 +247,39 @@
     </div>
   </div>
 
+  {%- comment -%} Top Products (Session A standardization) {%- endcomment -%}
+  {%- assign tp1 = section.settings.top_product_1 -%}
+  {%- assign tp2 = section.settings.top_product_2 -%}
+  {%- assign tp3 = section.settings.top_product_3 -%}
+  {%- assign tp4 = section.settings.top_product_4 -%}
+  {%- if tp1 == blank -%}{%- assign tp1 = collections['height-adjustable-tables-desks'].products.first -%}{%- endif -%}
+  {%- if tp1 == blank -%}{%- assign tp1 = collections.desks.products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections.seating.products.first -%}{%- endif -%}
+  {%- if tp3 == blank -%}{%- assign tp3 = collections.storage.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.boardroom.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.tables.products.first -%}{%- endif -%}
+  <section class="lp-products" aria-label="Top relocation refresh picks">
+    <div class="lp-products__inner">
+      <div class="lp-products__head">
+        <p class="lp-products__eyebrow">Top refresh picks</p>
+        <h2>{{ section.settings.top_products_heading | default: 'Refreshing during the move? These are the most-quoted swaps.' }}</h2>
+      </div>
+      <div class="lp-products__grid">
+        {%- if tp1 != blank and tp1 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp1.url }}">{%- if tp1.featured_image -%}{{ tp1.featured_image | image_url: width: 600 | image_tag: alt: tp1.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp1.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp1.url }}">{{ tp1.title }}</a></h3><p class="lp-product-card__price">From {{ tp1.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp1.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp2 != blank and tp2 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp2.url }}">{%- if tp2.featured_image -%}{{ tp2.featured_image | image_url: width: 600 | image_tag: alt: tp2.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp2.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp2.url }}">{{ tp2.title }}</a></h3><p class="lp-product-card__price">From {{ tp2.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp2.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp3 != blank and tp3 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp3.url }}">{%- if tp3.featured_image -%}{{ tp3.featured_image | image_url: width: 600 | image_tag: alt: tp3.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp3.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp3.url }}">{{ tp3.title }}</a></h3><p class="lp-product-card__price">From {{ tp3.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp3.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp4 != blank and tp4 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp4.url }}">{%- if tp4.featured_image -%}{{ tp4.featured_image | image_url: width: 600 | image_tag: alt: tp4.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp4.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp4.url }}">{{ tp4.title }}</a></h3><p class="lp-product-card__price">From {{ tp4.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp4.url }}">View product</a></div></article>{%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Entity note (Session A / AI-8 standardization) {%- endcomment -%}
+  <section class="lp-entity-note" aria-label="Legal entity and registration">
+    <div class="lp-entity-note__inner">
+      <p><b>Brant Business Interiors</b> is the operating brand of <b>Brant Basics</b>, our OECM-registered legal entity holding Supplier Partner Agreement 2025-470. Family-owned since 1964, headquartered at 296 George St N, Peterborough, ON K9J 3H2. Part of the Office Central group.</p>
+    </div>
+  </section>
+
   {%- comment -%} FAQ {%- endcomment -%}
   <section class="lp-faq">
     <div class="lp-faq__inner">
@@ -204,7 +305,7 @@
             <span class="lp-faq__q-icon" aria-hidden="true"></span>
           </button>
           <div class="lp-faq__a">
-            <p>Yes. Our relocation services aren't limited to BBI-sourced furniture. We can inventory, move, and reinstall existing pieces alongside any new furniture included in your project. Contact us with details about your inventory for an accurate quote.</p>
+            <p>Yes. Our relocation services aren't limited to furniture we originally supplied. We inventory, move, and reinstall your existing pieces alongside any new furniture included in your project. Send us a rough inventory and we&rsquo;ll quote both the move scope and any replacement spec in one quote.</p>
           </div>
         </li>
         <li class="lp-faq__item">
@@ -222,7 +323,25 @@
             <span class="lp-faq__q-icon" aria-hidden="true"></span>
           </button>
           <div class="lp-faq__a">
-            <p>For a typical office relocation, we recommend engaging us 8–12 weeks before your occupancy date. Larger institutional moves (full-floor or multi-site) benefit from 12–20 weeks of lead time. Contact us early — we can fit a scoping call into 1 business day.</p>
+            <p>For a typical office relocation, we recommend engaging us 8&ndash;12 weeks before your occupancy date. Larger institutional moves (full-floor or multi-site) benefit from 12&ndash;20 weeks of lead time. Contact us early &mdash; we can fit a scoping call into 1 business day.</p>
+          </div>
+        </li>
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            Can you sequence moves across multiple sites or floors?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>Yes. Multi-site and multi-floor moves are common for school boards (summer relocations across multiple buildings), hospital wing reconfigurations, and municipal office consolidations. Our project coordinator builds a phased schedule that respects occupancy dates, dock-access windows, and operational continuity at each site. One PM for the whole project &mdash; not a hand-off between site teams.</p>
+          </div>
+        </li>
+        <li class="lp-faq__item">
+          <button class="lp-faq__q" aria-expanded="false">
+            Can the move happen after-hours or on weekends?
+            <span class="lp-faq__q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="lp-faq__a">
+            <p>Yes. For occupied clinics, operating hospital units, live municipal offices, and school summer windows, after-hours and weekend moves are standard. We schedule around your operations and your facility access requirements. Mention your operational constraints at quote time and we&rsquo;ll build the schedule accordingly &mdash; no premium charged for off-hours work on most projects (we&rsquo;ll flag if your scope adds cost).</p>
           </div>
         </li>
       </ul>
@@ -232,13 +351,13 @@
   {%- comment -%} CTA Closer {%- endcomment -%}
   <section class="lp-closer scheme-inverse" style="background:var(--background);padding:var(--space-12) 0;">
     <div class="lp-closer__inner">
-      <h2>Planning a move? Let's scope it.</h2>
-      <p class="lp-closer__sub">Request a quote and our project team will reach out within 1 business day to scope your relocation. OECM-eligible. No obligation.</p>
+      <h2>Planning a move? Let&rsquo;s scope it.</h2>
+      <p class="lp-closer__sub">Request a quote and our project team will reach out within 1 business day to scope your relocation. OECM-eligible. Family-owned since 1964 &mdash; one project coordinator from PO to staff move-in day.</p>
       <div class="lp-closer__cta-row">
-        <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Get a Quote <span class="arrow">→</span></a>
+        <a href="/pages/quote" class="bbi-btn bbi-btn--primary bbi-btn--lg">Request a Quote <span class="arrow">&rarr;</span></a>
         <a href="tel:18008359565" class="bbi-btn bbi-btn--secondary bbi-btn--lg">Call 1-800-835-9565</a>
       </div>
-      <p class="lp-closer__trust">OECM Agreement 2025-470 · Full-scope relocation · Ontario-wide</p>
+      <p class="lp-closer__trust">OECM Agreement 2025-470 &middot; Full-scope relocation &middot; Multi-site &middot; After-hours / weekend windows available</p>
     </div>
   </section>
   {%- render 'bbi-footer', logo: section.settings.logo -%}
@@ -272,6 +391,36 @@
       "type": "image_picker",
       "id": "hero_image",
       "label": "Hero image"
+    },
+    {
+      "type": "header",
+      "content": "Top Products"
+    },
+    {
+      "type": "text",
+      "id": "top_products_heading",
+      "label": "Section heading",
+      "default": "Refreshing during the move? These are the most-quoted swaps."
+    },
+    {
+      "type": "product",
+      "id": "top_product_1",
+      "label": "Product 1 (default: top sit-stand desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_2",
+      "label": "Product 2 (default: top seating)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_3",
+      "label": "Product 3 (default: top storage)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_4",
+      "label": "Product 4 (default: top boardroom/table)"
     }
   ],
   "presets": [
