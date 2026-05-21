@@ -66,10 +66,10 @@
 }
 .bbi-footer__leaf{width:14px;height:14px;color:#D4252A;flex-shrink:0;}
 
-/* ---- 4-column link grid ---- */
+/* ---- 5-column link grid ---- */
 .bbi-footer__columns{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
   gap:32px;
 }
 
@@ -197,6 +197,20 @@
             <li><a href="/pages/non-profit">Non-Profit</a></li>
             <li><a href="/pages/professional-services">Professional Services</a></li>
             <li><a href="/pages/industries">All industries</a></li>
+          </ul>
+        </div>
+
+        {%- comment -%} Brands — 7 links matching nav order (BRAND-PAGES-1, 2026-05-20) {%- endcomment -%}
+        <div class="bbi-footer__column">
+          <h4>Brands</h4>
+          <ul>
+            <li><a href="/pages/brands">All brands</a></li>
+            <li><a href="/pages/brands-global-teknion">Global / Teknion</a></li>
+            <li><a href="/pages/brands-otg">OTG / Offices to Go</a></li>
+            <li><a href="/pages/brands-heartwood">Heartwood Manufacturing</a></li>
+            <li><a href="/pages/brands-obusforme">ObusForme</a></li>
+            <li><a href="/pages/brands-ergocentric">ergoCentric</a></li>
+            <li><a href="/pages/brands-keilhauer">Keilhauer</a></li>
           </ul>
         </div>
 

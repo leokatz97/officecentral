@@ -35,7 +35,7 @@
     {%- endif -%}</title>
 
     {% if template == 'index' %}
-      <meta name="description" content="Commercial office furniture for Ontario businesses, schools, hospitals, and government. ergoCentric, Keilhauer, Global Furniture Group. OECM-eligible supplier. Quote in 1 business day.">
+      <meta name="description" content="Commercial office furniture for Ontario businesses, schools, and institutions. Global Furniture Group, OTG / Offices to Go, Heartwood Manufacturing. OECM Supplier Partner (Agreement 2025-470). Quote in 1 business day.">
     {% elsif page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
@@ -114,7 +114,13 @@
           assign bbi_landing = true
         elsif template.suffix == 'brands-global-teknion'
           assign bbi_landing = true
+        elsif template.suffix == 'brands-heartwood'
+          assign bbi_landing = true
         elsif template.suffix == 'brands-keilhauer'
+          assign bbi_landing = true
+        elsif template.suffix == 'brands-obusforme'
+          assign bbi_landing = true
+        elsif template.suffix == 'brands-otg'
           assign bbi_landing = true
         elsif template.suffix == 'contact'
           assign bbi_landing = true

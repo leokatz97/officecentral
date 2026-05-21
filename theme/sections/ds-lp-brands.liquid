@@ -248,7 +248,7 @@
     <div class="lp-brand-tiles__inner">
       <div class="lp-brand-tiles__head">
         <p class="lp-brand-tiles__eyebrow bbi-mono">Our brands</p>
-        <h2>Three manufacturer lines, one authorized dealer.</h2>
+        <h2>Six manufacturer lines, one authorized dealer.</h2>
       </div>
       <div class="lp-brand-tiles__grid">
 
@@ -291,7 +291,7 @@
         <a href="/pages/brands-global-teknion" class="lp-brand-tile">
           <div class="lp-brand-tile__media">
             {%- if section.settings.global_image != blank -%}
-              {%- assign g_alt = 'Global and Teknion workstations by Brant Business Interiors' -%}
+              {%- assign g_alt = 'Global Furniture Group portfolio — Global, Teknion, OTG, ObusForme — by Brant Business Interiors' -%}
               {{ section.settings.global_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: g_alt, width: 800 }}
             {%- else -%}
               <div class="lp-brand-tile__ph">global-teknion-space.jpg &middot; 16:9</div>
@@ -299,7 +299,61 @@
           </div>
           <div class="lp-brand-tile__body">
             <h3 class="lp-brand-tile__name">Global / Teknion</h3>
-            <p class="lp-brand-tile__meta">Workstations &middot; panels &middot; height-adjustable desks &middot; Global Furniture Group</p>
+            <p class="lp-brand-tile__meta">GFG flagship &middot; Teknion premium tier &middot; full contract portfolio</p>
+            <span class="lp-brand-tile__cta">View brand
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/pages/brands-otg" class="lp-brand-tile">
+          <div class="lp-brand-tile__media">
+            {%- if section.settings.otg_image != blank -%}
+              {%- assign otg_alt = 'Offices to Go institutional office furniture by Brant Business Interiors' -%}
+              {{ section.settings.otg_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: otg_alt, width: 800 }}
+            {%- else -%}
+              <div class="lp-brand-tile__ph">otg-space.jpg &middot; 16:9</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-brand-tile__body">
+            <h3 class="lp-brand-tile__name">OTG / Offices to Go</h3>
+            <p class="lp-brand-tile__meta">Seating &middot; desks &middot; tables &middot; storage &middot; GFG&rsquo;s institutional value brand</p>
+            <span class="lp-brand-tile__cta">View brand
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/pages/brands-heartwood" class="lp-brand-tile">
+          <div class="lp-brand-tile__media">
+            {%- if section.settings.heartwood_image != blank -%}
+              {%- assign hw_alt = 'Heartwood Manufacturing laminate desking by Brant Business Interiors' -%}
+              {{ section.settings.heartwood_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: hw_alt, width: 800 }}
+            {%- else -%}
+              <div class="lp-brand-tile__ph">heartwood-space.jpg &middot; 16:9</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-brand-tile__body">
+            <h3 class="lp-brand-tile__name">Heartwood Manufacturing</h3>
+            <p class="lp-brand-tile__meta">Laminate desking &middot; Innovations line &middot; casegoods &middot; Made in Kelowna, BC <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg></p>
+            <span class="lp-brand-tile__cta">View brand
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/pages/brands-obusforme" class="lp-brand-tile">
+          <div class="lp-brand-tile__media">
+            {%- if section.settings.obusforme_image != blank -%}
+              {%- assign of_alt = 'ObusForme ergonomic back-support seating by Brant Business Interiors' -%}
+              {{ section.settings.obusforme_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: of_alt, width: 800 }}
+            {%- else -%}
+              <div class="lp-brand-tile__ph">obusforme-space.jpg &middot; 16:9</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-brand-tile__body">
+            <h3 class="lp-brand-tile__name">ObusForme</h3>
+            <p class="lp-brand-tile__meta">Ergonomic back-support seating &middot; consumer-recognizable &middot; GFG family</p>
             <span class="lp-brand-tile__cta">View brand
               <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
             </span>
@@ -317,7 +371,7 @@
           <span class="dot"></span>
           OECM Supplier Partner
         </span>
-        <p class="lp-oecm-bar__copy">OECM Supplier Partner, Agreement 2025-470 &mdash; Ontario schools, hospitals, and municipalities can purchase Keilhauer, ergoCentric, and Global/Teknion products directly from Brant Business Interiors without an open tender or RFP process.</p>
+        <p class="lp-oecm-bar__copy">OECM Supplier Partner, Agreement 2025-470 &mdash; Ontario schools, hospitals, and municipalities can purchase from across our authorized brand portfolio (Keilhauer, ergoCentric, the Global Furniture Group family &mdash; Global, Teknion, OTG, ObusForme &mdash; and Heartwood Manufacturing) directly from Brant Business Interiors without an open tender or RFP process.</p>
       </div>
       <div class="lp-oecm-bar__meta">
         <a href="/pages/oecm" class="bbi-btn bbi-btn--tertiary">
@@ -344,7 +398,7 @@
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>We are authorized dealers for Keilhauer, ergoCentric, and the Global Furniture Group (which includes Global, Teknion, and related lines). We also carry a range of other commercial manufacturers. Contact us with your spec or product name and we&rsquo;ll confirm availability and lead time.</p>
+            <p>We are authorized dealers for Keilhauer, ergoCentric, Heartwood Manufacturing, and the full Global Furniture Group family &mdash; Global, Teknion, OTG (Offices to Go), and ObusForme. We also carry a range of other commercial manufacturers. Contact us with your spec or product name and we&rsquo;ll confirm availability and lead time.</p>
           </div>
         </details>
 
@@ -401,7 +455,7 @@
       <div>
         <p class="lp-closer__eyebrow">Brand enquiries</p>
         <h2 class="lp-closer__heading">Tell us which brand you&rsquo;re specifying. We&rsquo;ll get you a quote.</h2>
-        <p class="lp-closer__sub">Authorized dealer for Keilhauer, ergoCentric, Global, and Teknion. Quote in 1 business day. Includes spec sheets and lead time on request.</p>
+        <p class="lp-closer__sub">Authorized dealer for Keilhauer, ergoCentric, Heartwood, and the Global Furniture Group family (Global, Teknion, OTG, ObusForme). Quote in 1 business day. Includes spec sheets and lead time on request.</p>
       </div>
       <div class="lp-closer__actions">
         <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
@@ -437,7 +491,10 @@
     { "type": "header", "content": "Brand tile images (16:9 each)" },
     { "type": "image_picker", "id": "keilhauer_image", "label": "Keilhauer tile image", "info": "Upload keilhauer-space.jpg from data/page-images/keilhauer/" },
     { "type": "image_picker", "id": "ergocentric_image", "label": "ergoCentric tile image", "info": "Upload ergocentric-space.jpg from data/page-images/ergocentric/" },
-    { "type": "image_picker", "id": "global_image", "label": "Global/Teknion tile image", "info": "Upload global-teknion-space.jpg from data/page-images/global-teknion/" }
+    { "type": "image_picker", "id": "global_image", "label": "Global/Teknion tile image", "info": "Upload global-teknion-space.jpg from data/page-images/global-teknion/" },
+    { "type": "image_picker", "id": "otg_image", "label": "OTG tile image", "info": "Upload otg-space.jpg" },
+    { "type": "image_picker", "id": "heartwood_image", "label": "Heartwood tile image", "info": "Upload heartwood-space.jpg" },
+    { "type": "image_picker", "id": "obusforme_image", "label": "ObusForme tile image", "info": "Upload obusforme-space.jpg" }
   ],
   "presets": [{ "name": "Brands Hub" }]
 }

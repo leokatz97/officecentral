@@ -458,8 +458,8 @@ li.ds-cs__card--hidden{display:none;}
           </div>{%- comment -%}/.ds-cs__sidebar-body{%- endcomment -%}
         </aside>
 
-        {%- comment -%} ── Product grid ── {%- endcomment -%}
-        <div class="ds-cs__grid" role="main">
+        {%- comment -%} ── Product grid ── A11Y DEV-1 fix 2026-05-20: removed duplicate role="main" (parent <main> already provides main landmark) {%- endcomment -%}
+        <div class="ds-cs__grid">
           <div class="ds-cs__grid-header">
             <h2>
               {%- if current_tags.size > 0 -%}
