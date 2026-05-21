@@ -161,7 +161,7 @@
 
 /* ---- Intro ---- */
 .lp-ind .lp-intro{padding:var(--space-12) 0;}
-.lp-ind .lp-intro__inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ind .lp-intro__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
 .lp-ind .lp-intro__eyebrow{
   display:inline-flex;align-items:center;gap:var(--space-2);
   color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);
@@ -574,6 +574,107 @@
 .lp-ind :where(a,button,[role="button"]):focus-visible{
   outline:2px solid var(--textColor);outline-offset:2px;border-radius:4px;
 }
+
+/* ============================================================
+   CONTENT-POLISH-1 modules — Entity-clarity, Proof bar,
+   Coverage table, How-to-Purchase, Entity note
+   ============================================================ */
+.lp-ind .lp-entity{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ind .lp-entity__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ind .lp-entity__head{margin-bottom:var(--space-6);}
+.lp-ind .lp-entity__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-ind .lp-entity__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ind .lp-entity h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-3);text-wrap:balance;}
+.lp-ind .lp-entity__body{display:grid;gap:18px;}
+.lp-ind .lp-entity__body p{font-size:17px;line-height:1.6;color:rgba(var(--textColor-rgb),.78);margin:0;text-wrap:pretty;}
+.lp-ind .lp-entity__glance{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:48px 0 0;padding:24px 0 0;border-top:1px solid var(--borderColor);}
+.lp-ind .lp-entity__glance-item{padding:0 24px;}
+.lp-ind .lp-entity__glance-item + .lp-entity__glance-item{border-left:1px solid var(--borderColor);}
+.lp-ind .lp-entity__glance-item:first-child{padding-left:0;}
+.lp-ind .lp-entity__glance-item:last-child{padding-right:0;}
+.lp-ind .lp-entity__glance dt{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.6);margin-bottom:8px;}
+.lp-ind .lp-entity__glance dd{font-family:var(--headingFont);font-size:15px;line-height:1.4;color:var(--textColor);margin:0;font-weight:500;}
+
+.lp-ind .lp-proof-bar{background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),.6);border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ind .lp-proof-bar__inner{max-width:1280px;margin:0 auto;padding:var(--space-8) var(--space-6);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8);}
+.lp-ind .lp-proof-bar__stat{display:flex;flex-direction:column;gap:var(--space-2);}
+.lp-ind .lp-proof-bar__stat + .lp-proof-bar__stat{border-left:1px solid rgba(var(--borderColor-rgb),.6);padding-left:var(--space-8);}
+.lp-ind .lp-proof-bar__stat-num{font-family:var(--headingFont);font-size:40px;line-height:1;font-weight:600;color:var(--headingColor);display:flex;align-items:center;gap:var(--space-3);}
+.lp-ind .lp-proof-bar__stat-num::before{content:"";display:inline-block;width:14px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ind .lp-proof-bar__stat-label{font-size:13px;color:rgba(var(--textColor-rgb),.6);font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.04em;text-transform:uppercase;}
+.lp-ind .lp-proof-bar__stat-detail{font-size:14px;color:rgba(var(--textColor-rgb),.78);line-height:1.5;margin-top:var(--space-2);}
+
+.lp-ind .lp-coverage{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ind .lp-coverage__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ind .lp-coverage__head{margin-bottom:var(--space-6);}
+.lp-ind .lp-coverage__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-ind .lp-coverage__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ind .lp-coverage h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-3);text-wrap:balance;}
+.lp-ind .lp-coverage__sub{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),.7);margin:0;text-wrap:pretty;}
+.lp-ind .lp-coverage__table-wrap{margin-top:var(--space-6);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.lp-ind .lp-coverage__table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px;}
+.lp-ind .lp-coverage__table th,
+.lp-ind .lp-coverage__table td{padding:14px 16px;text-align:right;border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ind .lp-coverage__table thead th{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.6);font-weight:500;border-bottom:1px solid rgba(var(--borderColor-rgb),1);}
+.lp-ind .lp-coverage__table th:first-child,
+.lp-ind .lp-coverage__table td:first-child{text-align:left;font-weight:500;color:var(--textColor);}
+.lp-ind .lp-coverage__table tbody tr:last-child td{border-bottom:2px solid var(--textColor);font-weight:600;}
+.lp-ind .lp-coverage__table td.is-total{font-weight:600;color:var(--textColor);}
+.lp-ind .lp-coverage__table td.is-empty{color:rgba(var(--textColor-rgb),.35);}
+.lp-ind .lp-coverage__footnote{margin-top:var(--space-4);font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),.6);text-wrap:pretty;}
+.lp-ind .lp-coverage__footnote a{color:var(--linkColor);text-decoration:underline;text-underline-offset:3px;}
+
+.lp-ind .lp-howto{padding:var(--space-12) 0;background:var(--alternateBackground);}
+.lp-ind .lp-howto__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ind .lp-howto__head{margin-bottom:var(--space-8);}
+.lp-ind .lp-howto__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-ind .lp-howto__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ind .lp-howto h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-ind .lp-howto__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);}
+.lp-ind .lp-howto__step{background:var(--cardBackground);padding:var(--space-6);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);display:grid;grid-template-rows:auto auto 1fr;gap:var(--space-3);}
+.lp-ind .lp-howto__step-num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;color:rgba(var(--textColor-rgb),.6);}
+.lp-ind .lp-howto__step-title{font-family:var(--headingFont);font-size:18px;line-height:1.3;font-weight:600;color:var(--headingColor);margin:0;}
+.lp-ind .lp-howto__step-body{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),.78);margin:0;text-wrap:pretty;}
+.lp-ind .lp-howto__footnote{margin-top:var(--space-6);font-size:14px;line-height:1.55;color:rgba(var(--textColor-rgb),.7);text-wrap:pretty;}
+.lp-ind .lp-howto__footnote a{color:var(--linkColor);text-decoration:underline;text-underline-offset:3px;}
+
+.lp-ind .lp-entity-note{padding:var(--space-6) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ind .lp-entity-note__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ind .lp-entity-note p{font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),.6);margin:0;text-wrap:pretty;max-width:92ch;}
+.lp-ind .lp-entity-note b{color:rgba(var(--textColor-rgb),.85);font-weight:600;}
+
+/* Top Products (CONTENT-POLISH-1) */
+.lp-ind .lp-products{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ind .lp-products__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ind .lp-products__head{margin-bottom:var(--space-8);}
+.lp-ind .lp-products__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-ind .lp-products__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ind .lp-products h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-ind .lp-products__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);}
+.lp-ind .lp-product-card{display:flex;flex-direction:column;background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-ind .lp-product-card__media{position:relative;display:block;aspect-ratio:1/1;background:#fff;padding:var(--space-6);overflow:hidden;}
+.lp-ind .lp-product-card__media img{width:100%;height:100%;object-fit:contain;}
+.lp-ind .lp-product-card__sale{position:absolute;top:var(--space-3);left:var(--space-3);background:var(--saleBadgeBackground);color:#fff;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px;font-weight:600;}
+.lp-ind .lp-product-card__body{padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);flex:1;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ind .lp-product-card__vendor{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.55);margin:0;}
+.lp-ind .lp-product-card__title{font-family:var(--headingFont);font-size:15px;font-weight:600;color:var(--headingColor);margin:0;line-height:1.3;}
+.lp-ind .lp-product-card__title a{color:inherit;text-decoration:none;}
+.lp-ind .lp-product-card__title a:hover{text-decoration:underline;}
+.lp-ind .lp-product-card__price{font-size:14px;color:rgba(var(--textColor-rgb),.7);margin:0 0 var(--space-2);flex:1;}
+.lp-ind .lp-product-card__cta{display:block;text-align:center;padding:10px 16px;border:1px solid var(--borderColor);border-radius:var(--buttonRadius);font-size:14px;font-weight:500;color:var(--textColor);text-decoration:none;transition:background-color 160ms;}
+.lp-ind .lp-product-card__cta:hover{background:var(--alternateBackground);}
+@media(max-width:980px){.lp-ind .lp-products__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.lp-ind .lp-products__grid{grid-template-columns:1fr;}}
+
+@media(max-width:980px){
+  .lp-ind .lp-entity__glance{grid-template-columns:1fr;padding-top:0;}
+  .lp-ind .lp-entity__glance-item{border-left:0;border-bottom:1px solid var(--borderColor);padding:16px 0;}
+  .lp-ind .lp-entity__glance-item + .lp-entity__glance-item{border-left:0;}
+  .lp-ind .lp-entity__glance-item:last-child{border-bottom:0;}
+  .lp-ind .lp-proof-bar__inner{grid-template-columns:1fr;gap:var(--space-6);}
+  .lp-ind .lp-proof-bar__stat + .lp-proof-bar__stat{border-left:none;border-top:1px solid rgba(var(--borderColor-rgb),.6);padding-left:0;padding-top:var(--space-6);}
+  .lp-ind .lp-howto__steps{grid-template-columns:1fr;}
+}
 </style>
 
 <div class="lp-ind">
@@ -588,14 +689,14 @@
     <div class="lp-hero__inner">
       <div class="lp-hero__text">
         <p class="lp-hero__eyebrow bbi-mono">
-          <span class="lp-hero__eyebrow-label">Office Furniture for Canadian Institutions</span>
+          <span class="lp-hero__eyebrow-label">Office Furniture for Canadian Institutions &amp; Private Offices</span>
         </p>
         <span class="lp-hero__badge">
           <span class="lp-hero__badge-dot"></span>
-          OECM Supplier Partner &middot; Agreement 2025-470
+          Family-owned &middot; since 1964 &middot; Peterborough, ON
         </span>
-        <h1>{{ section.settings.heading | default: 'Furniture built for the organizations that keep Ontario running.' }}</h1>
-        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'As a verified OECM Supplier Partner (Agreement 2025-470), Brant Business Interiors serves healthcare, education, government, non-profit, and professional services organizations across Ontario — and across Canada.' }}</p>
+        <h1>{{ section.settings.heading | default: 'Five sectors we furnish. One Ontario team that owns the file end-to-end.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Schools, hospitals, council chambers, NGOs, and professional offices &mdash; all sourced, quoted, delivered, and installed by the same Peterborough team since 1964. OECM Supplier Partner Agreement 2025-470 for Ontario public-sector buyers; PO and NET-30 for private-sector offices.' }}</p>
         <div class="lp-hero__cta-row">
           <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
             Request a Quote <span class="arrow">&#8594;</span>
@@ -622,12 +723,218 @@
   {%- comment -%}INTRO{%- endcomment -%}
   <section class="lp-intro" aria-label="About our institutional service">
     <div class="lp-intro__inner">
-      <p class="lp-intro__eyebrow bbi-mono">Serving Canadian institutions since 1964</p>
-      <h2>Built for the way your organization actually buys.</h2>
+      <p class="lp-intro__eyebrow bbi-mono">Who we serve</p>
+      <h2>Ontario institutional procurement and Canadian private offices &mdash; same catalog, two flows.</h2>
       <div class="lp-intro__body">
-        <p>Brant Business Interiors is a verified OECM Supplier Partner (Agreement 2025-470), an Ontario-based, Canadian-owned commercial furniture dealer serving healthcare, education, government, and non-profit organizations across Ontario and Canada. Ontario public-sector buyers can purchase under this standing agreement without an open tender process.</p>
-        <p>We understand the procurement requirements, the durability standards, and the budget cycles that institutional buyers work with. Brant Business Interiors furnishes institutions across Canada &mdash; from Ontario&rsquo;s school boards and health teams to offices in BC and Alberta. Every project starts with a free design layout. Every delivery includes the option for professional installation.</p>
+        <p>Roughly 60% of our work is Ontario&rsquo;s broader public sector &mdash; school boards, hospitals, family health teams, municipalities, post-secondary, and not-for-profits &mdash; purchasing under OECM Supplier Partner Agreement 2025-470 without an open tender.</p>
+        <p>The remaining 40% is Canadian private-sector offices in professional services, manufacturing, trades, and healthcare practices &mdash; buying the same catalog with PO and NET-30 terms.</p>
+        <p>Both buyer types get the same Ontario account team, the same free space layout, and the same install crew. Delivery is across Canada; installation is Ontario and Western Canada.</p>
       </div>
+    </div>
+  </section>
+
+  {%- comment -%}BROWSE THE CATALOGUE (moved between Intro and Entity-clarity per CONTENT-POLISH-1){%- endcomment -%}
+  <section class="lp-catalogue" aria-label="Browse by product category">
+    <div class="lp-catalogue__inner">
+      <div class="lp-catalogue__head">
+        <p class="lp-catalogue__eyebrow bbi-mono">Browse the catalogue</p>
+        <h2>Start with the category, end with a PO.</h2>
+        <p class="lp-catalogue__sub">Every category is OECM-eligible. Quote in 1 business day.</p>
+      </div>
+      <div class="lp-catalogue__grid">
+        <a class="lp-cat-card" href="/collections/seating">
+          <span class="lp-cat-card__num">01</span>
+          <h3 class="lp-cat-card__title">Seating <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Task chairs, side chairs, lounge, stacking &amp; bariatric. ergoCentric ergonomic series included.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/desks">
+          <span class="lp-cat-card__num">02</span>
+          <h3 class="lp-cat-card__title">Desks &amp; Workstations <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Height-adjustable and fixed-height desks. Private offices, open plans, and reception.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/storage">
+          <span class="lp-cat-card__num">03</span>
+          <h3 class="lp-cat-card__title">Storage &amp; Filing <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Lateral, vertical, and mobile pedestal units. Secure locking options for records-heavy environments.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/tables">
+          <span class="lp-cat-card__num">04</span>
+          <h3 class="lp-cat-card__title">Tables <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Training, meeting, flip-top, and café tables. Nesting options for multi-use rooms.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/boardroom">
+          <span class="lp-cat-card__num">05</span>
+          <h3 class="lp-cat-card__title">Boardroom <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Conference tables and executive seating for council chambers, boardrooms, and boardroom suites.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/ergonomic-products">
+          <span class="lp-cat-card__num">06</span>
+          <h3 class="lp-cat-card__title">Ergonomic Products <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Sit-stand converters, monitor arms, keyboard trays, and footrests. Supports duty-of-care requirements.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/panels-room-dividers">
+          <span class="lp-cat-card__num">07</span>
+          <h3 class="lp-cat-card__title">Panels &amp; Dividers <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Freestanding screens and panel systems. Privacy partitions for open-plan and hybrid offices.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/quiet-spaces">
+          <span class="lp-cat-card__num">08</span>
+          <h3 class="lp-cat-card__title">Quiet Spaces <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Acoustic pods and focus booths for open-plan environments. No construction required.</p>
+        </a>
+        <a class="lp-cat-card" href="/collections/accessories">
+          <span class="lp-cat-card__num">09</span>
+          <h3 class="lp-cat-card__title">Accessories <span class="arrow">&#8594;</span></h3>
+          <p class="lp-cat-card__desc">Whiteboards, coat hooks, waste bins, task lighting, and workspace add-ons.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}ENTITY-CLARITY (CONTENT-POLISH-1, AI-7 Version B voice){%- endcomment -%}
+  <section class="lp-entity" aria-label="Who Brant Business Interiors is">
+    <div class="lp-entity__inner">
+      <div class="lp-entity__head">
+        <p class="lp-entity__eyebrow">Who we are</p>
+        <h2>A Peterborough commercial office furniture dealer, family-owned since 1964.</h2>
+      </div>
+      <div class="lp-entity__body">
+        <p>Brant Business Interiors is a commercial office furniture dealer headquartered at 296 George St N, Peterborough, ON. The legal entity behind our OECM agreement is Brant Basics &mdash; same family, same team, same address. Part of the Office Central group.</p>
+        <p>We carry commercial-grade seating, desks, storage, tables, panels, and acoustic furniture from authorized lines: Global Furniture Group, OTG / Offices to Go, Heartwood Manufacturing, ObusForme, plus 25+ additional manufacturers. Roughly 60% of our work is Ontario institutional procurement under OECM Supplier Partner Agreement 2025-470; 40% is Canadian private-sector offices in professional services, manufacturing, healthcare practices, and trades.</p>
+        <p>Delivery is Canada-wide. Installation is Ontario and Western Canada. Quote, freight, install, and warranty all handled by the same Ontario account team.</p>
+      </div>
+      <dl class="lp-entity__glance">
+        <div class="lp-entity__glance-item">
+          <dt>Founded</dt>
+          <dd>1964 &middot; Peterborough, ON &middot; Family-owned</dd>
+        </div>
+        <div class="lp-entity__glance-item">
+          <dt>OECM</dt>
+          <dd>Supplier Partner Agreement 2025-470</dd>
+        </div>
+        <div class="lp-entity__glance-item">
+          <dt>Reach</dt>
+          <dd>Quote in 1 business day &middot; Install ON + Western Canada</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  {%- comment -%}TOP PRODUCTS (CONTENT-POLISH-1 — pulls top desk, sit-stand, and chairs){%- endcomment -%}
+  {%- assign tp1 = section.settings.top_product_1 -%}
+  {%- assign tp2 = section.settings.top_product_2 -%}
+  {%- assign tp3 = section.settings.top_product_3 -%}
+  {%- assign tp4 = section.settings.top_product_4 -%}
+  {%- if tp1 == blank -%}{%- assign tp1 = collections.desks.products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = all_products['citi-lounge-seating-3-sizes-available'] -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections['height-adjustable-tables-desks'].products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections['height-adjustable-tables'].products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections.desks.products[1] -%}{%- endif -%}
+  {%- if tp3 == blank -%}{%- assign tp3 = collections.seating.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.seating.products[1] -%}{%- endif -%}
+  <section class="lp-products" aria-label="Top products">
+    <div class="lp-products__inner">
+      <div class="lp-products__head">
+        <p class="lp-products__eyebrow">Top products</p>
+        <h2>{{ section.settings.top_products_heading | default: 'Top desks, sit-stand workstations, and chairs.' }}</h2>
+      </div>
+      <div class="lp-products__grid">
+        {%- if tp1 != blank and tp1 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp1.url }}">{%- if tp1.compare_at_price_max > tp1.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp1.featured_image -%}{{ tp1.featured_image | image_url: width: 600 | image_tag: alt: tp1.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp1.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp1.url }}">{{ tp1.title }}</a></h3><p class="lp-product-card__price">From {{ tp1.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp1.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp2 != blank and tp2 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp2.url }}">{%- if tp2.compare_at_price_max > tp2.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp2.featured_image -%}{{ tp2.featured_image | image_url: width: 600 | image_tag: alt: tp2.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp2.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp2.url }}">{{ tp2.title }}</a></h3><p class="lp-product-card__price">From {{ tp2.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp2.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp3 != blank and tp3 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp3.url }}">{%- if tp3.compare_at_price_max > tp3.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp3.featured_image -%}{{ tp3.featured_image | image_url: width: 600 | image_tag: alt: tp3.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp3.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp3.url }}">{{ tp3.title }}</a></h3><p class="lp-product-card__price">From {{ tp3.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp3.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp4 != blank and tp4 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp4.url }}">{%- if tp4.compare_at_price_max > tp4.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp4.featured_image -%}{{ tp4.featured_image | image_url: width: 600 | image_tag: alt: tp4.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp4.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp4.url }}">{{ tp4.title }}</a></h3><p class="lp-product-card__price">From {{ tp4.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp4.url }}">View product</a></div></article>{%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}PROOF BAR (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-proof-bar" aria-label="Track record">
+    <div class="lp-proof-bar__inner">
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">2025-470</span>
+        <span class="lp-proof-bar__stat-label">OECM Agreement number</span>
+        <span class="lp-proof-bar__stat-detail">Supplier Partner &middot; Office furniture category &middot; Current contract cycle.</span>
+      </div>
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">340+</span>
+        <span class="lp-proof-bar__stat-label">OECM POs delivered</span>
+        <span class="lp-proof-bar__stat-detail">Across 90+ Ontario school boards, hospitals, and municipalities across current and prior contract cycles.</span>
+      </div>
+      <div class="lp-proof-bar__stat">
+        <span class="lp-proof-bar__stat-num">1 day</span>
+        <span class="lp-proof-bar__stat-label">Quote turnaround</span>
+        <span class="lp-proof-bar__stat-detail">Most line-item quotes return within one business day of intake.</span>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}COVERAGE TABLE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-coverage" aria-label="OECM Agreement 2025-470 coverage table">
+    <div class="lp-coverage__inner">
+      <div class="lp-coverage__head">
+        <p class="lp-coverage__eyebrow">Coverage</p>
+        <h2>OECM Agreement 2025-470 &mdash; coverage by category and brand.</h2>
+        <p class="lp-coverage__sub">All categories below ship under Agreement 2025-470 at OECM-negotiated terms for OECM-eligible buyers, and at contract pricing for private-sector buyers. Counts are storefront-callable manufacturer lines; ergoCentric, Keilhauer, and 25+ additional authorized lines are also Agreement-eligible and quoted on request.</p>
+      </div>
+      <div class="lp-coverage__table-wrap">
+        <table class="lp-coverage__table">
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Global Furniture Group</th>
+              <th scope="col">OTG / Offices to Go</th>
+              <th scope="col">Heartwood Manufacturing</th>
+              <th scope="col">ObusForme</th>
+              <th scope="col">Category total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Seating (task, executive, side, lounge)</td><td>45</td><td>44</td><td class="is-empty">&mdash;</td><td>6</td><td class="is-total">95</td></tr>
+            <tr><td>Desks &amp; workstations</td><td>9</td><td>13</td><td>11</td><td class="is-empty">&mdash;</td><td class="is-total">33</td></tr>
+            <tr><td>Tables (conference, training, boardroom)</td><td>10</td><td>4</td><td>6</td><td class="is-empty">&mdash;</td><td class="is-total">20</td></tr>
+            <tr><td>Storage &amp; filing</td><td>6</td><td>9</td><td>9</td><td class="is-empty">&mdash;</td><td class="is-total">24</td></tr>
+            <tr><td>Panels &amp; dividers</td><td class="is-empty">&mdash;</td><td>2</td><td class="is-empty">&mdash;</td><td class="is-empty">&mdash;</td><td class="is-total">2</td></tr>
+            <tr><td>Accessories (CPU holders, monitor arms, etc.)</td><td class="is-empty">&mdash;</td><td>3</td><td class="is-empty">&mdash;</td><td class="is-empty">&mdash;</td><td class="is-total">3</td></tr>
+            <tr><td><b>Brand total</b></td><td><b>70</b></td><td><b>75</b></td><td><b>26</b></td><td><b>6</b></td><td class="is-total"><b>177</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lp-coverage__footnote">Need a brand or category not listed? Call <a href="tel:18008359565"><b>1-800-835-9565</b></a> &mdash; most Agreement 2025-470 lines aren&rsquo;t on the storefront yet.</p>
+    </div>
+  </section>
+
+  {%- comment -%}HOW TO PURCHASE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-howto" aria-label="How to purchase">
+    <div class="lp-howto__inner">
+      <div class="lp-howto__head">
+        <p class="lp-howto__eyebrow">How to purchase</p>
+        <h2>Three steps from wish list to install.</h2>
+      </div>
+      <div class="lp-howto__steps">
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 01</span>
+          <h3 class="lp-howto__step-title">Send your wish list</h3>
+          <p class="lp-howto__step-body">Floor plan, square footage, seat counts, or a photo of your existing room. Whatever you have. Email it, call 1-800-835-9565, or use the quote form.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 02</span>
+          <h3 class="lp-howto__step-title">Line-item quote in 1 business day</h3>
+          <p class="lp-howto__step-body">Pricing at Agreement 2025-470 negotiated rates for OECM buyers; standard contract pricing for private-sector. SKU-level detail your procurement office can match against the OECM catalog. Lead times noted per line.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 03</span>
+          <h3 class="lp-howto__step-title">You issue a PO; we deliver and install</h3>
+          <p class="lp-howto__step-body">Your purchasing policy still applies &mdash; signing limits, board approval, internal PO authorization &mdash; but the tender step disappears for OECM buyers. Our own crew handles delivery and install across Ontario. One invoice.</p>
+        </article>
+      </div>
+      <p class="lp-howto__footnote">Eligible OECM buyers: Ontario school boards, hospitals and CCACs, publicly-assisted colleges and universities, municipalities and their agencies, broader-public-sector organizations, and not-for-profits in social services and education. Not sure if your organization qualifies? Call <a href="tel:18008359565"><b>1-800-835-9565</b></a> &mdash; five-minute confirmation.</p>
+    </div>
+  </section>
+
+  {%- comment -%}ENTITY NOTE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-entity-note" aria-label="Legal entity and registration">
+    <div class="lp-entity-note__inner">
+      <p><b>Brant Business Interiors</b> is the operating brand of <b>Brant Basics</b>, our OECM-registered legal entity. Family-owned since 1964, headquartered at 296 George St N, Peterborough, ON K9J 3H2. Part of the Office Central group.</p>
     </div>
   </section>
 
@@ -745,7 +1052,7 @@
           </div>
           <div class="card-overlay">
             <h3>Healthcare</h3>
-            <span class="card-meta">Clinics &middot; Hospitals &middot; FHTs &middot; Long-term care</span>
+            <span class="card-meta">Clinics &middot; FHTs &middot; long-term care &middot; hospitals &mdash; cleanable, OECM-eligible</span>
           </div>
         </a>
 
@@ -759,7 +1066,7 @@
           </div>
           <div class="card-overlay">
             <h3>Education</h3>
-            <span class="card-meta">School boards &middot; Colleges &middot; Independent schools</span>
+            <span class="card-meta">K&ndash;12 boards &middot; colleges &middot; libraries &mdash; summer install windows, OECM</span>
           </div>
         </a>
 
@@ -773,7 +1080,7 @@
           </div>
           <div class="card-overlay">
             <h3>Government &amp; Municipal</h3>
-            <span class="card-meta">Municipalities &middot; Agencies &middot; Crown corps</span>
+            <span class="card-meta">Municipal &middot; provincial agencies &middot; council chambers &mdash; OECM Supplier Partner</span>
           </div>
         </a>
 
@@ -787,7 +1094,7 @@
           </div>
           <div class="card-overlay">
             <h3>Non-Profit</h3>
-            <span class="card-meta">Community services &middot; Social agencies &middot; Foundations</span>
+            <span class="card-meta">Community services &middot; housing co-ops &middot; social agencies &mdash; qualifying NGOs OECM-eligible</span>
           </div>
         </a>
 
@@ -801,68 +1108,10 @@
           </div>
           <div class="card-overlay">
             <h3>Professional Services</h3>
-            <span class="card-meta">Law &middot; Accounting &middot; Medical &middot; Insurance &middot; Design</span>
+            <span class="card-meta">Law &middot; accounting &middot; medical &middot; design firms &mdash; NET-30, free design layout</span>
           </div>
         </a>
 
-      </div>
-    </div>
-  </section>
-
-  {%- comment -%}BROWSE THE CATALOGUE{%- endcomment -%}
-  <section class="lp-catalogue" aria-label="Browse by product category">
-    <div class="lp-catalogue__inner">
-      <div class="lp-catalogue__head">
-        <p class="lp-catalogue__eyebrow bbi-mono">Browse the catalogue</p>
-        <h2>Start with the category, end with a PO.</h2>
-        <p class="lp-catalogue__sub">Every category is OECM-eligible. Quote in 1 business day.</p>
-      </div>
-      <div class="lp-catalogue__grid">
-        <a class="lp-cat-card" href="/collections/seating">
-          <span class="lp-cat-card__num">01</span>
-          <h3 class="lp-cat-card__title">Seating <span class="arrow">&#8594;</span></h3>
-          <p class="lp-cat-card__desc">Task chairs, side chairs, lounge, stacking &amp; bariatric. ergoCentric ergonomic series included.</p>
-        </a>
-        <a class="lp-cat-card" href="/collections/desks">
-          <span class="lp-cat-card__num">02</span>
-          <h3 class="lp-cat-card__title">Desks &amp; Workstations <span class="arrow">&#8594;</span></h3>
-          <p class="lp-cat-card__desc">Height-adjustable and fixed-height desks. Private offices, open plans, and reception.</p>
-        </a>
-        <a class="lp-cat-card" href="/collections/storage">
-          <span class="lp-cat-card__num">03</span>
-          <h3 class="lp-cat-card__title">Storage &amp; Filing <span class="arrow">&#8594;</span></h3>
-          <p class="lp-cat-card__desc">Lateral, vertical, and mobile pedestal units. Secure locking options for records-heavy environments.</p>
-        </a>
-        <a class="lp-cat-card" href="/collections/tables">
-          <span class="lp-cat-card__num">04</span>
-          <h3 class="lp-cat-card__title">Tables <span class="arrow">&#8594;</span></h3>
-          <p class="lp-cat-card__desc">Training, meeting, flip-top, and café tables. Nesting options for multi-use rooms.</p>
-        </a>
-        <a class="lp-cat-card" href="/collections/boardroom">
-          <span class="lp-cat-card__num">05</span>
-          <h3 class="lp-cat-card__title">Boardroom <span class="arrow">&#8594;</span></h3>
-          <p class="lp-cat-card__desc">Conference tables and executive seating for council chambers, boardrooms, and boardroom suites.</p>
-        </a>
-        <a class="lp-cat-card" href="/collections/ergonomic-products">
-          <span class="lp-cat-card__num">06</span>
-          <h3 class="lp-cat-card__title">Ergonomic Products <span class="arrow">&#8594;</span></h3>
-          <p class="lp-cat-card__desc">Sit-stand converters, monitor arms, keyboard trays, and footrests. Supports duty-of-care requirements.</p>
-        </a>
-        <a class="lp-cat-card" href="/collections/panels-room-dividers">
-          <span class="lp-cat-card__num">07</span>
-          <h3 class="lp-cat-card__title">Panels &amp; Dividers <span class="arrow">&#8594;</span></h3>
-          <p class="lp-cat-card__desc">Freestanding screens and panel systems. Privacy partitions for open-plan and hybrid offices.</p>
-        </a>
-        <a class="lp-cat-card" href="/collections/quiet-spaces">
-          <span class="lp-cat-card__num">08</span>
-          <h3 class="lp-cat-card__title">Quiet Spaces <span class="arrow">&#8594;</span></h3>
-          <p class="lp-cat-card__desc">Acoustic pods and focus booths for open-plan environments. No construction required.</p>
-        </a>
-        <a class="lp-cat-card" href="/collections/accessories">
-          <span class="lp-cat-card__num">09</span>
-          <h3 class="lp-cat-card__title">Accessories <span class="arrow">&#8594;</span></h3>
-          <p class="lp-cat-card__desc">Whiteboards, coat hooks, waste bins, task lighting, and workspace add-ons.</p>
-        </a>
       </div>
     </div>
   </section>
@@ -895,55 +1144,77 @@
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">01</span>
-            <span class="lp-faq-item__q">Which sectors are eligible to buy under OECM?</span>
+            <span class="lp-faq-item__q">Which sectors are eligible to buy under OECM Agreement 2025-470?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Any OECM-eligible organization: Ontario school boards (K&ndash;12), publicly-assisted colleges and universities, hospitals and CCACs, municipalities and their agencies, broader-public-sector organizations, and not-for-profits in the social and education sectors. If you&rsquo;re not sure, OECM publishes the eligible-buyer list on their site, or call us and we&rsquo;ll confirm in five minutes.</p>
+            <p>Any OECM-eligible organization: Ontario school boards (K&ndash;12), publicly-assisted colleges and universities, hospitals and CCACs, municipalities and their agencies, broader-public-sector organizations, and not-for-profits in social services and education. If you&rsquo;re not sure, OECM publishes the eligible-buyer list on their site, or call 1-800-835-9565 and we&rsquo;ll confirm in five minutes.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">02</span>
-            <span class="lp-faq-item__q">What are typical lead times for institutional orders?</span>
+            <span class="lp-faq-item__q">Do I still need internal sign-off if I&rsquo;m OECM-eligible?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Most in-stock items ship within 2&ndash;3 weeks. Custom-configured or upholstered pieces are typically 6&ndash;10 weeks depending on the manufacturer. We&rsquo;ll confirm lead time on your quote before you commit, and we flag anything with long-lead items clearly. For time-sensitive projects, tell us your move-in date and we&rsquo;ll work backwards from there.</p>
+            <p>Yes &mdash; your organization&rsquo;s purchasing policy still applies (signing limits, board approvals, internal PO authorization). What disappears under Agreement 2025-470 is the open-tender step. Most OECM buyers go quote &rarr; internal PO authorization &rarr; Brant Business Interiors PO. The 6&ndash;8 weeks normally spent issuing an RFP, evaluating bids, and writing a contract is what you skip.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">03</span>
-            <span class="lp-faq-item__q">Do you accept purchase orders and NET 30 terms?</span>
+            <span class="lp-faq-item__q">What&rsquo;s the typical lead time on a multi-room institutional order?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Yes &mdash; purchase orders, NET 30, and invoiced accounts are standard. We match your accounts payable process, not the other way around. Credit applications take 1&ndash;2 business days. If your organization needs a specific invoice format, PO reference field, or split billing, just let us know on the quote and we&rsquo;ll accommodate it.</p>
+            <p>Most in-stock seating and storage ships within 2&ndash;3 weeks. Custom-configured or upholstered pieces (boardroom tables, COM seating, panel systems) are typically 6&ndash;10 weeks depending on the manufacturer. We confirm lead time per line on every quote and flag anything long-lead clearly. Tell us your move-in or term-start date and we&rsquo;ll work backwards from there.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">04</span>
-            <span class="lp-faq-item__q">Does every quote include a space plan?</span>
+            <span class="lp-faq-item__q">Do you accept POs, NET-30, and invoiced accounts for private-sector buyers too?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Yes &mdash; every quote includes a free furniture layout at no charge. Send us your floor plan (even a rough sketch or PDF) and we&rsquo;ll size the pieces, spec the finishes, and show you what it looks like before you approve anything. For larger fit-outs, our design team will provide a full 2D layout with product callouts and a finish schedule.</p>
+            <p>Yes. Purchase orders, NET-30, and invoiced accounts are standard for both institutional and private-sector buyers &mdash; no credit card required. Credit applications take 1&ndash;2 business days. If your accounts payable needs a specific invoice format, PO reference field, or split billing across departments, we accommodate it on the quote.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">05</span>
-            <span class="lp-faq-item__q">How does delivery and installation work?</span>
+            <span class="lp-faq-item__q">Does every quote include a free space plan?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>We deliver across Ontario and ship across Canada. Professional installation is available as an add-on &mdash; our crews handle uncrating, assembly, placement, and debris removal. For multi-floor or phased projects, we coordinate delivery windows with your facilities team. We can also coordinate after-hours or weekend delivery for occupied buildings where access is restricted during business hours.</p>
+            <p>Yes &mdash; free 2D layout on every project. Send your floor plan (AutoCAD, PDF, or a rough sketch) and our design team sizes the pieces, specs the finishes, and shows you the layout before you commit. For larger fit-outs we provide product callouts and a finish schedule. On-site measure available when needed.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">06</span>
+            <span class="lp-faq-item__q">How does delivery and installation work across Ontario?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Brant Business Interiors&rsquo; own crew handles delivery, assembly, levelling, and removal of old furniture &mdash; we don&rsquo;t subcontract logistics. Delivery is across Canada; installation is Ontario and Western Canada. After-hours and weekend installs are available for occupied spaces (operating clinics, schools in session, municipal buildings during business hours). W5-cleared installers for hospital and ministry sites.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">07</span>
+            <span class="lp-faq-item__q">Can you handle multi-site institutional rollouts (e.g., 11 schools, 4 hospital wings)?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; multi-site is most of our institutional work. We quote per-site with a master roll-up, sequence installs against your operational calendar (summer for schools, after-hours for clinical sites), and ship to a single warehouse or direct-to-site depending on what your facilities team prefers. One Ontario project manager owns the file across every location.</p>
           </div>
         </details>
 
@@ -1081,6 +1352,36 @@
       "id": "testimonial_logo",
       "label": "Client logo",
       "info": "Upload kawartha-dairy-logo.jpg from data/testimonials/"
+    },
+    {
+      "type": "header",
+      "content": "Top Products"
+    },
+    {
+      "type": "text",
+      "id": "top_products_heading",
+      "label": "Section heading",
+      "default": "Top desks, sit-stand workstations, and chairs."
+    },
+    {
+      "type": "product",
+      "id": "top_product_1",
+      "label": "Product 1 (default: top desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_2",
+      "label": "Product 2 (default: top sit-stand desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_3",
+      "label": "Product 3 (default: top chair)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_4",
+      "label": "Product 4 (default: second chair)"
     }
   ],
   "presets": [
