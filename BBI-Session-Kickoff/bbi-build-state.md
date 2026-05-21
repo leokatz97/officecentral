@@ -2,7 +2,7 @@
 
 > **Source of truth.** This file is canonical. The `bbi-launch-tracker` Cowork artifact is the visual dashboard view of it — both update together. Both files were rebuilt to the same navigation-optimized functional grouping on **2026-05-21 (Day 7 EOD)**: a CURRENT FOCUS / ACTIVE / HOMEWORK navigation layer on top, with the full session log, technical sections, Wave A–H tables, and backlog preserved verbatim below the divider. Full ship history lives in `docs/project/launch-tracker-archive.md`.
 
-**Current state:** 2026-05-21 (Day 8 EOD) · **40 of 54 launch steps done (74%)** · Day 8 closed · Day 9 (image work) next · launch target Day 10.
+**Current state:** 2026-05-21 (Day 8 truly closed) · **40 of 54 launch steps done (74%)** · Day 8 truly closed (incl. homepage bug fix + polish round, PR #15 → `766e555`) · Day 9 (image work) next · launch target Day 10.
 
 ---
 
@@ -10,7 +10,7 @@
 
 The next three days are the launch sequence. This mirrors the tracker's "Next 3 days" block.
 
-### Day 8 — ✅ EOD / closed (content polish + schema) → 38 → 40 of 54 (74%)
+### Day 8 — ✅ truly closed (content polish + schema + homepage bug fix) → 38 → 40 of 54 (74%)
 
 **Shipped today** (all merged to `main`, HEAD `5ec8f19`):
 - ✅ Housekeeping — bbi-build-state.md restructure + mid-day audit (closed Steps 34/54/55, removed dup Step 29, split Wave D) · commits `45cad41` + `59a7eec`.
@@ -22,15 +22,15 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 
 **Count:** 38 → **40 of 54 (74%)**. Only AI-9 + AI-5 are new numbered-step closures; A11Y Phase 1.5 (Step 50 upgrade) and Task #12 DEV-3 (sub-work) shipped cleanly but don't move the /54.
 
-**Day 8 evening addendum 2026-05-21 — Homepage bug fix (Task #13 cosmetic):** Replaced all 14 broken `bbi-hp-*.jpg` `<img>` refs in `theme/templates/index.json` (hero + 4 shop tiles + 3 featured cards + 5 industries + Kawartha avatar) with safe `<div class="bbi-hp-ph bbi-hp-ph--*" role="img" aria-label="...">` placeholders styled in `theme/assets/bbi-homepage.css` using literal hex from the BBI design system gray ramp + semantic surfaces. Hero gets a gradient (ink → gray-700 → accent-press); shop tiles + industries get solid color blocks (overlays/numerals still readable on top); featured cards get light gray blocks; Kawartha avatar becomes a "KD" monogram on `--bbi-accent-tint`. Hero H1 also trimmed to "Commercial furniture for the way Canadian offices actually work." Font work in Phase 2 of the original prompt was started then reverted — turned out the homepage layout doesn't load `ds-landing.css` so the BBI font tokens (`--bbi-font-sans` / `--bbi-font-mono`) are undefined on the homepage; reverting kept the visible site uniform. **Real images still come Day 9 (IMAGE-SOURCING-V2 / Step 46) — Task #13 is fully covered by tonight's cosmetic fix until then.** Branch `feature/homepage-bug-fix`. *(cosmetic fix, not a numbered-step closure — does NOT increment /54)*
+**Day 8 evening addendum 2026-05-21 — Homepage bug fix + polish round (Task #13 cosmetic, PR #15 → `766e555`):** Branch `feature/homepage-bug-fix`, 2 commits. **(1) Bug fix `e6bc89a`:** replaced all 14 broken `bbi-hp-*.jpg` `<img>` refs in `theme/templates/index.json` (hero + 4 shop tiles + 3 featured cards + 5 industries + Kawartha avatar) with safe `<div class="bbi-hp-ph bbi-hp-ph--*" role="img" aria-label="...">` placeholders styled in `theme/assets/bbi-homepage.css` using literal hex from the BBI design system gray ramp + semantic surfaces. Hero gets a gradient (ink → gray-700 → accent-press); shop tiles + industries get solid color blocks (overlays/numerals still readable on top); featured cards get light gray blocks; Kawartha avatar becomes a "KD" monogram on `--bbi-accent-tint`. Hero H1 trimmed to "Commercial furniture for the way Canadian offices actually work." **(2) Polish round `6e3f983`:** "Who we are" section made full-width (removed 76ch / 22ch caps); secondary button outlines now visible (1px BBI-ink → filled on hover); 6 small design-system color accents added (trust strip + about-glance left accent bars + OECM tint + services top border + case-study year pills). 3 files changed (build-state.md, index.json, bbi-homepage.css). **PR #15 merged cleanly to main as `766e555`; DEV theme `186373570873` in sync with main.** Font work in Phase 2 was started then reverted — the homepage layout doesn't load `ds-landing.css` so the BBI font tokens (`--bbi-font-sans` / `--bbi-font-mono`) are undefined on the homepage; reverting kept fonts uniform sitewide (tracked as **FONT-TOKENS-FOLLOWUP** in ACTIVE STEPS). **Real images still come Day 9 (IMAGE-SOURCING-V2 / Step 46) — Task #13 cosmetic aspect is fully covered by tonight's fix until then; Day 9 swaps placeholders → real stock images, slots + aspect ratios preserved.** *(cosmetic fix, not a numbered-step closure — does NOT increment /54)*
 
-**Status:** Closed for the day. Day 9 image plan ready (below).
+**Status:** ✅ Day 8 truly closed. Final accounting: 7 PRs created today, 6 merged to main (one EOD was a direct edit). Progress 38/54 (70%) → 40/54 (74%) — the homepage bug fix is Task #13 (post-launch backlog), so the /54 count is unchanged. Day 9 image plan ready (below).
 
 ### Day 9 — ▶ NEXT · Image work (full day) → ~46–48 of 54 (85–89%)
 
-**Prereq:** Step 53 INSTALL-PHOTO-QUERY answered by Steve before the session fires (gates approach: real photos vs stock vs mixed). **Also flag W0-1** (GSC + GA4) — Steve homework that must be set up before LAUNCH-2 (Day 10).
+**Prereq ✅ cleared:** Step 53 INSTALL-PHOTO-QUERY answered 2026-05-21 — **stock is fine**, so the Day 9 approach is locked to stock imagery (no install-photo library dependency). **Still flag W0-1** (GSC + GA4) — Steve homework that must be set up before LAUNCH-2 (Day 10).
 
-- **Task #13** — homepage image rot · 11 broken `bbi-hp-*.jpg` assets (CDN t/24 slot defunct).
+- **Task #13** — homepage image rot · 14 broken `bbi-hp-*.jpg` refs now showing safe design-system placeholders (PR #15 → `766e555`) · Day 9 swaps placeholders → real stock images (slots + aspect ratios preserved).
 - **3 brand page heroes** — OTG, Heartwood, ObusForme (currently placeholders).
 - **Customer-stories case study images.**
 - **9 collection page banner/hero images** — Tier 1 must-have.
@@ -38,6 +38,7 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 - PR + merge image work (~15 min).
 - Tracker + build-state EOD update — closes IMAGE-SOURCING-V2 (tracker Step 46).
 - **CONSOLIDATED 2026-05-21 (Day 8 audit):** Step 29 IMG-PHASE2 ("product image regen ≥80% coverage", soft gate) folded into Step 46 and removed from the ACTIVE STEPS layer — its scope was already covered here. The Step 46 umbrella covers the 82 active image slots across Tier 1/2/3 folders + 14 deferred brand-pages images + the items listed above (~6–8h session). All BBI launch image work now lives under this single umbrella step. (NAV-VERIFY, formerly mis-referenced as a second IMG-PHASE2 duplicate, is a separate completed item and was left intact.)
+- **Homepage placeholders in place (PR #15 → `766e555`):** the 14 broken homepage refs now show design-system placeholders — Day 9 replaces them with real **stock** images (Step 53 answered: stock is fine); slots + aspect ratios preserved for a drop-in swap. The `bbi-featured` 3-card block still needs **Steve's product picks (Idea #15)** — OTG/GFG/Heartwood SKUs — before its images can be finalized.
 - **Outcome:** all visual polish complete.
 
 ### Day 10 — LAUNCH DAY → ~50+ of 54 (93%+)
@@ -60,17 +61,18 @@ Tracker step → build-state Wave row, with one-line status.
 
 - **LEAD-2** (Step 22, Wave E) — lead routing gap analysis. Owner: Claude Code. Open.
 - **INTERLINK-3** (Step 26, Wave E) — final cross-link audit. Owner: Claude Code. ✅ Unblocked — CONTENT-POLISH-1 merged to main (PR #10); ready to fire any time post-Wave-E.
-- **INSTALL-PHOTO-QUERY** (Step 53) — does BBI have an installation photo library? Owner: Steve. 🟡 homework; gates the Day 9 approach. Fire ASAP.
+- **INSTALL-PHOTO-QUERY** (Step 53) — ✅ answered 2026-05-21: **stock is fine**. Day 9 approach locked to stock imagery; no longer blocking. Owner: Steve.
 - **SEO-AUDIT-1** (Step 35, Wave E) — technical SEO audit via DataForSEO MCP (HARD GATE before LAUNCH-0). Owner: Claude Code. Blocked: DataForSEO MCP not connected + dev preview not externally crawlable.
 - **BLOG-SEED-1** (Step 36, Phase 4 / Backlog) — 3 cornerstone blog posts. Owner: Cowork + Steve. Mostly post-launch but a hard launch gate per CLAUDE.md; PREREQ Article/BlogPosting JSON-LD on `ds-article.liquid`.
 - **PERF-AUDIT-1** (Step 30, Wave E) — Lighthouse + CWV. Owner: Claude Code. 🟡 Phase 1 done (LIVE Avada baseline); Phase 2 re-runs post-LAUNCH-2 against the new theme.
 - **A11Y-AUDIT-1** (Step 31, Wave E) — WCAG 2.1 AA. Owner: Claude Code. 🟡 Phase 1 partial (Fix D applied; A/B/C no-ops); Phase 2 post-LAUNCH-2.
+- **FONT-TOKENS-FOLLOWUP** (new — flagged from the homepage bug fix session 2026-05-21) — the homepage uses Avada residual fonts (`--headingFont`, `--bodyFont`, hardcoded JetBrains Mono). The font refactor was attempted then reverted because the homepage layout doesn't load `ds-landing.css` where the `--bbi-font-*` tokens are defined — refactoring would have broken fonts sitewide on the homepage. Needs a separate session to either load `ds-landing.css` globally in `theme/layout/theme.liquid` OR define `--bbi-font-*` tokens locally in `bbi-homepage.css`. Owner: Claude Code. 🟡 Not launch-blocking — design-system consistency item.
 
 ---
 
 ## 👤 STEVE HOMEWORK (consolidated)
 
-- **INSTALL-PHOTO-QUERY (Step 53)** — installation photo library check (drives / old CMS / photographer files). Gates the Day 9 image approach. Fire ASAP. 🟡
+- ~~**INSTALL-PHOTO-QUERY (Step 53)**~~ — ✅ **ANSWERED 2026-05-21: stock is fine.** Day 9 image approach locked to stock imagery; no install-photo library dependency. No longer blocking Day 9.
 - **W0-1** — Google Search Console + GA4 setup. CRITICAL — no SEO data compounds without it. **Now sequenced as pre-LAUNCH-2 (Day 10).** ⬜
 - **W0-2** — Create / claim BBI Google Business Profile (`google.com/business`). _Moved to Wave D parallel / post-launch acceptable — not blocking launch._ ⬜
 - **W0-3** — Upload the product redirects CSV in Shopify Admin (`data/url-redirects.csv` exists). **Now sequenced as pre-LAUNCH-2 (Day 10) — Leo.** 🟡
@@ -105,6 +107,7 @@ Mirrors the tracker's Completed Archive. Full commits/counts/rationale in `docs/
 > **Also shipped Day 8 but NOT counted in the /54** (so the count moved 38 → 40, not 42):
 > - **Step 50 A11Y-AUDIT-1 Phase 1.5** — PSI re-run on LIVE Avada (15 URLs × 2 strategies, all 4 Lighthouse categories, authenticated PSI API key). Read-only; no theme writes. **Result:** mobile P 58 / A 98 / BP 93 / SEO 95 · desktop P 83 / A 95 / BP 94 / SEO 95. **No regressions from Wave E** (content + schema shipped on dev theme only, not on LIVE). Mobile LCP still red on 15/15 URLs (Avada page-builder bloat); CLS clean 30/30. Three a11y binary audits fail across most pages — `heading-order` 26/30, `target-size` 15/30, `color-contrast` 4/30 — worth confirming on new theme. Outputs: `data/reports/a11y-audit-1-phase-1.5-2026-05-21.{csv,md}` · PR #13 → b0e29b4. *(Upgrade to already-counted Step 50 — authoritative new-theme re-baseline gated by Phase 2 post-LAUNCH-2.)*
 > - **Task #12 DEV-3** — search.json + 7 customers/* templates migrated into `bbi_landing` gate (closes A11Y Fix E + a latent launch gap) · branch `feature/dev-3-task-12` · PR #14 → 5ec8f19. *(Sub-work, not a numbered launch step.)*
+> - **Homepage bug fix + polish round** — PR #15 merged `766e555` · branch `feature/homepage-bug-fix` (2 commits `e6bc89a` + `6e3f983`) · 14 broken `bbi-hp-*.jpg` refs → safe design-system placeholders + hero H1 trim + "Who we are" full-width + secondary button outlines + 6 design-system color accents · homepage no longer shows broken images · closes the cosmetic aspect of **Task #13** (Day 9 swaps placeholders for real stock images, slots + aspect ratios preserved). DEV theme `186373570873` in sync with main. *(Task #13 is a post-launch backlog item — does NOT increment the /54.)*
 > - Operational: build-state.md restructure committed (commit 45cad41) + mid-day audit (commit 59a7eec); PR-MERGE-3 — PR #10 merged as merge commit 24ade31.
 
 **Day 6 · 2026-05-20 — 9 items**
