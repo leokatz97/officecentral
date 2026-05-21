@@ -1,5 +1,154 @@
 # BBI Build State — Single Source of Truth
 
+> **Source of truth.** This file is canonical. The `bbi-launch-tracker` Cowork artifact is the visual dashboard view of it — both update together. Both files were rebuilt to the same navigation-optimized functional grouping on **2026-05-21 (Day 7 EOD)**: a CURRENT FOCUS / ACTIVE / HOMEWORK navigation layer on top, with the full session log, technical sections, Wave A–H tables, and backlog preserved verbatim below the divider. Full ship history lives in `docs/project/launch-tracker-archive.md`.
+
+**Current state:** 2026-05-21 (Day 7 EOD) · **35 of 55 launch steps done (64%)** · Day 8 plan locked · launch target Day 10.
+
+---
+
+## 🎯 CURRENT FOCUS — Day 8 / Day 9 / Day 10
+
+The next three days are the launch sequence. This mirrors the tracker's "Next 3 days" block.
+
+### Day 8 — Tomorrow (content polish + schema) → ~41–43 of 55 (75–78%)
+
+- **Session B** — CONTENT-POLISH-1 part 2 (tracker Step 54): 7 service + adjacent pages with AI-7/AI-8 voice + Session A standardization (~2–2.5h, 10+ halts), then PR + merge (~15 min).
+- **AI-9** (Step 19): FAQ blocks + FAQPage JSON-LD on 9 category pages (~2.5–3h), then PR + merge (~15 min).
+- **AI-5** (Step 20): FAQPage JSON-LD on Design Services + OECM verification (~30–45 min).
+- **A11Y Phase 1.5**: PSI re-run on DEV preview URLs (~15–20 min, mechanical).
+- **Task #12 DEV-3** if quick (~45–60 min, else defer post-launch).
+- Tracker + build-state EOD update (~15 min, Cowork).
+- **Outcome:** all voice + schema work complete.
+
+### Day 9 — Image work (full day) → ~46–48 of 55 (84–87%)
+
+**Prereq:** Step 53 INSTALL-PHOTO-QUERY answered by Steve before the session fires (gates approach: real photos vs stock vs mixed).
+
+- **Task #13** — homepage image rot · 11 broken `bbi-hp-*.jpg` assets (CDN t/24 slot defunct).
+- **3 brand page heroes** — OTG, Heartwood, ObusForme (currently placeholders).
+- **Customer-stories case study images.**
+- **9 collection page banner/hero images** — Tier 1 must-have.
+- **ALL tile images across entire website (NEW SCOPE)** — homepage shop tiles + category page tiles + brand-page crosslink tiles + industry Top Products + service page tiles (~50+ images sitewide).
+- PR + merge image work (~15 min).
+- Tracker + build-state EOD update — closes IMAGE-SOURCING-V2 (tracker Step 46).
+- **Outcome:** all visual polish complete.
+
+### Day 10 — LAUNCH DAY → ~50+ of 55 (90%+)
+
+- **SYS-VERIFY-1 Phase 2** (Step 33) — launch gate verification (~1.5–2h).
+- **LAUNCH-0** (Step 37) — image confirmation gate (Leo row-by-row approval).
+- **LAUNCH-1** (Step 38) — pre-publish GO/NO-GO report.
+- **LAUNCH-2** (Step 39) — manual Publish click in Shopify Admin (THE GO-LIVE).
+- **LAUNCH-3** (Step 40) — sitemap to GSC + 72h 404 monitor.
+- **LAUNCH-4** (Step 41) — mobile smoke test (Chrome, Safari, Firefox, iOS, Android).
+- **Outcome:** BBI launched live.
+
+---
+
+## 🔧 ACTIVE STEPS — open, not in the 3-day window
+
+Tracker step → build-state Wave row, with one-line status.
+
+- **LEAD-2** (Step 22, Wave E) — lead routing gap analysis. Owner: Claude Code. Open.
+- **INTERLINK-3** (Step 26, Wave E) — final cross-link audit. Owner: Claude Code. Blocked until BRAND-PAGES-1 merges to main; should fire after CONTENT-POLISH-1.
+- **IMG-PHASE2** (Step 29, Wave E) — product image regen ≥80% coverage (soft gate). Owner: Claude Code + Steve. Folds into Day 9 image work.
+- **IMAGE-SOURCING-V2** (Step 46) — hand-curated image sourcing + apply. Owner: Steve (sourcing) + Claude Code (apply). 🟡 deferred-paused, runs as the Day 9 session. **SCOPE EXPANDED 2026-05-21 (Day 7 EOD planning):** in addition to the 82 active image slots across Tier 1/2/3 folders + 14 brand-pages images deferred, Step 46 now also covers: (1) Task #13 homepage image rot — 11 broken `bbi-hp-*.jpg` assets (CDN t/24 slot defunct); (2) ALL tile images across the entire website — homepage shop tiles + category page tiles + brand-page crosslink tiles + industry page Top Products + service page tiles (~50+ images sitewide); (3) Customer-stories case study images; (4) Brand page hero images (OTG, Heartwood, ObusForme). Day 9 dedicated full-day session estimated 6-8 hours. Prereq: Step 53 INSTALL-PHOTO-QUERY answer from Steve determines approach.
+- **INSTALL-PHOTO-QUERY** (Step 53) — does BBI have an installation photo library? Owner: Steve. 🟡 homework; gates the Day 9 approach. Fire ASAP.
+- **STEVE-FACT-CHECK** (Step 55) — verify 3 factual claims surfaced during AI-7/AI-8. Owner: Steve. **✅ Resolved 2026-05-21** (see Steve homework below); needs formal close.
+- **CONTENT-1** (Step 34, Wave E) — finalize BBI logo asset. Owner: Leo. Locked to `bbi-logo-v2` per BRAND-PAGES-1 (2026-05-20); needs the row formally closed.
+- **SEO-AUDIT-1** (Step 35, Wave E) — technical SEO audit via DataForSEO MCP (HARD GATE before LAUNCH-0). Owner: Claude Code. Blocked: DataForSEO MCP not connected + dev preview not externally crawlable.
+- **BLOG-SEED-1** (Step 36, Phase 4 / Backlog) — 3 cornerstone blog posts. Owner: Cowork + Steve. Mostly post-launch but a hard launch gate per CLAUDE.md; PREREQ Article/BlogPosting JSON-LD on `ds-article.liquid`.
+- **PERF-AUDIT-1** (Step 30, Wave E) — Lighthouse + CWV. Owner: Claude Code. 🟡 Phase 1 done (LIVE Avada baseline); Phase 2 re-runs post-LAUNCH-2 against the new theme.
+- **A11Y-AUDIT-1** (Step 31, Wave E) — WCAG 2.1 AA. Owner: Claude Code. 🟡 Phase 1 partial (Fix D applied; A/B/C no-ops); Phase 2 post-LAUNCH-2.
+
+---
+
+## 👤 STEVE HOMEWORK (consolidated)
+
+- **INSTALL-PHOTO-QUERY (Step 53)** — installation photo library check (drives / old CMS / photographer files). Gates the Day 9 image approach. Fire ASAP. 🟡
+- **W0-1** — Google Search Console + GA4 setup. CRITICAL — no SEO data compounds without it. ⬜
+- **W0-2** — Create / claim BBI Google Business Profile (`google.com/business`). ⬜
+- **W0-3** — Upload the product redirects CSV in Shopify Admin (`data/url-redirects.csv` exists). 🟡
+- **LEAD-3 manual follow-ups** (from Wave E LEAD-3 🟡) — set Shopify `customer_email` → `info@brantbusinessinteriors.com`; verify subject-line behaviour + set M365 inbox rules; set M365 auto-replies on quotes@/design@/info@. See `docs/strategy/bbi-lead-routing.md`.
+- **STEVE-FACT-CHECK (Step 55) — ✅ RESOLVED 2026-05-21:** (1) Proof-bar stat 02 numbers verified by Steve; (2) Legal entity name — 'Brant Basics' for OECM/legal/policy contexts; 'Brant Business Interiors Inc.' for storefront/consumer-facing/operations; (3) Ownership framing — 'Ontario-owned' for government/OECM/public-sector procurement contexts (provenance); 'family-owned' for trust-building/heritage/about-us/relationship contexts.
+
+> Note: **LEAD-INBOX-1 (Step 21)** is no longer open Steve homework — reconciled to **✅ done 2026-05-14** (commit `b6a6855`; aliases confirmed, external test emails received) per the canonical Wave E row, and the dependent LEAD-3 is also done.
+
+---
+
+## 👤 LEO HOMEWORK (consolidated)
+
+- **CONTENT-1 (Step 34)** — formally close the logo decision (`bbi-logo-v2` locked per BRAND-PAGES-1; no new wordmark sourcing).
+- **LAUNCH-0 (Step 37)** — row-by-row image CSV approval. Hard gate before LAUNCH-1 (Day 10).
+- **LAUNCH-2 (Step 39)** — the manual Publish click in Shopify Admin. Never automated (Day 10).
+- **Git push + merge** — `feature/brand-pages-1` → `feature/ai-7-ai-8` → `feature/content-polish-1-session-a` to origin in sequence (branches local-only after their sessions; brittle if laptop fails before push).
+
+---
+
+## ✅ COMPLETED STEPS — condensed, by day (35 items)
+
+Mirrors the tracker's Completed Archive. Full commits/counts/rationale in `docs/project/launch-tracker-archive.md` and the Wave A–H tables preserved below.
+
+**Day 6 · 2026-05-20 — 9 items**
+- Step 17 AI-7 — homepage entity-clarity copy (Version B plainspoken); commit 17da6cc
+- Step 18 AI-8 — OECM page hardening (Version A); 177-product Coverage Table + 8 procurement FAQs; commit 17da6cc
+- Step 25 BRAND-PAGES-1 — 3 new brand pages + 15 smart collections + nav/footer/hub; commit 70c242c (22 files)
+- Step 47 SYS-VERIFY-1 Phase 1 — read-only audit of 8 system surfaces; commit 52417c8
+- Step 48 POLICY-PAGES-AUDIT — policy content gap audit (4 wrong-entity findings); commit d81c0e8
+- Step 49 POLICY-WRITE-1 — rewrote all 4 policies + Shopify contact to Brant Business Interiors
+- Step 50 A11Y-AUDIT-1 Phase 1 — 🟡 baseline; Fix D applied, A/B/C no-ops; commit 64a567c
+- Step 51 SYS-VERIFY-CLEANUP-1 — 8 findings; 15 LIVE pages unpublished, 40 redirect changes; commit 8d66860
+- Step 52 S4-CONTACT-FIX — address 295→296 across 6 files + contact map embed; commit a59a774
+
+**Day 4 · 2026-05-15 — 5 items**
+- Step 16 PAGE-IMG-1 — filled hero/sub-hero slots, 99 ops across 28 templates; commit be1409d
+- Step 42 CATALOG-NAV-INVESTIGATION — 5-area navigability audit; commits 8e0de9a + f8f9b09
+- Step 43 TYPE-APPLY-1 — type:* coverage 68%→94.9%; commit 52cd8d7
+- Step 44 CATEGORY-TILE-FIX-1 — fixed sub-category tiles across 9 templates; commit 5c29b13
+- Step 45 TILE-CLEANUP-1 — removed remaining 0-count tiles; commit 1eaafc8
+
+**Day 3 · 2026-05-14 — 7 items**
+- Step 3 BUG-FIX-3 — OECM + industry tag remediation; 584 oecm-eligible; commit 1ddbe05 (closes Phase 1)
+- Step 21 LEAD-INBOX-1 — provisioned quotes@/design@/info@ aliases; SPF/DKIM/DMARC; test emails confirmed; commit b6a6855
+- Step 23 LEAD-3 — per-type lead routing + auto-replies (Option D); commits df105af, 1be5ca5, e9cb497
+- Step 24 COMP-SCRAPE-1 — ugoburo.ca competitor audit (unlocked AI-7/8)
+- Step 27 NAV-VERIFY — homepage + collections render shared nav; 62 links; commit 3aa74c3
+- Step 28 DS-VERIFY — design-system screenshot diff; 97 sections inventoried; commit f38d2d0
+- Step 32 LINK-ROT-1 — 94 URLs swept, 1 dead fixed; commits 589bcff + b779f3e
+
+**Day 2 · 2026-05-13 — 11 items**
+- Step 2 BUG-FIX-2 — OECM tag mass-application investigation; commit cc7c31c
+- Step 6 TAG-INDUSTRY-CHECK — industry:* tag investigation (retire)
+- Step 7 BUG-FIX-4 — uploaded 48 OCI photos + fixed Our Work page
+- Step 8 PE-PASS-3 — ran remaining enrichment batches (~82 products)
+- Step 9 PE-PASS-3-REVIEW — review xlsx + live-pushed approvals
+- Step 10 CANONICAL-MAP-ADDITIONS — +10 brand entries; commit 29bcbad
+- Step 11 APPLY-MAP-ADDITIONS — re-tagged 14 products; commit 66a0bff
+- Step 12 COLLECTION-AUDIT — audited 371 collections (read-only); commit a24b9e3
+- Step 13 COLLECTION-CLEANUP-APPLY — 164 collections unpublished + redirects; commit 737f6f6
+- Step 14 BRAND-CALLOUT-AUDIT — fixed brand callouts on category pages; commit 326241f
+- Step 15 PROMPT-5 — image slot audit (read-only)
+
+**Day 1 · 2026-05-12 — 3 items**
+- Step 1 VENDOR-NORMALIZE-1 — built canonical brand vocabulary
+- Step 4 VENDOR-NORMALIZE-2 — applied canonical brands to 152 products
+- Step 5 TAG-AUDIT-1 — audited all tag prefixes
+
+---
+
+> ═══════════════════════════════════════════════════════════════════════
+> **EVERYTHING BELOW THIS LINE IS PRESERVED VERBATIM** from the prior
+> `bbi-build-state.md` — the canonical session log, ⛔ Hard Rules + Safety
+> Rules, Lessons Learned, Known Data Hygiene Issues, the full Wave A–H
+> tables, the post-launch Backlog, and all reference sections. The
+> navigation layer above is the dashboard view; the record below is the
+> source detail. (One surgical annotation was added to the Wave E
+> `IMG-PHASE2` row pointing to the CURRENT FOCUS / ACTIVE STEPS image-scope
+> note above; nothing was removed.)
+> ═══════════════════════════════════════════════════════════════════════
+
+---
+
 **Last updated:** 2026-05-21 (CONTENT-POLISH-1 Session A COMPLETE — 6 industry pages refreshed (industries hub + healthcare + education + government + non-profit + professional-services) with AI-7/AI-8 voice patterns · NEW Entity-clarity section · NEW Coverage Table (5 OECM-heavy pages) · NEW How-to-Purchase 3-step (5 OECM-heavy pages) · NEW Entity note · NEW Top Products 4-card grid (all 6 pages) · 5× proof-bar factual fix (2019→2025-470) · Pro-Svc since-1982→1964 fix · Pro-Svc Keilhauer→storefront-callable rebrand · 39 procurement-actionable FAQs replacing 30 generic · Browse-categories crosslinks repositioned between Intro and Who-we-are on all 5 industry pages · Industries hub Browse-catalogue repositioned · Layout standardization (intro 880→1280px, full-width heads + body copy on entity/coverage/howto sections, glance dl spacing fixed, hero badge CSS scoped to .lp-hc/.lp-edu/.lp-gov/.lp-np/.lp-ps) · branch feature/content-polish-1-session-a from main)
 **Prior session 2026-05-20:** AI-7 + AI-8 COMPLETE — homepage entity-clarity copy (new bbi-about section + bbi-hero refresh; Version B plainspoken) · OECM page hardening (new Coverage Table section · new How-to-Purchase 3-step · new Entity note · 3 factual errors fixed · 8 procurement-focused FAQs · hero settings refreshed; Version A comprehensive) · branch feature/ai-7-ai-8 stacked on feature/brand-pages-1
 **Prior session 2026-05-20:** BRAND-PAGES-1 + A11Y bundle COMPLETE — 3 new brand pages (OTG, Heartwood, ObusForme) via Approach A clone · Global/Teknion rescoped to GFG-family per Option A · 15 brand×category smart collections live + populated (177 product memberships) · Brands hub updated to 6 tiles · nav menu (desktop + mobile) + footer Brands column (new 5th col) + homepage meta description + about page + Phase 5 Fix D (duplicate role="main" removed) · branch feature/brand-pages-1
@@ -473,7 +622,7 @@ Shopify Admin import.
 | **SEO-AUDIT-1** | **Technical SEO audit via DataForSEO MCP (HARD GATE)** | ⬜ | `data/reports/seo-audit-<date>.json` + `docs/reviews/seo-audit-<date>.md` | **Pre-launch hard gate — must run before LAUNCH-0.** Use the DataForSEO MCP (`on_page` + `lighthouse` + `domain_analytics` tools) against BBI Landing Dev (`186373570873` preview URL). Required checks: (a) crawl every published page in `bbi_landing` gate, (b) meta titles + descriptions present and within length limits, (c) H1 hierarchy correct (one H1 per page, no skipped levels), (d) all schema validates (Organization, Product, BreadcrumbList, FAQPage from AI-3..AI-6), (e) canonical tags resolve, (f) no broken internal links, (g) Lighthouse mobile perf ≥ 80, (h) Core Web Vitals pass on top 5 templates (home, OECM, quote, industries hub, healthcare). Output a per-page issue list with severity (block / fix / waive). All `block` items must be resolved or explicitly waived in the report before LAUNCH-0 can run. |
 | NAV-VERIFY | Homepage + collection pages render shared nav | ⬜ | DOM check | Verify NAV-3, NAV-4 stuck |
 | DS-VERIFY | DS pre-launch verification (HARD GATE) | ⬜ | screenshot diff vs T5 locked | Brand-red unified, dark-mode block stays deleted, tokens intact |
-| IMG-PHASE2 | Product image regen (≥80% coverage SOFT GATE) | ⬜ | `data/reports/img-phase2-coverage.csv` | Waiver CSV for the rest |
+| IMG-PHASE2 | Product image regen (≥80% coverage SOFT GATE) | ⬜ | `data/reports/img-phase2-coverage.csv` | Waiver CSV for the rest. · **SCOPE NOTE 2026-05-21:** folds into the Day 9 image session — see CURRENT FOCUS Day 9 + ACTIVE STEPS → IMAGE-SOURCING-V2 (tracker Step 46), scope expanded to also cover Task #13 homepage image rot + ALL tile images sitewide + customer-stories case-study images + brand-page heroes. |
 | PERF-AUDIT-1 | Lighthouse + Core Web Vitals on top 10 pages | 🟡 | `data/reports/perf-audit-2026-05-14.{csv,md}` · commit `036b232` | **Phase 1 complete (live Avada baseline) — Phase 2 required post-LAUNCH-2.** Phase 1 ran PSI API (mobile) against the current LIVE theme (Avada) — NOT the new BBI Landing Dev theme. Dev theme preview requires admin browser session; external crawlers cannot access it. Results: avg score 63, **10/10 FAIL** (all pages LCP > 4 000ms — Avada JS/plugin bloat). These scores reflect what we're replacing, not what we're launching. **Phase 2 (required for ✅):** re-run post-LAUNCH-2 against `brantbusinessinteriors.com` without `?preview_theme_id` to get authoritative new-theme scores. Target: mobile Lighthouse ≥ 80 per CLAUDE.md. |
 | A11Y-AUDIT-1 | WCAG 2.1 AA audit on top 10 pages | ⬜ | TBD `data/reports/a11y-audit-<date>.csv` | axe-core or pa11y CLI on the same 10 pages. Hard fails: missing alt text, no form labels, contrast < 4.5:1, focus traps broken, keyboard gaps. Per-page issue list. |
 | LINK-ROT-1 | Internal + external link 200/404 sweep | ⬜ | TBD `data/reports/link-rot-<date>.csv` | Crawl every `<a href>` across all bbi_landing pages. Internal: assert 200. External: flag 404/500/timeouts. |
