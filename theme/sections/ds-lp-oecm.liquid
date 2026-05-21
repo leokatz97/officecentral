@@ -221,6 +221,48 @@
 .bbi-lp-oecm .lp-faq__answer p { margin: 0 0 var(--space-3); text-wrap: pretty; }
 .bbi-lp-oecm .lp-faq__answer p:last-child { margin-bottom: 0; }
 
+/* Coverage table (AI-8) */
+.bbi-lp-oecm .lp-coverage { padding: var(--space-12) 0; border-top: 1px solid rgba(var(--borderColor-rgb),.6); border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-oecm .lp-coverage__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-oecm .lp-coverage__head { margin-bottom: var(--space-6); max-width: 760px; }
+.bbi-lp-oecm .lp-coverage__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
+.bbi-lp-oecm .lp-coverage__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-coverage h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-3); text-wrap: balance; }
+.bbi-lp-oecm .lp-coverage__sub { font-size: 15px; line-height: 1.55; color: rgba(var(--textColor-rgb),.7); margin: 0; max-width: 72ch; text-wrap: pretty; }
+.bbi-lp-oecm .lp-coverage__table-wrap { margin-top: var(--space-6); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.bbi-lp-oecm .lp-coverage__table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+.bbi-lp-oecm .lp-coverage__table th,
+.bbi-lp-oecm .lp-coverage__table td { padding: 14px 16px; text-align: right; border-bottom: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-oecm .lp-coverage__table thead th { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(var(--textColor-rgb),.6); font-weight: 500; border-bottom: 1px solid rgba(var(--borderColor-rgb),1); }
+.bbi-lp-oecm .lp-coverage__table th:first-child,
+.bbi-lp-oecm .lp-coverage__table td:first-child { text-align: left; font-weight: 500; color: var(--textColor); }
+.bbi-lp-oecm .lp-coverage__table tbody tr:last-child td { border-bottom: 2px solid var(--textColor); font-weight: 600; }
+.bbi-lp-oecm .lp-coverage__table td.is-total { font-weight: 600; color: var(--textColor); }
+.bbi-lp-oecm .lp-coverage__table td.is-empty { color: rgba(var(--textColor-rgb),.35); }
+.bbi-lp-oecm .lp-coverage__footnote { margin-top: var(--space-4); font-size: 13px; line-height: 1.55; color: rgba(var(--textColor-rgb),.6); text-wrap: pretty; }
+.bbi-lp-oecm .lp-coverage__footnote a { color: var(--linkColor); text-decoration: underline; text-underline-offset: 3px; }
+
+/* How-to-Purchase (AI-8) */
+.bbi-lp-oecm .lp-howto { padding: var(--space-12) 0; background: var(--alternateBackground); }
+.bbi-lp-oecm .lp-howto__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-oecm .lp-howto__head { margin-bottom: var(--space-8); max-width: 640px; }
+.bbi-lp-oecm .lp-howto__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb),.6); margin-bottom: var(--space-3); }
+.bbi-lp-oecm .lp-howto__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+.bbi-lp-oecm .lp-howto h2 { font-family: var(--headingFont); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--headingColor); margin: 0; text-wrap: balance; }
+.bbi-lp-oecm .lp-howto__steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+.bbi-lp-oecm .lp-howto__step { background: var(--cardBackground); padding: var(--space-6); border: 1px solid rgba(var(--borderColor-rgb),.6); border-radius: var(--cardRadius); display: grid; grid-template-rows: auto auto 1fr; gap: var(--space-3); }
+.bbi-lp-oecm .lp-howto__step-num { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; color: rgba(var(--textColor-rgb),.6); }
+.bbi-lp-oecm .lp-howto__step-title { font-family: var(--headingFont); font-size: 18px; line-height: 1.3; font-weight: 600; color: var(--headingColor); margin: 0; }
+.bbi-lp-oecm .lp-howto__step-body { font-size: 15px; line-height: 1.55; color: rgba(var(--textColor-rgb),.78); margin: 0; text-wrap: pretty; }
+.bbi-lp-oecm .lp-howto__footnote { margin-top: var(--space-6); font-size: 14px; line-height: 1.55; color: rgba(var(--textColor-rgb),.7); text-wrap: pretty; max-width: 92ch; }
+.bbi-lp-oecm .lp-howto__footnote a { color: var(--linkColor); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Entity note (AI-8) */
+.bbi-lp-oecm .lp-entity-note { padding: var(--space-6) 0; border-top: 1px solid rgba(var(--borderColor-rgb),.6); }
+.bbi-lp-oecm .lp-entity-note__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.bbi-lp-oecm .lp-entity-note p { font-size: 13px; line-height: 1.55; color: rgba(var(--textColor-rgb),.6); margin: 0; text-wrap: pretty; max-width: 92ch; }
+.bbi-lp-oecm .lp-entity-note b { color: rgba(var(--textColor-rgb),.85); font-weight: 600; }
+
 /* Responsive */
 @media (max-width: 980px) {
   .bbi-lp-oecm .lp-hero__inner { grid-template-columns: 1fr; gap: var(--space-8); }
@@ -230,6 +272,7 @@
   .bbi-lp-oecm .lp-proof-bar__inner { grid-template-columns: 1fr; gap: var(--space-6); }
   .bbi-lp-oecm .lp-proof-bar__stat + .lp-proof-bar__stat { border-left: none; border-top: 1px solid rgba(var(--borderColor-rgb),.6); padding-left: 0; padding-top: var(--space-6); }
   .bbi-lp-oecm .lp-crosslinks__grid { grid-template-columns: 1fr; }
+  .bbi-lp-oecm .lp-howto__steps { grid-template-columns: 1fr; }
   .bbi-lp-oecm .bbi-cta-section__inner { grid-template-columns: 1fr; gap: 48px; }
 }
 @media (max-width: 640px) {
@@ -342,9 +385,72 @@
       <h2>You've already done the procurement. We honour it.</h2>
       <div class="lp-intro__body">
         <p>OECM (Ontario Education Collaborative Marketplace) negotiates pre-tendered agreements on behalf of the broader public sector — schools, colleges, universities, hospitals, municipalities, and not-for-profits. If your organization is OECM-eligible, you can buy from any approved supplier under those agreed terms without running your own RFP.</p>
-        <p>Brant Business Interiors has held OECM vendor-of-record status on the office furniture category since 2019. That means our pricing, warranty terms, delivery windows, and product range are already vetted against OECM's procurement standards. You skip the tender. We skip the markup. Everyone keeps their afternoon.</p>
-        <p><a href="/pages/oecm">Read the full OECM agreement details →</a></p>
+        <p>Brant Business Interiors is registered under Agreement 2025-470 as the current OECM Supplier Partner in the office furniture category. Our pricing, warranty terms, delivery windows, and product range are already vetted against OECM's procurement standards. You skip the tender. We skip the markup. Everyone keeps their afternoon.</p>
+        <p>What you get under the agreement: line-item quotes in 1 business day, free design layout for full-room and full-office fit-outs, delivery and installation across Ontario by our own crew (no third-party logistics handoff), warranty filing handled on your behalf, and PO-friendly billing under your existing procurement workflow.</p>
       </div>
+    </div>
+  </section>
+
+  {%- comment -%} COVERAGE TABLE (AI-8) {%- endcomment -%}
+  <section class="lp-coverage" aria-label="OECM Agreement 2025-470 coverage table">
+    <div class="lp-coverage__inner">
+      <div class="lp-coverage__head">
+        <p class="lp-coverage__eyebrow bbi-mono">Coverage</p>
+        <h2>OECM Agreement 2025-470 — coverage by category and brand.</h2>
+        <p class="lp-coverage__sub">All categories below ship under Agreement 2025-470 at OECM-negotiated terms. Counts reflect the storefront-callable manufacturer lines; ergoCentric, Keilhauer, and 25+ additional authorized lines are also Agreement-eligible and quoted on request.</p>
+      </div>
+      <div class="lp-coverage__table-wrap">
+        <table class="lp-coverage__table">
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Global Furniture Group</th>
+              <th scope="col">OTG / Offices to Go</th>
+              <th scope="col">Heartwood Manufacturing</th>
+              <th scope="col">ObusForme</th>
+              <th scope="col">Category total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Seating (task, executive, side, lounge)</td><td>45</td><td>44</td><td class="is-empty">—</td><td>6</td><td class="is-total">95</td></tr>
+            <tr><td>Desks &amp; workstations</td><td>9</td><td>13</td><td>11</td><td class="is-empty">—</td><td class="is-total">33</td></tr>
+            <tr><td>Tables (conference, training, boardroom)</td><td>10</td><td>4</td><td>6</td><td class="is-empty">—</td><td class="is-total">20</td></tr>
+            <tr><td>Storage &amp; filing</td><td>6</td><td>9</td><td>9</td><td class="is-empty">—</td><td class="is-total">24</td></tr>
+            <tr><td>Panels &amp; dividers</td><td class="is-empty">—</td><td>2</td><td class="is-empty">—</td><td class="is-empty">—</td><td class="is-total">2</td></tr>
+            <tr><td>Accessories (CPU holders, monitor arms, etc.)</td><td class="is-empty">—</td><td>3</td><td class="is-empty">—</td><td class="is-empty">—</td><td class="is-total">3</td></tr>
+            <tr><td><b>Brand total</b></td><td><b>70</b></td><td><b>75</b></td><td><b>26</b></td><td><b>6</b></td><td class="is-total"><b>177</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lp-coverage__footnote">Need a brand or category not listed? Call <a href="tel:{{ section.settings.phone_href }}"><b>{{ section.settings.phone }}</b></a> — most Agreement 2025-470 lines aren't on the storefront yet.</p>
+    </div>
+  </section>
+
+  {%- comment -%} HOW TO PURCHASE (AI-8) {%- endcomment -%}
+  <section class="lp-howto" aria-label="How to purchase under OECM Agreement 2025-470">
+    <div class="lp-howto__inner">
+      <div class="lp-howto__head">
+        <p class="lp-howto__eyebrow bbi-mono">How to purchase</p>
+        <h2>Three steps from wish list to install.</h2>
+      </div>
+      <div class="lp-howto__steps">
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 01</span>
+          <h3 class="lp-howto__step-title">Send your wish list</h3>
+          <p class="lp-howto__step-body">Floor plan, square footage, a list of seat counts, or a photo of your existing room. Whatever you have. Email it, call {{ section.settings.phone }}, or use the quote form.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 02</span>
+          <h3 class="lp-howto__step-title">Line-item quote in 1 business day</h3>
+          <p class="lp-howto__step-body">Pricing at Agreement 2025-470 negotiated rates. SKU-level detail your procurement office can match against the OECM catalog. Lead times noted per line.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 03</span>
+          <h3 class="lp-howto__step-title">You issue a PO; we deliver and install</h3>
+          <p class="lp-howto__step-body">Your purchasing policy still applies — signing limits, board approval, internal PO authorization — but you skip the tender. Our own crew handles delivery and install across Ontario. One invoice, OECM-compliant.</p>
+        </article>
+      </div>
+      <p class="lp-howto__footnote">Eligible buyers: Ontario school boards, hospitals and CCACs, publicly-assisted colleges and universities, municipalities and their agencies, broader-public-sector organizations, and not-for-profits in social services and education. Not sure if your organization qualifies? Call <a href="tel:{{ section.settings.phone_href }}"><b>{{ section.settings.phone }}</b></a> — five-minute confirmation.</p>
     </div>
   </section>
 
@@ -372,13 +478,13 @@
           <span class="lp-diff-card__num">03</span>
           <span class="lp-diff-card__icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M9 16 l4 4 l4 -4 l4 4 l-4 4"/><path d="M9 16 l4 -4 l4 4 l4 -4 l4 4"/></svg></span>
           <h3 class="lp-diff-card__label"><span>Single Ontario partner</span></h3>
-          <p class="lp-diff-card__sentence">Ontario-owned since 1962, head office in Brantford. One account team owns your file from quote through warranty — no out-of-province handoffs.</p>
+          <p class="lp-diff-card__sentence">Family-owned since 1964, head office at 296 George St N, Peterborough. One Ontario account team owns your file from quote through warranty — no out-of-province handoffs.</p>
         </article>
         <article class="lp-diff-card">
           <span class="lp-diff-card__num">04</span>
           <span class="lp-diff-card__icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="4" y="4" width="10" height="10"/><rect x="18" y="4" width="10" height="10"/><rect x="4" y="18" width="10" height="10"/><rect x="18" y="18" width="10" height="10"/></svg></span>
           <h3 class="lp-diff-card__label"><span>Full brand range</span></h3>
-          <p class="lp-diff-card__sentence">18 manufacturer lines under one OECM SKU set — ergoCentric, Keilhauer, Global, Teknion, and the rest. You buy the right chair, not the closest one.</p>
+          <p class="lp-diff-card__sentence">30+ authorized manufacturer lines under Agreement 2025-470 — Global Furniture Group, OTG / Offices to Go, Heartwood Manufacturing, ObusForme, ergoCentric, Keilhauer, and the rest. You buy the right chair, not the closest one.</p>
         </article>
       </div>
     </div>
@@ -436,20 +542,27 @@
   <section class="lp-proof-bar" aria-label="Track record">
     <div class="lp-proof-bar__inner">
       <div class="lp-proof-bar__stat">
-        <span class="lp-proof-bar__stat-num">2019</span>
-        <span class="lp-proof-bar__stat-label">OECM vendor since</span>
-        <span class="lp-proof-bar__stat-detail">Office furniture category — re-qualified each contract cycle.</span>
+        <span class="lp-proof-bar__stat-num">2025-470</span>
+        <span class="lp-proof-bar__stat-label">OECM Agreement number</span>
+        <span class="lp-proof-bar__stat-detail">Supplier Partner · Office furniture category · Current contract cycle.</span>
       </div>
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">340+</span>
         <span class="lp-proof-bar__stat-label">OECM POs delivered</span>
-        <span class="lp-proof-bar__stat-detail">Across 90+ Ontario school boards, hospitals, and municipalities since 2019.</span>
+        <span class="lp-proof-bar__stat-detail">Across 90+ Ontario school boards, hospitals, and municipalities across current and prior contract cycles.</span>
       </div>
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">1 day</span>
         <span class="lp-proof-bar__stat-label">Quote turnaround</span>
         <span class="lp-proof-bar__stat-detail">Most OECM line-item quotes return within one business day of intake.</span>
       </div>
+    </div>
+  </section>
+
+  {%- comment -%} ENTITY NOTE (AI-8) {%- endcomment -%}
+  <section class="lp-entity-note" aria-label="Legal entity and registration">
+    <div class="lp-entity-note__inner">
+      <p><b>Brant Business Interiors</b> is the operating brand of <b>Brant Basics</b>, our OECM-registered legal entity. Family-owned since 1964, headquartered at 296 George St N, Peterborough, ON K9J 3H2. Part of the Office Central group.</p>
     </div>
   </section>
 
