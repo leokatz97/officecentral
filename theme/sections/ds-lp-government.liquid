@@ -99,7 +99,7 @@
 
 /* ---- Intro ---- */
 .lp-gov .lp-intro{padding:var(--space-12) 0;}
-.lp-gov .lp-intro__inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
+.lp-gov .lp-intro__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
 .lp-gov .lp-intro__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
 .lp-gov .lp-intro__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
 .lp-gov .lp-intro h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-6);text-wrap:balance;}
@@ -242,6 +242,95 @@
   .lp-gov .lp-closer__inner{padding:64px 24px;}
 }
 .lp-gov :where(a,button,[role="button"]):focus-visible{outline:2px solid var(--textColor);outline-offset:2px;border-radius:4px;}
+
+/* CONTENT-POLISH-1 modules */
+.lp-gov .lp-hero__badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:6px 12px;border:1px solid rgba(var(--borderColor-rgb),.8);border-radius:999px;margin-bottom:var(--space-6);font-size:12px;color:rgba(var(--textColor-rgb),.78);width:fit-content;}
+.lp-gov .lp-hero__badge-dot{width:6px;height:6px;border-radius:50%;background:var(--saleBadgeBackground);}
+.lp-gov .lp-entity{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-gov .lp-entity__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-gov .lp-entity__head{margin-bottom:var(--space-6);}
+.lp-gov .lp-entity__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-gov .lp-entity__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-gov .lp-entity h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-3);text-wrap:balance;}
+.lp-gov .lp-entity__body{display:grid;gap:18px;}
+.lp-gov .lp-entity__body p{font-size:17px;line-height:1.6;color:rgba(var(--textColor-rgb),.78);margin:0;text-wrap:pretty;}
+.lp-gov .lp-entity__glance{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:48px 0 0;padding:24px 0 0;border-top:1px solid var(--borderColor);}
+.lp-gov .lp-entity__glance-item{padding:0 24px;}
+.lp-gov .lp-entity__glance-item + .lp-entity__glance-item{border-left:1px solid var(--borderColor);}
+.lp-gov .lp-entity__glance-item:first-child{padding-left:0;}
+.lp-gov .lp-entity__glance-item:last-child{padding-right:0;}
+.lp-gov .lp-entity__glance dt{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.6);margin-bottom:8px;}
+.lp-gov .lp-entity__glance dd{font-family:var(--headingFont);font-size:15px;line-height:1.4;color:var(--textColor);margin:0;font-weight:500;}
+
+.lp-gov .lp-coverage{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-gov .lp-coverage__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-gov .lp-coverage__head{margin-bottom:var(--space-6);}
+.lp-gov .lp-coverage__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-gov .lp-coverage__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-gov .lp-coverage h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-3);text-wrap:balance;}
+.lp-gov .lp-coverage__sub{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),.7);margin:0;text-wrap:pretty;}
+.lp-gov .lp-coverage__table-wrap{margin-top:var(--space-6);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.lp-gov .lp-coverage__table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px;}
+.lp-gov .lp-coverage__table th,
+.lp-gov .lp-coverage__table td{padding:14px 16px;text-align:right;border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-gov .lp-coverage__table thead th{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.6);font-weight:500;border-bottom:1px solid rgba(var(--borderColor-rgb),1);}
+.lp-gov .lp-coverage__table th:first-child,
+.lp-gov .lp-coverage__table td:first-child{text-align:left;font-weight:500;color:var(--textColor);}
+.lp-gov .lp-coverage__table tbody tr:last-child td{border-bottom:2px solid var(--textColor);font-weight:600;}
+.lp-gov .lp-coverage__table td.is-total{font-weight:600;color:var(--textColor);}
+.lp-gov .lp-coverage__table td.is-empty{color:rgba(var(--textColor-rgb),.35);}
+.lp-gov .lp-coverage__footnote{margin-top:var(--space-4);font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),.6);text-wrap:pretty;}
+.lp-gov .lp-coverage__footnote a{color:var(--linkColor);text-decoration:underline;text-underline-offset:3px;}
+
+.lp-gov .lp-howto{padding:var(--space-12) 0;background:var(--alternateBackground);}
+.lp-gov .lp-howto__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-gov .lp-howto__head{margin-bottom:var(--space-8);}
+.lp-gov .lp-howto__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-gov .lp-howto__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-gov .lp-howto h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-gov .lp-howto__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);}
+.lp-gov .lp-howto__step{background:var(--cardBackground);padding:var(--space-6);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);display:grid;grid-template-rows:auto auto 1fr;gap:var(--space-3);}
+.lp-gov .lp-howto__step-num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;color:rgba(var(--textColor-rgb),.6);}
+.lp-gov .lp-howto__step-title{font-family:var(--headingFont);font-size:18px;line-height:1.3;font-weight:600;color:var(--headingColor);margin:0;}
+.lp-gov .lp-howto__step-body{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),.78);margin:0;text-wrap:pretty;}
+.lp-gov .lp-howto__footnote{margin-top:var(--space-6);font-size:14px;line-height:1.55;color:rgba(var(--textColor-rgb),.7);text-wrap:pretty;}
+.lp-gov .lp-howto__footnote a{color:var(--linkColor);text-decoration:underline;text-underline-offset:3px;}
+
+.lp-gov .lp-entity-note{padding:var(--space-6) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-gov .lp-entity-note__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-gov .lp-entity-note p{font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),.6);margin:0;text-wrap:pretty;max-width:92ch;}
+.lp-gov .lp-entity-note b{color:rgba(var(--textColor-rgb),.85);font-weight:600;}
+
+/* Top Products */
+.lp-gov .lp-products{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-gov .lp-products__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-gov .lp-products__head{margin-bottom:var(--space-8);}
+.lp-gov .lp-products__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-gov .lp-products__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-gov .lp-products h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-gov .lp-products__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);}
+.lp-gov .lp-product-card{display:flex;flex-direction:column;background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-gov .lp-product-card__media{position:relative;display:block;aspect-ratio:1/1;background:#fff;padding:var(--space-6);overflow:hidden;}
+.lp-gov .lp-product-card__media img{width:100%;height:100%;object-fit:contain;}
+.lp-gov .lp-product-card__sale{position:absolute;top:var(--space-3);left:var(--space-3);background:var(--saleBadgeBackground);color:#fff;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px;font-weight:600;}
+.lp-gov .lp-product-card__body{padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);flex:1;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-gov .lp-product-card__vendor{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.55);margin:0;}
+.lp-gov .lp-product-card__title{font-family:var(--headingFont);font-size:15px;font-weight:600;color:var(--headingColor);margin:0;line-height:1.3;}
+.lp-gov .lp-product-card__title a{color:inherit;text-decoration:none;}
+.lp-gov .lp-product-card__title a:hover{text-decoration:underline;}
+.lp-gov .lp-product-card__price{font-size:14px;color:rgba(var(--textColor-rgb),.7);margin:0 0 var(--space-2);flex:1;}
+.lp-gov .lp-product-card__cta{display:block;text-align:center;padding:10px 16px;border:1px solid var(--borderColor);border-radius:var(--buttonRadius);font-size:14px;font-weight:500;color:var(--textColor);text-decoration:none;transition:background-color 160ms;}
+.lp-gov .lp-product-card__cta:hover{background:var(--alternateBackground);}
+@media(max-width:980px){.lp-gov .lp-products__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.lp-gov .lp-products__grid{grid-template-columns:1fr;}}
+
+@media(max-width:980px){
+  .lp-gov .lp-entity__glance{grid-template-columns:1fr;padding-top:0;}
+  .lp-gov .lp-entity__glance-item{border-left:0;border-bottom:1px solid var(--borderColor);padding:16px 0;}
+  .lp-gov .lp-entity__glance-item + .lp-entity__glance-item{border-left:0;}
+  .lp-gov .lp-entity__glance-item:last-child{border-bottom:0;}
+  .lp-gov .lp-howto__steps{grid-template-columns:1fr;}
+}
 </style>
 
 <div class="lp-gov">
@@ -258,8 +347,12 @@
         <p class="lp-hero__eyebrow bbi-mono">
           <span class="lp-hero__eyebrow-label">Industry &middot; Government</span>
         </p>
-        <h1>{{ section.settings.heading | default: 'Government & Municipal Office Furniture for Ontario' }}</h1>
-        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Ontario municipalities and their agencies are OECM-eligible — procure commercial-grade office furniture without open tender. Municipal offices, council chambers, and government admin spaces across Ontario. Call 1-800-835-9565.' }}</p>
+        <span class="lp-hero__badge">
+          <span class="lp-hero__badge-dot"></span>
+          OECM Supplier Partner &middot; Agreement 2025-470 &middot; audit-trail-friendly billing
+        </span>
+        <h1>{{ section.settings.heading | default: 'Furniture for the council chamber, the agency cubicle, and the township office &mdash; under Agreement 2025-470.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Brant Business Interiors supplies office furniture to Ontario municipalities, provincial agencies, Crown corporations, and township and county councils. Buy under OECM Supplier Partner Agreement 2025-470 &mdash; no open tender, audit-trail-compliant billing, line-item POs your finance office can match against the catalog.' }}</p>
         <div class="lp-hero__cta-row">
           <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
             Request a Quote <span class="arrow">&#8594;</span>
@@ -287,11 +380,120 @@
   {%- comment -%}INTRO — AEO direct-answer anchors{%- endcomment -%}
   <section class="lp-intro" aria-label="About our government furniture">
     <div class="lp-intro__inner">
-      <p class="lp-intro__eyebrow bbi-mono">What we do</p>
-      <h2>Durable, specification-ready furniture for Ontario municipalities and agencies.</h2>
+      <p class="lp-intro__eyebrow bbi-mono">Built for public-sector procurement</p>
+      <h2>Procurement-compliant from quote to invoice &mdash; Ontario municipalities, agencies, and councils.</h2>
       <div class="lp-intro__body">
-        <p>Brant Business Interiors supplies commercial-grade office furniture for Ontario municipal governments, Crown corporations, and government agencies. That means municipal offices, council chambers, government admin spaces, and public-facing service areas &mdash; specified to withstand high-turnover institutional use.</p>
-        <p>As an OECM Supplier Partner (Agreement 2025-470), Ontario municipalities and their agencies can purchase directly from Brant Business Interiors without an open tender or RFP process. We provide a free space layout before you commit and issue a formal quote compatible with standard government PO processes. Most quotes return within one business day.</p>
+        <p>Brant Business Interiors supplies commercial-grade office furniture to Ontario municipal governments, provincial agencies, Crown corporations, and township and county councils &mdash; council chambers, municipal admin offices, agency cubicles, public-facing service counters, and government-funded community spaces. Specified for high-turnover, audit-grade use.</p>
+        <p>Most Ontario broader-public-sector organizations are OECM-eligible and purchase under Supplier Partner Agreement 2025-470 without an open tender. Line-item quotes carry the agreement number for procurement audit trails; invoices match the PO 1:1 by SKU.</p>
+        <p>Free 2D space plan on every quote. Ontario delivery and install. One Ontario project manager owns the file across multi-department or multi-site rollouts.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}CROSSLINKS — moved between Intro and Entity-clarity per CONTENT-POLISH-1{%- endcomment -%}
+  <section class="lp-crosslinks" aria-label="Browse government furniture categories">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
+        <h2>Furniture for every area of your municipal office.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+
+        <a href="/collections/desks" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Admin Desks &amp; Workstations</span>
+            <span class="lp-crosslinks__tile-meta">Office desks &middot; open plan &middot; height-adjustable</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/boardroom" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2 10 H26 V13 H2 Z"/><path d="M6 13 V22 M22 13 V22"/><path d="M4 22 H24"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Boardroom &amp; Council Tables</span>
+            <span class="lp-crosslinks__tile-meta">Council chambers &middot; boardroom &middot; conference</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/storage" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="3" width="22" height="22" rx="1"/><path d="M3 10 H25 M3 17 H25"/><circle cx="8" cy="6.5" r="1"/><circle cx="8" cy="13.5" r="1"/><circle cx="8" cy="20.5" r="1"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Filing &amp; Storage</span>
+            <span class="lp-crosslinks__tile-meta">Filing cabinets &middot; shelving &middot; lateral files</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}ENTITY-CLARITY (CONTENT-POLISH-1, AI-7 Version B voice){%- endcomment -%}
+  <section class="lp-entity" aria-label="Who Brant Business Interiors is">
+    <div class="lp-entity__inner">
+      <div class="lp-entity__head">
+        <p class="lp-entity__eyebrow">Who we are</p>
+        <h2>A Peterborough commercial office furniture dealer, family-owned since 1964.</h2>
+      </div>
+      <div class="lp-entity__body">
+        <p>Brant Business Interiors is a commercial office furniture dealer headquartered at 296 George St N, Peterborough, ON. The legal entity behind our OECM agreement is Brant Basics &mdash; same family, same team, same address. Part of the Office Central group.</p>
+        <p>Government buyers split between municipal and township admin teams refreshing council chambers and staff rooms, and provincial agencies and Crown corporations coordinating multi-department rollouts &mdash; both under OECM Supplier Partner Agreement 2025-470. We carry commercial-grade furniture from Global Furniture Group, OTG / Offices to Go, Heartwood Manufacturing, ObusForme, plus 25+ additional authorized lines.</p>
+        <p>Delivery is Canada-wide. Installation is Ontario and Western Canada. Quote, freight, install, and warranty all handled by the same Ontario account team.</p>
+      </div>
+      <dl class="lp-entity__glance">
+        <div class="lp-entity__glance-item">
+          <dt>Founded</dt>
+          <dd>1964 &middot; Peterborough, ON &middot; Family-owned</dd>
+        </div>
+        <div class="lp-entity__glance-item">
+          <dt>OECM</dt>
+          <dd>Supplier Partner Agreement 2025-470</dd>
+        </div>
+        <div class="lp-entity__glance-item">
+          <dt>Reach</dt>
+          <dd>Quote in 1 business day &middot; Install ON + Western Canada</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  {%- comment -%}TOP PRODUCTS (CONTENT-POLISH-1){%- endcomment -%}
+  {%- assign tp1 = section.settings.top_product_1 -%}
+  {%- assign tp2 = section.settings.top_product_2 -%}
+  {%- assign tp3 = section.settings.top_product_3 -%}
+  {%- assign tp4 = section.settings.top_product_4 -%}
+  {%- if tp1 == blank -%}{%- assign tp1 = collections.desks.products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = all_products['citi-lounge-seating-3-sizes-available'] -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections['height-adjustable-tables-desks'].products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections['height-adjustable-tables'].products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections.desks.products[1] -%}{%- endif -%}
+  {%- if tp3 == blank -%}{%- assign tp3 = collections.seating.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.seating.products[1] -%}{%- endif -%}
+  <section class="lp-products" aria-label="Top products">
+    <div class="lp-products__inner">
+      <div class="lp-products__head">
+        <p class="lp-products__eyebrow">Top products</p>
+        <h2>{{ section.settings.top_products_heading | default: 'Top desks, sit-stand workstations, and chairs.' }}</h2>
+      </div>
+      <div class="lp-products__grid">
+        {%- if tp1 != blank and tp1 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp1.url }}">{%- if tp1.compare_at_price_max > tp1.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp1.featured_image -%}{{ tp1.featured_image | image_url: width: 600 | image_tag: alt: tp1.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp1.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp1.url }}">{{ tp1.title }}</a></h3><p class="lp-product-card__price">From {{ tp1.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp1.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp2 != blank and tp2 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp2.url }}">{%- if tp2.compare_at_price_max > tp2.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp2.featured_image -%}{{ tp2.featured_image | image_url: width: 600 | image_tag: alt: tp2.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp2.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp2.url }}">{{ tp2.title }}</a></h3><p class="lp-product-card__price">From {{ tp2.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp2.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp3 != blank and tp3 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp3.url }}">{%- if tp3.compare_at_price_max > tp3.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp3.featured_image -%}{{ tp3.featured_image | image_url: width: 600 | image_tag: alt: tp3.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp3.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp3.url }}">{{ tp3.title }}</a></h3><p class="lp-product-card__price">From {{ tp3.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp3.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp4 != blank and tp4 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp4.url }}">{%- if tp4.compare_at_price_max > tp4.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp4.featured_image -%}{{ tp4.featured_image | image_url: width: 600 | image_tag: alt: tp4.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp4.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp4.url }}">{{ tp4.title }}</a></h3><p class="lp-product-card__price">From {{ tp4.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp4.url }}">View product</a></div></article>{%- endif -%}
       </div>
     </div>
   </section>
@@ -300,20 +502,90 @@
   <section class="lp-proof-bar" aria-label="Track record">
     <div class="lp-proof-bar__inner">
       <div class="lp-proof-bar__stat">
-        <span class="lp-proof-bar__stat-num">2019</span>
-        <span class="lp-proof-bar__stat-label">OECM vendor since</span>
-        <span class="lp-proof-bar__stat-detail">Office furniture category &mdash; re-qualified each contract cycle.</span>
+        <span class="lp-proof-bar__stat-num">2025-470</span>
+        <span class="lp-proof-bar__stat-label">OECM Agreement number</span>
+        <span class="lp-proof-bar__stat-detail">Supplier Partner &middot; Office furniture category &middot; Current contract cycle.</span>
       </div>
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">340+</span>
         <span class="lp-proof-bar__stat-label">OECM POs delivered</span>
-        <span class="lp-proof-bar__stat-detail">Across 90+ Ontario school boards, hospitals, and municipalities since 2019.</span>
+        <span class="lp-proof-bar__stat-detail">Across 90+ Ontario school boards, hospitals, and municipalities across current and prior contract cycles.</span>
       </div>
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">1 day</span>
         <span class="lp-proof-bar__stat-label">Quote turnaround</span>
         <span class="lp-proof-bar__stat-detail">Most line-item quotes return within one business day of intake.</span>
       </div>
+    </div>
+  </section>
+
+  {%- comment -%}ENTITY NOTE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-entity-note" aria-label="Legal entity and registration">
+    <div class="lp-entity-note__inner">
+      <p><b>Brant Business Interiors</b> is the operating brand of <b>Brant Basics</b>, our OECM-registered legal entity. Family-owned since 1964, headquartered at 296 George St N, Peterborough, ON K9J 3H2. Part of the Office Central group.</p>
+    </div>
+  </section>
+
+  {%- comment -%}COVERAGE TABLE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-coverage" aria-label="OECM Agreement 2025-470 coverage table">
+    <div class="lp-coverage__inner">
+      <div class="lp-coverage__head">
+        <p class="lp-coverage__eyebrow">Coverage</p>
+        <h2>OECM Agreement 2025-470 &mdash; coverage by category and brand.</h2>
+        <p class="lp-coverage__sub">Government buyers most often draw from Seating (task + council-chamber), Desks/workstations (admin and agency cubicles), Storage (records, archive, secure filing), and Tables (council, board, training). Every line carries the agreement number and ships at OECM-negotiated rates.</p>
+      </div>
+      <div class="lp-coverage__table-wrap">
+        <table class="lp-coverage__table">
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Global Furniture Group</th>
+              <th scope="col">OTG / Offices to Go</th>
+              <th scope="col">Heartwood Manufacturing</th>
+              <th scope="col">ObusForme</th>
+              <th scope="col">Category total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Seating (task, council-chamber, lounge)</td><td>45</td><td>44</td><td class="is-empty">&mdash;</td><td>6</td><td class="is-total">95</td></tr>
+            <tr><td>Desks &amp; workstations (admin, agency)</td><td>9</td><td>13</td><td>11</td><td class="is-empty">&mdash;</td><td class="is-total">33</td></tr>
+            <tr><td>Tables (council, board, training)</td><td>10</td><td>4</td><td>6</td><td class="is-empty">&mdash;</td><td class="is-total">20</td></tr>
+            <tr><td>Storage &amp; filing (records, archive, secure)</td><td>6</td><td>9</td><td>9</td><td class="is-empty">&mdash;</td><td class="is-total">24</td></tr>
+            <tr><td>Panels &amp; dividers</td><td class="is-empty">&mdash;</td><td>2</td><td class="is-empty">&mdash;</td><td class="is-empty">&mdash;</td><td class="is-total">2</td></tr>
+            <tr><td>Accessories (monitor arms, CPU holders)</td><td class="is-empty">&mdash;</td><td>3</td><td class="is-empty">&mdash;</td><td class="is-empty">&mdash;</td><td class="is-total">3</td></tr>
+            <tr><td><b>Brand total</b></td><td><b>70</b></td><td><b>75</b></td><td><b>26</b></td><td><b>6</b></td><td class="is-total"><b>177</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lp-coverage__footnote">Need fire-rated filing, council-chamber upholstered seating, or secure records storage specifically? Call <a href="tel:18008359565"><b>1-800-835-9565</b></a> &mdash; 25+ additional Agreement 2025-470 lines aren&rsquo;t on the storefront yet.</p>
+    </div>
+  </section>
+
+  {%- comment -%}HOW TO PURCHASE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-howto" aria-label="How to purchase">
+    <div class="lp-howto__inner">
+      <div class="lp-howto__head">
+        <p class="lp-howto__eyebrow">How to purchase</p>
+        <h2>Three steps from wish list to install.</h2>
+      </div>
+      <div class="lp-howto__steps">
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 01</span>
+          <h3 class="lp-howto__step-title">Send your wish list</h3>
+          <p class="lp-howto__step-body">Floor plan, department-by-department counts, or a list of what each office needs. Whatever you have. Email it, call 1-800-835-9565, or use the quote form.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 02</span>
+          <h3 class="lp-howto__step-title">Line-item quote in 1 business day</h3>
+          <p class="lp-howto__step-body">Agreement 2025-470 number on the quote. SKU-level pricing your finance office can match against the OECM catalog. Lead times noted per line. Split-billing across departments accommodated on request.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 03</span>
+          <h3 class="lp-howto__step-title">You issue a PO; we deliver and install</h3>
+          <p class="lp-howto__step-body">Audit-trail-compliant billing: PO reference, agreement number, and SKU-level invoice match. Our own crew handles delivery and install across Ontario. After-hours and weekend installs available for occupied government buildings.</p>
+        </article>
+      </div>
+      <p class="lp-howto__footnote">Eligible OECM government buyers: Ontario municipalities and their agencies, Crown corporations, provincial agencies, broader-public-sector organizations, conservation authorities, and library/transit/police services boards. Federal departments use separate procurement vehicles (PSPC). Not sure where your organization sits? Call <a href="tel:18008359565"><b>1-800-835-9565</b></a>.</p>
     </div>
   </section>
 
@@ -416,58 +688,6 @@
     </div>
   </section>
 
-  {%- comment -%}CROSSLINKS — product category tiles{%- endcomment -%}
-  <section class="lp-crosslinks" aria-label="Browse government furniture categories">
-    <div class="lp-crosslinks__inner">
-      <div class="lp-crosslinks__head">
-        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
-        <h2>Furniture for every area of your municipal office.</h2>
-      </div>
-      <div class="lp-crosslinks__grid">
-
-        <a href="/collections/desks" class="lp-crosslinks__tile">
-          <span class="lp-crosslinks__tile-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg>
-          </span>
-          <span class="lp-crosslinks__tile-label">
-            <span class="lp-crosslinks__tile-name">Admin Desks &amp; Workstations</span>
-            <span class="lp-crosslinks__tile-meta">Office desks &middot; open plan &middot; height-adjustable</span>
-          </span>
-          <span class="lp-crosslinks__tile-arrow">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
-          </span>
-        </a>
-
-        <a href="/collections/boardroom" class="lp-crosslinks__tile">
-          <span class="lp-crosslinks__tile-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2 10 H26 V13 H2 Z"/><path d="M6 13 V22 M22 13 V22"/><path d="M4 22 H24"/></svg>
-          </span>
-          <span class="lp-crosslinks__tile-label">
-            <span class="lp-crosslinks__tile-name">Boardroom &amp; Council Tables</span>
-            <span class="lp-crosslinks__tile-meta">Council chambers &middot; boardroom &middot; conference</span>
-          </span>
-          <span class="lp-crosslinks__tile-arrow">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
-          </span>
-        </a>
-
-        <a href="/collections/storage" class="lp-crosslinks__tile">
-          <span class="lp-crosslinks__tile-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="3" width="22" height="22" rx="1"/><path d="M3 10 H25 M3 17 H25"/><circle cx="8" cy="6.5" r="1"/><circle cx="8" cy="13.5" r="1"/><circle cx="8" cy="20.5" r="1"/></svg>
-          </span>
-          <span class="lp-crosslinks__tile-label">
-            <span class="lp-crosslinks__tile-name">Filing &amp; Storage</span>
-            <span class="lp-crosslinks__tile-meta">Filing cabinets &middot; shelving &middot; lateral files</span>
-          </span>
-          <span class="lp-crosslinks__tile-arrow">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
-          </span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
   {%- comment -%}OECM BAR{%- endcomment -%}
   <div class="lp-oecm-bar" aria-label="OECM procurement">
     <div class="lp-oecm-bar__inner">
@@ -515,55 +735,77 @@
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">01</span>
-            <span class="lp-faq-item__q">Are Ontario municipalities OECM-eligible?</span>
+            <span class="lp-faq-item__q">Which government organizations are OECM-eligible under Agreement 2025-470?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Yes. Ontario municipalities, local boards, and their agencies are OECM-eligible organizations. Brant Business Interiors is an OECM Supplier Partner (Agreement 2025-470), which means municipalities can purchase directly from us without an open tender or RFP process. The agreement number appears on the quote so your finance and legal teams can process it cleanly.</p>
+            <p>Ontario municipalities (cities, towns, townships, counties, regions), their local boards (police services, public utilities, transit, library boards), conservation authorities, provincial agencies and Crown corporations, and broader-public-sector organizations are OECM-eligible &mdash; they purchase from us under Agreement 2025-470 without an open tender. Federal departments use separate procurement vehicles (PSPC). Not sure where your organization sits? Call <a href="tel:18008359565">1-800-835-9565</a> &mdash; five-minute confirmation.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">02</span>
-            <span class="lp-faq-item__q">What counts as a municipality or eligible government organization?</span>
+            <span class="lp-faq-item__q">Does your billing meet audit-trail requirements for public-sector procurement?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>OECM-eligible government organizations include Ontario municipalities (cities, towns, townships, counties), local boards (police, public utilities, transit), Crown corporations, and provincially funded broader public sector entities. If you&rsquo;re unsure whether your organization qualifies, call us &mdash; we can confirm in five minutes and walk you through the purchasing steps.</p>
+            <p>Yes. Every line-item quote carries the OECM agreement number (2025-470), your PO reference field, and SKU-level pricing that matches the OECM catalog. Invoices reproduce the PO 1:1 by SKU with agreement-number reference. Procurement portals (Ariba, Bonfire, Biddingo, Merx) and MFR-compliant procurement workflows are supported on request.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">03</span>
-            <span class="lp-faq-item__q">Are your products available in standard government specifications?</span>
+            <span class="lp-faq-item__q">Can you handle multi-department or multi-site municipal rollouts?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Yes &mdash; we carry commercial-grade product lines from Global Furniture Group, Teknion, and ergoCentric that are specified for institutional use. We can provide cut sheets, spec sheets, and material samples on request. If you have existing specification requirements (BIFMA compliance, specific finish codes, or contract pricing from a previous vendor), we can cross-reference and match where possible.</p>
+            <p>Yes &mdash; municipal multi-site is most of our government work. We quote per-site or per-department with a master roll-up against your PO, sequence installs against your operational calendar (after-hours, weekend, phased department-by-department), and ship to a single warehouse or direct-to-site. Split billing across departments accommodated on request. One Ontario project manager owns the file across every location.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">04</span>
-            <span class="lp-faq-item__q">What are typical lead times for government orders?</span>
+            <span class="lp-faq-item__q">What&rsquo;s the lead time on a council-chamber refresh or admin-office build-out?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>In-stock product ships in 2&ndash;4 weeks. Custom or made-to-order pieces typically run 8&ndash;12 weeks. We flag lead times on every quote so your project timeline is clear before the PO is issued. For multi-phase fit-outs (e.g. floor-by-floor renovations), we plan the delivery sequence with your facilities team.</p>
+            <p>Most in-stock admin and task seating ships within 2&ndash;3 weeks of PO. Custom-configured pieces &mdash; council-chamber tables, COM-upholstered chairs, secure-records storage &mdash; are typically 6&ndash;10 weeks. We confirm lead time per line on every quote and sequence the install against your council schedule or municipal renovation window.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">05</span>
-            <span class="lp-faq-item__q">How do purchase orders and invoicing work?</span>
+            <span class="lp-faq-item__q">Do you accept POs, NET-30, and municipal procurement portal billing?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>We issue a formal line-item quote, you issue a PO, and we invoice on delivery. NET 30 terms are available for municipal accounts. For OECM orders, the agreement number and pricing tier are noted on the quote. We can also provide a proforma invoice if your finance team requires it before issuing the PO.</p>
+            <p>Yes &mdash; municipal POs and NET-30 are standard. Procurement-portal formats (Ariba, Bonfire, Biddingo, Merx) and MFR/PSPC-compliant invoice templates supported. We can provide a proforma invoice if your finance office requires it before PO issuance. For OECM orders the agreement number appears on the quote so your procurement office processes it cleanly.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">06</span>
+            <span class="lp-faq-item__q">Does every quote include a free space plan for council chambers and service areas?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; free 2D layout on every project. Especially useful for council chambers, public-facing service counters, and committee rooms where sightlines, accessibility (AODA compliance), and public-flow constraints matter. Send your floor plan (AutoCAD, PDF, or sketch). On-site measure available when needed.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">07</span>
+            <span class="lp-faq-item__q">Can you install during business hours without disrupting public services?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; after-hours, weekend, and phased department-by-department installs are standard for occupied government buildings. Our own install crew handles uncrating, assembly, levelling, placement, and removal of old furniture so the space is service-ready by Monday morning. For phased renovations we sequence delivery windows with your facilities team before the first truck arrives.</p>
           </div>
         </details>
 
@@ -669,6 +911,36 @@
       "id": "testimonial_logo",
       "label": "Client logo",
       "info": "Upload kawartha-dairy-logo.jpg from data/testimonials/"
+    },
+    {
+      "type": "header",
+      "content": "Top Products"
+    },
+    {
+      "type": "text",
+      "id": "top_products_heading",
+      "label": "Section heading",
+      "default": "Top desks, sit-stand workstations, and chairs."
+    },
+    {
+      "type": "product",
+      "id": "top_product_1",
+      "label": "Product 1 (default: top desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_2",
+      "label": "Product 2 (default: top sit-stand desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_3",
+      "label": "Product 3 (default: top chair)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_4",
+      "label": "Product 4 (default: second chair)"
     }
   ],
   "presets": [

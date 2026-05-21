@@ -234,6 +234,63 @@
   .lp-ps .lp-closer__inner{padding:64px 24px;}
 }
 .lp-ps :where(a,button,[role="button"]):focus-visible{outline:2px solid var(--textColor);outline-offset:2px;border-radius:4px;}
+
+/* CONTENT-POLISH-1 modules — private-sector subset (no Coverage Table, no How-to-Purchase) */
+.lp-ps .lp-hero__badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:6px 12px;border:1px solid rgba(var(--borderColor-rgb),.8);border-radius:999px;margin-bottom:var(--space-6);font-size:12px;color:rgba(var(--textColor-rgb),.78);width:fit-content;}
+.lp-ps .lp-hero__badge-dot{width:6px;height:6px;border-radius:50%;background:var(--saleBadgeBackground);}
+
+.lp-ps .lp-intro__inner{max-width:1280px !important;}
+
+.lp-ps .lp-entity{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ps .lp-entity__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ps .lp-entity__head{margin-bottom:var(--space-6);}
+.lp-ps .lp-entity__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-ps .lp-entity__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ps .lp-entity h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-3);text-wrap:balance;}
+.lp-ps .lp-entity__body{display:grid;gap:18px;}
+.lp-ps .lp-entity__body p{font-size:17px;line-height:1.6;color:rgba(var(--textColor-rgb),.78);margin:0;text-wrap:pretty;}
+.lp-ps .lp-entity__glance{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:48px 0 0;padding:24px 0 0;border-top:1px solid var(--borderColor);}
+.lp-ps .lp-entity__glance-item{padding:0 24px;}
+.lp-ps .lp-entity__glance-item + .lp-entity__glance-item{border-left:1px solid var(--borderColor);}
+.lp-ps .lp-entity__glance-item:first-child{padding-left:0;}
+.lp-ps .lp-entity__glance-item:last-child{padding-right:0;}
+.lp-ps .lp-entity__glance dt{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.6);margin-bottom:8px;}
+.lp-ps .lp-entity__glance dd{font-family:var(--headingFont);font-size:15px;line-height:1.4;color:var(--textColor);margin:0;font-weight:500;}
+
+.lp-ps .lp-entity-note{padding:var(--space-6) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ps .lp-entity-note__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ps .lp-entity-note p{font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),.6);margin:0;text-wrap:pretty;max-width:92ch;}
+.lp-ps .lp-entity-note b{color:rgba(var(--textColor-rgb),.85);font-weight:600;}
+
+/* Top Products */
+.lp-ps .lp-products{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ps .lp-products__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ps .lp-products__head{margin-bottom:var(--space-8);}
+.lp-ps .lp-products__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-ps .lp-products__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ps .lp-products h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-ps .lp-products__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);}
+.lp-ps .lp-product-card{display:flex;flex-direction:column;background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-ps .lp-product-card__media{position:relative;display:block;aspect-ratio:1/1;background:#fff;padding:var(--space-6);overflow:hidden;}
+.lp-ps .lp-product-card__media img{width:100%;height:100%;object-fit:contain;}
+.lp-ps .lp-product-card__sale{position:absolute;top:var(--space-3);left:var(--space-3);background:var(--saleBadgeBackground);color:#fff;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px;font-weight:600;}
+.lp-ps .lp-product-card__body{padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);flex:1;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-ps .lp-product-card__vendor{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.55);margin:0;}
+.lp-ps .lp-product-card__title{font-family:var(--headingFont);font-size:15px;font-weight:600;color:var(--headingColor);margin:0;line-height:1.3;}
+.lp-ps .lp-product-card__title a{color:inherit;text-decoration:none;}
+.lp-ps .lp-product-card__title a:hover{text-decoration:underline;}
+.lp-ps .lp-product-card__price{font-size:14px;color:rgba(var(--textColor-rgb),.7);margin:0 0 var(--space-2);flex:1;}
+.lp-ps .lp-product-card__cta{display:block;text-align:center;padding:10px 16px;border:1px solid var(--borderColor);border-radius:var(--buttonRadius);font-size:14px;font-weight:500;color:var(--textColor);text-decoration:none;transition:background-color 160ms;}
+.lp-ps .lp-product-card__cta:hover{background:var(--alternateBackground);}
+@media(max-width:980px){.lp-ps .lp-products__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.lp-ps .lp-products__grid{grid-template-columns:1fr;}}
+
+@media(max-width:980px){
+  .lp-ps .lp-entity__glance{grid-template-columns:1fr;padding-top:0;}
+  .lp-ps .lp-entity__glance-item{border-left:0;border-bottom:1px solid var(--borderColor);padding:16px 0;}
+  .lp-ps .lp-entity__glance-item + .lp-entity__glance-item{border-left:0;}
+  .lp-ps .lp-entity__glance-item:last-child{border-bottom:0;}
+}
 </style>
 
 <div class="lp-ps">
@@ -250,8 +307,12 @@
         <p class="lp-hero__eyebrow bbi-mono">
           <span class="lp-hero__eyebrow-label">Industry &middot; Professional Services</span>
         </p>
-        <h1>{{ section.settings.heading | default: 'Professional Services Office Furniture for Ontario Firms' }}</h1>
-        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'The office is the first impression. Get it right. Specification-grade furniture for law firms, accounting practices, consulting offices, and financial advisors across Ontario. Free space plan. Quote in 1 business day. Call 1-800-835-9565.' }}</p>
+        <span class="lp-hero__badge">
+          <span class="lp-hero__badge-dot"></span>
+          Family-owned &middot; since 1964 &middot; client-facing reception, boardrooms, executive offices
+        </span>
+        <h1>{{ section.settings.heading | default: 'Furniture that makes the right impression when a client walks in &mdash; for Ontario law firms, accountants, and professional practices.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Brant Business Interiors supplies commercial-grade office furniture to Ontario law firms, accounting practices, consulting offices, engineering firms, financial advisors, and insurance brokerages. Client-facing reception, boardrooms, and executive offices specified for the long depreciation cycle private-sector firms actually run on. Free space plan and PO / NET-30 on every quote.' }}</p>
         <div class="lp-hero__cta-row">
           <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
             Request a Quote <span class="arrow">&#8594;</span>
@@ -279,11 +340,120 @@
   {%- comment -%}INTRO — AEO direct-answer anchors{%- endcomment -%}
   <section class="lp-intro" aria-label="About our professional services furniture">
     <div class="lp-intro__inner">
-      <p class="lp-intro__eyebrow bbi-mono">What we do</p>
-      <h2>Specification-grade office furniture for Ontario law firms, consultancies, and professional practices.</h2>
+      <p class="lp-intro__eyebrow bbi-mono">Built for client-facing professional offices</p>
+      <h2>The office is the first impression. We spec it accordingly.</h2>
       <div class="lp-intro__body">
-        <p>Brant Business Interiors supplies commercial-grade office furniture to professional services firms across Ontario &mdash; law firms, accounting practices, management consulting offices, engineering firms, financial advisors, and insurance brokerages. For these businesses, the office is a client-facing asset. We spec accordingly.</p>
-        <p>We&rsquo;ve been furnishing Ontario professional offices since 1982. Every quote includes a free space plan so you see the layout before you commit. We carry ergonomic task seating from ergoCentric, private office and boardroom furniture from Keilhauer and Global, and a full range of workstation and storage options that project the right image without over-specifying. Most quotes return within one business day.</p>
+        <p>Brant Business Interiors supplies commercial-grade office furniture to professional services firms across Ontario &mdash; law firms, accounting and audit practices, management consulting offices, engineering firms, financial advisors, and insurance brokerages. For these businesses, the office is a client-facing asset; we specify accordingly.</p>
+        <p>The catalog leads with ergoCentric task seating for staff and partners, Global Furniture Group / OTG / Offices to Go for desks and storage, and Heartwood Manufacturing for solid-wood reception and boardroom pieces. Keilhauer, Allsteel, Teknion, and other contract-tier lines available on request for prestige specifications.</p>
+        <p>Free 2D space plan on every quote. PO and NET-30 standard. Ontario delivery and install. Discreet, after-hours coordination for occupied client-facing spaces.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}CROSSLINKS — moved between Intro and Entity-clarity per CONTENT-POLISH-1{%- endcomment -%}
+  <section class="lp-crosslinks" aria-label="Browse professional services furniture categories">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
+        <h2>Furniture for every area of your office.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+
+        <a href="/collections/seating" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Executive &amp; Task Seating</span>
+            <span class="lp-crosslinks__tile-meta">Executive chairs &middot; task chairs &middot; guest</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/desks" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Desks &amp; Workstations</span>
+            <span class="lp-crosslinks__tile-meta">Private office desks &middot; height-adjustable &middot; L-shape</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/boardroom" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2 10 H26 V13 H2 Z"/><path d="M6 13 V22 M22 13 V22"/><path d="M4 22 H24"/><path d="M7 7 H21 V10 H7 Z"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Boardroom &amp; Meeting Tables</span>
+            <span class="lp-crosslinks__tile-meta">Boardroom tables &middot; conference &middot; client meeting</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}ENTITY-CLARITY (CONTENT-POLISH-1, AI-7 Version B voice — private-sector framing){%- endcomment -%}
+  <section class="lp-entity" aria-label="Who Brant Business Interiors is">
+    <div class="lp-entity__inner">
+      <div class="lp-entity__head">
+        <p class="lp-entity__eyebrow">Who we are</p>
+        <h2>A Peterborough commercial office furniture dealer, family-owned since 1964.</h2>
+      </div>
+      <div class="lp-entity__body">
+        <p>Brant Business Interiors is a commercial office furniture dealer headquartered at 296 George St N, Peterborough, ON. Part of the Office Central group.</p>
+        <p>Most of our private-sector work is professional services and SMB offices: law firms (10&ndash;80 lawyers), accounting practices, consultancies, design and architecture studios, and medical and dental practices treating the office as a client-facing asset. PO and NET-30 standard, no credit card required, no membership fees.</p>
+        <p>Delivery is Canada-wide. Installation is Ontario and Western Canada. Quote, freight, install, and warranty all handled by the same Ontario account team.</p>
+      </div>
+      <dl class="lp-entity__glance">
+        <div class="lp-entity__glance-item">
+          <dt>Founded</dt>
+          <dd>1964 &middot; Peterborough, ON &middot; Family-owned</dd>
+        </div>
+        <div class="lp-entity__glance-item">
+          <dt>Catalog</dt>
+          <dd>30+ authorized contract lines &middot; ergoCentric, Global, OTG, Heartwood, Keilhauer on request</dd>
+        </div>
+        <div class="lp-entity__glance-item">
+          <dt>Reach</dt>
+          <dd>Quote in 1 business day &middot; Install ON + Western Canada</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  {%- comment -%}TOP PRODUCTS (CONTENT-POLISH-1){%- endcomment -%}
+  {%- assign tp1 = section.settings.top_product_1 -%}
+  {%- assign tp2 = section.settings.top_product_2 -%}
+  {%- assign tp3 = section.settings.top_product_3 -%}
+  {%- assign tp4 = section.settings.top_product_4 -%}
+  {%- if tp1 == blank -%}{%- assign tp1 = collections.desks.products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = all_products['citi-lounge-seating-3-sizes-available'] -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections['height-adjustable-tables-desks'].products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections['height-adjustable-tables'].products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections.desks.products[1] -%}{%- endif -%}
+  {%- if tp3 == blank -%}{%- assign tp3 = collections.seating.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.seating.products[1] -%}{%- endif -%}
+  <section class="lp-products" aria-label="Top products">
+    <div class="lp-products__inner">
+      <div class="lp-products__head">
+        <p class="lp-products__eyebrow">Top products</p>
+        <h2>{{ section.settings.top_products_heading | default: 'Top desks, sit-stand workstations, and chairs.' }}</h2>
+      </div>
+      <div class="lp-products__grid">
+        {%- if tp1 != blank and tp1 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp1.url }}">{%- if tp1.compare_at_price_max > tp1.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp1.featured_image -%}{{ tp1.featured_image | image_url: width: 600 | image_tag: alt: tp1.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp1.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp1.url }}">{{ tp1.title }}</a></h3><p class="lp-product-card__price">From {{ tp1.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp1.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp2 != blank and tp2 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp2.url }}">{%- if tp2.compare_at_price_max > tp2.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp2.featured_image -%}{{ tp2.featured_image | image_url: width: 600 | image_tag: alt: tp2.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp2.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp2.url }}">{{ tp2.title }}</a></h3><p class="lp-product-card__price">From {{ tp2.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp2.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp3 != blank and tp3 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp3.url }}">{%- if tp3.compare_at_price_max > tp3.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp3.featured_image -%}{{ tp3.featured_image | image_url: width: 600 | image_tag: alt: tp3.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp3.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp3.url }}">{{ tp3.title }}</a></h3><p class="lp-product-card__price">From {{ tp3.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp3.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp4 != blank and tp4 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp4.url }}">{%- if tp4.compare_at_price_max > tp4.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp4.featured_image -%}{{ tp4.featured_image | image_url: width: 600 | image_tag: alt: tp4.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp4.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp4.url }}">{{ tp4.title }}</a></h3><p class="lp-product-card__price">From {{ tp4.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp4.url }}">View product</a></div></article>{%- endif -%}
       </div>
     </div>
   </section>
@@ -292,20 +462,27 @@
   <section class="lp-proof-bar" aria-label="Track record">
     <div class="lp-proof-bar__inner">
       <div class="lp-proof-bar__stat">
-        <span class="lp-proof-bar__stat-num">1982</span>
-        <span class="lp-proof-bar__stat-label">Year founded</span>
-        <span class="lp-proof-bar__stat-detail">Over 40 years furnishing Ontario offices, schools, and institutions.</span>
+        <span class="lp-proof-bar__stat-num">1964</span>
+        <span class="lp-proof-bar__stat-label">Family-owned since</span>
+        <span class="lp-proof-bar__stat-detail">60+ years furnishing Canadian institutional and private-sector offices.</span>
       </div>
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">500+</span>
-        <span class="lp-proof-bar__stat-label">Projects delivered</span>
-        <span class="lp-proof-bar__stat-detail">Across law firms, consulting practices, and professional offices in Ontario.</span>
+        <span class="lp-proof-bar__stat-label">Professional offices furnished</span>
+        <span class="lp-proof-bar__stat-detail">Law, accounting, consulting, and financial services across Ontario.</span>
       </div>
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">1 day</span>
         <span class="lp-proof-bar__stat-label">Quote turnaround</span>
         <span class="lp-proof-bar__stat-detail">Most line-item quotes return within one business day of intake.</span>
       </div>
+    </div>
+  </section>
+
+  {%- comment -%}ENTITY NOTE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-entity-note" aria-label="Legal entity and registration">
+    <div class="lp-entity-note__inner">
+      <p><b>Brant Business Interiors</b> is the operating brand of <b>Brant Basics</b>. Family-owned since 1964, headquartered at 296 George St N, Peterborough, ON K9J 3H2. Part of the Office Central group.</p>
     </div>
   </section>
 
@@ -408,58 +585,6 @@
     </div>
   </section>
 
-  {%- comment -%}CROSSLINKS — product category tiles{%- endcomment -%}
-  <section class="lp-crosslinks" aria-label="Browse professional services furniture categories">
-    <div class="lp-crosslinks__inner">
-      <div class="lp-crosslinks__head">
-        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
-        <h2>Furniture for every area of your office.</h2>
-      </div>
-      <div class="lp-crosslinks__grid">
-
-        <a href="/collections/seating" class="lp-crosslinks__tile">
-          <span class="lp-crosslinks__tile-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg>
-          </span>
-          <span class="lp-crosslinks__tile-label">
-            <span class="lp-crosslinks__tile-name">Executive &amp; Task Seating</span>
-            <span class="lp-crosslinks__tile-meta">Executive chairs &middot; task chairs &middot; guest</span>
-          </span>
-          <span class="lp-crosslinks__tile-arrow">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
-          </span>
-        </a>
-
-        <a href="/collections/desks" class="lp-crosslinks__tile">
-          <span class="lp-crosslinks__tile-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg>
-          </span>
-          <span class="lp-crosslinks__tile-label">
-            <span class="lp-crosslinks__tile-name">Desks &amp; Workstations</span>
-            <span class="lp-crosslinks__tile-meta">Private office desks &middot; height-adjustable &middot; L-shape</span>
-          </span>
-          <span class="lp-crosslinks__tile-arrow">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
-          </span>
-        </a>
-
-        <a href="/collections/boardroom" class="lp-crosslinks__tile">
-          <span class="lp-crosslinks__tile-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2 10 H26 V13 H2 Z"/><path d="M6 13 V22 M22 13 V22"/><path d="M4 22 H24"/><path d="M7 7 H21 V10 H7 Z"/></svg>
-          </span>
-          <span class="lp-crosslinks__tile-label">
-            <span class="lp-crosslinks__tile-name">Boardroom &amp; Meeting Tables</span>
-            <span class="lp-crosslinks__tile-meta">Boardroom tables &middot; conference &middot; client meeting</span>
-          </span>
-          <span class="lp-crosslinks__tile-arrow">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
-          </span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
   {%- comment -%}TESTIMONIAL STRIP — hidden when testimonial_logo is blank{%- endcomment -%}
   {%- if section.settings.testimonial_logo != blank -%}
   <section class="lp-quote-strip" aria-label="Client testimonial">
@@ -488,55 +613,77 @@
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">01</span>
-            <span class="lp-faq-item__q">Can you match our brand or office aesthetic?</span>
+            <span class="lp-faq-item__q">Which Ontario professional services firms do you typically work with?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Yes &mdash; we spec to your existing palette, material language, and finish preferences. Send us photos of your current office or inspiration images and we&rsquo;ll build a furniture spec that fits the look. We carry options in a wide range of finishes &mdash; wood veneers, laminates, metal accents, fabric, and leather &mdash; so we can align the furniture to your brand without custom manufacturing.</p>
+            <p>Law firms (typically 10&ndash;80 lawyers), accounting and audit practices, management and IT consulting offices, financial advisory and wealth management offices, insurance brokerages, engineering firms, and design and architecture studios. We also work with medical and dental practices treating the office as a client-facing asset. Most projects are private-sector full-service fit-outs or boardroom/reception refreshes.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">02</span>
-            <span class="lp-faq-item__q">What&rsquo;s the typical project timeline from quote to delivery?</span>
+            <span class="lp-faq-item__q">How do you spec for client-facing spaces (reception, boardrooms, executive offices)?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Most quotes come back within one business day. For in-stock or quick-ship products, delivery typically runs 2&ndash;4 weeks after order confirmation. Custom or made-to-order pieces run 8&ndash;12 weeks. We include lead times on every quote so you can plan around your lease date or office move. If you have a hard deadline, tell us on the quote request and we&rsquo;ll confirm whether it&rsquo;s achievable before you approve.</p>
+            <p>Reception and boardroom are where we lean into Heartwood Manufacturing solid-wood and Kelowna-built veneer pieces, contract-tier upholstery (leather, premium woven fabrics), and on-trend finishes that don&rsquo;t date in 5 years. We consider sightlines, AV integration, and AODA accessibility for public-facing areas. For executive offices we spec ergoCentric task seating, height-adjustable desks, and integrated storage in a finish that matches your overall material language.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">03</span>
-            <span class="lp-faq-item__q">Do you carry ergonomic task chairs for all-day desk work?</span>
+            <span class="lp-faq-item__q">Can you supply Keilhauer, Allsteel, or Teknion-tier furniture?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Yes &mdash; we&rsquo;re an authorized ergoCentric dealer, and their chairs are purpose-built for sustained sit-to-stand use. For private offices, we can pair them with height-adjustable desks and monitor arms to create a full ergonomic workstation. We can also include an ergonomic assessment with larger orders so each person&rsquo;s station is configured correctly on day one.</p>
+            <p>Yes &mdash; the storefront leads with our highest-volume storefront-callable brands (ergoCentric, Global Furniture Group, OTG / Offices to Go, Heartwood), but we&rsquo;re authorized across 30+ contract-tier lines including Keilhauer, Allsteel, Teknion, and others on request. Tell us the line or pieces you&rsquo;re looking for on the quote and we&rsquo;ll source directly.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">04</span>
-            <span class="lp-faq-item__q">How does the space planning process work?</span>
+            <span class="lp-faq-item__q">Do you accept POs, NET-30, and corporate procurement billing for private firms?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Send us your floor plan &mdash; an architectural PDF or even a scaled photograph of your lease plan is enough. We produce a full furniture layout showing private offices, boardroom, open areas, and storage before you approve anything. Most layouts come back within 2&ndash;3 business days of intake. There&rsquo;s no charge for the space plan when you proceed with a quote from us.</p>
+            <p>Yes. Purchase orders, NET-30, and invoiced accounts are standard for professional services firms &mdash; no credit card required. Credit applications take 1&ndash;2 business days. We accommodate custom PO formats, partner-billing splits, and matter-number references on request.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">05</span>
-            <span class="lp-faq-item__q">Do you deliver and install in Toronto and the GTA?</span>
+            <span class="lp-faq-item__q">What&rsquo;s the lead time on a partner-office or boardroom build-out?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Yes &mdash; we deliver and install across Ontario including Toronto, Mississauga, Brampton, Oakville, Markham, Vaughan, Hamilton, Peterborough, Kingston, and Ottawa. Our installation crew handles everything: unboxing, assembly, placement, and removal of packing materials. Your office is fully set up and ready to use the day we leave. Installation is quoted separately and can be added to any order.</p>
+            <p>Stock ergoCentric task seating ships within 2&ndash;3 weeks. Custom-veneer boardroom tables, COM-upholstered executive seating, and contract-tier reception pieces typically run 6&ndash;12 weeks depending on the line. We confirm lead time per line on every quote &mdash; if you have a lease move-in or office-open date, tell us on the quote request and we&rsquo;ll confirm achievability before you approve.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">06</span>
+            <span class="lp-faq-item__q">Can you install after-hours so the office stays operational?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; evening, weekend, and weekend-after-hours installs are standard for occupied professional offices. Our own crew handles uncrating, assembly, levelling, placement, and removal of old furniture. Discreet coordination for client-facing spaces (reception, boardroom). Old-furniture removal included.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">07</span>
+            <span class="lp-faq-item__q">Does every quote include a free space plan?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; free 2D layout on every project. Send your floor plan (architectural PDF, scaled lease plan, or AutoCAD). Our design team produces a layout showing private offices, boardroom, reception, open areas, and storage before you approve anything. Sightline, AV integration, and AODA accessibility for reception areas considered. On-site measure available when needed.</p>
           </div>
         </details>
 
@@ -642,6 +789,36 @@
       "id": "testimonial_logo",
       "label": "Client logo",
       "info": "Upload kawartha-dairy-logo.jpg from data/testimonials/"
+    },
+    {
+      "type": "header",
+      "content": "Top Products"
+    },
+    {
+      "type": "text",
+      "id": "top_products_heading",
+      "label": "Section heading",
+      "default": "Top desks, sit-stand workstations, and chairs."
+    },
+    {
+      "type": "product",
+      "id": "top_product_1",
+      "label": "Product 1 (default: top desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_2",
+      "label": "Product 2 (default: top sit-stand desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_3",
+      "label": "Product 3 (default: top chair)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_4",
+      "label": "Product 4 (default: second chair)"
     }
   ],
   "presets": [

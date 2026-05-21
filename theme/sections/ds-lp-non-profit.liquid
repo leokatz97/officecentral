@@ -242,6 +242,99 @@
   .lp-np .lp-closer__inner{padding:64px 24px;}
 }
 .lp-np :where(a,button,[role="button"]):focus-visible{outline:2px solid var(--textColor);outline-offset:2px;border-radius:4px;}
+
+/* CONTENT-POLISH-1 modules — full-width layout standard */
+.lp-np .lp-hero__badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:6px 12px;border:1px solid rgba(var(--borderColor-rgb),.8);border-radius:999px;margin-bottom:var(--space-6);font-size:12px;color:rgba(var(--textColor-rgb),.78);width:fit-content;}
+.lp-np .lp-hero__badge-dot{width:6px;height:6px;border-radius:50%;background:var(--saleBadgeBackground);}
+
+.lp-np .lp-entity{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-np .lp-entity__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-np .lp-entity__head{margin-bottom:var(--space-6);}
+.lp-np .lp-entity__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-np .lp-entity__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-np .lp-entity h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-3);text-wrap:balance;}
+.lp-np .lp-entity__body{display:grid;gap:18px;}
+.lp-np .lp-entity__body p{font-size:17px;line-height:1.6;color:rgba(var(--textColor-rgb),.78);margin:0;text-wrap:pretty;}
+.lp-np .lp-entity__glance{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:48px 0 0;padding:24px 0 0;border-top:1px solid var(--borderColor);}
+.lp-np .lp-entity__glance-item{padding:0 24px;}
+.lp-np .lp-entity__glance-item + .lp-entity__glance-item{border-left:1px solid var(--borderColor);}
+.lp-np .lp-entity__glance-item:first-child{padding-left:0;}
+.lp-np .lp-entity__glance-item:last-child{padding-right:0;}
+.lp-np .lp-entity__glance dt{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.6);margin-bottom:8px;}
+.lp-np .lp-entity__glance dd{font-family:var(--headingFont);font-size:15px;line-height:1.4;color:var(--textColor);margin:0;font-weight:500;}
+
+.lp-np .lp-coverage{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-np .lp-coverage__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-np .lp-coverage__head{margin-bottom:var(--space-6);}
+.lp-np .lp-coverage__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-np .lp-coverage__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-np .lp-coverage h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-3);text-wrap:balance;}
+.lp-np .lp-coverage__sub{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),.7);margin:0;text-wrap:pretty;}
+.lp-np .lp-coverage__table-wrap{margin-top:var(--space-6);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.lp-np .lp-coverage__table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px;}
+.lp-np .lp-coverage__table th,
+.lp-np .lp-coverage__table td{padding:14px 16px;text-align:right;border-bottom:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-np .lp-coverage__table thead th{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.6);font-weight:500;border-bottom:1px solid rgba(var(--borderColor-rgb),1);}
+.lp-np .lp-coverage__table th:first-child,
+.lp-np .lp-coverage__table td:first-child{text-align:left;font-weight:500;color:var(--textColor);}
+.lp-np .lp-coverage__table tbody tr:last-child td{border-bottom:2px solid var(--textColor);font-weight:600;}
+.lp-np .lp-coverage__table td.is-total{font-weight:600;color:var(--textColor);}
+.lp-np .lp-coverage__table td.is-empty{color:rgba(var(--textColor-rgb),.35);}
+.lp-np .lp-coverage__footnote{margin-top:var(--space-4);font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),.6);text-wrap:pretty;}
+.lp-np .lp-coverage__footnote a{color:var(--linkColor);text-decoration:underline;text-underline-offset:3px;}
+
+.lp-np .lp-howto{padding:var(--space-12) 0;background:var(--alternateBackground);}
+.lp-np .lp-howto__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-np .lp-howto__head{margin-bottom:var(--space-8);}
+.lp-np .lp-howto__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-np .lp-howto__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-np .lp-howto h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-np .lp-howto__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);}
+.lp-np .lp-howto__step{background:var(--cardBackground);padding:var(--space-6);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);display:grid;grid-template-rows:auto auto 1fr;gap:var(--space-3);}
+.lp-np .lp-howto__step-num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;color:rgba(var(--textColor-rgb),.6);}
+.lp-np .lp-howto__step-title{font-family:var(--headingFont);font-size:18px;line-height:1.3;font-weight:600;color:var(--headingColor);margin:0;}
+.lp-np .lp-howto__step-body{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),.78);margin:0;text-wrap:pretty;}
+.lp-np .lp-howto__footnote{margin-top:var(--space-6);font-size:14px;line-height:1.55;color:rgba(var(--textColor-rgb),.7);text-wrap:pretty;}
+.lp-np .lp-howto__footnote a{color:var(--linkColor);text-decoration:underline;text-underline-offset:3px;}
+
+.lp-np .lp-entity-note{padding:var(--space-6) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-np .lp-entity-note__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-np .lp-entity-note p{font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),.6);margin:0;text-wrap:pretty;max-width:92ch;}
+.lp-np .lp-entity-note b{color:rgba(var(--textColor-rgb),.85);font-weight:600;}
+
+/* Top Products */
+.lp-np .lp-products{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-np .lp-products__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-np .lp-products__head{margin-bottom:var(--space-8);}
+.lp-np .lp-products__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),.6);margin-bottom:var(--space-3);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-np .lp-products__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-np .lp-products h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-np .lp-products__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);}
+.lp-np .lp-product-card{display:flex;flex-direction:column;background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),.6);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-np .lp-product-card__media{position:relative;display:block;aspect-ratio:1/1;background:#fff;padding:var(--space-6);overflow:hidden;}
+.lp-np .lp-product-card__media img{width:100%;height:100%;object-fit:contain;}
+.lp-np .lp-product-card__sale{position:absolute;top:var(--space-3);left:var(--space-3);background:var(--saleBadgeBackground);color:#fff;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px;font-weight:600;}
+.lp-np .lp-product-card__body{padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);flex:1;border-top:1px solid rgba(var(--borderColor-rgb),.6);}
+.lp-np .lp-product-card__vendor{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),.55);margin:0;}
+.lp-np .lp-product-card__title{font-family:var(--headingFont);font-size:15px;font-weight:600;color:var(--headingColor);margin:0;line-height:1.3;}
+.lp-np .lp-product-card__title a{color:inherit;text-decoration:none;}
+.lp-np .lp-product-card__title a:hover{text-decoration:underline;}
+.lp-np .lp-product-card__price{font-size:14px;color:rgba(var(--textColor-rgb),.7);margin:0 0 var(--space-2);flex:1;}
+.lp-np .lp-product-card__cta{display:block;text-align:center;padding:10px 16px;border:1px solid var(--borderColor);border-radius:var(--buttonRadius);font-size:14px;font-weight:500;color:var(--textColor);text-decoration:none;transition:background-color 160ms;}
+.lp-np .lp-product-card__cta:hover{background:var(--alternateBackground);}
+@media(max-width:980px){.lp-np .lp-products__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.lp-np .lp-products__grid{grid-template-columns:1fr;}}
+
+/* widen intro to match new full-width standard */
+.lp-np .lp-intro__inner{max-width:1280px !important;}
+
+@media(max-width:980px){
+  .lp-np .lp-entity__glance{grid-template-columns:1fr;padding-top:0;}
+  .lp-np .lp-entity__glance-item{border-left:0;border-bottom:1px solid var(--borderColor);padding:16px 0;}
+  .lp-np .lp-entity__glance-item + .lp-entity__glance-item{border-left:0;}
+  .lp-np .lp-entity__glance-item:last-child{border-bottom:0;}
+  .lp-np .lp-howto__steps{grid-template-columns:1fr;}
+}
 </style>
 
 <div class="lp-np">
@@ -258,8 +351,12 @@
         <p class="lp-hero__eyebrow bbi-mono">
           <span class="lp-hero__eyebrow-label">Industry &middot; Non-Profit</span>
         </p>
-        <h1>{{ section.settings.heading | default: 'Non-Profit Office Furniture — Commercial Grade, Institutional Pricing' }}</h1>
-        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Do more with your budget — commercial-grade furniture at institutional pricing, without the tender burden. OECM-eligible. Staff offices, meeting rooms, reception, and training rooms across Ontario. Call 1-800-835-9565.' }}</p>
+        <span class="lp-hero__badge">
+          <span class="lp-hero__badge-dot"></span>
+          Qualifying NGOs OECM-eligible &middot; budget-conscious procurement &middot; ON delivery + install
+        </span>
+        <h1>{{ section.settings.heading | default: 'Furniture that stretches the donor dollar &mdash; for community services, social agencies, and qualifying non-profits.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Brant Business Interiors supplies commercial-grade office furniture to Ontario non-profits, charities, social service agencies, housing co-ops, and community organizations. Qualifying OECM-eligible non-profits buy under Agreement 2025-470 without an open tender; everyone else buys the same catalog with PO or NET-30. Every quote includes a free space plan.' }}</p>
         <div class="lp-hero__cta-row">
           <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
             Request a Quote <span class="arrow">&#8594;</span>
@@ -287,11 +384,120 @@
   {%- comment -%}INTRO — AEO direct-answer anchors{%- endcomment -%}
   <section class="lp-intro" aria-label="About our non-profit furniture">
     <div class="lp-intro__inner">
-      <p class="lp-intro__eyebrow bbi-mono">What we do</p>
-      <h2>Commercial-grade furniture at institutional pricing — no tender required.</h2>
+      <p class="lp-intro__eyebrow bbi-mono">Built for non-profit budgets and accountability</p>
+      <h2>Commercial-grade durability at the price your board will sign off on.</h2>
       <div class="lp-intro__body">
-        <p>Brant Business Interiors supplies commercial-grade office furniture for Ontario charities, social service agencies, and non-governmental organizations. That means staff offices, meeting rooms, reception areas, and training rooms &mdash; furniture built for institutional use and priced for organizations watching every dollar.</p>
-        <p>As an OECM Supplier Partner (Agreement 2025-470), many Ontario non-profits and social-sector organizations are OECM-eligible and can purchase directly from Brant Business Interiors without an open tender or RFP. We provide a free space layout before you commit and most quotes return within one business day. Every dollar of your furniture budget works harder when you have the right spec from the start.</p>
+        <p>Brant Business Interiors supplies commercial-grade office furniture to Ontario non-profits, charities, social service agencies, community health centres, housing co-ops, and faith-based organizations &mdash; admin offices, reception areas, meeting rooms, training rooms, and community-program spaces. Specified for durability so the spend lasts a board cycle, not a budget year.</p>
+        <p>Many non-profits in social services and education are OECM-eligible and purchase under Supplier Partner Agreement 2025-470 without an open tender. Charities and community organizations that aren&rsquo;t OECM-eligible buy the same catalog with PO or NET-30 &mdash; donor-accountable pricing, no membership fees.</p>
+        <p>Free 2D space plan on every quote. Flexible delivery windows for volunteer-staffed offices and program-driven schedules. One Ontario account team end-to-end.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}CROSSLINKS — moved between Intro and Entity-clarity per CONTENT-POLISH-1{%- endcomment -%}
+  <section class="lp-crosslinks" aria-label="Browse non-profit furniture categories">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
+        <h2>Furniture for every area of your office.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+
+        <a href="/collections/desks" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Admin Desks &amp; Workstations</span>
+            <span class="lp-crosslinks__tile-meta">Staff offices &middot; open plan &middot; reception</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/seating" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Task &amp; Reception Seating</span>
+            <span class="lp-crosslinks__tile-meta">Task chairs &middot; reception &middot; meeting</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/collections/tables" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2 10 H26 V13 H2 Z"/><path d="M6 13 V22 M22 13 V22"/><path d="M4 22 H24"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Meeting &amp; Training Tables</span>
+            <span class="lp-crosslinks__tile-meta">Folding &middot; nesting &middot; multi-use rooms</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%}ENTITY-CLARITY (CONTENT-POLISH-1, AI-7 Version B voice){%- endcomment -%}
+  <section class="lp-entity" aria-label="Who Brant Business Interiors is">
+    <div class="lp-entity__inner">
+      <div class="lp-entity__head">
+        <p class="lp-entity__eyebrow">Who we are</p>
+        <h2>A Peterborough commercial office furniture dealer, family-owned since 1964.</h2>
+      </div>
+      <div class="lp-entity__body">
+        <p>Brant Business Interiors is a commercial office furniture dealer headquartered at 296 George St N, Peterborough, ON. The legal entity behind our OECM agreement is Brant Basics &mdash; same family, same team, same address. Part of the Office Central group.</p>
+        <p>Non-profit buyers split between OECM-eligible community-service agencies, family health teams, and education-adjacent NGOs purchasing under Agreement 2025-470, and donor-funded charities, housing co-ops, and faith-based organizations buying at contract pricing with PO or NET-30. Same commercial-grade catalog from Global Furniture Group, OTG / Offices to Go, Heartwood Manufacturing, ObusForme, plus 25+ additional authorized lines.</p>
+        <p>Delivery is Canada-wide. Installation is Ontario and Western Canada. Quote, freight, install, and warranty all handled by the same Ontario account team.</p>
+      </div>
+      <dl class="lp-entity__glance">
+        <div class="lp-entity__glance-item">
+          <dt>Founded</dt>
+          <dd>1964 &middot; Peterborough, ON &middot; Family-owned</dd>
+        </div>
+        <div class="lp-entity__glance-item">
+          <dt>OECM</dt>
+          <dd>Supplier Partner Agreement 2025-470</dd>
+        </div>
+        <div class="lp-entity__glance-item">
+          <dt>Reach</dt>
+          <dd>Quote in 1 business day &middot; Install ON + Western Canada</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  {%- comment -%}TOP PRODUCTS (CONTENT-POLISH-1){%- endcomment -%}
+  {%- assign tp1 = section.settings.top_product_1 -%}
+  {%- assign tp2 = section.settings.top_product_2 -%}
+  {%- assign tp3 = section.settings.top_product_3 -%}
+  {%- assign tp4 = section.settings.top_product_4 -%}
+  {%- if tp1 == blank -%}{%- assign tp1 = collections.desks.products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = all_products['citi-lounge-seating-3-sizes-available'] -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections['height-adjustable-tables-desks'].products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections['height-adjustable-tables'].products.first -%}{%- endif -%}
+  {%- if tp2 == blank -%}{%- assign tp2 = collections.desks.products[1] -%}{%- endif -%}
+  {%- if tp3 == blank -%}{%- assign tp3 = collections.seating.products.first -%}{%- endif -%}
+  {%- if tp4 == blank -%}{%- assign tp4 = collections.seating.products[1] -%}{%- endif -%}
+  <section class="lp-products" aria-label="Top products">
+    <div class="lp-products__inner">
+      <div class="lp-products__head">
+        <p class="lp-products__eyebrow">Top products</p>
+        <h2>{{ section.settings.top_products_heading | default: 'Top desks, sit-stand workstations, and chairs.' }}</h2>
+      </div>
+      <div class="lp-products__grid">
+        {%- if tp1 != blank and tp1 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp1.url }}">{%- if tp1.compare_at_price_max > tp1.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp1.featured_image -%}{{ tp1.featured_image | image_url: width: 600 | image_tag: alt: tp1.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp1.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp1.url }}">{{ tp1.title }}</a></h3><p class="lp-product-card__price">From {{ tp1.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp1.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp2 != blank and tp2 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp2.url }}">{%- if tp2.compare_at_price_max > tp2.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp2.featured_image -%}{{ tp2.featured_image | image_url: width: 600 | image_tag: alt: tp2.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp2.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp2.url }}">{{ tp2.title }}</a></h3><p class="lp-product-card__price">From {{ tp2.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp2.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp3 != blank and tp3 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp3.url }}">{%- if tp3.compare_at_price_max > tp3.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp3.featured_image -%}{{ tp3.featured_image | image_url: width: 600 | image_tag: alt: tp3.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp3.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp3.url }}">{{ tp3.title }}</a></h3><p class="lp-product-card__price">From {{ tp3.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp3.url }}">View product</a></div></article>{%- endif -%}
+        {%- if tp4 != blank and tp4 != nil -%}<article class="lp-product-card"><a class="lp-product-card__media" href="{{ tp4.url }}">{%- if tp4.compare_at_price_max > tp4.price_min -%}<span class="lp-product-card__sale">Sale</span>{%- endif -%}{%- if tp4.featured_image -%}{{ tp4.featured_image | image_url: width: 600 | image_tag: alt: tp4.title, loading: 'lazy', width: 600 }}{%- endif -%}</a><div class="lp-product-card__body"><p class="lp-product-card__vendor">{{ tp4.vendor }}</p><h3 class="lp-product-card__title"><a href="{{ tp4.url }}">{{ tp4.title }}</a></h3><p class="lp-product-card__price">From {{ tp4.price_min | money }}</p><a class="lp-product-card__cta" href="{{ tp4.url }}">View product</a></div></article>{%- endif -%}
       </div>
     </div>
   </section>
@@ -300,20 +506,90 @@
   <section class="lp-proof-bar" aria-label="Track record">
     <div class="lp-proof-bar__inner">
       <div class="lp-proof-bar__stat">
-        <span class="lp-proof-bar__stat-num">2019</span>
-        <span class="lp-proof-bar__stat-label">OECM vendor since</span>
-        <span class="lp-proof-bar__stat-detail">Office furniture category &mdash; re-qualified each contract cycle.</span>
+        <span class="lp-proof-bar__stat-num">2025-470</span>
+        <span class="lp-proof-bar__stat-label">OECM Agreement number</span>
+        <span class="lp-proof-bar__stat-detail">Supplier Partner &middot; Office furniture category &middot; Current contract cycle.</span>
       </div>
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">340+</span>
         <span class="lp-proof-bar__stat-label">OECM POs delivered</span>
-        <span class="lp-proof-bar__stat-detail">Across 90+ Ontario school boards, hospitals, and municipalities since 2019.</span>
+        <span class="lp-proof-bar__stat-detail">Across 90+ Ontario school boards, hospitals, and municipalities across current and prior contract cycles.</span>
       </div>
       <div class="lp-proof-bar__stat">
         <span class="lp-proof-bar__stat-num">1 day</span>
         <span class="lp-proof-bar__stat-label">Quote turnaround</span>
         <span class="lp-proof-bar__stat-detail">Most line-item quotes return within one business day of intake.</span>
       </div>
+    </div>
+  </section>
+
+  {%- comment -%}ENTITY NOTE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-entity-note" aria-label="Legal entity and registration">
+    <div class="lp-entity-note__inner">
+      <p><b>Brant Business Interiors</b> is the operating brand of <b>Brant Basics</b>, our OECM-registered legal entity. Family-owned since 1964, headquartered at 296 George St N, Peterborough, ON K9J 3H2. Part of the Office Central group.</p>
+    </div>
+  </section>
+
+  {%- comment -%}COVERAGE TABLE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-coverage" aria-label="OECM Agreement 2025-470 coverage table">
+    <div class="lp-coverage__inner">
+      <div class="lp-coverage__head">
+        <p class="lp-coverage__eyebrow">Coverage</p>
+        <h2>OECM Agreement 2025-470 &mdash; coverage by category and brand.</h2>
+        <p class="lp-coverage__sub">Non-profit buyers most often draw from Seating (task + lounge for reception and programs), Desks/workstations (admin offices), Storage (records, supplies, archive), and Tables (meeting, training, multi-use). Budget-conscious specifications flagged on every quote. OECM-eligible non-profits buy at Agreement 2025-470 rates; charities buy the same catalog at contract pricing.</p>
+      </div>
+      <div class="lp-coverage__table-wrap">
+        <table class="lp-coverage__table">
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Global Furniture Group</th>
+              <th scope="col">OTG / Offices to Go</th>
+              <th scope="col">Heartwood Manufacturing</th>
+              <th scope="col">ObusForme</th>
+              <th scope="col">Category total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Seating (task, reception, lounge, stacking)</td><td>45</td><td>44</td><td class="is-empty">&mdash;</td><td>6</td><td class="is-total">95</td></tr>
+            <tr><td>Desks &amp; workstations (admin, program staff)</td><td>9</td><td>13</td><td>11</td><td class="is-empty">&mdash;</td><td class="is-total">33</td></tr>
+            <tr><td>Tables (meeting, training, multi-use)</td><td>10</td><td>4</td><td>6</td><td class="is-empty">&mdash;</td><td class="is-total">20</td></tr>
+            <tr><td>Storage &amp; filing (records, supplies, archive)</td><td>6</td><td>9</td><td>9</td><td class="is-empty">&mdash;</td><td class="is-total">24</td></tr>
+            <tr><td>Panels &amp; dividers</td><td class="is-empty">&mdash;</td><td>2</td><td class="is-empty">&mdash;</td><td class="is-empty">&mdash;</td><td class="is-total">2</td></tr>
+            <tr><td>Accessories (monitor arms, CPU holders)</td><td class="is-empty">&mdash;</td><td>3</td><td class="is-empty">&mdash;</td><td class="is-empty">&mdash;</td><td class="is-total">3</td></tr>
+            <tr><td><b>Brand total</b></td><td><b>70</b></td><td><b>75</b></td><td><b>26</b></td><td><b>6</b></td><td class="is-total"><b>177</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lp-coverage__footnote">Need a budget-tier line or a donation-receipt-compatible quote? Call <a href="tel:18008359565"><b>1-800-835-9565</b></a> &mdash; 25+ additional Agreement 2025-470 lines aren&rsquo;t on the storefront yet.</p>
+    </div>
+  </section>
+
+  {%- comment -%}HOW TO PURCHASE (CONTENT-POLISH-1, AI-8 pattern){%- endcomment -%}
+  <section class="lp-howto" aria-label="How to purchase">
+    <div class="lp-howto__inner">
+      <div class="lp-howto__head">
+        <p class="lp-howto__eyebrow">How to purchase</p>
+        <h2>Three steps from wish list to install.</h2>
+      </div>
+      <div class="lp-howto__steps">
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 01</span>
+          <h3 class="lp-howto__step-title">Send your wish list</h3>
+          <p class="lp-howto__step-body">Floor plan, room counts, your budget envelope, or a list of what each program area needs. Whatever you have. Email it, call 1-800-835-9565, or use the quote form.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 02</span>
+          <h3 class="lp-howto__step-title">Line-item quote in 1 business day</h3>
+          <p class="lp-howto__step-body">Pricing at Agreement 2025-470 negotiated rates for OECM-eligible non-profits; contract pricing for charities and community organizations. Budget-conscious alternatives flagged. SKU-level detail your board treasurer can match against the budget line.</p>
+        </article>
+        <article class="lp-howto__step">
+          <span class="lp-howto__step-num">Step 03</span>
+          <h3 class="lp-howto__step-title">You issue a PO; we deliver and install</h3>
+          <p class="lp-howto__step-body">Flexible delivery windows for volunteer-staffed offices and program-driven calendars. We coordinate with your operations lead to land furniture when the building isn&rsquo;t running a service or workshop. Old-furniture removal included.</p>
+        </article>
+      </div>
+      <p class="lp-howto__footnote">Eligible OECM non-profit buyers: Ontario broader-public-sector NGOs in social services and education, community health centres, family health teams, publicly-funded community-service agencies. Charities, housing co-ops, and faith-based organizations buy the same catalog at contract pricing. Not sure where your organization sits? Call <a href="tel:18008359565"><b>1-800-835-9565</b></a>.</p>
     </div>
   </section>
 
@@ -416,58 +692,6 @@
     </div>
   </section>
 
-  {%- comment -%}CROSSLINKS — product category tiles{%- endcomment -%}
-  <section class="lp-crosslinks" aria-label="Browse non-profit furniture categories">
-    <div class="lp-crosslinks__inner">
-      <div class="lp-crosslinks__head">
-        <p class="lp-crosslinks__eyebrow bbi-mono">Browse categories</p>
-        <h2>Furniture for every area of your office.</h2>
-      </div>
-      <div class="lp-crosslinks__grid">
-
-        <a href="/collections/seating" class="lp-crosslinks__tile">
-          <span class="lp-crosslinks__tile-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 13 V6 a3 3 0 0 1 3 -3 h8 a3 3 0 0 1 3 3 V13"/><path d="M5 13 H23 v6 H5 Z"/><path d="M8 19 V25 M20 19 V25"/></svg>
-          </span>
-          <span class="lp-crosslinks__tile-label">
-            <span class="lp-crosslinks__tile-name">Staff &amp; Task Seating</span>
-            <span class="lp-crosslinks__tile-meta">Task chairs &middot; guest seating &middot; lounge</span>
-          </span>
-          <span class="lp-crosslinks__tile-arrow">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
-          </span>
-        </a>
-
-        <a href="/collections/desks" class="lp-crosslinks__tile">
-          <span class="lp-crosslinks__tile-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/></svg>
-          </span>
-          <span class="lp-crosslinks__tile-label">
-            <span class="lp-crosslinks__tile-name">Desks &amp; Workstations</span>
-            <span class="lp-crosslinks__tile-meta">Office desks &middot; height-adjustable &middot; L-shape</span>
-          </span>
-          <span class="lp-crosslinks__tile-arrow">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
-          </span>
-        </a>
-
-        <a href="/collections/tables" class="lp-crosslinks__tile">
-          <span class="lp-crosslinks__tile-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2 10 H26 V13 H2 Z"/><path d="M6 13 V22 M22 13 V22"/><path d="M4 22 H24"/></svg>
-          </span>
-          <span class="lp-crosslinks__tile-label">
-            <span class="lp-crosslinks__tile-name">Tables &amp; Meeting Furniture</span>
-            <span class="lp-crosslinks__tile-meta">Meeting &middot; training &middot; folding tables</span>
-          </span>
-          <span class="lp-crosslinks__tile-arrow">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
-          </span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
   {%- comment -%}OECM BAR{%- endcomment -%}
   <div class="lp-oecm-bar" aria-label="OECM procurement">
     <div class="lp-oecm-bar__inner">
@@ -515,55 +739,77 @@
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">01</span>
-            <span class="lp-faq-item__q">Are non-profits OECM-eligible?</span>
+            <span class="lp-faq-item__q">Which non-profits are OECM-eligible under Agreement 2025-470?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Many Ontario non-profits are OECM-eligible, particularly those in the broader public sector &mdash; social services organizations, community health centres, charities that receive provincial or municipal funding, and non-profits that provide government-funded programs. Call us with your organization&rsquo;s name and type and we&rsquo;ll confirm eligibility in five minutes. If you qualify, you can purchase directly without a tender.</p>
+            <p>Ontario broader-public-sector NGOs in social services and education, community health centres, family health teams, and provincially-funded community-service agencies are OECM-eligible &mdash; they purchase from us under Agreement 2025-470 without an open tender. Private charities, religious organizations, housing co-ops, and donor-funded organizations are typically not OECM-eligible but buy the same catalog at contract pricing with PO or NET-30. Call <a href="tel:18008359565">1-800-835-9565</a> &mdash; five-minute eligibility confirmation.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">02</span>
-            <span class="lp-faq-item__q">How can we stretch a limited furniture budget?</span>
+            <span class="lp-faq-item__q">Can you work within a donor-accountable budget without compromising durability?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Tell us your per-seat or per-room budget on the quote request. We work across a wide range of commercial-grade suppliers and can spec products that hold up to institutional use at a lower price point than you might expect. We can also mix product lines &mdash; spending more on high-use areas like reception and less on secondary storage or back-office spaces &mdash; to make the budget go further without compromising durability.</p>
+            <p>Yes &mdash; tell us your per-seat or per-room budget on the quote and we&rsquo;ll spec accordingly. Brant Business Interiors carries multiple commercial-grade tiers across each category, so we can hit a $300/chair or $600/chair budget while keeping a 5&ndash;10 year warranty horizon. For high-use front-of-house we often recommend spending up; for back-office we can stretch the dollar with stacking and basic-task seating.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">03</span>
-            <span class="lp-faq-item__q">Can we phase delivery across budget cycles?</span>
+            <span class="lp-faq-item__q">Do you accept POs, NET-30, and grant-funded billing?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Yes &mdash; phased delivery is common for non-profits managing annual budgets. We can quote the full scope and phase delivery room by room or quarter by quarter. Each phase gets its own PO and invoice so your finance team can track against the right budget period. Lead times stay consistent as long as you confirm the phase dates when the first PO is issued.</p>
+            <p>Yes. Purchase orders, NET-30, and invoiced accounts are standard for non-profits and charities. Grant-funded billing supported &mdash; we can split a quote across funder lines, provide a proforma invoice ahead of grant disbursement, and supply donation-receipt-friendly documentation. Credit applications take 1&ndash;2 business days.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">04</span>
-            <span class="lp-faq-item__q">What&rsquo;s included in the quote?</span>
+            <span class="lp-faq-item__q">Can you accommodate flexible delivery windows around volunteer schedules?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>Every quote includes a line-item product list with quantities, finishes, and pricing &mdash; no hidden fees. We include delivery to your Ontario location and a furniture layout if you send us a floor plan. Installation is quoted separately; let us know if you want it included. Most quotes come back within one business day of receiving your request.</p>
+            <p>Yes &mdash; flexible delivery is most of our non-profit work. Tell us when your building is staffed (volunteer hours, program days, after-program windows) and we coordinate. Evening, weekend, and phased deliveries available. Old-furniture removal included on install &mdash; we&rsquo;ll donate-route or recycle anything still usable.</p>
           </div>
         </details>
 
         <details class="lp-faq-item">
           <summary>
             <span class="lp-faq-item__num">05</span>
-            <span class="lp-faq-item__q">What are typical lead times?</span>
+            <span class="lp-faq-item__q">Does every quote include a free space plan for community-program spaces?</span>
             <span class="lp-faq-item__icon" aria-hidden="true"></span>
           </summary>
           <div class="lp-faq-item__body">
-            <p>In-stock items ship in 2&ndash;4 weeks. Custom or made-to-order pieces typically run 8&ndash;12 weeks. Lead times are noted on every quote. For grant-funded projects with hard deadlines, let us know the required delivery date on the quote request and we&rsquo;ll confirm whether it&rsquo;s achievable before you issue the PO.</p>
+            <p>Yes &mdash; free 2D layout on every project. Especially useful for multi-use community-program rooms where the same space hosts workshops, board meetings, and client-facing services. Send your floor plan (AutoCAD, PDF, or sketch). On-site measure available when needed. Sightlines, accessibility, and reconfigurability flagged.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">06</span>
+            <span class="lp-faq-item__q">Can you handle a multi-site rollout (e.g., 6 transitional housing sites, 4 community centres)?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>Yes &mdash; multi-site is common for housing NGOs, social-service agencies, and community-services rollouts. We quote per-site with a master roll-up, sequence installs against your operational calendar, and ship to a single warehouse or direct-to-site depending on what makes sense for your team. One Ontario project manager owns the file across every location.</p>
+          </div>
+        </details>
+
+        <details class="lp-faq-item">
+          <summary>
+            <span class="lp-faq-item__num">07</span>
+            <span class="lp-faq-item__q">What&rsquo;s the typical lead time on an office refresh for a non-profit budget cycle?</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>In-stock items ship within 2&ndash;3 weeks. Custom-configured pieces are typically 6&ndash;10 weeks. We confirm lead time per line on every quote. For grant-funded projects with hard deadlines (March 31, fiscal year-end, program launch dates), tell us the required delivery date and we&rsquo;ll confirm whether it&rsquo;s achievable before you issue the PO. Phased delivery across budget cycles is supported.</p>
           </div>
         </details>
 
@@ -669,6 +915,36 @@
       "id": "testimonial_logo",
       "label": "Client logo",
       "info": "Upload kawartha-dairy-logo.jpg from data/testimonials/"
+    },
+    {
+      "type": "header",
+      "content": "Top Products"
+    },
+    {
+      "type": "text",
+      "id": "top_products_heading",
+      "label": "Section heading",
+      "default": "Top desks, sit-stand workstations, and chairs."
+    },
+    {
+      "type": "product",
+      "id": "top_product_1",
+      "label": "Product 1 (default: top desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_2",
+      "label": "Product 2 (default: top sit-stand desk)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_3",
+      "label": "Product 3 (default: top chair)"
+    },
+    {
+      "type": "product",
+      "id": "top_product_4",
+      "label": "Product 4 (default: second chair)"
     }
   ],
   "presets": [
