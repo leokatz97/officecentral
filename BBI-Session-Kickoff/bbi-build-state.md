@@ -2,13 +2,15 @@
 
 > **Source of truth.** This file is canonical. The `bbi-launch-tracker` Cowork artifact is the visual dashboard view of it — both update together. Both files were rebuilt to the same navigation-optimized functional grouping on **2026-05-21 (Day 7 EOD)**: a CURRENT FOCUS / ACTIVE / HOMEWORK navigation layer on top, with the full session log, technical sections, Wave A–H tables, and backlog preserved verbatim below the divider. Full ship history lives in `docs/project/launch-tracker-archive.md`.
 
-**Current state:** 2026-05-21 (Day 8 truly closed) · **40 of 54 launch steps done (74%)** · Day 8 truly closed (incl. homepage bug fix + polish round, PR #15 → `766e555`) · Day 9 (image work) next · launch target Day 10.
+**Current state:** 2026-05-22 (Day 8 truly closed · Day 9 plan ready) · **40 of 54 launch steps done (74%)** · Image sourcing OUTSOURCED to Upwork (137-image manifest CSV, 3-day delivery, EOD Sun May 24) → launch shifts to Monday Day 11 · Day 9 (Sat) launch prep + AI search foundation · Day 10 (Sun) 2 cornerstone blog posts + Upwork delivery review · Day 11 (Mon) IMAGE SWAP + LAUNCH.
 
 ---
 
-## 🎯 CURRENT FOCUS — Day 8 / Day 9 / Day 10
+## 🎯 CURRENT FOCUS — Day 9 / Day 10 / Day 11
 
-The next three days are the launch sequence. This mirrors the tracker's "Next 3 days" block.
+The next three days are the launch sequence. This mirrors the tracker's "Next 3 days" block. (Day 8 below is the just-closed reference.)
+
+> **Pivot 2026-05-22 (Friday EOD):** image sourcing was outsourced to an Upwork freelancer (137-image manifest CSV, 3-day delivery, full package EOD Sunday May 24). Launch shifts from Day 10 to **Monday Day 11**. Day 9–10 use the wait time for launch prep + AI search optimization (Option B) + 2 cornerstone blog posts. Step 46 IMAGE-SOURCING-V2 → 🟡 OUTSOURCED; Step 36 BLOG-SEED-1 → restructured into sub-items 36a–e (36a–d pre-launch, 36e deferred). Progress holds at 40/54 (74%) — no new numbered steps.
 
 ### Day 8 — ✅ truly closed (content polish + schema + homepage bug fix) → 38 → 40 of 54 (74%)
 
@@ -26,32 +28,48 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 
 **Status:** ✅ Day 8 truly closed. Final accounting: 7 PRs created today, 6 merged to main (one EOD was a direct edit). Progress 38/54 (70%) → 40/54 (74%) — the homepage bug fix is Task #13 (post-launch backlog), so the /54 count is unchanged. Day 9 image plan ready (below).
 
-### Day 9 — ▶ NEXT · Image work (full day) → ~46–48 of 54 (85–89%)
+### Day 9 — ▶ Saturday May 23 · Launch prep + AI foundation → ~43–45 of 54 (~80–83%)
 
-**Prereq ✅ cleared:** Step 53 INSTALL-PHOTO-QUERY answered 2026-05-21 — **stock is fine**, so the Day 9 approach is locked to stock imagery (no install-photo library dependency). **Still flag W0-1** (GSC + GA4) — Steve homework that must be set up before LAUNCH-2 (Day 10).
+**Focus:** Tier 1 launch prep + sitewide schema audit + INTERLINK-3. **Context:** Upwork freelancer in production with the 137-image package (full delivery EOD Sun May 24); Day 9 uses the wait time for launch prep + the AI search optimization foundation.
 
-- **Task #13** — homepage image rot · 14 broken `bbi-hp-*.jpg` refs now showing safe design-system placeholders (PR #15 → `766e555`) · Day 9 swaps placeholders → real stock images (slots + aspect ratios preserved).
-- **3 brand page heroes** — OTG, Heartwood, ObusForme (currently placeholders).
-- **Customer-stories case study images.**
-- **9 collection page banner/hero images** — Tier 1 must-have.
-- **ALL tile images across entire website (NEW SCOPE)** — homepage shop tiles + category page tiles + brand-page crosslink tiles + industry Top Products + service page tiles (~50+ images sitewide).
-- PR + merge image work (~15 min).
-- Tracker + build-state EOD update — closes IMAGE-SOURCING-V2 (tracker Step 46).
-- **CONSOLIDATED 2026-05-21 (Day 8 audit):** Step 29 IMG-PHASE2 ("product image regen ≥80% coverage", soft gate) folded into Step 46 and removed from the ACTIVE STEPS layer — its scope was already covered here. The Step 46 umbrella covers the 82 active image slots across Tier 1/2/3 folders + 14 deferred brand-pages images + the items listed above (~6–8h session). All BBI launch image work now lives under this single umbrella step. (NAV-VERIFY, formerly mis-referenced as a second IMG-PHASE2 duplicate, is a separate completed item and was left intact.)
-- **Homepage placeholders in place (PR #15 → `766e555`):** the 14 broken homepage refs now show design-system placeholders — Day 9 replaces them with real **stock** images (Step 53 answered: stock is fine); slots + aspect ratios preserved for a drop-in swap. The `bbi-featured` 3-card block still needs **Steve's product picks (Idea #15)** — OTG/GFG/Heartwood SKUs — before its images can be finalized.
-- **Outcome:** all visual polish complete.
+- **`bbi-quote-modal.liquid` cleanup** — commit the pre-existing change so the working tree is clean for Monday launch (~5–10 min).
+- **SYS-VERIFY-1 Phase 2** (Step 33) — launch gate verification, surfaces late issues (~1.5–2h).
+- **W0-3** — product redirects CSV upload to Shopify Admin (~15 min, Leo).
+- **Steve homework pings** — W0-1 GSC + GA4 setup + Idea #15 featured 3-card SKU picks (~10 min).
+- **Step 36a BLOG-SEED-1 PREREQ** — Article/BlogPosting JSON-LD added to `ds-article.liquid` (~30–45 min).
+- **Step 36b AI Search schema audit** — sitewide JSON-LD completeness check (Product, Organization, Service, LocalBusiness, etc.) + validate all schemas (~1–2h).
+- **INTERLINK-3** (Step 26) — final cross-link audit, unblocked post-CONTENT-POLISH-1 (~1–2h).
+- Tracker + build-state EOD update (~15 min).
+- **Outcome:** all Tier 1 launch prep complete · AI search foundation laid · Step 36 ~30% done · INTERLINK-3 ✅ · ~43–45/54 (~80–83%).
 
-### Day 10 — LAUNCH DAY → ~50+ of 54 (93%+)
+### Day 10 — Sunday May 24 · 2 cornerstone posts + Upwork prep → ~46–48 of 54 (~85–89%)
 
-- **[W0-1] Verify Google Search Console + GA4 setup complete** — pre-LAUNCH-2 critical · Steve homework · no SEO data compounds without it.
-- **[W0-3] Product redirects CSV uploaded to Shopify Admin** — pre-LAUNCH-2 critical · `data/url-redirects.csv` exists in repo, manual upload.
-- **SYS-VERIFY-1 Phase 2** (Step 33) — launch gate verification (~1.5–2h).
-- **LAUNCH-0** (Step 37) — image confirmation gate (Leo row-by-row approval).
-- **LAUNCH-1** (Step 38) — pre-publish GO/NO-GO report.
+**Focus:** ship 2 cornerstone blog posts that AI search will retrieve for institutional procurement queries. Last full day before Monday launch; Upwork delivers EOD Sunday.
+
+- **Step 36c Cornerstone Post 1** — *OECM for Ontario School Boards: A Procurement Guide* · DataForSEO KW research + outline + draft + Steve review + publish + schema verify (~2–3h) · links to `/pages/oecm` + `/pages/education`.
+- **Step 36d Cornerstone Post 2** — *Healthcare Furniture Compliance for FHTs* · same flow (~2–3h) · links to `/pages/healthcare` + `/pages/oecm`.
+- **LEAD-2** (Step 22) — lead routing gap analysis (read-only, ~30 min).
+- **Image swap pipeline prep** — pre-draft the Claude Code prompt for Monday image ingestion + verify the Shopify Files upload pipeline works with a test image (~30–45 min).
+- Upwork delivery check-in (EOD review of manifest CSV + images).
+- Tracker + build-state EOD update (~15 min).
+- **Outcome:** 2 cornerstone posts live · Step 36 ~80% done (Post 3 deferred post-launch) · image swap prompt ready · ~46–48/54 (~85–89%).
+
+### Day 11 — Monday May 25 · IMAGE SWAP + LAUNCH → ~50+ of 54 (~93%+)
+
+**Focus:** image swap session + the full launch sequence. Upwork's 137-image package delivered EOD Sunday.
+
+- **Upwork delivery review** — final QA of manifest CSV + images (~15–30 min).
+- **Step 46 IMAGE SWAP session** — Claude Code ingests the manifest CSV + uploads to Shopify Files + maps to template slots across all pages (~2–3h). **Closes IMAGE-SOURCING-V2 ✅ when all 137 images live in the DEV theme.**
+- **SYS-VERIFY-1 Phase 2 re-run** (Step 33) — verify no regressions after the image swap (~30 min, light).
+- **W0-1 verify** — confirm GSC + GA4 setup completed by Steve (~10 min).
+- **W0-3 verify** — confirm redirects CSV uploaded (~5 min).
+- **LAUNCH-0** (Step 37) — image confirmation gate, Leo row-by-row approval (~30 min).
+- **LAUNCH-1** (Step 38) — pre-publish GO/NO-GO report (~30 min).
 - **LAUNCH-2** (Step 39) — manual Publish click in Shopify Admin (THE GO-LIVE).
-- **LAUNCH-3** (Step 40) — sitemap to GSC + 72h 404 monitor.
-- **LAUNCH-4** (Step 41) — mobile smoke test (Chrome, Safari, Firefox, iOS, Android).
-- **Outcome:** BBI launched live.
+- **LAUNCH-3** (Step 40) — sitemap to GSC + 72h 404 monitor (~30 min).
+- **LAUNCH-4** (Step 41) — mobile smoke test (Chrome, Safari, Firefox, iOS, Android) (~30 min).
+- **Step 46 IMAGE-SOURCING-V2 status:** 🟡 OUTSOURCED 2026-05-22 — Upwork freelancer working the full 137-image manifest CSV. 3-day delivery, EOD Sun May 24. M1 style proof → M2 heroes/banners → M3 full tile package. Monday = image swap (ingest manifest + upload + map to slots) + LAUNCH-0 → LAUNCH-4. Closes ✅ when all 137 images live in DEV.
+- **Outcome:** BBI LIVE with real images · Step 46 ✅ · ~50+/54 (~93%+).
 
 ---
 
@@ -59,11 +77,10 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 
 Tracker step → build-state Wave row, with one-line status.
 
-- **LEAD-2** (Step 22, Wave E) — lead routing gap analysis. Owner: Claude Code. Open.
-- **INTERLINK-3** (Step 26, Wave E) — final cross-link audit. Owner: Claude Code. ✅ Unblocked — CONTENT-POLISH-1 merged to main (PR #10); ready to fire any time post-Wave-E.
-- **INSTALL-PHOTO-QUERY** (Step 53) — ✅ answered 2026-05-21: **stock is fine**. Day 9 approach locked to stock imagery; no longer blocking. Owner: Steve.
-- **SEO-AUDIT-1** (Step 35, Wave E) — technical SEO audit via DataForSEO MCP (HARD GATE before LAUNCH-0). Owner: Claude Code. Blocked: DataForSEO MCP not connected + dev preview not externally crawlable.
-- **BLOG-SEED-1** (Step 36, Phase 4 / Backlog) — 3 cornerstone blog posts. Owner: Cowork + Steve. Mostly post-launch but a hard launch gate per CLAUDE.md; PREREQ Article/BlogPosting JSON-LD on `ds-article.liquid`.
+> **Moved into the Day 9–11 sequence (2026-05-22 pivot):** **INTERLINK-3** (Step 26) → Day 9 · **LEAD-2** (Step 22) → Day 10 · **BLOG-SEED-1** (Step 36) → restructured into sub-items **36a–e** (36a + 36b Day 9 schema work; 36c + 36d Day 10 cornerstone posts; **36e** Cornerstone Post 3 *Cubicle vs Open-Plan for Municipal Offices* DEFERRED post-launch) · **IMAGE-SOURCING-V2** (Step 46) → 🟡 OUTSOURCED to Upwork, image swap + launch Day 11.
+
+- **INSTALL-PHOTO-QUERY** (Step 53) — ✅ answered 2026-05-21: **stock is fine**. Image gap now closed by the 137-image Upwork manifest (Step 46); no longer blocking. Owner: Steve.
+- **SEO-AUDIT-1** (Step 35, Wave E) — technical SEO audit via DataForSEO MCP. 🔒 Hard gate, BLOCKED on DataForSEO MCP connectivity. If the MCP gets connected pre-Monday, run the audit Sunday or Monday morning; if not, defer to post-launch — DataForSEO KW research for BLOG-SEED-1 can run independently via alternative means. Owner: Claude Code.
 - **PERF-AUDIT-1** (Step 30, Wave E) — Lighthouse + CWV. Owner: Claude Code. 🟡 Phase 1 done (LIVE Avada baseline); Phase 2 re-runs post-LAUNCH-2 against the new theme.
 - **A11Y-AUDIT-1** (Step 31, Wave E) — WCAG 2.1 AA. Owner: Claude Code. 🟡 Phase 1 partial (Fix D applied; A/B/C no-ops); Phase 2 post-LAUNCH-2.
 - **FONT-TOKENS-FOLLOWUP** (new — flagged from the homepage bug fix session 2026-05-21) — the homepage uses Avada residual fonts (`--headingFont`, `--bodyFont`, hardcoded JetBrains Mono). The font refactor was attempted then reverted because the homepage layout doesn't load `ds-landing.css` where the `--bbi-font-*` tokens are defined — refactoring would have broken fonts sitewide on the homepage. Needs a separate session to either load `ds-landing.css` globally in `theme/layout/theme.liquid` OR define `--bbi-font-*` tokens locally in `bbi-homepage.css`. Owner: Claude Code. 🟡 Not launch-blocking — design-system consistency item.
@@ -73,9 +90,11 @@ Tracker step → build-state Wave row, with one-line status.
 ## 👤 STEVE HOMEWORK (consolidated)
 
 - ~~**INSTALL-PHOTO-QUERY (Step 53)**~~ — ✅ **ANSWERED 2026-05-21: stock is fine.** Day 9 image approach locked to stock imagery; no install-photo library dependency. No longer blocking Day 9.
-- **W0-1** — Google Search Console + GA4 setup. CRITICAL — no SEO data compounds without it. **Now sequenced as pre-LAUNCH-2 (Day 10).** ⬜
+- **W0-1** — Google Search Console + GA4 setup. CRITICAL — no SEO data compounds without it. **Pre-LAUNCH-2 critical; verified at the top of the Day 11 launch sequence.** ⬜
+- **Idea #15 — featured 3-card SKU picks** — choose the OTG/GFG/Heartwood SKUs for the homepage `bbi-featured` 3-card block so the Upwork images map to the right products during the Day 11 swap. ⬜
+- **Cornerstone post reviews (Day 10)** — review the 2 cornerstone blog posts before publish: Post 1 *OECM for Ontario School Boards: A Procurement Guide* + Post 2 *Healthcare Furniture Compliance for FHTs*. ⬜
 - **W0-2** — Create / claim BBI Google Business Profile (`google.com/business`). _Moved to Wave D parallel / post-launch acceptable — not blocking launch._ ⬜
-- **W0-3** — Upload the product redirects CSV in Shopify Admin (`data/url-redirects.csv` exists). **Now sequenced as pre-LAUNCH-2 (Day 10) — Leo.** 🟡
+- **W0-3** — Upload the product redirects CSV in Shopify Admin (`data/url-redirects.csv` exists). **Now sequenced for Day 9 (Sat) — Leo; verified Day 11.** 🟡
 - **LEAD-3 manual follow-ups** (from Wave E LEAD-3 🟡) — set Shopify `customer_email` → `info@brantbusinessinteriors.com`; verify subject-line behaviour + set M365 inbox rules; set M365 auto-replies on quotes@/design@/info@. See `docs/strategy/bbi-lead-routing.md`.
 - **STEVE-FACT-CHECK (Step 55) — ✅ RESOLVED 2026-05-21:** (1) Proof-bar stat 02 numbers verified by Steve; (2) Legal entity name — 'Brant Basics' for OECM/legal/policy contexts; 'Brant Business Interiors Inc.' for storefront/consumer-facing/operations; (3) Ownership framing — 'Ontario-owned' for government/OECM/public-sector procurement contexts (provenance); 'family-owned' for trust-building/heritage/about-us/relationship contexts.
 
@@ -86,9 +105,9 @@ Tracker step → build-state Wave row, with one-line status.
 ## 👤 LEO HOMEWORK (consolidated)
 
 - ~~**CONTENT-1 (Step 34)**~~ — ✅ **CLOSED 2026-05-21:** logo locked to `bbi-logo-v2` per BRAND-PAGES-1 (commit 70c242c); no new wordmark sourcing. Moved to Completed.
-- **W0-3 (redirects CSV upload)** — pre-LAUNCH-2 (Day 10): upload `data/url-redirects.csv` in Shopify Admin.
-- **LAUNCH-0 (Step 37)** — row-by-row image CSV approval. Hard gate before LAUNCH-1 (Day 10).
-- **LAUNCH-2 (Step 39)** — the manual Publish click in Shopify Admin. Never automated (Day 10).
+- **W0-3 (redirects CSV upload)** — Day 9 (Sat): upload `data/url-redirects.csv` in Shopify Admin; verified Day 11.
+- **LAUNCH-0 (Step 37)** — row-by-row image CSV approval. Hard gate before LAUNCH-1 (Day 11).
+- **LAUNCH-2 (Step 39)** — the manual Publish click in Shopify Admin. Never automated (Day 11).
 - ~~**Git push + merge** — `feature/brand-pages-1` → `feature/ai-7-ai-8` → `feature/content-polish-1` → AI-9/AI-5/A11Y-1.5/DEV-3~~ — ✅ all merged to `main` via PRs #8–#14 (HEAD `5ec8f19`). No local-only branches outstanding.
 
 ---
