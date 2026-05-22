@@ -61,7 +61,7 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 - **Upwork delivery review** — final QA of manifest CSV + images (~15–30 min).
 - **Step 46 IMAGE SWAP session** — Claude Code ingests the manifest CSV + uploads to Shopify Files + maps to template slots across all pages (~2–3h). **Closes IMAGE-SOURCING-V2 ✅ when all 137 images live in the DEV theme.**
 - **SYS-VERIFY-1 Phase 2 re-run** (Step 33) — verify no regressions after the image swap (~30 min, light).
-- **W0-1 verify** — confirm GSC + GA4 setup completed by Steve (~10 min).
+- ~~**W0-1 verify**~~ — ✅ **CONFIRMED 2026-05-22:** GA4 `G-XLCM9LCNLN` in Steve's account (`skjhb1964@gmail.com`); GSC `brantbusinessinteriors.com` domain property verified via DNS; GSC↔GA4 link created (BBI Shopify stream `https://www.brantbusinessinteriors.com`). Leo added as Administrator on GA4 (`leokatz97@gmail.com`). No longer blocking Day 11.
 - **W0-3 verify** — confirm redirects CSV uploaded (~5 min).
 - **LAUNCH-0** (Step 37) — image confirmation gate, Leo row-by-row approval (~30 min).
 - **LAUNCH-1** (Step 38) — pre-publish GO/NO-GO report (~30 min).
@@ -90,7 +90,7 @@ Tracker step → build-state Wave row, with one-line status.
 ## 👤 STEVE HOMEWORK (consolidated)
 
 - ~~**INSTALL-PHOTO-QUERY (Step 53)**~~ — ✅ **ANSWERED 2026-05-21: stock is fine.** Day 9 image approach locked to stock imagery; no install-photo library dependency. No longer blocking Day 9.
-- **W0-1** — Google Search Console + GA4 setup. CRITICAL — no SEO data compounds without it. **Pre-LAUNCH-2 critical; verified at the top of the Day 11 launch sequence.** ⬜
+- ~~**W0-1**~~ — ✅ **DONE 2026-05-22.** GSC domain property verified (DNS). GA4 `G-XLCM9LCNLN` in Steve's account (`skjhb1964@gmail.com`). GSC↔GA4 link created. Leo added as GA4 Administrator (`leokatz97@gmail.com`).
 - **Idea #15 — featured 3-card SKU picks** — choose the OTG/GFG/Heartwood SKUs for the homepage `bbi-featured` 3-card block so the Upwork images map to the right products during the Day 11 swap. ⬜
 - **Cornerstone post reviews (Day 10)** — review the 2 cornerstone blog posts before publish: Post 1 *OECM for Ontario School Boards: A Procurement Guide* + Post 2 *Healthcare Furniture Compliance for FHTs*. ⬜
 - **W0-2** — Create / claim BBI Google Business Profile (`google.com/business`). _Moved to Wave D parallel / post-launch acceptable — not blocking launch._ ⬜
