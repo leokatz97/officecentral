@@ -2,15 +2,15 @@
 
 > **Source of truth.** This file is canonical. The `bbi-launch-tracker` Cowork artifact is the visual dashboard view of it — both update together. Both files were rebuilt to the same navigation-optimized functional grouping on **2026-05-21 (Day 7 EOD)**: a CURRENT FOCUS / ACTIVE / HOMEWORK navigation layer on top, with the full session log, technical sections, Wave A–H tables, and backlog preserved verbatim below the divider. Full ship history lives in `docs/project/launch-tracker-archive.md`.
 
-**Current state:** 2026-05-22 (Day 8 truly closed · Day 9 plan ready) · **40 of 54 launch steps done (74%)** · Image sourcing OUTSOURCED to Upwork (137-image manifest CSV, 3-day delivery, EOD Sun May 24) → launch shifts to Monday Day 11 · Day 9 (Sat) launch prep + AI search foundation · Day 10 (Sun) 2 cornerstone blog posts + Upwork delivery review · Day 11 (Mon) IMAGE SWAP + LAUNCH.
+**Current state:** 2026-05-23 (Day 9 truly closed · Day 10 plan ready) · **41 of 54 launch steps done (76%)** · Image sourcing OUTSOURCED to Upwork (137-image manifest CSV, 3-day delivery, EOD Sun May 24) → launch Monday Day 11 · Day 9 (Sat) ✅ closed: modal cleanup + W0-3 verified + W0-1 done + schema audit + batch-fix + INTERLINK-3 · Day 10 (Sun) SYS-VERIFY-1 Phase 2 (morning) + 2 cornerstone blog posts + Upwork delivery review · Day 11 (Mon) IMAGE SWAP + LAUNCH.
 
 ---
 
 ## 🎯 CURRENT FOCUS — Day 9 / Day 10 / Day 11
 
-The next three days are the launch sequence. This mirrors the tracker's "Next 3 days" block. (Day 8 below is the just-closed reference.)
+The next three days are the launch sequence. This mirrors the tracker's "Next 3 days" block. (Day 9 below is the just-closed reference; Day 8 is one tier deeper in Completed.)
 
-> **Pivot 2026-05-22 (Friday EOD):** image sourcing was outsourced to an Upwork freelancer (137-image manifest CSV, 3-day delivery, full package EOD Sunday May 24). Launch shifts from Day 10 to **Monday Day 11**. Day 9–10 use the wait time for launch prep + AI search optimization (Option B) + 2 cornerstone blog posts. Step 46 IMAGE-SOURCING-V2 → 🟡 OUTSOURCED; Step 36 BLOG-SEED-1 → restructured into sub-items 36a–e (36a–d pre-launch, 36e deferred). Progress holds at 40/54 (74%) — no new numbered steps.
+> **Pivot 2026-05-22 (Friday EOD):** image sourcing was outsourced to an Upwork freelancer (137-image manifest CSV, 3-day delivery, full package EOD Sunday May 24). Launch shifts from Day 10 to **Monday Day 11**. Day 9–10 use the wait time for launch prep + AI search optimization (Option B) + 2 cornerstone blog posts. Step 46 IMAGE-SOURCING-V2 → 🟡 OUTSOURCED; Step 36 BLOG-SEED-1 → restructured into sub-items 36a–e (36a–d pre-launch, 36e deferred). Progress was 40/54 (74%) at the pivot; Day 9 then closed INTERLINK-3 → **41/54 (76%)** (conservative — only INTERLINK-3 moves the numbered count; Step 36 stays open with 36a+36b ✅, 36c+36d Day 10).
 
 ### Day 8 — ✅ truly closed (content polish + schema + homepage bug fix) → 38 → 40 of 54 (74%)
 
@@ -28,32 +28,33 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 
 **Status:** ✅ Day 8 truly closed. Final accounting: 7 PRs created today, 6 merged to main (one EOD was a direct edit). Progress 38/54 (70%) → 40/54 (74%) — the homepage bug fix is Task #13 (post-launch backlog), so the /54 count is unchanged. Day 9 image plan ready (below).
 
-### Day 9 — ▶ Saturday May 23 · Launch prep + AI foundation → ~43–45 of 54 (~80–83%)
+### Day 9 — ✅ truly closed (Saturday May 23) · Launch prep + AI foundation → 41 of 54 (76%)
 
 **Focus:** Tier 1 launch prep + sitewide schema audit + INTERLINK-3. **Context:** Upwork freelancer in production with the 137-image package (full delivery EOD Sun May 24); Day 9 uses the wait time for launch prep + the AI search optimization foundation.
 
 - ~~**`bbi-quote-modal.liquid` cleanup**~~ — ✅ done 2026-05-23 (commit `4d48187`).
-- **SYS-VERIFY-1 Phase 2** (Step 33) — launch gate verification, surfaces late issues (~1.5–2h).
-- **W0-3** — product redirects CSV upload to Shopify Admin (~15 min, Leo).
+- **SYS-VERIFY-1 Phase 2** (Step 33) — ⏭ **DEFERRED to Day 10 morning** for fresh-head decision quality (~1.5–2h). *(Only Day 9 item not closed today.)*
+- ~~**W0-3**~~ — ✅ verified Day 9 (2026-05-23): **171/173 (98.8%)** product redirects live in Shopify Admin; 2 minor edge cases non-blocking — effectively done.
 - **Steve homework pings** — Idea #15 featured 3-card SKU picks (~10 min). *(W0-1 confirmed done 2026-05-22 — see STEVE HOMEWORK list.)*
 - ~~**Step 36a BLOG-SEED-1 PREREQ**~~ — ✅ done 2026-05-23 in schema batch-fix (H-1). BlogPosting JSON-LD live on `ds-article.liquid` — both the current post + Day 10 cornerstone posts now get full schema treatment auto.
 - ~~**Step 36b AI Search schema audit**~~ — ✅ done 2026-05-23 (commit `477a50d`). Audit output: `data/reports/schema-audit-2026-05-23.md`. Scope-set the batch-fix that followed.
 - ~~**Schema batch-fix** (closes all HIGH severity audit findings + V-1)~~ — ✅ done 2026-05-23, branch `feature/schema-batch-fix`. Closes: **H-1** BlogPosting on `ds-article.liquid` · **H-2** WebSite + SearchAction sitewide (added as 2nd `@graph` node in `bbi-org-schema.liquid`) · **H-3** Service on `/pages/delivery` + `/pages/relocation` (descriptions sourced from Session B copy, provider linked via `@id` to sitewide Org) · **H-4** dedicated LocalBusiness on `/pages/contact` (richer fields: address, phone, email, foundingDate, areaServed, priceRange, hasMap; `@id` matches sitewide for entity unification) · **V-1** broken Article block in `meta-tags.liquid:46–78` deleted (Avada residual emitting malformed JSON on blog index). **Also corrected during batch:** founding-year residual `1982 → 1964` in `bbi-org-schema.liquid` (description) + added structural `foundingDate: "1964"` field · operating-hours fix across 6 locations (sitewide schema, contact page, about page, all 9 category pages via `ds-cc-base`, quote page × 2) `08:30 / 08:00 → 09:00` per Steve's 2026-05-23 confirmation that actual hours are 9am–5pm ET. **V-2 surfaced to Leo** — needs Shopify Admin → Online Store → Preferences "Add structured data automatically" toggle check (recommendation: OFF, since BBI's custom Product schema is richer than Shopify auto). All schemas validated via round-trip JSON parse + simulated Liquid emits against live data. All writes to DEV `186373570873` only. **Deferred to post-launch backlog (per audit):** MED gaps (BreadcrumbList JSON-LD on landing pages, ItemList on category pages, FAQPage on delivery + relocation — that last one is the known MED gap from H-3 scope). LOW gaps (Blog schema on `ds-blog-list`, Brand subtype on 6 brand pages).
 - ~~**INTERLINK-3** (Step 26)~~ — ✅ done 2026-05-23. Branch `feature/interlink-3`. Audited 623 internal links across 75 theme files (31 sections + 9 snippets + 35 JSON templates), validated all `/pages/*` and `/collections/*` handles against the live Shopify Admin API (388 collection handles + 23 page handles all confirmed PUB). Result: **1 FAIL fixed (0 FAIL after, target met)**, 89 WARN (tel: `+1`-prefix consistency, deferred), 18 INFO (15 HIGH + 3 LOW missing body-level cross-links, surfaced for review). Fix: ds-cs-base.liquid:593 `tel:+15198371810` → `tel:+18008359565` (Brantford local → toll-free; matches locked sitewide phone fact). All writes to DEV `186373570873` only — pushed via push-file.py. Report: `data/reports/interlink-3-audit-2026-05-23.md`. Hard gate cleared for LAUNCH-2 ✅.
 - Tracker + build-state EOD update (~15 min).
-- **Outcome:** all Tier 1 launch prep complete · AI search foundation laid · Step 36 ~30% done · INTERLINK-3 ✅ · ~43–45/54 (~80–83%).
+- **Outcome (actual):** modal cleanup + W0-3 verified (171/173) + W0-1 done (Steve) + Step 36b schema audit + schema batch-fix (5 HIGH + 1982→1964 founding year + 6-location hours sweep to 9–5 ET) + INTERLINK-3 ✅ (1 FAIL fixed, hard gate clear). AI search foundation locked in. Step 36 ~50% (36a+36b ✅; 36c+36d Day 10). SYS-VERIFY-1 Phase 2 deferred to Day 10 morning. **41/54 (76%)** — conservative count, only INTERLINK-3 moves the numbered count.
 
-### Day 10 — Sunday May 24 · 2 cornerstone posts + Upwork prep → ~46–48 of 54 (~85–89%)
+### Day 10 — ▶ Sunday May 24 · SYS-VERIFY-1 Phase 2 (morning) + 2 cornerstone posts + Upwork prep → ~45–47 of 54 (~83–87%)
 
-**Focus:** ship 2 cornerstone blog posts that AI search will retrieve for institutional procurement queries. Last full day before Monday launch; Upwork delivers EOD Sunday.
+**Focus:** morning launch-gate verification (deferred from Day 9 for fresh-head decision quality), then ship 2 cornerstone blog posts that AI search will retrieve for institutional procurement queries. Last full day before Monday launch; Upwork delivers EOD Sunday.
 
+- **Step 33 SYS-VERIFY-1 Phase 2** — launch gate verification, **DEFERRED from Day 9** for fresh-head decision quality; surfaces late issues (~1.5–2h, morning).
 - **Step 36c Cornerstone Post 1** — *OECM for Ontario School Boards: A Procurement Guide* · DataForSEO KW research + outline + draft + Steve review + publish + schema verify (~2–3h) · links to `/pages/oecm` + `/pages/education`.
 - **Step 36d Cornerstone Post 2** — *Healthcare Furniture Compliance for FHTs* · same flow (~2–3h) · links to `/pages/healthcare` + `/pages/oecm`.
 - **LEAD-2** (Step 22) — lead routing gap analysis (read-only, ~30 min).
 - **Image swap pipeline prep** — pre-draft the Claude Code prompt for Monday image ingestion + verify the Shopify Files upload pipeline works with a test image (~30–45 min).
 - Upwork delivery check-in (EOD review of manifest CSV + images).
 - Tracker + build-state EOD update (~15 min).
-- **Outcome:** 2 cornerstone posts live · Step 36 ~80% done (Post 3 deferred post-launch) · image swap prompt ready · ~46–48/54 (~85–89%).
+- **Outcome:** SYS-VERIFY-1 Phase 2 cleared · 2 cornerstone posts live · Step 36 ~80% done (36a+36b+36c+36d ✅, 36e deferred post-launch) · image swap prompt ready · ~45–47/54 (~83–87%).
 
 ### Day 11 — Monday May 25 · IMAGE SWAP + LAUNCH → ~50+ of 54 (~93%+)
 
@@ -78,13 +79,14 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 
 Tracker step → build-state Wave row, with one-line status.
 
-> **Moved into the Day 9–11 sequence (2026-05-22 pivot):** **INTERLINK-3** (Step 26) → Day 9 · **LEAD-2** (Step 22) → Day 10 · **BLOG-SEED-1** (Step 36) → restructured into sub-items **36a–e** (36a + 36b Day 9 schema work; 36c + 36d Day 10 cornerstone posts; **36e** Cornerstone Post 3 *Cubicle vs Open-Plan for Municipal Offices* DEFERRED post-launch) · **IMAGE-SOURCING-V2** (Step 46) → 🟡 OUTSOURCED to Upwork, image swap + launch Day 11.
+> **Moved into the Day 9–11 sequence (2026-05-22 pivot):** **INTERLINK-3** (Step 26) → Day 9 **✅ done 2026-05-23** (PR #17 → `28a2450`; hard gate clear; 18 INFO + 89 WARN residuals surfaced — see below) · **LEAD-2** (Step 22) → Day 10 · **BLOG-SEED-1** (Step 36) → restructured into sub-items **36a–e** (**36a + 36b ✅ done Day 9** via schema audit + batch-fix; 36c + 36d Day 10 cornerstone posts; **36e** Cornerstone Post 3 *Cubicle vs Open-Plan for Municipal Offices* DEFERRED post-launch) · **IMAGE-SOURCING-V2** (Step 46) → 🟡 OUTSOURCED to Upwork, image swap + launch Day 11.
 
 - **INSTALL-PHOTO-QUERY** (Step 53) — ✅ answered 2026-05-21: **stock is fine**. Image gap now closed by the 137-image Upwork manifest (Step 46); no longer blocking. Owner: Steve.
 - **SEO-AUDIT-1** (Step 35, Wave E) — technical SEO audit via DataForSEO MCP. 🔒 Hard gate, BLOCKED on DataForSEO MCP connectivity. If the MCP gets connected pre-Monday, run the audit Sunday or Monday morning; if not, defer to post-launch — DataForSEO KW research for BLOG-SEED-1 can run independently via alternative means. Owner: Claude Code.
 - **PERF-AUDIT-1** (Step 30, Wave E) — Lighthouse + CWV. Owner: Claude Code. 🟡 Phase 1 done (LIVE Avada baseline); Phase 2 re-runs post-LAUNCH-2 against the new theme.
 - **A11Y-AUDIT-1** (Step 31, Wave E) — WCAG 2.1 AA. Owner: Claude Code. 🟡 Phase 1 partial (Fix D applied; A/B/C no-ops); Phase 2 post-LAUNCH-2.
 - **FONT-TOKENS-FOLLOWUP** (new — flagged from the homepage bug fix session 2026-05-21) — the homepage uses Avada residual fonts (`--headingFont`, `--bodyFont`, hardcoded JetBrains Mono). The font refactor was attempted then reverted because the homepage layout doesn't load `ds-landing.css` where the `--bbi-font-*` tokens are defined — refactoring would have broken fonts sitewide on the homepage. Needs a separate session to either load `ds-landing.css` globally in `theme/layout/theme.liquid` OR define `--bbi-font-*` tokens locally in `bbi-homepage.css`. Owner: Claude Code. 🟡 Not launch-blocking — design-system consistency item.
+- **INTERLINK-3 residual findings** (Step 26 ✅ done 2026-05-23 — follow-up only) — the cross-link audit surfaced **18 INFO** body-level gaps (15 HIGH: 6 brand pages missing a link to the `/pages/brands` hub, `/pages/design-services` missing a CTA to `/pages/quote`, etc.; 3 LOW) awaiting a **Leo pre/post-launch call**, plus **89 WARN** (tel: `+1`-prefix consistency) deferred post-launch (cosmetic, browser-tolerant). Report: `data/reports/interlink-3-audit-2026-05-23.md`. Owner: Leo decision + Claude Code.
 
 ---
 
@@ -95,7 +97,7 @@ Tracker step → build-state Wave row, with one-line status.
 - **Idea #15 — featured 3-card SKU picks** — choose the OTG/GFG/Heartwood SKUs for the homepage `bbi-featured` 3-card block so the Upwork images map to the right products during the Day 11 swap. ⬜
 - **Cornerstone post reviews (Day 10)** — review the 2 cornerstone blog posts before publish: Post 1 *OECM for Ontario School Boards: A Procurement Guide* + Post 2 *Healthcare Furniture Compliance for FHTs*. ⬜
 - **W0-2** — Create / claim BBI Google Business Profile (`google.com/business`). _Moved to Wave D parallel / post-launch acceptable — not blocking launch._ ⬜
-- **W0-3** — Upload the product redirects CSV in Shopify Admin (`data/url-redirects.csv` exists). **Now sequenced for Day 9 (Sat) — Leo; verified Day 11.** 🟡
+- ~~**W0-3**~~ — ✅ **VERIFIED Day 9 (2026-05-23):** 171/173 (98.8%) product redirects live in Shopify Admin; 2 minor edge cases non-blocking. Quick confirm Day 11.
 - **LEAD-3 manual follow-ups** (from Wave E LEAD-3 🟡) — set Shopify `customer_email` → `info@brantbusinessinteriors.com`; verify subject-line behaviour + set M365 inbox rules; set M365 auto-replies on quotes@/design@/info@. See `docs/strategy/bbi-lead-routing.md`.
 - **STEVE-FACT-CHECK (Step 55) — ✅ RESOLVED 2026-05-21:** (1) Proof-bar stat 02 numbers verified by Steve; (2) Legal entity name — 'Brant Basics' for OECM/legal/policy contexts; 'Brant Business Interiors Inc.' for storefront/consumer-facing/operations; (3) Ownership framing — 'Ontario-owned' for government/OECM/public-sector procurement contexts (provenance); 'family-owned' for trust-building/heritage/about-us/relationship contexts.
 
@@ -106,16 +108,28 @@ Tracker step → build-state Wave row, with one-line status.
 ## 👤 LEO HOMEWORK (consolidated)
 
 - ~~**CONTENT-1 (Step 34)**~~ — ✅ **CLOSED 2026-05-21:** logo locked to `bbi-logo-v2` per BRAND-PAGES-1 (commit 70c242c); no new wordmark sourcing. Moved to Completed.
-- **W0-3 (redirects CSV upload)** — Day 9 (Sat): upload `data/url-redirects.csv` in Shopify Admin; verified Day 11.
+- ~~**W0-3 (redirects CSV upload)**~~ — ✅ **VERIFIED Day 9 (2026-05-23):** 171/173 (98.8%) live in Shopify Admin; quick confirm Day 11.
 - **LAUNCH-0 (Step 37)** — row-by-row image CSV approval. Hard gate before LAUNCH-1 (Day 11).
 - **LAUNCH-2 (Step 39)** — the manual Publish click in Shopify Admin. Never automated (Day 11).
 - ~~**Git push + merge** — `feature/brand-pages-1` → `feature/ai-7-ai-8` → `feature/content-polish-1` → AI-9/AI-5/A11Y-1.5/DEV-3~~ — ✅ all merged to `main` via PRs #8–#14 (HEAD `5ec8f19`). No local-only branches outstanding.
 
 ---
 
-## ✅ COMPLETED STEPS — condensed, by day (40 items)
+## ✅ COMPLETED STEPS — condensed, by day (41 items)
 
 Mirrors the tracker's Completed Archive. Full commits/counts/rationale in `docs/project/launch-tracker-archive.md` and the Wave A–H tables preserved below.
+
+**Day 9 · 2026-05-23 — 1 numbered step (+ 5 non-counted closures)**
+- Step 26 INTERLINK-3 — final cross-link audit; 623 internal links across 75 theme files (31 sections + 9 snippets + 35 JSON templates) validated against the live Shopify Admin API (388 collection + 23 page handles all PUB); **1 FAIL fixed** (`ds-cs-base.liquid:593` Brantford local `tel:+15198371810` → toll-free `tel:+18008359565`, matches locked sitewide phone fact); 89 WARN (tel: `+1`-prefix consistency, deferred post-launch); 18 INFO (15 HIGH + 3 LOW body-level cross-links, surfaced for review); **0 broken `/pages/*` or `/collections/*` — hard gate CLEAR for LAUNCH-2**; all writes to DEV `186373570873` only; branch `feature/interlink-3` · PR #17 → 28a2450 · report `data/reports/interlink-3-audit-2026-05-23.md`
+
+> **Also shipped Day 9 but NOT counted in the /54** (so the count moved 40 → 41, not 46):
+> - **bbi-quote-modal.liquid cleanup** — pre-existing change finally committed (`4d48187`); working tree clean for the first time since Day 1.
+> - **W0-3 PRODUCT-REDIRECTS verified** — 171/173 (98.8%) live in Shopify Admin; 2 minor edge cases non-blocking; effectively done (Wave D sub-step, not a numbered step).
+> - **W0-1 GSC + GA4** — Steve completed 2026-05-22: GA4 property `G-XLCM9LCNLN`, GSC domain property `brantbusinessinteriors.com`, GSC↔GA4 link created (1,488 queries already tracking), Leo added as GA4 Admin; Google Merchant Center + Google Business Profile both already connected (Wave D sub-step, not a numbered step).
+> - **Step 36a BlogPosting JSON-LD** on `ds-article.liquid` — ✅ via the schema batch-fix H-1 (Step 36 stays open as a numbered step until 36c+36d ship Day 10).
+> - **Step 36b Sitewide schema audit** — `data/reports/schema-audit-2026-05-23.md` surfaced 4 HIGH + 3 MED + 3 LOW gaps + 3 validation issues (commit `477a50d`); scope-set the batch-fix that followed.
+> - **Schema batch-fix** — PR #16 → 9d132f3 (5 commits across two branches: `e05e036` W0-1 housekeeping + `c7cdb20` 5 HIGH schema fixes): closed 4 HIGH gaps (H-1 BlogPosting · H-2 WebSite+SearchAction · H-3 Service on delivery+relocation · H-4 LocalBusiness on contact) + 1 validation (V-1 broken Article block deleted) + 2 bonus residual fixes (founding year 1982→1964 + structural `foundingDate`, and a 6-location operating-hours sweep to 9–5 ET per Steve's canonical confirmation); V-2 verified by Leo — Shopify "Add structured data automatically" toggle NOT present in store, no collision risk.
+> - Operational: tracker + build-state Day 9 EOD update (this session).
 
 **Day 8 · 2026-05-21 — 5 items**
 - Step 19 AI-9 — FAQ blocks + FAQPage JSON-LD on 9 category collection pages. 36 procurement-actionable Q&As across Seating (5) + Desks/Storage/Tables/Boardroom/Accessories/Ergonomic/Quiet Spaces (4 each) + Panels & Room Dividers (3). Pattern centralized in `ds-cc-base.liquid` (FAQ render + accordion JS + auto-built FAQPage JSON-LD from `faq_item` blocks); per-collection JSON templates add `faq_item` blocks. Schema differentiator vs ugoburo (zero JSON-LD anywhere). Commit 4f2aafe · PR #11 → d5800da.
