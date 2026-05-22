@@ -133,6 +133,26 @@
 @media(max-width:639px){.lp-reloc .lp-process__grid{grid-template-columns:1fr;}.lp-reloc .lp-products__grid{grid-template-columns:1fr;}}
 </style>
 
+{%- comment -%} Service JSON-LD — H-3 batch-fix 2026-05-23 — copy aligned with Session B page content {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "{{ canonical_url | escape }}#service",
+  "url": "{{ canonical_url | escape }}",
+  "name": "Office Relocation Management",
+  "description": "End-to-end office relocation management by Brant Business Interiors: inventory audit, decommission, responsible disposal or donation, phased install in the new space, and post-move punch-list. One project coordinator from PO to staff move-in day. Multi-site and multi-floor relocations a specialty. Family-owned since 1964.",
+  "provider": {
+    "@id": "https://{{ shop.permanent_domain }}/#organization"
+  },
+  "serviceType": "Office Relocation Management",
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": "Ontario"
+  }
+}
+</script>
+
 <div class="lp-reloc scheme-default">
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'services' -%}
 

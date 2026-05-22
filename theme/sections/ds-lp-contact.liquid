@@ -58,6 +58,42 @@
 @media(max-width:1023px){.lp-contact .lp-contact-main__inner{grid-template-columns:1fr;}}
 </style>
 
+{%- comment -%} LocalBusiness JSON-LD — H-4 batch-fix 2026-05-23 — dedicated richer emission for /pages/contact; @id matches sitewide bbi-org-schema so search engines unify the entity {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://{{ shop.permanent_domain }}/#organization",
+  "name": "Brant Business Interiors",
+  "alternateName": "BBI",
+  "url": "{{ shop.url }}",
+  "description": "Brant Business Interiors is the family-owned Ontario office furniture dealer at 296 George St N, Peterborough — toll-free 1-800-835-9565, response within 1 business day. Family-owned since 1964. OECM Supplier Partner under Agreement 2025-470. Part of the Office Central Group.",
+  "telephone": "+18008359565",
+  "email": "info@brantbusinessinteriors.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "296 George St N",
+    "addressLocality": "Peterborough",
+    "addressRegion": "ON",
+    "postalCode": "K9J 3H2",
+    "addressCountry": "CA"
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Ontario",
+    "addressCountry": "CA"
+  },
+  "foundingDate": "1964",
+  "priceRange": "$$",
+  "hasMap": "https://www.google.com/maps/dir/?api=1&destination=296+George+Street+North+Peterborough+ON+K9J+3H2+Canada",
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Office Central Group of Companies",
+    "url": "https://www.officecentral.com"
+  }
+}
+</script>
+
 <div class="lp-contact scheme-default">
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'about' -%}
 
@@ -97,7 +133,7 @@
         </div>
         <div class="lp-contact-group">
           <p class="lp-contact-group__label">Business Hours</p>
-          <p class="lp-contact-group__value">Monday – Friday, 8:00 am – 5:00 pm ET</p>
+          <p class="lp-contact-group__value">Monday – Friday, 9:00 am – 5:00 pm ET</p>
           <p class="lp-contact-group__detail">Closed statutory holidays</p>
         </div>
         <div class="lp-contact-group">
