@@ -415,18 +415,22 @@ class BbiQuoteModal extends HTMLElement {
     this._error = this.querySelector('#bbi-qm-error');
     this._context = this.querySelector('#bbi-qm-context');
     this._contextText = this.querySelector('#bbi-qm-context-text');
+    this._showingSuccess = false;
 
     /* Close buttons */
     this.querySelector('#bbi-qm-close').addEventListener('click', () => this.close());
     this.querySelector('#bbi-qm-success-close').addEventListener('click', () => this.close());
 
-    /* Click-outside-to-close — disabled on success state so user must read and X out */
+    /* Backdrop click — blocked on success state so user must X out */
     this._dialog.addEventListener('click', e => {
-      if (e.target === this._dialog && !this._success.hasAttribute('data-visible')) this.close();
+      if (e.target === this._dialog && !this._showingSuccess) this.close();
     });
 
-    /* Escape handled natively by <dialog> */
-    this._dialog.addEventListener('cancel', () => this._reset());
+    /* Escape key — blocked on success state; allowed to reset+close on form state */
+    this._dialog.addEventListener('cancel', e => {
+      if (this._showingSuccess) { e.preventDefault(); return; }
+      this._reset();
+    });
 
     /* Form submit */
     if (this._form) {
@@ -529,6 +533,7 @@ class BbiQuoteModal extends HTMLElement {
   }
 
   _reset() {
+    this._showingSuccess = false;
     this._success.removeAttribute('data-visible');
     this._error.removeAttribute('data-visible');
     this._formWrap.hidden = false;
@@ -581,6 +586,7 @@ class BbiQuoteModal extends HTMLElement {
          notification email was sent. Treat any completed response as success. */
       this._formWrap.hidden = true;
       this._populateRecap();
+      this._showingSuccess = true;
       this._success.setAttribute('data-visible', '');
       this.querySelector('#bbi-qm-success-close').focus();
       this._form.reset();
