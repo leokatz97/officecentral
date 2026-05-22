@@ -145,6 +145,26 @@
 @media(max-width:639px){.lp-delivery .lp-diff__grid{grid-template-columns:1fr;}.lp-delivery .lp-hero__inner{gap:var(--space-8);}.lp-delivery .lp-products__grid{grid-template-columns:1fr;}}
 </style>
 
+{%- comment -%} Service JSON-LD — H-3 batch-fix 2026-05-23 — copy aligned with Session B page content {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "{{ canonical_url | escape }}#service",
+  "url": "{{ canonical_url | escape }}",
+  "name": "Commercial Office Furniture Delivery and Installation",
+  "description": "Commercial office furniture delivery and installation by Brant Business Interiors' own in-house crew — coordinated delivery windows, white-glove in-room placement, full assembly and levelling, packaging removal, and after-hours or weekend installs for occupied spaces. Family-owned since 1964. Ontario coverage for delivery and install; Western Canada coverage for install via dispatched BBI crew.",
+  "provider": {
+    "@id": "https://{{ shop.permanent_domain }}/#organization"
+  },
+  "serviceType": "Commercial Furniture Delivery and Installation",
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "Ontario" },
+    { "@type": "AdministrativeArea", "name": "Western Canada" }
+  ]
+}
+</script>
+
 <div class="lp-delivery scheme-default">
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'services' -%}
 

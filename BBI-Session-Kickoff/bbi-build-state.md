@@ -32,12 +32,13 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 
 **Focus:** Tier 1 launch prep + sitewide schema audit + INTERLINK-3. **Context:** Upwork freelancer in production with the 137-image package (full delivery EOD Sun May 24); Day 9 uses the wait time for launch prep + the AI search optimization foundation.
 
-- **`bbi-quote-modal.liquid` cleanup** — commit the pre-existing change so the working tree is clean for Monday launch (~5–10 min).
+- ~~**`bbi-quote-modal.liquid` cleanup**~~ — ✅ done 2026-05-23 (commit `4d48187`).
 - **SYS-VERIFY-1 Phase 2** (Step 33) — launch gate verification, surfaces late issues (~1.5–2h).
 - **W0-3** — product redirects CSV upload to Shopify Admin (~15 min, Leo).
-- **Steve homework pings** — W0-1 GSC + GA4 setup + Idea #15 featured 3-card SKU picks (~10 min).
-- **Step 36a BLOG-SEED-1 PREREQ** — Article/BlogPosting JSON-LD added to `ds-article.liquid` (~30–45 min).
-- **Step 36b AI Search schema audit** — sitewide JSON-LD completeness check (Product, Organization, Service, LocalBusiness, etc.) + validate all schemas (~1–2h).
+- **Steve homework pings** — Idea #15 featured 3-card SKU picks (~10 min). *(W0-1 confirmed done 2026-05-22 — see STEVE HOMEWORK list.)*
+- ~~**Step 36a BLOG-SEED-1 PREREQ**~~ — ✅ done 2026-05-23 in schema batch-fix (H-1). BlogPosting JSON-LD live on `ds-article.liquid` — both the current post + Day 10 cornerstone posts now get full schema treatment auto.
+- ~~**Step 36b AI Search schema audit**~~ — ✅ done 2026-05-23 (commit `477a50d`). Audit output: `data/reports/schema-audit-2026-05-23.md`. Scope-set the batch-fix that followed.
+- ~~**Schema batch-fix** (closes all HIGH severity audit findings + V-1)~~ — ✅ done 2026-05-23, branch `feature/schema-batch-fix`. Closes: **H-1** BlogPosting on `ds-article.liquid` · **H-2** WebSite + SearchAction sitewide (added as 2nd `@graph` node in `bbi-org-schema.liquid`) · **H-3** Service on `/pages/delivery` + `/pages/relocation` (descriptions sourced from Session B copy, provider linked via `@id` to sitewide Org) · **H-4** dedicated LocalBusiness on `/pages/contact` (richer fields: address, phone, email, foundingDate, areaServed, priceRange, hasMap; `@id` matches sitewide for entity unification) · **V-1** broken Article block in `meta-tags.liquid:46–78` deleted (Avada residual emitting malformed JSON on blog index). **Also corrected during batch:** founding-year residual `1982 → 1964` in `bbi-org-schema.liquid` (description) + added structural `foundingDate: "1964"` field · operating-hours fix across 6 locations (sitewide schema, contact page, about page, all 9 category pages via `ds-cc-base`, quote page × 2) `08:30 / 08:00 → 09:00` per Steve's 2026-05-23 confirmation that actual hours are 9am–5pm ET. **V-2 surfaced to Leo** — needs Shopify Admin → Online Store → Preferences "Add structured data automatically" toggle check (recommendation: OFF, since BBI's custom Product schema is richer than Shopify auto). All schemas validated via round-trip JSON parse + simulated Liquid emits against live data. All writes to DEV `186373570873` only. **Deferred to post-launch backlog (per audit):** MED gaps (BreadcrumbList JSON-LD on landing pages, ItemList on category pages, FAQPage on delivery + relocation — that last one is the known MED gap from H-3 scope). LOW gaps (Blog schema on `ds-blog-list`, Brand subtype on 6 brand pages).
 - **INTERLINK-3** (Step 26) — final cross-link audit, unblocked post-CONTENT-POLISH-1 (~1–2h).
 - Tracker + build-state EOD update (~15 min).
 - **Outcome:** all Tier 1 launch prep complete · AI search foundation laid · Step 36 ~30% done · INTERLINK-3 ✅ · ~43–45/54 (~80–83%).
@@ -61,7 +62,7 @@ The next three days are the launch sequence. This mirrors the tracker's "Next 3 
 - **Upwork delivery review** — final QA of manifest CSV + images (~15–30 min).
 - **Step 46 IMAGE SWAP session** — Claude Code ingests the manifest CSV + uploads to Shopify Files + maps to template slots across all pages (~2–3h). **Closes IMAGE-SOURCING-V2 ✅ when all 137 images live in the DEV theme.**
 - **SYS-VERIFY-1 Phase 2 re-run** (Step 33) — verify no regressions after the image swap (~30 min, light).
-- **W0-1 verify** — confirm GSC + GA4 setup completed by Steve (~10 min).
+- ~~**W0-1 verify**~~ — ✅ **CONFIRMED 2026-05-22:** GA4 `G-XLCM9LCNLN` in Steve's account (`skjhb1964@gmail.com`); GSC `brantbusinessinteriors.com` domain property verified via DNS; GSC↔GA4 link created (BBI Shopify stream `https://www.brantbusinessinteriors.com`). Leo added as Administrator on GA4 (`leokatz97@gmail.com`). No longer blocking Day 11.
 - **W0-3 verify** — confirm redirects CSV uploaded (~5 min).
 - **LAUNCH-0** (Step 37) — image confirmation gate, Leo row-by-row approval (~30 min).
 - **LAUNCH-1** (Step 38) — pre-publish GO/NO-GO report (~30 min).
@@ -90,7 +91,7 @@ Tracker step → build-state Wave row, with one-line status.
 ## 👤 STEVE HOMEWORK (consolidated)
 
 - ~~**INSTALL-PHOTO-QUERY (Step 53)**~~ — ✅ **ANSWERED 2026-05-21: stock is fine.** Day 9 image approach locked to stock imagery; no install-photo library dependency. No longer blocking Day 9.
-- **W0-1** — Google Search Console + GA4 setup. CRITICAL — no SEO data compounds without it. **Pre-LAUNCH-2 critical; verified at the top of the Day 11 launch sequence.** ⬜
+- ~~**W0-1**~~ — ✅ **DONE 2026-05-22.** GSC domain property verified (DNS). GA4 `G-XLCM9LCNLN` in Steve's account (`skjhb1964@gmail.com`). GSC↔GA4 link created. Leo added as GA4 Administrator (`leokatz97@gmail.com`).
 - **Idea #15 — featured 3-card SKU picks** — choose the OTG/GFG/Heartwood SKUs for the homepage `bbi-featured` 3-card block so the Upwork images map to the right products during the Day 11 swap. ⬜
 - **Cornerstone post reviews (Day 10)** — review the 2 cornerstone blog posts before publish: Post 1 *OECM for Ontario School Boards: A Procurement Guide* + Post 2 *Healthcare Furniture Compliance for FHTs*. ⬜
 - **W0-2** — Create / claim BBI Google Business Profile (`google.com/business`). _Moved to Wave D parallel / post-launch acceptable — not blocking launch._ ⬜

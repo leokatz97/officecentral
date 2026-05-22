@@ -126,6 +126,47 @@
 .article-cta__phone a:hover { color: var(--saleBadgeBackground); }
 </style>
 
+{%- comment -%} BlogPosting JSON-LD — H-1 batch-fix 2026-05-23 — required for AI search retrievability {%- endcomment -%}
+{%- if article -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "{{ canonical_url | escape }}#article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ canonical_url | escape }}"
+  },
+  "headline": {{ article.title | strip_html | json }},
+  "description": {{ article.excerpt_or_content | strip_html | truncate: 300, '' | json }},
+  "articleBody": {{ article.content | strip_html | truncate: 5000, '' | json }},
+  "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+  "dateModified": "{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+  "url": "{{ canonical_url | escape }}",
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | default: 'Brant Business Interiors' | strip_html | json }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://{{ shop.permanent_domain }}/#organization",
+    "name": "Brant Business Interiors",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://{{ shop.permanent_domain }}/cdn/shop/files/bbi-logo-v2.png",
+      "width": 400,
+      "height": 80
+    }
+  }{%- if article.image -%},
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ article.image | image_url: width: 1200 | prepend: 'https:' }}",
+    "width": 1200
+  }{%- endif -%}
+}
+</script>
+{%- endif -%}
+
 {%- comment -%} FAQPage JSON-LD — rendered only when article has faq metafield items {%- endcomment -%}
 {%- if article.metafields.faq.items != blank -%}
   {%- assign faq_items = article.metafields.faq.items.value -%}
