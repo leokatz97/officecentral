@@ -79,6 +79,11 @@
       }
     </style>
     {%- endif -%}
+    {%- comment -%} SERP-FIX-1 (2026-05-24): inline guard for the .skip-to-content-link visually-hidden pattern. The rule already exists in bbi-homepage.css and the legacy base.css/style.css, but this inline copy makes the off-screen behaviour load-order-independent, so the link can never appear in Google sitelinks even if asset order changes. {%- endcomment -%}
+    <style>
+      .skip-to-content-link{position:absolute!important;overflow:hidden;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0);word-wrap:normal!important;}
+      .skip-to-content-link:focus,.skip-to-content-link:focus-visible{z-index:99!important;width:auto;height:auto;clip:auto;}
+    </style>
 </head>
   <body class="btn-hover-effect-{{ settings.button_hover_effect }}">
     <a class="unstyled-link skip-to-content-link button focus-inside{% if settings.enable_button_shadow %} button-shadow{% endif %}" href="#MainContent">
@@ -163,6 +168,8 @@
       {%- endunless -%}
       {%- if bbi_landing -%}
         {%- render 'bbi-quote-modal' -%}
+        {%- comment -%} SCHEMA-LOCALBIZ-1 (2026-05-24): dedicated sitewide LocalBusiness JSON-LD with @id #localbusiness (distinct from bbi-org-schema's #organization combined entity). {%- endcomment -%}
+        {%- render 'bbi-localbusiness-schema' -%}
       {%- endif -%}
 
       {% if settings.enable_dl_mode_toggle %}

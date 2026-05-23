@@ -1,0 +1,61 @@
+{%- comment -%}
+  Snippet: bbi-localbusiness-schema  (SCHEMA-LOCALBIZ-1, 2026-05-24)
+  Purpose: Sitewide dedicated LocalBusiness JSON-LD. Renders once per BBI-routed page
+           (gated in theme.liquid via `bbi_landing`) — companion to bbi-org-schema.
+  Why dedicated when bbi-org-schema already emits Organization+LocalBusiness as a
+  combined @graph entity: a dedicated LocalBusiness with a DISTINCT @id (#localbusiness)
+  lets local-pack / GBP-linking signals attach to a clean local entity, while the
+  combined org+LocalBus stays anchored on #organization. No validator collision —
+  they are separate Schema.org nodes.
+  Render: {%- render 'bbi-localbusiness-schema' -%} from theme.liquid bbi_landing block.
+  Domain rules (HIGH-2, 2026-05-24):
+    - @id field: shop.permanent_domain (Shopify canonical, stable across domain changes)
+    - url + entity-identity URLs: hardcoded primary brand domain
+      (matches ds-lp-quote.liquid:366 pattern)
+  TODO (Steve homework — DO NEXT backlog item):
+    Provide canonical social URLs for sameAs array:
+      - LinkedIn company page
+      - Facebook business page
+      - Instagram business handle
+    Once delivered, append to the empty sameAs array below.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://{{ shop.permanent_domain }}/#localbusiness",
+  "name": "Brant Business Interiors",
+  "alternateName": "BBI",
+  "url": "https://www.brantbusinessinteriors.com",
+  "description": "Brant Business Interiors is a family-owned Ontario commercial office furniture dealer at 296 George St N, Peterborough — toll-free 1-800-835-9565, quote response within 1 business day. Family-owned since 1964. OECM Supplier Partner under Agreement 2025-470. Part of the Office Central Group of Companies.",
+  "telephone": "+1-800-835-9565",
+  "email": "info@brantbusinessinteriors.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "296 George St N",
+    "addressLocality": "Peterborough",
+    "addressRegion": "ON",
+    "postalCode": "K9J 3H2",
+    "addressCountry": "CA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 44.3073,
+    "longitude": -78.3197
+  },
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "Ontario" },
+    { "@type": "AdministrativeArea", "name": "Canada" }
+  ],
+  "priceRange": "$$",
+  "foundingDate": "1964",
+  "openingHours": "Mo-Fr 09:00-17:00",
+  "hasMap": "https://www.google.com/maps/dir/?api=1&destination=296+George+Street+North+Peterborough+ON+K9J+3H2+Canada",
+  "sameAs": [],
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Office Central Group of Companies",
+    "url": "https://www.officecentral.com"
+  }
+}
+</script>

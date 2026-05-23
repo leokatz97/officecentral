@@ -2,7 +2,7 @@
 
 > **Source of truth.** This file is canonical. The `bbi-launch-tracker` Cowork artifact is the visual dashboard view of it — both update together. **Restructured 2026-05-24:** the day-block navigation (Day 9 / Day 10 / Day 11) was replaced with a linear **DO NEXT** queue (21 items in dependency order) plus a **RIGHT NOW** fireable-now list and an expanded **POST-LAUNCH BACKLOG**. The full session log, ⛔ Hard Rules + Safety Rules, technical sections, Wave A–H tables, and reference material are preserved verbatim below the divider. Full ship history lives in `docs/project/launch-tracker-archive.md`.
 
-**Current state:** 2026-05-24 (Sunday) · **41 of 54 launch steps done (76%)** · Image sourcing OUTSOURCED to Upwork (137-image manifest CSV, full delivery EOD Sun May 24) → **LAUNCH Monday May 25 (Day 11)**. The queue below is dependency-ordered with ⏳ ready / 🔒 blocked status flags — no day labels. Fire anything ⏳ ready; 🔒 items become ready as their prerequisites land. Target Monday LAUNCH-2: ~50+/54 (~93%+) · BBI LIVE.
+**Current state:** 2026-05-24 (Sunday) · **42 of 54 launch steps done (78%)** · Image sourcing OUTSOURCED to Upwork (137-image manifest CSV, full delivery EOD Sun May 24) → **LAUNCH Monday May 25 (Day 11)**. The queue below is dependency-ordered with ⏳ ready / 🔒 blocked status flags — no day labels. Fire anything ⏳ ready; 🔒 items become ready as their prerequisites land. Target Monday LAUNCH-2: ~50+/54 (~93%+) · BBI LIVE.
 
 ---
 
@@ -10,8 +10,8 @@
 
 ⏳ items with no prerequisites blocking them. Pick any, in any order.
 
-- **#1 SYS-VERIFY-1 Phase 2** — launch-gate verification (~1.5–2h)
-- **#2 SERP-FIX + SCHEMA-LOCALBIZ-1 PR** — skip-link visibility + 'Office Central' copy refs + `LocalBusiness` snippet (~75 min); `sameAs` social URLs needed from Steve but can deploy partial
+- ~~#1 SYS-VERIFY-1 Phase 2~~ ✅ done 2026-05-24 (commit e3a260b)
+- ~~#2 SERP-FIX + SCHEMA-LOCALBIZ-1 PR~~ ✅ done 2026-05-24 (branch `feature/serp-fix-and-schema`, PR open)
 - **#6 LEAD-2** — read-only routing analysis (~30 min)
 - **#7 Image swap pipeline prep** — pre-draft Claude Code prompt + verify Shopify Files upload (~30–45 min)
 - **#9 W0-2-HOURS** — GBP hours fix Mon–Fri 9–5 ET (~2 min, Chrome-driven)
@@ -26,9 +26,9 @@
 
 No day labels. Order reflects dependencies. Each item carries a status flag (⏳ READY / 🔒 BLOCKED) + time estimate; 🔒 items show a **BLOCKED ON** line.
 
-1. **Step 33 SYS-VERIFY-1 Phase 2** — ⏳ READY — ~1.5–2h. Launch-gate verification, surfaces late issues before the launch sequence begins.
-2. **SERP-FIX-1 + SERP-FIX-2 + SCHEMA-LOCALBIZ-1 PR** — ⏳ READY — ~75 min. Skip-link visibility + 'Office Central' refs cleaned out of BBI copy + `LocalBusiness` sitewide snippet with `sameAs`. sameAs URLs come from Steve, but a partial can deploy now.
-3. **PR review + merge** — 🔒 BLOCKED (chained after #2) — ~15 min. Review + merge the SERP-FIX / SCHEMA-LOCALBIZ-1 PR. **BLOCKED ON:** #2 SERP-FIX PR opened.
+1. ~~**Step 33 SYS-VERIFY-1 Phase 2**~~ ✅ **DONE 2026-05-24** — commit `e3a260b`; 0 BLOCKER + 4 HIGH + 7 MED + 13 LOW; GO/NO-GO = **GO** for LAUNCH-2 Monday. Report `data/reports/sys-verify-1-phase2-2026-05-24.md`.
+2. ~~**SERP-FIX-1 + SERP-FIX-2 + SCHEMA-LOCALBIZ-1 PR**~~ ✅ **DONE 2026-05-24** — branch `feature/serp-fix-and-schema`, PR open. Scope: SERP-FIX-1 (inline visually-hidden guard in `theme.liquid <head>`), SERP-FIX-2 SKIPPED (verified zero customer-facing 'Office Central' leaks; 35 matches all parent attribution per locked facts), SCHEMA-LOCALBIZ-1 (sitewide `bbi-localbusiness-schema.liquid` with distinct `#localbusiness` @id, sameAs TODO Steve homework, H-4 block deleted from `ds-lp-contact`), plus 2 HIGH SYS-VERIFY closures bundled: HIGH-2 (3-line JSON-LD domain consistency: Org `url`, Org logo `url`, BlogPosting publisher logo `url` hardcoded to brand domain; `@id` fields keep `shop.permanent_domain`), HIGH-3 (deleted `{% unless settings.seo_microdata %}` wrapper in `meta-tags.liquid`; BBI custom `bbi-product-jsonld` now sole Product schema source).
+3. **PR review + merge** — ⏳ **READY** — ~15 min. Review + merge the PR-1 branch. Then proceed to PR-2 (HIGH-1 + HIGH-4).
 4. **Step 36c Cornerstone Post 1 — OECM for Ontario School Boards** — 🔒 BLOCKED — ~2–3h. DataForSEO KW research + outline + draft + publish + schema verify; links `/pages/oecm` + `/pages/education`. **BLOCKED ON:** Steve review (~30 min).
 5. **Step 36d Cornerstone Post 2 — Healthcare FHTs** — 🔒 BLOCKED — ~2–3h. Same flow as #4; links `/pages/healthcare` + `/pages/oecm`. **BLOCKED ON:** Steve review (~30 min).
 6. **Step 22 LEAD-2 read-only analysis** — ⏳ READY — ~30 min. Lead routing gap analysis, read-only.
@@ -68,9 +68,23 @@ No day labels. Order reflects dependencies. Each item carries a status flag (⏳
 
 ---
 
-## ✅ COMPLETED STEPS — condensed, by day (41 items)
+## ✅ COMPLETED STEPS — condensed, by day (42 items)
 
 Mirrors the tracker's Completed Archive. Full commits/counts/rationale in `docs/project/launch-tracker-archive.md` and the Wave A–H tables preserved below.
+
+**Day 10 · 2026-05-24 — 1 numbered step (+ 4 non-counted closures)**
+- Step 33 SYS-VERIFY-1 Phase 2 — final pre-launch verification gate, read-only audit across 6 categories (theme bundle health, critical page render + perf, SEO/AEO foundation, Shopify Admin state, critical functional checks, prior-work bug surface); **0 BLOCKER + 4 HIGH + 7 MED + 13 LOW** findings; GO/NO-GO recommendation: **GO** for LAUNCH-2 Monday. PSI on DEV deferred (preview gate blocks PSI bot — re-run after LAUNCH-2 flip). Report `data/reports/sys-verify-1-phase2-2026-05-24.md`. Commit `e3a260b`. Closes DO NEXT #1.
+
+> **Also shipped Day 10 but NOT counted in the /54** (so the count moved 41 → 42, not 46):
+> - **PR-1 `feature/serp-fix-and-schema`** — five-fix bundle (~90 min Claude Code session, 4 with writes + 1 SKIP after audit). All writes to DEV `186373570873` only — LIVE untouched.
+>   - **SERP-FIX-1 (skip-link visibility):** added inline `<style>` block in `theme.liquid <head>` carrying the `.skip-to-content-link` visually-hidden pattern (off-screen by default, reveal on `:focus`/`:focus-visible`). Belt-and-suspenders guard: the same rule already exists in `bbi-homepage.css:546` but the inline copy makes off-screen behaviour load-order-independent so the link can never appear in Google sitelinks even if asset order changes. Pre-existing legacy redundant rules in `style.css` + `base.css` left untouched (out of scope).
+>   - **SERP-FIX-2 (Office Central refs in BBI copy):** **SKIPPED** after HALT 0 audit. `grep theme/ "Office Central"` returned 35 matches; all 35 categorized as parent-company attribution per locked facts (5× schema `parentOrganization`, ~22× body copy "Part of the Office Central group", 2× footer "a division of Office Central Inc.", 1× About page H3 section header, 5× About page schema defaults). **Zero standalone customer-facing brand leaks** — Session B content polish (Day 8) handled this consistently. Zero file changes.
+>   - **SCHEMA-LOCALBIZ-1 (LocalBusiness moved sitewide):** new `theme/snippets/bbi-localbusiness-schema.liquid` (58 lines) with DISTINCT `@id` `https://office-central-online.myshopify.com/#localbusiness` (intentionally different from `bbi-org-schema`'s combined `#organization` graph entity → no validator collision, two related-but-separate Schema.org nodes). Rendered sitewide via `theme.liquid` `{%- if bbi_landing -%}` body gate alongside `bbi-quote-modal`. Address/geo/hours/areaServed/priceRange/parentOrganization populated. **`sameAs: []` empty array with TODO comment** referencing Steve homework (LinkedIn + Facebook + Instagram canonical URLs — append once delivered). H-4 dedicated LocalBusiness block deleted from `ds-lp-contact.liquid` (`-36 / +1` lines) — sitewide snippet covers contact page too, no duplicate emission.
+>   - **HIGH-2 (JSON-LD domain consistency — SYS-VERIFY-1 finding):** surgical 3-line domain edit across 2 files. Rule: `@id` entity identifiers keep `shop.permanent_domain` (Shopify canonical, stable across domain changes); user-facing `url` + `logo.url` use HARDCODED brand domain `https://www.brantbusinessinteriors.com` (pattern matches `ds-lp-quote.liquid:366` already in codebase). Changed: `bbi-org-schema.liquid:16` Org `url`, `bbi-org-schema.liquid:19` Org `logo.url`, `ds-article.liquid:156` BlogPosting publisher `logo.url`. All other emitters (`bbi-product-jsonld`, `bbi-breadcrumb-jsonld`, `ds-lp-delivery` Service, `ds-lp-relocation` Service, `ds-lp-quote` Service) already correct — verified.
+>   - **HIGH-3 (duplicate Product JSON-LD — SYS-VERIFY-1 finding):** deleted lines 33-46 of `theme/snippets/meta-tags.liquid` (the `{% unless settings.seo_microdata %}{...}{% endunless %}` wrapper + Shopify auto-Product `{{ product | structured_data }}` emission). `settings.seo_microdata` is null on DEV → `unless null` evaluated true → Shopify auto-block fired alongside BBI's custom `bbi-product-jsonld.liquid`, producing duplicate Product emissions on every PDP. After deletion, BBI custom is sole Product schema source (richer: `additionalProperty` from specs metafields + `brand` + `mpn`). Theme-wide grep confirms only one active `application/ld+json` Product emitter remains. Matches SYS-VERIFY-1 Phase 2's own recommended fix.
+>   - **shopify theme check:** ran post-edit on full theme — 265 files / 2855 offenses across 166 files (down from SYS-VERIFY-1 Phase 2 baseline of 264 files / 2856 offenses across 167 files: +1 file = new snippet, -1 offense = HIGH-3 wrapper removed). Zero new offenses on any of the 6 changed files. The 2 pre-existing warnings on changed files (`layout/theme.liquid` AssetPreload, `ds-article.liquid` HardcodedRoutes) are unchanged from baseline.
+>   - **JSON validation:** simulated emit on all 3 JSON-LD blocks (new LocalBusiness snippet, edited Org+WebSite combined graph, edited BlogPosting block) — all parse cleanly. `@id` values stable: Org `#organization` and LocalBusiness `#localbusiness` are distinct fragments; publisher refs unify to Org.
+> - Operational: build-state.md updated + Day 10 EOD synced to tracker.
 
 **Day 9 · 2026-05-23 — 1 numbered step (+ 5 non-counted closures)**
 - Step 26 INTERLINK-3 — final cross-link audit; 623 internal links across 75 theme files (31 sections + 9 snippets + 35 JSON templates) validated against the live Shopify Admin API (388 collection + 23 page handles all PUB); **1 FAIL fixed** (`ds-cs-base.liquid:593` Brantford local `tel:+15198371810` → toll-free `tel:+18008359565`, matches locked sitewide phone fact); 89 WARN (tel: `+1`-prefix consistency, deferred post-launch); 18 INFO (15 HIGH + 3 LOW body-level cross-links, surfaced for review); **0 broken `/pages/*` or `/collections/*` — hard gate CLEAR for LAUNCH-2**; all writes to DEV `186373570873` only; branch `feature/interlink-3` · PR #17 → 28a2450 · report `data/reports/interlink-3-audit-2026-05-23.md`
@@ -171,6 +185,7 @@ None of this blocks the Monday launch — it compounds after BBI is live. The pr
 - W0-2c-MONITOR — weekly Monday incognito search
 
 **Schema + content backlog:**
+- **STALE-OECM-DATE-FIX** — `theme/sections/ds-lp-about.liquid` hero standfirst (and matching schema default at line 245) still says *"OECM Supplier Partner since 2019"*. The canonical fact is the **2025-470 OECM Agreement** (locked Day 8 STEVE-FACT-CHECK). The "since 2019" claim is unverified and contradicts the now-canonical Agreement-number framing applied across `ds-lp-oecm` + all 5 industry pages during CONTENT-POLISH-1 Session A. Two edits — change `ds-lp-about.liquid:113` body copy and `ds-lp-about.liquid:245` schema textarea default. ~5 min. Surfaced incidentally during PR-1 FIX 2 audit 2026-05-24.
 - AI-10 — spec completeness audit
 - AI-11 — "best of" / comparison content
 - Step 36e Cornerstone Post 3 (*Cubicle vs Open-Plan for Municipal Offices*) — every post starts with DataForSEO keyword research
