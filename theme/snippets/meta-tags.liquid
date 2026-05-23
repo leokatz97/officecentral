@@ -30,20 +30,7 @@
     <meta property="og:price:amount" content="{{ product.price | money_without_currency | strip_html }}">
     <meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
   {%- endif -%}
-{% unless settings.seo_microdata %}
-   {%- if request.page_type == 'product' -%}
-  {%- liquid
-  if product.selected_or_first_available_variant.featured_media
-    assign seo_media = product.selected_or_first_available_variant.featured_media
-  else
-    assign seo_media = product.featured_media
-  endif
--%}
-<script type="application/ld+json">
-   {{ product | structured_data }}
-</script>
-{% endif %}
-  {% endunless %}
+  {%- comment -%} HIGH-3 (2026-05-24): removed `{% unless settings.seo_microdata %}` wrapper + Shopify auto-Product JSON-LD ({{ product | structured_data }}). settings.seo_microdata is null on DEV → `unless null` evaluated true → Shopify auto-block fired alongside BBI's custom bbi-product-jsonld.liquid, producing duplicate Product emissions on every PDP. The custom block (richer: additionalProperty from specs metafields + brand + mpn) is now the sole Product schema source. {%- endcomment -%}
   {%- if settings.social_twitter_link != blank -%}
     <meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
   {%- endif -%}
