@@ -1237,3 +1237,59 @@ Pulled together: when each Catch-Up + Exploit item lands on the calendar. Assume
 ---
 
 *Final playbook generated 2026-05-25. Sequences the original 17 backlog items (3-competitor scan) + 3 amendment items (UCOS additions) into actionable 30/60/90 day catch-up + exploit tactics. Effort total: ~80-100 hr over 90 days sustainable at ~8-10 hr/week. Findings still POST-LAUNCH backlog reference only — NOT promoted to bbi-build-state.md.*
+
+---
+
+# PRE-LAUNCH vs POST-LAUNCH CALL — The verdict
+
+## The call: do nothing from this doc pre-launch. Run LAUNCH-2 Monday as planned.
+
+**Everything in this 1,239-line report is genuinely post-launch backlog. The original recon prompt framed it that way (overnight work designed to sit in backlog until LAUNCH-2 settles) and that framing holds after final synthesis. No competitor recon finding changes the Day 11 launch plan.**
+
+### Why pre-launch action isn't warranted
+
+1. **Day 11 LAUNCH-2 is a theme publication** — flipping the rebuilt DS theme from DEV (`186373570873`) to LIVE. It's a binary go/no-go theme deploy. The launch surface doesn't include any of this report's findings.
+2. **None of the recon items can be safely executed pre-launch.** Every Tier 1 / Tier 2 / Tier 3 item either (a) requires a 2-week external clock (GBP verification card), (b) requires a theme edit which would destabilize launch, (c) requires content drafting with mandatory DataForSEO KW pulls (4-10 hr each, no benefit to compressing pre-launch), or (d) requires permission outreach (real client logos) that takes days.
+3. **The launch goes/no-goes on sys-verify-1-phase2 findings, not this doc.** SYS-VERIFY-1 Phase 2 closed with GO recommendation per Day 10 EOD sync (commit 0893b4a). The 4 HIGH items from THAT report (HIGH-1 quote form, HIGH-2 shop.permanent_domain, HIGH-3 duplicate Product JSON-LD, HIGH-4 business-furniture FAQs) are already on the existing Day 10/11 radar — separate from this recon. Don't conflate the two.
+4. **The recon's value is competitive positioning over 30/60/90 days** — that's post-launch by definition. There's no scenario where doing 30 minutes of Tier 1 work Sunday night materially improves Monday's launch quality.
+
+### What this doc explicitly does NOT recommend pre-launch
+
+| ❌ Pre-launch action | Why not |
+|---|---|
+| Any theme write (CSS, Liquid, JSON template) | Would destabilize launch surface · LAUNCH-2 freezes the DEV theme |
+| New pages added to the launch (Peterborough geo, Federal Government, geo pages) | Out of scope for LAUNCH-2 publication · would expand testing surface |
+| Schema changes (AggregateRating wiring, JSON-LD edits) | Belongs to the post-launch HIGH-A → HIGH-B chain |
+| Content publishes (cornerstone articles, case studies) | DataForSEO KW pull mandatory first per CLAUDE.md; can't shortcut |
+| Copy changes to existing /pages/oecm, /pages/quote, etc. | LAUNCH-2 copy is locked per Day 10 sign-off |
+| GBP submission Sunday night | Possible (zero risk) but unnecessary — see "optional" note below |
+
+## OPTIONAL pre-launch (zero-risk, marginal benefit, NOT recommended over rest)
+
+Strictly optional. Not recommended over getting a good night's sleep. But if you genuinely have an hour pre-launch Sunday evening and want to maximize, here is the ONE item that's both zero-risk AND has a marginal benefit from earlier execution:
+
+### Optional pre-launch #1 — GBP submission (Tier 1 #1 / HIGH-A)
+
+- **What:** Submit the standalone "Brant Business Interiors" GBP claim (or the Brant Basics dual-name rename per Option (b)) Sunday evening.
+- **Risk:** **Zero.** GBP submissions don't touch the Shopify theme. Verification happens via postcard ~2 weeks later regardless.
+- **Marginal benefit:** Verification card arrives ~Day 12 instead of ~Day 14, accelerating Tier 1 #2 (AggregateRating wiring) by 2 days.
+- **Effort:** 1-2 hr.
+- **Honest assessment:** This is a "can't-sleep Sunday night, want to be productive" task — not a launch-critical one. Submitting Monday afternoon post-launch is functionally identical. **Skip if you'd otherwise rest.**
+
+### Strategic context (not an action — informs Day 11 launch communications IF any)
+
+If Leo / Steve are doing any launch-day comms (social, email, press, sales outreach), the recon surfaces 3 talking-points worth threading into the message:
+
+- **OECM positioning is uniquely defensible.** Office Shop and POI are both OECM suppliers but neither leads with it in copy or schema. BBI's `/pages/oecm` + GovernmentService schema + 2026-05-24 cornerstone uniquely owns the position. *Talking point: "we're the only Ontario commercial furniture supplier whose entire OECM offering is structured for AI search."*
+- **Peterborough SERP is wide open** (7/10 results are UK Peterborough Cambridgeshire). If launch comms have any local-Peterborough angle, lean into it. *Talking point: "Peterborough's home-base office furniture supplier since 1964 — and the only one targeting the Kawartha region."*
+- **PSAB Indigenous procurement angle is uncontested.** If any launch announcement references procurement vehicles, mentioning Brant Basics' PSAB status is on-brand and AI-Overview-feed-worthy. *Talking point: "We support both OECM (Ontario broader-public-sector) and PSAB (Indigenous procurement set-aside) buying paths."*
+
+These are positioning insights, not actions. They go into Steve's launch talking points, not the tracker.
+
+## Final answer in one sentence
+
+**Run Day 11 LAUNCH-2 Monday as planned. Read this doc Tuesday morning. Promote items to the actual post-launch backlog once launch settles. The 90-day plan starts Day 12.**
+
+---
+
+*Pre/post-launch verdict added 2026-05-25 per Leo's final question. Confirms the original prompt's framing — all findings are genuinely post-launch backlog. Day 11 launch unaffected.*

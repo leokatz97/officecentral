@@ -422,6 +422,76 @@
     nav.toc { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--line); }
     main { padding: 24px 20px 60px; }
   }
+  /* The Call banner */
+  .verdict {
+    background: linear-gradient(135deg, #0f7a3e 0%, #0a5c2f 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 0 0 32px;
+    box-shadow: 0 4px 16px rgba(15,122,62,0.15);
+  }
+  .verdict-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+  .verdict h2 {
+    margin: 0 0 12px;
+    border: none;
+    padding: 0;
+    color: #fff;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .verdict p {
+    color: rgba(255,255,255,0.95);
+    margin: 0 0 14px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .verdict-pillar-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+  }
+  .verdict-pillar {
+    background: rgba(255,255,255,0.10);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  .verdict-pillar .pill-label {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    font-size: 10px;
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+  .verdict-pillar .pill-value {
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .verdict-detail {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--warn);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .verdict-detail h4 {
+    margin-top: 0;
+    color: var(--warn);
+  }
   /* Top back-to-top */
   .back-to-top {
     position: fixed;
@@ -453,6 +523,9 @@
 <div class="layout">
 
 <nav class="toc">
+  <h3>🎯 Read this first</h3>
+  <a href="#verdict" style="color: var(--ok); font-weight: 700;">Pre-launch vs Post-launch call</a>
+
   <h3>The Playbook</h3>
   <a href="#tldr">⚡ TL;DR (60-second read)</a>
   <a href="#exec-summary">Executive summary</a>
@@ -495,6 +568,78 @@
 
 <h1 class="page-title" id="top">Competitor Recon Scan — 2026-05-25</h1>
 <p class="subtitle">Surface-level read-only recon of <strong>Sensyst · The Office Shop · POI Business Interiors · UCOS</strong>. Pre-launch SERP baseline frozen. Final playbook to catch up + exploit BBI's moats. Findings live in <code>data/research/</code> only — not promoted to <code>bbi-build-state.md</code> or tracker.</p>
+
+<!-- ====== THE VERDICT ====== -->
+<div class="verdict" id="verdict">
+  <div class="verdict-eyebrow">The call · Pre-launch vs Post-launch</div>
+  <h2>Do nothing from this doc pre-launch. Run LAUNCH-2 Monday as planned.</h2>
+  <p>Everything in this 1,239-line report is genuinely post-launch backlog. The original recon prompt framed it that way (overnight work designed to sit in backlog until LAUNCH-2 settles) and that framing holds after final synthesis. <strong>No competitor recon finding changes the Day 11 launch plan.</strong></p>
+  <p>Read this doc Tuesday morning. Promote items to the post-launch backlog after launch settles. The 90-day plan starts Day 12.</p>
+
+  <div class="verdict-pillar-row">
+    <div class="verdict-pillar">
+      <div class="pill-label">Pre-launch actions</div>
+      <div class="pill-value">0 required</div>
+    </div>
+    <div class="verdict-pillar">
+      <div class="pill-label">Optional pre-launch</div>
+      <div class="pill-value">1 (zero-risk, skip if tired)</div>
+    </div>
+    <div class="verdict-pillar">
+      <div class="pill-label">Post-launch backlog</div>
+      <div class="pill-value">~24 items · 80-100 hr / 90 days</div>
+    </div>
+    <div class="verdict-pillar">
+      <div class="pill-label">Day 11 launch impact</div>
+      <div class="pill-value">None</div>
+    </div>
+  </div>
+</div>
+
+<details>
+<summary><strong>Why pre-launch action isn't warranted</strong> — and the 1 optional thing IF you want a Sunday-night head start</summary>
+
+<h4>4 reasons everything is post-launch</h4>
+<ol>
+  <li><strong>Day 11 LAUNCH-2 is a theme publication</strong> — flipping the rebuilt DS theme from DEV (<code>186373570873</code>) to LIVE. It's a binary go/no-go theme deploy. The launch surface doesn't include any of this report's findings.</li>
+  <li><strong>None of the recon items can be safely executed pre-launch.</strong> Every Tier 1/2/3 item either (a) requires a 2-week external clock (GBP verification card), (b) requires a theme edit which would destabilize launch, (c) requires content drafting with mandatory DataForSEO KW pulls (4-10 hr each, no benefit pre-launch), or (d) requires permission outreach (real client logos) that takes days.</li>
+  <li><strong>The launch goes/no-goes on sys-verify-1-phase2 findings, not this doc.</strong> SYS-VERIFY-1 Phase 2 closed with GO recommendation per Day 10 EOD sync (commit <code>0893b4a</code>). The 4 HIGH items from THAT report are already on the existing Day 10/11 radar — separate from this recon. Don't conflate the two.</li>
+  <li><strong>The recon's value is competitive positioning over 30/60/90 days</strong> — that's post-launch by definition. There's no scenario where doing 30 min of Tier 1 work Sunday materially improves Monday's launch quality.</li>
+</ol>
+
+<h4>What this doc explicitly does NOT recommend pre-launch</h4>
+<table>
+  <thead><tr><th>❌ Pre-launch action</th><th>Why not</th></tr></thead>
+  <tbody>
+    <tr><td>Any theme write (CSS, Liquid, JSON template)</td><td>Would destabilize launch surface · LAUNCH-2 freezes the DEV theme</td></tr>
+    <tr><td>New pages added to the launch (Peterborough geo, Federal Government, etc.)</td><td>Out of scope for LAUNCH-2 publication · expands testing surface</td></tr>
+    <tr><td>Schema changes (AggregateRating wiring, JSON-LD edits)</td><td>Belongs to the post-launch HIGH-A → HIGH-B chain</td></tr>
+    <tr><td>Content publishes (cornerstone articles, case studies)</td><td>DataForSEO KW pull mandatory first per CLAUDE.md · can't shortcut</td></tr>
+    <tr><td>Copy changes to existing /pages/oecm, /pages/quote, etc.</td><td>LAUNCH-2 copy is locked per Day 10 sign-off</td></tr>
+  </tbody>
+</table>
+
+<div class="verdict-detail">
+  <h4>The 1 optional pre-launch item — GBP submission (Tier 1 #1 / HIGH-A)</h4>
+  <p style="font-size:13px; color:var(--ink-soft); margin-bottom:8px;"><strong>Strictly optional. Not recommended over getting a good night's sleep.</strong></p>
+  <ul style="font-size:13px;">
+    <li><strong>What:</strong> Submit the standalone "Brant Business Interiors" GBP claim (or the Brant Basics dual-name rename per Option (b)) Sunday evening.</li>
+    <li><strong>Risk:</strong> Zero. GBP submissions don't touch the Shopify theme. Verification happens via postcard ~2 weeks later regardless.</li>
+    <li><strong>Marginal benefit:</strong> Verification card arrives ~Day 12 instead of ~Day 14, accelerating Tier 1 #2 (AggregateRating wiring) by 2 days.</li>
+    <li><strong>Effort:</strong> 1-2 hr.</li>
+    <li><strong>Honest assessment:</strong> Sunday-evening "can't sleep, want to be productive" task. Submitting Monday afternoon post-launch is functionally identical. <strong>Skip if you'd otherwise rest.</strong></li>
+  </ul>
+</div>
+
+<h4>Strategic context for Day 11 launch communications (not an action — talking points for any launch comms)</h4>
+<p style="font-size:13px;">If Leo / Steve are doing any launch-day comms (social, email, press, sales outreach), the recon surfaces 3 talking-points worth threading into the message:</p>
+<ul style="font-size:13px;">
+  <li><strong>OECM positioning is uniquely defensible.</strong> Office Shop and POI are both OECM suppliers but neither leads with it. BBI's <code>/pages/oecm</code> + GovernmentService schema + 2026-05-24 cornerstone uniquely owns it. <em>Talking point: "we're the only Ontario commercial furniture supplier whose entire OECM offering is structured for AI search."</em></li>
+  <li><strong>Peterborough SERP is wide open</strong> (7/10 results are UK Peterborough Cambridgeshire). If launch comms have any local-Peterborough angle, lean into it. <em>Talking point: "Peterborough's home-base office furniture supplier since 1964 — and the only one targeting the Kawartha region."</em></li>
+  <li><strong>PSAB Indigenous procurement angle is uncontested.</strong> If any launch announcement references procurement vehicles, mentioning Brant Basics' PSAB status is on-brand and AI-Overview-feed-worthy. <em>Talking point: "We support both OECM (Ontario broader-public-sector) and PSAB (Indigenous procurement set-aside) buying paths."</em></li>
+</ul>
+<p style="font-size:13px; color:var(--ink-soft); font-style:italic;">These are positioning insights for talking points, not actions. They go into Steve's launch comms, not the tracker.</p>
+</details>
 
 <!-- ====== TL;DR ====== -->
 <h2 id="tldr" class="no-border">⚡ TL;DR (60-second read)</h2>
