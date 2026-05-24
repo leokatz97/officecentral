@@ -28,7 +28,7 @@ No day labels. Order reflects dependencies. Each item carries a status flag (⏳
 3. **Image swap pipeline prep** — ⏳ READY — ~30–45 min. Pre-draft the Claude Code manifest-ingestion prompt + verify the Shopify Files upload pipeline with a test image.
 4. **W0-1 + W0-3 final verify** — ⏳ READY anytime — ~10 min. Quick confirm GSC + GA4 (✅ done 2026-05-22) and redirects CSV (✅ 171/173 verified). Quick-confirm only.
 5. **Upwork delivery review** — 🔒 BLOCKED — ~15–30 min. Final QA of the manifest CSV + 137 images. **BLOCKED ON:** Upwork manifest CSV + 137 images — EOD Sunday May 24 (expected to land overnight Sun→Mon).
-6. **Step 46 IMAGE SWAP session** — 🔒 BLOCKED — ~2–3h. Claude Code ingests the manifest + uploads to Shopify Files + maps to template slots across all pages per the Idea #15 SKU picks. Closes IMAGE-SOURCING-V2 ✅ when all 137 images live in DEV. **BLOCKED ON:** #5 Upwork delivery + Idea #15 3-card SKU picks (Steve).
+6. **Step 46 IMAGE SWAP session** — 🔒 BLOCKED — ~2–3h. Claude Code ingests the manifest + uploads to Shopify Files + maps to template slots across all pages per the Idea #15 SKU picks (✅ CLOSED 2026-05-25). Closes IMAGE-SOURCING-V2 ✅ when all 137 images live in DEV. **BLOCKED ON:** #5 Upwork delivery only.
 7. **W0-2-PHOTOS — 10 photos upload to GBP** — 🔒 BLOCKED — ~15 min. Upload 10 photos to the Google Business Profile. **BLOCKED ON:** Steve photo selection (10 from `oci-photos` + `design-photos` folders).
 8. **SYS-VERIFY-1 Phase 2 re-run** — 🔒 BLOCKED — ~30 min (light). Verify no regressions after the image swap. **BLOCKED ON:** #6 image swap complete.
 9. **Step 37 LAUNCH-0 — image confirmation gate** — 🔒 BLOCKED — ~30 min. Leo row-by-row image CSV approval; hard gate before LAUNCH-1. **BLOCKED ON:** #8 SYS-VERIFY-1 re-run.
@@ -45,7 +45,7 @@ No day labels. Order reflects dependencies. Each item carries a status flag (⏳
 ## ⏳ STEVE HOMEWORK
 
 **Pending now:**
-- **Idea #15 — 3-card SKU picks** (OTG / GFG / Heartwood) — **CRITICAL PATH** for #6 IMAGE SWAP; no response yet.
+- **Idea #15 — 3-card SKU picks** ✅ CLOSED 2026-05-25 — Heartwood: L-Shape Height Adjustable Desk Set (`/products/l-shape-height-adjustable-desk-set`) · OTG: Raven High-Back Heavy-Duty Synchro-Tilter OTG10703B (`/products/raven-high-back-heavy-duty-synchro-tilter-chair-otg10703b`) · GFG: Global Accord Mesh-Back Tilter (`/products/global-accord-mesh-back-tilter`) — unblocks #6 IMAGE SWAP critical path.
 - **W0-2-PHOTOS selection** — 10 photos from `oci-photos` + `design-photos` folders — needed for #7 GBP photo upload.
 
 **Post-launch (optional / non-blocking):**

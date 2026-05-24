@@ -28,7 +28,7 @@
   {%- if show_quote_cta -%}
     {%- comment -%} Sold-out OR $0-price → Request a Quote CTA (replaces disabled Add to Cart button) {%- endcomment -%}
     <a
-      href="/pages/contact?subject=Quote+request%3A+{{ product.title | url_encode }}&product={{ product.handle }}"
+      href="/pages/quote?lead_type=quote&product={{ product.handle }}&title={{ product.title | url_encode }}"
       class="{% if stickyProduct %}medium-btn button{% else %} large-btn button{% endif %}{% if settings.enable_button_shadow %} button-shadow{% endif %}"
       data-quote-request
     >
