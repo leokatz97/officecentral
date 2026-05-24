@@ -93,6 +93,23 @@
 .article-prose img { border-radius: var(--cardRadius); margin: 2em 0; }
 .article-prose code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.875em; background: var(--alternateBackground); padding: 2px 5px; border-radius: 3px; }
 
+/* Prose tables — AEO-readable comparison/coverage tables */
+.article-prose .article-prose__table-wrap { margin: 1.75em 0; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #E5E5E7; border-radius: var(--cardRadius); background: #FFFFFF; }
+.article-prose table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; background: #FFFFFF; margin: 1.75em 0; }
+.article-prose .article-prose__table-wrap > table { margin: 0; border-radius: 0; }
+.article-prose table caption { caption-side: top; padding: 14px 16px 10px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(11,11,12,0.6); text-align: left; border-bottom: 1px solid #E5E5E7; }
+.article-prose thead { background: #FAFAFA; }
+.article-prose th { text-align: left; padding: 12px 14px; border-bottom: 2px solid #0B0B0C; font-family: var(--headingFont); font-weight: 600; color: #0B0B0C; vertical-align: top; font-size: 14px; letter-spacing: -0.005em; }
+.article-prose td { padding: 12px 14px; border-bottom: 1px solid #E5E5E7; vertical-align: top; color: #0B0B0C; }
+.article-prose tbody tr:last-child td { border-bottom: none; }
+.article-prose tbody tr:nth-child(even) { background: rgba(11,11,12,0.015); }
+.article-prose td strong { color: #0B0B0C; font-weight: 600; }
+.article-prose td a { text-decoration: underline; }
+@media (max-width: 640px) {
+  .article-prose table { font-size: 14px; }
+  .article-prose th, .article-prose td { padding: 10px 12px; }
+}
+
 /* ── Share buttons ────────────────────────────────────────────────────────── */
 .article-share { display: flex; align-items: center; gap: 12px; padding-top: 32px; margin-top: 32px; border-top: 1px solid var(--borderColor); flex-wrap: wrap; }
 .article-share__label { font-size: 13px; font-weight: 500; color: rgba(var(--textColor-rgb),0.6); margin-right: 4px; }
@@ -119,8 +136,9 @@
 .article-cta__inner { max-width: 560px; margin: 0 auto; }
 .article-cta h2 { font-family: var(--headingFont); font-size: var(--fs-h2); font-weight: 600; color: var(--headingColor); margin: 0 0 8px; letter-spacing: -0.01em; }
 .article-cta p { font-size: 16px; color: rgba(var(--textColor-rgb),0.7); margin: 0 0 24px; }
-.article-cta__btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 28px; background: var(--buttonBackground); color: var(--buttonColor); border: 1px solid var(--buttonBorder); border-radius: var(--buttonRadius); font-family: var(--bodyFont); font-size: var(--fs-button); font-weight: 500; letter-spacing: var(--ls-button); text-decoration: none; transition: background 0.15s; }
-.article-cta__btn:hover { background: var(--saleBadgeBackground); border-color: var(--saleBadgeBackground); color: #fff; }
+/* CTA button — explicit hex fallbacks because base.css 'a { color: rgb(var(--linkColor)) }' uses rgb() with a hex value (invalid CSS), which can drop the descendant <a>'s color to canvas-default (black) on some renders. Hex fallbacks below keep button readable even if CSS variables fail to cascade. */
+.article-cta__btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 28px; background: #0B0B0C !important; background: var(--buttonBackground, #0B0B0C) !important; color: #FFFFFF !important; color: var(--buttonColor, #FFFFFF) !important; border: 1px solid #0B0B0C; border-color: var(--buttonBorder, #0B0B0C); border-radius: var(--buttonRadius, 4px); font-family: var(--bodyFont), "Inter", system-ui, sans-serif; font-size: var(--fs-button, 15px); font-weight: 500; letter-spacing: var(--ls-button, 0.01em); text-decoration: none !important; transition: background 0.15s, border-color 0.15s; }
+.article-cta__btn:hover { background: #D4252A !important; background: var(--saleBadgeBackground, #D4252A) !important; border-color: #D4252A; color: #FFFFFF !important; }
 .article-cta__phone { margin-top: 16px; font-size: 14px; color: rgba(var(--textColor-rgb),0.6); }
 .article-cta__phone a { color: var(--textColor); font-weight: 500; text-decoration: none; }
 .article-cta__phone a:hover { color: var(--saleBadgeBackground); }
