@@ -1043,3 +1043,197 @@ In addition to the original 5 HIGH / 7 MED / 5 LOW from the 3-competitor scan, t
 ---
 
 *Amendment generated 2026-05-25. UCOS added as 4th competitor; cross-4 gap analysis + market-share tactics layered on top of the original 3-competitor scan. All sections above the AMENDMENT divider preserved verbatim. Findings remain post-launch backlog reference only — NOT promoted to `bbi-build-state.md` or tracker.*
+
+---
+
+# FINAL PLAYBOOK — What to do to catch up + what to exploit
+
+This is the action layer. Two columns: deficits to close (catch up) and moats to lean on (exploit). Backlog items above stay raw — this section sequences them.
+
+---
+
+## Strategic frame
+
+BBI sits in a curious position relative to the 4 competitors: **structurally ahead on schema + AEO + catalog + content quality, structurally behind on GBP + reviews + content volume + visible client logos.** The catch-up work is mechanical (1-3 weeks per item). The exploit work compounds (months of advantage once entrenched). Doing both in parallel is the right call — they don't conflict on resources or copy.
+
+The 4 competitors break down into 2 archetypes:
+
+- **The slow incumbents** (Sensyst, POI, UCOS) — established, deep client books, but digitally calcified. Sensyst publishes blurbs without schema. POI publishes 130 posts without schema. UCOS hasn't posted in 9 years. Each carries dead weight (test pages, stale blogs, missing reviews) BBI doesn't.
+- **The polished mid-sizer** (The Office Shop) — clean WordPress + Rank Math, AggregateRating + 65 Google reviews, dominant in AI Overview. But Office Shop is positionally shallow — they're an OECM supplier who doesn't lead with OECM. Their moat is mechanical, not strategic. Once BBI matches the mechanical signal (HIGH-A + HIGH-B), Office Shop's lead evaporates because BBI's content posture is deeper.
+
+The full play: catch up on mechanical signals → out-position on procurement + verticals → take share city-by-city + vertical-by-vertical.
+
+---
+
+## CATCH UP — Close the deficits all 4 competitors have over BBI
+
+Ordered by ROI. Numbers in parentheses reference backlog item IDs above.
+
+### Tier 1 — Do first 30 days
+
+| # | Action | Effort | Backlog ID | Why now |
+|---|---|---|---|---|
+| 1 | **Reclaim or rename the 296 George St N GBP** to surface "Brant Business Interiors" — Option (b) preserves the 60 reviews on the Brant Basics GBP via dual-naming | 1-2 hr submission + ~2 weeks verification | HIGH-A | Single biggest lever. Unlocks #2, #3, #4. |
+| 2 | **Wire AggregateRating + Review schema** into `bbi-org-schema.liquid` once GBP is named correctly | 1 hr after #1 | HIGH-B | Closes the one schema signal Office Shop has over BBI. Likely flips AI Overview citation order. |
+| 3 | **Real client logo bar on homepage** (replace gradient placeholders) | 2-3 hr permissions + 1 hr code | HIGH-E | Removes the only "unfinished" perception competitors don't trigger. Compounds with #2 for trust signal stack. |
+| 4 | **`/pages/peterborough-office-furniture` geo hub** with LocalBusiness schema + 4-6 FAQs | 2-3 hr (DataForSEO KW pull mandatory first) | HIGH-C | Home city. Currently lost to UK Peterborough. One page closes the gap. |
+| 5 | **Newsletter signup in footer + /pages/oecm** exit-intent | 2-3 hr | MED-E | Captured procurement contacts compound for years. All 4 competitors have it; BBI has zero captured emails. |
+
+**Tier 1 total effort:** ~15 hours over ~30 days (most of it is the 2-week GBP verification wait).
+**Tier 1 outcome:** BBI matches all 4 competitors on every mechanical visibility signal.
+
+### Tier 2 — Do 30-60 days
+
+| # | Action | Effort | Backlog ID | Why now |
+|---|---|---|---|---|
+| 6 | **First deep case study** — Halton Catholic DSB (320 ergoCentric chairs, 11 schools — already sourced from Day 10 cornerstone) | 6 hr | HIGH-D | Validates the case-study template. Source material already gathered. Pairs with #2 for AI Overview hits on school-board queries. |
+| 7 | **Restart blog at 1 post/month** — start with "OECM vs RFP procurement timelines" (extends Day 10 cornerstone format) | 6-10 hr/post | MED-C | UCOS-style content rot is invisible to AI engines for ~3 months, then becomes a visible freshness penalty. Even 1/month neutralizes UCOS, narrows the gap to Sensyst/POI. |
+| 8 | **Add 2nd + 3rd geo pages** — Toronto + Mississauga (Sensyst's home market with BBI's superior schema) | 2 hr/page × 2 = 4 hr | MED-A | Geo expansion compound. Each city page is independently SEO-productive. |
+| 9 | **Service area page `/pages/service-area`** with Ontario + Western Canada map graphic | 2-3 hr | MED-G | Closes a procurement-FAQ question without a phone call. ICP A institutional buyers ask this constantly. |
+| 10 | **2 industry pages** — manufacturing + legal/accounting (ICP B private-sector targets) | 3-4 hr/page × 2 = 6-8 hr | MED-B | Sensyst has 17 industry pages; BBI has 5. Doubling down on ICP B (SMB private-sector) closes the gap fastest. |
+
+**Tier 2 total effort:** ~30-40 hours over ~30 days.
+**Tier 2 outcome:** BBI starts overtaking competitors on content depth + vertical coverage.
+
+### Tier 3 — Do 60-90 days
+
+| # | Action | Effort | Backlog ID | Why now |
+|---|---|---|---|---|
+| 11 | **2 more case studies** — pick a healthcare clinic + a municipal/government project | 6 hr × 2 = 12 hr | HIGH-D | Case study #2 and #3 lock in the template + start to match POI's depth. |
+| 12 | **Kingston + Belleville geo pages** — Eastern Ontario market entry against UCOS | 2 hr × 2 = 4 hr | MED-H | UCOS's home turf. Their schema is empty, their reviews are zero, their blog is 9 years stale. Easy share. |
+| 13 | **Federal Government landing page** — PSAB + OECM angle | 6 hr | HIGH-F | New vertical BBI doesn't currently target. PSAB-Indigenous procurement angle no competitor can match. |
+| 14 | **Capability Statement PDF + OECM Procurement Guide PDF** | 4-6 hr × 2 = 8-12 hr | MED-D | Procurement-team friendly trust signal. Reusable in cold outreach. |
+| 15 | **Team bios on /pages/about** | 4-6 hr | MED-F | Sensyst has 10 leadership bios; POI 11; Office Shop names founders; BBI doesn't surface team. Quick trust win. |
+
+**Tier 3 total effort:** ~35-45 hours over ~30 days.
+**Tier 3 outcome:** BBI's catch-up complete; pivot fully to exploit mode.
+
+**Full catch-up totals: ~80-100 hours over 90 days.** Sustainable at ~8-10hr/week. No theme architecture changes — almost all of it is content + schema + GBP work.
+
+---
+
+## EXPLOIT — Lean on BBI's unique moats to take share
+
+These are tactics that no competitor can copy quickly. BBI is alone or near-alone on each. The cumulative effect: BBI ends 90 days with positioning competitors would need 6-12 months to replicate.
+
+### Moat 1: OECM + GovernmentService schema combo
+
+**What BBI alone has:** A `/pages/oecm` hub with GovernmentService JSON-LD, a 2,446-word cornerstone article with 3 comparison tables citing Agreement 2025-470, FAQPage schema across category templates, and BlogPosting+FAQPage on the cornerstone. Office Shop and POI are OECM suppliers but neither leads with OECM in copy or schema. Sensyst and UCOS aren't OECM-registered.
+
+**Exploit tactics:**
+
+- **EX-1 — "OECM vs Global Furniture Group dealer pricing" cornerstone** (MS-O2). Office Shop is a Premier GFG dealer but emits zero OECM-positioning copy. BBI publishes the comparison. Office Shop cannot respond without building an OECM content hub from scratch — 6+ months of catch-up content for them. **Effort:** 10 hr. **Window before competitor response:** 6+ months minimum.
+- **EX-2 — "OECM vs RFP" + "OECM vs Standing Offer" comparison cornerstones** (MS-U4). Three to four more cornerstone articles using the Day 10 template (comparison table + 6 Q&As + FAQ schema). Each one captures procurement-decoder long-tail traffic across the 5 AI-Overview proxy queries. **Effort:** 8 hr/post × 4 = 32 hr. **Window before competitor response:** open indefinitely — no competitor has the OECM expertise to write these credibly.
+- **EX-3 — School-board case studies with GovernmentService schema** (MS-P1). 3 deep narratives (Halton Catholic DSB anchored from Day 10 cornerstone). POI's `/our-work/` lists 4 school-board clients but emits zero GovernmentService schema. BBI wins Q4 SERP + AI Overview for "Ontario school board office furniture supplier" within 60 days of publish. **Effort:** see Catch-Up Tier 2 #6.
+
+### Moat 2: Brant Basics PSAB-Indigenous procurement angle
+
+**What BBI alone has:** A sister-brand legal entity (Brant Basics) with PSAB-recognized Indigenous procurement status. No competitor has an equivalent. ICP A explicitly avoids marketing to Indigenous segments per memory, but PSAB *as a procurement vehicle* is fair game for federal-funded buyers + band offices + Indigenous-led non-profits + federal contractors looking for set-aside-eligible suppliers.
+
+**Exploit tactics:**
+
+- **EX-4 — Federal Government landing page** (MS-U2 / HIGH-F backlog). PSAB-eligibility + OECM cross-applicability for federal-funded entities + acknowledge BBI doesn't hold a Standing Offer but explain why the procurement vehicles BBI offers (PSAB + OECM) cover most federal-adjacent use cases UCOS's E60PQ SOs target. UCOS structurally cannot match the PSAB angle. **Effort:** 6 hr.
+- **EX-5 — Cold outreach to federal-funded non-profits + band offices** using the Federal page as the conversion asset. Out of scope for this report but worth flagging for sales coordination. **Effort:** sales work, not content.
+
+### Moat 3: 330-SKU spec-rich PDP catalog with dual buying mode
+
+**What BBI alone has:** A real Shopify catalog with Product + Offer schema, additionalProperty from specs metafields (Day 8 AI-3 work), real product photos (Day 7 img2img pipeline), and a functioning cart + quote channel dual-mode per ICP. Sensyst has 0 products. Office Shop is quote-only via overlays. POI's store is 4 categories. UCOS has 135 products with **zero schema** — invisible to AI parsing.
+
+**Exploit tactics:**
+
+- **EX-6 — "Quick-ship workstation bundle" Shopify products** (MS-O3). 5-10 bundled SKUs combining chair + desk + storage at a discounted bundle price. Targets "GTA office furniture under $5k" — Office Shop physically cannot fulfill via cart, BBI can. **Effort:** 4 hr (Shopify product builds + photography). **Window before competitor response:** indefinite — Office Shop's quote-only architecture isn't easily reversed.
+- **EX-7 — Continue AI-3 spec rollout** to remaining PDPs (any not yet in additionalProperty metafield format). BBI's Product schema with `additionalProperty` for specs is structurally unmatched. AI engines parsing "best ergonomic chair Ontario" pull spec-rich pages first. **Effort:** ongoing AI-3 phase 2 from sys-verify backlog.
+- **EX-8 — "Quick-ship from Ontario stock" badge on PDPs** in select category templates. Adds an inline trust signal Sensyst literally cannot make (zero products). Compounds with #6 newsletter signup for return-visit conversion. **Effort:** 2 hr (template edit + badge CSS).
+
+### Moat 4: Peterborough geographic + 1964 family-business heritage
+
+**What BBI alone has:** A real Peterborough HQ (296 George St N), 1964 founding date (older than Office Shop 1996 and Sensyst 1977), Steve Katz as 2nd-generation Peterborough family business, and the Kawartha service area that no competitor targets. UCOS is the closest competitor at 2.5hr drive (Kingston) but covers Eastern Ontario, not Kawartha.
+
+**Exploit tactics:**
+
+- **EX-9 — Own Peterborough + Kawartha Lakes + Northumberland geo-pack** (MS-S1 + HIGH-C). Three geo pages — `/pages/peterborough-office-furniture`, `/pages/kawartha-lakes-office-furniture`, `/pages/northumberland-office-furniture`. Each with LocalBusiness + Service + FAQPage schema. Zero competitive pressure in this geo. **Effort:** 2 hr × 3 = 6 hr. **Window:** indefinite — none of the 4 competitors target this region.
+- **EX-10 — "Since 1964" badge in nav + footer** (already partially in copy per Day 8 hero eyebrow audit). Older than every competitor except POI 1958. Surface it consistently. **Effort:** 1 hr.
+
+### Moat 5: Schema-rich content that AI engines actually parse
+
+**What BBI alone has:** The only entity with FAQPage on 9 category templates (36 total FAQs) + GovernmentService + HowTo + Service + BlogPosting+FAQPage on the cornerstone article. AI Overview parsers can extract structured answers from BBI's pages that competitors don't expose.
+
+**Exploit tactics:**
+
+- **EX-11 — Fill the 4 HIGH findings from sys-verify-1-phase2** (Day 10 partial work; finalize Day 11 if time). HIGH-2 (JSON-LD .myshopify.com domain) and HIGH-3 (duplicate Product JSON-LD) close two AEO quality issues that dilute the BBI signal. **Effort:** 15 min combined. Single-highest ROI 15 min of post-launch work.
+- **EX-12 — Add 4 faq_item blocks to collection.business-furniture.json** (HIGH-4). Closes the FAQ gap on the parent category page (highest-traffic collection in nav). **Effort:** 25 min. Pairs with EX-11.
+- **EX-13 — Comparison tables in every new cornerstone**. AI engines reward table-structured content for direct-answer extraction. Day 10 OECM cornerstone used 3 tables — bake this into every new procurement-decoder + case-study post.
+
+---
+
+## 30 / 60 / 90 day sequencing
+
+Pulled together: when each Catch-Up + Exploit item lands on the calendar. Assumes ~10 hr/week of post-LAUNCH-2 content + SEO work.
+
+### Days 1-30 (LAUNCH-2 Monday through ~mid-June)
+
+| Day | Action | Source |
+|---|---|---|
+| 1 (LAUNCH-2) | Launch as planned | — |
+| 1-3 | EX-11 + EX-12 (close sys-verify HIGH-2/3/4 findings) | 40 min total |
+| 3-5 | Tier 1 #1 — GBP reclaim/rename submission | 1-2 hr |
+| 5-10 | Tier 1 #3 — real client logo bar (permissions outreach + implement) | 4 hr |
+| 10-15 | Tier 1 #4 — Peterborough geo hub | 3 hr |
+| 15-20 | Tier 1 #5 — newsletter signup | 3 hr |
+| 15-30 | Wait on GBP verification card · Tier 2 #6 — first deep case study (Halton Catholic DSB) | 6 hr |
+| 20-25 | EX-1 — start drafting "OECM vs GFG dealer" cornerstone (KW pull first per CLAUDE.md) | 4 hr (prep) |
+| 25-30 | Tier 1 #2 — wire AggregateRating + Review schema (after GBP verified) | 1 hr |
+
+**End of Day 30 state:** GBP claimed, schema closed, Peterborough live, case study #1 published, cornerstone #2 drafted.
+
+### Days 31-60 (~mid-June through ~mid-July)
+
+| Day | Action | Source |
+|---|---|---|
+| 31-35 | EX-1 — publish "OECM vs GFG dealer" cornerstone | 6 hr finish |
+| 35-40 | Tier 2 #7 — restart blog: "OECM vs RFP procurement timelines" | 8 hr |
+| 40-50 | Tier 2 #8 — Toronto + Mississauga geo pages | 4 hr |
+| 50-55 | Tier 2 #9 — service area page | 3 hr |
+| 55-60 | Tier 2 #10 — manufacturing + legal/accounting industry pages | 7 hr |
+
+**End of Day 60 state:** 2 cornerstones live, 1 blog post, 3 geo pages, 2 new industry pages, service area page. Office Shop's AggregateRating moat closed, OECM positioning extended into new keyword territory.
+
+### Days 61-90 (~mid-July through ~mid-August)
+
+| Day | Action | Source |
+|---|---|---|
+| 61-70 | Tier 3 #11 — case studies #2 + #3 (healthcare clinic + municipal) | 12 hr |
+| 70-75 | Tier 3 #12 — Kingston + Belleville geo pages | 4 hr |
+| 75-80 | Tier 3 #13 — Federal Government landing page (EX-4) | 6 hr |
+| 80-85 | EX-6 — quick-ship workstation bundles (5-10 Shopify products) | 4 hr |
+| 85-90 | Tier 3 #14 + #15 — Capability Statement PDF + team bios | 14 hr |
+
+**End of Day 90 state:** All catch-up tactics complete. Two exploit tactics deployed (EX-1 cornerstone live, EX-4 federal page live). BBI is digitally ahead of all 4 competitors on schema + content depth + procurement positioning + catalog. The "win" is now compounding — every additional cornerstone, geo page, and case study moves BBI further ahead.
+
+---
+
+## What "winning" looks like at Day 90
+
+- **AI Overview citations:** BBI appears in 3+ of the 5 AI-relevant queries (vs 0 baseline). Drives Office Shop down from 4/5 to 2/5.
+- **GBP:** Standalone "Brant Business Interiors" listing with 4.4★+ rating, 60+ reviews, dual-name with Brant Basics. Parity with Office Shop (4.81★) on the only signal where competitors lead.
+- **SERP:** BBI top-3 for "office furniture Peterborough" (currently UK-dominated), top-10 for "office furniture Toronto" (currently The Office Shop #3, Sensyst #6), top-10 for "Ontario school board office furniture" (currently Office Shop #10 only).
+- **Content inventory:** 3-5 case studies published with structured metadata; 3+ cornerstones in the procurement-decoder series; 4-6 geo pages live (Peterborough, Toronto, Mississauga, Kingston, Belleville + Kawartha); 7-9 industry pages; ~4-6 blog posts in cadence.
+- **Schema posture:** 13+ distinct @types in production (+ AggregateRating + Review + CreativeWork from case studies). BBI's lead over Office Shop widens; UCOS / POI / Sensyst become non-factors in AI Overview.
+- **PDP differentiation:** Spec-rich PDPs with additionalProperty schema across 330 SKUs (or larger if AI-3 phase 2 ships), unique among all 4 competitors. Quick-ship bundles capture sub-$5k order flow Office Shop forces to quote.
+
+**The headline:** BBI ends 90 days holding the only OECM + GovernmentService + PSAB + spec-rich-catalog + dual-mode-cart + Peterborough-geo positioning in the Ontario commercial office furniture market. Every competitor has a deficit BBI doesn't, and none can close their deficit faster than BBI closed its own.
+
+---
+
+## What to NOT do (worth saying explicitly)
+
+- **Do NOT try to match Sensyst's 50+ geo page volume.** 5-10 strategic geo pages with rich schema beat 50 thin pages without it. AI engines reward depth over breadth.
+- **Do NOT chase POI's blog volume of 130 posts.** Their content has zero schema utility. 1-2 cornerstone posts/month with full schema beats POI's whole 130-post archive for AI Overview.
+- **Do NOT try to become a Steelcase channel** to compete with UCOS + POI. BBI's existing Global Furniture Group + ergoCentric + Keilhauer + Teknion brand portfolio is differentiated. The play is OECM + PSAB + spec-rich PDPs, not channel parity.
+- **Do NOT add Quebec coverage** despite the temptation when geo pages start working. ICP explicitly excludes Quebec for language + logistics reasons.
+- **Do NOT remove product / SKU codes** from rebuilt PDPs (procurement teams search by code per feedback memory). Even if shorter names look cleaner.
+- **Do NOT promise specific lead times** in new copy. Lead-time language is locked per ICP voice rules.
+
+---
+
+*Final playbook generated 2026-05-25. Sequences the original 17 backlog items (3-competitor scan) + 3 amendment items (UCOS additions) into actionable 30/60/90 day catch-up + exploit tactics. Effort total: ~80-100 hr over 90 days sustainable at ~8-10 hr/week. Findings still POST-LAUNCH backlog reference only — NOT promoted to bbi-build-state.md.*

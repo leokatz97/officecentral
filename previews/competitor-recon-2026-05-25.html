@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BBI Competitor Recon — 2026-05-25</title>
+<style>
+  :root {
+    --bbi-red: #c8102e;
+    --bbi-red-dark: #9a0c23;
+    --ink: #1a1d23;
+    --ink-soft: #4a5160;
+    --line: #e3e6eb;
+    --line-soft: #f0f2f5;
+    --bg: #fafafa;
+    --card: #ffffff;
+    --ok: #0f7a3e;
+    --ok-bg: #e8f5ee;
+    --warn: #b85d00;
+    --warn-bg: #fff4e3;
+    --danger: #c8102e;
+    --danger-bg: #fde8eb;
+    --info: #1a5fa8;
+    --info-bg: #e7f0fa;
+    --mono: 'SF Mono', Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.55;
+    font-size: 15px;
+  }
+  /* Top bar */
+  .topbar {
+    background: var(--bbi-red);
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  }
+  .topbar h1 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .topbar .meta {
+    font-size: 12px;
+    opacity: 0.85;
+  }
+  /* Layout */
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  /* Sidebar TOC */
+  nav.toc {
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    padding: 24px 16px 24px 24px;
+    border-right: 1px solid var(--line);
+    background: var(--card);
+    font-size: 13px;
+  }
+  nav.toc h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin: 16px 0 8px;
+    font-weight: 700;
+  }
+  nav.toc h3:first-child { margin-top: 0; }
+  nav.toc a {
+    display: block;
+    padding: 5px 8px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 1px;
+    line-height: 1.3;
+  }
+  nav.toc a:hover {
+    background: var(--line-soft);
+    color: var(--bbi-red);
+  }
+  nav.toc a.depth-2 { padding-left: 20px; font-size: 12px; }
+  /* Main content */
+  main {
+    padding: 32px 40px 80px;
+    max-width: 1000px;
+  }
+  /* Headings */
+  h1.page-title {
+    font-size: 32px;
+    line-height: 1.15;
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .subtitle {
+    color: var(--ink-soft);
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 48px 0 16px;
+    padding-top: 12px;
+    border-top: 2px solid var(--bbi-red);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  h2.no-border { border-top: none; padding-top: 0; }
+  h3 {
+    font-size: 17px;
+    margin: 32px 0 12px;
+    color: var(--ink);
+  }
+  h4 {
+    font-size: 14px;
+    margin: 20px 0 8px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+  }
+  p { margin: 0 0 14px; }
+  ul, ol { margin: 0 0 14px; padding-left: 24px; }
+  li { margin-bottom: 6px; }
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 13px;
+    background: var(--card);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  th {
+    background: var(--line-soft);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fcfcfd; }
+  td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+  td.center { text-align: center; }
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+  .badge.high { background: var(--danger-bg); color: var(--danger); }
+  .badge.med  { background: var(--warn-bg); color: var(--warn); }
+  .badge.low  { background: var(--ok-bg); color: var(--ok); }
+  .badge.info { background: var(--info-bg); color: var(--info); }
+  .badge.neutral { background: var(--line-soft); color: var(--ink-soft); }
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 12px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .card h4 { margin-top: 0; }
+  .card-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .card-row .badge { font-size: 11px; }
+  /* Tier cards */
+  .tier {
+    background: var(--card);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 12px 0 20px;
+    border: 1px solid var(--line);
+  }
+  .tier-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tier-num {
+    background: var(--bbi-red);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+  .tier-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .tier-meta {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  /* Exec summary cards */
+  .exec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 20px 0 32px;
+  }
+  .exec-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--bbi-red);
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+  .exec-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .exec-card .value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .exec-card .desc {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+  /* Moats */
+  .moat {
+    background: linear-gradient(180deg, #fafefb 0%, var(--card) 100%);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--ok);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .moat h3 {
+    margin-top: 0;
+    color: var(--ok);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .moat-num {
+    background: var(--ok);
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  /* Competitor profile */
+  .competitor {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .competitor h3 {
+    margin-top: 0;
+    color: var(--bbi-red);
+  }
+  .key-fact-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 8px 16px;
+    font-size: 13px;
+    margin: 8px 0 16px;
+  }
+  .key-fact-grid .k {
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  /* Tactics list */
+  .tactic {
+    background: var(--line-soft);
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-size: 13px;
+    border-left: 3px solid var(--info);
+  }
+  .tactic-id {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--info);
+    font-weight: 700;
+  }
+  .tactic-title {
+    font-weight: 600;
+    margin: 4px 0;
+  }
+  /* Calendar */
+  .cal-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px;
+    gap: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line-soft);
+    align-items: start;
+    font-size: 13px;
+  }
+  .cal-row:last-child { border-bottom: none; }
+  .cal-day {
+    font-weight: 700;
+    color: var(--bbi-red);
+    font-size: 12px;
+  }
+  /* Code / inline */
+  code {
+    font-family: var(--mono);
+    background: var(--line-soft);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.88em;
+  }
+  /* Links */
+  a { color: var(--info); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  /* Details collapse */
+  details {
+    margin: 16px 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 14px 18px;
+  }
+  details[open] { padding-bottom: 18px; }
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--ink);
+    list-style: none;
+    user-select: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "▸ ";
+    color: var(--bbi-red);
+    margin-right: 6px;
+  }
+  details[open] summary::before { content: "▾ "; }
+  /* Quote / callout */
+  .callout {
+    background: var(--info-bg);
+    border-left: 4px solid var(--info);
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+  }
+  .callout strong { color: var(--info); }
+  /* Print */
+  @media print {
+    nav.toc, .topbar { display: none; }
+    .layout { grid-template-columns: 1fr; }
+    main { padding: 16px; max-width: 100%; }
+    .card, .tier, .moat, .competitor { break-inside: avoid; }
+    h2 { break-before: auto; }
+    details { padding: 0; border: none; }
+    details summary { font-size: 16px; margin: 16px 0 8px; }
+    details > *:not(summary) { display: block !important; }
+  }
+  /* Responsive */
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    nav.toc { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--line); }
+    main { padding: 24px 20px 60px; }
+  }
+  /* Top back-to-top */
+  .back-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--bbi-red);
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0.85;
+  }
+  .back-to-top:hover { opacity: 1; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>BBI Competitor Recon Scan</h1>
+  <div class="meta">2026-05-25 · Pre-LAUNCH-2 · 4 competitors · 15,454 words</div>
+</div>
+
+<div class="layout">
+
+<nav class="toc">
+  <h3>The Playbook</h3>
+  <a href="#tldr">⚡ TL;DR (60-second read)</a>
+  <a href="#exec-summary">Executive summary</a>
+  <a href="#at-a-glance">4-competitor at a glance</a>
+  <a href="#catch-up">CATCH UP — close deficits</a>
+  <a href="#catch-up" class="depth-2">Tier 1 (Days 1-30)</a>
+  <a href="#catch-up" class="depth-2">Tier 2 (Days 31-60)</a>
+  <a href="#catch-up" class="depth-2">Tier 3 (Days 61-90)</a>
+  <a href="#exploit">EXPLOIT — lean on moats</a>
+  <a href="#exploit" class="depth-2">Moat 1: OECM + schema</a>
+  <a href="#exploit" class="depth-2">Moat 2: PSAB Indigenous</a>
+  <a href="#exploit" class="depth-2">Moat 3: 330-SKU catalog</a>
+  <a href="#exploit" class="depth-2">Moat 4: Peterborough + 1964</a>
+  <a href="#exploit" class="depth-2">Moat 5: Schema-rich content</a>
+  <a href="#calendar">90-day calendar</a>
+  <a href="#day-90">What winning looks like at Day 90</a>
+  <a href="#do-not">What to NOT do</a>
+
+  <h3>Competitor profiles</h3>
+  <a href="#sensyst">Sensyst</a>
+  <a href="#office-shop">The Office Shop</a>
+  <a href="#poi">POI Business Interiors</a>
+  <a href="#ucos">UCOS (Upper Canada Office Systems)</a>
+
+  <h3>Supporting analysis</h3>
+  <a href="#serp-baseline">Pre-launch SERP baseline</a>
+  <a href="#schema-table">Schema comparison</a>
+  <a href="#content-table">Content pattern analysis</a>
+  <a href="#gbp-table">GBP / local SEO</a>
+  <a href="#ai-citations">AI Overview citations</a>
+  <a href="#market-share-tactics">Market-share tactics (full detail)</a>
+
+  <h3>Reference</h3>
+  <a href="#backlog">Full backlog inventory</a>
+  <a href="#methodology">Methodology notes</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<main>
+
+<h1 class="page-title" id="top">Competitor Recon Scan — 2026-05-25</h1>
+<p class="subtitle">Surface-level read-only recon of <strong>Sensyst · The Office Shop · POI Business Interiors · UCOS</strong>. Pre-launch SERP baseline frozen. Final playbook to catch up + exploit BBI's moats. Findings live in <code>data/research/</code> only — not promoted to <code>bbi-build-state.md</code> or tracker.</p>
+
+<!-- ====== TL;DR ====== -->
+<h2 id="tldr" class="no-border">⚡ TL;DR (60-second read)</h2>
+
+<div class="callout">
+  <strong>BBI's position:</strong> Structurally ahead on schema, AEO, catalog, and content quality. Structurally behind on GBP, reviews, content volume, and visible client logos. <strong>The work splits cleanly:</strong> mechanical catch-up (1-3 weeks per item) + compounding exploit work (months of advantage once entrenched). Do both in parallel — they don't conflict.
+</div>
+
+<div class="exec-grid">
+  <div class="exec-card">
+    <div class="label">Schema @types</div>
+    <div class="value">BBI 11 · UCOS 0</div>
+    <div class="desc">Office Shop ~12 (only competitor close) · POI 6 · Sensyst 2</div>
+  </div>
+  <div class="exec-card">
+    <div class="label">AI Overview citations</div>
+    <div class="value">0 / 5 for BBI</div>
+    <div class="desc">Office Shop 4/5 · Sensyst 1/5 · POI 0/5</div>
+  </div>
+  <div class="exec-card">
+    <div class="label">Reviews / GBP</div>
+    <div class="value">4.4★ but misattributed</div>
+    <div class="desc">Reviews live under "Brant Basics" sister-brand, not BBI</div>
+  </div>
+  <div class="exec-card">
+    <div class="label">Peterborough SERP</div>
+    <div class="value">Lost to UK</div>
+    <div class="desc">7 of top 10 are UK Peterborough · BBI invisible at home</div>
+  </div>
+  <div class="exec-card">
+    <div class="label">Catch-up effort</div>
+    <div class="value">~80-100 hr</div>
+    <div class="desc">Over 90 days at ~8-10 hr/week. No theme architecture changes.</div>
+  </div>
+  <div class="exec-card">
+    <div class="label">Uncontested moats</div>
+    <div class="value">5 distinct</div>
+    <div class="desc">OECM+GovernmentService · PSAB Indigenous · 330-SKU spec catalog · Peterborough+1964 · Schema-rich content</div>
+  </div>
+</div>
+
+<h3>The 5 things to do first (next 30 days)</h3>
+<ol>
+  <li><strong>Reclaim or rename the 296 George St N GBP</strong> to surface "Brant Business Interiors" — Option (b) preserves 60 existing reviews. <span class="badge high">HIGH-A</span> · 1-2 hr submission + 2-week verification</li>
+  <li><strong>Wire AggregateRating + Review schema</strong> sitewide once GBP is renamed. <span class="badge high">HIGH-B</span> · 1 hr</li>
+  <li><strong>Real client logo bar on homepage</strong> — replace gradient placeholders. <span class="badge high">HIGH-E</span> · 4 hr</li>
+  <li><strong>Build <code>/pages/peterborough-office-furniture</code></strong> geo hub with LocalBusiness + FAQPage schema. <span class="badge high">HIGH-C</span> · 3 hr</li>
+  <li><strong>Newsletter signup in footer + /pages/oecm</strong> exit-intent. <span class="badge med">MED-E</span> · 3 hr</li>
+</ol>
+
+<h3>The 3 highest-ROI exploits (parallel work)</h3>
+<ol>
+  <li><strong>Publish "OECM vs Global Furniture Group dealer pricing" cornerstone</strong> — directly hits Office Shop's blind spot. They can't respond in &lt; 6 months. <span class="badge info">EX-1</span> · 10 hr</li>
+  <li><strong>3 deep school-board case studies with GovernmentService schema</strong> — wins Q4 SERP + AI Overview where POI is invisible. <span class="badge info">EX-3</span> · 18 hr</li>
+  <li><strong>Federal Government landing page (PSAB + OECM angle)</strong> — captures federal-adjacent traffic UCOS owns by default. <span class="badge info">EX-4</span> · 6 hr</li>
+</ol>
+
+<!-- ====== Exec summary table ====== -->
+<h2 id="exec-summary">Executive summary</h2>
+
+<p><strong>Methodology:</strong> Approach A surface scan (read-only, web_search + raw curl + JSON-LD parsing). 22 competitor URLs + 4 OECM aggregator URLs + 9 GBP-context URLs across 4 competitor domains. DataForSEO AI optimization endpoints returned 403 (known issue from Day 10 backlog) — fell back to Google SERP snippets as AI Overview proxy per the prompt's HARD RULES allowance.</p>
+
+<p><strong>4 competitors analyzed:</strong></p>
+<ul>
+  <li><a href="#sensyst">Sensyst</a> (sensyst.com) — Mississauga · design-services led · 50+ geo pages · 61 case studies · 2 schema @types · ~3 posts/month</li>
+  <li><a href="#office-shop">The Office Shop</a> (theofficeshop.ca) — Markham · GFG Premier dealer · ~12 schema @types · <strong>4.81★ / 65 reviews</strong> · 2-3 posts/month</li>
+  <li><a href="#poi">POI Business Interiors</a> (poi.ca) — North York · Steelcase Premier · 130 blog posts · 31 case studies · 3.5-3.9★ mixed · 6 schema @types</li>
+  <li><a href="#ucos">UCOS</a> (ucos.ca) — Kingston / Belleville / Brockville · Eastern Ontario · federal Standing Offers · <strong>0 schema · blog dead since 2017 · 0 reviews</strong></li>
+</ul>
+
+<!-- ====== At a glance ====== -->
+<h2 id="at-a-glance">4-competitor at a glance</h2>
+
+<div style="overflow-x: auto;">
+<table>
+  <thead>
+    <tr>
+      <th>Competitor</th>
+      <th>Geo</th>
+      <th>Founded</th>
+      <th>Reviews</th>
+      <th>Schema @types</th>
+      <th>Blog cadence</th>
+      <th>Strongest moat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Sensyst</strong></td>
+      <td>Mississauga (GTA)</td>
+      <td class="center">1977</td>
+      <td>0 YP</td>
+      <td class="center"><span class="badge danger" style="background:var(--danger-bg);color:var(--danger);">2</span></td>
+      <td>~3/mo</td>
+      <td>50+ geo pages + 61 case studies</td>
+    </tr>
+    <tr>
+      <td><strong>The Office Shop</strong></td>
+      <td>Markham (GTA)</td>
+      <td class="center">1996</td>
+      <td><strong>4.81★ / 65</strong></td>
+      <td class="center"><span class="badge low">~12</span></td>
+      <td>~2-3/mo</td>
+      <td>AggregateRating schema + GBP</td>
+    </tr>
+    <tr>
+      <td><strong>POI Business Interiors</strong></td>
+      <td>North York (6 ON loc)</td>
+      <td class="center">1958</td>
+      <td>3.5-3.9★ / 45-56</td>
+      <td class="center"><span class="badge med">6</span></td>
+      <td>active</td>
+      <td>130 posts + 31 case studies + Steelcase Premier</td>
+    </tr>
+    <tr>
+      <td><strong>UCOS</strong></td>
+      <td>Kingston (E. Ontario)</td>
+      <td class="center">1980</td>
+      <td><strong>0 reviews</strong></td>
+      <td class="center"><span class="badge high">0</span></td>
+      <td><strong>dead since 2017</strong></td>
+      <td>Federal Standing Offers + E. Ontario geo</td>
+    </tr>
+    <tr style="background:#fef9fa;font-weight:600;">
+      <td><strong>BBI</strong> (LAUNCH-2)</td>
+      <td>Peterborough</td>
+      <td class="center">1964</td>
+      <td>4.4★ (misattrib)</td>
+      <td class="center"><span class="badge low">11</span></td>
+      <td>activating</td>
+      <td>OECM + GovernmentService + 330 PDPs + dual-mode cart</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ====== CATCH UP ====== -->
+<h2 id="catch-up">CATCH UP — Close the deficits all 4 competitors have over BBI</h2>
+
+<p>Ordered by ROI. Numbers reference backlog item IDs. <strong>Full effort: ~80-100 hours over 90 days · sustainable at ~8-10 hr/week. No theme architecture changes.</strong></p>
+
+<div class="tier">
+  <div class="tier-header">
+    <div class="tier-num">1</div>
+    <h3 class="tier-title">Tier 1 — Do first 30 days</h3>
+    <div class="tier-meta">~15 hours total</div>
+  </div>
+
+  <table style="margin-top:0">
+    <thead><tr><th style="width:24px">#</th><th>Action</th><th>Effort</th><th>ID</th><th>Why now</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="num">1</td>
+        <td><strong>Reclaim or rename the 296 George St N GBP</strong> to surface "Brant Business Interiors" — Option (b) preserves the 60 reviews via dual-naming</td>
+        <td>1-2 hr + 2 wk wait</td>
+        <td><span class="badge high">HIGH-A</span></td>
+        <td>Single biggest lever. Unlocks #2-#4.</td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td><strong>Wire AggregateRating + Review schema</strong> into <code>bbi-org-schema.liquid</code> once GBP is named correctly</td>
+        <td>1 hr after #1</td>
+        <td><span class="badge high">HIGH-B</span></td>
+        <td>Closes the one schema signal Office Shop has over BBI. Likely flips AI Overview order.</td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td><strong>Real client logo bar on homepage</strong> (replace gradient placeholders)</td>
+        <td>4 hr</td>
+        <td><span class="badge high">HIGH-E</span></td>
+        <td>Removes "unfinished" perception competitors don't trigger.</td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td><strong><code>/pages/peterborough-office-furniture</code></strong> geo hub with LocalBusiness + FAQPage schema</td>
+        <td>3 hr (KW pull mandatory first)</td>
+        <td><span class="badge high">HIGH-C</span></td>
+        <td>Home city. Currently lost to UK Peterborough. One page closes the gap.</td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td><strong>Newsletter signup in footer + /pages/oecm</strong> exit-intent</td>
+        <td>3 hr</td>
+        <td><span class="badge med">MED-E</span></td>
+        <td>Captured procurement contacts compound. All 4 competitors have it; BBI has zero.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:12px;font-size:13px;color:var(--ink-soft);"><strong>Tier 1 outcome:</strong> BBI matches all 4 competitors on every mechanical visibility signal.</p>
+</div>
+
+<div class="tier">
+  <div class="tier-header">
+    <div class="tier-num">2</div>
+    <h3 class="tier-title">Tier 2 — Do 30-60 days</h3>
+    <div class="tier-meta">~30-40 hours total</div>
+  </div>
+
+  <table style="margin-top:0">
+    <thead><tr><th style="width:24px">#</th><th>Action</th><th>Effort</th><th>ID</th><th>Why now</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="num">6</td>
+        <td><strong>First deep case study</strong> — Halton Catholic DSB (320 ergoCentric chairs, 11 schools — sourced from Day 10 cornerstone)</td>
+        <td>6 hr</td>
+        <td><span class="badge high">HIGH-D</span></td>
+        <td>Validates the template. Source material already gathered.</td>
+      </tr>
+      <tr>
+        <td class="num">7</td>
+        <td><strong>Restart blog at 1 post/month</strong> — "OECM vs RFP procurement timelines" (extends Day 10 format)</td>
+        <td>6-10 hr/post</td>
+        <td><span class="badge med">MED-C</span></td>
+        <td>Neutralizes UCOS instantly; narrows the gap to Sensyst/POI.</td>
+      </tr>
+      <tr>
+        <td class="num">8</td>
+        <td><strong>2nd + 3rd geo pages</strong> — Toronto + Mississauga (Sensyst's home market with BBI's superior schema)</td>
+        <td>4 hr (2 pages)</td>
+        <td><span class="badge med">MED-A</span></td>
+        <td>Geo expansion compound. Each page is independently SEO-productive.</td>
+      </tr>
+      <tr>
+        <td class="num">9</td>
+        <td><strong>Service area page <code>/pages/service-area</code></strong> with Ontario + Western Canada map</td>
+        <td>2-3 hr</td>
+        <td><span class="badge med">MED-G</span></td>
+        <td>Closes a procurement FAQ ICP A institutional buyers ask constantly.</td>
+      </tr>
+      <tr>
+        <td class="num">10</td>
+        <td><strong>2 industry pages</strong> — manufacturing + legal/accounting (ICP B targets)</td>
+        <td>6-8 hr (2 pages)</td>
+        <td><span class="badge med">MED-B</span></td>
+        <td>Sensyst has 17 industry pages; BBI has 5. Close the gap on ICP B.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:12px;font-size:13px;color:var(--ink-soft);"><strong>Tier 2 outcome:</strong> BBI starts overtaking competitors on content depth + vertical coverage.</p>
+</div>
+
+<div class="tier">
+  <div class="tier-header">
+    <div class="tier-num">3</div>
+    <h3 class="tier-title">Tier 3 — Do 60-90 days</h3>
+    <div class="tier-meta">~35-45 hours total</div>
+  </div>
+
+  <table style="margin-top:0">
+    <thead><tr><th style="width:24px">#</th><th>Action</th><th>Effort</th><th>ID</th><th>Why now</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="num">11</td>
+        <td><strong>2 more case studies</strong> — healthcare clinic + municipal/government project</td>
+        <td>12 hr</td>
+        <td><span class="badge high">HIGH-D</span></td>
+        <td>Lock in case-study template; start matching POI's depth.</td>
+      </tr>
+      <tr>
+        <td class="num">12</td>
+        <td><strong>Kingston + Belleville geo pages</strong> — Eastern Ontario market entry vs UCOS</td>
+        <td>4 hr</td>
+        <td><span class="badge med">MED-H</span></td>
+        <td>UCOS's home turf. Their schema is empty, reviews 0, blog 9 yrs stale. Easy share.</td>
+      </tr>
+      <tr>
+        <td class="num">13</td>
+        <td><strong>Federal Government landing page</strong> — PSAB + OECM angle</td>
+        <td>6 hr</td>
+        <td><span class="badge high">HIGH-F</span></td>
+        <td>PSAB-Indigenous angle no competitor can match.</td>
+      </tr>
+      <tr>
+        <td class="num">14</td>
+        <td><strong>Capability Statement PDF + OECM Procurement Guide PDF</strong></td>
+        <td>8-12 hr</td>
+        <td><span class="badge med">MED-D</span></td>
+        <td>Procurement-team friendly. Reusable in cold outreach.</td>
+      </tr>
+      <tr>
+        <td class="num">15</td>
+        <td><strong>Team bios on /pages/about</strong></td>
+        <td>4-6 hr</td>
+        <td><span class="badge med">MED-F</span></td>
+        <td>Quick family-business trust signal. Internal-link target.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:12px;font-size:13px;color:var(--ink-soft);"><strong>Tier 3 outcome:</strong> Catch-up complete; pivot fully to exploit mode.</p>
+</div>
+
+<!-- ====== EXPLOIT ====== -->
+<h2 id="exploit">EXPLOIT — Lean on BBI's unique moats to take share</h2>
+
+<p>These are tactics no competitor can copy quickly. BBI is alone or near-alone on each. Cumulative effect: <strong>BBI ends 90 days with positioning competitors would need 6-12 months to replicate.</strong></p>
+
+<div class="moat">
+  <h3><span class="moat-num">1</span> OECM + GovernmentService schema combo</h3>
+  <p><strong>What BBI alone has:</strong> <code>/pages/oecm</code> hub with GovernmentService JSON-LD, a 2,446-word cornerstone with 3 comparison tables citing Agreement 2025-470, FAQPage schema across category templates, BlogPosting+FAQPage on the cornerstone. Office Shop and POI are OECM suppliers but neither leads with OECM in copy or schema. Sensyst and UCOS aren't OECM-registered.</p>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-1</div>
+    <div class="tactic-title">"OECM vs Global Furniture Group dealer pricing" cornerstone</div>
+    Office Shop is a Premier GFG dealer but emits zero OECM-positioning copy. BBI publishes the comparison. Office Shop cannot respond without 6+ months of catch-up content.
+    <div class="card-row"><span class="badge info">10 hr effort</span><span class="badge neutral">6+ months competitive window</span></div>
+  </div>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-2</div>
+    <div class="tactic-title">Procurement-decoder cornerstone series</div>
+    "OECM vs RFP" · "OECM vs Standing Offer" · "PSAB Indigenous procurement set-aside" · "Buying for a federally-funded non-profit". Each piece: 2k+ words, comparison tables, FAQ schema, GovernmentService where applicable.
+    <div class="card-row"><span class="badge info">8 hr/post × 4 = 32 hr</span><span class="badge neutral">Indefinite competitive window — no competitor has OECM expertise to write credibly</span></div>
+  </div>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-3</div>
+    <div class="tactic-title">3 deep school-board case studies with GovernmentService schema</div>
+    POI's <code>/our-work/</code> lists 4 school-board clients but emits zero GovernmentService schema. BBI wins Q4 SERP + AI Overview for "Ontario school board office furniture supplier" within 60 days of publish.
+    <div class="card-row"><span class="badge info">See Catch-Up Tier 2 #6 + Tier 3 #11</span></div>
+  </div>
+</div>
+
+<div class="moat">
+  <h3><span class="moat-num">2</span> Brant Basics PSAB-Indigenous procurement angle</h3>
+  <p><strong>What BBI alone has:</strong> A sister-brand legal entity (Brant Basics) with PSAB-recognized Indigenous procurement status. No competitor has an equivalent. ICP A avoids marketing to Indigenous segments per memory, but PSAB <em>as a procurement vehicle</em> is fair game for federal-funded buyers + band offices + Indigenous-led non-profits + federal contractors seeking set-aside-eligible suppliers.</p>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-4</div>
+    <div class="tactic-title">Federal Government landing page (also Tier 3 #13)</div>
+    PSAB-eligibility + OECM cross-applicability + acknowledge BBI doesn't hold a Standing Offer but explain why PSAB + OECM cover most federal-adjacent use cases UCOS's E60PQ SOs target. UCOS structurally cannot match the PSAB angle.
+    <div class="card-row"><span class="badge info">6 hr</span><span class="badge high">HIGH-F</span></div>
+  </div>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-5</div>
+    <div class="tactic-title">Cold outreach to federal-funded non-profits + band offices</div>
+    Using the Federal page as the conversion asset. Out of scope for this report — flagged for sales coordination.
+    <div class="card-row"><span class="badge neutral">Sales work, not content</span></div>
+  </div>
+</div>
+
+<div class="moat">
+  <h3><span class="moat-num">3</span> 330-SKU spec-rich PDP catalog with dual buying mode</h3>
+  <p><strong>What BBI alone has:</strong> A real Shopify catalog with Product + Offer schema, <code>additionalProperty</code> from specs metafields (Day 8 AI-3), real product photos (Day 7 img2img), and a functioning cart + quote dual-mode per ICP. Sensyst has 0 products. Office Shop is quote-only via overlays. POI's store is 4 categories. <strong>UCOS has 135 products with zero schema</strong> — invisible to AI parsing.</p>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-6</div>
+    <div class="tactic-title">Quick-ship workstation bundle Shopify products</div>
+    5-10 bundled SKUs (chair + desk + storage) at discounted bundle price. Targets "GTA office furniture under $5k" — Office Shop cannot fulfill via cart, BBI can.
+    <div class="card-row"><span class="badge info">4 hr</span><span class="badge neutral">Indefinite competitive window — Office Shop's quote-only architecture isn't easily reversed</span></div>
+  </div>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-7</div>
+    <div class="tactic-title">Continue AI-3 spec metafield rollout</div>
+    BBI's Product schema with <code>additionalProperty</code> for specs is structurally unmatched. AI engines parsing "best ergonomic chair Ontario" pull spec-rich pages first.
+    <div class="card-row"><span class="badge neutral">Ongoing AI-3 phase 2 from sys-verify backlog</span></div>
+  </div>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-8</div>
+    <div class="tactic-title">"Quick-ship from Ontario stock" badge on PDPs</div>
+    Inline trust signal Sensyst literally cannot make (zero products). Compounds with newsletter signup for return-visit conversion.
+    <div class="card-row"><span class="badge info">2 hr</span></div>
+  </div>
+</div>
+
+<div class="moat">
+  <h3><span class="moat-num">4</span> Peterborough geographic + 1964 family-business heritage</h3>
+  <p><strong>What BBI alone has:</strong> Real Peterborough HQ at 296 George St N, 1964 founding (older than Office Shop 1996 + Sensyst 1977; POI is 1958 senior), Steve Katz as 2nd-gen Peterborough family business, Kawartha service area no competitor targets. UCOS is the closest competitor at 2.5hr drive (Kingston) but covers Eastern Ontario, not Kawartha.</p>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-9</div>
+    <div class="tactic-title">Own Peterborough + Kawartha Lakes + Northumberland geo-pack</div>
+    Three geo pages — <code>/pages/peterborough-office-furniture</code>, <code>/pages/kawartha-lakes-office-furniture</code>, <code>/pages/northumberland-office-furniture</code>. Each with LocalBusiness + Service + FAQPage schema. Zero competitive pressure in this geo.
+    <div class="card-row"><span class="badge info">2 hr × 3 = 6 hr</span><span class="badge neutral">Indefinite window</span></div>
+  </div>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-10</div>
+    <div class="tactic-title">"Since 1964" badge in nav + footer</div>
+    Already partially in copy per Day 8 hero eyebrow audit. Older than every competitor except POI 1958. Surface it consistently.
+    <div class="card-row"><span class="badge info">1 hr</span></div>
+  </div>
+</div>
+
+<div class="moat">
+  <h3><span class="moat-num">5</span> Schema-rich content that AI engines actually parse</h3>
+  <p><strong>What BBI alone has:</strong> Only entity with FAQPage on 9 category templates (36 total FAQs) + GovernmentService + HowTo + Service + BlogPosting+FAQPage on the cornerstone article. AI Overview parsers can extract structured answers from BBI's pages that competitors don't expose.</p>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-11</div>
+    <div class="tactic-title">Fill the 4 HIGH findings from sys-verify-1-phase2</div>
+    HIGH-2 (JSON-LD .myshopify.com domain) and HIGH-3 (duplicate Product JSON-LD) close two AEO quality issues that dilute the BBI signal.
+    <div class="card-row"><span class="badge info">15 min combined</span><span class="badge low">Single-highest ROI 15 min of post-launch work</span></div>
+  </div>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-12</div>
+    <div class="tactic-title">Add 4 faq_item blocks to collection.business-furniture.json</div>
+    HIGH-4. Closes the FAQ gap on the parent category page (highest-traffic collection in nav).
+    <div class="card-row"><span class="badge info">25 min</span></div>
+  </div>
+
+  <div class="tactic">
+    <div class="tactic-id">EX-13</div>
+    <div class="tactic-title">Comparison tables in every new cornerstone</div>
+    AI engines reward table-structured content for direct-answer extraction. Day 10 OECM cornerstone used 3 tables — bake this into every new procurement-decoder + case-study post.
+    <div class="card-row"><span class="badge neutral">Pattern, not effort</span></div>
+  </div>
+</div>
+
+<!-- ====== Calendar ====== -->
+<h2 id="calendar">90-day calendar</h2>
+
+<p>Pulled together: when each Catch-Up + Exploit item lands on the calendar. Assumes ~10 hr/week of post-LAUNCH-2 content + SEO work.</p>
+
+<div class="card">
+  <h4>Days 1-30 (LAUNCH-2 Monday through ~mid-June)</h4>
+  <div class="cal-row"><div class="cal-day">Day 1</div><div>Launch as planned</div><div></div></div>
+  <div class="cal-row"><div class="cal-day">1-3</div><div>EX-11 + EX-12 — close sys-verify HIGH-2/3/4 findings</div><div>40 min</div></div>
+  <div class="cal-row"><div class="cal-day">3-5</div><div>Tier 1 #1 — GBP reclaim/rename submission</div><div>1-2 hr</div></div>
+  <div class="cal-row"><div class="cal-day">5-10</div><div>Tier 1 #3 — real client logo bar (permissions + implement)</div><div>4 hr</div></div>
+  <div class="cal-row"><div class="cal-day">10-15</div><div>Tier 1 #4 — Peterborough geo hub</div><div>3 hr</div></div>
+  <div class="cal-row"><div class="cal-day">15-20</div><div>Tier 1 #5 — newsletter signup</div><div>3 hr</div></div>
+  <div class="cal-row"><div class="cal-day">15-30</div><div>(GBP verification wait) Tier 2 #6 — first deep case study (Halton Catholic DSB)</div><div>6 hr</div></div>
+  <div class="cal-row"><div class="cal-day">20-25</div><div>EX-1 — start drafting "OECM vs GFG dealer" cornerstone (KW pull first)</div><div>4 hr prep</div></div>
+  <div class="cal-row"><div class="cal-day">25-30</div><div>Tier 1 #2 — wire AggregateRating + Review schema (after GBP verified)</div><div>1 hr</div></div>
+
+  <p style="margin-top:12px;font-size:13px;color:var(--ink-soft);"><strong>End of Day 30:</strong> GBP claimed, schema closed, Peterborough live, case study #1 published, cornerstone #2 drafted.</p>
+</div>
+
+<div class="card">
+  <h4>Days 31-60 (~mid-June through ~mid-July)</h4>
+  <div class="cal-row"><div class="cal-day">31-35</div><div>EX-1 — publish "OECM vs GFG dealer" cornerstone</div><div>6 hr finish</div></div>
+  <div class="cal-row"><div class="cal-day">35-40</div><div>Tier 2 #7 — restart blog: "OECM vs RFP procurement timelines"</div><div>8 hr</div></div>
+  <div class="cal-row"><div class="cal-day">40-50</div><div>Tier 2 #8 — Toronto + Mississauga geo pages</div><div>4 hr</div></div>
+  <div class="cal-row"><div class="cal-day">50-55</div><div>Tier 2 #9 — service area page</div><div>3 hr</div></div>
+  <div class="cal-row"><div class="cal-day">55-60</div><div>Tier 2 #10 — manufacturing + legal/accounting industry pages</div><div>7 hr</div></div>
+
+  <p style="margin-top:12px;font-size:13px;color:var(--ink-soft);"><strong>End of Day 60:</strong> 2 cornerstones live, 1 blog post, 3 geo pages, 2 new industry pages, service area page. Office Shop's AggregateRating moat closed.</p>
+</div>
+
+<div class="card">
+  <h4>Days 61-90 (~mid-July through ~mid-August)</h4>
+  <div class="cal-row"><div class="cal-day">61-70</div><div>Tier 3 #11 — case studies #2 + #3 (healthcare clinic + municipal)</div><div>12 hr</div></div>
+  <div class="cal-row"><div class="cal-day">70-75</div><div>Tier 3 #12 — Kingston + Belleville geo pages</div><div>4 hr</div></div>
+  <div class="cal-row"><div class="cal-day">75-80</div><div>Tier 3 #13 — Federal Government landing page (EX-4)</div><div>6 hr</div></div>
+  <div class="cal-row"><div class="cal-day">80-85</div><div>EX-6 — quick-ship workstation bundles (5-10 Shopify products)</div><div>4 hr</div></div>
+  <div class="cal-row"><div class="cal-day">85-90</div><div>Tier 3 #14 + #15 — Capability Statement PDF + team bios</div><div>14 hr</div></div>
+
+  <p style="margin-top:12px;font-size:13px;color:var(--ink-soft);"><strong>End of Day 90:</strong> All catch-up complete. EX-1 + EX-4 deployed. BBI digitally ahead of all 4 competitors on schema + content depth + procurement positioning + catalog. Win compounds from here.</p>
+</div>
+
+<!-- ====== Day 90 winning ====== -->
+<h2 id="day-90">What "winning" looks like at Day 90</h2>
+
+<div class="card">
+  <ul>
+    <li><strong>AI Overview citations:</strong> BBI appears in 3+ of the 5 AI-relevant queries (vs 0 baseline). Office Shop drops from 4/5 to ≤ 2/5.</li>
+    <li><strong>GBP:</strong> Standalone "Brant Business Interiors" listing with 4.4★+, 60+ reviews, dual-name with Brant Basics. Parity with Office Shop on the only signal where competitors lead.</li>
+    <li><strong>SERP:</strong> BBI top-3 for "office furniture Peterborough" (currently UK-dominated); top-10 for "office furniture Toronto" + "Ontario school board office furniture".</li>
+    <li><strong>Content inventory:</strong> 3-5 case studies; 3+ procurement-decoder cornerstones; 4-6 geo pages (Peterborough, Toronto, Mississauga, Kingston, Belleville + Kawartha); 7-9 industry pages; 4-6 blog posts in cadence.</li>
+    <li><strong>Schema posture:</strong> 13+ distinct @types (+ AggregateRating + Review + CreativeWork from case studies). Lead over Office Shop widens; UCOS / POI / Sensyst become non-factors in AI Overview.</li>
+    <li><strong>PDP differentiation:</strong> Spec-rich PDPs with additionalProperty across 330+ SKUs, unique among all 4 competitors. Quick-ship bundles capture sub-$5k orders Office Shop forces to quote.</li>
+  </ul>
+  <div class="callout" style="margin-top:16px;">
+    <strong>The headline:</strong> BBI ends 90 days holding the only OECM + GovernmentService + PSAB + spec-rich-catalog + dual-mode-cart + Peterborough-geo positioning in the Ontario commercial office furniture market. Every competitor has a deficit BBI doesn't, and none can close their deficit faster than BBI closed its own.
+  </div>
+</div>
+
+<!-- ====== Do not ====== -->
+<h2 id="do-not">What to NOT do (worth saying explicitly)</h2>
+
+<ul>
+  <li><strong>Do NOT try to match Sensyst's 50+ geo page volume.</strong> 5-10 strategic geo pages with rich schema beat 50 thin pages without it. Depth over breadth.</li>
+  <li><strong>Do NOT chase POI's blog volume of 130 posts.</strong> Their content has zero schema utility. 1-2 cornerstones/month with full schema beats their archive.</li>
+  <li><strong>Do NOT try to become a Steelcase channel</strong> to compete with UCOS + POI. BBI's GFG + ergoCentric + Keilhauer + Teknion portfolio is differentiated. Play OECM + PSAB + spec-rich PDPs.</li>
+  <li><strong>Do NOT add Quebec coverage</strong> despite temptation when geo pages start working. ICP explicitly excludes Quebec.</li>
+  <li><strong>Do NOT remove product / SKU codes</strong> from rebuilt PDPs (procurement teams search by code).</li>
+  <li><strong>Do NOT promise specific lead times</strong> in new copy. Lead-time language is locked per ICP voice rules.</li>
+</ul>
+
+<!-- ====== Competitor profiles ====== -->
+<h2 id="sensyst">Sensyst — competitor profile</h2>
+
+<div class="competitor">
+  <h3>Sensyst the Business Interiors Group</h3>
+  <div class="key-fact-grid">
+    <div class="k">Domain</div><div><a href="https://sensyst.com/">sensyst.com</a> (Shopify, content-only)</div>
+    <div class="k">Location</div><div>6805 Invader Crescent Unit 1, Mississauga ON L5T 2K6</div>
+    <div class="k">Phone / Email</div><div>905-565-9700 · info@sensyst.com</div>
+    <div class="k">Founded</div><div>1977 (~50 years)</div>
+    <div class="k">Cert/Assoc</div><div>ARIDO · IDC · BCIN</div>
+    <div class="k">OECM</div><div>NOT listed</div>
+    <div class="k">Schema @types</div><div><span class="badge danger" style="background:var(--danger-bg);color:var(--danger);">2</span> — Organization + WebSite/SearchAction (Shopify defaults only)</div>
+    <div class="k">Inventory</div><div>~89 pages · 50+ geo pages · 17 industry pages · 5 gallery pages · 61 case studies · 45 news articles</div>
+    <div class="k">GBP</div><div>0 reviews on Yellow Pages · weak knowledge panel</div>
+  </div>
+
+  <h4>Notable patterns</h4>
+  <ul>
+    <li><strong>Case studies = leading asset.</strong> 61 projects with Area / Location / Industry / Services as structured spec block.</li>
+    <li><strong>Heavy geo-targeting.</strong> 50+ city/neighborhood pages — unusual depth for service-only Shopify site.</li>
+    <li><strong>Service-led 4-step workflow:</strong> Plan → Design → Build → Furnish.</li>
+    <li><strong>Schema is bare-minimum.</strong> No custom schema on case-study pages.</li>
+    <li><strong>No e-commerce.</strong> All CTAs route to <code>/pages/contact</code>.</li>
+  </ul>
+
+  <h4>Where BBI takes share</h4>
+  <ul>
+    <li><strong>MS-S1</strong> Toronto / Mississauga / Vaughan geo pages with BBI's superior schema posture</li>
+    <li><strong>MS-S2</strong> "Office furniture for Toronto fit-outs under $50k" cornerstone targeting ICP B mid-market (Sensyst targets large fit-outs only)</li>
+    <li><strong>MS-S3</strong> Quick-ship checkout positioning — Sensyst cannot fulfill (zero products)</li>
+  </ul>
+</div>
+
+<h2 id="office-shop">The Office Shop — competitor profile</h2>
+
+<div class="competitor">
+  <h3>The Office Shop Inc.</h3>
+  <div class="key-fact-grid">
+    <div class="k">Domain</div><div><a href="https://theofficeshop.ca/">theofficeshop.ca</a> (WordPress + Rank Math SEO)</div>
+    <div class="k">Location</div><div>366 Denison St, Markham ON L3R 1B9</div>
+    <div class="k">Phone / Email</div><div>905-305-9955 / 1-877-305-9955 · info@theofficeshop.ca</div>
+    <div class="k">Hours</div><div>Mo-Fr 9am-4pm</div>
+    <div class="k">Founded</div><div>1996 (sisters Helen Stergiou + Joanne Triantafilou)</div>
+    <div class="k">Cert</div><div>WBE Canada (Women-Owned Business Enterprise) · 2025+2026 Canadian Choice Award</div>
+    <div class="k">OECM</div><div>YES (listed supplier)</div>
+    <div class="k">Schema @types</div><div><span class="badge low">~12</span> — Person/Organization, WebSite+SearchAction, ImageObject, WebPage, Article, LocalBusiness, AggregateRating, Review, BlogPosting, BreadcrumbList, ContactPoint, PostalAddress</div>
+    <div class="k">Inventory</div><div>~68 resources (25 blogs · 7 brochures · 4 case studies · 17 design center · etc.)</div>
+    <div class="k">GBP</div><div><strong>4.81★ / 65 Google reviews</strong> — strongest of all 4 competitors</div>
+  </div>
+
+  <h4>Notable patterns</h4>
+  <ul>
+    <li><strong>AggregateRating + Review schema sitewide</strong> — only entity in the comparison (including BBI) emitting structured review data. Likely <em>why</em> Office Shop wins 4/5 AI Overview proxy queries.</li>
+    <li><strong>Education page = 2,800 words, ZERO OECM mentions</strong> — they're an OECM supplier who doesn't lead with OECM. BBI's exploit lane.</li>
+    <li><strong>No FAQPage, Service, HowTo, or GovernmentService schema</strong> despite content that would benefit.</li>
+    <li><strong>No e-commerce.</strong> "Request a Quote" overlays only.</li>
+  </ul>
+
+  <h4>Where BBI takes share</h4>
+  <ul>
+    <li><strong>MS-O1</strong> Execute HIGH-A + HIGH-B to close the AggregateRating gap — flips AI Overview citation order</li>
+    <li><strong>MS-O2</strong> "OECM vs Global Furniture Group dealer pricing" cornerstone — Office Shop can't respond in &lt; 6 months</li>
+    <li><strong>MS-O3</strong> Direct-checkout SKU bundles for GTA market — Office Shop cannot fulfill via cart</li>
+  </ul>
+</div>
+
+<h2 id="poi">POI Business Interiors — competitor profile</h2>
+
+<div class="competitor">
+  <h3>POI Business Interiors</h3>
+  <div class="key-fact-grid">
+    <div class="k">Domain</div><div><a href="https://www.poi.ca/">poi.ca</a> (WordPress) + <a href="https://store.poi.ca/">store.poi.ca</a> (Shopify, tiny 4-category)</div>
+    <div class="k">Location</div><div>3389 Steeles Ave E Unit 120, North York ON M2H 3S8 · 6 Ontario locations</div>
+    <div class="k">Phone / Email</div><div>1-888-296-9967 (main) · 905-479-1123 (store) · av@poi.ca / info@poi.ca</div>
+    <div class="k">Hours</div><div>Mo-Fr 8:30am-4:30pm</div>
+    <div class="k">Founded</div><div>1958 (3rd-gen Scholl family) · 160+ employees · 200+ manufacturer reps</div>
+    <div class="k">Cert</div><div>Great Place to Work Canada 2023 · Steelcase Premier Partner</div>
+    <div class="k">OECM</div><div>YES (listed supplier)</div>
+    <div class="k">Schema @types</div><div><span class="badge med">6</span> — LocalBusiness, PostalAddress, WebSite+SearchAction, WebPage, BreadcrumbList, ContactPoint</div>
+    <div class="k">Inventory</div><div>~130 blog posts (10/page × 13) · 31 case studies (12 featured + 19 other)</div>
+    <div class="k">GBP</div><div>3.5–3.9★ / 45-56 reviews mixed — underperforming for their size</div>
+  </div>
+
+  <h4>Notable patterns</h4>
+  <ul>
+    <li><strong>Strongest case-study format</strong> — multi-section narrative + embedded testimonials + sq ft data (Altus 56,365 sq ft).</li>
+    <li><strong>5 H2 service categories</strong> on /services/ but NO Service schema. Huge AEO gap.</li>
+    <li><strong>Steelcase is the spine.</strong> Partnership since 1958.</li>
+    <li><strong>No FAQPage / Service / HowTo / BlogPosting / Article schema</strong> despite 130-post blog + 31 case studies. Significant AEO under-investment for the scale.</li>
+  </ul>
+
+  <h4>Where BBI takes share</h4>
+  <ul>
+    <li><strong>MS-P1</strong> Publish 3 deep school-board case studies with GovernmentService + Article schema — POI lists 4 school-board clients with no schema</li>
+    <li><strong>MS-P2</strong> Healthcare clinic positioning — POI targets hospitals, ignores private clinics (BBI's ICP)</li>
+    <li><strong>MS-P3</strong> "Reviews matter for procurement" trust positioning — POI's 3.5★ is a procurement red flag</li>
+  </ul>
+</div>
+
+<h2 id="ucos">UCOS (Upper Canada Office Systems) — competitor profile</h2>
+
+<div class="competitor">
+  <h3>Upper Canada Office Systems</h3>
+  <div class="key-fact-grid">
+    <div class="k">Domain</div><div><a href="https://ucos.ca/">ucos.ca</a> (Shopify, <code>uc-os.myshopify.com</code>)</div>
+    <div class="k">Location</div><div>40 Grant Timmins Dr, Kingston ON K7M 8N2 (HQ — 13,000 sq ft Steelcase Working Showroom) · Belleville · Brockville</div>
+    <div class="k">Phone / Email</div><div>1-800-267-2212 · 613-547-8070 (Kingston) · UCOS@UCOS.CA</div>
+    <div class="k">Hours</div><div>Mo-Fr 8:30am-4:30pm</div>
+    <div class="k">Founded</div><div>1980 (44 years)</div>
+    <div class="k">Cert</div><div>LEED-capable (no certification number cited); Chamber memberships · CFIB</div>
+    <div class="k">OECM</div><div>NOT listed</div>
+    <div class="k">Federal procurement</div><div>2 Steelcase Standing Offers — E60PQ-120001/H (Office Seating) + E60PQ-140003/D (Workspaces). Contact: Alex Nahorny (anahorny@ucos.ca)</div>
+    <div class="k">Schema @types</div><div><span class="badge high">0</span> — zero JSON-LD across all 5 tested pages. Worst-in-class.</div>
+    <div class="k">Inventory</div><div>30 pages · 135 products (mostly office equipment SKUs) · 13 collections · <strong>0 blog posts since 2017-07-27</strong></div>
+    <div class="k">GBP</div><div><strong>0 reviews YP · not BBB-accredited · no surfaceable Google rating</strong></div>
+  </div>
+
+  <h4>Notable patterns</h4>
+  <ul>
+    <li><strong>Hybrid equipment + furniture model</strong> — closest business-model match to BBI's parent Office Central legacy.</li>
+    <li><strong>Federal procurement specialist</strong> — 3 standing-offer detail pages. But thin (280 words on /pages/federal-government) and lacks GovernmentService schema.</li>
+    <li><strong>Capital Office Interiors is the SOLE Steelcase dealer for National Capital Region + Eastern Ontario</strong>. UCOS hosts a showroom but is sub-tier in the Steelcase channel. Their Steelcase moat is less defensible than initial framing suggested.</li>
+    <li><strong>Zero JSON-LD across all 5 tested pages</strong> — invisible to AI engines parsing semantic data.</li>
+    <li><strong>Blog dead since 2017</strong> — 9 years of content desert.</li>
+    <li><strong>Test/orphan pages in sitemap</strong> (test-contact, testinput, utility, thank-you) — signals neglected site maintenance.</li>
+  </ul>
+
+  <h4>Where BBI takes share</h4>
+  <ul>
+    <li><strong>MS-U1</strong> Kingston + Belleville geo pages with LocalBusiness + Service + FAQPage schema — UCOS has zero schema; BBI wins AEO instantly</li>
+    <li><strong>MS-U2</strong> Federal Government landing page leveraging PSAB Indigenous angle UCOS cannot match</li>
+    <li><strong>MS-U3</strong> Active blog cadence as direct freshness contrast — Google rewards within 3-6 months</li>
+  </ul>
+</div>
+
+<!-- ====== Supporting analysis ====== -->
+<h2 id="serp-baseline">Pre-launch SERP baseline (5 queries + Kingston addendum)</h2>
+
+<details>
+<summary>Full SERP baseline detail — only recoverable pre-launch</summary>
+
+<h4>Cross-summary</h4>
+<table>
+  <thead><tr><th>Query</th><th>BBI rank</th><th>Sensyst</th><th>Office Shop</th><th>POI</th><th>UCOS</th></tr></thead>
+  <tbody>
+    <tr><td>office furniture Ontario</td><td>—</td><td>—</td><td><strong>#3</strong></td><td>—</td><td>—</td></tr>
+    <tr><td>OECM office furniture supplier</td><td><strong>#2 via aggregator</strong></td><td>—</td><td>#6 via aggregator</td><td>—</td><td>—</td></tr>
+    <tr><td>office furniture Peterborough</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>Ontario school board office furniture</td><td>—</td><td>—</td><td>#10</td><td>—</td><td>—</td></tr>
+    <tr><td>office space planning Toronto</td><td>—</td><td>#6</td><td><strong>#2</strong></td><td>—</td><td>—</td></tr>
+    <tr><td>office furniture Kingston Ontario (Q6)</td><td>—</td><td>—</td><td>—</td><td>—</td><td><strong>#2, #6, #9 (30% SOV)</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Conclusion:</strong> BBI invisible in 5/6 organic SERPs. Office Shop dominates 4/5 of the originals. UCOS dominates its home city. <strong>Peterborough is wide open</strong> — 7/10 results are UK Peterborough (Cambridgeshire). BBI is one geo page away from owning it.</p>
+</details>
+
+<h2 id="schema-table">Schema comparison (full 5-column table)</h2>
+
+<div style="overflow-x: auto;">
+<table>
+  <thead>
+    <tr>
+      <th>Schema Type</th>
+      <th class="center">Sensyst</th>
+      <th class="center">Office Shop</th>
+      <th class="center">POI</th>
+      <th class="center">UCOS</th>
+      <th class="center" style="background:var(--info-bg);">BBI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Organization</td><td class="center">✅</td><td class="center">✅</td><td class="center">—</td><td class="center">—</td><td class="center">✅</td></tr>
+    <tr><td>LocalBusiness</td><td class="center">—</td><td class="center">✅</td><td class="center">✅</td><td class="center">—</td><td class="center">✅</td></tr>
+    <tr><td>WebSite + SearchAction</td><td class="center">✅</td><td class="center">✅</td><td class="center">✅</td><td class="center">—</td><td class="center">✅</td></tr>
+    <tr><td>WebPage</td><td class="center">—</td><td class="center">✅</td><td class="center">✅</td><td class="center">—</td><td class="center">—</td></tr>
+    <tr><td>BreadcrumbList</td><td class="center">—</td><td class="center">✅</td><td class="center">✅</td><td class="center">—</td><td class="center">✅</td></tr>
+    <tr><td>Product + Offer</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center"><strong>✅</strong></td></tr>
+    <tr><td>Service</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center"><strong>✅</strong></td></tr>
+    <tr><td>FAQPage</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center"><strong>✅</strong></td></tr>
+    <tr><td>HowTo</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center"><strong>✅</strong></td></tr>
+    <tr><td>GovernmentService</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center"><strong>✅</strong></td></tr>
+    <tr><td>BlogPosting</td><td class="center">—</td><td class="center">✅</td><td class="center">—</td><td class="center">—</td><td class="center">✅</td></tr>
+    <tr><td>Article</td><td class="center">—</td><td class="center">✅</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr>
+    <tr><td>ContactPoint</td><td class="center">—</td><td class="center">✅</td><td class="center">✅</td><td class="center">—</td><td class="center">—</td></tr>
+    <tr style="background:var(--danger-bg);"><td><strong>AggregateRating</strong></td><td class="center">—</td><td class="center"><strong>✅</strong></td><td class="center">—</td><td class="center">—</td><td class="center"><strong>— ← GAP</strong></td></tr>
+    <tr style="background:var(--danger-bg);"><td><strong>Review</strong></td><td class="center">—</td><td class="center"><strong>✅</strong></td><td class="center">—</td><td class="center">—</td><td class="center"><strong>— ← GAP</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>Distinct @type counts:</strong> Office Shop ~12 · <strong>BBI 11</strong> · POI 6 · Sensyst 2 · UCOS 0</p>
+
+<h2 id="content-table">Content pattern analysis (5-way)</h2>
+
+<details>
+<summary>Full content pattern table</summary>
+
+<div style="overflow-x: auto;">
+<table>
+  <thead>
+    <tr><th>Pattern</th><th>Sensyst</th><th>Office Shop</th><th>POI</th><th>UCOS</th><th style="background:var(--info-bg);">BBI</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Total /pages/ URLs</td><td>~89</td><td>unknown (large)</td><td>unknown</td><td>30</td><td>25</td></tr>
+    <tr><td>Product catalog</td><td>0</td><td>overlay quote only</td><td>4 categories</td><td>135 SKUs (mostly equipment)</td><td><strong>330 SKUs</strong></td></tr>
+    <tr><td>Case studies indexed</td><td><strong>61</strong> w/ sq ft</td><td>4</td><td><strong>31</strong> w/ narratives</td><td>0</td><td>thin</td></tr>
+    <tr><td>Blog inventory</td><td>~80+</td><td>~68 resources</td><td><strong>~130</strong></td><td><strong>0 posts</strong> (since 2017)</td><td>2 published</td></tr>
+    <tr><td>Latest blog publish</td><td>2026-05-21</td><td>2026-05-23</td><td>active</td><td><strong>2017-07-27</strong></td><td>2026-05-24</td></tr>
+    <tr><td>Geo-targeted pages</td><td><strong>~50+</strong></td><td>none</td><td>6 locations</td><td>3 (implicit)</td><td>0</td></tr>
+    <tr><td>Industry/vertical pages</td><td><strong>17</strong></td><td>4</td><td>4</td><td>7 (thin)</td><td><strong>5</strong> (deeper)</td></tr>
+    <tr><td>FAQ density</td><td>footer link</td><td>nav link</td><td>nav link</td><td>none</td><td><strong>36 FAQs across 9 templates</strong></td></tr>
+    <tr><td>Federal procurement page</td><td>—</td><td>—</td><td>—</td><td><strong>✅ 3 SA pages</strong></td><td>— (BBI doesn't currently target)</td></tr>
+    <tr><td>Cornerstone content (&gt;2k words)</td><td>blurbs</td><td>1,200-1,400w articles</td><td>not surfaced</td><td>none</td><td><strong>OECM cornerstone 2,446w</strong></td></tr>
+    <tr><td>Comparison tables in content</td><td>—</td><td>—</td><td>—</td><td>—</td><td><strong>3 in OECM cornerstone</strong></td></tr>
+  </tbody>
+</table>
+</div>
+</details>
+
+<h2 id="gbp-table">GBP / local SEO visibility</h2>
+
+<table>
+  <thead>
+    <tr><th>Entity</th><th>Address</th><th>Hours</th><th>Reviews / Rating</th><th>Knowledge Panel</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Sensyst</td><td>6805 Invader Crescent Unit 1, Mississauga</td><td>not displayed</td><td>0 reviews YP</td><td>weak</td></tr>
+    <tr style="background:var(--ok-bg);"><td><strong>The Office Shop</strong></td><td>366 Denison St, Markham</td><td>Mo-Fr 9-4</td><td><strong>4.81★ / 65 Google reviews</strong></td><td><strong>strong</strong></td></tr>
+    <tr><td>POI</td><td>3389 Steeles Ave E Unit 120, North York</td><td>Mo-Fr 8:30-4:30</td><td>3.5-3.9★ / 45-56</td><td>medium</td></tr>
+    <tr style="background:var(--danger-bg);"><td>UCOS</td><td>40 Grant Timmins Dr, Kingston (+ Belleville + Brockville)</td><td>Mo-Fr 8:30-4:30</td><td><strong>0 reviews · not BBB-accredited</strong></td><td><strong>weakest</strong></td></tr>
+    <tr style="background:var(--warn-bg);"><td><strong>BBI</strong> (under "Brant Basics" name)</td><td>296 George St N, Peterborough</td><td>Mo-Fr 9-5</td><td>4.4★ / 60 reviews — <strong>misattributed</strong></td><td>misattributed</td></tr>
+  </tbody>
+</table>
+
+<div class="callout"><strong>Critical finding:</strong> The 296 George St N GBP is registered as "Brant Basics" with its own 4.4★ / 60-review profile. Searching for "Brant Business Interiors" surfaces no own-name GBP. <strong>This is Tier 1 #1.</strong></div>
+
+<h2 id="ai-citations">AI Overview citation check</h2>
+
+<details>
+<summary>Full AI citation methodology + per-query results</summary>
+
+<p><strong>Methodology limitation:</strong> DataForSEO's <code>ai_optimization_chat_gpt_scraper</code> and <code>ai_optimization_llm_models</code> returned HTTP 403 across all attempts (consistent with documented DATAFORSEO-403 issue from Day 10 backlog). Perplexity's <code>/search?q=…</code> URL returned 403 to WebFetch. Per the prompt HARD RULES, fell back to Google SERP snippets as AI-Overview proxy.</p>
+
+<table>
+  <thead><tr><th>Query</th><th class="center">Office Shop</th><th class="center">Sensyst</th><th class="center">POI</th><th class="center">UCOS</th><th class="center">BBI</th></tr></thead>
+  <tbody>
+    <tr><td>Best supplier Ontario large fit-outs</td><td class="center">✅</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr>
+    <tr><td>Ontario school board office furniture</td><td class="center">✅</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr>
+    <tr><td>Commercial dealer Toronto GTA</td><td class="center">✅</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr>
+    <tr><td>OECM office furniture supplier Ontario</td><td class="center">✅ via aggregator</td><td class="center">—</td><td class="center">—</td><td class="center">—</td><td class="center">✅ via aggregator</td></tr>
+    <tr><td>Office space planning Ontario</td><td class="center">✅</td><td class="center">✅</td><td class="center">—</td><td class="center">—</td><td class="center">—</td></tr>
+    <tr style="font-weight:600;"><td>Direct own-domain hits</td><td class="center">4</td><td class="center">1</td><td class="center">0</td><td class="center">0</td><td class="center">0</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Why Office Shop wins:</strong> AggregateRating + Review schema sitewide (3 reviews embedded) backed by 4.81★ / 65 Google reviews. AI Overview engines weigh review-rich entities heavily for commercial-intent queries. BBI matches or exceeds on every schema type except AggregateRating/Review and GBP — <strong>once HIGH-A + HIGH-B execute, BBI's deeper schema posture flips the citation order</strong>.</p>
+</details>
+
+<h2 id="market-share-tactics">Market-share tactics (full detail per competitor)</h2>
+
+<details>
+<summary>All 15 market-share tactics tied to each competitor's specific weakness</summary>
+
+<h3>vs Sensyst</h3>
+<ul>
+  <li><strong>MS-S1</strong> Toronto / Mississauga / Vaughan geo pages with BBI's schema posture · 6 hr · ~indefinite window</li>
+  <li><strong>MS-S2</strong> "Office furniture for Toronto fit-outs under $50k" cornerstone (mid-market ICP B) · 8 hr</li>
+  <li><strong>MS-S3</strong> Quick-ship checkout positioning + "Quick-ship from Ontario stock" badge · 2 hr</li>
+</ul>
+
+<h3>vs The Office Shop</h3>
+<ul>
+  <li><strong>MS-O1</strong> Execute HIGH-A + HIGH-B (GBP + AggregateRating) · ~3 hr post-launch</li>
+  <li><strong>MS-O2</strong> "OECM vs Global Furniture Group dealer pricing" cornerstone · 10 hr · 6+ months window</li>
+  <li><strong>MS-O3</strong> Quick-ship workstation bundles (5-10 Shopify products) · 4 hr</li>
+</ul>
+
+<h3>vs POI</h3>
+<ul>
+  <li><strong>MS-P1</strong> 3 deep school-board case studies with GovernmentService + Article schema · 18 hr</li>
+  <li><strong>MS-P2</strong> Private-clinic positioning (POI ignores; ICP A includes) · 4 hr</li>
+  <li><strong>MS-P3</strong> "Reviews matter for procurement" trust positioning (POI's 3.5★ is red flag) · 1 hr copy</li>
+</ul>
+
+<h3>vs UCOS</h3>
+<ul>
+  <li><strong>MS-U1</strong> Kingston + Belleville geo pages with schema · 4 hr</li>
+  <li><strong>MS-U2</strong> Federal Government landing page (PSAB + OECM) · 6 hr</li>
+  <li><strong>MS-U3</strong> Active blog cadence as freshness contrast · ongoing 8 hr/month</li>
+</ul>
+
+<h3>Universal (across all 4)</h3>
+<ul>
+  <li><strong>MS-U4</strong> Procurement decoder content hub (4-5 cornerstones) · 32 hr · indefinite window</li>
+  <li><strong>MS-U5</strong> Spec-rich PDP differentiation (AI-3 phase 2 rollout)</li>
+  <li><strong>MS-U6</strong> Brant Basics + BBI dual-brand crossover</li>
+</ul>
+</details>
+
+<!-- ====== Backlog ====== -->
+<h2 id="backlog">Full backlog inventory (5 HIGH · 7 MED · 5 LOW + 3 UCOS additions)</h2>
+
+<details>
+<summary>HIGH-priority items (5 + 1 from UCOS)</summary>
+
+<div class="card">
+  <h4><span class="badge high">HIGH-A</span> GBP-RECLAIM — Standalone "Brant Business Interiors" Google Business Profile</h4>
+  <p>The 296 George St N location is registered as "Brant Basics" (4.4★/60 reviews). Searching "Brant Business Interiors Peterborough" surfaces no own-name GBP. <strong>Recommendation: Option (b) dual-name preserves 60 existing reviews.</strong></p>
+  <div class="card-row"><span class="badge neutral">1-2 hr submission + ~2 wk verification</span><span class="badge info">Foundational — unlocks HIGH-B</span></div>
+</div>
+
+<div class="card">
+  <h4><span class="badge high">HIGH-B</span> AGGREGATE-RATING-SCHEMA — Add AggregateRating + Review JSON-LD sitewide</h4>
+  <p>Wire into <code>theme/snippets/bbi-org-schema.liquid</code> adjacent to the existing LocalBusiness block.</p>
+  <div class="card-row"><span class="badge neutral">1 hr after HIGH-A</span><span class="badge info">Likely lifts BBI into AI Overview citations</span></div>
+</div>
+
+<div class="card">
+  <h4><span class="badge high">HIGH-C</span> PETERBOROUGH-GEO-HUB — Build <code>/pages/peterborough-office-furniture</code></h4>
+  <p>~600-800 words + LocalBusiness schema + 4-6 FAQs + cross-links to /pages/oecm + /pages/quote.</p>
+  <div class="card-row"><span class="badge neutral">2-3 hr (DataForSEO KW pull mandatory first)</span></div>
+</div>
+
+<div class="card">
+  <h4><span class="badge high">HIGH-D</span> CASE-STUDY-DEPTH-UPGRADE — 3-5 case studies with structured metadata</h4>
+  <p>Start with Halton Catholic DSB (already sourced Day 10). Spec block + 800-1,200w narrative + 4-6 photos + client quote + CTA pair.</p>
+  <div class="card-row"><span class="badge neutral">4-6 hr × 3-5 = 12-30 hr total</span></div>
+</div>
+
+<div class="card">
+  <h4><span class="badge high">HIGH-E</span> CLIENT-LOGO-BAR-REAL — Replace homepage gradient placeholders</h4>
+  <p>All 4 competitors display 5-15 real client logos. BBI uses gradient placeholders. Grayscale + hover color for DS coherence.</p>
+  <div class="card-row"><span class="badge neutral">2-3 hr permissions + 1 hr code</span></div>
+</div>
+
+<div class="card">
+  <h4><span class="badge high">HIGH-F</span> FEDERAL-PROCUREMENT-PAGE (from UCOS scan)</h4>
+  <p>Build <code>/pages/federal-government-office-furniture</code> with PSAB Indigenous angle + OECM cross-applicability. UCOS structurally cannot match the PSAB angle.</p>
+  <div class="card-row"><span class="badge neutral">6 hr</span></div>
+</div>
+</details>
+
+<details>
+<summary>MED-priority items (7 + 1 from UCOS)</summary>
+
+<ul>
+  <li><span class="badge med">MED-A</span> Geo-landing-page expansion (5-10 city/region pages mirroring Sensyst)</li>
+  <li><span class="badge med">MED-B</span> 4-5 new industry pages (manufacturing, logistics, legal/accounting, retail-hospitality)</li>
+  <li><span class="badge med">MED-C</span> Blog volume ramp (1-2 posts/month via BL-* / B1..B10 backlog)</li>
+  <li><span class="badge med">MED-D</span> 1-2 downloadable PDF brochures (Capability Statement + OECM Procurement Guide)</li>
+  <li><span class="badge med">MED-E</span> Newsletter signup in footer + key pages (Klaviyo or Shopify Email)</li>
+  <li><span class="badge med">MED-F</span> Team bios on /pages/about (Sensyst 10 bios, POI 11, Office Shop named founders)</li>
+  <li><span class="badge med">MED-G</span> Service area page <code>/pages/service-area</code> with Ontario + Western Canada map</li>
+  <li><span class="badge med">MED-H</span> Kingston + Belleville geo pages (from UCOS scan)</li>
+</ul>
+</details>
+
+<details>
+<summary>LOW-priority items (5 + 1 from UCOS)</summary>
+
+<ul>
+  <li><span class="badge low">LOW-A</span> Case study metadata standardization (Sq Ft / Location / Industry / Services / Brands / Year)</li>
+  <li><span class="badge low">LOW-B</span> Designer credential bar — if any BBI staff hold ARIDO / IDC / IIDA / IDS</li>
+  <li><span class="badge low">LOW-C</span> Press release cadence — opportunistic news posts</li>
+  <li><span class="badge low">LOW-D</span> Document Sensyst's Shopify-as-CMS usage in competitor research</li>
+  <li><span class="badge low">LOW-E</span> Quarterly OECM-moat monitoring (watch Office Shop + POI)</li>
+  <li><span class="badge low">LOW-F</span> Quarterly UCOS schema + blog monitoring</li>
+</ul>
+</details>
+
+<!-- ====== Methodology ====== -->
+<h2 id="methodology">Methodology notes</h2>
+
+<details>
+<summary>Tools used + limitations + hand-judgment calls</summary>
+
+<h4>Tools used</h4>
+<ul>
+  <li>WebSearch (Google SERP retrieval)</li>
+  <li>WebFetch (page content extraction — note: markdown conversion strips <code>&lt;script&gt;</code> blocks, so JSON-LD verification required raw curl)</li>
+  <li>Bash + Python (raw curl + regex/JSON parsing for accurate JSON-LD @type extraction)</li>
+  <li>DataForSEO MCP — <code>ai_optimization_chat_gpt_scraper</code> attempted (HTTP 403)</li>
+</ul>
+
+<h4>Pages successfully scraped</h4>
+<p>27 distinct URLs across 4 competitor domains (22 original + 5 UCOS) + 4 OECM aggregator URLs + 9 GBP-context URLs.</p>
+
+<h4>Pages failed (403 / 404 / JS / rate limit)</h4>
+<ul>
+  <li><code>https://www.poi.ca/about/</code> — 404 (corrected to <code>/about-us/</code>)</li>
+  <li><code>https://www.poi.ca/sitemap.xml</code> — 404 (no public sitemap)</li>
+  <li><code>https://theofficeshop.ca/blog/</code> — 404 (resource library lives at <code>/resources/</code>)</li>
+  <li><code>https://www.perplexity.ai/search?q=…</code> — 403 (auth-gated)</li>
+  <li>DataForSEO AI optimization endpoints — 403 (DATAFORSEO-403 known issue)</li>
+  <li>UCOS Shopify sitemap URLs require <code>from</code>/<code>to</code> query params; first attempts 400, retry with params succeeded</li>
+</ul>
+
+<h4>AI platforms unavailable</h4>
+<ul>
+  <li>ChatGPT (auth-gated; DataForSEO scraper 403)</li>
+  <li>Gemini (auth-gated; not attempted given prior blocks)</li>
+  <li>Perplexity (search URL 403; DataForSEO scraper 403)</li>
+</ul>
+
+<h4>Hand-judgment calls made</h4>
+<ol>
+  <li>Recommended <strong>Option (b)</strong> for GBP reclaim (rename Brant Basics to dual-name) over Option (a) (new GBP) — preserves 60 existing reviews. Worth a strategy conversation before implementation.</li>
+  <li>Scoped HIGH-D case studies to 3-5 rather than matching Sensyst's 61.</li>
+  <li>Used Google SERP snippets as AI Overview proxy when AI endpoints all 403'd — explicitly permitted by prompt HARD RULES.</li>
+  <li>Treated UCOS's "Steelcase Working Showroom" as a showroom relationship rather than Premier Dealer — per OECM evidence that Capital Office Interiors is sole Steelcase dealer for NCR + Eastern Ontario.</li>
+  <li>Tagged Federal-Government tactic as HIGH despite being new scope for BBI — ICP A includes federal-funded non-profits + band offices; PSAB is a procurement-vehicle moat UCOS cannot match.</li>
+</ol>
+
+<h4>Limitations of surface-level (Approach A)</h4>
+<ul>
+  <li>Backlink profiles not measured (would require Ahrefs/SEMrush)</li>
+  <li>Paid traffic / ad spend not measured</li>
+  <li>Email funnel performance not measured</li>
+  <li>Per-page Lighthouse / Core Web Vitals not measured (post-launch SEO-AUDIT-1)</li>
+  <li>Per-product PDP schema audit not performed (none of 4 competitors have meaningful PDPs vs BBI's 330)</li>
+</ul>
+</details>
+
+<!-- ====== Sources ====== -->
+<h2 id="sources">Sources</h2>
+
+<details>
+<summary>Full URL list of all pages cited</summary>
+
+<h4>Competitor sites — Sensyst</h4>
+<ul>
+  <li><a href="https://sensyst.com/">sensyst.com</a></li>
+  <li><a href="https://sensyst.com/pages/about">sensyst.com/pages/about</a></li>
+  <li><a href="https://sensyst.com/pages/office-decor">sensyst.com/pages/office-decor</a></li>
+  <li><a href="https://sensyst.com/blogs/projects">sensyst.com/blogs/projects</a></li>
+  <li><a href="https://sensyst.com/blogs/projects/gatestone-co">sensyst.com/blogs/projects/gatestone-co</a></li>
+  <li><a href="https://sensyst.com/blogs/news">sensyst.com/blogs/news</a></li>
+</ul>
+
+<h4>Competitor sites — The Office Shop</h4>
+<ul>
+  <li><a href="https://theofficeshop.ca/">theofficeshop.ca</a></li>
+  <li><a href="https://theofficeshop.ca/about-us/">theofficeshop.ca/about-us</a></li>
+  <li><a href="https://theofficeshop.ca/services/office-furniture-for-educational-institutions/">/services/office-furniture-for-educational-institutions</a></li>
+  <li><a href="https://theofficeshop.ca/contact-us/">/contact-us</a></li>
+  <li><a href="https://theofficeshop.ca/resources/">/resources</a></li>
+  <li><a href="https://theofficeshop.ca/resources/global-furniture-group-leader/">/resources/global-furniture-group-leader</a></li>
+</ul>
+
+<h4>Competitor sites — POI</h4>
+<ul>
+  <li><a href="https://www.poi.ca/">poi.ca</a></li>
+  <li><a href="https://www.poi.ca/about-us/">/about-us</a></li>
+  <li><a href="https://www.poi.ca/services/">/services</a></li>
+  <li><a href="https://www.poi.ca/case-studies-corporate/">/case-studies-corporate</a></li>
+  <li><a href="https://www.poi.ca/connected-solutions/furniture/">/connected-solutions/furniture</a></li>
+  <li><a href="https://www.poi.ca/our-work/">/our-work</a></li>
+  <li><a href="https://store.poi.ca/">store.poi.ca</a></li>
+</ul>
+
+<h4>Competitor sites — UCOS</h4>
+<ul>
+  <li><a href="https://ucos.ca/">ucos.ca</a></li>
+  <li><a href="https://ucos.ca/pages/office-furniture">/pages/office-furniture</a></li>
+  <li><a href="https://ucos.ca/pages/about-us">/pages/about-us</a></li>
+  <li><a href="https://ucos.ca/pages/federal-government">/pages/federal-government</a></li>
+  <li><a href="https://ucos.ca/pages/healthcare">/pages/healthcare</a></li>
+</ul>
+
+<h4>OECM aggregator</h4>
+<ul>
+  <li><a href="https://oecm.ca/supplier-partners/office-central-inc/">Office Central (BBI parent)</a></li>
+  <li><a href="https://oecm.ca/supplier-partners/the-office-shop-inc/">The Office Shop</a></li>
+  <li><a href="https://oecm.ca/supplier-partners/poi-business-interiors-lp/">POI Business Interiors</a></li>
+</ul>
+
+<h4>GBP / review aggregators</h4>
+<ul>
+  <li><a href="https://yably.ca/reviews/markham/office-shop-inc-366-denison-street">Office Shop reviews</a></li>
+  <li><a href="https://yably.ca/reviews/north-york/poi-business-interiors-3389-steeles-ave-e-unit-120">POI reviews</a></li>
+  <li><a href="https://yably.ca/reviews/peterborough/brant-basics-296-george-street-north">Brant Basics reviews</a></li>
+  <li><a href="https://reviews.birdeye.com/poi-business-interiors-167672524579902">POI on Birdeye</a></li>
+</ul>
+
+<h4>BBI internal reference baselines</h4>
+<ul>
+  <li><a href="../data/reports/sys-verify-1-phase2-2026-05-24.md">data/reports/sys-verify-1-phase2-2026-05-24.md</a></li>
+  <li><a href="../docs/strategy/icp.md">docs/strategy/icp.md</a></li>
+  <li><a href="../CLAUDE.md">CLAUDE.md</a></li>
+  <li><a href="../data/research/competitor-recon-2026-05-25.md">Full markdown report (this document's source)</a></li>
+</ul>
+</details>
+
+<p style="margin-top:48px; padding-top:24px; border-top:1px solid var(--line); color:var(--ink-soft); font-size:13px;">
+  <em>Generated by overnight autonomous competitor recon 2026-05-24 → 2026-05-25 + UCOS amendment + final playbook 2026-05-25. Findings live in <code>data/research/</code> only — NOT promoted to <code>bbi-build-state.md</code> or the launch tracker. HTML rendered from <a href="../data/research/competitor-recon-2026-05-25.md">data/research/competitor-recon-2026-05-25.md</a>.</em>
+</p>
+
+</main>
+
+</div>
+
+<a href="#top" class="back-to-top" title="Back to top">↑</a>
+
+</body>
+</html>
