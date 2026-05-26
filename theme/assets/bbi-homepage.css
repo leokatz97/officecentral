@@ -277,7 +277,8 @@
     .bbi-footer__legal a:hover { color: var(--textColor); }
     /* Cards */
     .bbi-card { display: flex; flex-direction: column; background: var(--cardBackground); border-radius: var(--cardRadius); overflow: hidden; }
-    .bbi-card--product { border: 1px solid var(--bbi-line); }
+    .bbi-card--product { border: 1px solid var(--bbi-line); transition: border-color 120ms ease; }
+    .bbi-card--product:hover { border-color: var(--textColor); }
     .bbi-card__media { position: relative; background: var(--alternateBackground); aspect-ratio: 16/9; overflow: hidden; }
     .bbi-card__media .bbi-badge { position: absolute; top: 12px; left: 12px; }
     .bbi-card__body { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
@@ -507,7 +508,10 @@
   overflow: hidden;
   display: block;
   border-radius: 8px;
+  border: 1px solid var(--bbi-line);
+  transition: border-color 120ms ease;
 }
+.bbi-card--collection:hover { border-color: var(--textColor); }
 .bbi-card--collection .bbi-card__media {
   position: relative;
   aspect-ratio: 4/3;
