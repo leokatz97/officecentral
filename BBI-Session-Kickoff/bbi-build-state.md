@@ -12,6 +12,26 @@
 
 ---
 
+## ✏️ STALE-OECM-DATE-FIX-1 ✅ 2026-05-26 evening (Day 12+, after FAVICON-1)
+
+PR-1 FIX 2 closure — aligned 4 stale OECM date references in `theme/sections/ds-lp-about.liquid` to the canonical **Agreement 2025-470** framing locked Day 8 STEVE-FACT-CHECK. Closes PRE-LAUNCH-AUDIT-1 should-fix (b) further down in this file (line ~151). Build-state row had anticipated 2 spots (`:113` body + `:245` schema, from the pre-restructure line numbers); the diff-card pair on the live file's L195/L197 carried the same legacy "since 2019" anchor and was bundled into the same fix per Leo "apply" at HALT 1. Text-only edit, no CSS or schema-structure changes.
+
+- **Edits (4, single file `theme/sections/ds-lp-about.liquid`):**
+  1. **L124** hero standfirst Liquid `default:` — `OECM Supplier Partner since 2019.` → `OECM Supplier Partner under Agreement 2025-470.`
+  2. **L195** diff-card #02 `<span class="lp-diff-card__num">` — `2019` → `2025-470` (matches AI-8 OECM-page proof-bar precedent from build-state row 866)
+  3. **L197** diff-card #02 body sentence — `OECM Supplier Partner since 2019, Agreement 2025-470.` → `OECM Supplier Partner under Agreement 2025-470.` (dropped redundant "since 2019" prefix; Agreement number was already present)
+  4. **L278** schema `subheading` textarea `default` — mirrors L124 so theme-editor reset matches Liquid default
+- **Sitewide scan** ("since 2019" across `theme/{snippets,sections,templates}`): **0 hits outside `ds-lp-about.liquid`** — no spread needed. All other sections (government, healthcare, education, non-profit, brands-*, oecm, footer, schema snippets, industries, design-services, customer-stories, quote, faq, index.json) already use canonical "Agreement 2025-470" framing.
+- **Pushed via direct Admin API** (PUT `assets.json`, ApiVersion 2026-04, hardcoded to DEV `186373570873`). PUT `updated_at = 2026-05-26T15:02:16-04:00`. Re-fetch SHA-256 byte-match: `249046561a5377d5` ✓ (26,056 bytes local = remote).
+- **Render check** (`/pages/about` via `preview_theme_id=186373570873`, redirect-followed to `www.brantbusinessinteriors.com/pages/about`): HTTP 200; `since 2019` rendered count = 0; `under Agreement 2025-470` count = 3; total "Agreement 2025-470" mentions = 8; diff-card `>2025-470<` anchor present (1); "Then & now" section + phone `1-800-835-9565` (11×) + Peterborough HQ `296 George St N` (5×) all intact.
+- **`shopify theme check` (JSON output):** 166 files inspected / **2855 offenses** / 166 files-with-offenses — **EXACT PRE-LAUNCH-AUDIT-1 baseline match, zero new offenses**.
+- **LIVE integrity:** `updated_at = 2026-05-16T16:47:22-04:00` verified pre-push + post-push. LIVE untouched ✓.
+- **Adjacent Day 12+ work integrity (sanity checks):** FAVICON-1 (5 favicon link tags in `theme.liquid`) ✓ · NAV-REDESIGN-1-TEXT-COLOR-FIX (10 `var(--headerColor)` references in `bbi-nav.liquid`, commit `8e01aee` intact) ✓ · ABOUT-PAGE-GRID-1 (2×3 figure grid: 6 `<figure>` across `lp-evol__row` structure) ✓.
+- **Pre-write backup:** `data/backups/stale-oecm-date-fix-1-pre-20260526-150159/ds-lp-about.liquid` (rollback path).
+- **Branch:** `feature/stale-oecm-date-fix-1` (off `feature/favicon-1-retry @ f4aef78` — the canonical descendant tip after FAVICON-1).
+
+---
+
 ## 🦁 FAVICON-1 ✅ 2026-05-26 (Day 12+, retry after morning revert)
 
 Complete favicon set with brand red `#D4252A` divider (matches the footer maple leaf). 11 assets uploaded + `theme.liquid` head updated with 5 link tags + paper-white `#FAF8F5` theme-color meta. Manifest `name: "Brant Basics Business Interiors"` matches the header co-brand wordmark; `short_name: "Brant Basics"` (no customer-facing "BBI" per copy-voice rule). DEV theme only — LIVE untouched. **Retry context:** earlier today the first attempt was reverted when an unrelated header text-color bug surfaced; that bug was fixed by NAV-REDESIGN-1-TEXT-COLOR-FIX commit `8e01aee`, after which this retry ran cleanly with the already-prepared file set in `data/working/favicon-1-2026-05-26/favicon/`.
