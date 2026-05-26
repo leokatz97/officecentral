@@ -618,15 +618,15 @@ body { background: #FFFFFF !important; }
         <!-- Quote strip (compact) -->
         <div class="pdp-quote-strip">
           <div class="pdp-quote-strip__inner">
-            <button type="button"
-              class="pdp-btn pdp-btn--quote-outline"
+            <a class="pdp-btn pdp-btn--quote-outline"
+              href="/pages/quote?product={{ product.handle | url_encode }}&title={{ product.title | url_encode }}"
               data-bbi-quote-trigger
               data-lead-type="quote"
               data-product-handle="{{ product.handle }}"
               data-product-title="{{ product.title | escape }}"
               data-variant-id="{{ product.selected_or_first_available_variant.id }}">
               Request a quote &rarr;
-            </button>
+            </a>
             <p class="pdp-quote-strip__sub">Volume orders &middot; OECM PO eligibility &middot; confirmed within 1 business day</p>
           </div>
         </div>
@@ -793,7 +793,7 @@ body { background: #FFFFFF !important; }
       <div class="pdp-cta-closer__inner">
         <h2>Need a custom configuration?</h2>
         <p>Our team quotes single items to full office buildouts — usually within one business day.</p>
-        <button type="button" class="pdp-cta-closer__btn" data-bbi-quote-trigger data-lead-type="quote">Request a Quote</button>
+        <a class="pdp-cta-closer__btn" href="/pages/quote" data-bbi-quote-trigger data-lead-type="quote">Request a Quote</a>
         <p class="pdp-cta-closer__phone">Or call <a href="tel:18008359565">1-800-835-9565</a></p>
       </div>
     </section>
