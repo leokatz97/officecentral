@@ -101,11 +101,11 @@
 .lp-about .lp-evol h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);letter-spacing:var(--ls-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);text-wrap:balance;}
 .lp-about .lp-evol__intro{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);margin:0;}
 .lp-about .lp-evol__items{display:flex;flex-direction:column;gap:var(--space-4);}
-.lp-about .lp-evol__row{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);}
+.lp-about .lp-evol__row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);}
 .lp-about .lp-evol__row figure{margin:0;aspect-ratio:4/3;overflow:hidden;background:var(--alternateBackground);border:1px solid rgba(var(--borderColor-rgb),0.5);border-radius:var(--cardRadius);}
 .lp-about .lp-evol__row img{width:100%;height:100%;object-fit:cover;display:block;}
 @media(max-width:1024px){.lp-about .lp-diff__grid{grid-template-columns:repeat(2,1fr);}.lp-about .lp-contact-block__inner{grid-template-columns:1fr;}}
-@media(max-width:768px){.lp-about .lp-hero__inner{grid-template-columns:1fr;}.lp-about .lp-hero__media{display:none;}.lp-about .lp-diff__grid{grid-template-columns:1fr;}.lp-about .lp-evol__row{grid-template-columns:repeat(2,1fr);}.lp-about .lp-closer__inner{grid-template-columns:1fr;padding:64px 24px;}.lp-about .bbi-header__nav{display:none;}}
+@media(max-width:768px){.lp-about .lp-hero__inner{grid-template-columns:1fr;}.lp-about .lp-hero__media{display:none;}.lp-about .lp-diff__grid{grid-template-columns:1fr;}.lp-about .lp-evol__row{grid-template-columns:1fr;}.lp-about .lp-closer__inner{grid-template-columns:1fr;padding:64px 24px;}.lp-about .bbi-header__nav{display:none;}}
 </style>
 
 <div class="lp-about scheme-default">
@@ -168,11 +168,9 @@
         <div class="lp-evol__row lp-evol__row--history">
           <figure><img src="{{ 'bbi-about-grid-01-storefront-day.jpg' | file_url }}" alt="Brant Basics original storefront daytime — strip mall facade with category signage" width="800" height="600" loading="lazy"></figure>
           <figure><img src="{{ 'bbi-about-grid-02-jumbotron.jpg' | file_url }}" alt="Brant Basics jumbotron sponsorship at OHL hockey arena" width="800" height="600" loading="lazy"></figure>
-          <figure><img src="{{ 'bbi-about-grid-03-wordmark.jpg' | file_url }}" alt="Brant Basics — Business Interiors legacy wordmark" width="800" height="600" loading="lazy"></figure>
           <figure><img src="{{ 'bbi-about-grid-04-storefront-night.jpg' | file_url }}" alt="Brant Basics storefront at night with illuminated red signage" width="800" height="600" loading="lazy"></figure>
         </div>
         <div class="lp-evol__row lp-evol__row--current">
-          <figure><img src="{{ 'bbi-about-grid-05-workstations.jpg' | file_url }}" alt="Modern open-plan workstations with yellow accent seating" width="800" height="600" loading="lazy"></figure>
           <figure><img src="{{ 'bbi-about-grid-06-boardroom.jpg' | file_url }}" alt="Contemporary boardroom with white meeting table and mesh task chairs" width="800" height="600" loading="lazy"></figure>
           <figure><img src="{{ 'bbi-about-grid-07-showroom.jpg' | file_url }}" alt="Showroom floor with rows of workstations under warehouse-style ceiling" width="800" height="600" loading="lazy"></figure>
           <figure><img src="{{ 'bbi-about-grid-08-atrium.jpg' | file_url }}" alt="Atrium lounge with dome pendant lighting and glass facade" width="800" height="600" loading="lazy"></figure>
