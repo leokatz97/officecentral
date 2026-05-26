@@ -6,6 +6,22 @@
 
 ---
 
+## 🖱 HOMEPAGE-SHOP-FURNITURE-HOVER-1 ✅ 2026-05-26 late evening (Day 11+1)
+
+Added black-fill `:hover` + `:focus-visible` behavior to the homepage hero **Shop furniture** secondary CTA (`href="/collections/business-furniture"`). Phase 1 audit surfaced a hidden architectural issue: the existing secondary-CTA hover rule at `bbi-homepage.css:641-646` was scoped to `.hp-root .bbi-btn--secondary, .bbi-section .bbi-btn--secondary` — but `.hp-root` is **never used in any template** (grep across `theme/` returns zero matches outside the CSS file itself), and the hero is `<section class="hp-hero">` (not `.bbi-section`), so the hero button matched neither selector and had no hover today. Other homepage secondaries (e.g. "Browse all categories" inside `.bbi-section .hp-shop`) were already covered. Chose Option 1: extend the existing rule's selector list to add `.hp-hero .bbi-btn--secondary` + add `:focus-visible` parity across all three ancestry contexts.
+
+- **Edit (1, CSS-only):** `theme/assets/bbi-homepage.css:641-646` — existing 2-selector `:hover` block expanded to 6 selectors: `(hp-root | bbi-section | hp-hero) × (:hover | :focus-visible)`. Values unchanged: `background:#0B0B0C; color:#F7F8FA; border-color:#0B0B0C;` (matches the canonical `--textColor` BBI ink).
+- **No new tokens, no `!important`.** Transition already inherited from base `.bbi-btn` at line 145 (`background-color 120ms ease, color 120ms ease, border-color 120ms ease`).
+- **`templates/index.json` NOT touched.** CSS-only change per prompt scope.
+- **Pushed via `scripts/push-file.py`** (hardcoded to DEV `186373570873`). Push confirmed `updated_at` 2026-05-26T00:27:56. DEV sha = local sha post-push (`aa481982514bfb1e`).
+- **Render-check:** `/?preview_theme_id=186373570873` 200, hero Shop furniture button present (`bbi-btn--secondary bbi-btn--lg`), primary CTA (`hp-hero__cta-red` Request a Quote) intact in DOM, CSS asset URL serving fresh hash.
+- **Side-effect (intentional):** existing `.hp-root` + `.bbi-section` secondary CTAs picked up `:focus-visible` keyboard-parity behavior — minor accessibility win at zero visual cost.
+- **LIVE integrity:** `updated_at = 2026-05-16T16:47:22-04:00` verified pre- and post-push. LIVE untouched ✓.
+- **Pre-push backup:** `data/backups/shop-furniture-hover-pre-20260526_002744/bbi-homepage.css`.
+- **Branch:** `feature/homepage-shop-furniture-hover-1` (off `feature/homepage-tile-border-match-1` @ 164ac6b).
+
+---
+
 ## 🎨 HOMEPAGE-TILE-BORDER-MATCH-1 ✅ 2026-05-26 late evening (Day 11+1)
 
 Aligned tile borders + hover behavior across the 3 homepage tile sections so they share one visual language. Two-reference surgical CSS change: **Featured this quarter** (`.bbi-card--product`) + **Shop the catalog** (`.bbi-card--collection`) tiles now inherit the static border color from **Industries** (`.hp-industry`, `var(--bbi-line) = #E5E5E7`) and the hover-darken behavior + transition from **Our Work** (`.hp-case`, `border-color: var(--textColor); transition: border-color 120ms ease`). R1 and R2 turned out to already share identical static borders, hover targets, and transition timing — fully coherent reference set, no mixing required.

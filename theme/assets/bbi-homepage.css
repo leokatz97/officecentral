@@ -639,7 +639,11 @@
   border-color: #0B0B0C;
 }
 .hp-root .bbi-btn--secondary:hover,
-.bbi-section .bbi-btn--secondary:hover {
+.hp-root .bbi-btn--secondary:focus-visible,
+.bbi-section .bbi-btn--secondary:hover,
+.bbi-section .bbi-btn--secondary:focus-visible,
+.hp-hero .bbi-btn--secondary:hover,
+.hp-hero .bbi-btn--secondary:focus-visible {
   background: #0B0B0C;
   color: #F7F8FA;
   border-color: #0B0B0C;
