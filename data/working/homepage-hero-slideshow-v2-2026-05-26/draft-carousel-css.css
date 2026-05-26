@@ -1,0 +1,34 @@
+
+    /* ============================================================
+       HOMEPAGE HERO CAROUSEL — 2026-05-26
+       (HOMEPAGE-HERO-SLIDESHOW-1 v2)
+       Side-by-side preserved; only label + deck + image swap per slide.
+       ============================================================ */
+    .hp-hero--carousel { position: relative; overflow: hidden; }
+    .hp-hero__viewport { position: relative; }
+    .hp-hero__slide { position: absolute; inset: 0; opacity: 0; transition: opacity 600ms ease; pointer-events: none; }
+    .hp-hero__slide:first-child { position: relative; }
+    .hp-hero__slide--active { opacity: 1; pointer-events: auto; z-index: 2; }
+
+    /* Industry label — repurposes the eyebrow position with a slightly stronger tracking */
+    .hp-hero__label { text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; font-size: 12px; }
+
+    /* Carousel controls — light theme, BBI palette */
+    .hp-hero__controls { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; z-index: 5; }
+    .hp-hero__pause { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--bbi-line); background: var(--background); color: var(--textColor); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; line-height: 1; transition: background 200ms ease, border-color 200ms ease; padding: 0; }
+    .hp-hero__pause:hover, .hp-hero__pause:focus-visible { background: var(--alternateBackground); border-color: var(--textColor); outline: 2px solid var(--textColor); outline-offset: 2px; }
+    .hp-hero__dots { display: flex; gap: 10px; }
+    .hp-hero__dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--bbi-line); background: transparent; padding: 0; cursor: pointer; transition: background 200ms ease, transform 200ms ease, border-color 200ms ease; }
+    .hp-hero__dot--active { background: var(--textColor); border-color: var(--textColor); transform: scale(1.15); }
+    .hp-hero__dot:focus-visible { outline: 2px solid var(--textColor); outline-offset: 3px; }
+
+    /* Mobile: slide 1 only, no autoplay, no controls */
+    @media (max-width: 767px) {
+      .hp-hero--carousel .hp-hero__slide:not(.hp-hero__slide--active) { display: none; }
+      .hp-hero--carousel .hp-hero__controls { display: none; }
+    }
+
+    /* Reduced motion: no crossfade (still cycles) */
+    @media (prefers-reduced-motion: reduce) {
+      .hp-hero__slide { transition: none; }
+    }
