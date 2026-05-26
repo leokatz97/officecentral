@@ -6,6 +6,24 @@
 
 ---
 
+## 📷 KEILHAUER-PHOTO-SWAP-1 ✅ 2026-05-26 late evening (Day 11+1)
+
+Replaced Keilhauer brand hero + brand hub tile photos with a new boardroom scene (long marble table, ~14 tan/camel Keilhauer chairs, floor-to-ceiling city windows, pendant rings, wall TV). Audit-first scope confirmation surfaced that Keilhauer has ONLY 2 image surfaces in the entire theme — sub-page hero + brand hub tile (no Keilhauer-branded tiles on any industry/category landing pages; 0 `vendor=Keilhauer` products). New `-v2.jpg` files uploaded matching peer-brand convention (otg/ergocentric/obusforme already on v2).
+
+- **Source:** `/Users/leokatz/Desktop/kielheur/Screenshot 2026-05-25 at 11.39.43 PM.png` (1374×974 PNG, 2.0 MB). Smaller than hero target → Halt 1 Option A: Lanczos upscale to peer spec, accept slight softening (boardroom subject hides it cleanly).
+- **Processing:** ImageMagick Lanczos `1920x1080^` + `1200x900^` center-extent + sRGB strip + Q-escalation (Q85 291/193 KB over peer range → Q80 244/161 KB still over → Q75 216/141 KB in peer range).
+- **Uploads (2 BBI-prefixed Shopify Files):** `bbi-brand-keilhauer-hero-v2.jpg` (1920×1080, 216 KB) · `bbi-brand-keilhauer-tile-v2.jpg` (1200×900, 141 KB). Both READY first poll.
+- **Files modified (2 templates):** `templates/page.brands-keilhauer.json:7` (hero ref) · `templates/page.brands.json:8` (`keilhauer_image` tile ref). Pushed via `push-file.py` (rate-limit 0.5s) to DEV `186373570873`. DEV re-fetch confirms 1 new-ref / 0 old-ref per file.
+- **Render-check (4 URLs):** `/pages/brands-keilhauer` 200 (hero-v2 ×4) · `/pages/brands` 200 (tile-v2 ×3) · `/pages/brands-heartwood` 200 (untouched sanity) · `/pages/brands-otg` 200 (untouched sanity). All HEAD checks on new CDN URLs: 200, 221/145 KB.
+- **`shopify theme check`:** 166 files / 2855 offenses / 166 files-with-offenses — **EXACT PRE-LAUNCH-AUDIT-1 baseline match, zero new offenses**.
+- **LIVE integrity:** `updated_at = 2026-05-16T16:47:22-04:00` verified 5×: pre-Phase-1, pre-Halt-1, pre-Halt-2, post-push, post-verify. LIVE untouched ✓.
+- **Pre-push backup:** `data/backups/keilhauer-photo-swap-pre-1779767691/` (2 JSONs for rollback).
+- **Report:** `data/reports/keilhauer-photo-swap-2026-05-26.md`. **Working dir:** `data/working/keilhauer-photo-swap-2026-05-26/` (raw + processed + PROCESSED.md + upload-create-response.json + uploaded-final.json).
+- **Branch:** `feature/keilhauer-photo-swap-1` (off `feature/hp-hero-office-img` since HOMEPAGE-HERO-SLIDESHOW-1 hadn't landed). Old `bbi-brand-keilhauer-{hero,tile}.jpg` files remain in Shopify Files as orphan candidates (not deleted — rollback path).
+- **Out-of-scope (informational):** 0 `vendor=Keilhauer` products → product-image exclusion clause moot.
+
+---
+
 ## 🛠 REGRESSION-RECOVERY-1 (Option C, FULL COVERAGE) ✅ 2026-05-25 late evening
 
 Followed the HEADER-POLISH-2 regression earlier in the evening; full diagnostic + recovery executed.
