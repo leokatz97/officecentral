@@ -6,6 +6,33 @@
 
 ---
 
+## 🛠 REGRESSION-RECOVERY-1 (Option C, FULL COVERAGE) ✅ 2026-05-25 late evening
+
+Followed the HEADER-POLISH-2 regression earlier in the evening; full diagnostic + recovery executed.
+
+- **Root cause:** branch `feature/header-polish-2` was created off `main` (not off `feature/about-page-grid-1`), then `bbi-push-landing.py --snippets` was fired from there — bulk push uploaded `main`'s stale pre-Day-11 content for every in-glob file to DEV. The 10-line HEADER-POLISH-2 CSS commit was byte-clean; the bulk push that followed it caused all damage. Reflog + DEV `updated_at` clustering at `2026-05-25T21:19:55-04:00` = direct evidence. See `data/reports/regression-diagnostic-1-2026-05-26.md`.
+- **Recovery path:** Option C — full revert of HEADER-POLISH-2 by re-running the bulk push from `feature/about-page-grid-1`. HEADER-POLISH-2 was dropped entirely (preserved on `origin/feature/header-polish-2` for future redesign).
+- **Files restored on DEV (22 BOTH_REGRESSED + 1 LOCAL_REGRESSED + bonus drift fix):**
+  - 22 templates/sections/snippets restored to `feature/about-page-grid-1` state
+  - `assets/bbi-homepage.css` HOMEPAGE-BORDERS `--bbi-line × 18` tokens restored (new finding the original regression report missed)
+  - `snippets/bbi-quote-modal.liquid` pre-existing 4-day drift fixed as bonus
+  - `templates/index.json` was self-restored at 21:38:31 before this recovery
+- **Push mechanics:** 65 files via `bbi-push-landing.py 186373570873 --snippets`, +3 rate-limit retries via `push-file.py`, +13 secondary pushes for files outside the `--snippets` glob (9 `collection.*.json` + `bbi-homepage.css` + `sections/header.liquid` + `snippets/header-logo.liquid` + `assets/header.css`). All 81 push operations succeeded.
+- **Verification:**
+  - Content: 30/30 marker counts match local about-grid; JSON files show normal Shopify whitespace normalization on PUT
+  - `--bbi-line` × 18 present in `bbi-homepage.css` ✓; HEADER-POLISH-2 `140px`/`21px`/`64px` rules absent from `bbi-nav.liquid` ✓
+  - Theme check: **265 files / 2855 offenses / 166 files-with-offenses — exact PRE-LAUNCH-AUDIT-1 baseline match** ✓
+  - Render check: **38/38 pages pass** across Categories 1–7 (homepage / 9 collections / 10 sub-collections / 6 brand pages on corrected `/pages/brands-{slug}` URLs / 6 industries / about + customer-stories / quote+contact+oecm smoke)
+  - LIVE theme: still `updated_at = 2026-05-16T16:47:22-04:00` throughout — UNTOUCHED ✓
+- **Pre-recovery DEV snapshot:** `data/backups/regression-recovery-1-option-c-pre-1779763620/` (30 files for rollback)
+- **Render results:** `data/working/regression-recovery-1/render-results.json`
+- **Push logs:** `data/working/regression-recovery-1/bulk-push.log` + `secondary-push.log`
+- **POST-LAUNCH BACKLOG additions:** (a) **stale-local guard** on `bbi-push-landing.py` — abort if any local blob SHA is older than DEV's last-write SHA from the image-work branch tip; (b) **HEADER-POLISH-2 redo** — preserved on `origin/feature/header-polish-2`, future redesign opportunity with full hero-image sizing plan; (c) **fix `bbi-push-landing.py` glob** to optionally include `templates/collection.*.json` + `assets/bbi-*.css` + `sections/header.liquid` + `snippets/header-logo.liquid` + `assets/header.css` behind explicit flags (today recovery needed 13 secondary `push-file.py` calls to cover them).
+- **URL correction noted (non-regression):** brand-page handles are `brands-{slug}` (URLs `/pages/brands-{slug}`), not `{slug}` — the regression-diagnostic-1 Phase 6 list and the recovery prompt used `/pages/brands/{slug}` and `/pages/{slug}` which both 404. The 6 actual brand sub-pages all render clean on the corrected URLs.
+- **State after recovery:** DEV matches PRE-LAUNCH-AUDIT-1 baseline. Day 11 image work intact. Build can resume on `feature/about-page-grid-1` from here.
+
+---
+
 ## 📍 RIGHT NOW — fireable this moment
 
 ⏳ items with no prerequisites blocking them. Pick any, in any order. **Day 11 launch-day evening queue** — HIGH-3 fix already landed (`7fb46b7`); Day 11 parallel image rounds (collection / brand / customer-stories / homepage-featured / industry-heroes) already shipped; PRE-LAUNCH-AUDIT-1 returned ✅ READY FOR LAUNCH. What remains is mostly the Upwork delivery + LAUNCH-0→4 chain.
