@@ -197,41 +197,11 @@
     .bbi-badge--oem      { background: transparent; color: var(--textColor); border: 1px solid var(--bbi-line); opacity: 0.85; }
     .bbi-badge--oecm     { background: transparent; color: var(--textColor); border: 1px solid var(--textColor); }
     .bbi-badge--oecm .dot { width: 6px; height: 6px; border-radius: 99px; background: var(--saleBadgeBackground); }
-    /* Header */
-    .bbi-header {
-      background: var(--headerBg); color: var(--headerColor);
-      border-bottom: 1px solid var(--bbi-line);
-      position: sticky; top: 0; z-index: 10;
-    }
-    .bbi-header__inner {
-      max-width: 1320px; margin: 0 auto; padding: 0 32px;
-      height: 72px; display: flex; align-items: center; gap: 32px;
-    }
-    .bbi-header__logo { display: inline-flex; align-items: center; height: 40px; text-decoration: none; }
-    .bbi-header__logo img { height: 36px; width: auto; }
-    .bbi-header__nav { display: flex; align-items: center; gap: 4px; margin-left: 16px; }
-    .bbi-nav-item {
-      display: inline-flex; align-items: center; gap: 4px;
-      height: 72px; padding: 0 14px;
-      color: var(--headerColor); font-size: 14px; font-weight: 500;
-      text-decoration: none; position: relative;
-    }
-    .bbi-nav-item:hover { color: var(--headerHoverColor); }
-    .bbi-nav-item.is-current::after {
-      content: ""; position: absolute;
-      left: 14px; right: 14px; bottom: 18px;
-      height: 1px; background: var(--textColor);
-    }
-    .bbi-header__utility { margin-left: auto; display: flex; align-items: center; gap: 16px; font-size: 14px; }
-    .bbi-header__utility a:not(.bbi-btn) { color: var(--headerColor); text-decoration: none; }
-    .bbi-header__utility .bbi-btn--primary {
-      background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder);
-    }
-    .bbi-header__utility .bbi-btn--primary:hover {
-      background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover);
-    }
-    .phone { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-size: 14px; color: var(--headerColor); }
-    .phone b { font-weight: 600; }
+    /* Header — all header CSS lives in theme/snippets/bbi-nav.liquid (inline <style>).
+       The previously duplicated .bbi-header* / .bbi-nav-item / .phone rules here
+       were dead-weight overrides of identical inline rules + references to a
+       .bbi-nav-item class that's never rendered (the snippet uses .bbi-nav__item).
+       Deleted in NAV-REDESIGN-1 (2026-05-26). */
     /* Footer */
     .bbi-footer { background: var(--background); color: var(--textColor); }
     .bbi-footer__inner { max-width: 1320px; margin: 0 auto; padding: 64px 32px 24px; }

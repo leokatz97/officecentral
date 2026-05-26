@@ -29,15 +29,15 @@
 }
 .bbi-header__inner{
   max-width:1320px;margin:0 auto;padding:0 32px;
-  height:72px;display:flex;align-items:center;
+  height:72px;display:flex;align-items:center;gap:16px;
 }
 
 /* ---- Logo ---- */
 .bbi-header__logo{
-  display:inline-flex;align-items:center;height:40px;
+  display:inline-flex;align-items:center;height:48px;
   text-decoration:none;flex-shrink:0;margin-right:24px;
 }
-.bbi-header__logo img{height:36px;width:auto;display:block;}
+.bbi-header__logo img{height:44px;width:auto;display:block;}
 .bbi-header__logo-text{
   font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
   font-size:15px;font-weight:600;
@@ -53,7 +53,7 @@
 /* Trigger button */
 .bbi-nav__item{
   display:inline-flex;align-items:center;gap:3px;
-  height:72px;padding:0 14px;
+  height:72px;padding:0 12px;
   background:none;border:none;cursor:pointer;
   color:var(--headerColor,#0B0B0C);
   font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
@@ -67,7 +67,7 @@
 /* Active state — 2px brand-red underline above bottom border */
 .bbi-nav__item--active::after{
   content:"";position:absolute;
-  left:14px;right:14px;bottom:0;
+  left:12px;right:12px;bottom:0;
   height:2px;background:var(--saleBadgeBackground,#D4252A);
 }
 
@@ -123,7 +123,7 @@
 /* ---- Inline search bar (desktop) ---- */
 .bbi-header__search-bar{
   position:relative;
-  flex:0 0 220px;
+  flex:0 0 180px;
 }
 .bbi-header__search-form{
   display:flex;align-items:center;gap:0;
@@ -392,7 +392,7 @@
 
 .bbi-mobile-nav__header{
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;height:72px;flex-shrink:0;
+  padding:0 24px;height:80px;flex-shrink:0;
   border-bottom:1px solid rgba(255,255,255,.12);
 }
 .bbi-mobile-nav__header-logo{
@@ -487,9 +487,9 @@
     {%- comment -%} Logo {%- endcomment -%}
     <a class="bbi-header__logo" href="/" aria-label="Brant Business Interiors — home">
       {%- if logo != blank -%}
-        {{ logo | image_url: width: 300 | image_tag: height: 36, alt: 'Brant Business Interiors', loading: 'eager' }}
+        {{ logo | image_url: width: 400 | image_tag: height: 44, alt: 'Brant Business Interiors', loading: 'eager' }}
       {%- else -%}
-        <img src="{{ 'bbi-logo-v2.png' | asset_url }}" height="36" alt="Brant Business Interiors" loading="eager">
+        <img src="{{ 'bbi-logo-v2.png' | asset_url }}" height="44" alt="Brant Business Interiors" loading="eager">
       {%- endif -%}
     </a>
 
