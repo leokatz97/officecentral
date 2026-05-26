@@ -12,6 +12,26 @@
 
 ---
 
+## 🦁 FAVICON-1 ✅ 2026-05-26 (Day 12+, retry after morning revert)
+
+Complete favicon set with brand red `#D4252A` divider (matches the footer maple leaf). 11 assets uploaded + `theme.liquid` head updated with 5 link tags + paper-white `#FAF8F5` theme-color meta. Manifest `name: "Brant Basics Business Interiors"` matches the header co-brand wordmark; `short_name: "Brant Basics"` (no customer-facing "BBI" per copy-voice rule). DEV theme only — LIVE untouched. **Retry context:** earlier today the first attempt was reverted when an unrelated header text-color bug surfaced; that bug was fixed by NAV-REDESIGN-1-TEXT-COLOR-FIX commit `8e01aee`, after which this retry ran cleanly with the already-prepared file set in `data/working/favicon-1-2026-05-26/favicon/`.
+
+- **Phase 0 prep verification (pre-write):** All 11 prepared files present in working dir. SVG recolored to brand red (`#D4252A` rect at x=42); webmanifest uses relative paths (zero root-absolute); manifest `name` corrected mid-flight from "Brant Business Interiors" to **"Brant Basics Business Interiors"** + `short_name` set to "Brant Basics" (Leo caught the missing "Basics" before push; "BBI" not used per `feedback_bbi_copy_voice.md` rule that "BBI" is internal-only and the PWA home-screen label is customer-facing).
+- **Files added (`theme/assets/`, 11):** `favicon.svg` (384B, brand red divider) · `favicon-maskable.svg` (376B) · `favicon-16.png` (508B) · `favicon-32.png` (681B) · `favicon-48.png` (813B) · `favicon-64.png` (960B) · `apple-touch-icon.png` (3,538B, 180×180 for iOS) · `icon-192.png` (3,713B, Android) · `icon-512.png` (2,205B, Android splash + PWA) · `og-preview.png` (5,358B, **uploaded but NOT wired** to `og:image` meta — deferred to FINAL PRE-LAUNCH REVIEW per earlier decision) · `site.webmanifest` (432B, relative paths).
+- **`theme/layout/theme.liquid` head edit (single block):** `<meta name="theme-color" content="">` → `content="#FAF8F5"` (line 8); the `{%- if settings.favicon != blank -%}` conditional at lines 13-19 replaced with 5 link tags (`rel="icon"` SVG + 32 PNG + 16 PNG + `rel="apple-touch-icon"` + `rel="manifest"`), all using `{{ 'filename' | asset_url }}`.
+- **Pushed via direct Admin API** (PUT `assets.json`, ApiVersion 2026-04, hardcoded to DEV `186373570873`, 0.5s rate-limit between writes). All 12 writes succeeded first try. Each verified by re-fetch + SHA-256 match against local — 12/12 byte-identical ✓.
+- **Render check (cookie-jar request to `/?preview_theme_id=186373570873`):** 200, all 5 new link tags present in `<head>`, theme-color meta `#FAF8F5` confirmed, all 5 CDN asset URLs return HTTP 200 with correct Content-Types (PNG/SVG/octet-stream).
+- **`shopify theme check` (JSON output):** 166 files-with-offenses / **2855 offenses** — **EXACT PRE-LAUNCH-AUDIT-1 baseline match, zero new offenses**.
+- **NAV-REDESIGN-1 integrity verified post-push:** DEV `snippets/bbi-nav.liquid` still has `.bbi-header { color: var(--headerColor, #0B0B0C); ... }` (from commit 8e01aee); zero `color: var(--textColor)` references; search-bar `flex:0 0 180px` from Option 4 logo bump preserved. No regression.
+- **LIVE integrity:** `updated_at = 2026-05-16T16:47:22-04:00` verified pre-push + post-push. LIVE untouched ✓.
+- **Pre-write backup:** `data/backups/favicon-1-retry-pre-20260526-144825/theme.liquid` (9,446 B for rollback).
+- **Working dir source:** `data/working/favicon-1-2026-05-26/favicon/` (11 files used as-is; webmanifest name corrected in place mid-Phase-0).
+- **Branch:** `feature/favicon-1-retry` (off `feature/nav-redesign-1-text-color-fix @ 8e01aee` — the current canonical tip).
+- **Caveat (informational, not blocker):** Shopify serves `.webmanifest` with `Content-Type: application/octet-stream` rather than the ideal `application/manifest+json`. Browsers still parse it correctly because the `<link rel="manifest">` declares intent; flag for FINAL PRE-LAUNCH REVIEW if PWA install behavior needs tightening.
+- **Deferred (intentional):** `og-preview.png` uploaded as asset but NOT wired to `<meta property="og:image">` — bundled into FINAL PRE-LAUNCH REVIEW per Leo's earlier decision.
+
+---
+
 ## 🧭 NAV-REDESIGN-1 ✅ 2026-05-26 afternoon (Day 12+)
 
 **Third attempt at the BBI header succeeded via diagnostic-first approach.** Previous two attempts (HEADER-POLISH `65458f6`, HEADER-POLISH-2 reverted via REGRESSION-RECOVERY-1) failed because they targeted Avada selectors (`.primary-header-blocks`, `.nav-menu-link` in `theme/sections/header.liquid` + `theme/assets/header.css`) that aren't loaded on any BBI landing page. This commit targets the ACTUAL BBI header classes — `.bbi-header__inner`, `.bbi-nav__item`, `.bbi-header__logo`, `.bbi-header__search-bar` — emitted from `theme/snippets/bbi-nav.liquid` and verified in the rendered DOM via headless-browser empirical inspection at 1280 / 1600 / 1900px viewports.
