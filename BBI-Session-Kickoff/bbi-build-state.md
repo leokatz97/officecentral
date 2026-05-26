@@ -6,6 +6,25 @@
 
 ---
 
+## 🎨 HOMEPAGE-TILE-BORDER-MATCH-1 ✅ 2026-05-26 late evening (Day 11+1)
+
+Aligned tile borders + hover behavior across the 3 homepage tile sections so they share one visual language. Two-reference surgical CSS change: **Featured this quarter** (`.bbi-card--product`) + **Shop the catalog** (`.bbi-card--collection`) tiles now inherit the static border color from **Industries** (`.hp-industry`, `var(--bbi-line) = #E5E5E7`) and the hover-darken behavior + transition from **Our Work** (`.hp-case`, `border-color: var(--textColor); transition: border-color 120ms ease`). R1 and R2 turned out to already share identical static borders, hover targets, and transition timing — fully coherent reference set, no mixing required.
+
+- **Edits (3, CSS-only spirit):**
+  1. `theme/assets/bbi-homepage.css:280` — `.bbi-card--product` gains `transition: border-color 120ms ease` + adds `.bbi-card--product:hover { border-color: var(--textColor); }`.
+  2. `theme/assets/bbi-homepage.css:505-510` — `.bbi-card--collection` gains `border: 1px solid var(--bbi-line); transition: border-color 120ms ease;` + adds `.bbi-card--collection:hover { border-color: var(--textColor); }`. (Previously had no border at all.)
+  3. `theme/templates/index.json` `bbi-featured` inline `<style>` — removed duplicate `.hp-products .bbi-card--product { border: 1px solid #9BA1AB; }` rule that was overriding the CSS file. Phase 1 confirmed border was defined inline, so prompt allowed touching `index.json` here.
+- **No new tokens, no `!important`.** Reuses `--bbi-line` + `--textColor`.
+- **Pushed via direct Admin API** (assets.json PUT, ApiVersion 2026-04) — `bbi-push-landing.py` doesn't cover `bbi-homepage.css` or `index.json` (its patterns are `ds-*`/`page.*`). Target: DEV `186373570873` only. Push confirmed `updated_at` 2026-05-26T00:09:17 (CSS) + 00:09:20 (index.json).
+- **Render-check:** `/?preview_theme_id=186373570873` 200, all 4 section titles present in HTML, old `#9BA1AB` literal absent. CDN-served minified CSS confirms all 4 target rules live (`.12s` is minifier-normalized `120ms`).
+- **`shopify theme check`:** 265 files / **2855 offenses** / 166 files-with-offenses — **EXACT PRE-LAUNCH-AUDIT-1 baseline match, zero new offenses** (CSS-only changes can't introduce Liquid/schema warnings).
+- **LIVE integrity:** `updated_at = 2026-05-16T16:47:22-04:00` verified pre-push + post-push. LIVE untouched ✓.
+- **Pre-push backup:** `data/backups/homepage-tile-border-match-pre-20260526_000904/` (bbi-homepage.css + index.json snapshots for rollback).
+- **Branch:** `feature/homepage-tile-border-match-1` (off `feature/keilhauer-photo-swap-1` @ a1b6fc2 — the canonical latest descendant).
+- **Caveats (visible diff):** Featured tile borders go from `#9BA1AB` (mid-gray) to `#E5E5E7` (lighter); Shop catalog tiles gain a thin 1px frame they didn't have before. Both Featured + Shop tiles now darken to near-black on hover instead of being static.
+
+---
+
 ## 📷 KEILHAUER-PHOTO-SWAP-1 ✅ 2026-05-26 late evening (Day 11+1)
 
 Replaced Keilhauer brand hero + brand hub tile photos with a new boardroom scene (long marble table, ~14 tan/camel Keilhauer chairs, floor-to-ceiling city windows, pendant rings, wall TV). Audit-first scope confirmation surfaced that Keilhauer has ONLY 2 image surfaces in the entire theme — sub-page hero + brand hub tile (no Keilhauer-branded tiles on any industry/category landing pages; 0 `vendor=Keilhauer` products). New `-v2.jpg` files uploaded matching peer-brand convention (otg/ergocentric/obusforme already on v2).
