@@ -24,6 +24,7 @@
 /* ---- Base header bar ---- */
 .bbi-header{
   background:var(--headerBg,#ffffff);
+  color:var(--headerColor,#0B0B0C);
   border-bottom:1px solid var(--borderColor,#E5E5E7);
   position:sticky;top:0;z-index:200;
 }
@@ -100,7 +101,7 @@
 /* Dropdown link items */
 .bbi-nav__dd-link{
   display:block;padding:9px 18px;
-  color:var(--textColor,#0B0B0C);
+  color:var(--headerColor,#0B0B0C);
   font-size:14px;text-decoration:none;
   white-space:nowrap;
   transition:background-color 80ms ease,color 80ms ease;
@@ -149,7 +150,7 @@
   padding:0 10px 0 0;
   height:100%;
   font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
-  font-size:13px;color:var(--textColor,#0B0B0C);
+  font-size:13px;color:var(--headerColor,#0B0B0C);
   background:none;border:none;outline:none;
 }
 .bbi-header__search-input::placeholder{color:rgba(11,11,12,.38);font-size:13px;}
@@ -169,7 +170,7 @@
   display:flex;align-items:center;gap:10px;
   padding:9px 12px;
   text-decoration:none;
-  color:var(--textColor,#0B0B0C);
+  color:var(--headerColor,#0B0B0C);
   font-size:13px;
   transition:background-color 80ms ease,color 80ms ease;
 }
@@ -287,7 +288,7 @@
 .bbi-minicart__item-meta{min-width:0;}
 .bbi-minicart__item-title{
   font-size:13px;font-weight:600;
-  color:var(--textColor,#0B0B0C);
+  color:var(--headerColor,#0B0B0C);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   display:block;margin-bottom:4px;
 }
