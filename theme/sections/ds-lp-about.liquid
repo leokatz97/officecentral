@@ -93,8 +93,19 @@
 .lp-about .lp-closer__trust .dot{flex:0 0 auto;margin-top:7px;width:6px;height:6px;border-radius:99px;background:var(--saleBadgeBackground);}
 .lp-about .lp-closer__trust b{color:var(--textColor);font-weight:600;}
 .lp-about .lp-closer__trust a{color:var(--textColor);text-decoration:underline;}
+.lp-about .lp-evol{padding:var(--space-12) 0;background:var(--background);border-top:1px solid rgba(var(--borderColor-rgb),0.6);border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-about .lp-evol__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-about .lp-evol__head{max-width:720px;margin:0 auto var(--space-8);text-align:center;}
+.lp-about .lp-evol__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-about .lp-evol__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-about .lp-evol h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);letter-spacing:var(--ls-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);text-wrap:balance;}
+.lp-about .lp-evol__intro{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);margin:0;}
+.lp-about .lp-evol__items{display:flex;flex-direction:column;gap:var(--space-4);}
+.lp-about .lp-evol__row{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4);}
+.lp-about .lp-evol__row figure{margin:0;aspect-ratio:4/3;overflow:hidden;background:var(--alternateBackground);border:1px solid rgba(var(--borderColor-rgb),0.5);border-radius:var(--cardRadius);}
+.lp-about .lp-evol__row img{width:100%;height:100%;object-fit:cover;display:block;}
 @media(max-width:1024px){.lp-about .lp-diff__grid{grid-template-columns:repeat(2,1fr);}.lp-about .lp-contact-block__inner{grid-template-columns:1fr;}}
-@media(max-width:768px){.lp-about .lp-hero__inner{grid-template-columns:1fr;}.lp-about .lp-hero__media{display:none;}.lp-about .lp-diff__grid{grid-template-columns:1fr;}.lp-about .lp-closer__inner{grid-template-columns:1fr;padding:64px 24px;}.lp-about .bbi-header__nav{display:none;}}
+@media(max-width:768px){.lp-about .lp-hero__inner{grid-template-columns:1fr;}.lp-about .lp-hero__media{display:none;}.lp-about .lp-diff__grid{grid-template-columns:1fr;}.lp-about .lp-evol__row{grid-template-columns:repeat(2,1fr);}.lp-about .lp-closer__inner{grid-template-columns:1fr;padding:64px 24px;}.lp-about .bbi-header__nav{display:none;}}
 </style>
 
 <div class="lp-about scheme-default">
@@ -142,6 +153,30 @@
       <div class="lp-intro__body">
         <p>Brant Business Interiors is a commercial furniture dealer headquartered in Peterborough, Ontario, serving schools, hospitals, municipalities, non-profits, and private businesses across the province. We are part of the Office Central Group of Companies, which operates multiple furniture and interior services businesses across Ontario.</p>
         <p>Our team handles the full project lifecycle: space planning and product specification, order management, delivery coordination, and installation. We are an authorized dealer for the Global Furniture Group family (Global, Teknion, OTG, ObusForme), Heartwood Manufacturing, ergoCentric, and Keilhauer &mdash; and an OECM Supplier Partner (Agreement 2025-470) for Ontario&rsquo;s broader public sector.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-evol" aria-label="Brant Business Interiors — then and now">
+    <div class="lp-evol__inner">
+      <div class="lp-evol__head">
+        <p class="lp-evol__eyebrow bbi-mono">Then &amp; now</p>
+        <h2>Then and Now.</h2>
+        <p class="lp-evol__intro">Our roots run deep in Peterborough. What started as Brant Basics has evolved into Brant Business Interiors &mdash; same family, expanded mission.</p>
+      </div>
+      <div class="lp-evol__items">
+        <div class="lp-evol__row lp-evol__row--history">
+          <figure><img src="{{ 'bbi-about-grid-01-storefront-day.jpg' | file_url }}" alt="Brant Basics original storefront daytime — strip mall facade with category signage" width="800" height="600" loading="lazy"></figure>
+          <figure><img src="{{ 'bbi-about-grid-02-jumbotron.jpg' | file_url }}" alt="Brant Basics jumbotron sponsorship at OHL hockey arena" width="800" height="600" loading="lazy"></figure>
+          <figure><img src="{{ 'bbi-about-grid-03-wordmark.jpg' | file_url }}" alt="Brant Basics — Business Interiors legacy wordmark" width="800" height="600" loading="lazy"></figure>
+          <figure><img src="{{ 'bbi-about-grid-04-storefront-night.jpg' | file_url }}" alt="Brant Basics storefront at night with illuminated red signage" width="800" height="600" loading="lazy"></figure>
+        </div>
+        <div class="lp-evol__row lp-evol__row--current">
+          <figure><img src="{{ 'bbi-about-grid-05-workstations.jpg' | file_url }}" alt="Modern open-plan workstations with yellow accent seating" width="800" height="600" loading="lazy"></figure>
+          <figure><img src="{{ 'bbi-about-grid-06-boardroom.jpg' | file_url }}" alt="Contemporary boardroom with white meeting table and mesh task chairs" width="800" height="600" loading="lazy"></figure>
+          <figure><img src="{{ 'bbi-about-grid-07-showroom.jpg' | file_url }}" alt="Showroom floor with rows of workstations under warehouse-style ceiling" width="800" height="600" loading="lazy"></figure>
+          <figure><img src="{{ 'bbi-about-grid-08-atrium.jpg' | file_url }}" alt="Atrium lounge with dome pendant lighting and glass facade" width="800" height="600" loading="lazy"></figure>
+        </div>
       </div>
     </div>
   </section>
