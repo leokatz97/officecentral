@@ -10,7 +10,7 @@
     {% endfor %}
 <style>
     header{
-      --logoWidth:{{ section.settings.logo_width }}px;
+      --logoWidth:{{ section.settings.logo_width | times: 2 | round }}px;
       --searchBorderColor:{{ settings.search_border_color }};
       --menuFontFamily:var(--{{ section.settings.menu_font }}Font);
       --submenuFontFamily:var(--{{ section.settings.sub_menu_font }}Font);
