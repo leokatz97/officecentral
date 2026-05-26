@@ -27,7 +27,8 @@
       {%- if current_page != 1 %}
         &ndash; Page {{ current_page -}}
       {%- endif -%}
-      {%- unless page_title contains shop.name %}
+      {%- comment -%} SEO-AUDIT-1: broaden the suffix-suppression check to "Brant" / "OECM" / shop.name so SEO-AUDIT-1 title_tags (50-60 char) don't get double-suffixed with the longer shop.name. PDP/product titles without any of these still get the brand suffix appended for SERP brand association. {%- endcomment -%}
+      {%- unless page_title contains 'Brant' or page_title contains 'OECM' or page_title contains shop.name %}
         &ndash; {{ shop.name -}}
       {%- endunless -%}
     {%- endif -%}</title>

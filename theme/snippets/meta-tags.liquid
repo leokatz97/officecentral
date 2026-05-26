@@ -1,9 +1,19 @@
 {%- liquid
-    assign og_title = page_title | default: shop.name
+    if template == 'index'
+      assign og_title = 'Office Furniture for Canadian Businesses | Brant Business Interiors'
+    else
+      assign og_title = page_title | default: shop.name
+    endif
     assign og_url = canonical_url | default: request.origin
     assign og_type = 'website'
-    assign og_description = page_description | default: shop.description | default: shop.name
-  
+    # SEO-AUDIT-1 FIX #3: BBI-voice fallback replaces stale shop.description on pages w/o per-page SEO desc
+    assign bbi_default_desc = 'Commercial office furniture for Ontario businesses, schools, and institutions. ergoCentric, GFG, OTG, Heartwood, ObusForme. OECM Agreement 2025-470. Quote in 1 business day.'
+    if template == 'index'
+      assign og_description = 'Commercial office furniture for Ontario businesses, schools, and institutions. Global Furniture Group, OTG / Offices to Go, Heartwood Manufacturing. OECM Supplier Partner (Agreement 2025-470). Quote in 1 business day.'
+    else
+      assign og_description = page_description | default: bbi_default_desc
+    endif
+
     if request.page_type == 'product'
       assign og_type = 'product'
     elsif request.page_type == 'article'
@@ -12,14 +22,21 @@
       assign og_url = request.origin
     endif
   %}
-  
+
   <meta property="og:site_name" content="{{ shop.name }}">
   <meta property="og:url" content="{{ og_url }}">
   <meta property="og:title" content="{{ og_title | escape }}">
   <meta property="og:type" content="{{ og_type }}">
   <meta property="og:description" content="{{ og_description | escape }}">
-  
-  {%- if page_image -%}
+
+  {%- comment -%} SEO-AUDIT-1 FIX #5: homepage og:image uses BBI og-preview.png (1024x1024 uploaded by FAVICON-1). Other templates fall back to page_image (product/article/page featured image). {%- endcomment -%}
+  {%- if template == 'index' -%}
+    {%- assign hp_og_url = 'og-preview.png' | asset_url -%}
+    <meta property="og:image" content="{{ hp_og_url | replace: 'https:', 'http:' }}">
+    <meta property="og:image:secure_url" content="{{ hp_og_url }}">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+  {%- elsif page_image -%}
     <meta property="og:image" content="http:{{ page_image | image_url }}">
     <meta property="og:image:secure_url" content="https:{{ page_image | image_url }}">
     <meta property="og:image:width" content="{{ page_image.width }}">

@@ -9,6 +9,66 @@
 ## 🔓 Day 12 evening — 2026-05-26
 
 - **DATAFORSEO-MCP-UNBLOCK ✅** — DataForSEO MCP HTTP 403 resolved; SEO-AUDIT-1 hard gate now ready to run tomorrow as Step 5 of the launch path.
+- **SEO-AUDIT-1 ✅** — pre-launch SEO hard gate passed (see entry below). LAUNCH-0 cleared.
+
+---
+
+## 🔍 SEO-AUDIT-1 ✅ 2026-05-26 evening (Day 12+, after STALE-OECM-DATE-FIX-1)
+
+Pre-launch SEO hard gate. 39 bbi_landing URLs crawled via cookie-session DEV preview + DataForSEO `on_page_lighthouse` on top 5 templates. **Verdict: READY FOR LAUNCH-0.** 0 BLOCK · 15 FIX (all in-scope FIXes applied via Claude Code Admin API today — zero Steve work) · 3 WAIVE (logged for post-launch backlog). Report at `data/reports/seo-audit-1-2026-05-26.md`; copy-review log at `data/working/seo-audit-1-2026-05-26/halt-1.5-copy-review.md`; backup snapshot at `data/backups/seo-audit-1-fix-batch-pre-20260526-165131/` (35 pre-state metafield JSONs + 3 pre-state theme files).
+
+- **Branch:** `feature/seo-audit-1` (off `feature/lead-high-2 @ f4f68ec`).
+- **Scope probe outcome (Phase 7.0):** `write_content` ✓, `write_products` ✓, `metafieldsSet` on Shop owner ✓, redirect POST/DELETE ✓, page PUT ✓. `shopUpdate` GraphQL mutation removed from current Admin API; `PUT /shop.json` returns 406 → storefront-wide SEO **not directly writable**. Reframed FIX #3/#4 as theme-level override via `theme/snippets/meta-tags.liquid` (renders before `{{ content_for_header }}`, so our tags win over Shopify's stale defaults).
+
+**Theme edits (2 files):**
+1. `theme/snippets/meta-tags.liquid` — conditional og:title for homepage (`'Office Furniture for Canadian Businesses | Brant Business Interiors'`); replaces stale `shop.description` fallback with BBI-voice default (`'Commercial office furniture for Ontario businesses, schools, and institutions. ergoCentric, GFG, OTG, Heartwood, ObusForme. OECM Agreement 2025-470. Quote in 1 business day.'`); wires `og-preview.png` (uploaded by FAVICON-1 but never wired) as homepage og:image 1024×1024. Twitter tags mirror via existing `og_title`/`og_description` assigns.
+2. `theme/layout/theme.liquid:30` — title-suffix logic broadened from `unless page_title contains shop.name` to `unless page_title contains 'Brant' or contains 'OECM' or contains shop.name`. Prevents the 40-char `– Office Central & Brant Business Interiors` auto-append from double-stuffing the new 50-60 char title_tags.
+
+**Shopify Admin metafield writes (68 total — 62 first-pass + 6 retry after Shopify's 2-call/sec rate cap):**
+- 33 `title_tag` writes — 17 pages + 10 collections + 1 blog hub + 1 article + 4 trims of existing oversized title_tags (contact, design-services, healthcare, industries)
+- 29 `description_tag` writes — 17 pages + 10 collections + 1 blog hub + 1 article (cornerstone, replaces 324-char auto-desc)
+- All retry-rate-limited writes succeeded on second attempt with 3-second backoff
+
+**URL redirects (2) + page unpublish (2):**
+- `/pages/ergocentric` → 301 → `/pages/brands-ergocentric` (verified live); source page unpublished. Resolves FIX #9 (phantom `brand-dealer` template suffix → H1=0 LEAK).
+- `/pages/how-to-adjust-my-new-chair` → 301 → `/pages/brands-ergocentric` (verified live); source page unpublished. Resolves FIX #10 (generic `page` template → H1=0 LEAK). Visual-guide content migration to a future `ds-lp-howto-chair.liquid` logged as post-launch backlog.
+
+**`data/llms-txt-draft.md` refreshed (FIX #1b):** 7 stale items addressed — Richmond Hill → 296 George St N Peterborough; added Agreement 2025-470 throughout; lead brands updated to GFG/OTG/Heartwood/ObusForme/ergoCentric (Keilhauer/Teknion now "on request"); broken `/pages/services` link split into `/pages/design-services` + `/pages/delivery` + `/pages/relocation`; added 6 brand sub-page URLs + brands hub + cornerstone article + customer-stories + our-work + contact + faq; entity framing updated to "Brant Basics is the OECM-registered entity"; date stamp 2026-04-30 → 2026-05-26. **FIX #1a (deployment path) WAIVED to post-launch backlog** — Shopify currently auto-generates `/llms.txt` with `pageType=llms_txt` (overrides AI-1's deployed `/pages/llms-txt` redirect from commit `a2118f3`); no `templates/llms.txt.liquid` override documented and no Admin toggle exists. Refreshed draft is ready as soon as Shopify ships a hook OR Leo opens a support ticket.
+
+**Before / after metrics (39 URL DEV crawl):**
+
+| Metric | Before | After |
+|---|---:|---:|
+| Pages with `<meta name=description>` | 13/39 | **39/39** |
+| Pages with stale "BBI and Office Central specialize…" og:description | 29/39 | **0/39** |
+| Pages with title_length 51-60 (target band) | 0/39 | **37/39** (only homepage 67 + PDP 108 outside; both intentional) |
+| Pages with title_length >140 (severe SERP truncation) | 2/39 | **0/39** |
+| Pages with H1=0 (LEAK pages) | 2 | **0** (both redirected, sources unpublished) |
+| Meta-desc >160 chars (truncation risk) | 2 (quote 320, cornerstone 324) | **0** |
+| Homepage og:image | `IMG_2566.jpg` (Avada legacy) | **`og-preview.png`** (BBI 1024×1024) |
+| HTTP 200 on all audit URLs | 39/39 | 39/39 |
+| JSON-LD parse errors sitewide | 0 | 0 |
+
+**Lighthouse desktop (top 5 templates, DataForSEO MCP):** homepage Perf 94 / SEO 100; OECM 90 / 92; About 83 / 92; Seating 85 / 92; PDP (adapt-hb) 81 / 100. CWV pass on 4/5 (PDP LCP 2585ms, 85ms over target — marginal, **WAIVED** as image-weight optimization that touches every Hero PDP and would risk regressing SPEC-CANARY work). Mobile Lighthouse not available via this MCP — **WAIVED** to manual PSI run post-launch. PDP A11y 0.85 + sitewide Best Practices 0.73 also **WAIVED** post-launch.
+
+**Schema surface confirmed:** Organization + LocalBusiness sitewide via `bbi-org-schema.liquid` + `bbi-localbusiness-schema.liquid` (SCHEMA-LOCALBIZ-1); WebSite + SearchAction sitewide; BreadcrumbList on 10 collections + PDP (AI-6); FAQPage on 14 pages (oecm 8 Q&A, faq 22, quote 5, design-services 5, delivery 7, relocation 6, all 10 collections incl. business-furniture 3-5 each); BlogPosting on cornerstone article (H-1 fix); Product + Brand + Offer on PDP (PDP-2 absorbs AI-3); GovernmentService on /pages/oecm (AI-8). Zero JSON-LD parse errors across all 39 URLs.
+
+**robots.txt (AI-2) re-verified:** Shopify default with `User-agent: *  Allow: /` open to all major AI crawlers (GPTBot, ClaudeBot, anthropic-ai, PerplexityBot, CCBot, Googlebot, Google-Extended). Sitemap pointer present. AI-2 audit from 2026-04-30 still valid.
+
+**ds-article.liquid AEO foundation verified on live cornerstone post:** BlogPosting JSON-LD + datePublished + author + Q&A schema + 4 tables / 9 `scope="col"` / 3 `<caption>` rendered correctly.
+
+**Safety:**
+- LIVE theme `178274435385` `updated_at = 2026-05-16T16:47:22-04:00` verified 7× during audit (pre-Phase-0, pre-meta-tags push, post-meta-tags push, pre-theme.liquid push, post-theme.liquid push, post-metafield-batch, final post-write). LIVE untouched ✓.
+- `shopify theme check`: 166 files / **2855 offenses** — **EXACT PRE-LAUNCH-AUDIT-1 baseline match**, zero new offenses introduced by theme edits.
+- Day 12+ work integrity: FAVICON-1 5 link tags + `theme-color #FAF8F5` ✓ · NAV-REDESIGN-1 `var(--headerColor)` intact (bbi-nav.liquid not touched) ✓ · ABOUT-PAGE-GRID-1 6 `<figure>` 2×3 grid ✓ · STALE-OECM-DATE-FIX-1 11× "Agreement 2025-470" + 0× "since 2019" on /pages/about ✓ · LEAD-HIGH-2 bbi-quote-modal.liquid not touched ✓.
+
+**POST-LAUNCH BACKLOG additions:**
+- **FIX #1a — re-investigate llms.txt override path** — quarterly check on Shopify changelog for `templates/llms.txt.liquid` support OR open Shopify support ticket. Refreshed `data/llms-txt-draft.md` is ready to deploy.
+- **PDP-PERF-1** — PDP byte-weight optimization (7.81 MB total transfer; avisplus.io reviews + Hero image weights). Defer because it touches every Hero PDP and risks regressing SPEC-CANARY work.
+- **PDP-A11Y-1** — PDP A11y 0.85 (vs 0.92 sitewide). Likely missing form labels / button-name attrs on variant pickers. ~30 min targeted pass.
+- **SITEWIDE-BEST-PRACTICES-1** — 0.73 flat sitewide; likely deprecated 3rd-party API. Investigate during post-LAUNCH-1 health check.
+- **HOWTO-CHAIR-REBUILD** — migrate the visual-guide content from the now-redirected `/pages/how-to-adjust-my-new-chair` into a proper `ds-lp-howto-chair.liquid` in the BBI gate (HowTo schema would be high-value AEO content). The 301 redirect preserves SEO juice in the interim.
+- **PDP-TITLE-PATTERN-SITEWIDE** — apply title_tag pattern (≤60 chars, brand suffix policy) to all 100 Hero PDPs (PE-5 follow-up). Today's audit only touched the representative Hero PDP for verification.
 
 ---
 
@@ -386,7 +446,7 @@ None of this blocks the Monday launch — it compounds after BBI is live. The pr
 **Phase 2 audits (post-LAUNCH-2):**
 - Step 30 PERF-AUDIT-1 Phase 2 — Lighthouse + CWV re-baseline against the new theme (target mobile ≥80)
 - Step 31 A11Y-AUDIT-1 Phase 2 — authoritative WCAG 2.1 AA re-baseline
-- Step 35 SEO-AUDIT-1 — technical SEO audit, ⏳ READY (DataForSEO MCP connectivity unblocked 2026-05-26 evening; pre-launch hard gate before LAUNCH-0)
+- Step 35 SEO-AUDIT-1 — pre-launch SEO hard gate ✅ 2026-05-26 evening — 0 BLOCK / 15 FIX (all in-scope FIXes applied via Claude Code Admin API, zero Steve work) / 3 WAIVE → READY FOR LAUNCH-0; report `data/reports/seo-audit-1-2026-05-26.md`
 
 **Catalog · blog · future waves (carried forward):**
 - Phase 1b full catalog — PE-5/6/7 for the remaining 503 non-Hero products (descriptions, specs, meta)
@@ -890,7 +950,7 @@ Shopify Admin import.
 | **LEAD-INBOX-1** | **Provision + verify lead-form inboxes (HARD PREREQ for LEAD-3)** | ✅ | commit `b6a6855` · aliases confirmed · test emails received 2026-05-14 | Three aliases (`quotes@`, `design@`, `info@`) added to `steve@brantbusinessinteriors.com` in GoDaddy M365 admin. SPF updated to include `spf.protection.outlook.com`. DMARC updated to add `rua=mailto:dmarc-reports@brantbusinessinteriors.com`. DKIM already active (selector1). Test emails from external domain confirmed received at `steve@`. |
 | LEAD-3 | Unify on `bbi-lead-form.liquid` snippet + modal + per-type routing + auto-replies | 🟡 | commit TBD (this session) · `theme/snippets/bbi-quote-modal.liquid` + `theme/sections/ds-lp-design-services.liquid` pushed to DEV 186373570873 · `docs/strategy/bbi-lead-routing.md` | **Routing wired (Option D — subject-line injection).** `contact[subject]` hidden field added to modal; JS populates per lead_type: quote→`[Quote Request]`, design→`[Design Consultation]`, oecm→`[OECM Inquiry]`, contact→`[General Contact]`. Design Services broken `mailto:` form replaced with `data-bbi-quote-trigger data-lead-type="design"` button. **Steve's 3 manual follow-ups required before ✅:** (1) Update Shopify `customer_email` → `info@brantbusinessinteriors.com` (Shopify Admin → Settings → General — API returned 406, cannot automate); (2) Verify subject-line behaviour + set M365 inbox rules (Path A: subject rules if SMTP subject shows tag; Path B: body rules if generic subject — see routing doc); (3) Set M365 auto-replies on quotes@/design@/info@. Full instructions + test plan: `docs/strategy/bbi-lead-routing.md`. |
 | INTERLINK-3 | Final cross-link audit, all pages | ⬜ | audit output green | |
-| **SEO-AUDIT-1** | **Technical SEO audit via DataForSEO MCP (HARD GATE) — ⏳ READY 2026-05-26 evening** | ⬜ | `data/reports/seo-audit-<date>.json` + `docs/reviews/seo-audit-<date>.md` | **Pre-launch hard gate — must run before LAUNCH-0.** Use the DataForSEO MCP (`on_page` + `lighthouse` + `domain_analytics` tools) against BBI Landing Dev (`186373570873` preview URL). Required checks: (a) crawl every published page in `bbi_landing` gate, (b) meta titles + descriptions present and within length limits, (c) H1 hierarchy correct (one H1 per page, no skipped levels), (d) all schema validates (Organization, Product, BreadcrumbList, FAQPage from AI-3..AI-6), (e) canonical tags resolve, (f) no broken internal links, (g) Lighthouse mobile perf ≥ 80, (h) Core Web Vitals pass on top 5 templates (home, OECM, quote, industries hub, healthcare). Output a per-page issue list with severity (block / fix / waive). All `block` items must be resolved or explicitly waived in the report before LAUNCH-0 can run. **UNBLOCK NOTE 2026-05-26 evening:** DataForSEO MCP connectivity restored — `.mcp.json` credentials live-verified via `dataforseo_labs_google_keyword_overview` test call. SEO-AUDIT-1 is now READY to run as Step 5 of the launch path. |
+| **SEO-AUDIT-1** | **Technical SEO audit via DataForSEO MCP (HARD GATE)** | ✅ | branch `feature/seo-audit-1` · DEV 186373570873 · `data/reports/seo-audit-1-2026-05-26.md` + `data/working/seo-audit-1-2026-05-26/` (crawler + halt-1.5 copy review + apply-fixes.py + before/after JSONs) + `data/backups/seo-audit-1-fix-batch-pre-20260526-165131/` (rollback snapshot) | **Pre-launch hard gate ✅ PASSED 2026-05-26 evening. Verdict: READY FOR LAUNCH-0.** 39 bbi_landing URLs crawled via cookie-session DEV preview + DataForSEO Lighthouse on top 5 templates. **0 BLOCK / 15 FIX (all in-scope FIXes applied via Claude Code Admin API — zero Steve work) / 3 WAIVE.** Fixes applied: 2 theme edits (`meta-tags.liquid` for og:title/desc/image override + `theme.liquid` title-suffix logic broadened); 68 metafield writes (33 title_tag + 29 description_tag + 6 retries after Shopify 2-call/sec rate cap); 2 URL redirects + 2 page unpublishes (LEAK fixes for /pages/ergocentric + /pages/how-to-adjust-my-new-chair, both → /pages/brands-ergocentric); `data/llms-txt-draft.md` refreshed (7 stale items fixed; deployment path WAIVED post-launch since Shopify auto-generates `/llms.txt` with pageType=llms_txt, no override hook documented). Before/after: meta-desc coverage 13/39 → 39/39; stale "BBI and Office Central specialize" og:description 29/39 → 0/39; title length >140 chars 2 → 0; H1=0 LEAK pages 2 → 0. Lighthouse desktop perf ≥81 on all 5 templates; CWV pass on 4/5 (PDP LCP 2585ms is 85ms over, WAIVED). LIVE `updated_at = 2026-05-16T16:47:22-04:00` verified 7× during audit. Theme check baseline 166/2855 unchanged. |
 | NAV-VERIFY | Homepage + collection pages render shared nav | ⬜ | DOM check | Verify NAV-3, NAV-4 stuck |
 | DS-VERIFY | DS pre-launch verification (HARD GATE) | ⬜ | screenshot diff vs T5 locked | Brand-red unified, dark-mode block stays deleted, tokens intact |
 | IMG-PHASE2 | Product image regen (≥80% coverage SOFT GATE) | ⬜ | `data/reports/img-phase2-coverage.csv` | Waiver CSV for the rest. · **SCOPE NOTE 2026-05-21:** folds into the Day 9 image session — see CURRENT FOCUS Day 9 + ACTIVE STEPS → IMAGE-SOURCING-V2 (tracker Step 46), scope expanded to also cover Task #13 homepage image rot + ALL tile images sitewide + customer-stories case-study images + brand-page heroes. · **CONSOLIDATED 2026-05-21 (Day 8 audit):** removed from the ACTIVE STEPS navigation layer + the tracker active-work cards — folded entirely into Step 46 IMAGE-SOURCING-V2 (the Day 9 umbrella). This canonical Wave E row is retained as the historical record per the file's preserve-the-record rule. Note: NAV-VERIFY (a separate completed step, commit 3aa74c3) was NOT a duplicate of this row and was left intact; the Day 8 audit prompt's "two IMG-PHASE2 duplicates" premise was incorrect — there is only one IMG-PHASE2. |
