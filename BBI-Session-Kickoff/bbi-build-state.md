@@ -111,7 +111,30 @@ Monotonic, every bump accounted for. No unauthorized writes.
 
 - **OECM-TRUST-ALT-TEXT** — `theme/sections/ds-lp-oecm.liquid:515` `trust_image_2` has hardcoded alt "Brantford General waiting area OECM install" but the image is now the Artcobell classroom photo (post-IMG-3 swap). Replace with setting-driven alt (best) or content-accurate alt that doesn't claim specific install provenance (e.g., "Modern collaborative classroom with active-learning seating and modular tables") — the photo's actual provenance as a BBI OECM install is unverified and the "Artcobell installation" framing would carry the same risk as the current Brantford General claim. ~5 min. **Blocked on WATCHER-FORENSICS** — any new `theme/**` edit requires the preflight check to land first.
 
-- **SCHEMA-CRIT-NEW-1 🆕** (Tier 1, scope to follow) — category-card Product snippets failing Google validation (8 invalid items on PDPs + OECM page; "Either 'offers', 'review' or 'aggregateRating' should be specified"). Net-new finding from Fix 1 RRT verification 2026-05-27 ~15:06. Almost certainly the `hasOfferCatalog` block in `bbi-org-schema.liquid` whose 8 lightweight Product items match the 8 affected categories exactly. Audit F-15 had assessed this as "acceptable" but Google's actual validator flags it. Scope to follow from Leo. See Day 13 evening detail entry.
+- **SCHEMA-CRIT-NEW-1 🆕** (Tier 1, ~45-90 min, **BLOCKED on WATCHER-FORENSICS-AND-PROCESS-RECOVERY**) — Reclassification of audit F-15 (originally "acceptable lightweight reference / not a defect" → **MISCLASSIFIED — actually critical**). `hasOfferCatalog` block (almost certainly in `theme/snippets/bbi-org-schema.liquid`) emits 8 category cards as `{"@type":"Product","name":"<category>"}` with no `offers` / `review` / `aggregateRating`. Google's Rich Results Test flags all 8 as invalid Product snippets sitewide (confirmed 2026-05-27 ~15:06 on obusforme PDP + `/pages/oecm`; visible on every `bbi_landing`-gated page that loads `bbi-org-schema` chrome).
+
+  **Operational notes:** Single-fix session, not multi-fix like CRIT-1. Halt after each phase. Watcher preflight check FIRST (the watcher is killed but verify before any edit — this is now permanent discipline per `feedback_preflight_watcher_check.md`). Approval phrase: `fire schema-crit-new-1` (case-sensitive). Branch: `feature/schema-crit-new-1-2026-05-27` off `main` (if PR #28 merged by then) or off `feature/schema-crit-1-2026-05-27` (if not).
+
+  **Phase 1 — Diagnosis (~15 min, no writes):**
+  1. Locate the emitter. Confirm hypothesis: `bbi-org-schema.liquid` `hasOfferCatalog` block. Read the file, identify the loop that emits the 8 category items.
+  2. Confirm rendering scope. Where does `bbi-org-schema.liquid` render? `theme.liquid`? Specific layouts? Document which pages emit this schema (= which pages currently fail RRT).
+  3. Capture the current emitted JSON-LD for the `hasOfferCatalog` block (live API fetch + parse) — baseline state for the fix.
+
+  **Phase 2 — Design (no writes; propose before approving):** Three candidates, pick best:
+  - **Option A** — Change `@type` from `Product` to `OfferCatalog` entry items: `{"@type": "OfferCatalog", "name": "Seating", "url": "..."}`. Aligns with schema.org guidance for catalog references. Cleanest semantic match; no validation errors; no need to fabricate offers/aggregateRating.
+  - **Option B** — Change `@type` to `CollectionPage` or `ItemList`. Treats the category cards as collection references. Valid, but semantically a different signal — these aren't really CollectionPages from this schema block's perspective.
+  - **Option C** — Keep `@type=Product`, add minimal `offers` block referencing the category collection URL with placeholder price range or "InStock" availability. Functionally fixes the validation error but is semantically dishonest (a category isn't a single product with a single offer).
+
+  Guidance: **Option A is almost certainly correct** — semantically honest representation: these ARE catalog entries, not products and not collection pages. Surface a recommendation with reasoning after reading the actual emitter.
+
+  **Phase 3 — Fix:** single surgical snippet edit. Pre-write backup. Approval gate (case-sensitive `fire schema-crit-new-1`). Watcher preflight check FIRST. 30s CDN wait → byte-match verify → 60s phone hard-refresh.
+
+  **Phase 4 — Verification:**
+  - RRT on 2 pages: obusforme PDP + `/pages/oecm`. Both must show: 0 invalid Product snippets (8 category items either disappear from Product detection under Option A, or revalidate under whichever option chosen).
+  - Theme check: 2850/166 must hold (or improve, not regress).
+  - Pull JSON-LD via API on both pages → byte-confirm fix is on LIVE.
+
+  **Dependency:** WATCHER-FORENSICS must complete first (including `scripts/preflight-watcher-check.sh` being wired into `01-safety-preflight.md`). Do NOT start until WATCHER-FORENSICS commits.
 
 - **SCHEMA-CRIT-1 — PARTIAL ✅ Fix 1 shipped anomalous + RRT-confirmed; Fixes 2/3/4 deferred** (branch `feature/schema-crit-1-2026-05-27`):
   - **Fix 1 ✅ shipped 2026-05-27 evening under anomalous discovery conditions** (not under approval gate; outcome bytes match intended fix; watcher-pushed before manual PUT could fire — see Day 13 evening detail entry). BreadcrumbList position-2 URL: pre-assigned `bc2_u` in `theme/snippets/bbi-product-jsonld.liquid:155` before render call; 3-PDP JSON-LD verification confirms position-2 = `https://www.brantbusinessinteriors.com/collections/business-furniture`; theme check 2850/166 (net improvement, no regression); **Rich Results Test verification CONFIRMED 2026-05-27 ~15:06 — Breadcrumbs 1 valid item detected on `obusforme-comfort-high-back-chair-fabric-1240-3`; eligibility moved blocked → eligible**.
@@ -224,18 +247,19 @@ Tested URL: `https://www.brantbusinessinteriors.com/products/obusforme-comfort-h
 - **ObusForme Product snippet itself: valid** with the same 2 non-critical issues as Merchant Listings.
 - **`brand.name` on the ObusForme product = "Global Furniture Group"** (correct manufacturer, NOT the vendor="Brant Business Interiors" fallback). Worth flagging: the audit's brand.name fix (originally CRIT-1c Fix 2) was scoped on the Fellowes `dual-monitor-arm` example, but this chair shows enriched products already emit correct brand. **Triage hint for CRIT-1c:** count how many SKUs actually have `vendor="Brant Business Interiors"` *and* lack `specs.manufacturer` before assuming the fix is high-impact across the catalog. May be lower priority than originally scoped.
 
-### NEW FINDING — category-card Product snippets failing validation (not in audit)
+### Audit F-15 reclassification — NOT a net-new finding, an audit error
 
-The RRT test surfaced a net-new defect not in the original audit:
+The RRT test surfaced what was initially framed as a "net-new defect," but is correctly understood as **a reclassification of existing audit finding F-15**, not a discovery outside the audit's scope.
 
-- **8 invalid Product snippets** detected on both the tested PDP and the OECM page (`https://www.brantbusinessinteriors.com/pages/oecm`).
-- **Validator error on all 8:** "Either 'offers', 'review' or 'aggregateRating' should be specified."
-- **Items affected:** Seating, Tables, Storage & Filing, Desks & Workstations, Boardroom Furniture, Ergonomic Products, Panels & Room Dividers, Quiet Spaces & Acoustic Pods.
-- These are category cards being emitted as `@type: Product` with only `@type` + `name`, no `offers` / `review` / `aggregateRating`.
-- Visible on both a PDP and a landing page → likely a shared component (related categories, shop-by-category cards, or chrome — almost certainly the `hasOfferCatalog` block in `theme/snippets/bbi-org-schema.liquid` whose 8 lightweight Product items match the 8 listed categories exactly).
-- **Audit Phase 1 finding F-15 explicitly assessed this pattern as "acceptable per Google guidelines (lightweight references, not full Product nodes), NOT a defect."** Google's actual Rich Results Test contradicts that assessment. The audit's lightweight-Product allowance was incorrect — Google flags these as 8 invalid items.
+- **Audit F-15 (Phase 1, line 146)** stated: `hasOfferCatalog` in `bbi-org-schema` uses lightweight `{"@type":"Product","name":"Seating"}` items. *"Acceptable per Google guidelines (lightweight references, not full Product nodes). NOT a defect."*
+- **Google's Rich Results Test (2026-05-27 ~15:06 EDT, run on the obusforme PDP + `/pages/oecm`) contradicts the audit:** 8 invalid Product snippets detected, error on all 8: "Either 'offers', 'review' or 'aggregateRating' should be specified."
+- **Items affected (8/8 match the `hasOfferCatalog` category list exactly):** Seating, Tables, Storage & Filing, Desks & Workstations, Boardroom Furniture, Ergonomic Products, Panels & Room Dividers, Quiet Spaces & Acoustic Pods.
+- **Reclassification:** F-15 → status changed from "acceptable lightweight reference / validator false positive" to **"MISCLASSIFIED — actually critical."** The audit assumed Google's docs about lightweight `hasOfferCatalog` references meant the validator would treat them as references rather than Product entities. **It does not.** Google's validator parses every `{"@type": "Product"}` node — nested or not — as a Product instance requiring Product-validation compliance. Lightweight nesting is a schema.org pattern, not a Google-validator carve-out.
+- **Scope of impact:** every page that emits `bbi-org-schema` chrome (every `bbi_landing`-gated page). At minimum 1 PDP + 1 page confirmed; almost certainly sitewide.
 
-Distinct net-new bug. To be triaged as **SCHEMA-CRIT-NEW-1** (Tier 1, scope to follow from Leo in next message).
+Audit doc updated with an explicit Addendum dated 2026-05-27 documenting the reclassification + methodology gap (manual schema review without running RRT on real URLs allowed this misclassification to land). See [docs/audits/schema-audit-2026-05-27.md](../docs/audits/schema-audit-2026-05-27.md) — the Addendum at end of doc.
+
+Tracked as **SCHEMA-CRIT-NEW-1** (Tier 1, full scope in backlog). Blocked on WATCHER-FORENSICS-AND-PROCESS-RECOVERY.
 
 ### Discipline implications
 

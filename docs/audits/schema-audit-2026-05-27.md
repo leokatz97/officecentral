@@ -143,7 +143,7 @@ These pages emit only the sitewide `Organization`/`LocalBusiness`/`WebSite` chro
 
 **F-14. About + Contact pages emit no `AboutPage` / `ContactPage`.** These are weak signal classes but cheap to add and aid entity disambiguation.
 
-**F-15. `hasOfferCatalog` in `bbi-org-schema` uses lightweight `{"@type":"Product","name":"Seating"}` items.** Acceptable per Google guidelines (lightweight references, not full Product nodes). NOT a defect.
+**F-15. `hasOfferCatalog` in `bbi-org-schema` uses lightweight `{"@type":"Product","name":"Seating"}` items.** Acceptable per Google guidelines (lightweight references, not full Product nodes). NOT a defect.  **[RECLASSIFIED 2026-05-27 ~15:06 — MISCLASSIFIED. Google's Rich Results Test flags all 8 items as invalid Product snippets ("Either 'offers', 'review' or 'aggregateRating' should be specified"). See Addendum at end of document. Tracked as SCHEMA-CRIT-NEW-1.]**
 
 **F-16. `LocalBusiness.priceRange` is set on the dedicated emitter only.** The combined Org+LocBus in `bbi-org-schema` omits `priceRange`. Both should have it for consistency. WARN.
 
@@ -304,3 +304,43 @@ The Python validator (`validate.py`) over-reports on `hasOfferCatalog` nested Of
 
 Branch: `feature/schema-audit-2026-05-27` (off `feature/post-steve-cleanup-2026-05-27` @ `119ac93`).
 Commit will be created with this audit document + validation artifacts.
+
+---
+
+## Addendum — 2026-05-27 ~15:06 EDT — F-15 reclassification
+
+**Author:** Claude under Leo's direction, post-SCHEMA-CRIT-1 Fix 1 Rich Results Test verification.
+**Trigger:** Google Rich Results Test run on `https://www.brantbusinessinteriors.com/products/obusforme-comfort-high-back-chair-fabric-1240-3` and `https://www.brantbusinessinteriors.com/pages/oecm` via [search.google.com/test/rich-results](https://search.google.com/test/rich-results).
+
+### Finding F-15 was misclassified
+
+The original audit (Phase 1, line 146) stated:
+
+> F-15. `hasOfferCatalog` in `bbi-org-schema` uses lightweight `{"@type":"Product","name":"Seating"}` items. **Acceptable per Google guidelines** (lightweight references, not full Product nodes). **NOT a defect.**
+
+That assessment was wrong. Google's Rich Results Test, run on a real BBI page on 2026-05-27 ~15:06 EDT, returned **8 invalid Product snippets** with the error:
+
+> "Either 'offers', 'review' or 'aggregateRating' should be specified."
+
+The 8 items map exactly to the 8 categories in `bbi-org-schema.liquid`'s `hasOfferCatalog` block: Seating, Tables, Storage & Filing, Desks & Workstations, Boardroom Furniture, Ergonomic Products, Panels & Room Dividers, Quiet Spaces & Acoustic Pods.
+
+### Why the audit was wrong
+
+The audit assumed Google's documentation about "lightweight references inside `hasOfferCatalog`" meant Google's validator would treat them as references rather than Product instances. **It does not.** Google's validator parses every `{"@type": "Product"}` node — whether nested in `hasOfferCatalog` or top-level — as a Product entity that must satisfy Product validation rules. Lightweight nesting is a *schema.org pattern* but not a Google validator carve-out.
+
+### Reclassification
+
+| Field | Original audit | Reclassified |
+|---|---|---|
+| Severity | NOT a defect | **CRITICAL — invalid schema sitewide** |
+| Scope | bbi-org-schema only | **Every page that includes `bbi-org-schema` chrome** (i.e. every `bbi_landing`-gated page — homepage, all PDPs, all collections, all `/pages/*` BBI landing pages). Confirmed visible on at minimum 1 PDP + 1 page; almost certainly sitewide. |
+| Rich result impact | Assumed none | Blocks the affected pages from being treated as clean Product/Organization snippet sources by Google. 8 invalid Product nodes per page is a meaningful entity-graph noise signal. |
+| Fix tracking | None | **SCHEMA-CRIT-NEW-1** (Tier 1, in `BBI-Session-Kickoff/bbi-build-state.md` Day 13 evening entry) |
+
+### Follow-up
+
+SCHEMA-CRIT-NEW-1 (full scope in build-state) will diagnose the emitter, choose between `OfferCatalog`-typed items / `ItemList` / minimal-offers Product, apply the fix under the standard approval gate, and re-verify on the same 2 RRT URLs. This work is **blocked on WATCHER-FORENSICS-AND-PROCESS-RECOVERY** landing first.
+
+### Methodology note for future audits
+
+The Phase 2 "Rich Results eligibility (per surface)" table (Phase 2, lines 158-170) was assessed by manual review of captured JSON-LD against documented Google requirements. It did NOT include running Google's actual Rich Results Test on representative URLs. That methodology gap is what allowed F-15's misclassification to land. Any future schema audit should treat manual review as a hypothesis-generator and require at least one real RRT run per surface class before publishing eligibility verdicts.
