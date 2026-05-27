@@ -14,6 +14,104 @@
 
 - **STEVE-PRIORITY-CHANGES-2026-05-27 ✅** — Three Steve-requested visual changes + a speed-optimization pass shipped on LIVE in a single sequential chain with exact-match approval halts between phases, pre-write backups, byte-match verification, and a single theme-check baseline (2852/166) held across 7 production write rounds. Detail entry below.
 
+## 🧹 Day 13 afternoon — 2026-05-27
+
+- **POST-STEVE-CLEANUP-2026-05-27 ✅** — Repo state-correction + post-launch backlog finalization. LOCAL `templates/index.json` synced to v5 seating tile (morning's commit `cfe918f` captured LOCAL state BEFORE the 10:13 IMG-1 re-fix, leaving v4/v5 divergence between LOCAL and LIVE). No production write needed — LIVE self-corrected via a third Theme-Editor stale-cache event at 13:15:38 during Steve/Leo Admin session between 12:38 and 13:15. Forensic byte-comparison confirmed the drift was a single surgical v4→v5 substitution (`LIVE NOW == LIVE pre-drift + v4→v5 substitution`, sha256 `37d77715b37b367a`). 3-tier post-launch backlog finalized. Detail entry below.
+
+---
+
+## 🧹 POST-STEVE-CLEANUP-2026-05-27 ✅ 2026-05-27 afternoon (Day 13)
+
+Repo state-correction + post-launch backlog finalization. No production theme write needed — LIVE self-corrected externally during the prep window. Branch `feature/post-steve-cleanup-2026-05-27` off `feature/steve-priority-changes-2026-05-27 @ 21c0e2a`.
+
+### Task A — HP-SHOP-TILES-REFIX-v5
+
+**Premise at session start (13:13 EDT):**
+- LIVE `templates/index.json` bbi-shop seating tile = `bbi-coll-img-seating-hero-v4.jpg` (incorrect — needed v5)
+- LOCAL `templates/index.json` bbi-shop seating tile = v4 (matches LIVE; morning's commit `cfe918f` captured pre-re-fix state)
+- `/collections/seating` page hero (separate template) = v5 (correct, untouched)
+
+**Forensic drift discovery (mid-session, 13:16 EDT):**
+- LIVE `updated_at` baseline at preflight (13:13): `2026-05-27T12:38:47-04:00` (Phase-4-extended write)
+- LIVE `updated_at` at pre-write re-check (13:16): `2026-05-27T13:15:38-04:00` — drifted during prep window
+- Single asset bumped: `templates/index.json` only (verified via assets-list filter `updated_at > 12:38:50`)
+- LIVE NOW size 25952B (escaped JSON form, same byte count as pre-drift)
+- Byte-equivalence proof: `LIVE NOW == LIVE pre-drift + v4→v5 character-level substitution` (sha256 `37d77715b37b367a` ≡ `37d77715b37b367a`)
+- Interpretation: Steve/Leo were in Shopify Admin between 12:38 and 13:15 (Leo confirmed); a Theme-Editor save flushed a cached v5 state to LIVE — mirror image of this morning's IMG-1 reverse-revert at 09:57:27. Third Theme-Editor stale-cache event today on the same `bbi-shop` `custom_liquid` field.
+
+**Decision:** Skip production PUT, commit LOCAL only. LIVE was already in the desired end state; pushing LOCAL would only rewrite JSON escape form (cosmetic, same `JSON re-escaping artifact pattern from earlier launch sessions` noted in build-state) and bump `updated_at` without semantic gain.
+
+**Commit:** `c9ec186` — 1 file, 1 line, scope: `bbi-coll-img-seating-hero-v4.jpg` → `bbi-coll-img-seating-hero-v5.jpg` in LOCAL `theme/templates/index.json:42` only. Other tiles (desks/storage/boardroom) unchanged. Backup `data/backups/hp-shop-refix-pre-20260527-131533/{index.json.LIVE, index.json.LOCAL}` (both captured the v4 pre-state for any future forensic recovery).
+
+### Theme-Editor stale-cache pattern — full day tally
+
+Three byte-substantive events on `bbi-shop` section's `custom_liquid` field, plus three timestamp-only drifts on other templates:
+
+| Time | Asset | Direction | Effect |
+|---|---|---|---|
+| 09:57:27 | templates/index.json | IMG-1 reverse-revert (v5→v4) | Required 10:13 re-fix |
+| 10:13:21 | templates/index.json | IMG-1 re-fix PUT (v4→v5) + width=1920 opt | LIVE correct; morning commit didn't capture in LOCAL |
+| 13:15:38 | templates/index.json | Steve/Leo Admin reverse-reverse-revert (v4→v5) | LIVE corrected; this commit syncs LOCAL |
+
+Plus three morning timestamp-only drifts (08:40:10 collection.seating.json + index.json, 08:52:03 collection.ergonomic-products.json, 09:25:11 four IMG-3 templates).
+
+### LIVE 186373570873 updated_at trail — full day
+
+```
+2026-05-26T20:33:23  (post-PRODUCTION-HOTFIX-1 baseline)
+2026-05-27T08:37:23  IMG-1 (morning seating + homepage tile)
+2026-05-27T08:40:10  Theme-Editor save (timestamp-only)
+2026-05-27T08:51:18  IMG-2 (ergonomic)
+2026-05-27T08:52:03  Theme-Editor save (timestamp-only)
+2026-05-27T09:22:41  IMG-3 (5 education refs)
+2026-05-27T09:25:11  Theme-Editor save (timestamp-only)
+2026-05-27T09:54:03  IMG-4 (homepage hero)
+2026-05-27T09:57:27  IMG-1 reverse-revert (SUBSTANTIVE)
+2026-05-27T10:13:21  IMG-1 re-fix + width=1920 opt
+2026-05-27T11:03:42  STEVE Phase 1 base CSS
+2026-05-27T11:15:37  STEVE Phase 1 extended (33 files single PUT cycle)
+2026-05-27T11:23:29  STEVE Phase 2 PDP price
+2026-05-27T12:24:15  STEVE Phase 3 collection reorder
+2026-05-27T12:30:51  STEVE Phase 4 (20 ds-lp-* fetchpriority)
+2026-05-27T12:38:47  STEVE Phase 4 extended (ds-cc-base fetchpriority)
+2026-05-27T13:15:38  Steve/Leo Theme-Editor save (SUBSTANTIVE — v4→v5 self-correction)
+```
+
+Monotonic, every bump accounted for. No unauthorized writes.
+
+### Safety
+- **Theme-check baseline:** held at `2852/166` EXACTLY across all 8 production write rounds today (1 morning width=1920 PUT + 7 STEVE-PRIORITY phase PUTs). Today's afternoon Task A had no theme write — baseline carried from STEVE-PRIORITY close-out; current LIVE state is byte-equivalent to that baseline + v4→v5 substitution.
+- **ROLLBACK 178274435385:** `unpublished` throughout, untouched.
+- **All commits/PRs today (4):**
+  - `cfe918f` MORNING-IMAGE-SWAPS-2026-05-27 (4 image swaps + width=1920 opt)
+  - `21c0e2a` STEVE-PRIORITY-CHANGES-2026-05-27 (3 visual changes + speed pass, 35 files)
+  - `c9ec186` POST-STEVE-CLEANUP-2026-05-27 Task A (LOCAL state sync, no PUT)
+  - this build-state commit
+
+### POST-LAUNCH BACKLOG — 3-tier finalized
+
+**Tier 1 (Week 1, high priority):**
+- **HOTFIX-SCHEMA-AUDIT-1** — visitor acquisition foundation. Verify all schema emitters (Product, Organization, LocalBusiness, BlogPosting, FAQPage, BreadcrumbList, GovernmentService, Service, HowTo) post-launch on LIVE; surface any rendering anomalies vs the pre-launch DEV state. ~60-90 min.
+- **HP-SHOP-TILES-REFACTOR** — move homepage "Shop the catalog" tile URLs out of `bbi-shop` section's `custom_liquid` raw HTML into `image_picker` schema settings (or a proper Liquid section using `image_url` filter calls). Eliminates the stale-cache regression failure mode that surfaced 3 times today on this exact field. ~30-60 min.
+- **OECM-TRUST-ALT-TEXT** — `theme/sections/ds-lp-oecm.liquid:515` `trust_image_2` has hardcoded alt "Brantford General waiting area OECM install" but the image is now the Artcobell classroom photo (post-IMG-3 swap). Replace with setting-driven alt (best) or content-accurate alt that doesn't claim specific install provenance (e.g., "Modern collaborative classroom with active-learning seating and modular tables") — the photo's actual provenance as a BBI OECM install is unverified and the "Artcobell installation" framing would carry the same risk as the current Brantford General claim. ~5 min.
+
+**Tier 2 (Week 1, medium priority):**
+- **PREFLIGHT-V2-BYTE-PRIMARY** — upgrade preflight check to use byte-content / sha256 as the primary safety signal, with `updated_at` timestamp as secondary. Today's drift events bumped timestamps but were sometimes byte-only (JSON re-escape) and sometimes substantive (v4↔v5 substitutions); a byte-primary check would distinguish them automatically and avoid spurious HALTs. ~30 min.
+- **PERFORMANCE-MEASUREMENT-DISCIPLINE** — for fast pages (Perf > 90 / LCP < 1s) Lighthouse single-run variance can exceed 500ms, causing false-positive regressions (the Phase-4-extended ds-cc-base trigger today was one such case). Adopt multi-run averaging (3 runs, median LCP) when sub-second moves are at stake. Process change ~10 min to document; ongoing discipline thereafter.
+- **STORAGE-COLLECTION-COLD-CACHE** — `/collections/storage` measured Perf 78 / LCP 2187ms in the STEVE-PRIORITY Phase-4 Lighthouse spot-check (vs Perf 95-98 / LCP < 1500ms on every other measured collection). Root cause flagged as cold-cache origin response (`server-response-time: 558ms`, `network-server-latency: 1067ms`) — not fetchpriority-fixable. Re-measure after traffic warms the edge cache; if persists, investigate storage's section block content or backend data pattern. ~30 min.
+- **WORKING-TREE-CLEANUP** — repo working tree carries pre-existing uncommitted state surfaced at Task A start: modified `.claude/launch.json` + many untracked directories and files (`data/working/*` from morning + Day 11 sessions, `BBI-Session-Kickoff copy/`, `Industry/`, `Leo/`, `Product Enrichment/`, `bbi-images-v2/`, `bbi-logo-v2.png` at repo root, several `data/reports/*` from today's tier-a-triage work, `data/strategy/_path-z-*` pickle/JSON, etc). Audit pass + commit/gitignore/delete sweep needed to leave the repo clean. ~30 min.
+
+**Tier 3 (Week 2-3, polish):**
+- **SEATING-COLLECTION-HERO-V6** — current seating hero v5 is a canvas-expanded mesh-back chair on white (functional but catalog-shot, not lifestyle). Source proper lifestyle seating image when Steve provides a photo. ~30 min once source is in hand.
+- **HOMEPAGE-HERO-WIDTH-1200** — deferred optimization from STEVE-PRIORITY Phase 4-C. Homepage hero currently delivered at `?width=1920` (471KB after Shopify CDN resize). Drop to `?width=1200` (~250KB) only if LCP regression observed post-traffic-warm; today's homepage Perf 96 / LCP 1317ms is comfortably under CWV targets so don't trade desktop quality preemptively. ~5 min when needed.
+
+**Closed items (this session):**
+- **AVADA-LOGO-CLEANUP** ✅ closed 2026-05-27 — `New_OC_BBI_Logo-raster_x320.png` Avada-era reference was already gone from `theme/`, `config/`, `settings_data.json`, and rendered HTML by the time STEVE-PRIORITY Phase 4-A ran the audit. Likely self-resolved during FAVICON-1 + SEO-AUDIT-1 work yesterday. No remaining references.
+- **EDU-HERO-FETCHPRIORITY** ✅ closed 2026-05-27 — STEVE-PRIORITY Phase 4-B added `fetchpriority: 'high'` to every `ds-lp-*` hero `image_tag` using `loading: 'eager'` (20 files) + Phase 4-B-extended added it to `ds-cc-base.liquid:631` (collection hero applying to 12 BBI collection templates). All 21 hero image tags across BBI landing pages + collection pages now carry the hint. Education page LCP improvement: 1735-2124ms → 1270ms (-600ms typical).
+
+### Branch
+`feature/post-steve-cleanup-2026-05-27` (off `feature/steve-priority-changes-2026-05-27 @ 21c0e2a`).
+
 ---
 
 ## 🎨 STEVE-PRIORITY-CHANGES-2026-05-27 ✅ 2026-05-27 midday (Day 13)
