@@ -55,3 +55,7 @@ docs/reviews/*.png
 
 # Timestamped build-state backups — keep current bbi-build-state.md, ignore .bak-* snapshots
 BBI-Session-Kickoff/bbi-build-state.md.bak-*
+
+# Forensic LIVE theme snapshots — meta/manifests committed, payload kept locally
+# (payload contains theme/config/settings_data.json which is gitignored elsewhere too)
+data/forensics/*/snapshot/

@@ -18,6 +18,10 @@
 
 - **POST-STEVE-CLEANUP-2026-05-27 ✅** — Repo state-correction + post-launch backlog finalization. LOCAL `templates/index.json` synced to v5 seating tile (morning's commit `cfe918f` captured LOCAL state BEFORE the 10:13 IMG-1 re-fix, leaving v4/v5 divergence between LOCAL and LIVE). No production write needed — LIVE self-corrected via a third Theme-Editor stale-cache event at 13:15:38 during Steve/Leo Admin session between 12:38 and 13:15. Forensic byte-comparison confirmed the drift was a single surgical v4→v5 substitution (`LIVE NOW == LIVE pre-drift + v4→v5 substitution`, sha256 `37d77715b37b367a`). 3-tier post-launch backlog finalized. Detail entry below.
 
+## 🛑 Day 13 evening — 2026-05-27
+
+- **SCHEMA-CRIT-1 Fix 1 + WATCHER-DISCOVERY-2026-05-27 ⚠️** — SCHEMA-CRIT-1 session started clean (branch off audit `63c9596`, pre-session checks all passed: LIVE updated_at `13:15:38-04:00`, theme-check baseline `2852/166`, canonical source `theme/snippets/bbi-product-jsonld.liquid` confirmed). Local `Edit` applied Fix 1 (BreadcrumbList position-2 URL: pre-assigned `bc2_u` before render call, matching surrounding `bc3_u` pattern). Pre-PUT `updated_at` re-check detected drift to `14:24:14-04:00` — LIVE asset `bbi-product-jsonld.liquid` had bumped to byte-identical state as LOCAL (sha256 `4fe3c703…`) before any PUT was authorized. Root cause: long-running `shopify theme dev` watcher (PID 28041, started 2026-05-11) bound to `--theme=186373570873` (LIVE main) auto-PUT every local Edit under `theme/**` for 16 days. Approval phrase `fire schema-crit-1 fix-1` was issued but Claude's manual PUT never executed — the watcher had already promoted the change. Session halted, watcher killed (confirmed no other shopify processes), full LIVE theme snapshotted to `data/forensics/2026-05-27-watcher-discovery/` (359 assets, 6.2MB; 311 md5-matched LIVE server checksum, 48 JSON files showing known re-escape wire-format variance). **Fix 1 shipped under anomalous discovery conditions — outcome bytes match the intended fix and 3-PDP verification confirms correctness, but the change was not delivered under the approval gate.** Theme check post-fix `2850/166` — file count unchanged, 2 `UnusedAssign` warnings on the edited file incidentally cleared (theme-check shifts when filter chains are pulled into named assigns); zero new offences. Fix 2/3/4 explicitly deferred — process recovery comes first. Detail entry below.
+
 ---
 
 ## 🧹 POST-STEVE-CLEANUP-2026-05-27 ✅ 2026-05-27 afternoon (Day 13)
@@ -90,14 +94,34 @@ Monotonic, every bump accounted for. No unauthorized writes.
 
 ### POST-LAUNCH BACKLOG — 3-tier finalized
 
-**Tier 1 (Week 1, high priority):**
-- **HOTFIX-SCHEMA-AUDIT-1 ✅ audit complete, fixes deferred** — comprehensive read-only schema audit completed 2026-05-27 afternoon on branch `feature/schema-audit-2026-05-27`. 12 emitter files cataloged (3 sitewide chrome + 9 section-level), 23 LIVE surfaces validated, 19 distinct fix items identified across 5 CRIT / 5 HIGH / 6 MED / 3 POLISH severity. Full report: [docs/audits/schema-audit-2026-05-27.md](../docs/audits/schema-audit-2026-05-27.md). Top critical findings: (1) PDP BreadcrumbList position-2 URL is broken — emits homepage URL instead of `/collections/business-furniture`, breaking Breadcrumb rich result on every PDP; (2) Collection pages emit no `ItemList` / `CollectionPage` — no product-carousel rich result on ~22 collections; (3) Industry/segment landing pages (healthcare, education, government, non-profit, professional-services, industries hub) emit no surface-specific schema — chrome-only despite being highest-value B2B SEO pages; (4) PDPs missing Merchant Listings fields (`priceValidUntil`, `hasMerchantReturnPolicy`, `shippingDetails`, `itemCondition`); (5) PDP `brand.name` falls back to `product.vendor` = "Brant Business Interiors" on many SKUs causing manufacturer misattribution in SERP (e.g. dual-monitor-arm shows BBI as brand, actual brand Fellowes); (6) `booster-seo.liquid` is dead code carrying 5 unrendered duplicate-schema JSON-LD blocks (footgun, delete). Suggested execution: 4 fix sessions across 1-2 weeks (SCHEMA-CRIT-1/2/3 + SCHEMA-POLISH-1). No theme writes performed in audit session.
-- **HP-SHOP-TILES-REFACTOR** — move homepage "Shop the catalog" tile URLs out of `bbi-shop` section's `custom_liquid` raw HTML into `image_picker` schema settings (or a proper Liquid section using `image_url` filter calls). Eliminates the stale-cache regression failure mode that surfaced 3 times today on this exact field. ~30-60 min.
-- **OECM-TRUST-ALT-TEXT** — `theme/sections/ds-lp-oecm.liquid:515` `trust_image_2` has hardcoded alt "Brantford General waiting area OECM install" but the image is now the Artcobell classroom photo (post-IMG-3 swap). Replace with setting-driven alt (best) or content-accurate alt that doesn't claim specific install provenance (e.g., "Modern collaborative classroom with active-learning seating and modular tables") — the photo's actual provenance as a BBI OECM install is unverified and the "Artcobell installation" framing would carry the same risk as the current Brantford General claim. ~5 min.
-- **SCHEMA-CRIT-1** (spun off from HOTFIX-SCHEMA-AUDIT-1) — fix PDP BreadcrumbList position-2 URL (`bbi-product-jsonld.liquid:163-165` — `bc_base | append: '/collections/business-furniture'` resolves to bare `bc_base` at render-call; likely fix is to assign into a local var before passing); add Merchant Listing fields to PDP `offers` (`priceValidUntil` today+90d, `itemCondition: NewCondition`, `hasMerchantReturnPolicy`, `shippingDetails` — confirm BBI return + shipping policies with Steve first); fix PDP `brand.name` fallback to prefer `product.metafields.specs.manufacturer` over `product.vendor`; delete dead `theme/snippets/booster-seo.liquid`. Single PR bundling 4 small snippet edits. ~60-90 min.
-- **SCHEMA-CRIT-2** (spun off from HOTFIX-SCHEMA-AUDIT-1) — add `Service` schema to industry/segment landing pages (healthcare, education, government, non-profit, professional-services, industries hub) — new reusable snippet `bbi-service-jsonld.liquid` rendered from 6 `ds-lp-*` sections, mirroring `ds-lp-delivery.liquid` pattern with `@id` ref to `#organization`; convert OECM + Quote `provider` redeclarations to `@id` references (consistency w/ delivery/relocation pattern); add `OfferCatalog` within each industry Service listing representative product categories. ~90-120 min.
-- **SCHEMA-CRIT-3** (spun off from HOTFIX-SCHEMA-AUDIT-1) — add `ItemList` / `CollectionPage` schema to `ds-cc-base.liquid` (iterate `collection.products` limit ~20, emit `ListItem` w/ name + URL + image); convert collection FAQPage from conditional-on-blocks to always-on with 3 default Q&As when blocks empty (mirror Source Office Furniture pattern). Covers ~22 BBI collection pages. ~60-90 min.
-- **SCHEMA-POLISH-1** (spun off from HOTFIX-SCHEMA-AUDIT-1) — add `Blog` schema to `/blogs/news` (`ds-blog-list.liquid`); add `Brand` schema to 6 manufacturer pages (`/pages/brands-{ergocentric,global-teknion,heartwood,keilhauer,obusforme,otg}`); convert PDP `offers.seller` to `@id` reference; convert `BlogPosting.publisher` to `@id` reference; add `AboutPage`/`ContactPage` typing; add `priceRange: "$$"` to combined Org+LocBus emitter; add `agreementID`/Certification for OECM 2025-470. ~45-60 min.
+**Tier 1 (Week 1, high priority) — REORDERED 2026-05-27 evening after watcher discovery. WATCHER-FORENSICS gates all SCHEMA work; no further SCHEMA-CRIT writes until forensics + preflight script land.**
+
+- **WATCHER-FORENSICS-AND-PROCESS-RECOVERY 🛑 TOP OF STACK** (Tier 1, ~1-2h) — `shopify theme dev --theme=186373570873` watcher (PID 28041) running since 2026-05-11 bound to LIVE main. Every edit in `theme/**` for 16 days was silently auto-PUT to LIVE within seconds of file save. Discovered 2026-05-27 ~14:25 during SCHEMA-CRIT-1 Fix 1 approval-gate breach. Watcher killed. Forensic LIVE snapshot at `data/forensics/2026-05-27-watcher-discovery/`. **Scope:**
+  1. **LIVE-vs-git diff pass.** For every file in `theme/**` that exists in both the forensic snapshot and `git HEAD`: byte-compare. Surface every drift. Categorize: (a) JSON re-escape artifact — logically identical, ignore; (b) known intended LIVE-only state (e.g. Theme Editor section settings) — document, ignore; (c) unexplained drift — investigate.
+  2. **Retroactive reconciliation of today's "drift events."** Re-examine the 3 substantive drift events on `templates/index.json` `bbi-shop` section that were attributed to Theme Editor cache flushes (09:57:27 v5→v4, 10:13:21 v4→v5, 13:15:38 v4→v5). With the watcher now known, was each event actually a watcher-pushed local file edit? Cross-reference local file mtimes against LIVE updated_at deltas from today's session logs.
+  3. **Pre-session check script.** New `scripts/preflight-watcher-check.sh` that: fails loud (exit 1) if any `shopify theme dev` process exists; fails loud if any `shopify theme` process is bound to a `--theme=` matching a `role=main` theme; outputs the bound theme ID for human verification if any watcher exists; is wired into the existing `01-safety-preflight.md` workflow as a mandatory pre-write step.
+  4. **Operational doc update.** Add section to `BBI-Session-Kickoff/` (or wherever discipline doc lives): "Watchers and auto-push: never run `shopify theme dev` against a `role=main` theme. Use a dev theme. The pre-session preflight check enforces this." Include the incident summary as a footnote so future sessions understand why the check exists.
+  5. **Memory edit applied 2026-05-27 by Claude** — Leo's permanent memory now includes [feedback_preflight_watcher_check.md](../-/...) ("Before any approval-gated production write session on BBI/Shopify, check for running `shopify theme dev` watchers"). No further action needed on this item.
+
+  Outputs: `docs/forensics/2026-05-27-watcher-incident.md` (incident report + drift findings + retroactive reconciliation results), `scripts/preflight-watcher-check.sh`, updated operational doc. No production writes. Branch: `feature/watcher-forensics-2026-05-27` off `main` (or off CRIT-1 branch if not yet merged).
+
+- **HOTFIX-SCHEMA-AUDIT-1 ✅ audit complete, fixes split between shipped + deferred** — comprehensive read-only schema audit completed 2026-05-27 afternoon on branch `feature/schema-audit-2026-05-27`. 12 emitter files cataloged (3 sitewide chrome + 9 section-level), 23 LIVE surfaces validated, 19 distinct fix items identified across 5 CRIT / 5 HIGH / 6 MED / 3 POLISH severity. Full report: [docs/audits/schema-audit-2026-05-27.md](../docs/audits/schema-audit-2026-05-27.md). Top critical findings: (1) PDP BreadcrumbList position-2 URL is broken — emits homepage URL instead of `/collections/business-furniture`, breaking Breadcrumb rich result on every PDP **[SHIPPED 2026-05-27 evening, anomalous]**; (2) Collection pages emit no `ItemList` / `CollectionPage` — no product-carousel rich result on ~22 collections; (3) Industry/segment landing pages (healthcare, education, government, non-profit, professional-services, industries hub) emit no surface-specific schema — chrome-only despite being highest-value B2B SEO pages; (4) PDPs missing Merchant Listings fields (`priceValidUntil`, `hasMerchantReturnPolicy`, `shippingDetails`, `itemCondition`); (5) PDP `brand.name` falls back to `product.vendor` = "Brant Business Interiors" on many SKUs causing manufacturer misattribution in SERP (e.g. dual-monitor-arm shows BBI as brand, actual brand Fellowes); (6) `booster-seo.liquid` is dead code carrying 5 unrendered duplicate-schema JSON-LD blocks (footgun, delete). Suggested execution: 4 fix sessions across 1-2 weeks (SCHEMA-CRIT-1/2/3 + SCHEMA-POLISH-1). No theme writes performed in audit session.
+
+- **HP-SHOP-TILES-REFACTOR** — move homepage "Shop the catalog" tile URLs out of `bbi-shop` section's `custom_liquid` raw HTML into `image_picker` schema settings (or a proper Liquid section using `image_url` filter calls). Eliminates the stale-cache regression failure mode that surfaced 3 times today on this exact field — though see WATCHER-FORENSICS scope item 2: those 3 events may actually have been watcher-pushed local edits rather than Theme-Editor cache flushes. Re-scope this work after WATCHER-FORENSICS reconciliation. ~30-60 min.
+
+- **OECM-TRUST-ALT-TEXT** — `theme/sections/ds-lp-oecm.liquid:515` `trust_image_2` has hardcoded alt "Brantford General waiting area OECM install" but the image is now the Artcobell classroom photo (post-IMG-3 swap). Replace with setting-driven alt (best) or content-accurate alt that doesn't claim specific install provenance (e.g., "Modern collaborative classroom with active-learning seating and modular tables") — the photo's actual provenance as a BBI OECM install is unverified and the "Artcobell installation" framing would carry the same risk as the current Brantford General claim. ~5 min. **Blocked on WATCHER-FORENSICS** — any new `theme/**` edit requires the preflight check to land first.
+
+- **SCHEMA-CRIT-1 — PARTIAL ✅ Fix 1 shipped anomalous; Fixes 2/3/4 deferred** (branch `feature/schema-crit-1-2026-05-27`):
+  - **Fix 1 ✅ shipped 2026-05-27 evening under anomalous discovery conditions** (not under approval gate; outcome bytes match intended fix; watcher-pushed before manual PUT could fire — see Day 13 evening detail entry). BreadcrumbList position-2 URL: pre-assigned `bc2_u` in `theme/snippets/bbi-product-jsonld.liquid:155` before render call; 3-PDP JSON-LD verification confirms position-2 = `https://www.brantbusinessinteriors.com/collections/business-furniture`; theme check 2850/166 (net improvement, no regression); Rich Results Test verification PENDING (Leo to run manually).
+  - **SCHEMA-CRIT-1b (Merchant Listing fields — Fix 3)** — `priceValidUntil` (today+1y), `itemCondition: NewCondition` on PDP `offers`. Deferred. ~15 min once WATCHER-FORENSICS lands. (`hasMerchantReturnPolicy` + `shippingDetails` further deferred — gated on return-policy + shipping-policy pages going live; needs Steve sign-off.)
+  - **SCHEMA-CRIT-1c (brand.name fallback chain — Fix 2)** — Option B chain: `product.metafields.specs.manufacturer` → `product.vendor` (if not "Brant Business Interiors") → omit `brand` property entirely. Deferred. ~10 min once WATCHER-FORENSICS lands.
+  - **SCHEMA-CRIT-1d (delete dead booster-seo.liquid — Fix 4)** — pre-flight grep across `snippets/`, `sections/`, `templates/`, `layout/`, `blocks/`, `config/` for any reference. If zero refs, `rm theme/snippets/booster-seo.liquid`. Theme check baseline must hold. Deferred. ~5 min once WATCHER-FORENSICS lands. (Acknowledged: root `snippets/booster-seo.liquid` is Starlite legacy — out of scope; flagged for a Tier 2B housekeeping pass.)
+
+- **SCHEMA-CRIT-2** (spun off from HOTFIX-SCHEMA-AUDIT-1) — add `Service` schema to industry/segment landing pages (healthcare, education, government, non-profit, professional-services, industries hub) — new reusable snippet `bbi-service-jsonld.liquid` rendered from 6 `ds-lp-*` sections, mirroring `ds-lp-delivery.liquid` pattern with `@id` ref to `#organization`; convert OECM + Quote `provider` redeclarations to `@id` references (consistency w/ delivery/relocation pattern); add `OfferCatalog` within each industry Service listing representative product categories. ~90-120 min. **Blocked on WATCHER-FORENSICS.**
+
+- **SCHEMA-CRIT-3** (spun off from HOTFIX-SCHEMA-AUDIT-1) — add `ItemList` / `CollectionPage` schema to `ds-cc-base.liquid` (iterate `collection.products` limit ~20, emit `ListItem` w/ name + URL + image); convert collection FAQPage from conditional-on-blocks to always-on with 3 default Q&As when blocks empty (mirror Source Office Furniture pattern). Covers ~22 BBI collection pages. ~60-90 min. **Blocked on WATCHER-FORENSICS.**
+
+- **SCHEMA-POLISH-1** (spun off from HOTFIX-SCHEMA-AUDIT-1) — add `Blog` schema to `/blogs/news` (`ds-blog-list.liquid`); add `Brand` schema to 6 manufacturer pages (`/pages/brands-{ergocentric,global-teknion,heartwood,keilhauer,obusforme,otg}`); convert PDP `offers.seller` to `@id` reference; convert `BlogPosting.publisher` to `@id` reference; add `AboutPage`/`ContactPage` typing; add `priceRange: "$$"` to combined Org+LocBus emitter; add `agreementID`/Certification for OECM 2025-470. ~45-60 min. **Blocked on WATCHER-FORENSICS.**
 
 **Tier 2 (Week 1, medium priority):**
 - **PREFLIGHT-V2-BYTE-PRIMARY** — upgrade preflight check to use byte-content / sha256 as the primary safety signal, with `updated_at` timestamp as secondary. Today's drift events bumped timestamps but were sometimes byte-only (JSON re-escape) and sometimes substantive (v4↔v5 substitutions); a byte-primary check would distinguish them automatically and avoid spurious HALTs. ~30 min.
@@ -115,6 +139,108 @@ Monotonic, every bump accounted for. No unauthorized writes.
 
 ### Branch
 `feature/post-steve-cleanup-2026-05-27` (off `feature/steve-priority-changes-2026-05-27 @ 21c0e2a`).
+
+---
+
+## 🛑 SCHEMA-CRIT-1 Fix 1 + WATCHER-DISCOVERY-2026-05-27 ⚠️ 2026-05-27 evening (Day 13)
+
+**Fix 1 (BreadcrumbList position-2 URL) shipped under anomalous discovery conditions** — outcome bytes match intended fix, but change was promoted to LIVE by a long-running auto-push watcher *before* the approval phrase authorized a manual PUT. The session pivoted from sequential-write execution to incident response, forensic snapshot, watcher kill, and process-recovery backlog work. Fix 2 / Fix 3 / Fix 4 explicitly deferred to next session. Branch `feature/schema-crit-1-2026-05-27` off `feature/schema-audit-2026-05-27 @ 63c9596` (audit not yet in main).
+
+### Pre-session — all checks passed
+
+- Branch base decision: audit commit `63c9596` not yet in main → branched off audit branch (per session prompt).
+- LIVE theme verified: 186373570873 ("BBI Landing Dev", role=main), `updated_at=2026-05-27T13:15:38-04:00` ✓ matches prompt-stated baseline.
+- Rollback theme verified: 178274435385 ("BBI Live", role=unpublished) ✓.
+- Theme-check baseline `2852/166` (2048 errors + 804 warnings) ✓ matches prompt invariant.
+- Canonical source path: file lives only at `theme/snippets/bbi-product-jsonld.liquid` — root `snippets/` is 98 Starlite-legacy snippets (no `bbi-*` files); push script `bbi-push-landing.py` operates on `theme/`. Prompt's `snippets/bbi-product-jsonld.liquid` shorthand confirmed to mean the theme/ canonical.
+- Pre-write backup created: `data/backups/2026-05-27-schema-crit-1/{bbi-product-jsonld.liquid.pre-fix1, booster-seo.liquid.pre-delete}` (booster-seo backed up though Fix 4 ultimately deferred).
+- Discipline gap (now closed by feedback memory `feedback_preflight_watcher_check.md`): pre-session did NOT check for running `shopify theme dev` watchers. This gap is what allowed the breach.
+
+### Fix 1 local edit + breach detection
+
+**Local edit applied** at ~14:23 EDT: 1 line added (`{%- assign bc2_u = bc_base | append: '/collections/business-furniture' -%}` before render), 1 render arg changed (`bc2_url: bc_base | append: '/collections/business-furniture'` → `bc2_url: bc2_u`). Matches the existing `bc3_u` pre-assign pattern used elsewhere in the file. Implements audit recommendation C-1 verbatim.
+
+**Approval phrase proposed:** `fire schema-crit-1 fix-1` — Leo confirmed approach with two adjustments (Rich Results Test mandatory; root `snippets/booster-seo.liquid` out of scope as Starlite legacy) and authorized via embedded-phrase form.
+
+**Pre-PUT updated_at re-check (immediately before manual PUT) caught drift:**
+- Pre-session updated_at: `2026-05-27T13:15:38-04:00`
+- Pre-PUT updated_at:    `2026-05-27T14:24:14-04:00`
+- DRIFT — investigated immediately, no PUT issued.
+
+**Asset-level investigation revealed the bumped asset was `snippets/bbi-product-jsonld.liquid` itself**, size 7029 bytes, server-side `updated_at=2026-05-27T14:24:13-04:00` (one second before the theme bump). The byte content was identical to Claude's LOCAL post-edit file: sha256 `4fe3c703fab0e62b4c253a82f2669c181f06a6da73e257f5a5e06c4b5591e66b` on both LIVE and LOCAL; pre-fix backup sha256 `21e0156f31312e53f0928a18b069844a28c92900fc68d9d4c40f4274e1742a9f`.
+
+Claude's command history had no PUT — only Edit/Read/diff/ls/cp/curl-GET. Something else in the environment had pushed.
+
+### Root cause — orphaned `shopify theme dev` watcher
+
+`ps aux | grep shopify` revealed:
+
+```
+leokatz  28041  3.4 0.1 469873920 9392 ??  SN  11May26 518:31.35
+  node /opt/homebrew/bin/shopify theme dev
+       --store=office-central-online
+       --theme=186373570873          ← LIVE main
+       --port=9292
+```
+
+A `shopify theme dev` watcher running since 2026-05-11 (16 days), bound directly to the LIVE main theme. Every local edit under `theme/**` in this repo had been auto-PUT to LIVE within seconds for the entire 16-day window — including but not limited to today's Fix 1 attempt.
+
+### Containment + forensic snapshot
+
+- **14:30 EDT — watcher killed.** PID 28041 confirmed dead via `ps -p 28041` (exit 1). No other shopify processes running.
+- **14:30+ EDT — full LIVE theme snapshot taken** to `data/forensics/2026-05-27-watcher-discovery/`:
+  - `meta/theme.json` — theme metadata at snapshot time
+  - `meta/assets-index.json` — 359-asset index with server checksums + sizes + updated_at
+  - `snapshot/` — every asset downloaded (mirror of LIVE theme tree, 6.2 MB total)
+  - `meta/snapshot-manifest.json` — per-asset sha256 + md5 + size + live-md5-match flag
+  - `README.md` — incident timeline + directory key + immutable-evidence notice
+- Snapshot integrity: 311/359 assets md5-match LIVE server checksum byte-exactly; the 48 mismatches are all `.json` files (config/settings_*, templates/*) showing the known JSON re-escape wire-format variance (semantically identical, documented pattern from earlier today's drift log).
+- Snapshot byte-confirmed for the audited file: `data/forensics/.../snapshot/snippets/bbi-product-jsonld.liquid` sha256 = LIVE sha256 = LOCAL sha256 = `4fe3c703…`.
+
+### Fix 1 verification (post-watcher-kill, Fix 1 only — verified for record, NOT to authorize further fixes)
+
+| Check | Result |
+|---|---|
+| LIVE bytes vs intended Fix 1 bytes | byte-identical (sha256 `4fe3c703…`) |
+| 3-PDP JSON-LD pull (seating / desking / storage) | All 3 emit `position 2: name='Shop Furniture' item='https://www.brantbusinessinteriors.com/collections/business-furniture'` |
+| BreadcrumbList block parses on all 3 PDPs | ✓ 4 positions each, well-formed |
+| Theme check post-fix | **2850/166** (file count unchanged; 2 `UnusedAssign` warnings on the edited file incidentally cleared by static-analysis shift when filter chain pulled into named assign; zero new offences anywhere) |
+| Rich Results Test | **PENDING — Leo to run manually**. URLs at /tmp/fix1-pdp-picks; goal: Breadcrumb result moves blocked → eligible |
+
+PDPs sampled: `obusforme-comfort-high-back-chair-fabric-1240-3` (seating), `height-adjustable-table-5-sizes` (desking), `pedestal-box-box-file-with-or-without-wheels` (storage).
+
+### Discipline implications
+
+- **Outcome correctness:** Fix 1 bytes on LIVE are exactly what the approval gate would have produced. The intended fix is in place.
+- **Process integrity:** Failed. The `fire schema-crit-1 fix-1` approval phrase was issued but Claude's PUT never executed because the watcher beat it. The gate was bypassed, even if intent and outcome aligned.
+- **Scope of the historical breach:** Any local `Edit` under `theme/**` from 2026-05-11 through 2026-05-27 14:30 was auto-promoted to LIVE main without an approval gate. This is the scope WATCHER-FORENSICS-AND-PROCESS-RECOVERY must reconcile.
+- **Re-attribution candidates:** The 3 "Theme-Editor stale-cache" events on `templates/index.json` `bbi-shop` section in today's drift log (09:57:27 v5→v4, 10:13:21 v4→v5, 13:15:38 v4→v5) all happened during periods of human + Claude activity in the repo. With the watcher now known, some or all may actually have been watcher-pushed local edits rather than Theme-Editor saves. Retroactive reconciliation is in scope for WATCHER-FORENSICS.
+
+### LIVE 186373570873 updated_at trail — Day 13 evening additions
+
+```
+2026-05-27T13:15:38  Steve/Leo Theme-Editor save (substantive — v4→v5 self-correction, per afternoon Task A) — OR watcher-pushed Claude edit (re-investigate)
+2026-05-27T14:24:13  WATCHER-PUSHED Fix 1 — snippets/bbi-product-jsonld.liquid (unauthorized; outcome bytes match approval-intent)
+2026-05-27T14:24:14  theme updated_at rolled
+```
+
+No other writes to LIVE in this session.
+
+### Safety
+
+- **Theme-check baseline:** held at `2852/166` through pre-session; landed at `2850/166` post-watcher-pushed-Fix-1 — improvement-only delta, both warnings cleared on the edited file, zero new offences. File count unchanged (166).
+- **ROLLBACK 178274435385:** `unpublished` throughout, untouched.
+- **No Theme Editor opened by Claude.** Phone hard-refresh discipline preserved.
+- **Watcher status now:** dead. Preflight memory saved so future sessions check before any approval-gated work.
+- **No PUTs issued by Claude this session.** All LIVE bytes traceable to the orphaned watcher.
+
+### POST-LAUNCH BACKLOG — Tier 1 reordered
+
+**WATCHER-FORENSICS-AND-PROCESS-RECOVERY is now Tier 1 top-of-stack, before any SCHEMA-CRIT-1b / CRIT-2 / CRIT-3 / POLISH-1 work resumes.** SCHEMA-CRIT-1 itself is split: Fix 1 shipped (anomalous), Fix 2 / 3 / 4 deferred. Updated Tier 1 below.
+
+### Commit + branch
+
+Branch: `feature/schema-crit-1-2026-05-27` off `feature/schema-audit-2026-05-27 @ 63c9596`. Commit message acknowledges the discipline breach explicitly. Pushed to origin; PR opened against `main` (will require audit branch to merge first or be retargeted).
 
 ---
 
