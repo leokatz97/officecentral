@@ -12,6 +12,8 @@
 - **SEO-AUDIT-1 ✅** — pre-launch SEO hard gate passed (see entry below). LAUNCH-0 cleared.
 - **LAUNCH-0/1/2 ✅** — BBI theme published to LIVE (see LAUNCH-CHAIN entry below). Avada demoted to `unpublished`. brantbusinessinteriors.com now serving BBI.
 - **PRODUCTION-HOTFIX-1 ✅** — 4 production bugs caught + fixed post-publish in the same chain (search-icon strikethrough, PDP CTA black-on-black, OECM strip pink→ink, defensive logo asset).
+- **LAUNCH-3 ✅** — GSC sitemap re-submitted + GA4 Realtime traffic confirmed (commit `ea98842`).
+- **LAUNCH-4 ✅** — multi-browser smoke 30/30 functional pass on Chromium + WebKit (5 URLs × 6 viewports) + Leo manual browser test passed + 24h monitor playbook saved to `docs/plan/launch-4-24h-monitor-2026-05-26.md`. Launch chain closed.
 
 ---
 
@@ -98,9 +100,62 @@ After LAUNCH-2 verification passed, Leo's manual phone testing surfaced 3 more i
 - **SEARCH-ICON-WEBKIT-APPEARANCE** — `<input type="search">` has `webkit-appearance: auto` with `::-webkit-search-cancel-button { display: block }`. iOS Safari renders a native "X" clear button inside the input once user types — out of scope for this hotfix but worth tightening to fully-custom-styled input post-launch.
 - **HP-OECM-TINT-AUDIT** — two remaining `#FBECEC` usages in `bbi-homepage.css` (`.bbi-hp-ph--avatar:588`, `.hp-case__year:658`) — verify they still look right on the homepage after the `.hp-oecm` swap; the case-study year pill especially since it sits in a different visual context now.
 - **DEV-LIGHTHOUSE-COOKIE-SESSION** — DataForSEO MCP strips `preview_theme_id` during redirect. For future DEV-Lighthouse measurements, run Lighthouse locally via `npx lighthouse` or use a different MCP that can preserve cookies.
+- **AVIS-OPTIONS-APP-NOISE** — third-party Shopify app **APO Product Options v1.7.163.31** (`avis-options` extension) throws `Cannot read properties of null (reading 'createDocumentFragment')` and 404s on `/products/undefined.js` + `/products/please-select-a-finish-1.js` on every PDP, across both Chromium and WebKit. Surfaced during LAUNCH-4 multi-browser smoke. Pre-existing app (was installed under Avada), not theme. Decision: keep / configure / uninstall.
+- **24h monitor playbook** — first-24h tactical checklist saved at `docs/plan/launch-4-24h-monitor-2026-05-26.md` (cadence: every 2h / morning / afternoon / evening + red flags + rollback procedure). Complements the strategic horizon doc at `docs/plan/post-launch-monitoring.md`.
 
 ### Branch
 `feature/launch-chain-2026-05-26` (off `feature/seo-audit-1 @ 72b4908`).
+
+---
+
+## 🌐 LAUNCH-4 ✅ 2026-05-26 evening (Day 12+, after LAUNCH-3)
+
+Multi-browser smoke + 24h monitor playbook setup. Final step in the launch chain.
+
+### Phase A — Multi-browser smoke (30 cells)
+
+Playwright Chromium + WebKit running 5 URLs × 6 viewport+engine combos = **30 render checks**, all on LIVE `brantbusinessinteriors.com`. Critical render checks (HTTP 200, title sane, body >10kb, header logo with non-zero dimensions, footer present, Quote CTA visible, nav element appropriate to viewport width, computed-style spot checks for PDP CTA contrast + OECM strip background) **passed on all 30 cells**.
+
+URLs tested: `/`, `/pages/oecm`, `/collections/seating`, `/products/boardroom-table-rectangular-94-5x47-25`, `/pages/quote`.
+
+Engines × viewports:
+- Chromium 1920×1080 / 1280×800 / 412×915 (Pixel 7 emulation, DPR 2.625, touch)
+- WebKit 1920×1080 / 393×852 (iPhone 14 Pro emulation, DPR 3, touch, iOS Safari UA) / 768×1024 (iPad Mini emulation, DPR 2, touch)
+
+**Fix-2 + Fix-3 regression verification across all PDP/homepage cells:**
+- PDP CTA computed style: `color: rgb(255, 255, 255)` on `bg: rgb(11, 11, 12)` — Fix-2 holding ✓
+- `.hp-oecm` computed background: `rgb(11, 11, 12)` — Fix-3 holding ✓
+
+**Header logo:** 148×44 on most URLs, 121×36 on `/pages/quote` (reasonable for both — same asset, different surface).
+
+### Noise identified (NOT theme regressions)
+
+- **30/30 cells: `shop.app/pay/hop` CSP frame-block (403).** Shopify-injected iframe blocked by Shopify's own CSP. Universal across all Shopify stores; would be identical on Avada. Ignore.
+- **6/30 PDP cells: third-party app errors.** APO Product Options v1.7.163.31 (`avis-options` extension) throws `Cannot read properties of null (reading 'createDocumentFragment')` + 404s on `/products/undefined.js` + `/products/please-select-a-finish-1.js`. Pre-existing app from Avada-era. Logged as **AVIS-OPTIONS-APP-NOISE** in POST-LAUNCH BACKLOG.
+- **OECM page title** doesn't contain "Brant"/"BBI" but is intentional SEO copy (`OECM Office Furniture Supplier – Agreement 2025-470`, approved in SEO-AUDIT-1). Reclassified as PASS.
+
+### Phase A artifacts
+
+- `data/working/launch-chain-2026-05-26/launch-4-multibrowser/smoke.py` — 30-cell Playwright runner
+- `data/working/launch-chain-2026-05-26/launch-4-multibrowser/smoke-matrix.json` — full per-cell results
+- `data/working/launch-chain-2026-05-26/launch-4-multibrowser/smoke-matrix.md` — human-readable matrix + footnotes
+- `data/working/launch-chain-2026-05-26/launch-4-multibrowser/diag-errors.py` + `diag-errors.json` — drill-down identifying the 401/403/404/JS error sources
+
+### Halt L4.1 — Leo manual browser test
+
+Leo confirmed **"browser good"** after Phase A — Firefox/Chrome-Android spot-check passed for header logo, nav dropdown, Quote modal, PDP rendering, footer.
+
+### Phase B — 24h monitor playbook
+
+Created **`docs/plan/launch-4-24h-monitor-2026-05-26.md`** — tactical first-24h checklist (cadence: every 2h, morning, afternoon, evening) with red-flag thresholds, rollback procedure (Shopify Admin path + Admin API path), and a Section 5 pointer to Week 1 priorities. Complements (does not duplicate) the strategic horizon doc at `docs/plan/post-launch-monitoring.md` which already covered Hour 0–24 through Day 30+ at a higher level.
+
+### Safety
+
+- **Phase A is read-only** — Playwright headless against LIVE URLs only, no Admin API writes.
+- **Phase B is documentation-only** — created one new markdown file under `docs/plan/`, edited only `BBI-Session-Kickoff/bbi-build-state.md` (this file). Zero theme writes; LIVE `updated_at` unchanged from Fix-3 timestamp `2026-05-26T20:33:23-04:00`.
+
+### Branch
+`feature/launch-chain-2026-05-26` — LAUNCH-4 closure commit pending.
 
 ---
 

@@ -1,0 +1,71 @@
+{
+  "homepage": {
+    "non200_resources": [
+      {
+        "url": "https://shop.app/pay/hop?analytics_trace_id=caf9f5f0-cdaf-4501-995d-03bd305bd7ab&target_origin=https%3A%2F%2Fwww.brantbusinessinteriors.com&client_handle=office-central-online.myshopify.com",
+        "status": 403,
+        "type": "document"
+      }
+    ],
+    "console_errors": [
+      {
+        "type": "error",
+        "text": "Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' https://shop.app https://admin.shopify.com\". The request has been blocked.\n",
+        "location": "{'url': '', 'lineNumber': 0, 'columnNumber': 0}"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 403 ()",
+        "location": "{'url': 'chrome-error://chromewebdata/', 'lineNumber': 0, 'columnNumber': 0}"
+      }
+    ],
+    "page_errors": []
+  },
+  "pdp": {
+    "non200_resources": [
+      {
+        "url": "https://www.brantbusinessinteriors.com/products/undefined.js",
+        "status": 404,
+        "type": "fetch"
+      },
+      {
+        "url": "https://shop.app/pay/hop?analytics_trace_id=e249915d-ebb8-480e-b386-e199009beda6&target_origin=https%3A%2F%2Fwww.brantbusinessinteriors.com&client_handle=office-central-online.myshopify.com",
+        "status": 403,
+        "type": "document"
+      },
+      {
+        "url": "https://www.brantbusinessinteriors.com/products/please-select-a-finish-1.js",
+        "status": 404,
+        "type": "fetch"
+      }
+    ],
+    "console_errors": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 ()",
+        "location": "{'url': 'https://www.brantbusinessinteriors.com/products/undefined.js', 'lineNumber': 0, 'columnNumber': 0}"
+      },
+      {
+        "type": "error",
+        "text": "Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' https://shop.app https://admin.shopify.com\". The request has been blocked.\n",
+        "location": "{'url': '', 'lineNumber': 0, 'columnNumber': 0}"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 403 ()",
+        "location": "{'url': 'chrome-error://chromewebdata/', 'lineNumber': 0, 'columnNumber': 0}"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 ()",
+        "location": "{'url': 'https://www.brantbusinessinteriors.com/products/please-select-a-finish-1.js', 'lineNumber': 0, 'columnNumber': 0}"
+      }
+    ],
+    "page_errors": [
+      {
+        "msg": "Cannot read properties of null (reading 'createDocumentFragment')",
+        "stack": "Uncaught (in promise) TypeError: Cannot read properties of null (reading 'createDocumentFragment')\n    at xe (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/jquery-3.6.0.min.js:1:38940)\n    at He (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/jquery-3.6.0.min.js:1:47895)\n    at prepend (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/jquery-3.6.0.min.js:1:49866)\n    at eC (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/apo-product-options-v3.min.js:233:17342)\n    at eP (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/apo-product-options-v3.min.js:295:5109)\n    at add (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/apo-product-options-v3.min.js:232:33625)\n    at <anonymous> (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/apo-product-options-v3.min.js:295:31225)\n    at each (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/jquery-3.6.0.min.js:1:3002)\n    at <anonymous> (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/apo-product-options-v3.min.js:295:26635)\n    at eV (https://cdn.shopify.com/extensions/019e65f2-a536-7fb3-940e-ef309ca6897f/avis-options-v1.7.163.31/assets/apo-product-options-v3.min.js:295:25970)"
+      }
+    ]
+  }
+}
