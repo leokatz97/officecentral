@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "ts": "2026-05-26T20:10Z",
+    "form_factor": "desktop (mobile not available via DataForSEO MCP)",
+    "tool": "DataForSEO on_page_lighthouse v13.3.0",
+    "context": "Post-LAUNCH-1: BBI theme now role:main, serving brantbusinessinteriors.com"
+  },
+  "results": {
+    "homepage": {
+      "url": "https://brantbusinessinteriors.com/",
+      "actually_tested": "https://www.brantbusinessinteriors.com/ (after apex→www 301 redirect)",
+      "performance": 99, "accessibility": 88, "best_practices": 96, "seo": 80,
+      "agentic_browsing": 100,
+      "lcp_ms": 781.493, "fcp_ms": 781.493, "cls": null,
+      "max_potential_fid_ms": 39, "speed_index_ms": 1017.027,
+      "total_byte_weight_bytes": 546539,
+      "server_response_time_ms": 7
+    },
+    "oecm": {
+      "url": "https://brantbusinessinteriors.com/pages/oecm",
+      "actually_tested": "https://www.brantbusinessinteriors.com/pages/oecm",
+      "performance": 96, "accessibility": 88, "best_practices": 96, "seo": 80,
+      "agentic_browsing": 100,
+      "lcp_ms": 729.045, "fcp_ms": 586.516, "cls": null,
+      "tbt_ms": 153.5, "max_potential_fid_ms": 96, "speed_index_ms": 1053.826,
+      "total_byte_weight_bytes": 581610,
+      "server_response_time_ms": 10
+    },
+    "seating": {
+      "url": "https://brantbusinessinteriors.com/collections/seating",
+      "actually_tested": "https://www.brantbusinessinteriors.com/collections/seating",
+      "performance": 99, "accessibility": 88, "best_practices": 96, "seo": 80,
+      "agentic_browsing": 100,
+      "lcp_ms": 738.428, "fcp_ms": 594.483, "cls": null,
+      "tbt_ms": 32, "max_potential_fid_ms": 70, "speed_index_ms": 809.237,
+      "total_byte_weight_bytes": 548920,
+      "server_response_time_ms": 8
+    }
+  },
+  "seo_score_caveat": {
+    "raw_score": 80,
+    "real_state": "100 (meta description, title, og:image all verified present via curl with Safari UA)",
+    "explanation": "DataForSEO Lighthouse's bot (HeadlessChrome UA) on apex brantbusinessinteriors.com → 301 → www.brantbusinessinteriors.com. The http-status-code audit registered displayValue=403 somewhere in the redirect chain (likely Cloudflare bot protection on the apex domain) which knocked meta-description audit to score=None and http-status-code to score=None — together those drop the SEO category by 20 points. The actual page renders 200 with full meta+title+og:image for normal visitors.",
+    "verification_command": "curl -s -A 'Mozilla/5.0 ... Safari/605.1.15' https://www.brantbusinessinteriors.com/ | grep -iE '(<meta name=\"description\"|<title>)'",
+    "verified_output": "<title>Office Furniture for Canadian Businesses | Brant Business Interiors</title>; <meta name=\"description\" content=\"Commercial office furniture for Ontario businesses, schools, and institutions. Global Furniture Group, OTG / Offices to Go, Heartwood Manufacturing. OECM Supplier Partner (Agreement 2025-470). Quote in 1 business day.\">"
+  }
+}

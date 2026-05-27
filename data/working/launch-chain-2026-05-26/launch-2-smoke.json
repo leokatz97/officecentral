@@ -1,0 +1,118 @@
+{
+  "smoke": {
+    "/": {
+      "status": 200,
+      "bytes": 409265,
+      "markers_hit": [
+        "Brant",
+        "bbi-header",
+        "Request a Quote"
+      ],
+      "avada_leak": [],
+      "jsonld": true,
+      "liquid_err": false,
+      "pass": true
+    },
+    "/pages/about": {
+      "status": 200,
+      "bytes": 407779,
+      "markers_hit": [
+        "Brant",
+        "bbi-header"
+      ],
+      "avada_leak": [],
+      "jsonld": true,
+      "liquid_err": false,
+      "pass": true
+    },
+    "/pages/oecm": {
+      "status": 200,
+      "bytes": 443239,
+      "markers_hit": [
+        "OECM",
+        "Agreement 2025-470",
+        "bbi-header"
+      ],
+      "avada_leak": [],
+      "jsonld": true,
+      "liquid_err": false,
+      "pass": true
+    },
+    "/collections/seating": {
+      "status": 200,
+      "bytes": 465255,
+      "markers_hit": [
+        "seating",
+        "bbi-header"
+      ],
+      "avada_leak": [],
+      "jsonld": true,
+      "liquid_err": false,
+      "pass": true
+    },
+    "/pages/quote": {
+      "status": 200,
+      "bytes": 452725,
+      "markers_hit": [
+        "Request a Quote",
+        "bbi-quote",
+        "bbi-header"
+      ],
+      "avada_leak": [],
+      "jsonld": true,
+      "liquid_err": false,
+      "pass": true
+    }
+  },
+  "lead_high_2": {
+    "quote_anchor_count": 2,
+    "quote_page_status": 200
+  },
+  "redirects": {
+    "/pages/ergocentric": {
+      "status": 301,
+      "location": "/pages/brands-ergocentric",
+      "expected": "/pages/brands-ergocentric",
+      "pass": true
+    },
+    "/pages/how-to-adjust-my-new-chair": {
+      "status": 301,
+      "location": "/pages/brands-ergocentric",
+      "expected": "/pages/brands-ergocentric",
+      "pass": true
+    }
+  },
+  "favicon": {
+    "//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/favicon.svg?v=107948138268418775011779821312": {
+      "rel": "icon",
+      "error": "unknown url type: '//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/favicon.svg?v=107948138268418775011779821312'"
+    },
+    "//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/favicon-32.png?v=81567736515671115631779821313": {
+      "rel": "icon",
+      "error": "unknown url type: '//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/favicon-32.png?v=81567736515671115631779821313'"
+    },
+    "//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/favicon-16.png?v=164807793118191696211779821313": {
+      "rel": "icon",
+      "error": "unknown url type: '//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/favicon-16.png?v=164807793118191696211779821313'"
+    },
+    "//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/apple-touch-icon.png?v=180230521746327419631779821313": {
+      "rel": "apple-touch-icon",
+      "error": "unknown url type: '//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/apple-touch-icon.png?v=180230521746327419631779821313'"
+    },
+    "//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/site.webmanifest?v=71116259817898740421779821313": {
+      "rel": "manifest",
+      "error": "unknown url type: '//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/site.webmanifest?v=71116259817898740421779821313'"
+    }
+  },
+  "og_image": {
+    "meta_tags": [
+      "//www.brantbusinessinteriors.com/cdn/shop/t/24/assets/og-preview.png?v=19615751831259243781779821313"
+    ],
+    "uses_og_preview": true
+  },
+  "live_sanity": {
+    "current": "2026-05-26T20:08:47-04:00",
+    "launch1_ts": "2026-05-26T20:08:47-04:00",
+    "unchanged": true
+  }
+}

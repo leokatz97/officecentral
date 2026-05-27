@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "ts": "2026-05-26T17:33Z",
+    "form_factor": "desktop",
+    "tool": "DataForSEO on_page_lighthouse v13.3.0",
+    "constraint": "DataForSEO Lighthouse follows the myshopify→custom-domain redirect and strips the `preview_theme_id` query param (see `mainDocumentUrl` in each item). Result: these scores measure whichever theme is `role:main` at run time (currently LIVE Avada at 178274435385), NOT the DEV theme. The DEV theme cannot be Lighthouse-tested via this MCP because the cookie session can't be preserved. The same constraint affected SEO-AUDIT-1 today; the chain proceeds with this baseline labeled honestly. After LAUNCH-1, BBI becomes role:main and a re-run on the same URLs WILL test the BBI theme — that's the meaningful comparison."
+  },
+  "results": {
+    "homepage": {
+      "url": "https://office-central-online.myshopify.com/?preview_theme_id=186373570873&_ab=0&_fd=0&_sc=1",
+      "actually_tested": "https://office-central-online.myshopify.com/?_ab=0&_fd=0&_sc=1 (LIVE Avada)",
+      "performance": 97,
+      "accessibility": 92,
+      "best_practices": 73,
+      "seo": 100,
+      "lcp_ms": 890.286,
+      "fcp_ms": 438.946,
+      "cls": 0.059,
+      "max_potential_fid_ms": 39,
+      "speed_index_ms": 1422.006,
+      "total_byte_weight_bytes": 3188789,
+      "server_response_time_ms": 635
+    },
+    "oecm": {
+      "url": "https://office-central-online.myshopify.com/pages/oecm?preview_theme_id=186373570873&_ab=0&_fd=0&_sc=1",
+      "actually_tested": "https://office-central-online.myshopify.com/pages/oecm?_ab=0&_fd=0&_sc=1 (LIVE Avada)",
+      "performance": 91,
+      "accessibility": 92,
+      "best_practices": 73,
+      "seo": 100,
+      "lcp_ms": 1538.412,
+      "fcp_ms": 874.041,
+      "cls": 0.006,
+      "max_potential_fid_ms": 34,
+      "speed_index_ms": 1744.877,
+      "total_byte_weight_bytes": 3110799,
+      "server_response_time_ms": 817
+    },
+    "seating": {
+      "url": "https://office-central-online.myshopify.com/collections/seating?preview_theme_id=186373570873&_ab=0&_fd=0&_sc=1",
+      "actually_tested": "https://office-central-online.myshopify.com/collections/seating?_ab=0&_fd=0&_sc=1 (LIVE Avada)",
+      "performance": 92,
+      "accessibility": 92,
+      "best_practices": 73,
+      "seo": 100,
+      "lcp_ms": 1396.347,
+      "fcp_ms": 859.671,
+      "cls": 0,
+      "max_potential_fid_ms": 43,
+      "speed_index_ms": 1791.532,
+      "total_byte_weight_bytes": 3103372,
+      "server_response_time_ms": 897
+    }
+  }
+}

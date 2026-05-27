@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "ts": "2026-05-26T20:15Z",
+    "important_framing": "The 'DEV baseline' from Phase 0.C is actually pre-publish LIVE (Avada), because DataForSEO Lighthouse stripped the preview_theme_id query param. The 'LIVE post-publish' is BBI. Therefore this table compares OLD Avada → NEW BBI theme on the same 3 URLs, which is more informative than a DEV→LIVE production-parity check (the chain's original intent)."
+  },
+  "comparison": {
+    "homepage": {
+      "Performance": {"before_avada": 97, "after_bbi": 99, "delta": 2},
+      "Accessibility": {"before_avada": 92, "after_bbi": 88, "delta": -4},
+      "Best Practices": {"before_avada": 73, "after_bbi": 96, "delta": 23},
+      "SEO_raw": {"before_avada": 100, "after_bbi": 80, "delta": -20, "note": "BBI SEO real state = 100 (meta-desc + title + og:image verified). The -20 is a DataForSEO bot 403 in redirect chain — measurement artifact, not regression."},
+      "LCP_ms": {"before_avada": 890, "after_bbi": 781, "delta": -109},
+      "FCP_ms": {"before_avada": 439, "after_bbi": 781, "delta": 342},
+      "CLS": {"before_avada": 0.059, "after_bbi": null, "delta": "n/a"},
+      "Total_byte_weight_KB": {"before_avada": 3114, "after_bbi": 534, "delta": -2580}
+    },
+    "oecm": {
+      "Performance": {"before_avada": 91, "after_bbi": 96, "delta": 5},
+      "Accessibility": {"before_avada": 92, "after_bbi": 88, "delta": -4},
+      "Best Practices": {"before_avada": 73, "after_bbi": 96, "delta": 23},
+      "SEO_raw": {"before_avada": 100, "after_bbi": 80, "delta": -20, "note": "same artifact as above"},
+      "LCP_ms": {"before_avada": 1538, "after_bbi": 729, "delta": -809},
+      "FCP_ms": {"before_avada": 874, "after_bbi": 587, "delta": -287},
+      "CLS": {"before_avada": 0.006, "after_bbi": null, "delta": "n/a"},
+      "Total_byte_weight_KB": {"before_avada": 3038, "after_bbi": 568, "delta": -2470}
+    },
+    "seating": {
+      "Performance": {"before_avada": 92, "after_bbi": 99, "delta": 7},
+      "Accessibility": {"before_avada": 92, "after_bbi": 88, "delta": -4},
+      "Best Practices": {"before_avada": 73, "after_bbi": 96, "delta": 23},
+      "SEO_raw": {"before_avada": 100, "after_bbi": 80, "delta": -20, "note": "same artifact as above"},
+      "LCP_ms": {"before_avada": 1396, "after_bbi": 738, "delta": -658},
+      "FCP_ms": {"before_avada": 860, "after_bbi": 594, "delta": -266},
+      "CLS": {"before_avada": 0, "after_bbi": null, "delta": "n/a"},
+      "Total_byte_weight_KB": {"before_avada": 3031, "after_bbi": 536, "delta": -2495}
+    }
+  }
+}

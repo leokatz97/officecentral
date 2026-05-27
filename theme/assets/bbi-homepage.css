@@ -642,9 +642,11 @@
 .hp-about__glance-item:nth-child(2)::before { background: #2E4A7A; } /* OECM blue */
 .hp-about__glance-item:nth-child(3)::before { background: #1F6E3E; } /* Reach green */
 
-/* OECM bar — subtle accent-tint wash */
-.hp-oecm { background: #FBECEC; } /* --bbi-accent-tint */
-.hp-oecm__copy { opacity: 0.9; }
+/* OECM bar — ink background, white text (canonical palette) */
+.hp-oecm { background: #0B0B0C; border-top-color: #0B0B0C; border-bottom-color: #0B0B0C; }
+.hp-oecm__copy { color: #FAF8F5; opacity: 0.85; }
+.hp-oecm .bbi-badge--oecm { color: #FAF8F5; border-color: rgba(250,248,245,0.6); }
+.hp-oecm .bbi-btn--tertiary { color: #FAF8F5; }
 
 /* Services grid — 2px red accent top border */
 .hp-services__grid { border-top: 2px solid #D4252A; } /* --bbi-accent */
