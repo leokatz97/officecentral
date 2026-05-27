@@ -77,8 +77,8 @@
   --cardBackground: #FFFFFF;
   --textColor: #0B0B0C; --textColor-rgb: 11,11,12;
   --linkColor: #0B0B0C; --headingColor: #0B0B0C; --headingColor-rgb: 11,11,12;
-  --buttonBackground: #0B0B0C; --buttonColor: #FFFFFF; --buttonBorder: #0B0B0C;
-  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --buttonBackground: #D4252A; --buttonColor: #FFFFFF; --buttonBorder: #D4252A;
+  --buttonBackgroundHover: #0B0B0C; --buttonColorHover: #FFFFFF; --buttonBorderHover: #0B0B0C;
   --alternateButtonBackground: #FFFFFF; --alternateButtonColor: #0B0B0C; --alternateButtonBorder: #0B0B0C;
   --alternateButtonBackgroundHover: #0B0B0C; --alternateButtonColorHover: #FFFFFF; --alternateButtonBorderHover: #0B0B0C;
   --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
@@ -339,7 +339,7 @@
       </div>
       <div class="lp-hero__media" aria-hidden="true">
         {%- if section.settings.hero_image != blank -%}
-          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', width: 900, alt: section.settings.hero_image.alt | default: 'Ontario office space planning — Brant Business Interiors' }}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', fetchpriority: 'high', width: 900, alt: section.settings.hero_image.alt | default: 'Ontario office space planning — Brant Business Interiors' }}
         {%- else -%}
           <img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/design-services-product.png?v=1778074380" alt="Ontario office space planning — Brant Business Interiors" loading="eager" width="900">
         {%- endif -%}

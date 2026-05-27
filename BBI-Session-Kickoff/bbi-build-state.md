@@ -10,6 +10,80 @@
 
 - **MORNING-IMAGE-SWAPS-2026-05-27 ✅** — 4 hero images replaced on LIVE in a single chained session with per-image mapping halt + per-image real-device check. 9 references swapped across 8 templates. Exact-match approval discipline, pre-write backups, byte-match verification, theme-check baseline held (2852/166), Lighthouse desktop spot-check on 5 surfaces (all Perf 85-89, all LCP < 2.5s). LAUNCH-1 work fully preserved throughout. Detail entry below.
 
+## 🎨 Day 13 midday — 2026-05-27
+
+- **STEVE-PRIORITY-CHANGES-2026-05-27 ✅** — Three Steve-requested visual changes + a speed-optimization pass shipped on LIVE in a single sequential chain with exact-match approval halts between phases, pre-write backups, byte-match verification, and a single theme-check baseline (2852/166) held across 7 production write rounds. Detail entry below.
+
+---
+
+## 🎨 STEVE-PRIORITY-CHANGES-2026-05-27 ✅ 2026-05-27 midday (Day 13)
+
+Three Steve-requested visual changes + post-change speed optimization, all on LIVE `186373570873` between 10:51 and 12:38 EDT. Exact-match approval discipline (`fire …`, `<phase> good`) at every gate. 7 production write rounds across 35 unique theme files (some edited in multiple rounds). Theme-check baseline `2852/166` held EXACTLY across every write. No regressions.
+
+### Phase 1 — Primary button color invert (sitewide)
+- **Round 1 base CSS** (`bbi-homepage.css`, 11:03:42): inverted `.bbi-btn--primary` rule — `#D4252A` default, `#0B0B0C` hover.
+- **Scope discovery**: 22 scoped overrides in `.lp-*` / `.ds-cc` / `.ds-cs` selectors using `var(--buttonBackground)` masked the base edit on every BBI page.
+- **Round 2 extended** (33 files, 11:15:37): swapped literal hex values in each section's canonical `.scheme-default` block (or equivalent) — `--buttonBackground: #0B0B0C → #D4252A`, `--buttonBorder: #0B0B0C → #D4252A`, `--buttonBackgroundHover: #D4252A → #0B0B0C`, `--buttonBorderHover: #D4252A → #0B0B0C`. Plus `bbi-nav.liquid` header rule (hardcoded hex, not var-based) swapped directly.
+- **Files touched**: `theme/assets/bbi-homepage.css` + 25 STANDARD section files (ds-article, ds-blog-list, ds-cart-base, ds-collection-base, ds-cs-base, ds-lp-{about, brands, brands-ergocentric, brands-global-teknion, brands-heartwood, brands-keilhauer, brands-obusforme, brands-otg, contact, customer-stories, delivery, design-services, faq, oecm, our-work, quote, relocation}, ds-pdp-base, ds-search-results, ds-system-404) + 7 VARIANT section files (`ds-cc-base`, `ds-lp-education`, `ds-lp-government`, `ds-lp-healthcare`, `ds-lp-industries`, `ds-lp-non-profit`, `ds-lp-professional-services` — main scope swapped, `.lp-closer` / `.ds-cc__phone-cta` white-button secondary scopes LEFT UNTOUCHED per design) + `theme/snippets/bbi-nav.liquid`.
+- **Untouched**: all `.scheme-inverse` blocks (light-on-dark sections), `style-variables.liquid` (Shopify-settings-driven), `media-grid.liquid` (block-setting-driven), `.bbi-mobile-nav__quote` (already different reds).
+- **Side effect**: `.bbi-search__pagination span.current` (current-page pill on search pagination) reads `var(--buttonBackground)` so renders red now — semantically correct as "active page" indicator.
+
+### Phase 2 — PDP pricing red + 12.5% size bump
+- **Write** (`ds-pdp-base.liquid:179-186`, 11:23:29): `.pdp-price-row` font-size `22px → 25px`, color added `var(--saleBadgeBackground)` = `#D4252A`. font-weight, font-family, margin unchanged. No `!important`.
+- **Markup**: PDP price element is a single `<div class="pdp-price-row">` — no compare-price strikethrough rendered (compare_at_price is exposed in variant JSON for JS but never displayed). Sale price + regular price get identical red treatment.
+- **NOT changed**: `.pdp-prod-card__price` (related-products card on PDP, font-size 14px black). Collection-grid product card prices on `/collections/*` (separate template). All stay inherited-ink color.
+
+### Phase 3 — Collection page layout reorder
+- **Write** (`ds-cc-base.liquid`, 12:24:15): Liquid block reorder after the hero in `ds-cc-base.liquid`. Sub-cat filter chips (`<nav class="ds-cc__filter-bar">`) + their `_filter_tiles` assign moved ABOVE the 30+brands band + intro text; the Skip-by-sector bar (`<nav class="ds-cc__skip-bar">`) moved BELOW the intro. Tile grid prep assigns stay co-located with the tile grid below. No markup, class names, or schema changes — only block order.
+- **Single-file impact**: all 12 BBI collection templates use this one section (`collection.{accessories, base, boardroom, business-furniture, category, desks, ergonomic-products, panels-room-dividers, quiet-spaces, seating, storage, tables}.json`) — every BBI collection page flipped on a single push.
+- **New order**: hero → sub-cat pills → 30+brands band → intro text → Shop-by-sector pills → tile grid. Buyer's first decision (product subtype) above brand decision (sector) — conversion-flow improvement per Steve's spec.
+- **Render verification**: cache-busted headless fetch on 3 collections (seating, desks, ergonomic-products) all confirmed new DOM order.
+
+### Phase 4 — Speed optimization
+- **A. AVADA-LOGO-CLEANUP → NO-OP** (already gone). Audit found zero `New_OC_BBI_Logo-raster_x320.png` refs in `theme/`, `config/`, `settings_data.json`, or any rendered HTML. Likely self-resolved during FAVICON-1 + SEO-AUDIT-1 work. Logged closed for the backlog.
+- **B. EDU-HERO-FETCHPRIORITY (extended)** (Round 1, 20 files, 12:30:51): added `fetchpriority: 'high'` to every `ds-lp-*` hero `image_tag` that uses `loading: 'eager'`. Files: ds-lp-{about, brands, brands-ergocentric, brands-global-teknion, brands-heartwood, brands-keilhauer, brands-obusforme, brands-otg, delivery, design-services, education, government, healthcare, industries, non-profit, oecm, our-work (photo_1 only — photo_2 left as secondary), professional-services, quote, relocation}. Single attribute insertion per file, no other changes.
+- **B-extended** (Round 2, `ds-cc-base.liquid:631`, 12:38:46): same `fetchpriority: 'high'` attribute added to the collection page hero `image_tag` after a Lighthouse diagnostic on `/collections/seating` (first reading showed an outlier 1883ms LCP that turned out to be measurement variance — re-run gave 997ms — but the collection hero genuinely lacked fetchpriority and warranted the surgical add for architectural consistency with ds-lp-* heroes). All 12 BBI collection page heroes now have the hint.
+- **C. HOMEPAGE-HERO-WIDTH (?width=1200 step-down)** → DEFERRED per spec. Homepage LCP already passing CWV (~1317ms in post-Phase-4 measurement) with `?width=1920` from the morning width-opt fix. Don't trade desktop quality for a passing metric.
+
+### Lighthouse — desktop, on `www.brantbusinessinteriors.com`
+| Page | Morning post-IMG-4 | Post-STEVE | Δ |
+|---|---|---|---|
+| `/` | Perf 89 · LCP 1908ms | Perf 96 · LCP 1317ms | +7 · −591ms |
+| `/collections/desks` | ~Perf 85–90 · ~1400ms | Perf 97 · LCP 1030ms | +~10 · −~370ms |
+| `/collections/seating` | ~Perf 85–90 · ~1400ms | Perf 98 · LCP 1041ms | +~10 · −~360ms |
+| `/collections/ergonomic-products` | n/a | Perf 95 · LCP 1330ms | — |
+| `/collections/boardroom` | n/a | Perf 95 · LCP 1454ms | — |
+| `/collections/storage` | n/a | Perf 78 · LCP 2187ms¹ | — |
+| `/pages/education` | Perf ~85–89 · LCP 1735–2124ms | Perf 96 · LCP 1270ms | +~10 · −~600ms |
+| `/products/dual-monitor-arm` | n/a | Perf 94 · LCP 1478ms | — |
+¹ Storage outlier was cold-cache origin response (`server-response-time: 558ms`, `network-server-latency: 1067ms`) — not fetchpriority-fixable; will warm with traffic.
+
+All Core Web Vitals targets met across the board (`LCP < 2.5s`, `CLS < 0.1` on every measured surface). Best Practices held at 0.73 throughout. Education page is the Phase-4 fetchpriority win (−600ms LCP). Collection page LCPs were already in the ≤1000ms range pre-Phase-4-B-extended, so additional fetchpriority gain was within measurement variance — architectural correctness, not a measurable performance jump.
+
+### Safety
+- **LIVE 186373570873 `updated_at` trail (full session)**: `2026-05-27T10:15:48` (baseline, post-morning-image-swaps) → `11:03:42` (Phase 1 base CSS) → `11:15:37` (Phase 1 extended — 33 files in single PUT cycle) → `11:23:29` (Phase 2 PDP price) → `12:24:15` (Phase 3 collection reorder) → `12:30:51` (Phase 4 — 20 ds-lp-* fetchpriority) → `12:38:46` (Phase 4 extended — ds-cc-base fetchpriority). Monotonic, no unauthorized writes.
+- **Theme-check baseline**: held at `2852/166` EXACTLY across all 7 production write rounds. Zero new offenses introduced.
+- **Pre-write backups**: 5 task-slug backup dirs under `data/backups/`:
+  - `steve-1-buttons-pre-20260527-105048/` (base CSS pre-state)
+  - `steve-1-buttons-extended-pre-20260527-111424/` (33 files pre-state)
+  - `steve-2-pdp-pricing-pre-20260527-112310/` (PDP pricing pre-state)
+  - `steve-3-collection-layout-pre-20260527-122341/` (collection reorder pre-state)
+  - `steve-opt-b-fetchpriority-pre-20260527-123029/` (20 ds-lp-* pre-state)
+  - `steve-opt-b2-cchero-fetchpriority-pre-20260527-123837/` (ds-cc-base pre-state)
+- **All 35 unique theme files verified byte-match LIVE == local** at end of each phase. Cache-busted headless render + cache-busted preview-theme-id fetch confirmed customer-facing render on 8+ pages. Steve's 4 real-device sign-offs (`steve-1 good`, `steve-2 good`, `steve-3 good`, `steve-opt good`) cleared each phase before proceeding.
+
+### Files touched (theme/)
+35 unique files — `assets/bbi-homepage.css` (1) + 33 `sections/*.liquid` (ds-article, ds-blog-list, ds-cart-base, ds-cc-base, ds-collection-base, ds-cs-base, ds-lp-{about, brands, brands-ergocentric, brands-global-teknion, brands-heartwood, brands-keilhauer, brands-obusforme, brands-otg, contact, customer-stories, delivery, design-services, education, faq, government, healthcare, industries, non-profit, oecm, our-work, professional-services, quote, relocation}, ds-pdp-base, ds-search-results, ds-system-404) + 1 `snippets/bbi-nav.liquid`. ds-cc-base was edited in 3 separate rounds (Phase 1 vars, Phase 3 reorder, Phase 4 fetchpriority); ds-pdp-base in 2 rounds (Phase 1 vars, Phase 2 price). All other files edited in 1 round each.
+
+### POST-LAUNCH BACKLOG additions
+- **DEAD-LOGO-PNG (closed)** — the `New_OC_BBI_Logo-raster_x320.png` Avada-era reference flagged in the morning audit is gone from theme, config, and rendered HTML. Likely self-resolved during FAVICON-1 / SEO-AUDIT-1 work yesterday. No action.
+- **HP-OECM-TINT-AUDIT (still open)** — pink `#FBECEC` accents at `bbi-homepage.css:588` (`.bbi-hp-ph--avatar`) and `:658` (`.hp-case__year`) are out of scope for STEVE-* changes; verify visually after the OECM strip hotfix landed yesterday.
+- **STORAGE-COLLECTION-COLD-CACHE** — `/collections/storage` measured 1067ms `network-server-latency` on one Lighthouse run, suggesting an origin cold-cache path; monitor over next few days as edge cache warms. If it persists post-traffic warm-up, look at whether storage has unusual section block content or a heavy first-render hit.
+- **DS-CS-BASE-THUMBNAIL-EAGER** — `ds-cs-base.liquid:326` hero image_tag uses `loading: 'eager'` at `width: 360` (a small thumbnail, not the LCP). Not a fetchpriority candidate; consider switching to `loading: 'lazy'` for a marginal byte saving if/when the page surface is touched again.
+
+### Branch
+`feature/steve-priority-changes-2026-05-27` (off `feature/morning-image-swaps-2026-05-27 @ cfe918f`).
+
 ---
 
 ## 🖼️ MORNING-IMAGE-SWAPS-2026-05-27 ✅ 2026-05-27 morning (Day 13)

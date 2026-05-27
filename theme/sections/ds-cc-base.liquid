@@ -70,10 +70,10 @@
   --textColor:#0B0B0C;--textColor-rgb:11,11,12;
   --linkColor:#0B0B0C;--linkColor-rgb:11,11,12;
   --headingColor:#0B0B0C;--headingColor-rgb:11,11,12;
-  --buttonBackground:#0B0B0C;--buttonBackground-rgb:11,11,12;
+  --buttonBackground:#D4252A;--buttonBackground-rgb:11,11,12;
   --buttonColor:#FFFFFF;--buttonColor-rgb:255,255,255;
-  --buttonBorder:#0B0B0C;
-  --buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;
+  --buttonBorder:#D4252A;
+  --buttonBackgroundHover:#0B0B0C;--buttonColorHover:#FFFFFF;--buttonBorderHover:#0B0B0C;
   --alternateButtonBackground:#FFFFFF;--alternateButtonColor:#0B0B0C;
   --alternateButtonBorder:#0B0B0C;
   --alternateButtonBackgroundHover:#0B0B0C;--alternateButtonColorHover:#FFFFFF;
@@ -629,6 +629,7 @@
         {%- if section.settings.hero_image != blank -%}
           {{- section.settings.hero_image | image_url: width: 840 | image_tag:
               loading: 'eager',
+              fetchpriority: 'high',
               widths: '400,600,840',
               alt: section.settings.hero_title | default: collection.title -}}
         {%- else -%}
@@ -638,47 +639,11 @@
     </div>
   </section>
 
-  {%- comment -%} ── Skip-by-sector bar ── {%- endcomment -%}
-  {%- if section.settings.show_sector_bar -%}
-  <nav class="ds-cc__skip-bar" aria-label="Shop by sector">
-    <div class="ds-cc__inner ds-cc__skip-bar-inner">
-      <span class="ds-cc__skip-bar-lbl bbi-mono">Shop by sector</span>
-      <div class="ds-cc__skip-bar-chips">
-        <a class="ds-cc__skip-chip" href="/pages/healthcare">Healthcare</a>
-        <a class="ds-cc__skip-chip" href="/pages/education">Education</a>
-        <a class="ds-cc__skip-chip" href="/pages/government">Government</a>
-        <a class="ds-cc__skip-chip" href="/pages/non-profit">Non-Profit</a>
-        <a class="ds-cc__skip-chip" href="/pages/professional-services">Professional Services</a>
-      </div>
-    </div>
-  </nav>
-  {%- endif -%}
-
-  {%- comment -%} ── 30+ brands band ── {%- endcomment -%}
-  {%- if section.settings.show_brands_band -%}
-  <div class="ds-cc__brands-band">
-    <div class="ds-cc__inner ds-cc__brands-band-inner">
-      <p class="ds-cc__brands-band-copy">30+ commercial furniture brands across 3 dealer tiers &middot; Ontario OECM partner</p>
-      <a class="ds-cc__brands-band-link" href="/pages/brands">View all brands <span aria-hidden="true">&rarr;</span></a>
-    </div>
-  </div>
-  {%- endif -%}
-
-  {%- comment -%} ── Intro text (hidden when blank) ── {%- endcomment -%}
-  {%- if section.settings.intro_text != blank -%}
-    <section class="ds-cc__intro">
-      <div class="ds-cc__intro-inner">
-        {{ section.settings.intro_text }}
-      </div>
-    </section>
-  {%- endif -%}
-
-  {%- comment -%} ── Tile grid (rendered when grid_mode = tiles | both) ── {%- endcomment -%}
-  {%- assign _grid_mode_tiles = section.settings.grid_mode | default: 'both' -%}
-  {%- assign tile_count = 0 -%}
-  {%- for block in section.blocks -%}
-    {%- if block.type == 'tile' -%}{%- assign tile_count = tile_count | plus: 1 -%}{%- endif -%}
-  {%- endfor -%}
+  {%- comment -%}
+    STEVE-3 2026-05-27: layout reorder. Sub-cat filter chips moved
+    above brands band + intro; sector bar moved below intro.
+    Order: chips → 30+brands → intro → sector → tile grid.
+  {%- endcomment -%}
 
   {%- comment -%} ── Sub-cat filter chips (nav pills, sourced from tile block links) ── {%- endcomment -%}
   {%- assign _filter_tiles = section.blocks | where: 'type', 'tile' -%}
@@ -708,6 +673,48 @@
     </div>
   </nav>
   {%- endif -%}
+
+  {%- comment -%} ── 30+ brands band ── {%- endcomment -%}
+  {%- if section.settings.show_brands_band -%}
+  <div class="ds-cc__brands-band">
+    <div class="ds-cc__inner ds-cc__brands-band-inner">
+      <p class="ds-cc__brands-band-copy">30+ commercial furniture brands across 3 dealer tiers &middot; Ontario OECM partner</p>
+      <a class="ds-cc__brands-band-link" href="/pages/brands">View all brands <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%} ── Intro text (hidden when blank) ── {%- endcomment -%}
+  {%- if section.settings.intro_text != blank -%}
+    <section class="ds-cc__intro">
+      <div class="ds-cc__intro-inner">
+        {{ section.settings.intro_text }}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ── Skip-by-sector bar ── {%- endcomment -%}
+  {%- if section.settings.show_sector_bar -%}
+  <nav class="ds-cc__skip-bar" aria-label="Shop by sector">
+    <div class="ds-cc__inner ds-cc__skip-bar-inner">
+      <span class="ds-cc__skip-bar-lbl bbi-mono">Shop by sector</span>
+      <div class="ds-cc__skip-bar-chips">
+        <a class="ds-cc__skip-chip" href="/pages/healthcare">Healthcare</a>
+        <a class="ds-cc__skip-chip" href="/pages/education">Education</a>
+        <a class="ds-cc__skip-chip" href="/pages/government">Government</a>
+        <a class="ds-cc__skip-chip" href="/pages/non-profit">Non-Profit</a>
+        <a class="ds-cc__skip-chip" href="/pages/professional-services">Professional Services</a>
+      </div>
+    </div>
+  </nav>
+  {%- endif -%}
+
+  {%- comment -%} ── Tile grid prep (rendered when grid_mode = tiles | both) ── {%- endcomment -%}
+  {%- assign _grid_mode_tiles = section.settings.grid_mode | default: 'both' -%}
+  {%- assign tile_count = 0 -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'tile' -%}{%- assign tile_count = tile_count | plus: 1 -%}{%- endif -%}
+  {%- endfor -%}
 
   {%- if _grid_mode_tiles != 'products' -%}
   <section class="ds-cc__tiles-section" aria-labelledby="cc-tiles-heading">

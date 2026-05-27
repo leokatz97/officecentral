@@ -49,10 +49,10 @@
   --textColor:#0B0B0C;--textColor-rgb:11,11,12;
   --linkColor:#0B0B0C;--linkColor-rgb:11,11,12;
   --headingColor:#0B0B0C;--headingColor-rgb:11,11,12;
-  --buttonBackground:#0B0B0C;--buttonBackground-rgb:11,11,12;
+  --buttonBackground:#D4252A;--buttonBackground-rgb:11,11,12;
   --buttonColor:#FFFFFF;--buttonColor-rgb:255,255,255;
-  --buttonBorder:#0B0B0C;
-  --buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;
+  --buttonBorder:#D4252A;
+  --buttonBackgroundHover:#0B0B0C;--buttonColorHover:#FFFFFF;--buttonBorderHover:#0B0B0C;
   --alternateButtonBackground:#FFFFFF;--alternateButtonColor:#0B0B0C;
   --alternateButtonBorder:#0B0B0C;
   --alternateButtonBackgroundHover:#0B0B0C;--alternateButtonColorHover:#FFFFFF;
@@ -365,7 +365,7 @@
       </div>
       <div class="lp-hero__media" aria-hidden="true">
         {%- if section.settings.hero_image != blank -%}
-          {{ section.settings.hero_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: 'Government office furniture by Brant Business Interiors', width: 1200 }}
+          {{ section.settings.hero_image | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', alt: 'Government office furniture by Brant Business Interiors', width: 1200 }}
         {%- else -%}
           <div class="lp-hero__ph">Hero image &middot; 5:4 &middot; upload OCI-Government-Federal-Furniture-Gallery-Image-1.jpg</div>
         {%- endif -%}

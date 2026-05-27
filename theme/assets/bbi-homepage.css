@@ -149,13 +149,14 @@
     .bbi-btn--sm { min-height: 36px; padding: 8px 14px; font-size: 13px; }
     .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
     .bbi-btn--full { width: 100%; }
+    /* STEVE-1 2026-05-27: primary button color invert — red default, black hover */
     .bbi-btn--primary {
-      background: var(--buttonBackground); color: var(--buttonColor);
-      border-color: var(--buttonBorder);
+      background: #D4252A; color: #ffffff;
+      border-color: #D4252A;
     }
     .bbi-btn--primary:hover {
-      background: var(--buttonBackgroundHover); color: var(--buttonColorHover);
-      border-color: var(--buttonBorderHover);
+      background: #0B0B0C; color: #ffffff;
+      border-color: #0B0B0C;
     }
     .bbi-btn--secondary {
       background: var(--alternateButtonBackground); color: var(--alternateButtonColor);
