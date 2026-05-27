@@ -111,8 +111,10 @@ Monotonic, every bump accounted for. No unauthorized writes.
 
 - **OECM-TRUST-ALT-TEXT** — `theme/sections/ds-lp-oecm.liquid:515` `trust_image_2` has hardcoded alt "Brantford General waiting area OECM install" but the image is now the Artcobell classroom photo (post-IMG-3 swap). Replace with setting-driven alt (best) or content-accurate alt that doesn't claim specific install provenance (e.g., "Modern collaborative classroom with active-learning seating and modular tables") — the photo's actual provenance as a BBI OECM install is unverified and the "Artcobell installation" framing would carry the same risk as the current Brantford General claim. ~5 min. **Blocked on WATCHER-FORENSICS** — any new `theme/**` edit requires the preflight check to land first.
 
-- **SCHEMA-CRIT-1 — PARTIAL ✅ Fix 1 shipped anomalous; Fixes 2/3/4 deferred** (branch `feature/schema-crit-1-2026-05-27`):
-  - **Fix 1 ✅ shipped 2026-05-27 evening under anomalous discovery conditions** (not under approval gate; outcome bytes match intended fix; watcher-pushed before manual PUT could fire — see Day 13 evening detail entry). BreadcrumbList position-2 URL: pre-assigned `bc2_u` in `theme/snippets/bbi-product-jsonld.liquid:155` before render call; 3-PDP JSON-LD verification confirms position-2 = `https://www.brantbusinessinteriors.com/collections/business-furniture`; theme check 2850/166 (net improvement, no regression); Rich Results Test verification PENDING (Leo to run manually).
+- **SCHEMA-CRIT-NEW-1 🆕** (Tier 1, scope to follow) — category-card Product snippets failing Google validation (8 invalid items on PDPs + OECM page; "Either 'offers', 'review' or 'aggregateRating' should be specified"). Net-new finding from Fix 1 RRT verification 2026-05-27 ~15:06. Almost certainly the `hasOfferCatalog` block in `bbi-org-schema.liquid` whose 8 lightweight Product items match the 8 affected categories exactly. Audit F-15 had assessed this as "acceptable" but Google's actual validator flags it. Scope to follow from Leo. See Day 13 evening detail entry.
+
+- **SCHEMA-CRIT-1 — PARTIAL ✅ Fix 1 shipped anomalous + RRT-confirmed; Fixes 2/3/4 deferred** (branch `feature/schema-crit-1-2026-05-27`):
+  - **Fix 1 ✅ shipped 2026-05-27 evening under anomalous discovery conditions** (not under approval gate; outcome bytes match intended fix; watcher-pushed before manual PUT could fire — see Day 13 evening detail entry). BreadcrumbList position-2 URL: pre-assigned `bc2_u` in `theme/snippets/bbi-product-jsonld.liquid:155` before render call; 3-PDP JSON-LD verification confirms position-2 = `https://www.brantbusinessinteriors.com/collections/business-furniture`; theme check 2850/166 (net improvement, no regression); **Rich Results Test verification CONFIRMED 2026-05-27 ~15:06 — Breadcrumbs 1 valid item detected on `obusforme-comfort-high-back-chair-fabric-1240-3`; eligibility moved blocked → eligible**.
   - **SCHEMA-CRIT-1b (Merchant Listing fields — Fix 3)** — `priceValidUntil` (today+1y), `itemCondition: NewCondition` on PDP `offers`. Deferred. ~15 min once WATCHER-FORENSICS lands. (`hasMerchantReturnPolicy` + `shippingDetails` further deferred — gated on return-policy + shipping-policy pages going live; needs Steve sign-off.)
   - **SCHEMA-CRIT-1c (brand.name fallback chain — Fix 2)** — Option B chain: `product.metafields.specs.manufacturer` → `product.vendor` (if not "Brant Business Interiors") → omit `brand` property entirely. Deferred. ~10 min once WATCHER-FORENSICS lands.
   - **SCHEMA-CRIT-1d (delete dead booster-seo.liquid — Fix 4)** — pre-flight grep across `snippets/`, `sections/`, `templates/`, `layout/`, `blocks/`, `config/` for any reference. If zero refs, `rm theme/snippets/booster-seo.liquid`. Theme check baseline must hold. Deferred. ~5 min once WATCHER-FORENSICS lands. (Acknowledged: root `snippets/booster-seo.liquid` is Starlite legacy — out of scope; flagged for a Tier 2B housekeeping pass.)
@@ -205,9 +207,35 @@ A `shopify theme dev` watcher running since 2026-05-11 (16 days), bound directly
 | 3-PDP JSON-LD pull (seating / desking / storage) | All 3 emit `position 2: name='Shop Furniture' item='https://www.brantbusinessinteriors.com/collections/business-furniture'` |
 | BreadcrumbList block parses on all 3 PDPs | ✓ 4 positions each, well-formed |
 | Theme check post-fix | **2850/166** (file count unchanged; 2 `UnusedAssign` warnings on the edited file incidentally cleared by static-analysis shift when filter chain pulled into named assign; zero new offences anywhere) |
-| Rich Results Test | **PENDING — Leo to run manually**. URLs at /tmp/fix1-pdp-picks; goal: Breadcrumb result moves blocked → eligible |
+| Rich Results Test | **CONFIRMED 2026-05-27 ~15:06** — Breadcrumbs: **1 valid item detected** on the obusforme PDP. Fix 1 landed cleanly from Google's perspective. Detail block below. |
 
 PDPs sampled: `obusforme-comfort-high-back-chair-fabric-1240-3` (seating), `height-adjustable-table-5-sizes` (desking), `pedestal-box-box-file-with-or-without-wheels` (storage).
+
+### Rich Results Test — 2026-05-27 ~15:06 EDT
+
+Tested URL: `https://www.brantbusinessinteriors.com/products/obusforme-comfort-high-back-chair-fabric-1240-3` via [search.google.com/test/rich-results](https://search.google.com/test/rich-results).
+
+**Fix 1 result: ✓ CONFIRMED.** Breadcrumbs — 1 valid item detected. Position-2 URL fix landed from Google's perspective. Breadcrumb rich result eligibility moved from blocked → eligible on PDPs.
+
+**Other detected items on the same PDP (for the record):**
+- **Merchant listings: 1 valid item, 2 non-critical issues** — missing `shippingDetails` + `hasMerchantReturnPolicy` (exactly the SCHEMA-CRIT-1c-deferred scope; gated on returns + shipping policy pages going live; working as designed).
+- **Local businesses: 2 valid** (combined Org+LocBus + dedicated LocalBusiness emitters).
+- **Organisation: 2 valid.**
+- **ObusForme Product snippet itself: valid** with the same 2 non-critical issues as Merchant Listings.
+- **`brand.name` on the ObusForme product = "Global Furniture Group"** (correct manufacturer, NOT the vendor="Brant Business Interiors" fallback). Worth flagging: the audit's brand.name fix (originally CRIT-1c Fix 2) was scoped on the Fellowes `dual-monitor-arm` example, but this chair shows enriched products already emit correct brand. **Triage hint for CRIT-1c:** count how many SKUs actually have `vendor="Brant Business Interiors"` *and* lack `specs.manufacturer` before assuming the fix is high-impact across the catalog. May be lower priority than originally scoped.
+
+### NEW FINDING — category-card Product snippets failing validation (not in audit)
+
+The RRT test surfaced a net-new defect not in the original audit:
+
+- **8 invalid Product snippets** detected on both the tested PDP and the OECM page (`https://www.brantbusinessinteriors.com/pages/oecm`).
+- **Validator error on all 8:** "Either 'offers', 'review' or 'aggregateRating' should be specified."
+- **Items affected:** Seating, Tables, Storage & Filing, Desks & Workstations, Boardroom Furniture, Ergonomic Products, Panels & Room Dividers, Quiet Spaces & Acoustic Pods.
+- These are category cards being emitted as `@type: Product` with only `@type` + `name`, no `offers` / `review` / `aggregateRating`.
+- Visible on both a PDP and a landing page → likely a shared component (related categories, shop-by-category cards, or chrome — almost certainly the `hasOfferCatalog` block in `theme/snippets/bbi-org-schema.liquid` whose 8 lightweight Product items match the 8 listed categories exactly).
+- **Audit Phase 1 finding F-15 explicitly assessed this pattern as "acceptable per Google guidelines (lightweight references, not full Product nodes), NOT a defect."** Google's actual Rich Results Test contradicts that assessment. The audit's lightweight-Product allowance was incorrect — Google flags these as 8 invalid items.
+
+Distinct net-new bug. To be triaged as **SCHEMA-CRIT-NEW-1** (Tier 1, scope to follow from Leo in next message).
 
 ### Discipline implications
 
