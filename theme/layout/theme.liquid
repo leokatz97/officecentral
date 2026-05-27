@@ -1,5 +1,6 @@
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}" color-mode="light">
+{%- comment -%} HOTFIX-LANG-ATTR-1 (QW-2 2026-05-27): upgrade en→en-CA at theme layer because shop.primary_locale is still 'en'. When LOCALE-CONFIG-EN-CA (Tier 2B) ships the config-layer fix, revert this to {{ request.locale.iso_code }}. {%- endcomment -%}
+<html class="no-js" lang="{% if request.locale.iso_code == 'en' %}en-CA{% else %}{{ request.locale.iso_code }}{% endif %}" color-mode="light">
   <head>
     <meta charset="utf-8">
     <meta name="color-scheme" content="dark light">

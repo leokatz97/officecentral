@@ -24,6 +24,63 @@
 
 ---
 
+## 🌙 Day 13 late-night — 2026-05-27
+
+- **QUICK-WINS-STACK Day 13 late-night session log.** Branch `feature/quick-wins-stack-2026-05-27` off `feature/watcher-forensics-2026-05-27` (PR #29 base). Preflight watcher check: RESULT: PASS. First post-WATCHER-FORENSICS write session — preflight discipline validated end-to-end.
+  - **QW-1 — OECM-TRUST-ALT-TEXT ✅ shipped.** Single-line alt-text fix on `theme/sections/ds-lp-oecm.liquid:515` — `trust_image_2` alt changed from "Brantford General waiting area OECM install" (image was swapped to Artcobell classroom post-IMG-3, alt didn't follow) to "Classroom with active-learning chairs and modular tables" (provenance-neutral, content-accurate). PUT to LIVE role=main 186373570873; updated_at 12:30:51 → 16:14:24; size 58907 → 58920 (+13 bytes); post-CDN sha match. Theme check 2850/166 holds. **Surfaced broader caption-vs-image-content provenance issue** for all 3 trust cells — captured as OECM-TRUST-CAPTIONS-1 Tier 1 backlog item, NOT fixed in this session (scope discipline).
+  - **QW-2 — HOTFIX-LANG-ATTR-1 ✅ shipped.** `theme/layout/theme.liquid:2` — `lang="{{ request.locale.iso_code }}"` upgraded to inline conditional `lang="{% if request.locale.iso_code == 'en' %}en-CA{% else %}{{ request.locale.iso_code }}{% endif %}"` because `shop.primary_locale` is still `en`. Storefront now renders `<html lang="en-CA">` on homepage + OECM page (verified via curl post-CDN). Comment in the file points to LOCALE-CONFIG-EN-CA Tier 2B backlog item — config-layer fix at shop level is the cleaner solution and is owed; the conditional is a flag that the workaround is in place. `password.liquid` has identical bug but `/password` route is not active for BBI — bundled into LOCALE-CONFIG-EN-CA scope, not fixed tonight.
+  - **QW-3 — HOTFIX-MOBILE-FRIENDLY-VERIFY-1 ✅ verification complete, no theme write.** Cross-checked Okara's "Mobile Friendly: No" claim. Initial Claude verdict was "Okara false positive" — based on a desktop Lighthouse run (DataForSEO Lighthouse defaulted to `formFactor: "desktop"`, Claude did not check the field; treated desktop SEO score 1.00 as a mobile pass). Leo ran PageSpeed Insights mobile preset directly: Performance 58 / FCP 4.4s / LCP 13.3s / SI 6.4s on the homepage under emulated Moto G Power + Slow 4G. **Revised verdict: Okara was directionally correct.** The specific binary "Mobile Friendly: Yes/No" verdict likely wraps the retired Dec 2023 Mobile-Friendly Test endpoint and is low-confidence framing, but the underlying signal (the site is slow on mobile) is real and serious. Real signal rolls into HOTFIX-MOBILE-LCP-1 (single-run mobile measurement under Moto G Power + Slow 4G emulation; baseline pending multi-run averaging per PERFORMANCE-MEASUREMENT-DISCIPLINE); 8 diagnostic signals captured there, fix-phase split into three sub-items HOTFIX-MOBILE-LCP-1a/b/c. No new sub-item created for verify-1 itself (it was a session task, not a backlog item). Methodology lesson captured below.
+
+- **QUICK-WINS-STACK — QW-1 stale-memory incident (operational lessons, in-flight session).** During the QW-1 verification table for the OECM-TRUST-ALT-TEXT fix, Claude labelled the PUT target as "dev theme 186373570873" — citing the auto-memory `feedback_push_target.md` as the rule source. The PUT itself targeted the correct resource (production write was intended), but the label was wrong: theme `186373570873` has `role=main` since LAUNCH-2 (2026-05-26 evening) and is the LIVE production storefront — the "Dev" suffix in its name is a pre-LAUNCH-2 artifact. The stale memory had not been updated when the role swap happened, and Claude reasoned forward from the stale name-based framing rather than verifying `role` via the Admin API. Caught by Leo at the QW-1 → QW-2 handoff, before any further PUTs landed under the same mislabel.
+
+  **Remediation shipped same session:**
+  - Memory `feedback_push_target.md` rewritten to require role-verification language and to explicitly call out the historical-name failure mode (pending Leo wording sign-off — Action 1).
+  - New Tier 1 backlog item PREFLIGHT-ROLE-VERIFICATION added — automate `GET /themes.json` + role assertion as a pre-PUT gate (Action 2, shipped above).
+
+- **Meta-observation — stale-context as a distinct unauthorized-write mechanism class.** WATCHER-FORENSICS surfaced one class of silent unauthorized-write mechanism (background CLI processes auto-PUT-ing local `Edit`s). The QW-1 incident surfaced a second class (stale auto-memory creating false labels Claude reasons from, propagating into verification tables and potentially into commit messages, PR descriptions, and follow-on session prompts). Both reduce to:
+
+  > **"Discipline that depends on Claude's interpretation of context can be silently undermined by stale context."**
+
+  **Triage matrix — Process × Context:**
+
+  |  | **Process gate enforced** | **Process gate missing or bypassed** |
+  |---|---|---|
+  | **Context fresh** | Working as intended | **Class A — process failure** (2026-05-27 watcher case) |
+  | **Context stale** | **Class B — input failure** (2026-05-27 QW-1 case + QW-3 case) | **Class C — compound failure** (most dangerous) |
+
+  **Apply at incident triage:** ask both axes, not just "did the gate fire." Process-only review would have cleared QW-1 (gate fired, approval issued, PUT correct) and missed that the verification label propagated a stale claim that would have shipped into the commit + PR.
+
+  **Fix patterns by class:**
+  - **Class A** — kill the side channel + add preflight detection (WATCHER-FORENSICS pattern).
+  - **Class B** — add freshness verification at the input boundary (PREFLIGHT-ROLE-VERIFICATION pattern: API-derived assertion, not memory-derived name).
+  - **Class C** — both fixes, plus a session-start sanity check that surfaces any context older than N days for ack. **Class C is the only quadrant where the system produces no signal that anything is wrong; every other quadrant has at least one axis still functioning.** This makes Class C detection an explicit design goal of future preflight work, not an afterthought.
+
+  Future incident reports can extend this matrix with more worked-example rows over time — each new incident gets tagged into the cell that produced it, building an empirical record of which failure modes actually fire in this project vs which remain hypothetical.
+
+- **Methodology lesson — verify form-factor of the measurement tool.** Claude failed to verify the form-factor of the tool used (DataForSEO Lighthouse returned `formFactor: "desktop"` in `configSettings`; Claude did not check the field and treated the desktop result as a mobile cross-check). The error produced a confidently-stated "Okara false positive" verdict that was 180° wrong on a Tier 1 acquisition-impact issue. Caught by Leo running PageSpeed Insights mobile preset directly.
+
+  **Rule:** when verifying any mobile-specific claim, the measurement must come from a tool running in mobile form factor. Reading `configSettings.formFactor` (or equivalent) in the tool's output is a hard pre-condition — if the field reads `"desktop"`, the run does not count as a mobile cross-check regardless of how good the scores look.
+
+  **Valid mobile measurement sources:**
+  - PageSpeed Insights mobile preset (web UI: https://pagespeed.web.dev/, set form factor to "Mobile")
+  - PageSpeed Insights public API (no auth needed for limited rate):
+    ```
+    curl "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<url>&strategy=mobile"
+    curl "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<url>&strategy=desktop"
+    ```
+    Both variants included so future Claude doesn't make the inverse error (passing `strategy=desktop` while verifying a mobile claim, or vice versa).
+  - Local Lighthouse CLI: `lighthouse <url> --preset=mobile`
+  - WebPageTest mobile device profiles
+
+  **Known-bad sources for mobile verification:**
+  - DataForSEO Lighthouse via MCP (`mcp__dataforseo-mcp__on_page_lighthouse`) — defaults to `formFactor: "desktop"` with no exposed form-factor toggle in the tool parameters. Useful for desktop measurements and SEO/a11y signals that don't change with viewport. **Not valid as a mobile cross-check.**
+
+  **Connection to the Process × Context 2x2 above:** this is a Class B input failure (process gate present — Leo was running a cross-check against a third-party claim; input was stale/wrong — the measurement form-factor didn't match the claim's form-factor). Fix pattern: freshness verification at the input boundary, exactly the same shape as PREFLIGHT-ROLE-VERIFICATION. The matrix cell above has been updated to reflect both QW-1 and QW-3 in the Class B tag.
+
+  **Session catch-rate note:** three Class B catches in this session alone — (1) QW-1 stale-memory framing (Leo caught at the QW-1→QW-2 handoff), (2) QW-3 form-factor methodology error (Leo caught after PageSpeed mobile run), (3) PERF-AUDIT-1 reference verification (Claude verified pre-write via grep before introducing as committed history — see "Notes worth flagging" exchange before WRITE A). The catch-rate suggests verify-input-freshness discipline is reaching habituation, at least for high-stakes asserted facts. Worth tracking whether subsequent sessions maintain the habituation or revert when not under active reinforcement.
+
+---
+
 ## 🧹 POST-STEVE-CLEANUP-2026-05-27 ✅ 2026-05-27 afternoon (Day 13)
 
 Repo state-correction + post-launch backlog finalization. No production theme write needed — LIVE self-corrected externally during the prep window. Branch `feature/post-steve-cleanup-2026-05-27` off `feature/steve-priority-changes-2026-05-27 @ 21c0e2a`.
@@ -136,6 +193,14 @@ Monotonic, every bump accounted for. No unauthorized writes.
 
   **Dependency:** WATCHER-FORENSICS must complete first (including `scripts/preflight-watcher-check.sh` being wired into `01-safety-preflight.md`). Do NOT start until WATCHER-FORENSICS commits.
 
+- **OECM-TRUST-CAPTIONS-1 🆕** (Tier 1, ~30-60 min once policy decided, **BLOCKED on content-policy decision OR Steve install assets**) — All 3 trust cells in `theme/sections/ds-lp-oecm.liquid` (lines ~501-536: `trust_image_1` Education / `trust_image_2` Healthcare / `trust_image_3` Government) have potentially stale `alt` + visible `<figcaption>` text after IMG-3 image swaps. Visible `<figcaption>` elements display incorrect provenance — confirmed example: caption reads "Brantford General · waiting" under what is now an Artcobell classroom photo (per build-state OECM-TRUST-ALT-TEXT note). Same risk pattern applies to cells 1 and 3.
+
+  **Two-part fix:**
+  (a) Audit all 3 cells — for each, pull the currently-uploaded image from LIVE settings, compare to the hardcoded alt + visible figcaption (`<span class="lp-trust-row__caption-key">`, the bold install line, and the spec line), document which cells are stale.
+  (b) Decide policy — **option 1**: neutral content-accurate descriptions for both alt + caption (drops "OECM PO · 2024" specificity, weakens the trust signal but is honest); **option 2**: wait for Steve to provide real OECM install photos + verified caption data, restore the original install-specific framing (preferred long-term — these are credibility-critical cells).
+
+  **Scope discipline:** Do NOT attempt fix in QUICK-WINS-STACK session — captured 2026-05-27 late-night when QW-1 surfaced that the alt-only fix for cell #2 leaves the visible caption misrepresenting. ~5 min alt-only correction (cell #2) is being shipped in QW-1 as a narrow a11y/SEO fix; the broader caption/provenance issue is this item.
+
 - **SCHEMA-CRIT-1 — PARTIAL ✅ Fix 1 shipped anomalous + RRT-confirmed; Fixes 2/3/4 deferred** (branch `feature/schema-crit-1-2026-05-27`):
   - **Fix 1 ✅ shipped 2026-05-27 evening under anomalous discovery conditions** (not under approval gate; outcome bytes match intended fix; watcher-pushed before manual PUT could fire — see Day 13 evening detail entry). BreadcrumbList position-2 URL: pre-assigned `bc2_u` in `theme/snippets/bbi-product-jsonld.liquid:155` before render call; 3-PDP JSON-LD verification confirms position-2 = `https://www.brantbusinessinteriors.com/collections/business-furniture`; theme check 2850/166 (net improvement, no regression); **Rich Results Test verification CONFIRMED 2026-05-27 ~15:06 — Breadcrumbs 1 valid item detected on `obusforme-comfort-high-back-chair-fabric-1240-3`; eligibility moved blocked → eligible**.
   - **SCHEMA-CRIT-1b (Merchant Listing fields — Fix 3)** — `priceValidUntil` (today+1y), `itemCondition: NewCondition` on PDP `offers`. Deferred. ~15 min once WATCHER-FORENSICS lands. (`hasMerchantReturnPolicy` + `shippingDetails` further deferred — gated on return-policy + shipping-policy pages going live; needs Steve sign-off.)
@@ -148,6 +213,81 @@ Monotonic, every bump accounted for. No unauthorized writes.
 
 - **SCHEMA-POLISH-1** (spun off from HOTFIX-SCHEMA-AUDIT-1) — add `Blog` schema to `/blogs/news` (`ds-blog-list.liquid`); add `Brand` schema to 6 manufacturer pages (`/pages/brands-{ergocentric,global-teknion,heartwood,keilhauer,obusforme,otg}`); convert PDP `offers.seller` to `@id` reference; convert `BlogPosting.publisher` to `@id` reference; add `AboutPage`/`ContactPage` typing; add `priceRange: "$$"` to combined Org+LocBus emitter; add `agreementID`/Certification for OECM 2025-470. ~45-60 min. **Blocked on WATCHER-FORENSICS.**
 
+- **HOTFIX-MOBILE-LCP-1 🆕🔥** (Tier 1, **highest-acquisition-impact open item**, added 2026-05-27 late-night from QW-3 verification) — Mobile performance is genuinely failing on LIVE. Core Web Vitals → ranking is a more direct signal than rich-result eligibility, and the gap is enormous (LCP 13.3s vs Good threshold 2.5s = 5.3x over).
+
+  **Measurement (authoritative baseline):**
+  - Source: PageSpeed Insights mobile preset
+  - Date: 2026-05-27 ~16:35 EDT
+  - Page: homepage (`/`)
+  - Emulation: Moto G Power, Slow 4G throttling, headless Chromium
+  - Run count: single (variance acknowledged — multi-run averaging recommended per PERFORMANCE-MEASUREMENT-DISCIPLINE Tier 2B before declaring the fix successful)
+
+  **Numbers:**
+  | Metric | Value | Threshold (Good) | Status |
+  |---|---|---|---|
+  | Performance score | 58 | ≥ 90 | 🟡 yellow zone |
+  | FCP | 4.4s | < 1.8s | ❌ 2.4x over |
+  | LCP | 13.3s | < 2.5s | ❌ 5.3x over — "Poor" zone |
+  | Speed Index | 6.4s | < 3.4s | ❌ |
+  | TBT | 170ms | < 200ms | ✅ |
+  | CLS | 0 | < 0.1 | ✅ perfect |
+  | Accessibility | 95 | — | ✅ |
+  | Best Practices | 96 | — | ✅ |
+  | SEO | 100 | — | ✅ |
+
+  **Historical context:** Okara had earlier reported homepage LCP at 4.6s. PageSpeed mobile preset now reports 13.3s. Possible explanations: (a) degradation since launch from new content/assets, (b) harsher throttling profile in PageSpeed mobile vs whatever Okara measured under, (c) Okara measurement methodology differs. The PageSpeed figure is the trusted source going forward; do not reuse the 4.6s figure as a baseline.
+
+  **Diagnostic phase: COMPLETE.** The following 8 diagnostic signals were surfaced by PageSpeed and are the inputs for the fix phase:
+  1. **Render-blocking requests** — Est savings 150ms · tracked separately as HOTFIX-RENDER-BLOCKING-1 (Tier 1, distinct row; fix-surface is CSS/JS ordering)
+  2. **Legacy JavaScript** — Est savings 19 KiB (modernize transpile targets / drop polyfills)
+  3. **Improve image delivery** — Est savings **679 KiB** (significant; AVIF/WebP, proper srcset, responsive sizing)
+  4. **Forced reflow** — JS triggering layout thrash; profile in Performance tab
+  5. **Network dependency tree warnings** — >4 preconnect connections (audit `<link rel="preconnect">` list, drop unused)
+  6. **Reduce unused JavaScript** — Est savings **334 KiB** (code-splitting / defer / remove dead bundles)
+  7. **Image elements missing explicit width and height** — CLS risk + layout-shift cost
+  8. **Avoid enormous network payloads** — Total page weight 2,999 KiB
+
+  **Remaining scope: fix-phase only, split into three discrete sub-items.** Diagnostic work that would have been the first ~30 min of this item is already complete (PageSpeed surfaced everything). Each sub-item below is independently shippable on Day 14+ based on time/energy:
+
+  - **HOTFIX-MOBILE-LCP-1a — Image delivery (~90-120 min)** — addresses diagnostic signals #3 (Improve image delivery, 679 KiB est savings) and #7 (Image elements missing explicit width/height). Fix surfaces: convert remaining JPG/PNG assets to AVIF/WebP via Shopify `image_url` filter with `format` param; ensure every `<img>` has explicit `width`/`height` (or `image_tag` filter use); audit responsive `srcset` coverage on hero + LCP-candidate images; add explicit `fetchpriority="high"` on the homepage LCP candidate. **Recommended FIRST.** Largest single-bundle savings (679 KiB) and most likely to directly improve LCP since the LCP element on a Shopify storefront homepage is almost always a hero image.
+
+  - **HOTFIX-MOBILE-LCP-1b — JS optimization (~90-120 min)** — addresses diagnostic signals #2 (Legacy JavaScript, 19 KiB), #4 (Forced reflow), and #6 (Reduce unused JavaScript, 334 KiB). Fix surfaces: identify dead/unused theme JS bundles; modernize transpile targets to drop ES5 polyfills for modern browsers; profile forced-reflow source in Chrome DevTools Performance panel; defer/async non-critical scripts; consider code-splitting per template (PDP-only JS not loaded on homepage, etc.). **Recommended SECOND.** Largest cumulative savings (353 KiB) but split across three diagnostic categories; ship 1a first to capture the LCP win cleanly before touching JS that may shift other metrics.
+
+  - **HOTFIX-MOBILE-LCP-1c — Network / preconnect cleanup (~30-45 min)** — addresses diagnostic signals #5 (preconnect warnings, >4 connections) and #8 (Enormous network payloads, 2999 KiB total). Fix surfaces: audit every `<link rel="preconnect">` in `theme/layout/theme.liquid` for actual usage; remove unused preconnects (each idle connection costs browser resources); investigate single biggest payload contributors via DevTools Network tab; consider lazy-loading of below-fold third-party scripts (GA, GTM, Shop Pay). **Recommended THIRD or as cleanup.** Investigative work (audit-then-decide); easier to scope correctly once 1a and 1b have shifted the baseline. *Recommendations are recommendations — future-Leo can override based on time/energy or new signals.*
+
+  **Success criteria:** mobile LCP < 2.5s on homepage under same PSI mobile preset emulation. Multi-run averaging (3 runs, median) per PERFORMANCE-MEASUREMENT-DISCIPLINE before declaring done. Each sub-item should re-run PSI mobile and report its delta contribution.
+
+  **Related work:**
+  - HOTFIX-RENDER-BLOCKING-1 (Tier 1, distinct row) — diagnostic signal #1 above; mechanical fix-surface is CSS/JS ordering, separate from image/payload work in this item.
+  - PERFORMANCE-MEASUREMENT-DISCIPLINE (Tier 2B) — multi-run averaging discipline.
+  - STORAGE-COLLECTION-COLD-CACHE (Tier 2) — separately tracked perf anomaly on `/collections/storage`.
+  - PERF-AUDIT-1 Phase 2 (committed item at [bbi-build-state.md:1606](BBI-Session-Kickoff/bbi-build-state.md:1606)) — same root concern; HOTFIX-MOBILE-LCP-1 + sub-items are the actionable Tier 1 instances of PERF-AUDIT-1 Phase 2's "re-run PSI against the new theme post-LAUNCH-2" deliverable.
+
+- **HOTFIX-RENDER-BLOCKING-1 🆕** (Tier 1, added 2026-05-27 late-night from QW-3 verification, ~30-60 min) — Eliminate render-blocking resources flagged by PageSpeed mobile preset on homepage (Est savings 150ms). Distinct from HOTFIX-MOBILE-LCP-1 because the fix-surface is mechanically different: CSS/JS ordering, `defer`/`async` attributes, critical-path inlining vs. external loading, font-loading strategy. Even though both items surfaced from the same PageSpeed diagnostic output, the fix files and review criteria diverge — image-delivery work (MOBILE-LCP-1a) touches asset pipeline + Liquid `image_url` filter usage; render-blocking work touches `<link>` / `<script>` ordering in `theme.liquid` + section partials.
+
+  **Scope:**
+  - Audit every `<link rel="stylesheet">` and `<script>` in `theme/layout/theme.liquid` for `defer` / `async` / `media` attribute correctness.
+  - Identify which stylesheets/scripts are above-the-fold critical vs deferrable; inline critical CSS where appropriate.
+  - Confirm Shopify CDN bundles use HTTP/2 multiplexing efficiently (no waterfalling on duplicate connections).
+
+  **Success criteria:** PageSpeed mobile preset re-run shows 0 "Render-blocking resources" diagnostic flagged on homepage; total render-blocking savings claim drops below 50ms.
+
+  **Related work:**
+  - HOTFIX-MOBILE-LCP-1 (parent perf item) — render-blocking fix contributes to but does not solely resolve mobile LCP regression.
+
+- **PREFLIGHT-ROLE-VERIFICATION 🆕** (Tier 1, ~30-60 min, **directly traced to QW-1 stale-memory incident 2026-05-27 late-night**) — Automate a pre-PUT role-verification step. Before any asset PUT, fetch `GET /admin/api/2024-10/themes.json`, locate the target theme by ID, and assert `role` matches intent (production writes require `role=main` AND `id=186373570873`). Today's near-miss: stale auto-memory `feedback_push_target.md` framed `186373570873` as "the dev theme" (true pre-LAUNCH-2, false post-LAUNCH-2 since 2026-05-26 evening). Claude propagated the stale label into QW-1's verification table; the actual PUT was correct (production write was intended), but the labeling was wrong by accident, not by design — that is precisely the failure mode WATCHER-FORENSICS was supposed to harden against.
+
+  **Design questions to resolve in the session (do not pre-decide here):**
+  1. **Integration point.** Three candidates: (a) extend `scripts/preflight-watcher-check.sh` to also fetch + assert role; (b) standalone `scripts/preflight-role-check.sh` chained in `01-safety-preflight.md`; (c) wrap into `scripts/bbi-push-landing.py` as an internal pre-PUT gate. Trade-off: (a) keeps one preflight script — simpler but mixes concerns; (b) clean separation — two scripts to run; (c) closer to the actual PUT, harder to bypass, but only protects PUTs going through that script (not ad-hoc `curl` / Python).
+  2. **Failure behavior.** Abort vs warn. Abort is strict (matches watcher-kill discipline) but blocks legitimate edge cases (e.g., role-swap during a planned launch). Warn requires explicit human ack each time — annoying but safer against role drift. Recommend: abort for ID/role mismatch on production target; warn-only for unexpected `name` while ID + role match.
+  3. **Scope.** All themes or only LIVE-eligible PUTs? Pragmatic: apply to any PUT where the target theme has `role=main` regardless of which theme — that way the check protects ANY future production theme too, not just `186373570873`.
+  4. **Verification output integration.** Should the verified `{id, role, name}` triple be auto-emitted into every verification table Claude produces? (Recommend yes — would have caught QW-1 framing error at write time, not in user review.)
+
+  **Linked context:**
+  - QW-1 incident detail: see Day 13 late-night entry below (operational lessons: stale-context failure mode).
+  - Sister discipline already shipped: `feedback_preflight_watcher_check.md` (kill rogue watchers before PUT).
+  - Memory now corrected: `feedback_push_target.md` rewritten 2026-05-27 late-night to require role-verification language.
+
 **Tier 2 (Week 1, medium priority):**
 - **PREFLIGHT-V2-BYTE-PRIMARY** — upgrade preflight check to use byte-content / sha256 as the primary safety signal, with `updated_at` timestamp as secondary. Today's drift events bumped timestamps but were sometimes byte-only (JSON re-escape) and sometimes substantive (v4↔v5 substitutions); a byte-primary check would distinguish them automatically and avoid spurious HALTs. ~30 min.
 - **PERFORMANCE-MEASUREMENT-DISCIPLINE** — for fast pages (Perf > 90 / LCP < 1s) Lighthouse single-run variance can exceed 500ms, causing false-positive regressions (the Phase-4-extended ds-cc-base trigger today was one such case). Adopt multi-run averaging (3 runs, median LCP) when sub-second moves are at stake. Process change ~10 min to document; ongoing discipline thereafter.
@@ -159,6 +299,7 @@ Monotonic, every bump accounted for. No unauthorized writes.
 - **FORENSIC-SNAPSHOT-TIME-WINDOWED** (added 2026-05-27 evening from WATCHER-FORENSICS Item 2 forensic gap) — upgrade future incident-response snapshot tooling to capture time-windowed asset history via Shopify Admin API polling (e.g. periodic `assets.json` snapshots stored with capture timestamp), not just a single current-state manifest. **Justification:** today's forensic snapshot manifest retains only the most-recent `server_updated_at` per asset, so the morning bumps on `templates/index.json` (09:54, 09:57:27, 10:13:21) were forensically erased by the 13:15:38 bump and limited the reconciliation certainty for Event 1 and Event 2 to "consistent with multiple causes" rather than definitive attribution. A time-windowed history would have made the watcher's morning activity directly visible. ~30 min for tool + runbook.
 - **DEV-THEME-PROVISIONING** (added 2026-05-27 evening from WATCHER-FORENSICS Item 4 doctrine gap) — provision a dedicated dev theme in Shopify Admin (`Online Store → Themes → Add theme → Create blank` or duplicate the current main). Until this is done, the doctrine "never run `shopify theme dev` against any BBI theme, period" (per `01-safety-preflight.md` Watchers and auto-push section) is in effect — no `theme dev` workflow is available at all. Once provisioned: update preflight doc + memory entries to allow `shopify theme dev --theme=<dev-theme-id>` and update `scripts/preflight-watcher-check.sh` to allow that specific theme role≠main. ~15 min Shopify Admin action + ~10 min doc/script updates.
 - **PREFLIGHT-AUTOMATION** (added 2026-05-27 evening from WATCHER-FORENSICS Item 3 invocation-model surface) — current preflight discipline is invoked via (a) human-paste of `01-safety-preflight.md` as Claude's first session message + (c) Claude self-enforces by reading-and-running the listed commands. There is no (b) automated wrapper. This is what failed on 2026-05-27: the doc existed and was paste-driven for every session, but it lacked a watcher-check step until the incident, so Claude never ran one. Self-enforcement only catches things the doc *names*. Mitigations: (1) shell-rc hook (zsh/bash) that runs `preflight-watcher-check.sh` automatically on `cd` into this repo and prints `RESULT: PASS/FAIL`; (2) wrap `bbi-push-landing.py` to refuse to run unless `preflight-watcher-check.sh` exits 0 in the same shell within the last N seconds; (3) git pre-push hook that runs the check. Pick the lightest workable option. ~30-60 min. The strict-binary `RESULT:` line on the watcher check (Item 3) was specifically designed to be greppable by such wrappers.
+- **LOCALE-CONFIG-EN-CA 🆕** (added 2026-05-27 late-night from QW-2 HOTFIX-LANG-ATTR-1) — Decide whether changing `primary_locale` en → en-CA at the shop level has acceptable side effects on email templates, currency, date format, and other locale-aware features. **If acceptable:** change shop config, remove the en→en-CA conditional from BOTH `theme/layout/theme.liquid:2` AND `theme/layout/password.liquid:2`. **If not acceptable:** document why and leave the `theme.liquid` conditional; also apply the same conditional to `password.liquid` for consistency (latent bug, `/password` route not active for BBI but identical pattern). ~15-20 min Shopify Admin investigation + theme cleanup. **Justification:** Option D shipped in QW-2 is a theme-layer workaround for a config-layer issue. Bundling `password.liquid` into this item keeps both layout files in sync — they always reflect the same decision, no fork in state across files. Linking comment is in the `theme.liquid` edit so the code itself points back here.
 
 **Tier 3 (Week 2-3, polish):**
 - **SEATING-COLLECTION-HERO-V6** — current seating hero v5 is a canvas-expanded mesh-back chair on white (functional but catalog-shot, not lifestyle). Source proper lifestyle seating image when Steve provides a photo. ~30 min once source is in hand.
