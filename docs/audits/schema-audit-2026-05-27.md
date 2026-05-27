@@ -143,7 +143,7 @@ These pages emit only the sitewide `Organization`/`LocalBusiness`/`WebSite` chro
 
 **F-14. About + Contact pages emit no `AboutPage` / `ContactPage`.** These are weak signal classes but cheap to add and aid entity disambiguation.
 
-**F-15. `hasOfferCatalog` in `bbi-org-schema` uses lightweight `{"@type":"Product","name":"Seating"}` items.** Acceptable per Google guidelines (lightweight references, not full Product nodes). NOT a defect.  **[RECLASSIFIED 2026-05-27 ~15:06 — MISCLASSIFIED. Google's Rich Results Test flags all 8 items as invalid Product snippets ("Either 'offers', 'review' or 'aggregateRating' should be specified"). See Addendum at end of document. Tracked as SCHEMA-CRIT-NEW-1.]**
+**F-15. `hasOfferCatalog` in `bbi-org-schema` uses lightweight `{"@type":"Product","name":"Seating"}` items.** Acceptable per Google guidelines (lightweight references, not full Product nodes). NOT a defect.  **[RECLASSIFIED 2026-05-27 ~15:06 — MISCLASSIFIED. Google's Rich Results Test flags all 8 items as invalid Product snippets ("Either 'offers', 'review' or 'aggregateRating' should be specified"). See Addendum at end of document. Tracked as SCHEMA-CRIT-NEW-1.] [RESOLVED 2026-05-27 late-night — SCHEMA-CRIT-NEW-1 shipped via Path C (block deletion). See Resolution section in Addendum.]**
 
 **F-16. `LocalBusiness.priceRange` is set on the dedicated emitter only.** The combined Org+LocBus in `bbi-org-schema` omits `priceRange`. Both should have it for consistency. WARN.
 
@@ -340,6 +340,16 @@ The audit assumed Google's documentation about "lightweight references inside `h
 ### Follow-up
 
 SCHEMA-CRIT-NEW-1 (full scope in build-state) will diagnose the emitter, choose between `OfferCatalog`-typed items / `ItemList` / minimal-offers Product, apply the fix under the standard approval gate, and re-verify on the same 2 RRT URLs. This work is **blocked on WATCHER-FORENSICS-AND-PROCESS-RECOVERY** landing first.
+
+### Resolution — 2026-05-27 late-night
+
+**F-15 RESOLVED.** SCHEMA-CRIT-NEW-1 shipped under branch `feature/schema-crit-new-1-2026-05-27` (PR #31, off PR #30 tip).
+
+**Resolution method:** Path C deletion — removed the `hasOfferCatalog` block from [`theme/snippets/bbi-org-schema.liquid`](../../theme/snippets/bbi-org-schema.liquid) lines 50-63 (14 lines, 913 bytes). Not a refactor.
+
+**Reasoning:** positive-evidence gap confirmed across RRT output (block produced 0 detected items, only the 8 errors), audit doc Phase 2 eligibility table (no rich result credited to the block), build-state references (no measured AI-crawler citation outcome), code provenance (stated intent only — "AI-4: required for Google AI Overview / entity clarity"), and schema.org/Google rich-result documentation (no SERP feature triggered by `Organization.hasOfferCatalog`). Per the "don't refactor what doesn't earn" criterion, deletion is the cleanest fix. Reversible — if future GSC or AI-crawler analysis demonstrates measurable benefit, the block can be reintroduced as a Path B nested OfferCatalog with verified collection URLs under its own scoped task.
+
+**Verification:** 6 storefront surfaces cache-busted (OECM, ObusForme PDP, /collections/seating, /pages/healthcare, /pages/brands-keilhauer, homepage) — `@Product` node count dropped from 8 per surface to 0 (non-PDP) / 1 (PDP, the legitimate main product). RRT confirmed on OECM + PDP: 7 valid items, 0 invalid (was 8 invalid yesterday). Theme check held at 2850/166. CRIT-1 Fix 1 (PDP breadcrumb position-2 URL) preserved — no regression.
 
 ### Methodology note for future audits
 
