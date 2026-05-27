@@ -20,7 +20,7 @@
     {%- unless settings.header_font.system? and settings.body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
-    <title>{%- if template == 'index' -%}Office Furniture for Canadian Businesses | Brant Business Interiors{%- else -%}
+    <title>{%- if template == 'index' -%}Brant Business Interiors · OECM Furniture · Peterborough{%- else -%}
       {{ page_title }}
       {%- if current_tags %}
         &ndash; tagged "{{ current_tags | join: ', ' }}"
@@ -35,7 +35,7 @@
     {%- endif -%}</title>
 
     {% if template == 'index' %}
-      <meta name="description" content="Commercial office furniture for Ontario businesses, schools, and institutions. Global Furniture Group, OTG / Offices to Go, Heartwood Manufacturing. OECM Supplier Partner (Agreement 2025-470). Quote in 1 business day.">
+      <meta name="description" content="OECM Supplier Partner (Agreement 2025-470). Commercial office furniture for Ontario schools, hospitals, and municipalities. Quote in 1 business day.">
     {% elsif page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
