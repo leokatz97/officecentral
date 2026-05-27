@@ -6,6 +6,93 @@
 
 ---
 
+## 🖼️ Day 13 morning — 2026-05-27
+
+- **MORNING-IMAGE-SWAPS-2026-05-27 ✅** — 4 hero images replaced on LIVE in a single chained session with per-image mapping halt + per-image real-device check. 9 references swapped across 8 templates. Exact-match approval discipline, pre-write backups, byte-match verification, theme-check baseline held (2852/166), Lighthouse desktop spot-check on 5 surfaces (all Perf 85-89, all LCP < 2.5s). LAUNCH-1 work fully preserved throughout. Detail entry below.
+
+---
+
+## 🖼️ MORNING-IMAGE-SWAPS-2026-05-27 ✅ 2026-05-27 morning (Day 13)
+
+4 hero images replaced on LIVE `186373570873` between 08:35 and 10:13 EDT. Each swap surfaced a mapping halt (sitewide refs + new-source compatibility flags) and a real-device check halt. All approvals via exact-match phrases ("fire image-N sitewide ...", "image-N good"). 9 references swapped across 8 templates. Source files canvas-expanded (image 1, 2, 4) or content-aware cropped (image 3) to match slot aspect ratios.
+
+### Image 1 — SEATING collection hero
+- **Source:** `DBE_6942-8_ML48_VU26_Side.jpg` (mesh-back chair side profile, 3600×3600 square)
+- **Canvas-expanded:** 6400×3600 (16:9) with white L+R padding; uploaded as `bbi-coll-img-seating-hero-v5.jpg`
+- **Refs swapped (2):** `templates/collection.seating.json:172` (collection hero) + `templates/index.json:42` (homepage "Shop the catalog" tile, inside bbi-shop custom_liquid)
+- **Push receipt:** `2026-05-27T08:37:23-04:00`
+
+### Image 2 — ERGONOMIC collection hero
+- **Source picked:** OCI Platinum monitor arms image[1] (1024×1024 AI-generated studio shot) — Leo paused mid-halt to verify resolution headroom; original /products/dual-monitor-arm pdp-2 was 669×669 master (too soft for retina mobile at 0.47× DPR coverage). Surfaced 8 collection alternatives with 1024×1024 masters, OCI-1 chosen.
+- **Canvas-expanded:** 1820×1024 (16:9) with white L+R padding; uploaded as `bbi-coll-img-ergonomic-products-hero-v5.jpg`
+- **Refs swapped (1):** `templates/collection.ergonomic-products.json:124` (collection hero)
+- **Push receipt:** `2026-05-27T08:51:18-04:00`
+
+### Image 3 — EDUCATION pages (5 sitewide refs)
+- **Source:** `165387 - Artcobell - product grouping with intrepid.jpg` (active-learning classroom with Artcobell Intrepid kidney tables + teal accent chairs, 2705×3500 portrait)
+- **Strategy decision (Leo intervention mid-halt):** Canvas-expansion would create too much white margin around content-rich classroom scene. Instead, content-aware landscape crop to 16:10 (2705×1691) via centered crop. Trades off TV/BELIEVE art (acceptable per Leo) to preserve full table + chair composition.
+- **4 candidates surfaced** (A=center, B=north, C=mid-upper, D=lower). Leo chose A.
+- **Uploaded as:** `bbi-page-img-education-artcobell-v1.jpg`
+- **Refs swapped (5):** `templates/page.education.json:9` (hero) + `templates/page.industries.json:11+14` (trust photo 2 + Education tile) + `templates/page.oecm.json:116` (trust photo 2) + `templates/page.our-work.json:18` (photo 12). Both `OCI-Education-1.jpg` and hash variant `OCI-Education-1_643da778-...jpg` redirected to the new file.
+- **Push receipt:** `2026-05-27T09:22:41-04:00`
+- **Pre-existing A11Y issue surfaced (not introduced):** `ds-lp-oecm.liquid:515` has hardcoded alt "Brantford General waiting area OECM install" on trust_image_2 — was misaligned before our swap, now more visible. Logged as follow-up.
+
+### Image 4 — HOMEPAGE main hero
+- **Source:** `hero.jpg` extracted from `~/Downloads/main page.zip` (professional at sit-stand desk with laptop + coffee, teal accent chairs, bamboo, modular shelving, 2308×1362 ~16:11)
+- **Slot geometry:** Desktop 16:11, Mobile 4:3. Source 1.69:1 cover-crops L+R cleanly on both; subject (woman+desk) horizontally centered survives both crops.
+- **Edits:** src + alt + width + height all updated. Alt = "Professional at sit-stand desk with laptop and coffee, teal accent chairs and bamboo plant — modern Canadian workspace by Brant Business Interiors". Caption "BBI PROJECT · PETERBOROUGH, ON" preserved (per Leo decision).
+- **Uploaded as:** `bbi-homepage-hero-2026-05-27.jpg`
+- **Push receipt:** `2026-05-27T09:54:03-04:00` (initial)
+- **og:image:** unchanged — homepage still uses `og-preview.png` (1024×1024) per FAVICON-1 + SEO-AUDIT-1 wiring. Social shares unaffected.
+
+### Lighthouse spot-check + width=1920 optimization
+After image 3 Leo requested mid-flight Lighthouse on 4 swap surfaces before image 4. All 4 measured Perf 85-90, LCP 1735-2124 ms, CLS ≤ 0.028 — well within Core Web Vitals targets. LCP element on `/pages/education` confirmed as the new Artcobell hero with `loading=eager` but missing `fetchpriority=high` (logged as separate follow-up). Day-over-day variance from yesterday's anomalously-low TBW 549KB baseline explained by Lighthouse measurement window differences, not image-swap regression.
+
+Post-IMG-4 Lighthouse triggered Leo's >5pt regression threshold (homepage Perf 99→85, LCP 781→2344 ms). Root cause: new hero delivered at 645 KB master URL vs old 271 KB. Leo authorized `?width=1920` URL parameter optimization (Shopify CDN auto-resize: 645→471 KB delivered). Re-PUT at 10:13:21 brought LCP to 1908 ms / Perf 89. CWV still passing; gap to yesterday is split between measurement variance + real ~200 KB byte delta.
+
+### LIVE regression detected + fix
+Between IMG-4 initial PUT (09:54:03) and the width-opt PUT (10:13:21), a 09:57:27 LIVE update reverted the IMG-1 homepage tile from `bbi-coll-img-seating-hero-v5.jpg` back to v4. Forensic dig: surgical single-field revert (6-line diff, only the seating tile URL inside `bbi-shop` section's custom_liquid). All 6 other IMG-1/2/3 writes byte-intact. No webhooks attribution available, no Plus audit logs. Leo confirmed Theme-Editor save of the `bbi-shop` section with stale-cached pre-IMG-1 state. v5 tile re-applied in the same PUT as the width=1920 optimization.
+
+### Theme-Editor stale-cache pattern — 4 drifts surfaced + reconciled
+Across the morning, LIVE `updated_at` drifted 4 times due to Leo's Theme-Editor verification opens (all confirmed by Leo, all timestamp-only except the IMG-1 tile revert):
+- 08:40:10 — `collection.seating.json` + `index.json` bumped (timestamp-only, bytes match IMG-1 work)
+- 08:52:03 — `collection.ergonomic-products.json` bumped (timestamp-only, bytes match IMG-2 work)
+- 09:25:11 — all 4 IMG-3 templates bumped (timestamp-only)
+- 09:57:27 — `index.json` bbi-shop seating-tile reverted v5→v4 (SUBSTANTIVE — re-fixed at 10:13:21)
+
+### Safety
+- **LIVE 186373570873 `updated_at` trail (morning):** 2026-05-26T20:33:23 (post-PRODUCTION-HOTFIX-1 baseline) → 08:37:23 (IMG-1) → 08:40:10 (Editor save) → 08:51:18 (IMG-2) → 08:52:03 (Editor save) → 09:22:41 (IMG-3) → 09:25:11 (Editor save) → 09:54:03 (IMG-4) → 09:57:27 (Editor regression) → 10:13:21 (IMG-1 tile re-fix + width=1920 opt). Monotonic, no unauthorized writes.
+- **Theme-check baseline:** held at 2852/166 throughout (3 fewer offenses than 2855 baseline — same JSON re-escaping artifact pattern from earlier launch sessions).
+- **Pre-write backups:** 4 task-slug backup dirs under `data/backups/image-swap-{seating,ergonomic,education,homepage}-pre-2026-05-27*/` — each contains LIVE + edited + local snapshots + the displaced source image for rollback.
+- **/collections/seating page hero, /collections/ergonomic-products page hero, /pages/education, /pages/industries (trust + tile), /pages/oecm trust band, /pages/our-work photo 12, homepage hp-hero, homepage hp-shop seating tile:** all 9 references verified as new images via Admin API byte-match + headless render fetch at the close of each phase. All confirmed real-device by Leo ("image-1 good", "image-2 good", "image-3 good", "image-4 good").
+
+### Files touched (theme/)
+- `templates/collection.seating.json` — v4 → v5 hero (1 line)
+- `templates/collection.ergonomic-products.json` — v4 → v5 hero (1 line)
+- `templates/index.json` — hp-hero src + alt + width + height swap; hp-shop seating tile v4 → v5; hero src `?width=1920` appended (1 line, multiple changes)
+- `templates/page.education.json` — hero_image swap (1 line)
+- `templates/page.industries.json` — trust_image_2 + tile_image_2 swap (2 lines)
+- `templates/page.oecm.json` — trust_image_2 swap (1 line)
+- `templates/page.our-work.json` — photo_12 swap (1 line)
+
+### Files added to Shopify Files (4 new assets, 4 old assets preserved for rollback)
+- `bbi-coll-img-seating-hero-v5.jpg` (6400×3600, 526 KB master)
+- `bbi-coll-img-ergonomic-products-hero-v5.jpg` (1820×1024, 89 KB)
+- `bbi-page-img-education-artcobell-v1.jpg` (2705×1691, 595 KB)
+- `bbi-homepage-hero-2026-05-27.jpg` (2308×1362, 944 KB)
+- Old assets preserved in Files: `bbi-coll-img-seating-hero-v4.jpg`, `bbi-coll-img-ergonomic-products-hero-v4.jpg`, `OCI-Education-1.jpg`, `OCI-Education-1_643da778-93eb-45ab-8a69-8f274a3ceba3.jpg`, `hp-hero-office-breakout.jpg`
+
+### POST-LAUNCH BACKLOG additions
+- **HP-SHOP-TILES-REFACTOR** — homepage "Shop the catalog" tile URLs are inlined as raw HTML inside the `bbi-shop` section's `custom_liquid` setting. This makes them vulnerable to Theme-Editor stale-cache reverts (proven during this session). Refactor to a proper Liquid section that uses `image_url` filter calls or `image_picker` section settings, so the URLs are managed structurally rather than as raw text.
+- **LCP-FETCHPRIORITY-EDU** — `theme/sections/ds-lp-education.liquid:378` renders hero via `image_tag` filter but doesn't include `fetchpriority: 'high'`. Single-attribute add would shave 100-300 ms off `/pages/education` LCP.
+- **DS-LP-OECM-ALT-FIX** — `theme/sections/ds-lp-oecm.liquid:515` has hardcoded alt "Brantford General waiting area OECM install" on `trust_image_2`. This was misaligned before today's Education-photo swap (the prior `OCI-Education-1_643da778-...jpg` was already a classroom photo), but our swap makes the mismatch more visible. Replace with a setting-driven alt, or fix to "Active-learning classroom — Artcobell installation" to match the new content.
+- **DEAD-LOGO-PNG** — `New_OC_BBI_Logo-raster_x320.png` (187 KB) was surfaced in the Lighthouse top-10 byte-heavy resources on `/pages/education`. Avada-era stale asset still loading somewhere in the page. Find + remove the reference.
+
+### Branch
+`feature/morning-image-swaps-2026-05-27` (off `feature/launch-chain-2026-05-26 @ e8212b2`).
+
+---
+
 ## 🔓 Day 12 evening — 2026-05-26
 
 - **DATAFORSEO-MCP-UNBLOCK ✅** — DataForSEO MCP HTTP 403 resolved; SEO-AUDIT-1 hard gate now ready to run tomorrow as Step 5 of the launch path.
