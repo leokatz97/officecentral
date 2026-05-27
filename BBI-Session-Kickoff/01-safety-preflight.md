@@ -6,8 +6,21 @@
 > **Why this exists:**
 > - **2026-05-10** — a session pushed `theme.liquid` + two snippet stubs to the live theme, breaking brantbusinessinteriors.com for ~30 minutes.
 > - **2026-05-26 (LAUNCH-1, 20:08:47-04:00)** — theme roles **inverted**. `186373570873` ("BBI Landing Dev") was promoted to `role=main` and is now production. `178274435385` ("BBI Live", Avada) was demoted to `role=unpublished` and is the rollback artifact.
+> - **2026-05-27 (~14:25-04:00)** — a `shopify theme dev` watcher (PID 28041) was discovered to have been running since 2026-05-11 bound to LIVE-main `186373570873`. Every `theme/**` edit for 16 days was silently auto-PUT to LIVE within ~1 second of file save, bypassing every approval gate. Watcher killed. See `docs/forensics/2026-05-27-watcher-incident.md`. **The watcher check below (Step 0) is now mandatory before any production write.**
 >
 > There is no DEV theme anymore. **Every theme write is a production write.** These rules and the preflight check enforce that reality.
+
+---
+
+## Watchers and auto-push
+
+**Never run `shopify theme dev` against a `role=main` theme.** The CLI's `theme dev` subcommand is a filesystem watcher: every local save under `theme/**` is auto-`PUT` to the bound theme within ~1 second of the save event. Bound to LIVE-main, this completely bypasses the approval-gated push discipline the rest of this document is built to enforce — local edits become production writes without any of the pre-write checks, backups, byte-match verifications, or render-checks that the rest of the preflight requires.
+
+In this repo today, there is no dev theme. The only theme roles are LIVE-main (`186373570873`) and rollback-unpublished (`178274435385`), and binding `shopify theme dev` to either is unsafe — LIVE-main is the failure mode below; rollback is the disaster-recovery artifact and must not drift. **Therefore the active rule is stronger than "use a dev theme": do not run `shopify theme dev` against any BBI theme, period, until a dedicated dev theme is provisioned.** If a dev theme is provisioned in future, the rule becomes "only ever bind `shopify theme dev` to a theme with `role ≠ main`."
+
+The `scripts/preflight-watcher-check.sh` script enforces this. It runs as **STEP 0** of the PREFLIGHT CHECK below, and as **Rule 0** under HARD RULES. The script's posture is strict-binary: any running `shopify theme` process at preflight time fails the check, regardless of subcommand or bound theme. Final stdout line is `RESULT: PASS` or `RESULT: FAIL` for greppable wrapping by future automation.
+
+> **Footnote — incident motivating this section (2026-05-27).** A `shopify theme dev` watcher (PID 28041) was discovered to have been running since 2026-05-11 bound to `--theme=186373570873` (LIVE-main since the 2026-05-26 launch). Every `theme/**` edit for 16 days was silently auto-`PUT` to LIVE within seconds of file save, bypassing every approval gate in this document. Discovered during SCHEMA-CRIT-1 Fix 1: the pre-`PUT` `updated_at` re-check observed LIVE had already drifted forward to the post-fix state before Claude's intentional `PUT` ran. Watcher killed within ~5 minutes; forensic LIVE snapshot captured. Full report: [`docs/forensics/2026-05-27-watcher-incident.md`](../docs/forensics/2026-05-27-watcher-incident.md). The root cause was not the watcher itself — it was that the preflight rule list did not name a watcher check, and *self-enforcement only catches what the doc explicitly enumerates*. This section is the rule-surface fix.
 
 ---
 
@@ -32,6 +45,15 @@ BASELINE ANCHORS (re-confirm in preflight before any write):
     (must HOLD — no new offenses, no net increase)
 
 HARD RULES — no exceptions:
+0. WATCHER CHECK — run scripts/preflight-watcher-check.sh and
+   confirm exit code 0 BEFORE doing anything else. A
+   `shopify theme dev` process bound to a role=main theme will
+   silently auto-PUT every local theme/** edit to LIVE within
+   seconds, completely bypassing the approval gates in this doc.
+   This rule was added 2026-05-27 after a 16-day undetected
+   watcher incident — see docs/forensics/2026-05-27-watcher-
+   incident.md. Exit 1 from the script = HALT, kill the
+   offending process, re-run, do not proceed until exit 0.
 1. Every theme write targets 186373570873 (production). Confirm
    the theme ID in any push script before invoking it.
 2. PRE-WRITE for every single file:
@@ -98,7 +120,18 @@ PUSH COMMAND (always use this form — production):
   Read the script's confirmation prompt carefully — it now warns
   on LIVE because LIVE is the only target.
 
-PREFLIGHT CHECK — run this now (must pass before any work):
+PREFLIGHT CHECK — run BOTH steps now (must pass before any work):
+
+  STEP 0 — WATCHER CHECK (added 2026-05-27, hard gate):
+    ./scripts/preflight-watcher-check.sh
+  Exit code MUST be 0. If exit 1: a shopify theme dev watcher
+  (or unresolved-role / role=main shopify theme process) is
+  running. Kill the listed PID. Re-run until exit 0. Do NOT
+  continue to STEP 1 until this passes. See
+  docs/forensics/2026-05-27-watcher-incident.md for the
+  incident that motivated this gate.
+
+  STEP 1 — THEME-ROLE CHECK:
   python3 -c "
   import urllib.request, json, os, sys
   TOKEN = os.environ['SHOPIFY_TOKEN']
