@@ -104,7 +104,7 @@ These pages emit only the sitewide `Organization`/`LocalBusiness`/`WebSite` chro
   - `bbi-org-schema` uses `…/#organization` ✓
   - `bbi-localbusiness-schema` uses `…/#localbusiness` ✓
   - `ds-lp-relocation`, `ds-lp-delivery` use `{"@id": "…/#organization"}` provider reference ✓ (good practice)
-  - `ds-lp-oecm`, `ds-lp-quote` redeclare full `LocalBusiness` inline as `provider` instead of referencing `…/#localbusiness` — produces 3rd LocalBusiness instance per page. **WARN.**
+  - `ds-lp-oecm`, `ds-lp-quote` redeclare full `LocalBusiness` inline as `provider` instead of referencing `…/#localbusiness` — produces 3rd LocalBusiness instance per page. **WARN.** **[RESOLVED 2026-05-28 — SCHEMA-H-1, branch `feature/schema-polish-1-2026-05-28`.** Both inline `provider` blocks converted to `{"@id": "https://{{ shop.permanent_domain }}/#organization"}` (matching the relocation/`bbi-service-jsonld` pattern). LocalBusiness node count 3→2 per page; `provider` resolves to the canonical entity; no property loss (the `#organization` node is a strict superset). Storefront RRT confirms 2 nodes (was 3). **NB:** this fixed the *duplicate-entity* issue only — it did NOT clear the RRT "Local businesses non-critical" WARN, which is the separate missing-`image` finding (see Addendum 2026-05-28 below). The two were conflated in the original H-1 framing.]**
   - `ds-article.liquid` `BlogPosting.publisher` redeclares Organization fields rather than `@id`-referencing. **WARN.**
 
 **F-5. PDP `brand.name` falls back to `product.vendor`.** `product.vendor` is set to "Brant Business Interiors" on many SKUs (vendor = dealer, not manufacturer). Confirmed on `dual-monitor-arm` PDP — actual manufacturer is Fellowes (per description text), but emitted brand is "Brant Business Interiors". **CRIT — incorrect brand attribution.**
@@ -217,7 +217,7 @@ Order: SEO impact × leverage (one-snippet fixes that cover many surfaces) × ef
 
 | # | Fix | Where | Effort | Impact | Risk | Deps |
 |---|---|---|---|---|---|---|
-| H-1 | Convert inline `provider` redeclarations in OECM + Quote sections to `@id` references (F-4). Match the relocation/delivery pattern. Removes 1 extra LocalBusiness node per page. | `ds-lp-oecm.liquid:304-317`, `ds-lp-quote.liquid:363-376` | S | M — entity-graph clarity, mild AI-crawler benefit | LOW | C-4 prep work |
+| H-1 | ~~Convert inline `provider` redeclarations in OECM + Quote sections to `@id` references (F-4). Match the relocation/delivery pattern. Removes 1 extra LocalBusiness node per page.~~ **✅ DONE 2026-05-28** (SCHEMA-H-1, branch `feature/schema-polish-1-2026-05-28`). LocalBusiness 3→2/page; F-4 resolved on both. **Did NOT clear the missing-`image` WARN** — separate finding (see Addendum). | `ds-lp-oecm.liquid:304-317`, `ds-lp-quote.liquid:363-376` | S | M — entity-graph clarity, mild AI-crawler benefit | LOW | C-4 prep work |
 | H-2 | Add `Blog` schema to blog landing page (F-11). `Blog` with `mainEntityOfPage`, `publisher` `@id`-ref to `#organization`. | `theme/sections/ds-blog-list.liquid` | S | M — blog hub eligibility, AI crawler grounding | LOW | — |
 | H-3 | Add `Brand` (or `Organization` w/ `manufacturer` relationship) schema to 6 manufacturer pages (F-13). Per-brand: name, logo, URL, parentOrganization (BBI as seller). | new snippet `bbi-brand-jsonld.liquid` + 6 section renders | M | M — manufacturer-page SEO + Brand knowledge-panel eligibility | LOW | — |
 | H-4 | Convert PDP `offers.seller` to `@id` reference (F-9). Remove inline Organization redeclaration. | `bbi-product-jsonld.liquid:145-148` | S | L-M — entity-graph clarity | LOW | — |
@@ -229,6 +229,7 @@ Order: SEO impact × leverage (one-snippet fixes that cover many surfaces) × ef
 |---|---|---|---|---|---|---|
 | M-1 | Add `AboutPage` / `ContactPage` schema (F-14). Single page each, wraps existing entity reference. | `ds-lp-about.liquid`, `ds-lp-contact.liquid` | S | L-M — entity disambiguation signal | LOW | — |
 | M-2 | Add `priceRange: "$$"` to combined Org+LocBus in `bbi-org-schema` (F-16). Match dedicated emitter. | `bbi-org-schema.liquid:40` (insert after `openingHours`) | S | L | LOW | — |
+| | **DROPPED 2026-05-28 (SCHEMA-POLISH-1 triage).** `"$$"` is a dubious claim for a quote-based B2B catalog with no public pricing. **Inconsistency note for whoever revisits:** the dedicated `#localbusiness` node (`bbi-localbusiness-schema.liquid:47`) *already* asserts `priceRange:"$$"` while `#organization` does not — so the real decision is whether to assert `priceRange` at all (drop from both for consistency) vs. add it to `#organization`. **Not the missing-`image` WARN** (RRT confirmed that WARN fires on the `#localbusiness` node too, which already has priceRange). | | | | | |
 | M-3 | Convert `BlogPosting.publisher` to `@id` reference (F-4). | `ds-article.liquid:168-178` | S | L | LOW | — |
 | M-4 | Add `agreementID` or `Certification` for OECM 2025-470 (F-3). `GovernmentService.identifier` or sub-typed certification. | `ds-lp-oecm.liquid` | S | L — explicit OECM signal | LOW | — |
 | M-5 | Add `Article` schema to customer-story pages (`/pages/customer-stories`). Each story → ItemList of Article references. | `ds-lp-customer-stories.liquid` | M | L-M — content-page SEO | LOW | content structure review |
@@ -391,3 +392,27 @@ Shipped summary `ItemList` wrapped in `CollectionPage` via new shared snippet `t
 3. (CRIT-3's summary ItemList deliberately avoids this by emitting no Product type at all.)
 
 Both live instances stem from theme markup assuming **every product has a buyable offer**, which is false for BBI's quote-heavy catalog. **Predictive value:** anywhere the theme emits Product schema (JSON-LD *or* microdata), verify it handles the quote-only case before declaring it valid.
+
+---
+
+## Addendum — 2026-05-28 — SCHEMA-H-1 resolution (F-4) + new finding F-LOCALBUSINESS-IMAGE
+
+**Author:** Claude under Leo's direction. Branch `feature/schema-polish-1-2026-05-28` (off `feature/schema-crit-1b-2026-05-28` @ `d44debe`, PR #36 tip). Run as the SCHEMA-POLISH-1 + SCHEMA-H-1 session.
+
+### F-4 RESOLVED on oecm + quote (SCHEMA-H-1)
+
+Both inline `provider` LocalBusiness redeclarations (`ds-lp-oecm.liquid` GovernmentService node, `ds-lp-quote.liquid` Service node) converted to `{"@id": "https://{{ shop.permanent_domain }}/#organization"}`. **LocalBusiness node count 3→2 per page** (standalone inline duplicate eliminated; `provider` resolves to the canonical `#organization` entity). Clean swap, no property loss (the `#organization` node is a strict superset of the inline block). Shipped under full discipline: preflight PASS, drift IDENTICAL, post-PUT byte-compare IDENTICAL, theme check 2833/165 held, sibling schema (GovernmentService/Service, FAQPage, chrome) intact, storefront RRT confirms 2 nodes (was 3). **The other F-4 instance — `BlogPosting.publisher` in `ds-article.liquid` — was found to ALREADY carry the `@id` ref (no-op, dropped).**
+
+### F-4 ≠ the recurring "Local businesses non-critical" WARN — they were conflated
+
+The original H-1 framing (and the Phase 4 prediction this session) assumed fixing F-4 would clear the RRT "Local businesses — Non-critical issues detected" WARN. **It did not, and was never going to.** Post-H-1 RRT on both pages (2026-05-28) confirmed the WARN persists. F-4 (duplicate *entity*, now fixed) and the WARN (missing *recommended field* on the LocalBusiness type) are distinct findings. Methodology lesson (3rd in this audit, after F-15 and F-10 eligibility over-claims): **verify which finding a given RRT message maps to before predicting a fix will clear it.**
+
+### F-LOCALBUSINESS-IMAGE (NEW finding)
+
+**Both sitewide chrome LocalBusiness nodes lack the recommended `image` field** → RRT `Missing field "image" (optional)` non-critical WARN, **sitewide** (every `bbi_landing` page renders the chrome).
+
+- **Nodes:** `#organization` (combined `["Organization","LocalBusiness"]`, `bbi-org-schema.liquid`) and `#localbusiness` (dedicated, `bbi-localbusiness-schema.liquid`).
+- **Confirmed 2026-05-28** via RRT on `/pages/oecm` + `/pages/quote` — WARN appears on BOTH nodes, including `#localbusiness` which already has `priceRange:"$$"` → **definitively `image`, NOT priceRange (M-2 ruled out), NOT review (F-8), NOT the F-4 duplicate.**
+- `#organization` carries `logo` (an Organization-type ImageObject) but **not** the LocalBusiness `image` field — RRT counts them separately.
+- **Fix:** add `image` (absolute URL to a representative business photo — storefront / install / team / product, **not the logo**) to both chrome emitters; sitewide blast radius clears the WARN everywhere at once.
+- **Priority: LOW** — non-critical/optional, **zero rich-result impact** (LocalBusiness is not a Google rich-result type for BBI). **Likely Steve-gated** (needs a real image asset chosen). ~15-20 min once a URL is picked.
