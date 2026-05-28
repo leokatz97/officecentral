@@ -68,13 +68,35 @@
 
   **Single-run caveat:** PERFORMANCE-MEASUREMENT-DISCIPLINE Tier 2B notes single-run on already-fast pages has ±400ms LCP variance. The 8.3s delta is large enough that variance doesn't change the directional conclusion (fix obviously worked) but does affect the precision of the exact 5.0s figure. 3-run median measurement still owed for Day 14 morning.
 
-  **Success criterion analysis:**
+  **PSI 5-run median verification — 2026-05-28 08:10–08:20 EDT (authenticated API, Day 14 morning) — CANONICAL:**
+
+  Measurement source upgraded: anonymous PSI API quota was exhausted at value 0 (shared Google default project, does NOT reliably reset midnight Pacific — the "reset" assumption was wrong). Created a dedicated GCP PSI API key (PageSpeed Insights API, restricted; stored in `.env` as `PSI_API_KEY`, gitignored + untracked). All 5 runs authenticated, mobile strategy, 60s apart. One run 500'd (server-side Lighthouse error) and was re-run.
+
+  | Metric | run1 | run2 | run3 | run4 | run5 | **Median** | Range (min–max) |
+  |---|---|---|---|---|---|---|---|
+  | Performance | 60 | 83 | 81 | 52 | 59 | **60** | 52–83 |
+  | **LCP** | 12.0s | 4.4s | 4.2s | 4.2s | 11.6s | **4.4s** | **4.2–12.0s (7.8s spread)** |
+  | FCP | 3.7s | 1.7s | 1.7s | 1.8s | 3.6s | **1.8s** | 1.7–3.7s |
+  | Speed Index | 5.6s | 2.7s | 2.4s | 5.2s | 5.8s | **5.2s** | 2.4–5.8s |
+  | TBT | 216ms | 134ms | 244ms | 3267ms | 241ms | **241ms** | 134–3267ms |
+  | CLS | 0.000 | 0.001 | 0.003 | 0.000 | 0.000 | **0.000** | 0.000–0.003 |
+
+  **🔴 KEY FINDING — LCP is BIMODAL, not normally-distributed-noisy.** Sorted LCP: [4.2, 4.2, 4.4, 11.6, 12.0]. The page lands in one of two discrete states under *identical* emulation (Moto G Power / Slow 4G): a **fast state ~4.3s** and a **slow state ~12s** — nothing in between. This is not ±400ms Gaussian jitter; it is a conditional bottleneck that either fires or doesn't on a given load. Corroborating signal: TBT carries a single 3267ms outlier (run4) against a 134–244ms baseline — main-thread blocking spikes intermittently. CLS is rock-stable (~0), so layout is not the variable.
+
+  **What the bimodality rules in / out:**
+  - **Rules OUT image weight as the variance driver.** The HERO-SRCSET fix made image bytes deterministic across runs; a fixed-byte image cannot produce a 7.8s LCP swing. The fix did its job (FCP is consistently sub-2s in the fast state).
+  - **Rules IN critical-path / JS instability.** Bimodal LCP + intermittent TBT spike points at a render-blocking resource or third-party/JS execution that sometimes lands in the critical path and sometimes doesn't (CDN cold edge, GTM/analytics sync load, or a render-blocking stylesheet/script racing the LCP paint).
+  - **Sequencing implication:** the next-highest-leverage target is **HOTFIX-RENDER-BLOCKING-1 and/or HOTFIX-MOBILE-LCP-1b (JS)**, NOT the remaining 1a image sub-work (width/height audit, AVIF). More image optimization cannot fix a path that is already image-deterministic but JS/critical-path-unstable.
+
+  **The median itself is sample-composition-dependent — treat with caution.** With 3/5 runs landing fast, the median sits at 4.4s (fast cluster). A 2-fast/3-slow sample would put the median at ~11.6s. So even 5 runs is insufficient for a *stable* central tendency on a bimodal distribution — the honest summary is "fast state ~4.3s, slow state ~12s, ~60% fast in this sample," not a single trustworthy number. Last night's 5.0s was a favorable single run (fast-state); this morning's standalone 11.9s was an unfavorable single run (slow-state); neither is "the truth" and neither should be cited as canonical.
+
+  **Success criterion analysis (against 5-run median):**
   - Target: median LCP < 2.5s on homepage
-  - Actual single-run: 5.0s
-  - Status: **NOT MET.** Fix is necessary but not sufficient. Remaining HOTFIX-MOBILE-LCP-1 work required:
-    - HOTFIX-MOBILE-LCP-1a remaining: (a) sitewide width/height audit, (b) AVIF/WebP catalog conversion, (c) fetchpriority on non-homepage LCP candidates
-    - HOTFIX-MOBILE-LCP-1b: JS optimization (~353 KiB cumulative savings; "Reduce unused JavaScript" still at 333 KiB per post-fix PSI — unchanged)
-    - HOTFIX-RENDER-BLOCKING-1: now shown at 310ms savings (was 150ms baseline). The increase likely reflects PSI re-measuring more accurately now that image bottleneck is reduced — render-blocking was always there but masked by image dominance in the waterfall. Worth verifying in Day 14 fix session.
+  - Actual median: **4.4s** (and unstable — fast state ~4.3s never reaches 2.5s either)
+  - Status: **NOT MET.** Even the best-case fast state (~4.2s) is above the 2.5s Good threshold. Two distinct gaps remain: (1) close the ~4.3s fast-state floor toward 2.5s; (2) eliminate the slow-state spikes to ~12s. The variance fix and the floor fix are likely the *same* work — stabilizing the critical path. Remaining HOTFIX-MOBILE-LCP-1 work required:
+    - **HOTFIX-RENDER-BLOCKING-1** — now the leading candidate per the bimodality finding. CSS/JS ordering, defer/async, critical-path. Directly addresses the conditional-blocking-resource hypothesis.
+    - **HOTFIX-MOBILE-LCP-1b** — JS optimization (333 KiB unused JS + 19 KiB legacy + forced-reflow profiling). The 3267ms TBT outlier is a 1b signal.
+    - HOTFIX-MOBILE-LCP-1a remaining (image width/height audit, AVIF, non-homepage fetchpriority) — **deprioritized** for LCP variance; still valid hygiene/byte work but won't move the unstable LCP.
 
   **Bytes-served projection vs PSI delta:**
   - Projected savings on LCP element at PSI DPR 2.625: 216 KB (460→244)
@@ -94,7 +116,7 @@
   8. Image elements missing explicit width/height — still flagged sitewide (HOTFIX-MOBILE-LCP-1a sub-piece a)
   9. Avoid enormous network payloads — total 3,012 KiB (was 2,999; ~unchanged)
 
-  Day 14 morning task confirmed: run 3-run PSI for median LCP precision, update this entry with median, then sequence next 1a/1b/RENDER-BLOCKING work based on highest remaining leverage.
+  Day 14 morning task ✅ DONE (2026-05-28): ran 5-run PSI (upgraded from 3 given the variance) via authenticated API. Result: bimodal LCP (fast ~4.3s / slow ~12s), median 4.4s, criterion NOT MET. Sequencing conclusion: RENDER-BLOCKING-1 / 1b-JS lead the next-target queue over remaining 1a image work, because the variance is critical-path/JS-driven, not image-byte-driven. Awaiting Leo's direction pick.
 
   **Operational discipline notes from this session:**
 
