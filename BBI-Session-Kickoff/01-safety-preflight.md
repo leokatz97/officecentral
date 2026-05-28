@@ -18,7 +18,9 @@
 
 In this repo today, there is no dev theme. The only theme roles are LIVE-main (`186373570873`) and rollback-unpublished (`178274435385`), and binding `shopify theme dev` to either is unsafe — LIVE-main is the failure mode below; rollback is the disaster-recovery artifact and must not drift. **Therefore the active rule is stronger than "use a dev theme": do not run `shopify theme dev` against any BBI theme, period, until a dedicated dev theme is provisioned.** If a dev theme is provisioned in future, the rule becomes "only ever bind `shopify theme dev` to a theme with `role ≠ main`."
 
-The `scripts/preflight-watcher-check.sh` script enforces this. It runs as **STEP 0** of the PREFLIGHT CHECK below, and as **Rule 0** under HARD RULES. The script's posture is strict-binary: any running `shopify theme` process at preflight time fails the check, regardless of subcommand or bound theme. Final stdout line is `RESULT: PASS` or `RESULT: FAIL` for greppable wrapping by future automation.
+The `scripts/preflight-watcher-check.sh` script enforces this. The script's posture is strict-binary: any running `shopify theme` process at preflight time fails the check, regardless of subcommand or bound theme. Final stdout line is `RESULT: PASS` or `RESULT: FAIL` for greppable wrapping by automation.
+
+As of 2026-05-28 (PREFLIGHT-AUTOMATION), the watcher check is no longer invoked bare — it is **STEP 1 of the unified `scripts/preflight-write-check.sh` wrapper**, which composes the watcher gate with the theme-role gate (`scripts/preflight-role-check.sh`) and emits one combined `RESULT: PASS|FAIL`. The single wrapper is what runs as **STEP 0** of the PREFLIGHT CHECK below and as **Rule 0** under HARD RULES. Architecture chosen: **(b) composed + wrapper** — the watcher and role checks are both run-once binary session-start gates, so they compose into one command (you can't forget a step); the byte-content comparison (`scripts/preflight-byte-compare.py`) is deliberately NOT in the wrapper because it runs per-file inside the write loop with two file arguments and emits a 3-way classification, not a binary session gate. The wrapper genuinely calls `preflight-watcher-check.sh` as its first step, so the watcher gate is preserved verbatim, not reimplemented.
 
 > **Footnote — incident motivating this section (2026-05-27).** A `shopify theme dev` watcher (PID 28041) was discovered to have been running since 2026-05-11 bound to `--theme=186373570873` (LIVE-main since the 2026-05-26 launch). Every `theme/**` edit for 16 days was silently auto-`PUT` to LIVE within seconds of file save, bypassing every approval gate in this document. Discovered during SCHEMA-CRIT-1 Fix 1: the pre-`PUT` `updated_at` re-check observed LIVE had already drifted forward to the post-fix state before Claude's intentional `PUT` ran. Watcher killed within ~5 minutes; forensic LIVE snapshot captured. Full report: [`docs/forensics/2026-05-27-watcher-incident.md`](../docs/forensics/2026-05-27-watcher-incident.md). The root cause was not the watcher itself — it was that the preflight rule list did not name a watcher check, and *self-enforcement only catches what the doc explicitly enumerates*. This section is the rule-surface fix.
 
@@ -39,29 +41,67 @@ There is NO dev theme. Every write is production.
 
 BASELINE ANCHORS (re-confirm in preflight before any write):
   LIVE updated_at expected: 2026-05-26T20:33:23-04:00
-    (or the most recent documented post-launch write — bump this
-     anchor in your session notes when a legitimate write lands)
+    ILLUSTRATIVE, NOT A LIVE ASSERTION. No script reads this
+    literal — it is a manual reference for the Rule 2a human
+    re-confirm only (preflight-role-check.sh verifies id+role,
+    NOT updated_at). It WILL go stale as legitimate writes land
+    (e.g. SCHEMA-CRIT-2/3 PRs #33/#34 bumped LIVE to
+    2026-05-28T11:32:39-04:00). Treat as "what was the last
+    documented write," refresh it in session notes when a write
+    lands, and never mistake it for an automated freshness gate.
   Theme check baseline: 2855 offenses across 166 files
     (must HOLD — no new offenses, no net increase)
 
 HARD RULES — no exceptions:
-0. WATCHER CHECK — run scripts/preflight-watcher-check.sh and
-   confirm exit code 0 BEFORE doing anything else. A
-   `shopify theme dev` process bound to a role=main theme will
-   silently auto-PUT every local theme/** edit to LIVE within
-   seconds, completely bypassing the approval gates in this doc.
-   This rule was added 2026-05-27 after a 16-day undetected
-   watcher incident — see docs/forensics/2026-05-27-watcher-
-   incident.md. Exit 1 from the script = HALT, kill the
-   offending process, re-run, do not proceed until exit 0.
-1. Every theme write targets 186373570873 (production). Confirm
-   the theme ID in any push script before invoking it.
+0. WRITE GATE — run scripts/preflight-write-check.sh and confirm
+   exit code 0 (final line `RESULT: PASS`) BEFORE doing anything
+   else. This unified wrapper runs BOTH session-start gates:
+     STEP 1 — watcher check (scripts/preflight-watcher-check.sh):
+       a `shopify theme dev` process bound to a role=main theme
+       silently auto-PUTs every local theme/** edit to LIVE within
+       seconds, bypassing every approval gate in this doc. Added
+       2026-05-27 after a 16-day undetected watcher incident — see
+       docs/forensics/2026-05-27-watcher-incident.md.
+     STEP 2 — role check (scripts/preflight-role-check.sh):
+       fresh Admin API assertion that the sole role=main theme is
+       id 186373570873. FAILS LOUD if a DIFFERENT theme has become
+       main (someone republished / roles drifted). Added 2026-05-28
+       after the QW-1 stale-label near-miss — an API-derived
+       {id,role} assertion cannot drift the way a memory/name label
+       can. The verified `id/role/name` triple it prints should be
+       pasted into any verification table you produce.
+   Exit 1 / `RESULT: FAIL` = HALT. Fix the offending condition
+   (kill the watcher PID, or reconcile the theme-role drift),
+   re-run, do not proceed until `RESULT: PASS`. The wrapper accepts
+   --expect-id <id> (forwarded to the role check) to protect a
+   different production theme in future.
+1. Every theme write targets 186373570873 (production). Rule 0's
+   role check already asserts this is the role=main theme; still
+   confirm the theme ID in any push script before invoking it.
 2. PRE-WRITE for every single file:
-   a. Re-fetch LIVE updated_at via Admin API. Confirm it matches
-      the expected baseline. If it changed unexpectedly, HALT —
-      someone else (or another session) wrote. Reconcile first.
+   a. Re-fetch LIVE updated_at via Admin API. Confirm it has not
+      moved since you based your edit (the BASELINE ANCHOR above is
+      illustrative — compare against the value you actually pulled
+      at session start, re-confirmed by Rule 0's role check). If it
+      moved unexpectedly, do NOT bare-HALT on a raw byte diff —
+      classify it: pull current LIVE and run
+        python3 scripts/preflight-byte-compare.py <your-base> <live>
+      SEMANTIC_MISMATCH = someone wrote real content; reconcile.
+      SEMANTIC_MATCH = serializer noise only (e.g. JSON \/ re-escape
+      from a Theme-Editor save); safe to proceed with annotation —
+      this is the Path-A false-positive the byte-compare check was
+      built to eliminate.
    b. Snapshot the current LIVE version of the file to
-      data/backups/{task-slug}-pre-{ts}/ via fetch-file.py.
+      data/backups/{task-slug}-pre-{ts}/.
+      ⚠️ fetch-file.py's DEFAULT theme id is STALE: it hardcodes
+      THEME_ID = 178274435385, which post-LAUNCH-1 is the
+      role=unpublished ROLLBACK, NOT LIVE. Pulling LIVE means
+      targeting 186373570873 explicitly, e.g.:
+        curl -s -H "X-Shopify-Access-Token: $SHOPIFY_TOKEN" \
+          "https://office-central-online.myshopify.com/admin/api/\
+2026-04/themes/186373570873/assets.json?asset%5Bkey%5D=<key>"
+      Do NOT trust fetch-file.py's default for a LIVE snapshot until
+      its theme-id labels are corrected (tracked: FETCH-FILE-STALE-ID).
    c. Snapshot the local file being pushed to the same backup
       dir so the exact diff is recoverable.
 3. SCOPE — one logical change, named files only. No bulk
@@ -70,9 +110,15 @@ HARD RULES — no exceptions:
    the narrowest possible flag set (--layout, --snippets,
    --section <name>, etc).
 4. POST-WRITE for every single file:
-   a. Re-fetch the just-pushed file from the Admin API and
-      byte-match against the local source. Mismatch = HALT +
-      restore from backup.
+   a. Re-fetch the just-pushed file from the Admin API (target
+      186373570873 — see the Rule 2b fetch-file.py warning) and
+      compare against the local source via
+        python3 scripts/preflight-byte-compare.py <local> <refetched>
+      IDENTICAL or SEMANTIC_MATCH (e.g. Shopify re-escaped \/ on
+      save) = write verified, proceed. SEMANTIC_MISMATCH = real
+      content differs from what you pushed = HALT + restore from
+      backup. (This replaces the old bare byte-equality match, which
+      false-HALTed on serializer-noise round-trips.)
    b. Re-run theme check (or scoped subset). Baseline 2855/166
       must hold. Any new offense = HALT + restore.
    c. Render-check every affected URL (homepage, collection,
@@ -120,47 +166,36 @@ PUSH COMMAND (always use this form — production):
   Read the script's confirmation prompt carefully — it now warns
   on LIVE because LIVE is the only target.
 
-PREFLIGHT CHECK — run BOTH steps now (must pass before any work):
+PREFLIGHT CHECK — run the unified wrapper now (must pass before any work):
 
-  STEP 0 — WATCHER CHECK (added 2026-05-27, hard gate):
-    ./scripts/preflight-watcher-check.sh
-  Exit code MUST be 0. If exit 1: a shopify theme dev watcher
-  (or unresolved-role / role=main shopify theme process) is
-  running. Kill the listed PID. Re-run until exit 0. Do NOT
-  continue to STEP 1 until this passes. See
-  docs/forensics/2026-05-27-watcher-incident.md for the
-  incident that motivated this gate.
+  STEP 0 — WRITE GATE (watcher + role, one command):
+    ./scripts/preflight-write-check.sh
+  The FINAL stdout line must be `RESULT: PASS` (exit 0). The wrapper
+  runs, in order:
+    STEP 1/2  preflight-watcher-check.sh  (no shopify theme process)
+    STEP 2/2  preflight-role-check.sh     (sole role=main is 186373570873)
+  Each sub-gate prints its own `RESULT:` line; the wrapper's combined
+  result is the LAST `RESULT:` line. If `RESULT: FAIL`:
+    - watcher failure → a shopify theme process is running; kill the
+      listed PID, re-run. See docs/forensics/2026-05-27-watcher-
+      incident.md.
+    - role failure → a DIFFERENT theme is main, no main, multiple
+      mains, or the API could not be verified; reconcile theme roles
+      before any write. Do NOT proceed until exit 0.
+  The role check emits `VERIFIED: id=… role=main name=…` on PASS —
+  copy that API-derived triple into any verification table you
+  produce (it is the antidote to the QW-1 stale-label framing error).
 
-  STEP 1 — THEME-ROLE CHECK:
-  python3 -c "
-  import urllib.request, json, os, sys
-  TOKEN = os.environ['SHOPIFY_TOKEN']
-  STORE = 'office-central-online.myshopify.com'
-  EXPECT = {
-      '186373570873': ('main',         'BBI Landing Dev'),
-      '178274435385': ('unpublished',  'BBI Live'),
-  }
-  ok = True
-  for tid, (want_role, want_name) in EXPECT.items():
-      req = urllib.request.Request(
-          f'https://{STORE}/admin/api/2026-04/themes/{tid}.json',
-          headers={'X-Shopify-Access-Token': TOKEN}
-      )
-      t = json.loads(urllib.request.urlopen(req).read())['theme']
-      tag = 'LIVE' if want_role == 'main' else 'ROLLBACK'
-      flag = 'OK' if t['role'] == want_role else 'MISMATCH'
-      if t['role'] != want_role:
-          ok = False
-      print(f'{tag}: id={t[\"id\"]}  name={t[\"name\"]}  '
-            f'role={t[\"role\"]}  updated_at={t[\"updated_at\"]}  [{flag}]')
-  if not ok:
-      print('PREFLIGHT FAILED — theme roles do not match expected '
-            'post-launch state. HALT.')
-      sys.exit(1)
-  print('Preflight OK. Production write target: 186373570873.')
-  print('Re-confirm LIVE updated_at against your session baseline '
-        'before each write.')
-  "
+  Sub-gates remain individually runnable when you need just one:
+    ./scripts/preflight-watcher-check.sh   (re-run anytime)
+    ./scripts/preflight-role-check.sh      (re-run before each PUT)
+  And the per-file byte-content classifier (used in Rules 2a/4a,
+  NOT part of the session-start wrapper):
+    python3 scripts/preflight-byte-compare.py <local> <live>
+
+  (The former inline-python role check is superseded by the tested
+  preflight-role-check.sh — see scripts/test-preflight-checks.sh for
+  the fail-on-bad regression suite that proves it.)
 
 REFERENCE DOCS — read these to ground the session:
   - docs/plan/bbi-build-state.md             (canonical source of truth)
