@@ -494,7 +494,7 @@ li.ds-cs__card--hidden{display:none;}
                   assign product_url = product.url
                 -%}
                 <li>
-                  <article class="ds-cs__card" data-vendor="{{ product.vendor | downcase | url_param_escape }}" itemscope itemtype="https://schema.org/Product">
+                  <article class="ds-cs__card" data-vendor="{{ product.vendor | downcase | url_param_escape }}">
                     <a href="{{ product_url }}" tabindex="-1" aria-hidden="true">
                       <div class="ds-cs__card-img">
                         {%- if product.featured_media -%}
@@ -509,9 +509,9 @@ li.ds-cs__card--hidden{display:none;}
                     </a>
                     <div class="ds-cs__card-body">
                       {%- if product.vendor != blank -%}
-                        <p class="ds-cs__card-vendor" itemprop="brand">{{ product.vendor | escape }}</p>
+                        <p class="ds-cs__card-vendor">{{ product.vendor | escape }}</p>
                       {%- endif -%}
-                      <a class="ds-cs__card-title" href="{{ product_url }}" itemprop="name">
+                      <a class="ds-cs__card-title" href="{{ product_url }}">
                         {{ product.title | escape }}
                       </a>
                       <div class="ds-cs__card-footer">
@@ -521,14 +521,11 @@ li.ds-cs__card--hidden{display:none;}
                             and quote CTA based on product state. Never bypass the PDP.
                           {%- endcomment -%}
                           <a href="{{ product_url }}"
-                             class="ds-cs__card-quote-cta"
-                             itemprop="url">
+                             class="ds-cs__card-quote-cta">
                             Request a Quote →
                           </a>
                         {%- else -%}
-                          <p class="ds-cs__card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                            <meta itemprop="priceCurrency" content="CAD">
-                            <meta itemprop="price" content="{{ product.price | money_without_currency }}">
+                          <p class="ds-cs__card-price">
                             {{ product.price_min | money }}
                             {%- if product.price_min != product.price_max %} – {{ product.price_max | money }}{%- endif -%}
                           </p>

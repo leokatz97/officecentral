@@ -375,7 +375,9 @@ Shipped summary `ItemList` wrapped in `CollectionPage` via new shared snippet `t
 - **Eligibility correction (carries the audit's own methodology lesson):** finding F-10 / C-2 / TL;DR #2 all asserted "product carousel rich result" eligibility. **That was WRONG.** Google's ItemList carousel is restricted to **Course/Movie/Recipe/Restaurant**; products/e-commerce collections are **not supported** (verified against Google carousel docs 2026-05-28). There is no product-carousel SERP feature to earn — this is a **category limitation, not a markup gap.** CRIT-3's value is **entity-graph/AEO only**: CollectionPage typing + machine-readable product enumeration for Google index understanding + AI-crawler grounding (same value tier as CRIT-2). This is the second eligibility over-claim in this audit (after F-15) — reinforces the methodology note above: verify the rich-result type actually exists for the content vertical before claiming it.
 - **Verified clean:** 3 structural variants cache-busted + RRT spot-checked. CRIT-3's own schema = 0 Product nodes, 0 errors, `numberOfItems` matches displayed count, chrome + BreadcrumbList + FAQPage intact (no regression). Theme check 2850/166. Commit `cee7f57`, PR #34.
 
-### SCHEMA-CRIT-4 (NEW — surfaced during CRIT-3 RRT spot-check; NOT yet started)
+### SCHEMA-CRIT-4 ✅ RESOLVED 2026-05-29 (strip)
+
+**[RESOLVED 2026-05-29 — stripped all 7 `Product`/`Offer` microdata attributes/elements from the `ds-cs-base.liquid` product-card (itemscope+itemtype on `<article>`, itemprop=brand/name/url on the body, itemprop=offers+itemscope+itemtype on the price `<p>`, plus full-line deletion of the `priceCurrency` + `price` `<meta>` tags), matching the already-clean `ds-cc-base` + `ds-collection-base` card pattern. STRIP chosen over GUARD because CRIT-3's CollectionPage+ItemList already enumerates products at the collection level, making per-card Product microdata redundant in addition to buggy. Branch `feature/schema-crit-4-2026-05-29`. RRT on `medium-back-seating` (the discovery page): "53 items / 48 invalid" → "5 valid / 0 errors" — Product snippets AND Merchant listings rows vanished entirely (no Product schema = no Product row). Confirmed identical on `task-chairs` + `boardroom-conference-meeting` (mixed buyable+quote). Blast radius corrected to 67 published sub-collections on `template_suffix=base`. Behavioral: `data-vendor` (JS filter) + `is_quote_only` branch preserved; theme check held 2833/165. **CRIT-4 Phase 1 ACTION ITEM closed: PDP (`bbi-product-jsonld.liquid`) was always quote-aware — no parallel fix needed.** See build-state Day 15 SCHEMA-CRIT-4 entry.]**
 
 **`ds-cs-base` product-card `Product` microdata invalid on quote-only products.** The `ds-cs-base.liquid` product-card `<article>` (line 497) carries `itemscope itemtype="https://schema.org/Product"` with `itemprop` name/brand; the `Offer` block (line 529, `itemprop="offers"` + price/priceCurrency) renders **only in the buyable branch.** For quote-only products (price=0 / unavailable) the card emits a **bare Product with no offers** → RRT error `"offers/review/aggregateRating should be specified"` (+ invalid Merchant listing).
 
@@ -385,14 +387,14 @@ Shipped summary `ItemList` wrapped in `CollectionPage` via new shared snippet `t
 - **Fix-vs-strip decision** (gate `itemscope` on `is_quote_only == false`, OR strip card microdata to match the two clean templates) belongs in its own session with RRT re-verify across the buyable/quote-only split. ~30-45 min.
 - **CRIT-4 Phase 1 ACTION ITEM:** check whether PDP/product-detail templates have the same bare-Product-on-quote-only pattern — if the card microdata was copied from a product-page partial, the same bug likely exists on product detail pages (higher priority than collection cards if so).
 
-### Root-pattern note (3rd instance of one root cause)
+### Root-pattern note — 🏁 HISTORICALLY RESOLVED 2026-05-29 (all 3 surfaces closed)
 
-**Product schema emitted without required offers on quote-only B2B products** — now seen three times:
-1. **F-15 / CRIT-NEW-1** — JSON-LD `hasOfferCatalog` Product stubs (resolved 2026-05-27 by deletion).
-2. **CRIT-4 (this)** — microdata `itemscope` Product cards on `ds-cs-base`.
-3. (CRIT-3's summary ItemList deliberately avoids this by emitting no Product type at all.)
+**Product schema emitted without required offers on quote-only B2B products** — a B2B-dealer-specific bug class born from a quote-heavy catalog interacting with theme markup that assumed every product has a buyable offer (false for BBI). It appeared in **three syntaxes**, now resolved in all three:
+1. **F-15 / CRIT-NEW-1** — JSON-LD `hasOfferCatalog` Product stubs → **resolved 2026-05-27 by deletion.**
+2. **CRIT-4** — HTML microdata `itemscope` Product cards on `ds-cs-base` → **resolved 2026-05-29 by strip.**
+3. **PDP** — `bbi-product-jsonld.liquid` Product emitter → **was always quote-aware / correctly defensive from the start** (guards on `price==0`/availability; confirmed by the CRIT-4 Phase 1 diagnosis). (CRIT-3's summary ItemList also avoids this by emitting no Product type at all.)
 
-Both live instances stem from theme markup assuming **every product has a buyable offer**, which is false for BBI's quote-heavy catalog. **Predictive value:** anywhere the theme emits Product schema (JSON-LD *or* microdata), verify it handles the quote-only case before declaring it valid.
+**Architectural completion:** canonical pattern is now CollectionPage + ItemList for collection enumeration (no per-card Product) and a quote-aware Product emitter on the PDP. **Predictive value retained:** anywhere the theme emits Product schema (JSON-LD *or* microdata), verify it handles the quote-only case before declaring it valid. No known 4th surface remains.
 
 ---
 
