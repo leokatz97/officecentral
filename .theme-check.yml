@@ -1,0 +1,5 @@
+# Pin theme-check scope to the theme/ directory so the canonical offense count
+# (2833/165) is reproducible regardless of invocation directory under the repo.
+# Without this, running from the repo root scans the entire repo (data/, docs/,
+# previews/, …) and inflates counts. See CRIT-1c Phase 3 / THEME-CHECK-CONFIG.
+root: theme
