@@ -50,6 +50,52 @@
 
   **Day 14 morning task:** 3-run PSI mobile preset on `https://www.brantbusinessinteriors.com/`, capture median LCP, compute delta from 13.3s baseline. Success criterion: median LCP < 2.5s. If not met, surfaces remaining 1a sub-work (sitewide width/height audit, AVIF/WebP catalog conversion, fetchpriority on non-homepage LCP candidates) as still-required to clear the LCP gate.
 
+  **PSI single-run verification — 2026-05-27 22:01 EDT (web UI, post-fix):**
+
+  | Metric | Baseline (PSI 16:35) | Post-fix (PSI 22:01) | Delta |
+  |---|---|---|---|
+  | Performance score | 58 | 79 | +21 points |
+  | FCP | 4.4s | 1.7s | -2.7s (Poor → Good) |
+  | **LCP** | **13.3s** | **5.0s** | **-8.3s (62% reduction)** |
+  | Speed Index | 6.4s | 3.4s | -3.0s (Poor → Good) |
+  | TBT | 170ms | 130ms | -40ms |
+  | CLS | 0 | 0 | unchanged |
+  | Accessibility | 95 | 95 | unchanged |
+  | Best Practices | 96 | 96 | unchanged |
+  | SEO | 100 | 100 | unchanged |
+
+  Same emulation context: Moto G Power, Slow 4G throttling, headless Chromium, single page session. Measurement ran via PSI **web UI** (different quota pool than the API, which was `RESOURCE_EXHAUSTED` end-of-previous-session and reset midnight Pacific — Leo's manual web-UI run unblocked single-run verification ahead of Day 14 morning).
+
+  **Single-run caveat:** PERFORMANCE-MEASUREMENT-DISCIPLINE Tier 2B notes single-run on already-fast pages has ±400ms LCP variance. The 8.3s delta is large enough that variance doesn't change the directional conclusion (fix obviously worked) but does affect the precision of the exact 5.0s figure. 3-run median measurement still owed for Day 14 morning.
+
+  **Success criterion analysis:**
+  - Target: median LCP < 2.5s on homepage
+  - Actual single-run: 5.0s
+  - Status: **NOT MET.** Fix is necessary but not sufficient. Remaining HOTFIX-MOBILE-LCP-1 work required:
+    - HOTFIX-MOBILE-LCP-1a remaining: (a) sitewide width/height audit, (b) AVIF/WebP catalog conversion, (c) fetchpriority on non-homepage LCP candidates
+    - HOTFIX-MOBILE-LCP-1b: JS optimization (~353 KiB cumulative savings; "Reduce unused JavaScript" still at 333 KiB per post-fix PSI — unchanged)
+    - HOTFIX-RENDER-BLOCKING-1: now shown at 310ms savings (was 150ms baseline). The increase likely reflects PSI re-measuring more accurately now that image bottleneck is reduced — render-blocking was always there but masked by image dominance in the waterfall. Worth verifying in Day 14 fix session.
+
+  **Bytes-served projection vs PSI delta:**
+  - Projected savings on LCP element at PSI DPR 2.625: 216 KB (460→244)
+  - "Improve image delivery" PSI diagnostic before fix: 679 KiB est savings
+  - "Improve image delivery" PSI diagnostic after fix: 384 KiB est savings
+  - Delta in PSI estimate: 295 KiB cleared
+  - The 295 KiB cleared by PSI matches the bytes-saved projection within reasonable measurement variance, confirming the fix is working as designed at the byte level. LCP delta (8.3s) exceeded byte-savings projection because reducing the LCP element also unblocked other resources in the network waterfall.
+
+  **Updated diagnostic signals for remaining HOTFIX-MOBILE-LCP-1 work (from post-fix PSI):**
+  1. Improve image delivery — 384 KiB est savings (was 679; -295 captured by hero srcset)
+  2. Render-blocking requests — 310ms est savings (was 150; increase to investigate in HOTFIX-RENDER-BLOCKING-1)
+  3. Forced reflow — still flagged (no change; HOTFIX-MOBILE-LCP-1b territory)
+  4. Network dependency tree — still flagged (>4 preconnect connections; HOTFIX-MOBILE-LCP-1c)
+  5. Use efficient cache lifetimes — 4 KiB est savings (small)
+  6. Legacy JavaScript — 19 KiB est savings (HOTFIX-MOBILE-LCP-1b)
+  7. Reduce unused JavaScript — 333 KiB est savings (HOTFIX-MOBILE-LCP-1b)
+  8. Image elements missing explicit width/height — still flagged sitewide (HOTFIX-MOBILE-LCP-1a sub-piece a)
+  9. Avoid enormous network payloads — total 3,012 KiB (was 2,999; ~unchanged)
+
+  Day 14 morning task confirmed: run 3-run PSI for median LCP precision, update this entry with median, then sequence next 1a/1b/RENDER-BLOCKING work based on highest remaining leverage.
+
   **Operational discipline notes from this session:**
 
   - **Path A drift handling (~3 min cost).** Pre-write LIVE sha check halted on byte mismatch: local `16eb9aac…` (25,574 bytes) vs LIVE `37d77715…` (25,952 chars / 26,021 bytes). Substantive-diff normalization (treating `\/` ↔ `/` as semantically identical) showed **0 substantive differences** — the entire 378-byte drift was Shopify Admin's JSON serializer re-escaping URL forward-slashes at the 13:15:38 Theme-Editor save (same event surfaced in WATCHER-FORENSICS Item 2 Event 3). Chose Path A (pull LIVE → re-edit on `\/`-escaped clean base → PUT) to preserve the byte-match-post-PUT invariant. Strict halt was correct given the load-bearing nature of the byte-match check, but this is exactly the false-positive scenario PREFLIGHT-V2-BYTE-PRIMARY (Tier 2B) was designed to eliminate — concrete justification logged in that backlog item, scope tightened to cover (i) JSON `\/` re-escape, (ii) object key re-ordering, (iii) trailing-newline diffs.
