@@ -28,6 +28,13 @@
   assign offer_price = variant.price | divided_by: 100.0
   assign mpn_val = variant.sku | default: ''
 
+  comment
+    priceValidUntil: today + 365 days, computed from epoch seconds so the result is
+    always a valid ISO-8601 date. (A naive 'now'|date:'%Y'|plus:1 + '-%m-%d' would
+    emit an invalid "2027-02-29" if rendered on a leap day — this avoids that.)
+  endcomment
+  assign price_valid_until = 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d'
+
   assign _ap_manufacturer  = product.metafields.specs.manufacturer.value
   assign _ap_product_line  = product.metafields.specs.product_line.value
   assign _ap_model_codes   = product.metafields.specs.model_codes.value
@@ -132,6 +139,7 @@
     "@type": "Offer",
     "url": {{ product_url | json }},
     "priceCurrency": "CAD",
+    "itemCondition": "https://schema.org/NewCondition",
     {%- if product.price == 0 -%}
     "price": "0",
     "priceSpecification": {
@@ -140,6 +148,7 @@
     },
     {%- else -%}
     "price": {{ offer_price | round: 2 | json }},
+    "priceValidUntil": {{ price_valid_until | json }},
     {%- endif -%}
     "availability": {{ offer_availability | json }},
     "seller": {

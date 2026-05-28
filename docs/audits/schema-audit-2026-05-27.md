@@ -109,6 +109,8 @@ These pages emit only the sitewide `Organization`/`LocalBusiness`/`WebSite` chro
 
 **F-5. PDP `brand.name` falls back to `product.vendor`.** `product.vendor` is set to "Brant Business Interiors" on many SKUs (vendor = dealer, not manufacturer). Confirmed on `dual-monitor-arm` PDP — actual manufacturer is Fellowes (per description text), but emitted brand is "Brant Business Interiors". **CRIT — incorrect brand attribution.**
 
+  - **RESOLUTION — schema-side fix DROPPED BY DECISION 2026-05-28 (SCHEMA-CRIT-1b).** Live-data sizing invalidated the premise: enriched (Hero-100) SKUs already have `product.vendor` re-attributed to the manufacturer (21/25 sampled had `vendor == specs.manufacturer`, so preferring the metafield is a no-op); the few that would change inject messy strings ("Global Furniture Group (likely)", "…(Global Care)") worse than the clean vendor; and the broad ~410 vendor=BBI products are non-enriched (no manufacturer metafield) so the schema fix can't reach them. The real fix is the data-side vendor re-attribution project (out of scope). Working emitter left unchanged.
+
 **F-6. PDP breadcrumb position-2 URL bug.** `bbi-product-jsonld.liquid` passes `bc2_url: bc_base | append: '/collections/business-furniture'` to the breadcrumb snippet, but the LIVE-rendered output for position 2 shows just `https://www.brantbusinessinteriors.com` (homepage). Position 1, 3, and 4 are correct.
 
   - Captured: `"position": 2, "name": "Shop Furniture", "item": "https://www.brantbusinessinteriors.com"`
@@ -128,6 +130,8 @@ These pages emit only the sitewide `Organization`/`LocalBusiness`/`WebSite` chro
   }
   ```
   Missing: `priceValidUntil`, `hasMerchantReturnPolicy`, `shippingDetails`, `itemCondition` (recommend `https://schema.org/NewCondition`). Without these, PDPs cannot achieve Merchant Listings rich result eligibility.
+
+  - **PARTIAL RESOLUTION ✅ 2026-05-28 (SCHEMA-CRIT-1b):** `itemCondition: https://schema.org/NewCondition` added unconditionally; `priceValidUntil` added buyable-branch-only (today+365d, leap-day-safe, renders `2027-05-28`). Quote-only branch correctly excluded from `priceValidUntil`. RRT 3/3 = 7 valid items, 0 errors. **Remaining `hasMerchantReturnPolicy` + `shippingDetails` → SCHEMA-CRIT-1c (Steve-gated** on return/shipping policy pages). Honest note: the two shipped fields are completeness, necessary-but-not-sufficient — Merchant Listing rich result also needs Merchant Center / product feed + the CRIT-1c fields.
 
 **F-8. `Product` has no `aggregateRating` / `review`.** No review data in store — not a defect per se, but blocks Review rich result.
 
@@ -205,9 +209,9 @@ Order: SEO impact × leverage (one-snippet fixes that cover many surfaces) × ef
 |---|---|---|---|---|---|---|
 | C-1 | Fix PDP BreadcrumbList position-2 URL (F-6). Debug why `bc_base \| append: '/collections/business-furniture'` resolves to `bc_base` only at render-call. Likely fix: assign `bc2_url` into a local variable BEFORE the render call. | `theme/snippets/bbi-product-jsonld.liquid:163-165` | S | H — every PDP loses Breadcrumb rich result eligibility today | LOW (schema-only) | — |
 | C-2 | Add `ItemList` / `CollectionPage` schema to collection pages (F-10). One emitter in `ds-cc-base.liquid` — iterate `collection.products` (limit ~20) emit `ListItem` with name + URL + image. | `theme/sections/ds-cc-base.liquid` | M | H — product-carousel rich result on ~22 collections | LOW | — |
-| C-3 | Fix PDP `brand.name` data attribution (F-5). Schema-side fallback: prefer `product.metafields.specs.manufacturer` over `product.vendor`. (Data-side fix — re-attributing `product.vendor` per SKU — is separate and large.) | `theme/snippets/bbi-product-jsonld.liquid:60-65` | S | H — corrects SERP brand display on all enriched PDPs | LOW | depends on specs metafield population (Hero 100 already covered) |
+| C-3 | ~~Fix PDP `brand.name` data attribution (F-5). Schema-side fallback: prefer `product.metafields.specs.manufacturer` over `product.vendor`.~~ **DROPPED BY DECISION 2026-05-28 (SCHEMA-CRIT-1b, branch `feature/schema-crit-1b-2026-05-28`).** Live-data sizing invalidated the premise: enriched (Hero-100) SKUs already have `product.vendor` re-attributed to the manufacturer (21/25 sampled had `vendor == specs.manufacturer` → fix is a no-op); the ~2/25 that would change inject messy strings ("Global Furniture Group (likely)", "…(Global Care)") worse than the current clean vendor; and the broad ~410 vendor=BBI products are non-enriched (no metafield) so the schema fix can't touch them — that's the data-side vendor re-attribution project (out of scope). Not worth touching a working emitter. | `theme/snippets/bbi-product-jsonld.liquid:60-65` | S | ~~H~~ → near-no-op | LOW | — |
 | C-4 | Add `Service` schema to industry/segment landing pages (F-12). One reusable snippet `bbi-service-jsonld.liquid` rendered from healthcare/education/government/non-profit/professional-services/industries sections. Mirror `ds-lp-delivery.liquid` pattern with `@id` ref to `#organization`. | new snippet + 6 section renders | M | H — eligibility + AI-crawler grounding for highest-value B2B pages | LOW | — |
-| C-5 | Add Merchant Listing fields to PDP `offers` (F-7): `priceValidUntil` (computed: today + 90d), `itemCondition: NewCondition`, `hasMerchantReturnPolicy` (`MerchantReturnPolicy` with 30-day window or "Contact for return" per BBI policy — confirm w/ Steve), `shippingDetails` (`OfferShippingDetails` w/ Ontario region + "Contact for quote" handling time). | `theme/snippets/bbi-product-jsonld.liquid:131-149` | M | H — unlocks Merchant Listings rich result on all PDPs | LOW (schema-only) | Steve confirms return + shipping policies |
+| C-5 | Add Merchant Listing fields to PDP `offers` (F-7). **PARTIAL ✅ 2026-05-28 (SCHEMA-CRIT-1b):** `itemCondition: https://schema.org/NewCondition` (unconditional) + `priceValidUntil` (buyable-branch-only, today+365d via leap-day-safe epoch math, renders `2027-05-28`) shipped. Quote-only branch guarded — gets `itemCondition`, not `priceValidUntil`. RRT 3/3 = 7 valid items 0 errors. **REMAINING → SCHEMA-CRIT-1c (Steve-gated):** `hasMerchantReturnPolicy` (`MerchantReturnPolicy`) + `shippingDetails` (`OfferShippingDetails` w/ Ontario region + "Contact for quote" handling). Honest framing: the two shipped fields are completeness (necessary-but-not-sufficient) — Merchant Listing rich result also needs Merchant Center / product feed + the CRIT-1c fields. | `theme/snippets/bbi-product-jsonld.liquid:131-149` | M | H — unlocks Merchant Listings rich result on all PDPs | LOW (schema-only) | Steve confirms return + shipping policies |
 
 ### HIGH-IMPACT
 
@@ -234,7 +238,7 @@ Order: SEO impact × leverage (one-snippet fixes that cover many surfaces) × ef
 
 | # | Fix | Where | Effort | Impact | Risk | Deps |
 |---|---|---|---|---|---|---|
-| P-1 | Delete dead `booster-seo.liquid` snippet (F-6 from inventory). 5 unrendered JSON-LD blocks that would emit duplicate Organization + WebSite + Product if reactivated. | `theme/snippets/booster-seo.liquid` | S | L (footgun removal) | LOW | confirm no obscure `render` call exists |
+| P-1 | ~~Delete dead `booster-seo.liquid` snippet (F-6 from inventory).~~ **DONE (repo) ✅ 2026-05-28 (SCHEMA-CRIT-1b):** `git rm theme/snippets/booster-seo.liquid` (orphaned — zero refs confirmed). **LIVE asset removal deferred** as `LIVE-booster-seo-asset-removal` (Tier 3) — inert on LIVE (PDPs emit exactly 1 Product), removing it is a destructive op with zero upside, so own-session only. | `theme/snippets/booster-seo.liquid` | S | L (footgun removal) | LOW | — |
 | P-2 | Update `bbi-localbusiness-schema.sameAs` once social profiles launch (F-17). | `bbi-localbusiness-schema.liquid:51` | S | L | LOW | Steve to confirm social URLs |
 | P-3 | Add `image` to `HowTo` schema on design-services page (Phase 1 WARN). | `ds-lp-design-services.liquid:14-29` | S | L | LOW | — |
 
@@ -242,13 +246,13 @@ Order: SEO impact × leverage (one-snippet fixes that cover many surfaces) × ef
 
 ## Suggested execution order
 
-**Session 1 — CRIT batch (~60-90 min, single PR):**
-- C-1 (breadcrumb URL fix) — debug + 1-line snippet patch
-- C-3 (brand.name fallback) — 4-line snippet patch
-- C-5 (Merchant Listing fields) — confirm policies with Steve, then snippet edit
-- P-1 (delete booster-seo dead code) — bundled cleanup
+**Session 1 — CRIT batch — split across 2 sessions (Fix 1 + CRIT-1b):**
+- C-1 (breadcrumb URL fix) ✅ **SHIPPED 2026-05-27** (SCHEMA-CRIT-1 Fix 1, branch `feature/schema-crit-1-2026-05-27`, RRT-confirmed).
+- C-3 (brand.name fallback) ❌ **DROPPED BY DECISION 2026-05-28** (SCHEMA-CRIT-1b) — premise stale, near-no-op, net-negative on the few it'd touch. See C-3 row / F-5 resolution.
+- C-5 (Merchant Listing fields) ✅ **PARTIAL — itemCondition + priceValidUntil SHIPPED 2026-05-28** (SCHEMA-CRIT-1b, branch `feature/schema-crit-1b-2026-05-28`). Remaining `hasMerchantReturnPolicy` + `shippingDetails` = **SCHEMA-CRIT-1c (Steve-gated)**.
+- P-1 (delete booster-seo dead code) ✅ **DONE (repo) 2026-05-28** (SCHEMA-CRIT-1b). LIVE asset removal deferred → `LIVE-booster-seo-asset-removal` (Tier 3).
 
-PR title: `SCHEMA-CRIT-1: fix PDP breadcrumb URL + brand fallback + Merchant Listings + remove dead booster-seo`
+PR titles: `SCHEMA-CRIT-1: fix PDP breadcrumb URL` (#28, Fix 1) + `SCHEMA-CRIT-1b: PDP Merchant Listing fields (itemCondition + priceValidUntil) + remove dead booster-seo (repo)` (branch `feature/schema-crit-1b-2026-05-28`, stacked on #35).
 
 **Session 2 — Industry/segment schema — ✅ SHIPPED 2026-05-28 (SCHEMA-CRIT-2, branch `feature/schema-crit-2-2026-05-28`):**
 - C-4 ✅ — new `bbi-service-jsonld` snippet + 6 industry pages. **Also added `FAQPage`** (not in original C-4 scope) — all 6 pages had 7 hardcoded Q&As, surfaced as inline FAQPage (42 verbatim Q&As).
