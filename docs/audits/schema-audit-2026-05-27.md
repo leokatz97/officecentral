@@ -13,7 +13,7 @@
 
 1. **PDP `BreadcrumbList` position-2 URL is broken.** Position 2 ("Shop Furniture") emits the homepage URL instead of `/collections/business-furniture`. Every product page on the site has a malformed breadcrumb. **CRIT, blocks Breadcrumb rich result.**
 2. **Collection pages emit NO `ItemList` / `CollectionPage` schema.** Product carousel rich result not eligible on any of ~22 collection pages.
-3. **Industry / segment landing pages emit NO surface-specific schema.** Healthcare, Education, Government, Non-Profit, Professional Services, Industries Hub all rely on chrome only — no `Service`, no `WebPage`, no `ItemList`. These are the most strategically important pages for OECM-driven B2B SEO.
+3. **Industry / segment landing pages emit NO surface-specific schema.** Healthcare, Education, Government, Non-Profit, Professional Services, Industries Hub all rely on chrome only — no `Service`, no `WebPage`, no `ItemList`. These are the most strategically important pages for OECM-driven B2B SEO. **[RESOLVED 2026-05-28 — SCHEMA-CRIT-2 shipped `Service` + `FAQPage` on all 6 pages via shared `bbi-service-jsonld.liquid` snippet + inline FAQPage (42 verbatim Q&As). Branch `feature/schema-crit-2-2026-05-28`. Honest framing: entity-graph/AEO value only — `FAQPage` does NOT earn a SERP rich result (2023 Google policy restricts FAQ rich results to authoritative gov/health sites; BBI does not qualify, incl. the government page), `Service` is not a rich-result type. `OfferCatalog` (M-6) deliberately omitted to avoid recreating the SCHEMA-CRIT-NEW-1 invalid-Product-snippet problem. RRT 2-of-6 spot-check: 5 valid items, 0 errors each; no chrome regression. See build-state SCHEMA-CRIT-2 entry.]**
 4. **PDPs missing Merchant Listing requirements.** No `priceValidUntil`, `hasMerchantReturnPolicy`, `shippingDetails`, or `itemCondition` on `offers`. Blocks eligibility for Merchant Listings rich results.
 5. **Product `brand.name` is hardcoded to `product.vendor` which is set to "Brant Business Interiors" on many SKUs.** Should be the manufacturer (Fellowes, Global, Teknion, etc.). Causes brand misattribution in SERP — confirmed on `dual-monitor-arm` (actual brand: Fellowes).
 6. **`booster-seo.liquid` is dead code** containing 5 duplicate JSON-LD emitters (Organization, WebSite, Product, Blog, Article). Currently un-rendered but a footgun if ever re-introduced. **Polish — delete the snippet.**
@@ -250,12 +250,12 @@ Order: SEO impact × leverage (one-snippet fixes that cover many surfaces) × ef
 
 PR title: `SCHEMA-CRIT-1: fix PDP breadcrumb URL + brand fallback + Merchant Listings + remove dead booster-seo`
 
-**Session 2 — Industry/segment schema (~90-120 min, single PR):**
-- C-4 (new `bbi-service-jsonld` snippet + 6 industry pages)
-- H-1 (OECM/Quote provider @id refs — done at same time since pattern matches)
-- M-6 (OfferCatalog within industry Services)
+**Session 2 — Industry/segment schema — ✅ SHIPPED 2026-05-28 (SCHEMA-CRIT-2, branch `feature/schema-crit-2-2026-05-28`):**
+- C-4 ✅ — new `bbi-service-jsonld` snippet + 6 industry pages. **Also added `FAQPage`** (not in original C-4 scope) — all 6 pages had 7 hardcoded Q&As, surfaced as inline FAQPage (42 verbatim Q&As).
+- H-1 ⏸️ **deferred** — NOT done same-session. Reframed as an edit-to-live-schema (this session stayed purely additive). Tracked as SCHEMA-H-1 in build-state Tier 2B.
+- M-6 ❌ **deliberately dropped** — `OfferCatalog` with lightweight `Product` items recreates the SCHEMA-CRIT-NEW-1 invalid-Product-snippet problem (Google RRT flags every `{"@type":"Product"}` stub). Zero rich-result payoff; omitted.
 
-PR title: `SCHEMA-CRIT-2: Service schema for industry pages (healthcare/education/government/non-profit/professional-services/industries)`
+PR title: `SCHEMA-CRIT-2: Service + FAQPage schema for industry pages (healthcare/education/government/non-profit/professional-services/industries)`
 
 **Session 3 — Collection schema + format-match Source (~60-90 min):**
 - C-2 (ItemList / CollectionPage on collections)

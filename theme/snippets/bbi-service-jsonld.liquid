@@ -1,0 +1,34 @@
+{%- comment -%}
+  bbi-service-jsonld — SCHEMA-CRIT-2 (2026-05-28)
+
+  Emits a Service JSON-LD node for industry / segment landing pages
+  (healthcare, education, government, non-profit, professional-services, industries hub).
+
+  Mirrors the ds-lp-delivery / ds-lp-relocation pattern: provider is an @id
+  reference to the sitewide #organization entity (no inline LocalBusiness
+  redeclaration). serviceType and areaServed describe the vertical honestly.
+
+  Params:
+    service_name        (required) — Service.name
+    service_description (required) — Service.description (plain text, no HTML)
+    service_type        (required) — Service.serviceType
+    area_served         (optional) — AdministrativeArea name; defaults to "Ontario, Canada"
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "{{ canonical_url | escape }}#service",
+  "url": "{{ canonical_url | escape }}",
+  "name": {{ service_name | json }},
+  "description": {{ service_description | json }},
+  "provider": {
+    "@id": "https://{{ shop.permanent_domain }}/#organization"
+  },
+  "serviceType": {{ service_type | json }},
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": {{ area_served | default: 'Ontario, Canada' | json }}
+  }
+}
+</script>

@@ -337,6 +337,29 @@
 }
 </style>
 
+{%- comment -%} SCHEMA-CRIT-2 (2026-05-28): Service + FAQPage JSON-LD. FAQPage mirrors the visible FAQ section below — keep in sync if FAQ copy changes. {%- endcomment -%}
+{%- render 'bbi-service-jsonld',
+  service_name: "Non-Profit & Charity Furniture Supply and Installation",
+  service_description: "Commercial-grade furniture for Ontario non-profits, charities, NGOs, and community-service agencies — durable seating, community-program and multi-use room furnishings, and reception and back-office furniture — supplied and installed by Brant Business Interiors' own Ontario crew, on a donor-accountable budget. Grant-funded billing, flexible delivery windows, and a free space plan on every project. OECM Agreement 2025-470 for eligible broader-public-sector organizations; PO or NET-30 for private charities.",
+  service_type: "Non-profit and charity furniture supply and installation",
+  area_served: "Ontario, Canada"
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Which non-profits are OECM-eligible under Agreement 2025-470?", "acceptedAnswer": { "@type": "Answer", "text": "Ontario broader-public-sector NGOs in social services and education, community health centres, family health teams, and provincially-funded community-service agencies are OECM-eligible — they purchase from us under Agreement 2025-470 without an open tender. Private charities, religious organizations, housing co-ops, and donor-funded organizations are typically not OECM-eligible but buy the same catalog at contract pricing with PO or NET-30. Call 1-800-835-9565 — five-minute eligibility confirmation." } },
+    { "@type": "Question", "name": "Can you work within a donor-accountable budget without compromising durability?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — tell us your per-seat or per-room budget on the quote and we'll spec accordingly. Brant Business Interiors carries multiple commercial-grade tiers across each category, so we can hit a $300/chair or $600/chair budget while keeping a 5–10 year warranty horizon. For high-use front-of-house we often recommend spending up; for back-office we can stretch the dollar with stacking and basic-task seating." } },
+    { "@type": "Question", "name": "Do you accept POs, NET-30, and grant-funded billing?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Purchase orders, NET-30, and invoiced accounts are standard for non-profits and charities. Grant-funded billing supported — we can split a quote across funder lines, provide a proforma invoice ahead of grant disbursement, and supply donation-receipt-friendly documentation. Credit applications take 1–2 business days." } },
+    { "@type": "Question", "name": "Can you accommodate flexible delivery windows around volunteer schedules?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — flexible delivery is most of our non-profit work. Tell us when your building is staffed (volunteer hours, program days, after-program windows) and we coordinate. Evening, weekend, and phased deliveries available. Old-furniture removal included on install — we'll donate-route or recycle anything still usable." } },
+    { "@type": "Question", "name": "Does every quote include a free space plan for community-program spaces?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free 2D layout on every project. Especially useful for multi-use community-program rooms where the same space hosts workshops, board meetings, and client-facing services. Send your floor plan (AutoCAD, PDF, or sketch). On-site measure available when needed. Sightlines, accessibility, and reconfigurability flagged." } },
+    { "@type": "Question", "name": "Can you handle a multi-site rollout (e.g., 6 transitional housing sites, 4 community centres)?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — multi-site is common for housing NGOs, social-service agencies, and community-services rollouts. We quote per-site with a master roll-up, sequence installs against your operational calendar, and ship to a single warehouse or direct-to-site depending on what makes sense for your team. One Ontario project manager owns the file across every location." } },
+    { "@type": "Question", "name": "What's the typical lead time on an office refresh for a non-profit budget cycle?", "acceptedAnswer": { "@type": "Answer", "text": "In-stock items ship within 2–3 weeks. Custom-configured pieces are typically 6–10 weeks. We confirm lead time per line on every quote. For grant-funded projects with hard deadlines (March 31, fiscal year-end, program launch dates), tell us the required delivery date and we'll confirm whether it's achievable before you issue the PO. Phased delivery across budget cycles is supported." } }
+  ]
+}
+</script>
+
 <div class="lp-np">
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'industries' -%}

@@ -376,6 +376,29 @@
 }
 </style>
 
+{%- comment -%} SCHEMA-CRIT-2 (2026-05-28): Service + FAQPage JSON-LD. FAQPage mirrors the visible FAQ section below — keep in sync if FAQ copy changes. {%- endcomment -%}
+{%- render 'bbi-service-jsonld',
+  service_name: "Healthcare & Clinical Furniture Supply and Installation",
+  service_description: "Commercial-grade furniture for Ontario hospitals, long-term care homes, family health teams, community health centres, and private clinics and dental practices — antimicrobial and cleanable seating, waiting-room and reception furniture, and treatment-space furnishings — supplied and installed by Brant Business Interiors' own Ontario crew. Free space plan on every project. OECM Agreement 2025-470 for eligible institutional buyers; PO or NET-30 for private practices.",
+  service_type: "Healthcare and clinical furniture supply and installation",
+  area_served: "Ontario, Canada"
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Do you supply furniture for private clinics and dental practices, not just hospitals?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — most of our healthcare clients are private practices: dental offices, physiotherapy clinics, walk-in clinics, family health teams, and audiology and optometry practices. We also work with hospitals, long-term care homes, and community health centres. Same commercial-grade catalog, same free space plan, same Ontario install crew regardless of organization size. Private clinics pay with PO or NET-30; institutional buyers use OECM Agreement 2025-470." } },
+    { "@type": "Question", "name": "What surfaces are cleanable / infection-control compatible?", "acceptedAnswer": { "@type": "Answer", "text": "We spec upholstery with antimicrobial treatment and sealed or impervious surfaces on request — common choices include vinyl, polyurethane, Crypton, and antimicrobial woven fabrics. Hard surfaces (laminates, steel frames, solid polymer) clean with standard hospital-grade disinfectants. Tell us your cleaning protocol on the quote and we'll flag cleaning compatibility per line." } },
+    { "@type": "Question", "name": "Which healthcare organizations are OECM-eligible under Agreement 2025-470?", "acceptedAnswer": { "@type": "Answer", "text": "Ontario hospitals and CCACs, long-term care homes, family health teams, community health centres, and ministry-funded clinics are OECM-eligible — they buy from us under Agreement 2025-470 without an open tender. Private clinics and dental practices are not OECM-eligible (OECM only covers the broader public sector) but buy the same catalog at contract pricing with PO or NET-30. Not sure where your organization sits? Call 1-800-835-9565 — five-minute confirmation." } },
+    { "@type": "Question", "name": "Can you install in an operating clinic, hospital unit, or LTC home without disrupting patients?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — after-hours, weekend, and phased installs are standard for operating clinical sites. Our own install crew handles uncrating, assembly, levelling, placement, and removal of old furniture so the space is patient-ready when they leave. For hospital and ministry sites we deploy W5-cleared installers. For multi-floor or multi-unit facilities, we sequence delivery windows with your operations team." } },
+    { "@type": "Question", "name": "What's the typical lead time on a multi-room clinical fit-out?", "acceptedAnswer": { "@type": "Answer", "text": "Most in-stock task and waiting-room seating ships within 2–3 weeks. Custom-upholstered seating, bariatric, or boardroom-grade tables are typically 6–10 weeks depending on the manufacturer. We confirm lead time per line on every quote and flag long-lead items clearly. Tell us your patient-move-in or facility-opening date and we'll work backwards." } },
+    { "@type": "Question", "name": "Do you handle multi-site rollouts — hospital networks, FHT consortiums, LTC chains?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — multi-site healthcare rollouts are most of our institutional work. We quote per-site with a master roll-up, sequence installs around clinical calendars (after-hours, weekend, or unit-by-unit), and ship to a single warehouse or direct-to-site depending on your facilities team's preference. One Ontario project manager owns the file across every location." } },
+    { "@type": "Question", "name": "Does every healthcare quote include a free space plan?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free 2D layout on every project. Send your floor plan (AutoCAD, PDF, or sketch) and our design team sizes the pieces, specs the finishes, and shows you the layout before you commit. Especially useful for waiting rooms, reception, and nurses' stations where patient flow, sightlines, and clearance constraints matter. On-site measure available when needed." } }
+  ]
+}
+</script>
+
 <div class="lp-hc">
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'industries' -%}

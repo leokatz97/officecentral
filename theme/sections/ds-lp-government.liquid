@@ -333,6 +333,29 @@
 }
 </style>
 
+{%- comment -%} SCHEMA-CRIT-2 (2026-05-28): Service + FAQPage JSON-LD. FAQPage mirrors the visible FAQ section below — keep in sync if FAQ copy changes. {%- endcomment -%}
+{%- render 'bbi-service-jsonld',
+  service_name: "Government & Municipal Furniture Supply and Installation",
+  service_description: "Commercial-grade furniture for Ontario municipalities, their local boards and agencies, conservation authorities, and provincial organizations — council-chamber tables, admin and task seating, public service-counter and committee-room furnishings, and secure-records storage — supplied and installed by Brant Business Interiors' own Ontario crew. Audit-trail billing, procurement-portal support, and a free space plan on every project. OECM Agreement 2025-470 for eligible public-sector buyers.",
+  service_type: "Government and municipal furniture supply and installation",
+  area_served: "Ontario, Canada"
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Which government organizations are OECM-eligible under Agreement 2025-470?", "acceptedAnswer": { "@type": "Answer", "text": "Ontario municipalities (cities, towns, townships, counties, regions), their local boards (police services, public utilities, transit, library boards), conservation authorities, provincial agencies and Crown corporations, and broader-public-sector organizations are OECM-eligible — they purchase from us under Agreement 2025-470 without an open tender. Federal departments use separate procurement vehicles (PSPC). Not sure where your organization sits? Call 1-800-835-9565 — five-minute confirmation." } },
+    { "@type": "Question", "name": "Does your billing meet audit-trail requirements for public-sector procurement?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every line-item quote carries the OECM agreement number (2025-470), your PO reference field, and SKU-level pricing that matches the OECM catalog. Invoices reproduce the PO 1:1 by SKU with agreement-number reference. Procurement portals (Ariba, Bonfire, Biddingo, Merx) and MFR-compliant procurement workflows are supported on request." } },
+    { "@type": "Question", "name": "Can you handle multi-department or multi-site municipal rollouts?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — municipal multi-site is most of our government work. We quote per-site or per-department with a master roll-up against your PO, sequence installs against your operational calendar (after-hours, weekend, phased department-by-department), and ship to a single warehouse or direct-to-site. Split billing across departments accommodated on request. One Ontario project manager owns the file across every location." } },
+    { "@type": "Question", "name": "What's the lead time on a council-chamber refresh or admin-office build-out?", "acceptedAnswer": { "@type": "Answer", "text": "Most in-stock admin and task seating ships within 2–3 weeks of PO. Custom-configured pieces — council-chamber tables, COM-upholstered chairs, secure-records storage — are typically 6–10 weeks. We confirm lead time per line on every quote and sequence the install against your council schedule or municipal renovation window." } },
+    { "@type": "Question", "name": "Do you accept POs, NET-30, and municipal procurement portal billing?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — municipal POs and NET-30 are standard. Procurement-portal formats (Ariba, Bonfire, Biddingo, Merx) and MFR/PSPC-compliant invoice templates supported. We can provide a proforma invoice if your finance office requires it before PO issuance. For OECM orders the agreement number appears on the quote so your procurement office processes it cleanly." } },
+    { "@type": "Question", "name": "Does every quote include a free space plan for council chambers and service areas?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free 2D layout on every project. Especially useful for council chambers, public-facing service counters, and committee rooms where sightlines, accessibility (AODA compliance), and public-flow constraints matter. Send your floor plan (AutoCAD, PDF, or sketch). On-site measure available when needed." } },
+    { "@type": "Question", "name": "Can you install during business hours without disrupting public services?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — after-hours, weekend, and phased department-by-department installs are standard for occupied government buildings. Our own install crew handles uncrating, assembly, levelling, placement, and removal of old furniture so the space is service-ready by Monday morning. For phased renovations we sequence delivery windows with your facilities team before the first truck arrives." } }
+  ]
+}
+</script>
+
 <div class="lp-gov">
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'industries' -%}

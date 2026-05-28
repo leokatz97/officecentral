@@ -293,6 +293,29 @@
 }
 </style>
 
+{%- comment -%} SCHEMA-CRIT-2 (2026-05-28): Service + FAQPage JSON-LD. FAQPage mirrors the visible FAQ section below — keep in sync if FAQ copy changes. {%- endcomment -%}
+{%- render 'bbi-service-jsonld',
+  service_name: "Professional Services Office Furniture Supply and Installation",
+  service_description: "Commercial-grade furniture for Ontario law firms, accounting and consulting practices, financial advisory offices, insurance brokerages, engineering firms, and architecture studios — contract-tier reception and boardroom furniture, executive offices, and ergonomic task seating from ergoCentric, Global, OTG, Heartwood, and 30+ authorized lines — supplied and installed by Brant Business Interiors' own Ontario crew. After-hours installs, PO and NET-30 billing, and a free space plan on every project.",
+  service_type: "Professional services office furniture supply and installation",
+  area_served: "Ontario, Canada"
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Which Ontario professional services firms do you typically work with?", "acceptedAnswer": { "@type": "Answer", "text": "Law firms (typically 10–80 lawyers), accounting and audit practices, management and IT consulting offices, financial advisory and wealth management offices, insurance brokerages, engineering firms, and design and architecture studios. We also work with medical and dental practices treating the office as a client-facing asset. Most projects are private-sector full-service fit-outs or boardroom/reception refreshes." } },
+    { "@type": "Question", "name": "How do you spec for client-facing spaces (reception, boardrooms, executive offices)?", "acceptedAnswer": { "@type": "Answer", "text": "Reception and boardroom are where we lean into Heartwood Manufacturing solid-wood and Kelowna-built veneer pieces, contract-tier upholstery (leather, premium woven fabrics), and on-trend finishes that don't date in 5 years. We consider sightlines, AV integration, and AODA accessibility for public-facing areas. For executive offices we spec ergoCentric task seating, height-adjustable desks, and integrated storage in a finish that matches your overall material language." } },
+    { "@type": "Question", "name": "Can you supply Keilhauer, Allsteel, or Teknion-tier furniture?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — the storefront leads with our highest-volume storefront-callable brands (ergoCentric, Global Furniture Group, OTG / Offices to Go, Heartwood), but we're authorized across 30+ contract-tier lines including Keilhauer, Allsteel, Teknion, and others on request. Tell us the line or pieces you're looking for on the quote and we'll source directly." } },
+    { "@type": "Question", "name": "Do you accept POs, NET-30, and corporate procurement billing for private firms?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Purchase orders, NET-30, and invoiced accounts are standard for professional services firms — no credit card required. Credit applications take 1–2 business days. We accommodate custom PO formats, partner-billing splits, and matter-number references on request." } },
+    { "@type": "Question", "name": "What's the lead time on a partner-office or boardroom build-out?", "acceptedAnswer": { "@type": "Answer", "text": "Stock ergoCentric task seating ships within 2–3 weeks. Custom-veneer boardroom tables, COM-upholstered executive seating, and contract-tier reception pieces typically run 6–12 weeks depending on the line. We confirm lead time per line on every quote — if you have a lease move-in or office-open date, tell us on the quote request and we'll confirm achievability before you approve." } },
+    { "@type": "Question", "name": "Can you install after-hours so the office stays operational?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — evening, weekend, and weekend-after-hours installs are standard for occupied professional offices. Our own crew handles uncrating, assembly, levelling, placement, and removal of old furniture. Discreet coordination for client-facing spaces (reception, boardroom). Old-furniture removal included." } },
+    { "@type": "Question", "name": "Does every quote include a free space plan?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free 2D layout on every project. Send your floor plan (architectural PDF, scaled lease plan, or AutoCAD). Our design team produces a layout showing private offices, boardroom, reception, open areas, and storage before you approve anything. Sightline, AV integration, and AODA accessibility for reception areas considered. On-site measure available when needed." } }
+  ]
+}
+</script>
+
 <div class="lp-ps">
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'industries' -%}

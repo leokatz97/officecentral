@@ -677,6 +677,29 @@
 }
 </style>
 
+{%- comment -%} SCHEMA-CRIT-2 (2026-05-28): Service + FAQPage JSON-LD. FAQPage mirrors the visible FAQ section below — keep in sync if FAQ copy changes. {%- endcomment -%}
+{%- render 'bbi-service-jsonld',
+  service_name: "Institutional & Commercial Furniture Supply and Installation",
+  service_description: "Commercial-grade office furniture for Ontario institutional and private-sector buyers — school boards, colleges, hospitals, municipalities, non-profits, and professional firms. Seating, desks, storage, boardroom tables, panel systems, and acoustic solutions supplied and installed by Brant Business Interiors' own crew. OECM Agreement 2025-470 for eligible broader-public-sector buyers; PO or NET-30 for private-sector firms. Free space plan on every project; delivery across Canada, installation across Ontario and Western Canada.",
+  service_type: "Institutional and commercial furniture supply and installation",
+  area_served: "Ontario, Canada"
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Which sectors are eligible to buy under OECM Agreement 2025-470?", "acceptedAnswer": { "@type": "Answer", "text": "Any OECM-eligible organization: Ontario school boards (K–12), publicly-assisted colleges and universities, hospitals and CCACs, municipalities and their agencies, broader-public-sector organizations, and not-for-profits in social services and education. If you're not sure, OECM publishes the eligible-buyer list on their site, or call 1-800-835-9565 and we'll confirm in five minutes." } },
+    { "@type": "Question", "name": "Do I still need internal sign-off if I'm OECM-eligible?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — your organization's purchasing policy still applies (signing limits, board approvals, internal PO authorization). What disappears under Agreement 2025-470 is the open-tender step. Most OECM buyers go quote → internal PO authorization → Brant Business Interiors PO. The 6–8 weeks normally spent issuing an RFP, evaluating bids, and writing a contract is what you skip." } },
+    { "@type": "Question", "name": "What's the typical lead time on a multi-room institutional order?", "acceptedAnswer": { "@type": "Answer", "text": "Most in-stock seating and storage ships within 2–3 weeks. Custom-configured or upholstered pieces (boardroom tables, COM seating, panel systems) are typically 6–10 weeks depending on the manufacturer. We confirm lead time per line on every quote and flag anything long-lead clearly. Tell us your move-in or term-start date and we'll work backwards from there." } },
+    { "@type": "Question", "name": "Do you accept POs, NET-30, and invoiced accounts for private-sector buyers too?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Purchase orders, NET-30, and invoiced accounts are standard for both institutional and private-sector buyers — no credit card required. Credit applications take 1–2 business days. If your accounts payable needs a specific invoice format, PO reference field, or split billing across departments, we accommodate it on the quote." } },
+    { "@type": "Question", "name": "Does every quote include a free space plan?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free 2D layout on every project. Send your floor plan (AutoCAD, PDF, or a rough sketch) and our design team sizes the pieces, specs the finishes, and shows you the layout before you commit. For larger fit-outs we provide product callouts and a finish schedule. On-site measure available when needed." } },
+    { "@type": "Question", "name": "How does delivery and installation work across Ontario?", "acceptedAnswer": { "@type": "Answer", "text": "Brant Business Interiors' own crew handles delivery, assembly, levelling, and removal of old furniture — we don't subcontract logistics. Delivery is across Canada; installation is Ontario and Western Canada. After-hours and weekend installs are available for occupied spaces (operating clinics, schools in session, municipal buildings during business hours). W5-cleared installers for hospital and ministry sites." } },
+    { "@type": "Question", "name": "Can you handle multi-site institutional rollouts (e.g., 11 schools, 4 hospital wings)?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — multi-site is most of our institutional work. We quote per-site with a master roll-up, sequence installs against your operational calendar (summer for schools, after-hours for clinical sites), and ship to a single warehouse or direct-to-site depending on what your facilities team prefers. One Ontario project manager owns the file across every location." } }
+  ]
+}
+</script>
+
 <div class="lp-ind">
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'industries' -%}

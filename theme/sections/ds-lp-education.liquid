@@ -343,6 +343,29 @@
 }
 </style>
 
+{%- comment -%} SCHEMA-CRIT-2 (2026-05-28): Service + FAQPage JSON-LD. FAQPage mirrors the visible FAQ section below — keep in sync if FAQ copy changes. {%- endcomment -%}
+{%- render 'bbi-service-jsonld',
+  service_name: "Education & School Furniture Supply and Installation",
+  service_description: "Commercial-grade furniture for Ontario K–12 school boards, publicly-assisted colleges, and universities — admin and staff-room seating, boardroom and training-room tables, and library and superintendent-suite furnishings — supplied and installed by Brant Business Interiors' own Ontario crew. Summer-window and school-calendar installs, free space plan on every project. OECM Agreement 2025-470 for eligible boards and institutions; PO or NET-30 for independent schools.",
+  service_type: "Education and school furniture supply and installation",
+  area_served: "Ontario, Canada"
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Which education organizations are OECM-eligible under Agreement 2025-470?", "acceptedAnswer": { "@type": "Answer", "text": "Ontario K–12 school boards (public, Catholic, French-language), publicly-assisted colleges and universities, school authorities, and broader-public-sector education organizations are OECM-eligible — they purchase from us under Agreement 2025-470 without an open tender. Independent and private schools are not OECM-eligible but buy the same catalog at contract pricing with PO or NET-30. We include the agreement number on every quote." } },
+    { "@type": "Question", "name": "Can you handle multi-school rollouts under a single board PO?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — multi-school rollouts are most of our K–12 work. We quote per-school with a master roll-up against your board PO, sequence installs against the school calendar (summer-window for all sites, or staggered March-break / PD-day windows), and ship to a single warehouse or direct-to-school depending on your facilities team's preference. One Ontario project manager owns the file across every school in the rollout." } },
+    { "@type": "Question", "name": "What's the lead time to land a summer-window install for September re-open?", "acceptedAnswer": { "@type": "Answer", "text": "Book by February or March for a July install against September re-open. Most in-stock admin and staff-room seating ships within 2–3 weeks of PO. Custom-configured pieces (boardroom tables, COM-upholstered seating, training-room flip-tops) are typically 6–10 weeks — April orders land in time for July install. We flag lead times per line on every quote and sequence the install against the school calendar." } },
+    { "@type": "Question", "name": "Do you accept POs from school boards, NET-30, and centralized procurement workflows?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — board PO formats accepted (including school-board-specific reference fields, account codes, and split billing across schools). NET-30 is standard. For OECM orders the agreement number appears on the quote so your finance team can process it without additional procurement paperwork. Credit applications for independent schools take 1–2 business days." } },
+    { "@type": "Question", "name": "Does every quote include a free space plan?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free 2D layout on every project. Send your floor plan (AutoCAD, PDF, or sketch) and our design team sizes the pieces, specs the finishes, and shows you the layout before you commit. Applies to every room type: admin offices, staff rooms, boardrooms, training rooms, libraries, and superintendent suites. On-site measure available when needed." } },
+    { "@type": "Question", "name": "Can you supply classroom and lecture-hall furniture too?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — on quote. The storefront focuses on staff and admin spaces, but we carry classroom seating, training-room flip-tops, and lecture-hall furniture from 25+ additional authorized lines under Agreement 2025-470. Call 1-800-835-9565 with seat counts and we'll spec the line and quote the project." } },
+    { "@type": "Question", "name": "Can you install during the school year without disrupting classes?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — after-hours, weekend, March break, and PD-day install windows are standard. Our own install crew handles uncrating, assembly, levelling, placement, and removal of old furniture so the room is class-ready by Monday. For occupied schools we sequence delivery windows with your facilities team before the first truck arrives." } }
+  ]
+}
+</script>
+
 <div class="lp-edu">
 
   {%- render 'bbi-nav', logo: section.settings.logo, active: 'industries' -%}
