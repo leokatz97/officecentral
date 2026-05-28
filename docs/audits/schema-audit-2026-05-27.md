@@ -12,7 +12,7 @@
 ## TL;DR — top critical findings
 
 1. **PDP `BreadcrumbList` position-2 URL is broken.** Position 2 ("Shop Furniture") emits the homepage URL instead of `/collections/business-furniture`. Every product page on the site has a malformed breadcrumb. **CRIT, blocks Breadcrumb rich result.**
-2. **Collection pages emit NO `ItemList` / `CollectionPage` schema.** Product carousel rich result not eligible on any of ~22 collection pages.
+2. **Collection pages emit NO `ItemList` / `CollectionPage` schema.** Product carousel rich result not eligible on any of ~22 collection pages. **[RESOLVED 2026-05-28 — SCHEMA-CRIT-3 shipped summary `ItemList` wrapped in `CollectionPage` on all 3 collection templates (`ds-cc-base`, `ds-cs-base`, `ds-collection-base` = ~209 published collections) via shared `bbi-itemlist-jsonld.liquid` snippet. Branch `feature/schema-crit-3-2026-05-28`, PR #34. **Eligibility correction:** the "product carousel" framing in this finding was WRONG — Google's ItemList carousel is restricted to Course/Movie/Recipe/Restaurant; products are NOT supported, so there is no SERP carousel to earn. Value is entity-graph/AEO only (CollectionPage typing + machine-readable product enumeration). Summary structure (ListItem position+url+name, NO inline Product) sidesteps the F-15 trap by design. Page-scoped, capped 30, position_offset verified across pagination. CRIT-3 output clean: 0 Product nodes, 0 errors, no regression, theme check 2850/166. See build-state SCHEMA-CRIT-3 entry + closing addendum.]**
 3. **Industry / segment landing pages emit NO surface-specific schema.** Healthcare, Education, Government, Non-Profit, Professional Services, Industries Hub all rely on chrome only — no `Service`, no `WebPage`, no `ItemList`. These are the most strategically important pages for OECM-driven B2B SEO. **[RESOLVED 2026-05-28 — SCHEMA-CRIT-2 shipped `Service` + `FAQPage` on all 6 pages via shared `bbi-service-jsonld.liquid` snippet + inline FAQPage (42 verbatim Q&As). Branch `feature/schema-crit-2-2026-05-28`. Honest framing: entity-graph/AEO value only — `FAQPage` does NOT earn a SERP rich result (2023 Google policy restricts FAQ rich results to authoritative gov/health sites; BBI does not qualify, incl. the government page), `Service` is not a rich-result type. `OfferCatalog` (M-6) deliberately omitted to avoid recreating the SCHEMA-CRIT-NEW-1 invalid-Product-snippet problem. RRT 2-of-6 spot-check: 5 valid items, 0 errors each; no chrome regression. See build-state SCHEMA-CRIT-2 entry.]**
 4. **PDPs missing Merchant Listing requirements.** No `priceValidUntil`, `hasMerchantReturnPolicy`, `shippingDetails`, or `itemCondition` on `offers`. Blocks eligibility for Merchant Listings rich results.
 5. **Product `brand.name` is hardcoded to `product.vendor` which is set to "Brant Business Interiors" on many SKUs.** Should be the manufacturer (Fellowes, Global, Teknion, etc.). Causes brand misattribution in SERP — confirmed on `dual-monitor-arm` (actual brand: Fellowes).
@@ -354,3 +354,36 @@ SCHEMA-CRIT-NEW-1 (full scope in build-state) will diagnose the emitter, choose 
 ### Methodology note for future audits
 
 The Phase 2 "Rich Results eligibility (per surface)" table (Phase 2, lines 158-170) was assessed by manual review of captured JSON-LD against documented Google requirements. It did NOT include running Google's actual Rich Results Test on representative URLs. That methodology gap is what allowed F-15's misclassification to land. Any future schema audit should treat manual review as a hypothesis-generator and require at least one real RRT run per surface class before publishing eligibility verdicts.
+
+---
+
+## Addendum — 2026-05-28 — SCHEMA-CRIT-3 resolution (F-10 / C-2) + new finding SCHEMA-CRIT-4
+
+**Author:** Claude under Leo's direction. Branch `feature/schema-crit-3-2026-05-28` (off `feature/schema-crit-2-2026-05-28` @ `7f205da`, PR #33 tip), PR #34.
+
+### F-10 / C-2 RESOLVED — summary ItemList + CollectionPage on 3 collection templates
+
+Shipped summary `ItemList` wrapped in `CollectionPage` via new shared snippet `theme/snippets/bbi-itemlist-jsonld.liquid`, render-called inside the `{% paginate %}` block of all 3 collection sections: `ds-cc-base.liquid` (~9 category), `ds-cs-base.liquid` (91 sub-collections), `ds-collection-base.liquid` (109 default) = ~209 published collections.
+
+- **Structure:** summary ListItems (`position` + `url` + `name`), **NO inline Product type** → no `offers`/`review`/`aggregateRating` required → sidesteps the F-15 trap by design. `CollectionPage` wraps `ItemList` via `mainEntity`. Page-scoped (reflects current paginated page's displayed products), capped 30, `position_offset = paginate.current_offset` for correct cross-page ranks (verified LIVE: sub-collection p2 = positions 25–48).
+- **Eligibility correction (carries the audit's own methodology lesson):** finding F-10 / C-2 / TL;DR #2 all asserted "product carousel rich result" eligibility. **That was WRONG.** Google's ItemList carousel is restricted to **Course/Movie/Recipe/Restaurant**; products/e-commerce collections are **not supported** (verified against Google carousel docs 2026-05-28). There is no product-carousel SERP feature to earn — this is a **category limitation, not a markup gap.** CRIT-3's value is **entity-graph/AEO only**: CollectionPage typing + machine-readable product enumeration for Google index understanding + AI-crawler grounding (same value tier as CRIT-2). This is the second eligibility over-claim in this audit (after F-15) — reinforces the methodology note above: verify the rich-result type actually exists for the content vertical before claiming it.
+- **Verified clean:** 3 structural variants cache-busted + RRT spot-checked. CRIT-3's own schema = 0 Product nodes, 0 errors, `numberOfItems` matches displayed count, chrome + BreadcrumbList + FAQPage intact (no regression). Theme check 2850/166. Commit ref: see PR #34.
+
+### SCHEMA-CRIT-4 (NEW — surfaced during CRIT-3 RRT spot-check; NOT yet started)
+
+**`ds-cs-base` product-card `Product` microdata invalid on quote-only products.** The `ds-cs-base.liquid` product-card `<article>` (line 497) carries `itemscope itemtype="https://schema.org/Product"` with `itemprop` name/brand; the `Offer` block (line 529, `itemprop="offers"` + price/priceCurrency) renders **only in the buyable branch.** For quote-only products (price=0 / unavailable) the card emits a **bare Product with no offers** → RRT error `"offers/review/aggregateRating should be specified"` (+ invalid Merchant listing).
+
+- **PRE-EXISTING, not a CRIT-3 regression** — present in pre-session backup `data/backups/2026-05-28-schema-crit-3/ds-cs-base.liquid` line 497; CRIT-3's diff only added the ItemList render call, untouched card markup.
+- **Confirmed on LIVE:** medium-back-seating page 1 = all 24 products quote-only → 24 bare Products → 24 invalid Product snippets (RRT also double-counts as 24 invalid Merchant listings).
+- **Blast radius:** 91 published sub-collections render via `ds-cs-base`; severity scales with quote-only ratio (high for BBI's quote-heavy B2B catalog). `ds-cc-base` + `ds-collection-base` card markup is clean (0 microdata, plain HTML anchors).
+- **Fix-vs-strip decision** (gate `itemscope` on `is_quote_only == false`, OR strip card microdata to match the two clean templates) belongs in its own session with RRT re-verify across the buyable/quote-only split. ~30-45 min.
+- **CRIT-4 Phase 1 ACTION ITEM:** check whether PDP/product-detail templates have the same bare-Product-on-quote-only pattern — if the card microdata was copied from a product-page partial, the same bug likely exists on product detail pages (higher priority than collection cards if so).
+
+### Root-pattern note (3rd instance of one root cause)
+
+**Product schema emitted without required offers on quote-only B2B products** — now seen three times:
+1. **F-15 / CRIT-NEW-1** — JSON-LD `hasOfferCatalog` Product stubs (resolved 2026-05-27 by deletion).
+2. **CRIT-4 (this)** — microdata `itemscope` Product cards on `ds-cs-base`.
+3. (CRIT-3's summary ItemList deliberately avoids this by emitting no Product type at all.)
+
+Both live instances stem from theme markup assuming **every product has a buyable offer**, which is false for BBI's quote-heavy catalog. **Predictive value:** anywhere the theme emits Product schema (JSON-LD *or* microdata), verify it handles the quote-only case before declaring it valid.

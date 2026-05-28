@@ -569,13 +569,6 @@ li.ds-cs__card--hidden{display:none;}
               </nav>
             {%- endif -%}
 
-            {%- comment -%} SCHEMA-CRIT-3: CollectionPage + summary ItemList of the current page's products {%- endcomment -%}
-            {%- render 'bbi-itemlist-jsonld',
-                products: collection.products,
-                list_url: canonical_url,
-                list_name: page_title,
-                position_offset: paginate.current_offset -%}
-
           {%- else -%}
             <div class="ds-cs__empty">
               <h3>No products found</h3>

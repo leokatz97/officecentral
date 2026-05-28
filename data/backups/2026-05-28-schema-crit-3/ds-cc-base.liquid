@@ -844,12 +844,6 @@
           {%- endif -%}
         </div>
       </section>
-      {%- comment -%} SCHEMA-CRIT-3: CollectionPage + summary ItemList of the current page's products {%- endcomment -%}
-      {%- render 'bbi-itemlist-jsonld',
-          products: collection.products,
-          list_url: canonical_url,
-          list_name: _cc_title,
-          position_offset: paginate.current_offset -%}
       {%- endif -%}
     {%- endpaginate -%}
   {%- endif -%}

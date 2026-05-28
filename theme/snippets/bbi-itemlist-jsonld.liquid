@@ -1,0 +1,55 @@
+{%- comment -%}
+  bbi-itemlist-jsonld — SCHEMA-CRIT-3 (2026-05-28)
+
+  Summary ItemList wrapped in CollectionPage for collection / category pages.
+  Lightweight ListItems (position + url + name) — NO inline Product type, so no
+  offers/review/aggregateRating is required (avoids the F-15 / SCHEMA-CRIT-NEW-1
+  invalid-Product trap). Reflects the products actually displayed on the CURRENT
+  paginated page (page-scoped, capped) — never all products in the collection.
+
+  Honest scope: entity-graph / AI-crawler grounding + CollectionPage typing.
+  Google's ItemList carousel rich result is restricted to Course/Movie/Recipe/
+  Restaurant — products are NOT a supported type, so this earns no SERP carousel.
+  That is a category limitation, not a markup deficiency.
+
+  Params:
+    products        (required) — product list for the CURRENT page slice
+    list_url        (required) — absolute canonical URL of the collection page
+    list_name       (required) — human-readable list / collection name
+    position_offset (optional) — global rank offset (paginate.current_offset); default 0
+    item_cap        (optional) — max items to emit; default 30
+{%- endcomment -%}
+{%- liquid
+  assign il_cap = item_cap | default: 30
+  assign il_offset = position_offset | default: 0
+  assign il_count = products.size
+  if il_count > il_cap
+    assign il_count = il_cap
+  endif
+-%}
+{%- if il_count > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "{{ list_url | escape }}#collectionpage",
+  "url": "{{ list_url | escape }}",
+  "name": {{ list_name | json }},
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+    "numberOfItems": {{ il_count }},
+    "itemListElement": [
+      {%- for product in products limit: il_cap -%}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.index | plus: il_offset }},
+        "url": "{{ shop.url | append: product.url | escape }}",
+        "name": {{ product.title | json }}
+      }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  }
+}
+</script>
+{%- endif -%}
