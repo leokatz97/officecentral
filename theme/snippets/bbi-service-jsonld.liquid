@@ -8,17 +8,25 @@
   reference to the sitewide #organization entity (no inline LocalBusiness
   redeclaration). serviceType and areaServed describe the vertical honestly.
 
+  Also reused by the manufacturer / brand landing pages (BRAND-SERVICE-SCHEMA,
+  2026-05-29) to emit an "Authorized [Brand] Dealer" Service node alongside the
+  Brand node — each brand page passes a distinct id_suffix so multiple Service
+  nodes on one page (e.g. Global + Teknion) get non-colliding @ids.
+
   Params:
     service_name        (required) — Service.name
     service_description (required) — Service.description (plain text, no HTML)
     service_type        (required) — Service.serviceType
     area_served         (optional) — AdministrativeArea name; defaults to "Ontario, Canada"
+    id_suffix           (optional) — @id fragment; defaults to "service". Use distinct
+                                     values for multiple Service nodes on one page
+                                     (e.g. "service-global", "service-teknion").
 {%- endcomment -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "@id": "{{ canonical_url | escape }}#service",
+  "@id": "{{ canonical_url | escape }}#{{ id_suffix | default: 'service' }}",
   "url": "{{ canonical_url | escape }}",
   "name": {{ service_name | json }},
   "description": {{ service_description | json }},
