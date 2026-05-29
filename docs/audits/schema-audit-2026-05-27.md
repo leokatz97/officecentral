@@ -280,9 +280,10 @@ PR title: `SCHEMA-POLISH-1: blog/brand pages + entity-graph cleanup`
 
 ---
 
-**SCHEMA LANE STATUS (updated 2026-05-29 after SCHEMA-BRAND-1):** Solo-actionable schema work is **essentially complete.** Shipped: CRIT-1 (Fix 1 + 1b + 1c), CRIT-2 (Service + FAQPage on industry pages), CRIT-3 (ItemList/CollectionPage), CRIT-4 (bare-Product card strip), H-1 (LocalBusiness @id dedup), **BRAND-1 (Brand × 6 pages)**. Remaining:
-- **SCHEMA-BLOG-1** (H-2) — Blog landing schema; **may HALT at Phase 1 if `/blogs/news` is empty** (no posts → no Blog entity to ground).
-- **F-LOCALBUSINESS-IMAGE** — Steve-gated, needs a business image asset before the LocalBusiness `image` field can be honestly populated.
+**SCHEMA LANE STATUS (updated 2026-05-29 after F-LOCALBUSINESS-IMAGE):** Solo-actionable schema work is **essentially complete.** Shipped: CRIT-1 (Fix 1 + 1b + 1c), CRIT-2 (Service + FAQPage on industry pages), CRIT-3 (ItemList/CollectionPage), CRIT-4 (bare-Product card strip), H-1 (LocalBusiness @id dedup), **BRAND-1 (Brand × 6 pages)**, **F-LOCALBUSINESS-IMAGE (`image` on both chrome LB nodes)**. With F-LOCALBUSINESS-IMAGE shipped, the recurring **"Missing field 'image'" non-critical is gone from every RRT result sitewide.** Remaining:
+- **SCHEMA-BLOG-1** (H-2) — Blog landing schema; **the last solo-actionable schema item** (may HALT at Phase 1 if `/blogs/news` is empty — no posts → no Blog entity to ground).
+- ~~**F-LOCALBUSINESS-IMAGE**~~ — ✅ **RESOLVED 2026-05-29** (see Addendum). Day storefront ImageObject on both `#organization` + `#localbusiness` nodes.
+- **The Local businesses row's residual non-critical is now `priceRange`-only on `#organization`** — that's **M-2** (separate POLISH-1 finding; deliberate omission — we don't assert `$$` on the Brand-encompassing #organization node for a quote-based catalog). The badge persists by design; not actionable as a "fix."
 - **H-4 / M-1..M-4** — minor entity-graph polish, low priority.
 - **4 Tier 2B follow-ups from BRAND-1** (build-state): BRAND-PAGE-COPY-FIX (Steve-gated copy error), MANUFACTURER-LOGO-ACQUISITION, BRAND-PAGE-HERO-IMAGE-AUDIT (Steve-gated), BRAND-SERVICE-SCHEMA (defer).
 
@@ -419,7 +420,9 @@ Both inline `provider` LocalBusiness redeclarations (`ds-lp-oecm.liquid` Governm
 
 The original H-1 framing (and the Phase 4 prediction this session) assumed fixing F-4 would clear the RRT "Local businesses — Non-critical issues detected" WARN. **It did not, and was never going to.** Post-H-1 RRT on both pages (2026-05-28) confirmed the WARN persists. F-4 (duplicate *entity*, now fixed) and the WARN (missing *recommended field* on the LocalBusiness type) are distinct findings. Methodology lesson (3rd in this audit, after F-15 and F-10 eligibility over-claims): **verify which finding a given RRT message maps to before predicting a fix will clear it.**
 
-### F-LOCALBUSINESS-IMAGE (NEW finding)
+### F-LOCALBUSINESS-IMAGE (NEW finding) — ✅ RESOLVED 2026-05-29
+
+> **✅ RESOLVED 2026-05-29 (branch `feature/f-localbusiness-image-2026-05-29`, off `main`).** `image` ImageObject added to BOTH chrome LocalBusiness nodes (`bbi-org-schema.liquid` `#organization` after `logo`; `bbi-localbusiness-schema.liquid` `#localbusiness` after `url`) — identical `{"@type":"ImageObject","url":".../bbi-about-grid-01-storefront-day.jpg","width":800,"height":600}` on both (entity-graph consistency). Photo: day storefront (#2 from About Us inventory; Steve categorically approved all About Us photos Day 15). **RRT (3 pages incl. `/pages/oecm`): Local businesses non-critical reduced 3 → 1** (now `priceRange`-only on `#organization` — the M-2 deliberate asymmetry, see below); **Organisation row CLEARED sitewide** (bonus — `image` was flagged at BOTH type-rows of the dual-typed `#organization` node; per-type field-checks, not per-entity). 0 errors; item counts intact (5 collection/OECM, 7 PDP). No regression (CRIT-1b/1c, CRIT-3/4, BRAND-1 all intact). Theme check held 2833/165. See Day 16 build-state. **The recurring "Missing field 'image'" non-critical is now gone from every RRT result sitewide.**
 
 **Both sitewide chrome LocalBusiness nodes lack the recommended `image` field** → RRT `Missing field "image" (optional)` non-critical WARN, **sitewide** (every `bbi_landing` page renders the chrome).
 
