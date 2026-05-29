@@ -1,0 +1,803 @@
+{
+  "recipes": {
+    "24-hour-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "accessories": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: type:accessories",
+      "tags": [
+        "type:accessories"
+      ]
+    },
+    "air-quality-management": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "bar-height-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "bariatric-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "bases": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "big-heavy-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "boardroom": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: room:boardroom",
+      "tags": [
+        "room:boardroom"
+      ]
+    },
+    "boardroom-conference-meeting": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "bookcases": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "bookcases-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "cafe-lounge-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "cafeteria-breakroom-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "cafeteria-kitchen-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "chair-mats": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "chairmat-accessories": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "chairmats-accessories": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "coffee-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "combo-units": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "credenzas": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "desk-top-dividers": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "desk-top-sit-stand": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "desk-top-sit-stand-ergonomic-products": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "desks": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: type:desks",
+      "tags": [
+        "type:desks"
+      ]
+    },
+    "desks-straight": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "desktop-risers": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "desktop-sit-stand": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "drafting-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "end-tables-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "ergocentric": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: brand:ergocentric",
+      "tags": [
+        "brand:ergocentric"
+      ]
+    },
+    "fire-resistant-file-cabinets": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "fire-resistant-file-cabinets-safes": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "fire-resistant-file-cabinets-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "fire-resistant-safes": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "fire-resistant-safes-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "folding-tables-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "folding-stacking-chairs-carts": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "furniture": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "gaming": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "global-teknion": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: brand:global-furniture-group",
+      "tags": [
+        "brand:global-furniture-group"
+      ]
+    },
+    "gfg-desks": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:global-furniture-group', 'type:desks']",
+      "tags": [
+        "brand:global-furniture-group",
+        "type:desks"
+      ]
+    },
+    "gfg-chairs": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:global-furniture-group', 'type:chairs']",
+      "tags": [
+        "brand:global-furniture-group",
+        "type:chairs"
+      ]
+    },
+    "gfg-storage": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:global-furniture-group', 'type:storage']",
+      "tags": [
+        "brand:global-furniture-group",
+        "type:storage"
+      ]
+    },
+    "gfg-tables": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:global-furniture-group', 'type:tables']",
+      "tags": [
+        "brand:global-furniture-group",
+        "type:tables"
+      ]
+    },
+    "guest-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "heartwood-desks": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:heartwood-manufacturing-ltd', 'type:desks']",
+      "tags": [
+        "brand:heartwood-manufacturing-ltd",
+        "type:desks"
+      ]
+    },
+    "heartwood-storage": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:heartwood-manufacturing-ltd', 'type:storage']",
+      "tags": [
+        "brand:heartwood-manufacturing-ltd",
+        "type:storage"
+      ]
+    },
+    "heartwood-tables": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:heartwood-manufacturing-ltd', 'type:tables']",
+      "tags": [
+        "brand:heartwood-manufacturing-ltd",
+        "type:tables"
+      ]
+    },
+    "height-adjustable-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "height-adjustable-tables-desks": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "highback-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "industrial-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "keyboard-trays": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "kids-bookcases": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "l-shape": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "l-shape-desks": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "laminate-bookcases": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lateral-storage-combo-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lateral-file-cabinets-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lateral-files-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "leather-faux-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lecterns-podiums": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lecture-hall-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "library-study-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lighting": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lockers": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lounge": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lounge-reception": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: waiting-room",
+      "tags": [
+        "waiting-room"
+      ]
+    },
+    "lounge-chairs": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "lounge-chairs-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "medium-back-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "meeting-conference-room-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "meeting-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "mesh-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "metal-vertical-files": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "mobile-pedestals": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "monitor-arms": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "multi-person-workstations": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "multi-person-workstations-desks": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "obusforme-chairs": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:obusforme', 'type:chairs']",
+      "tags": [
+        "brand:obusforme",
+        "type:chairs"
+      ]
+    },
+    "oecm-eligible": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: oecm-eligible",
+      "tags": [
+        "oecm-eligible"
+      ]
+    },
+    "office-furniture": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "office-suites-desks": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "room-open-plan": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: room:open-plan",
+      "tags": [
+        "room:open-plan"
+      ]
+    },
+    "otg-accessories": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:otg-offices-to-go', 'type:accessories']",
+      "tags": [
+        "brand:otg-offices-to-go",
+        "type:accessories"
+      ]
+    },
+    "otg-desks": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:otg-offices-to-go', 'type:desks']",
+      "tags": [
+        "brand:otg-offices-to-go",
+        "type:desks"
+      ]
+    },
+    "otg-lounge": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:otg-offices-to-go', 'type:lounge']",
+      "tags": [
+        "brand:otg-offices-to-go",
+        "type:lounge"
+      ]
+    },
+    "otg-panels": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:otg-offices-to-go', 'type:panels']",
+      "tags": [
+        "brand:otg-offices-to-go",
+        "type:panels"
+      ]
+    },
+    "otg-chairs": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:otg-offices-to-go', 'type:chairs']",
+      "tags": [
+        "brand:otg-offices-to-go",
+        "type:chairs"
+      ]
+    },
+    "otg-storage": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:otg-offices-to-go', 'type:storage']",
+      "tags": [
+        "brand:otg-offices-to-go",
+        "type:storage"
+      ]
+    },
+    "otg-tables": {
+      "add_method": "tag-write-multi",
+      "add_instruction": "write ALL: ['brand:otg-offices-to-go', 'type:tables']",
+      "tags": [
+        "brand:otg-offices-to-go",
+        "type:tables"
+      ]
+    },
+    "ottomans": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "outdoor-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "outerwear": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "panel-systems": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "panels-dividers": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "panels-partitions": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "pedestal-drawers-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "pedestal-drawers": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "pedestals": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "planters": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "power-modules-accessories": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "room-private-office": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: room:private-office",
+      "tags": [
+        "room:private-office"
+      ]
+    },
+    "room-reception": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: room:reception",
+      "tags": [
+        "room:reception"
+      ]
+    },
+    "reception-desks-desks": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "reception-side-guest-chairs": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "recliners": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "room-dividers": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "room-dividers-panels-dividers": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "round-square-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "seating": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: type:chairs",
+      "tags": [
+        "type:chairs"
+      ]
+    },
+    "side-coffee-table": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "sit-stand-workstations": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "sound-dampeners": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "stacking-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "stools": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "stools-drafting-chairs": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "stools-seating": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "storage": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: type:storage",
+      "tags": [
+        "type:storage"
+      ]
+    },
+    "storage-cabinets": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "storage-cabinets-lockers": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "storage-cabinets-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "straight-desks-desks": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "table-bases": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "table-desks": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "tables": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: type:tables",
+      "tags": [
+        "type:tables"
+      ]
+    },
+    "tablet-chairs": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "task-chairs": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: task-chair",
+      "tags": [
+        "task-chair"
+      ]
+    },
+    "telephone-booths": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "training-flip-top-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "room-training-room": {
+      "add_method": "tag-write",
+      "add_instruction": "write tag: room:training-room",
+      "tags": [
+        "room:training-room"
+      ]
+    },
+    "training-room-tables": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "u-shape-desks-desks": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "vertical-file-cabinets-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "vertical-files": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "walls": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "wardrobe-storage": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "white-board": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    },
+    "winter-supplies": {
+      "add_method": "collects-post",
+      "add_instruction": "POST /collects",
+      "tags": []
+    }
+  },
+  "brands": [
+    "Axis",
+    "Brant Business Interiors",
+    "Deflecto",
+    "Fellowes",
+    "FireKing",
+    "Foundations Worldwide",
+    "Frost Products Ltd.",
+    "Global Furniture Group",
+    "HDL",
+    "Heartwood Manufacturing Ltd.",
+    "Horizon",
+    "Kensington",
+    "Lesro Industries",
+    "MergeWorks",
+    "MityBilt Products Inc.",
+    "OTG / Offices to Go",
+    "ObusForme",
+    "Office Central & Brant Business Interiors",
+    "Office Star",
+    "Pineapple Contracts",
+    "Produits Re-Plast",
+    "Rocelco",
+    "Sentry Safe",
+    "Tayco",
+    "Uline",
+    "Victor Technology LLC",
+    "ergoCentric"
+  ]
+}
