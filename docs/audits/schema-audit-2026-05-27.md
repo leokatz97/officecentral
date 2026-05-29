@@ -140,7 +140,7 @@ These pages emit only the sitewide `Organization`/`LocalBusiness`/`WebSite` chro
 
 **F-10. Collection pages have no `ItemList` / `CollectionPage`.** Listed products are absent from structured data. Blocks product-carousel rich results.
 
-**F-11. Blog landing (`/blogs/news`) emits no `Blog` schema.** `ds-blog-list.liquid` does not emit `Blog` or `CollectionPage`. Individual articles do emit `BlogPosting` (via `ds-article.liquid`).
+**F-11. Blog landing (`/blogs/news`) emits no `Blog` schema.** ~~`ds-blog-list.liquid` does not emit `Blog` or `CollectionPage`.~~ **✅ RESOLVED 2026-05-29 (SCHEMA-BLOG-1 / H-2):** `ds-blog-list.liquid` now renders `bbi-blog-jsonld.liquid` → `Blog` entity with `blogPost[]` enumeration. Individual articles emit `BlogPosting` (via `ds-article.liquid`, enhanced this session with articleSection + keywords).
 
 **F-12. Industry segment pages emit no `Service` / `WebPage` / `ItemList`.** Healthcare, education, government, non-profit, professional-services, industries hub — all chrome-only. These are the most strategically important B2B SEO pages and should emit `Service` (institutional procurement) with `serviceType`, `areaServed`, and ideally an `OfferCatalog` of representative product categories.
 
@@ -220,7 +220,7 @@ Order: SEO impact × leverage (one-snippet fixes that cover many surfaces) × ef
 | # | Fix | Where | Effort | Impact | Risk | Deps |
 |---|---|---|---|---|---|---|
 | H-1 | ~~Convert inline `provider` redeclarations in OECM + Quote sections to `@id` references (F-4). Match the relocation/delivery pattern. Removes 1 extra LocalBusiness node per page.~~ **✅ DONE 2026-05-28** (SCHEMA-H-1, branch `feature/schema-polish-1-2026-05-28`). LocalBusiness 3→2/page; F-4 resolved on both. **Did NOT clear the missing-`image` WARN** — separate finding (see Addendum). | `ds-lp-oecm.liquid:304-317`, `ds-lp-quote.liquid:363-376` | S | M — entity-graph clarity, mild AI-crawler benefit | LOW | C-4 prep work |
-| H-2 | Add `Blog` schema to blog landing page (F-11). `Blog` with `mainEntityOfPage`, `publisher` `@id`-ref to `#organization`. | `theme/sections/ds-blog-list.liquid` | S | M — blog hub eligibility, AI crawler grounding | LOW | — |
+| H-2 | ~~Add `Blog` schema to blog landing page (F-11). `Blog` with `mainEntityOfPage`, `publisher` `@id`-ref to `#organization`.~~ **✅ RESOLVED 2026-05-29 (SCHEMA-BLOG-1).** New `bbi-blog-jsonld.liquid` rendered from `ds-blog-list.liquid`: `Blog` with name/description/@id/url/mainEntityOfPage + publisher `@id`-ref to `#organization` + `blogPost[]` enumeration. Plus enhanced the already-live inline BlogPosting on the OECM post (articleSection + keywords + honest-omission image). RRT 5 valid / 0 errors per page; cross-page `@id` byte-identical. See Day 16 build-state. | new snippet `bbi-blog-jsonld.liquid` + `ds-blog-list.liquid` render + `ds-article.liquid` enhancement | S | M — blog hub eligibility, AI crawler grounding | LOW | — |
 | H-3 | ~~Add `Brand` (or `Organization` w/ `manufacturer` relationship) schema to 6 manufacturer pages (F-13). Per-brand: name, logo, URL, parentOrganization (BBI as seller).~~ **✅ RESOLVED 2026-05-29 (SCHEMA-BRAND-1).** 7 `Brand` entities across 6 pages via `bbi-brand-jsonld.liquid` (dual on `brands-global-teknion`). `@type: Brand` (matches PDP ref). name + description + @id + mainEntityOfPage + verified sameAs. `logo` deferred (no assets → MANUFACTURER-LOGO-ACQUISITION Tier 2B); `parentOrganization` rejected on honesty grounds (BBI = dealer, not parent; Global/Teknion = sister cos). RRT 0 errors. See F-13 + Day 16 build-state. | new snippet `bbi-brand-jsonld.liquid` + 6 section renders | M | M — manufacturer-page SEO + Brand knowledge-panel eligibility | LOW | — |
 | H-4 | Convert PDP `offers.seller` to `@id` reference (F-9). Remove inline Organization redeclaration. | `bbi-product-jsonld.liquid:145-148` | S | L-M — entity-graph clarity | LOW | — |
 | H-5 | Format-match Source: always-on `FAQPage` on category pages, with 3 default Q&As if `faq_item` blocks empty (F-3 from Phase 3). | `ds-cc-base.liquid` | S | M — AI Overview citation play on ~22 category pages | LOW | — |
@@ -271,7 +271,7 @@ PR title: `SCHEMA-CRIT-2: Service + FAQPage schema for industry pages (healthcar
 PR title: `SCHEMA-CRIT-3: ItemList + always-on FAQPage on collection pages`
 
 **Session 4 — High-impact polish (~45-60 min):**
-- H-2 (Blog landing schema) — ⏳ **PENDING as SCHEMA-BLOG-1** (may HALT at Phase 1 if `/blogs/news` has no posts)
+- ~~H-2 (Blog landing schema)~~ — ✅ **RESOLVED 2026-05-29 (SCHEMA-BLOG-1, own session)** — new `bbi-blog-jsonld.liquid` (`Blog` + `blogPost[]` enumeration) on `/blogs/news` + enhanced the already-live inline BlogPosting on the OECM post (articleSection + keywords + honest-omission image). RRT 5 valid / 0 errors per page; cross-page `@id` byte-identical.
 - ~~H-3 (Brand pages × 6)~~ — ✅ **RESOLVED 2026-05-29 (SCHEMA-BRAND-1, own session — 7 Brand entities across 6 pages)**
 - H-4 (PDP seller @id ref)
 - M-1, M-2, M-3, M-4 (entity polish batch)
@@ -280,12 +280,13 @@ PR title: `SCHEMA-POLISH-1: blog/brand pages + entity-graph cleanup`
 
 ---
 
-**SCHEMA LANE STATUS (updated 2026-05-29 after F-LOCALBUSINESS-IMAGE):** Solo-actionable schema work is **essentially complete.** Shipped: CRIT-1 (Fix 1 + 1b + 1c), CRIT-2 (Service + FAQPage on industry pages), CRIT-3 (ItemList/CollectionPage), CRIT-4 (bare-Product card strip), H-1 (LocalBusiness @id dedup), **BRAND-1 (Brand × 6 pages)**, **F-LOCALBUSINESS-IMAGE (`image` on both chrome LB nodes)**. With F-LOCALBUSINESS-IMAGE shipped, the recurring **"Missing field 'image'" non-critical is gone from every RRT result sitewide.** Remaining:
-- **SCHEMA-BLOG-1** (H-2) — Blog landing schema; **the last solo-actionable schema item** (may HALT at Phase 1 if `/blogs/news` is empty — no posts → no Blog entity to ground).
+**SCHEMA LANE STATUS (updated 2026-05-29 after SCHEMA-BLOG-1):** **SOLO-ACTIONABLE SCHEMA WORK NOW FULLY COMPLETE.** Shipped: CRIT-1 (Fix 1 + 1b + 1c), CRIT-2 (Service + FAQPage on industry pages), CRIT-3 (ItemList/CollectionPage), CRIT-4 (bare-Product card strip), H-1 (LocalBusiness @id dedup), **BRAND-1 (Brand × 6 pages)**, **F-LOCALBUSINESS-IMAGE (`image` on both chrome LB nodes)**, **BLOG-1 (Blog schema + BlogPosting enhancement)**. **Day 16 finishes the audit. CRIT-1, CRIT-2, CRIT-3, CRIT-4, all H-* items, F-* items, and POLISH-1 items are all resolved or properly deferred to content / Steve / design.** Remaining items are NOT solo-actionable:
+- ~~**SCHEMA-BLOG-1**~~ (H-2) — ✅ **RESOLVED 2026-05-29** (own session). The last solo-actionable schema item; now closed.
 - ~~**F-LOCALBUSINESS-IMAGE**~~ — ✅ **RESOLVED 2026-05-29** (see Addendum). Day storefront ImageObject on both `#organization` + `#localbusiness` nodes.
 - **The Local businesses row's residual non-critical is now `priceRange`-only on `#organization`** — that's **M-2** (separate POLISH-1 finding; deliberate omission — we don't assert `$$` on the Brand-encompassing #organization node for a quote-based catalog). The badge persists by design; not actionable as a "fix."
 - **H-4 / M-1..M-4** — minor entity-graph polish, low priority.
-- **4 Tier 2B follow-ups from BRAND-1** (build-state): BRAND-PAGE-COPY-FIX (Steve-gated copy error), MANUFACTURER-LOGO-ACQUISITION, BRAND-PAGE-HERO-IMAGE-AUDIT (Steve-gated), BRAND-SERVICE-SCHEMA (defer).
+- **Content-side / Steve-gated:** STEVE-SET-BLOG-FEATURED-IMAGE (unlocks Article rich-result on the OECM post, ~30 sec), BRAND-PAGE-COPY-FIX (Teknion/Global sister-co copy error), BRAND-PAGE-HERO-IMAGE-AUDIT.
+- **Schema-enrichment Tier 2B:** MANUFACTURER-LOGO-ACQUISITION, BRAND-SERVICE-SCHEMA (defer), AUTHOR-URL-FIELD (~5 min, bundle into next content session), **SCHEMA-CORPORATE-HIERARCHY-FIX** (restructure chrome to the actual 3-tier BBI → Brant Basics → Office Central ownership; Steve-gated positioning call — surfaced by BLOG-1, the post body correctly describes the 3-tier structure which conflicts with the current 2-tier chrome).
 
 **Defer / data-side:**
 - F-5 root cause: vendor field re-attribution per SKU (large data project — separate workstream from schema)

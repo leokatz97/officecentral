@@ -1,0 +1,52 @@
+{%- comment -%}
+  Snippet: bbi-blog-jsonld
+  Purpose: Blog JSON-LD for the Resources hub (/blogs/news). SCHEMA-BLOG-1 (2026-05-29).
+  Rendered from: ds-blog-list.liquid
+  Params: heading (string, → name), description (string, → description). Both optional.
+  Notes:
+    - publisher references the chrome Organization @id (bbi-org-schema #organization) — no duplicate node.
+    - blogPost[] @ids match the per-post BlogPosting @id (canonical_url#article) so the index
+      enumeration and the article page describe the SAME entity.
+    - domain_base derived from canonical_url (brand domain) — no hardcoded host.
+{%- endcomment -%}
+{%- if blog -%}
+{%- assign domain_base = canonical_url | remove: blog.url -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "{{ canonical_url }}#blog",
+  "name": {{ heading | default: blog.title | strip_html | json }},
+  {%- if description != blank %}
+  "description": {{ description | strip_html | json }},
+  {%- endif %}
+  "url": "{{ canonical_url }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ canonical_url }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://{{ shop.permanent_domain }}/#organization",
+    "name": "Brant Business Interiors",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.brantbusinessinteriors.com/cdn/shop/files/bbi-logo-v2.png",
+      "width": 400,
+      "height": 80
+    }
+  }{%- if blog.articles_count > 0 -%},
+  "blogPost": [
+    {%- for article in blog.articles limit: 50 -%}
+    {
+      "@type": "BlogPosting",
+      "@id": "{{ domain_base }}{{ article.url }}#article",
+      "headline": {{ article.title | strip_html | json }},
+      "url": "{{ domain_base }}{{ article.url }}",
+      "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' }}"
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]{%- endif -%}
+}
+</script>
+{%- endif -%}
