@@ -175,11 +175,14 @@
       "width": 400,
       "height": 80
     }
-  }{%- if article.image -%},
+  }{%- if article.tags.size > 0 -%},
+  "articleSection": {{ article.tags | first | json }},
+  "keywords": {{ article.tags | join: ', ' | json }}{%- endif -%}{%- if article.image -%},
   "image": {
     "@type": "ImageObject",
-    "url": "{{ article.image | image_url: width: 1200 | prepend: 'https:' }}",
-    "width": 1200
+    "url": "{{ article.image | image_url: width: article.image.width | prepend: 'https:' }}",
+    "width": {{ article.image.width }},
+    "height": {{ article.image.height }}
   }{%- endif -%}
 }
 </script>

@@ -119,6 +119,9 @@
 .blog-cta__phone a:hover { color: var(--saleBadgeBackground); }
 </style>
 
+{%- comment -%} SCHEMA-BLOG-1 (2026-05-29): Blog JSON-LD — name/description from section settings, blogPost[] enumerates blog.articles. {%- endcomment -%}
+{%- render 'bbi-blog-jsonld', heading: section.settings.heading, description: section.settings.lede -%}
+
 <div class="bbi-blog-list scheme-default">
   {%- render 'bbi-nav', logo: section.settings.logo -%}
 
