@@ -359,6 +359,20 @@
 
   {%- render 'bbi-footer', logo: section.settings.logo -%}
 
+  {%- render 'bbi-brand-jsonld',
+    brand_name: "Global Furniture Group",
+    brand_description: "Global Furniture Group is a Canadian-headquartered contract furniture manufacturer offering commercial-grade seating, desks, tables, and storage, and parent of the value-tier Offices to Go (OTG) brand.",
+    same_as: "https://www.globalfurnituregroup.com",
+    id_suffix: "brand-global"
+  -%}
+
+  {%- render 'bbi-brand-jsonld',
+    brand_name: "Teknion",
+    brand_description: "Teknion is a Canadian contract furniture manufacturer specializing in workstations, demountable wall systems, and height-adjustable desking for corporate and institutional workplaces.",
+    same_as: "https://www.teknion.com",
+    id_suffix: "brand-teknion"
+  -%}
+
 </div><!-- /lp-global -->
 
 {% schema %}

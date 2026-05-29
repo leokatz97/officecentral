@@ -1,0 +1,36 @@
+{%- comment -%}
+  bbi-brand-jsonld — SCHEMA-BRAND-1 (2026-05-29)
+
+  Emits a Brand JSON-LD node for the 6 manufacturer / brand landing pages. Uses
+  @type "Brand" to MATCH the PDP emitter (bbi-product-jsonld.liquid:69) so the entity
+  declared here is the same Brand hundreds of PDPs reference by name. Emitted ALONGSIDE
+  the sitewide chrome (@graph Org + LocalBusiness + WebSite) as its own <script> block.
+
+  Honesty rule (SCHEMA-CRIT-1c): only emit verified fields; omit absent ones entirely
+  (no empty strings/nulls/fabricated URLs). NO parentOrganization — Brant Business
+  Interiors is an authorized dealer, not the parent of these manufacturers.
+
+  The brands-global-teknion page renders this snippet TWICE (Global + Teknion) — they
+  are independent sister companies under common ownership, NOT parent/subsidiary, so
+  each is a standalone Brand with its own @id (via id_suffix) and sameAs, no relation
+  asserted between them.
+
+  Params:
+    brand_name        (required) — Brand.name
+    brand_description (required) — Brand.description (plain text, no HTML)
+    same_as           (optional) — single verified canonical identity URL
+    id_suffix         (optional) — @id fragment; defaults to "brand". Use distinct
+                                   values for multiple Brands on one page
+                                   (e.g. "brand-global", "brand-teknion").
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Brand",
+  "@id": "{{ canonical_url | escape }}#{{ id_suffix | default: 'brand' }}",
+  "name": {{ brand_name | json }},
+  "description": {{ brand_description | json }},
+  "mainEntityOfPage": {{ canonical_url | json }}{% if same_as != blank %},
+  "sameAs": [{{ same_as | json }}]{% endif %}
+}
+</script>

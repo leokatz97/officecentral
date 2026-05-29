@@ -145,6 +145,7 @@ These pages emit only the sitewide `Organization`/`LocalBusiness`/`WebSite` chro
 **F-12. Industry segment pages emit no `Service` / `WebPage` / `ItemList`.** Healthcare, education, government, non-profit, professional-services, industries hub — all chrome-only. These are the most strategically important B2B SEO pages and should emit `Service` (institutional procurement) with `serviceType`, `areaServed`, and ideally an `OfferCatalog` of representative product categories.
 
 **F-13. Brand manufacturer pages emit no `Brand` schema.** `/pages/brands-ergocentric`, `…-global-teknion`, `…-heartwood`, `…-keilhauer`, `…-obusforme`, `…-otg` — no Brand or Organization schema for the featured manufacturer. Should emit a `Brand` (or `Organization` if appropriate) with `manufacturer` relationship + `subjectOf` linking BBI.
+  - **✅ RESOLVED 2026-05-29 (SCHEMA-BRAND-1, branch `feature/schema-brand-1-2026-05-29`).** 7 `Brand` entities shipped across the 6 pages via shared `theme/snippets/bbi-brand-jsonld.liquid` (dual Brand on `brands-global-teknion` — Global + Teknion as independent sister companies, no `parentOrganization`). `@type: Brand` chosen to match the PDP `brand.name` reference (entity-graph coherence). Each Brand: `name` + `description` + `@id` + `mainEntityOfPage` + verified `sameAs`. `logo` omitted (no assets — see MANUFACTURER-LOGO-ACQUISITION Tier 2B); `manufacturer`/`subjectOf` relationship NOT emitted (the original suggestion's `parentOrganization`/seller framing was rejected on honesty grounds — BBI is a dealer, not parent). Cache-busted curl 2→3 (single) / 2→4 (combined); RRT 0 errors (Brand not rich-result-eligible, parsed clean). Theme check 2833/165 held. See Day 16 build-state entry.
 
 **F-14. About + Contact pages emit no `AboutPage` / `ContactPage`.** These are weak signal classes but cheap to add and aid entity disambiguation.
 
@@ -220,7 +221,7 @@ Order: SEO impact × leverage (one-snippet fixes that cover many surfaces) × ef
 |---|---|---|---|---|---|---|
 | H-1 | ~~Convert inline `provider` redeclarations in OECM + Quote sections to `@id` references (F-4). Match the relocation/delivery pattern. Removes 1 extra LocalBusiness node per page.~~ **✅ DONE 2026-05-28** (SCHEMA-H-1, branch `feature/schema-polish-1-2026-05-28`). LocalBusiness 3→2/page; F-4 resolved on both. **Did NOT clear the missing-`image` WARN** — separate finding (see Addendum). | `ds-lp-oecm.liquid:304-317`, `ds-lp-quote.liquid:363-376` | S | M — entity-graph clarity, mild AI-crawler benefit | LOW | C-4 prep work |
 | H-2 | Add `Blog` schema to blog landing page (F-11). `Blog` with `mainEntityOfPage`, `publisher` `@id`-ref to `#organization`. | `theme/sections/ds-blog-list.liquid` | S | M — blog hub eligibility, AI crawler grounding | LOW | — |
-| H-3 | Add `Brand` (or `Organization` w/ `manufacturer` relationship) schema to 6 manufacturer pages (F-13). Per-brand: name, logo, URL, parentOrganization (BBI as seller). | new snippet `bbi-brand-jsonld.liquid` + 6 section renders | M | M — manufacturer-page SEO + Brand knowledge-panel eligibility | LOW | — |
+| H-3 | ~~Add `Brand` (or `Organization` w/ `manufacturer` relationship) schema to 6 manufacturer pages (F-13). Per-brand: name, logo, URL, parentOrganization (BBI as seller).~~ **✅ RESOLVED 2026-05-29 (SCHEMA-BRAND-1).** 7 `Brand` entities across 6 pages via `bbi-brand-jsonld.liquid` (dual on `brands-global-teknion`). `@type: Brand` (matches PDP ref). name + description + @id + mainEntityOfPage + verified sameAs. `logo` deferred (no assets → MANUFACTURER-LOGO-ACQUISITION Tier 2B); `parentOrganization` rejected on honesty grounds (BBI = dealer, not parent; Global/Teknion = sister cos). RRT 0 errors. See F-13 + Day 16 build-state. | new snippet `bbi-brand-jsonld.liquid` + 6 section renders | M | M — manufacturer-page SEO + Brand knowledge-panel eligibility | LOW | — |
 | H-4 | Convert PDP `offers.seller` to `@id` reference (F-9). Remove inline Organization redeclaration. | `bbi-product-jsonld.liquid:145-148` | S | L-M — entity-graph clarity | LOW | — |
 | H-5 | Format-match Source: always-on `FAQPage` on category pages, with 3 default Q&As if `faq_item` blocks empty (F-3 from Phase 3). | `ds-cc-base.liquid` | S | M — AI Overview citation play on ~22 category pages | LOW | — |
 
@@ -270,12 +271,20 @@ PR title: `SCHEMA-CRIT-2: Service + FAQPage schema for industry pages (healthcar
 PR title: `SCHEMA-CRIT-3: ItemList + always-on FAQPage on collection pages`
 
 **Session 4 — High-impact polish (~45-60 min):**
-- H-2 (Blog landing schema)
-- H-3 (Brand pages × 6)
+- H-2 (Blog landing schema) — ⏳ **PENDING as SCHEMA-BLOG-1** (may HALT at Phase 1 if `/blogs/news` has no posts)
+- ~~H-3 (Brand pages × 6)~~ — ✅ **RESOLVED 2026-05-29 (SCHEMA-BRAND-1, own session — 7 Brand entities across 6 pages)**
 - H-4 (PDP seller @id ref)
 - M-1, M-2, M-3, M-4 (entity polish batch)
 
 PR title: `SCHEMA-POLISH-1: blog/brand pages + entity-graph cleanup`
+
+---
+
+**SCHEMA LANE STATUS (updated 2026-05-29 after SCHEMA-BRAND-1):** Solo-actionable schema work is **essentially complete.** Shipped: CRIT-1 (Fix 1 + 1b + 1c), CRIT-2 (Service + FAQPage on industry pages), CRIT-3 (ItemList/CollectionPage), CRIT-4 (bare-Product card strip), H-1 (LocalBusiness @id dedup), **BRAND-1 (Brand × 6 pages)**. Remaining:
+- **SCHEMA-BLOG-1** (H-2) — Blog landing schema; **may HALT at Phase 1 if `/blogs/news` is empty** (no posts → no Blog entity to ground).
+- **F-LOCALBUSINESS-IMAGE** — Steve-gated, needs a business image asset before the LocalBusiness `image` field can be honestly populated.
+- **H-4 / M-1..M-4** — minor entity-graph polish, low priority.
+- **4 Tier 2B follow-ups from BRAND-1** (build-state): BRAND-PAGE-COPY-FIX (Steve-gated copy error), MANUFACTURER-LOGO-ACQUISITION, BRAND-PAGE-HERO-IMAGE-AUDIT (Steve-gated), BRAND-SERVICE-SCHEMA (defer).
 
 **Defer / data-side:**
 - F-5 root cause: vendor field re-attribution per SKU (large data project — separate workstream from schema)
