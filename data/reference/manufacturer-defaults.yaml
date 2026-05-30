@@ -17,7 +17,32 @@ teknion:
   notes: Populate defaults when first Teknion product encountered
 
 humanscale:
-  warranty: null
-  country_of_manufacture: null
+  warranty: 10-Year Warranty  # confirmed session 2 — eFloat Quattro + Nova both 10-yr (Nova rated 24/7)
+  country_of_manufacture: null  # UNCONFIRMED — likely USA (NJ); confirm per product, do not assume Canadian
+  certifications_typical: [BIFMA]  # eFloat tested to BIFMA; lighting carries ENERGY STAR / Red List Free
+  notes: |
+    Session 2: eFloat Quattro (sit-stand desk) + Nova (LED task light). Warranty 10-yr.
+    Country of origin not stated on product pages — left blank rather than guessed.
+
+# --- Added session 2 (2026-05-30) — first Safco/FireKing/Kensington products ---
+safco:
+  warranty: Limited Lifetime Warranty  # confirmed via safcoproducts.com/resources/warranty-statement (5 yrs on mechanisms/glides/laminates/electrical)
+  country_of_manufacture: null  # Ranger 4-Post + Ranger drafting = Made in USA (confirmed); AlphaBetter/Vista/2130SL UNCONFIRMED — confirm per product
+  certifications_typical: []  # none surfaced for drafting/desk lines; GREENGUARD possible on some — confirm
+  notes: |
+    Session 2: Ranger Steel 4-Post (7732A), AlphaBetter (1224), Vista (3960/3951), 2130SL (Active Collection).
+    Limited Lifetime warranty is the house default. Ranger explicitly Made in USA; other lines unconfirmed.
+
+fireking:
+  warranty: Limited Lifetime Warranty  # plus in-fire replacement guarantee to original purchaser
+  country_of_manufacture: United States  # "all or virtually all made in USA" (confirmed)
+  certifications_typical: [UL Class 350 1-Hour Fire Rating]
+  notes: |
+    Session 2: 72" Fire-Rated Storage Cabinet (CF7236-D). Fire-rated cabinets carry UL Class 350.
+
+kensington:
+  warranty: 1-Year Limited Warranty  # confirm — Kensington's lifetime warranty covers accessories, not cabinets/charging
+  country_of_manufacture: null  # likely imported (ACCO Brands); confirm
   certifications_typical: []
-  notes: Populate defaults when first Humanscale product encountered
+  notes: |
+    Session 2: Universal Charge & Sync Tablet Cabinet (K67771). Charging cabinets = standard (not lifetime) warranty.

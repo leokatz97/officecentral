@@ -44,7 +44,39 @@ brand_routing:
     sub_brands: []
     primary_collections_by_type:
       task_chair: [humanscale-chairs, task-chairs]
-      # populate remaining types when first Humanscale product is enriched
+      sit_stand_desk: [sit-stand-workstations, desktop-sit-stand]  # eFloat Quattro (session 2)
+      task_light: [lighting]                                        # Nova (session 2)
     routing_tag_template: [brand:humanscale, type:{product_type_slug}]
+
+  # --- Added session 2 (2026-05-30); were csv_fallback this batch, lifted into lookup ---
+  safco:
+    manufacturer_name: Safco
+    brand_tag: brand:safco
+    sub_brands: []
+    primary_collections_by_type:
+      drafting_table: [drafting-tables, tables]      # Ranger 7732A, Vista 3960/3951
+      standing_desk: [standing-desks, desks]         # AlphaBetter (education segment)
+      desktop_riser: [desktop-sit-stand, monitor-arms]  # 2130SL Active Collection
+    routing_tag_template: [brand:safco, type:{product_type_slug}]
+
+  fireking:
+    manufacturer_name: FireKing
+    brand_tag: brand:fireking
+    sub_brands: []
+    primary_collections_by_type:
+      storage_filing: [storage, fire-resistant-file-cabinets-storage]  # CF7236-D fire cabinet
+    routing_tag_template: [brand:fireking, type:{product_type_slug}]
+
+  kensington:
+    manufacturer_name: Kensington
+    brand_tag: brand:kensington
+    sub_brands: []
+    primary_collections_by_type:
+      charging_cabinet: [storage]  # K67771 tablet charge/sync cabinet (CSV "fire-resistant" rec was wrong)
+    routing_tag_template: [brand:kensington, type:{product_type_slug}]
+
+# NOTE (session 2): type: tag slugs used this batch — type:storage, type:drafting-tables,
+#   type:sit-stand-desks, type:standing-desks, type:lighting, type:monitor-arms.
+#   Pending confirmation against live smart-collection rules; verify before relying on auto-routing.
 
 # Fallback: if vendor not in this lookup, fall back to CSV recommended_sub_collection_* + Leo override
