@@ -213,25 +213,6 @@
           <div class="confetti-container"></div>
       </div>
     {% endif %}
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (typeof AOS !== 'undefined') {
-          AOS.init({
-            easing: 'ease',
-            once: true,
-            duration: 1000,
-            offset: 60
-          });
-          setTimeout(function () {
-            AOS.refresh();
-          }, 1000);
-        }
-        if (typeof universalParallax !== 'undefined') {
-          new universalParallax().init({
-            speed:10
-          });
-        }
-      })
-    </script>
+    {%- comment -%} HOTFIX-MOBILE-LCP-1b (2026-05-30): removed dead AOS/universalParallax init block. Neither aos.js nor parallax.js is loaded by any section/snippet site-wide, so the `typeof AOS`/`typeof universalParallax` guards were always false and the handler body never executed — a per-page no-op DOMContentLoaded listener. The legacy `data-aos` markup in unused legacy sections is inert independently of this removal. {%- endcomment -%}
   </body>
 </html>
