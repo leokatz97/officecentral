@@ -66,6 +66,8 @@
   - **Production-write ceremony:** preflight PASS → per-file Admin-API `DELETE …/themes/186373570873/assets.json?asset[key]=assets/<file>` (all `200`) → per-file readback `GET` returned **HTTP 404** for all 10 (removal verified) → theme check held `2833/165` post-delete.
   - **Note:** the deferral note this closes is logged in **PR #55** (merged immediately before this PR; build-state additively merged at rebase, consistent with the established multi-PR build-state convention).
 
+**Cowork artifact sync (Day 17 EOD):** bbi-launch-tracker Cowork artifact updated to Day 17 EOD state in parallel — Phase A Blocks 1-3 marked complete in the BLOG-LAUNCH-ROADMAP active view, Block 4 reframed to new manual workflow, 5 operational lessons added as Day 17 fold, Day 17 closed-history group added with all 10 PR refs (#45-48, #51-56). Build-state and Cowork now in sync.
+
 ### 🟢 Day 17 (2026-05-30) — OPERATIONAL LESSONS CONSOLIDATION (5)
 
 Consolidated from the day's sessions (PRs #52–#56). Builds on Day 16's **BUILD-STATE-INVENTORY-DRIFT-FROM-SHIPPED-REALITY** lesson (see Day 16 BACKLOG-TRACKER-CLEANUP block).
@@ -560,15 +562,27 @@ Monotonic, every bump accounted for. No unauthorized writes.
   - HOTFIX-MOBILE-LCP-1b (~2–3 hrs · JS optimization)
   - Success criterion: ship the JS work, NOT sub-2.5s lab LCP (no field data exists; lab metric is theoretical)
   - LCP-1c (~30–45 min) deferred to Phase C unless time permits
-- **Block 4 — Catalog enrichment (~3–6 hrs)**
-  - OTHER-COLLECTION-TIER-A-ENRICHMENT (NEW Tier 2B item)
-    - Session 1: `do brand:global` (~90–120 min · 5 premium products workflow validation)
-    - Session 2: A + B priority (~2–3 hrs)
-    - Session 3: C-MAYBE speedrun in tier-b-only mode (~30–45 min)
-    - Tier A YAML ingest (~30–60 min)
-    - Workflow files: `~/Downloads/prompt-other-collection-tier-a-enrichment.md` + `tier-a-ingest.md`
-    - Multi-session safe; state in `data/reports/enrichment/*.yaml`
-    - Session 4 (NONE bucket, 71 products) deferred to Phase C
+- **Block 4 — Catalog enrichment (~6-8 hrs across multiple sessions)**
+
+  **OTHER-COLLECTION-TIER-A-ENRICHMENT** — Enrich 338 currently-invisible products on /collections/other with structured PDP data, bringing them to parity with the live enriched catalog. Enables Shopify storefront filters (material, weight_capacity, certifications, etc.) once metafields are consistent.
+
+  **Workflow (revised Day 17 evening):** Manual paste-and-draft workflow with Claude in conversation, batched in 10s. Replaces the automated YAML pipeline approach prepped Day 13.
+
+  Per product: Leo pastes CSV row + manufacturer source material → Claude drafts title verbatim + body_html lead + 15 `specs.*` metafields + SEO title/description + alt text + recommended tags → Leo reviews/approves → next product.
+
+  Per batch of 10: Leo pushes via Admin API → theme check + storefront spot-verify 1-2 PDPs → update tier_a_enriched=Y in CSV → commit CSV update.
+
+  **Queue source:** data/reports/other-collection-products-20260527-093211-with-recs.csv (ROI-ranked, includes existing_metafields / variant_options / inventory_status / recommended sub-collection per product). Saves "what's next" decision and over-writing already-correct metafields.
+
+  **Starting batch:** brand:global (5 premium products, $549-2099 range) as workflow validation. If first 1-2 products take 30-45 min each, recalibrate; if faster, batches of 10 stay realistic. Tier B (190 products) and Tier C (119 commodity) follow once Tier A workflow proves out.
+
+  **Dropped from prior plan:**
+  - YAML intermediate files (data/reports/enrichment/*.yaml) — manual workflow goes straight from input → Admin API push per batch
+  - prompt-other-collection-tier-a-ingest.md ingest script — Leo pushes batches directly
+  - prompt-other-collection-tier-b-routing.md — already skipped per Day 13 decision (no Steve CSV review)
+  - prompt-other-collection-tier-a-enrichment.md interactive Claude Code workflow — superseded by conversational batched approach
+
+  **Filter goal informs priority fields:** `specs.materials`, `specs.weight_capacity`, `specs.certifications`, `product_type` need consistency across products to power filters later.
 - **Block 5 — Site verification (~30–60 min)**
   - Theme check baseline + RRT spot-check across page types
   - Cache-busted smoke test: homepage, brand pages, OECM page, 3 PDPs, collection grid
