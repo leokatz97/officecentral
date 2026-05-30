@@ -141,17 +141,35 @@ def main():
     rb = gql('''{ product(id: "%s") { title vendor productType tags descriptionHtml
         seo { title description }
         metafields(first: 40, namespace: "specs") { edges { node { key value } } } } }''' % gid)['product']
+    import html as _html, re as _re
+    def _nt(s):  # normalize text: Shopify decodes HTML entities on storage
+        return _html.unescape(s or '').strip()
+    def _nh(s):  # normalize HTML: entity-decode + ignore Shopify's inter-tag pretty-print whitespace
+        s = _html.unescape(s or '')
+        s = _re.sub(r'>\s+<', '><', s)
+        return _re.sub(r'\s+', ' ', s).strip()
+    def _eqlist(a, b):  # list metafields: compare parsed JSON, ignore re-serialization whitespace
+        try: return json.loads(a) == json.loads(b)
+        except Exception: return (a or '') == (b or '')
     checks = []
     checks.append(('title', rb['title'] == payload['title']))
     checks.append(('vendor', rb['vendor'] == payload['vendor']))
     checks.append(('product_type', rb['productType'] == payload['product_type']))
-    checks.append(('seo_title', rb['seo']['title'] == payload['seo_title']))
-    checks.append(('seo_desc', rb['seo']['description'] == payload['seo_description']))
-    checks.append(('body_html', rb['descriptionHtml'].strip() == payload['body_html'].strip()))
+    # Shopify stores a NULL seo-title override when it equals the product title (still renders the title)
+    _st = rb['seo']['title']
+    checks.append(('seo_title', _st == payload['seo_title']
+                   or (_st in (None, '') and payload['seo_title'] == payload['title'])))
+    checks.append(('seo_desc', _nt(rb['seo']['description']) == _nt(payload['seo_description'])))
+    checks.append(('body_html', _nh(rb['descriptionHtml']) == _nh(payload['body_html'])))
     checks.append(('tags', set(rb['tags']) == set(payload['tags'])))
     rb_mf = {e['node']['key']: e['node']['value'] for e in rb['metafields']['edges']}
     for m in payload['metafields']:
-        checks.append((f"mf.{m['key']}", rb_mf.get(m['key']) == m['value']))
+        sv = rb_mf.get(m['key'])
+        if m['type'].startswith('list.'):
+            ok = _eqlist(sv, m['value'])
+        else:
+            ok = (sv == m['value']) or (_nt(sv) == _nt(m['value']))
+        checks.append((f"mf.{m['key']}", ok))
     allok = all(ok for _, ok in checks)
     print('  --- READBACK VERIFY ---')
     for name, ok in checks:
