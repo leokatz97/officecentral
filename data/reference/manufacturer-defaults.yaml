@@ -1,48 +1,77 @@
-# Manufacturer defaults for fields with predictable values
-# Pre-fill these unless source contradicts; reduces "what should warranty be?" decision overhead
-# Source: session 1 findings, expand as we learn
+# Manufacturer defaults — country rules locked by Leo 2026-05-30
+# warranty values populated from source per product (varies by line)
+# certifications_typical = likely-present; confirm from source
 
 global_furniture_group:
   warranty: Limited Lifetime Warranty
   country_of_manufacture: Canada
-  certifications_typical: [GREENGUARD, BIFMA]  # likely present; confirm from source per product
+  certifications_typical: [GREENGUARD, BIFMA]
   notes: |
     Sub-brands Basics, Offices To Go (OTG), ObusForme — manufacturer field = Global Furniture Group;
-    capture sub-brand in product_line.
+    capture sub-brand in product_line. All sub-brands also Canada-manufactured.
 
 teknion:
-  warranty: null  # confirm from source on first Teknion product
-  country_of_manufacture: null
-  certifications_typical: []
-  notes: Populate defaults when first Teknion product encountered
+  warranty: null  # populate from source per product
+  country_of_manufacture: Canada
+  certifications_typical: [GREENGUARD, BIFMA]
+  notes: Canadian manufacturer (Toronto, ON)
 
 humanscale:
-  warranty: 10-Year Warranty  # confirmed session 2 — eFloat Quattro + Nova both 10-yr (Nova rated 24/7)
-  country_of_manufacture: null  # UNCONFIRMED — likely USA (NJ); confirm per product, do not assume Canadian
-  certifications_typical: [BIFMA]  # eFloat tested to BIFMA; lighting carries ENERGY STAR / Red List Free
-  notes: |
-    Session 2: eFloat Quattro (sit-stand desk) + Nova (LED task light). Warranty 10-yr.
-    Country of origin not stated on product pages — left blank rather than guessed.
+  warranty: null
+  country_of_manufacture: Canada
+  certifications_typical: [GREENGUARD]
+  notes: Canadian-manufactured per Leo confirmation 2026-05-30
 
-# --- Added session 2 (2026-05-30) — first Safco/FireKing/Kensington products ---
+steelcase:
+  warranty: null
+  country_of_manufacture: Canada
+  certifications_typical: [GREENGUARD, BIFMA]
+  notes: Canadian manufacturing locations
+
+keilhauer:
+  warranty: null
+  country_of_manufacture: Canada
+  certifications_typical: [GREENGUARD, BIFMA]
+  notes: Canadian manufacturer (Toronto, ON)
+
+ergocentric:
+  warranty: null
+  country_of_manufacture: Canada
+  certifications_typical: [GREENGUARD, BIFMA]
+  notes: Canadian manufacturer (Mississauga, ON)
+
+heartwood:
+  warranty: null
+  country_of_manufacture: Canada
+  certifications_typical: []
+  notes: Canadian manufacturer
+
 safco:
-  warranty: Limited Lifetime Warranty  # confirmed via safcoproducts.com/resources/warranty-statement (5 yrs on mechanisms/glides/laminates/electrical)
-  country_of_manufacture: null  # Ranger 4-Post + Ranger drafting = Made in USA (confirmed); AlphaBetter/Vista/2130SL UNCONFIRMED — confirm per product
-  certifications_typical: []  # none surfaced for drafting/desk lines; GREENGUARD possible on some — confirm
-  notes: |
-    Session 2: Ranger Steel 4-Post (7732A), AlphaBetter (1224), Vista (3960/3951), 2130SL (Active Collection).
-    Limited Lifetime warranty is the house default. Ranger explicitly Made in USA; other lines unconfirmed.
-
-fireking:
-  warranty: Limited Lifetime Warranty  # plus in-fire replacement guarantee to original purchaser
-  country_of_manufacture: United States  # "all or virtually all made in USA" (confirmed)
-  certifications_typical: [UL Class 350 1-Hour Fire Rating]
-  notes: |
-    Session 2: 72" Fire-Rated Storage Cabinet (CF7236-D). Fire-rated cabinets carry UL Class 350.
+  warranty: null
+  country_of_manufacture: USA
+  certifications_typical: [GREENGUARD]
+  notes: USA manufacturer per Leo confirmation
 
 kensington:
-  warranty: 1-Year Limited Warranty  # confirm — Kensington's lifetime warranty covers accessories, not cabinets/charging
-  country_of_manufacture: null  # likely imported (ACCO Brands); confirm
+  warranty: null
+  country_of_manufacture: USA
   certifications_typical: []
-  notes: |
-    Session 2: Universal Charge & Sync Tablet Cabinet (K67771). Charging cabinets = standard (not lifetime) warranty.
+  notes: USA manufacturer per Leo confirmation
+
+fireking:
+  warranty: null
+  country_of_manufacture: USA
+  certifications_typical: []
+  notes: USA manufacturer per Leo confirmation
+
+hon:
+  warranty: null
+  country_of_manufacture: USA
+  certifications_typical: [GREENGUARD, BIFMA]
+  notes: USA manufacturer per Leo confirmation
+
+herman_miller:
+  warranty: null
+  country_of_manufacture: USA
+  certifications_typical: [GREENGUARD, BIFMA]
+  notes: USA manufacturer per Leo confirmation

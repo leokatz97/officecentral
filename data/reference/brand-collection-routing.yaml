@@ -75,6 +75,49 @@ brand_routing:
       charging_cabinet: [storage]  # K67771 tablet charge/sync cabinet (CSV "fire-resistant" rec was wrong)
     routing_tag_template: [brand:kensington, type:{product_type_slug}]
 
+  # --- Added session 3 (2026-05-30) — brand-recovery audit; collections populate as products surface ---
+  steelcase:
+    manufacturer_name: Steelcase
+    brand_tag: brand:steelcase
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:steelcase, type:{product_type_slug}]
+
+  keilhauer:
+    manufacturer_name: Keilhauer
+    brand_tag: brand:keilhauer
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:keilhauer, type:{product_type_slug}]
+
+  ergocentric:
+    manufacturer_name: ErgoCentric
+    brand_tag: brand:ergocentric
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:ergocentric, type:{product_type_slug}]
+
+  heartwood:
+    manufacturer_name: Heartwood
+    brand_tag: brand:heartwood
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:heartwood, type:{product_type_slug}]
+
+  hon:
+    manufacturer_name: HON
+    brand_tag: brand:hon
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:hon, type:{product_type_slug}]
+
+  herman_miller:
+    manufacturer_name: Herman Miller
+    brand_tag: brand:herman-miller
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:herman-miller, type:{product_type_slug}]
+
 # NOTE (session 2): type: tag slugs used this batch — type:storage, type:drafting-tables,
 #   type:sit-stand-desks, type:standing-desks, type:lighting, type:monitor-arms.
 #   Pending confirmation against live smart-collection rules; verify before relying on auto-routing.
