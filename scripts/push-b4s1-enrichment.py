@@ -13,7 +13,7 @@ Usage:
 Steps (live): backup -> productUpdate -> metafieldsSet -> image alt -> collects -> readback verify.
 Backups: data/backups/  Logs: data/logs/  (both gitignored)
 """
-import json, sys, urllib.request, urllib.error
+import json, sys, time, urllib.request, urllib.error
 from datetime import datetime
 from pathlib import Path
 
@@ -27,10 +27,21 @@ REST = f'https://{SHOP}/admin/api/{API}'
 GQL = f'{REST}/graphql.json'
 HDR = {'X-Shopify-Access-Token': TOKEN, 'Content-Type': 'application/json'}
 
+def _urlopen_retry(req):
+    for attempt in range(6):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < 5:
+                wait = 2 * (attempt + 1)
+                print(f"    429 — backing off {wait}s"); time.sleep(wait); continue
+            raise
+    raise RuntimeError('rate-limited repeatedly')
+
 def gql(query, variables=None):
     req = urllib.request.Request(GQL, data=json.dumps({'query': query, 'variables': variables or {}}).encode(), headers=HDR)
-    with urllib.request.urlopen(req, timeout=30) as r:
-        out = json.loads(r.read())
+    out = _urlopen_retry(req)
     if 'errors' in out:
         raise RuntimeError(f"GraphQL errors: {out['errors']}")
     return out['data']
@@ -38,8 +49,7 @@ def gql(query, variables=None):
 def rest(method, path, payload=None):
     data = json.dumps(payload).encode() if payload is not None else None
     req = urllib.request.Request(f'{REST}{path}', data=data, headers=HDR, method=method)
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.loads(r.read())
+    return _urlopen_retry(req)
 
 PRODUCT_UPDATE = '''
 mutation($input: ProductInput!) {

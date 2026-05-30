@@ -9,6 +9,12 @@ global_furniture_group:
   notes: |
     Sub-brands Basics, Offices To Go (OTG), ObusForme — manufacturer field = Global Furniture Group;
     capture sub-brand in product_line. All sub-brands also Canada-manufactured.
+    Cert pattern (observed Session 4, 20-product batch): ANSI/BIFMA is reliably confirmable at the
+    product/series page; GREENGUARD is only confirmable for some lines (e.g. Newland desking carries
+    GREENGUARD/GREENGUARD Gold) and is frequently NOT documented for seating/filing lines. Do NOT
+    auto-apply GREENGUARD as a default — confirm per product, else leave certifications=[] and flag missing.
+    Newland is a value desking line sold under the Offices To Go sub-brand; spec sheets often live on
+    officestogo.com and authorized-dealer pages (e.g. ugoburo.ca), not globalfurnituregroup.com.
 
 teknion:
   warranty: null  # populate from source per product
@@ -148,3 +154,9 @@ allseating:
   country_of_manufacture: null
   certifications_typical: []
   notes: "Populate when first product enriched in Session 4+"
+
+mitybilt:
+  warranty: null
+  country_of_manufacture: null
+  certifications_typical: []
+  notes: "Populate when first product enriched. Caught Session 4 as a Session 3 brand-recovery miss — MTY SKU prefix is MityBilt, not Global."
