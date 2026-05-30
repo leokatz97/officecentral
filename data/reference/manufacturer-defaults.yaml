@@ -1,0 +1,23 @@
+# Manufacturer defaults for fields with predictable values
+# Pre-fill these unless source contradicts; reduces "what should warranty be?" decision overhead
+# Source: session 1 findings, expand as we learn
+
+global_furniture_group:
+  warranty: Limited Lifetime Warranty
+  country_of_manufacture: Canada
+  certifications_typical: [GREENGUARD, BIFMA]  # likely present; confirm from source per product
+  notes: |
+    Sub-brands Basics, Offices To Go (OTG), ObusForme — manufacturer field = Global Furniture Group;
+    capture sub-brand in product_line.
+
+teknion:
+  warranty: null  # confirm from source on first Teknion product
+  country_of_manufacture: null
+  certifications_typical: []
+  notes: Populate defaults when first Teknion product encountered
+
+humanscale:
+  warranty: null
+  country_of_manufacture: null
+  certifications_typical: []
+  notes: Populate defaults when first Humanscale product encountered

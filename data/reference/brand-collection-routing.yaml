@@ -1,0 +1,50 @@
+# Brand → collection routing recommendations
+# OVERRIDES the CSV recommended_sub_collection_* columns (which session 1 proved are weak hints, not directives)
+# Source: session 1 findings (PR #60), updated as future sessions discover more
+
+manual_collects_collections:
+  - handle: stools-drafting-chairs
+    collection_id: 471847960889  # confirmed session 1 product 5
+
+brand_routing:
+  global_furniture_group:
+    manufacturer_name: Global Furniture Group
+    brand_tag: brand:global-furniture-group
+    sub_brands:
+      # Sub-brand house rule: manufacturer field = "Global Furniture Group"
+      # Sub-brand goes in product_line field with a parenthetical or as "Basics: {line}"
+      - Basics
+      - Offices To Go
+      - OTG
+      - ObusForme
+    primary_collections_by_type:
+      task_chair: [gfg-chairs, task-chairs]
+      executive_chair: [gfg-chairs, task-chairs]
+      drafting_stool: [gfg-chairs, stools-drafting-chairs]  # second collection requires manual /collects
+      conference_chair: [gfg-chairs, conference-seating]
+      lounge_chair: [gfg-chairs, lounge-seating]
+      guest_chair: [gfg-chairs, guest-seating]
+      side_chair: [gfg-chairs, guest-seating]
+      desk: [gfg-desks, desks]
+      storage_filing: [gfg-storage, storage-filing]
+    routing_tag_template: [brand:global-furniture-group, type:{product_type_slug}]
+
+  teknion:
+    manufacturer_name: Teknion
+    brand_tag: brand:teknion
+    sub_brands: []
+    primary_collections_by_type:
+      task_chair: [teknion-chairs, task-chairs]
+      # populate remaining types when first Teknion product is enriched
+    routing_tag_template: [brand:teknion, type:{product_type_slug}]
+
+  humanscale:
+    manufacturer_name: Humanscale
+    brand_tag: brand:humanscale
+    sub_brands: []
+    primary_collections_by_type:
+      task_chair: [humanscale-chairs, task-chairs]
+      # populate remaining types when first Humanscale product is enriched
+    routing_tag_template: [brand:humanscale, type:{product_type_slug}]
+
+# Fallback: if vendor not in this lookup, fall back to CSV recommended_sub_collection_* + Leo override
