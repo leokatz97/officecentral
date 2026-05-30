@@ -27,6 +27,12 @@ brand_routing:
       side_chair: [gfg-chairs, guest-seating]
       desk: [gfg-desks, desks]
       storage_filing: [gfg-storage, storage-filing]
+      # --- new types encountered Session 4 (tag-only routing for now; collection slugs TODO) ---
+      workstation: []            # TODO: no collection recipe yet — tag-only (executive-workstation-10x10)
+      height_adjustable_desk: [] # TODO: likely folds into desk recipe — confirm (NLP412 sit-stand)
+      panel_system: []           # TODO: no collection recipe yet — tag-only (ML freestanding partitions)
+      flip_top_table: []         # TODO: no collection recipe yet — tag-only (Bungee tables)
+      bar_stool: []              # TODO: no collection recipe yet — tag-only (ML bar stool)
     routing_tag_template: [brand:global-furniture-group, type:{product_type_slug}]
 
   teknion:
@@ -66,6 +72,14 @@ brand_routing:
     primary_collections_by_type:
       storage_filing: [storage, fire-resistant-file-cabinets-storage]  # CF7236-D fire cabinet
     routing_tag_template: [brand:fireking, type:{product_type_slug}]
+
+  # --- Added session 4 (2026-05-30): caught as a Session 3 brand-recovery miss ---
+  mitybilt:
+    manufacturer_name: MityBilt
+    brand_tag: brand:mitybilt
+    sub_brands: []
+    primary_collections_by_type: {}  # Populate when first product enriched
+    routing_tag_template: [brand:mitybilt, type:{product_type_slug}]
 
   kensington:
     manufacturer_name: Kensington
