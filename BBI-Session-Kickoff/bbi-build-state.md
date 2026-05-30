@@ -6,7 +6,7 @@
 
 ---
 
-## 🟢 Day 17 — 2026-05-30 — (AM) PHASE A BLOCK 1 (QUICK WINS) → 2 TIER 2B CLOSURES · **OECM-TRUST-ALT-TEXT** + **PERFORMANCE-MEASUREMENT-DISCIPLINE** (PR #52) · (PM) PHASE-A-BLOCK-2-SESSION-1 → **HOMEPAGE-CONTENT-DENSITY** RESOLVED, Scope C all 5 opportunities — WebPage + ItemList + 3×Service + FAQPage schema · "authorized dealer"+BPS keyword weave · 5-Q&A visible FAQ block (PR #53)
+## 🟢 Day 17 — 2026-05-30 — (AM) PHASE A BLOCK 1 (QUICK WINS) → 2 TIER 2B CLOSURES · **OECM-TRUST-ALT-TEXT** + **PERFORMANCE-MEASUREMENT-DISCIPLINE** (PR #52) · (PM) PHASE-A-BLOCK-2-SESSION-1 → **HOMEPAGE-CONTENT-DENSITY** RESOLVED, Scope C all 5 opportunities — WebPage + ItemList + 3×Service + FAQPage schema · "authorized dealer"+BPS keyword weave · 5-Q&A visible FAQ block (PR #53) · (EVENING) **PHASE A BLOCK 4 NOW IN PROGRESS** — catalog enrichment Sessions 1-4: **32 products enriched** (PRs #60/#61/#63) + **183 vendor corrections** (PR #62) + 4 reference files established + manufacturer dictionary grown 3→19 · **17 PRs total on Day 17** (13 morning/afternoon #45-56 + 4 evening enrichment #60-63)
 
 ### 🟢 Day 17 morning — PHASE A BLOCK 1 (quick wins) ✅ SHIPPED 2026-05-30 · PR #52
 
@@ -81,6 +81,76 @@ Consolidated from the day's sessions (PRs #52–#56). Builds on Day 16's **BUILD
 4. **TIER-2B-WORK-ASSUMPTIONS-EXPIRE** — Tier 2B items logged based on point-in-time measurements (PSI runs, Okara audits, traffic snapshots) carry assumptions that age. The work description states what was true when logged; actual current-state can differ materially by the time the item is scheduled. The audit-first discipline catches three failure modes: (a) work was already done by other changes (**OG-META PR #54** — assumed missing, found 100% complete), (b) work was wrongly characterized initially (**HOMEPAGE-CONTENT-DENSITY PR #53** — assumed thin content, found 952 words dense), (c) baseline shifted under us (**HOTFIX-MOBILE-LCP-1b PR #55** — Day 13/14 cited TBT spikes to 3267ms, actual measurement showed ~95ms in good band). Three independent cases in 24 hours substantiate the pattern. Forward discipline: any Tier 2B item with a measurement-based work description older than 5 days starts with a Phase 1 audit verifying current baseline before any execution. Items based on architectural facts age more slowly than items based on performance metrics. Builds on Day 16's BUILD-STATE-INVENTORY-DRIFT-FROM-SHIPPED-REALITY lesson.
 
 5. **EXTERNAL-METRIC-SEMANTIC-DRIFT** — An external tool's named metric ≠ what its name suggests. Okara's "1% content rate" was treated as evidence of thin homepage content; the audit revealed 952 meaningful words with dense defensible-angle coverage (OECM 20×, Ontario 15×, etc.). The "1% content rate" likely measures text-to-HTML ratio, not absolute content quantity. Forward discipline: when an external tool surfaces a named metric used as decision evidence, verify what the metric actually measures before acting on it. Particularly relevant for SEO/perf tools where named metrics can imply different things across vendors.
+
+---
+
+## 🟢 Day 17 evening (enrichment) — PHASE A BLOCK 4 SESSIONS 1-4 ✅ IN PROGRESS 2026-05-30 · PRs #60 / #61 / #62 / #63
+
+**Block 4 (OTHER-COLLECTION catalog enrichment) is no longer "NEXT" — it is IN PROGRESS with substantial work shipped.** Four sessions ran on Day 17 evening, enriching 32 products, correcting 183 vendors catalog-wide, and standing up the reference infrastructure (4 files + a manufacturer dictionary grown from 3 → 19) that makes Sessions 5+ faster and more deterministic. All four PRs were merged to `main` (post-#63 tip `02e5860`).
+
+### Sessions completed today
+
+- **Session 1 — PR [#60](https://github.com/leokatz97/officecentral/pull/60): 5 `brand:global` products enriched.** Workflow-validation batch. Gold-standard field-shape verification anchored on `vion-mesh-high-back-chair-1` as the reference product. **13-field `specs.*` framework locked** (down from 15 — `tagline` and `standfirst` retired). Surfaced the SUB-BRAND-HOUSE-RULE (Basics / OTG / ObusForme → manufacturer = Global Furniture Group) via the Ergo Boss / Basics case.
+- **Session 2 — PR [#61](https://github.com/leokatz97/officecentral/pull/61): 8 products enriched (accelerated workflow).** Established four reference files: `data/reference/brand-collection-routing.yaml`, `data/reference/manufacturer-defaults.yaml`, `data/reference/sku-prefix-lookup.yaml` (created Session 3), `data/reference/field-framework.md`. **Readback gate hardened** in `push-b4s1-enrichment.py` to absorb Shopify cosmetic normalization (entity-decode, list whitespace, seo-title-null when equal to product-title, HTML pretty-print) — future writes inherit this protection.
+- **Session 3 — PR [#62](https://github.com/leokatz97/officecentral/pull/62): 183 catalog-wide vendor corrections** via the brand-recovery audit. **15 manufacturers discovered** (12 mapped in the dictionary + 3 unmapped sub-brands). 184 rollback snapshots taken. SKU prefix lookup created with **15 deterministic prefix→manufacturer mappings**. 204 products still UNKNOWN (decoded-SKU-prefix groups pending Leo input: HDL 40, IOF 26, RIC 12, HZN 10, MTY 9 — *since decoded to MityBilt in Session 4*, SCN 7, + 48 no-SKU). **Critical reframe locked: `vendor=BBI` is ALWAYS a data error — BBI is a dealer, not a manufacturer.**
+- **Session 4 — PR [#63](https://github.com/leokatz97/officecentral/pull/63): 19 Global products enriched.** Auto-source success 19/20 (95%). MityBilt misclassification caught and reversed inline (`cluster-seating-2`). Corrupted boilerplate detected and rebuilt from manufacturer source (`loover` product). **20-agent parallel fan-out completed in 3.8 min wall-clock.** 5 new product types added (Workstation, Height-Adj Desk, Panel System, Flip-Top Table, Bar Stool). `officestogo.com` discovered as the primary source for Newland / NLP-prefix products.
+
+### Block 4 totals as of EOD
+
+- **32 products fully enriched** (5 + 8 + 19)
+- **183 vendor corrections** (Session 3) + **1 reversal** (Session 4 MityBilt fix on `cluster-seating-2`)
+- **19 manufacturers now in the dictionary** (was 3 at start of day: Global, Teknion, Humanscale)
+- **4 reference files established** (see Reference Files inventory below)
+- **~101 Global products remaining** for Sessions 5-8
+- **~9 MityBilt products pending re-routing**
+- **204 products deferred** (UNKNOWN SKU prefixes + 48 boilerplate-corrupted bodies)
+
+### Operational lessons — Day 17 evening (13, from Sessions 1-4)
+
+Format consistent with the Day 17 OPERATIONAL LESSONS CONSOLIDATION (5) above: label + brief context + actionable rule. *(12 process/workflow lessons + 1 field-handling rule.)*
+
+1. **CSV-ROUTING-RECS-ARE-WEAK-HINTS** — Sessions 1-2 validated that the enrichment CSV's `recommended_sub_collection_*` columns are unreliable. Every product needs either a brand→collection lookup match or a human routing check. **Rule:** demote CSV recs to fallback signal only; the brand-collection routing YAML is the source of truth.
+2. **SUB-BRAND-HOUSE-RULE-LOCKED** — Basics, Offices To Go (OTG), ObusForme → manufacturer field = **Global Furniture Group**; the sub-brand is captured in `product_line` (no redundant prefix) and a `sub-brand:{slug}` tag. Source: Session 1 (Ergo Boss / Basics case).
+3. **READBACK-GATE-COSMETIC-NORMALIZATION** — Shopify storage normalizes entity-decoding, list whitespace, seo-title-null (when equal to product-title), and HTML pretty-printing. The hardened comparator in `push-b4s1-enrichment.py` handles all four. **Rule:** future writes inherit this protection; do not "fix" a diff that is purely cosmetic-normalization noise.
+4. **AUTO-SOURCE-OUT-OF-FUEL-WAS-A-MISDIAGNOSIS** — Session 2 concluded the remaining catalog was "94% un-enrichable house-brand generic." Session 3's `vendor=BBI is always a data error` reframe reopened the auto-source path. **Rule:** when a workflow appears blocked, question the diagnosis before pivoting strategy.
+5. **VENDOR-BBI-IS-ALWAYS-A-DATA-ERROR** — Locked rule: BBI is a dealer, not a manufacturer. Any product with `vendor="Brant Business Interiors"` is mis-labeled. **No legitimate house-brand carve-out exists.**
+6. **SKU-PREFIX-PATTERNS-ARE-DETERMINISTIC** — Session 3 surfaced 15 prefix→manufacturer mappings (GLB/GLO/OFGO/OTG/MVL=Global, SAF=Safco, HTW=Heartwood, OSP=Office Star, etc.). SKU-prefix matching is higher-confidence than name-matching heuristics. **Rule:** use SKU prefix as the primary signal in future brand-recovery scans. Session 4 added MTY=MityBilt.
+7. **SINGLE-FIELD-VENDOR-UPDATES-SCALE-CLEANLY** — Session 3's 183 vendor corrections completed at ~2 sec/product with zero failures across all readbacks. **Rule:** single-field Admin API updates with the hardened readback gate are a safe pattern for bulk corrections at any reasonable scale (the resume-guard pattern in the apply script handles interruptions).
+8. **MULTI-LAYER-VERIFICATION-CATCHES-ERRORS** — Session 3 had 1/183 misclassification (`cluster-seating-2` = MityBilt not Global → 99.5% accuracy). Session 4's auto-source agent caught it via SKU-prefix mismatch and refused to apply Global defaults. **Rule:** defense-in-depth across sessions works — each layer catches the previous layer's drift; keep the layers independent.
+9. **BOILERPLATE-BODY-CORRUPTION-RECOGNIZABLE-BY-AGENT** — ~48 products carry identical wrong boilerplate text (a jacket and an ice-melt both carrying a chair description). Session 4 auto-source agents demonstrated the ability to detect mismatched body content and rebuild from manufacturer source (`loover` product). **Rule:** a separate session is warranted for the full 48-product boilerplate cleanup.
+10. **PARALLEL-FAN-OUT-FOR-DRAFTING-SCALES** — Session 4's 20-agent fan-out completed 20 product drafts in ~3.8 min wall-clock (1.13M tokens, 112 tool calls). **Rule:** larger batch sizes (25-30) are recommended for Sessions 5+ — drafting is fully parallel; only human review is sequential.
+11. **OFFICESTOGO.COM-AS-PRIMARY-SOURCE-FOR-NEWLAND** — Newland (NLP-prefix) products aren't on globalfurnituregroup.com; they live on officestogo.com. **Rule:** add officestogo.com as a first-class secondary source in the auto-source URL fallback chain. 4 of 6 desks in Session 4 needed this.
+12. **GREENGUARD-IS-SERIES-LEVEL-NOT-PRODUCT-LEVEL** — Global's GREENGUARD certification is published at line/series level, not per individual product page. **Rule:** defaults should mark this as `certifications_typical_series_level` with a "confirm per product" note — less aggressive auto-application.
+
+*(bonus field-handling rule surfaced Session 4)* **SINGLE-LINE-METAFIELDS-NEED-NEWLINE-SANITIZATION** — Session 4 caught a write failure on a product with multi-size dimensions written across newlines into a `single_line_text_field`. The builder now sanitizes newlines → `" / "` for single-line fields. **Rule:** add to standing field-handling rules.
+
+### Reference Files (established Day 17 evening, Sessions 2-3)
+
+Four files under `data/reference/` now back the enrichment workflow:
+
+- **`data/reference/brand-collection-routing.yaml`** — 24 manufacturer routing blocks. Maps brand → primary collections per product type. **Source of truth for routing recommendations** (overrides the weak CSV `recommended_sub_collection_*` hints — see CSV-ROUTING-RECS-ARE-WEAK-HINTS).
+- **`data/reference/manufacturer-defaults.yaml`** — 24 manufacturer default blocks. Country of manufacture, warranty, `certifications_typical`. Reduces per-product decision overhead during drafting.
+- **`data/reference/sku-prefix-lookup.yaml`** — 21 decoded prefix→manufacturer mappings (created Session 3 with 15; grown to 21 incl. MTY=MityBilt decoded Session 4) + 5 undecoded prefixes pending Leo decode (HDL 40, IOF 26, RIC 12, HZN 10, SCN 7). **Deterministic primary signal for brand-recovery scans** (see SKU-PREFIX-PATTERNS-ARE-DETERMINISTIC).
+- **`data/reference/field-framework.md`** — Verified **13-field `specs.*` framework** (was 15, with `tagline`/`standfirst` retired). Documents data shapes, theme rendering behavior, SEO conventions, and the `body_html` split contract.
+
+### Manufacturer dictionary — 19 in scope (was 3 at start of day)
+
+At the start of Day 17 the dictionary held 3 manufacturers (Global, Teknion, Humanscale). Sessions 3-4 grew it to **19 in scope**, backed by 24 stub/default blocks in `manufacturer-defaults.yaml` (the extra blocks are stubs for brands not yet enriched, country = null).
+
+- **Canada-manufactured (9):** Global Furniture Group, Teknion, Humanscale, Steelcase, Keilhauer, ErgoCentric, Heartwood, MityBilt *(added Session 4)*, plus Global sub-brands Basics, Offices To Go, ObusForme.
+- **USA-manufactured (5):** Safco, Kensington, FireKing, HON, Herman Miller.
+- **Country pending (stubs, `country = null` in `manufacturer-defaults.yaml`; populate when first product enriched):** Office Star Products, deflecto, Gardex, Sentry Safe, Borgo, Tayco, Foundations, Fellowes, Links Contract Furniture, 3M, Victor, Allseating.
+
+### PR ledger — Day 17 evening (enrichment)
+
+Added to the Day 17 shipped-work log:
+
+- **PR [#60](https://github.com/leokatz97/officecentral/pull/60)** — Block 4 Session 1 (5 `brand:global` products enriched)
+- **PR [#61](https://github.com/leokatz97/officecentral/pull/61)** — Block 4 Session 2 (8 products + reference files + readback gate hardening)
+- **PR [#62](https://github.com/leokatz97/officecentral/pull/62)** — Block 4 Session 3 (183 vendor corrections + SKU prefix lookup)
+- **PR [#63](https://github.com/leokatz97/officecentral/pull/63)** — Block 4 Session 4 (19 Global products enriched + MityBilt reversal)
+
+**Day 17 total: 17 PRs** = 13 morning/afternoon (#45-56) + 4 evening enrichment (#60-63).
 
 ---
 
@@ -562,7 +632,9 @@ Monotonic, every bump accounted for. No unauthorized writes.
   - HOTFIX-MOBILE-LCP-1b (~2–3 hrs · JS optimization)
   - Success criterion: ship the JS work, NOT sub-2.5s lab LCP (no field data exists; lab metric is theoretical)
   - LCP-1c (~30–45 min) deferred to Phase C unless time permits
-- **Block 4 — Catalog enrichment (~6-8 hrs across multiple sessions)**
+- **Block 4 — Catalog enrichment (~6-8 hrs across multiple sessions) — ✅ IN PROGRESS (Sessions 1-4 shipped Day 17 evening)**
+
+  **⤷ STATUS UPDATE 2026-05-30 (Day 17 evening):** Block 4 is no longer "NEXT" — it is **IN PROGRESS**. Sessions 1-4 shipped: **32 products enriched** (PRs #60/#61/#63), **183 catalog-wide vendor corrections** (PR #62), **4 reference files** established, and the **manufacturer dictionary grown 3 → 19**. The 13-field `specs.*` framework is locked (was 15; `tagline`/`standfirst` retired). Remaining: ~101 Global products (Sessions 5-8), ~9 MityBilt re-routes, 204 deferred (UNKNOWN SKU prefixes + 48 boilerplate-corrupted). **Full session detail, the 12 operational lessons, reference-files inventory, and manufacturer dictionary live in the Day 17 evening (enrichment) section at the top of this file.**
 
   **OTHER-COLLECTION-TIER-A-ENRICHMENT** — Enrich 338 currently-invisible products on /collections/other with structured PDP data, bringing them to parity with the live enriched catalog. Enables Shopify storefront filters (material, weight_capacity, certifications, etc.) once metafields are consistent.
 
@@ -883,7 +955,7 @@ Monotonic, every bump accounted for. No unauthorized writes.
 
 - _(~30–60 min)_ **HP-SHOP-TILES-REFACTOR** (moved from Tier 1 2026-05-27 evening after WATCHER-FORENSICS Item 2 reconciliation) — move homepage "Shop the catalog" tile URLs out of `bbi-shop` section's `custom_liquid` raw HTML into `image_picker` schema settings (or a proper Liquid section using `image_url` filter calls). **Revised justification:** WATCHER-FORENSICS reconciled today's 3 apparent "Theme-Editor stale-cache" recurrences on this field as 2 plausibly watcher-attributable + 1 genuinely Theme-Editor (13:15:38). Watcher kill stops the dominant noise source, dropping urgency from Tier 1 to Tier 2B. However the underlying architectural fragility — untyped image URLs embedded in `custom_liquid` raw HTML are inherently vulnerable to a Theme-Editor save with stale cached state — remains real (Event 3 today). Refactor still wanted; just no longer urgent. ~30-60 min.
 - _(~30–60 min · restored item 2026-05-29)_ **STARLITE-LEGACY-SNIPPETS-AUDIT 🆕** (Tier 2B, low priority) — Audit and retire legacy Starlite-theme snippets/sections still present in `theme/` from the pre-rebuild theme lineage (DS-VERIFY 2026-05-14 flagged ~64 legacy-starlite candidate section files; the root `snippets/` carries ~98 Starlite-legacy snippets per the Day-13 canonical-path note). Confirm none are referenced by live templates, then remove the dead ones to shrink the theme-check surface and reduce edit-confusion risk. Cross-ref `data/reports/ds-verify-2026-05-14.{csv,md}`. Restored 2026-05-29. ~30–60 min.
-- _(~6–8 hrs · multi-session · NEW 2026-05-29 · Phase A Block 4)_ **OTHER-COLLECTION-TIER-A-ENRICHMENT 🆕** (Tier 2B) — Pending. Enrich 338 currently-invisible products on /collections/other with structured PDP data (15 `specs.*` metafields per product) to bring parity with the live catalog and enable Shopify storefront filters. Workflow revised Day 17 evening: manual paste-and-draft batched in 10s, replacing the prepped automated YAML pipeline. See **Block 4 description** in the BLOG-LAUNCH-ROADMAP section for the full workflow. Queue source: `data/reports/other-collection-products-20260527-093211-with-recs.csv`. Starting batch: `brand:global` (5 premium products) as workflow validation.
+- _(~6–8 hrs · multi-session · NEW 2026-05-29 · Phase A Block 4 · **IN PROGRESS — Sessions 1-4 shipped 2026-05-30**)_ **OTHER-COLLECTION-TIER-A-ENRICHMENT 🆕** (Tier 2B) — **IN PROGRESS.** Enrich 338 currently-invisible products on /collections/other with structured PDP data (now a **13-field** `specs.*` framework, down from 15 — `tagline`/`standfirst` retired) to bring parity with the live catalog and enable Shopify storefront filters. **Sessions 1-4 (Day 17 evening) shipped 32 products enriched (PRs #60/#61/#63) + 183 vendor corrections (PR #62) + 4 reference files + manufacturer dictionary 3→19** — see the Day 17 evening (enrichment) section at the top of this file. Remaining: ~101 Global products (Sessions 5-8), ~9 MityBilt re-routes, 204 deferred (UNKNOWN SKU prefixes + 48 boilerplate-corrupted). Workflow revised Day 17 evening: manual paste-and-draft batched in 10s, replacing the prepped automated YAML pipeline; Session 4 proved a 20-agent parallel draft fan-out (~3.8 min wall-clock). See **Block 4 description** in the BLOG-LAUNCH-ROADMAP section for the full workflow. Queue source: `data/reports/other-collection-products-20260527-093211-with-recs.csv`.
 
 **Tier 2B — Completed:**
 - _(resolved 2026-05-29 · PR #47 · branch `feature/small-items-cleanup-a-2026-05-29`)_ **AUTHOR-URL-FIELD ✅ RESOLVED 2026-05-29** (shipped via SMALL-ITEMS-CLEANUP-A — see Day 16 entry at top of file). Added `author.url` = `https://www.brantbusinessinteriors.com/pages/about` to the BlogPosting Person in `ds-article.liquid` (honest live `/pages/about`, HTTP 200; no LinkedIn used). RRT "Missing field 'url' (optional)" on the author Person resolved; combined with Steve's featured-image upload, the OECM Article is now fully rich-result eligible. _Original diagnosis retained for reference:_ (Tier 2B, low priority, ~5 min, added 2026-05-29 from SCHEMA-BLOG-1 Phase 4) — Add an `author.url` to the `BlogPosting` Person entity in `theme/sections/ds-article.liquid`. The existing inline BlogPosting's `author` (`{@type: Person, name: "Steve Katz"}`) has **no `url`** — pre-existing schema choice, NOT introduced by BLOG-1 (we didn't touch the author field) — so RRT shows a second non-critical `Missing field 'url'` on the Person. Options: `/pages/about` (where Steve is introduced on-site) OR his LinkedIn. Honesty: only emit a url that genuinely profiles the author. Bundle into the next blog/content session.
