@@ -202,4 +202,9 @@ REFERENCE DOCS — read these to ground the session:
   - BBI-Session-Kickoff/02-current-status.md (latest session snapshot)
   - docs/plan/launch-4-24h-monitor-2026-05-26.md
                                              (24h monitor checks + red flags)
+  - BBI-Session-Kickoff/measurement-protocols.md
+                                             (measurement disciplines — cite
+                                              before reporting any perf metric;
+                                              PERFORMANCE-MEASUREMENT-DISCIPLINE
+                                              = multi-run median on fast pages)
 ```
