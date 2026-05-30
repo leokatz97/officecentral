@@ -96,6 +96,16 @@
         "bottom_space_mobile": 0
       }
     },
+    "bbi-home-schema": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "{% render 'bbi-homepage-schema' %}",
+        "top_space_desktop": 0,
+        "bottom_space_desktop": 0,
+        "top_space_mobile": 0,
+        "bottom_space_mobile": 0
+      }
+    },
     "bbi-footer-wrap": {
       "type": "bbi-footer-wrap",
       "settings": {
@@ -114,6 +124,7 @@
     "bbi-industries",
     "bbi-services",
     "bbi-work",
+    "bbi-home-schema",
     "bbi-footer-wrap"
   ]
 }

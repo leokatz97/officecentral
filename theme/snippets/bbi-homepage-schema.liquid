@@ -1,0 +1,113 @@
+{%- comment -%}
+  Snippet: bbi-homepage-schema — HOMEPAGE-CONTENT-DENSITY (2026-05-30)
+
+  Page-specific JSON-LD for the homepage (templates/index.json). The homepage
+  previously emitted only the sitewide CHROME graph (bbi-org-schema #organization
+  + #website + bbi-localbusiness-schema #localbusiness) and NO page-level node.
+
+  This snippet adds three page-specific lanes, all anchored to the existing chrome
+  entities (no node redeclaration — references only):
+
+    1. WebPage (#webpage)  — types the document; isPartOf → #website,
+       about → #organization, primaryImageOfPage → the homepage hero, and
+       mainEntity → the featured-categories ItemList below.
+    2. ItemList (#featured-categories) — the four shop-the-catalog category tiles
+       (Seating / Desks / Storage / Tables) mirrored from the bbi-shop section.
+       Honest scope: entity-graph grounding only — ItemList earns no SERP carousel
+       for non-Course/Movie/Recipe/Restaurant items (same limitation noted in
+       bbi-itemlist-jsonld). These are CollectionPage links, not products, so no
+       Product/offers node is emitted (avoids the invalid-Product trap).
+    3. 3× Service — rendered via the shared bbi-service-jsonld snippet, mirroring
+       the visible "Three services that come with every quote" section. Each gets
+       a distinct id_suffix so the @ids do not collide. provider → #organization.
+
+  Domain convention (matches bbi-blog-jsonld):
+    - page node @id / url use canonical_url (brand domain, www.brantbusinessinteriors.com)
+    - chrome references use shop.permanent_domain (#website / #organization) so they
+      resolve to the exact @ids bbi-org-schema emits.
+
+  Rendered from: a custom-liquid section (bbi-home-schema) in templates/index.json,
+  after bbi-work and before the footer. Homepage-only — never include elsewhere.
+
+  canonical_url on the homepage ends in a single trailing slash
+  (https://www.brantbusinessinteriors.com/), so collection paths are appended
+  directly (no remove_last / leading-slash needed) — no double-slash risk.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "{{ canonical_url }}#webpage",
+      "url": "{{ canonical_url }}",
+      "name": "Brant Business Interiors · OECM Furniture · Peterborough",
+      "description": "Brant Business Interiors is a family-owned Ontario commercial office furniture dealer in Peterborough, supplying schools, hospitals, municipalities, and private offices since 1964. OECM Supplier Partner under Agreement 2025-470 — Ontario institutions can purchase without open tender.",
+      "isPartOf": {
+        "@id": "https://{{ shop.permanent_domain }}/#website"
+      },
+      "about": {
+        "@id": "https://{{ shop.permanent_domain }}/#organization"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://www.brantbusinessinteriors.com/cdn/shop/files/bbi-homepage-hero-2026-05-27.jpg",
+        "width": 2308,
+        "height": 1362
+      },
+      "mainEntity": {
+        "@id": "{{ canonical_url }}#featured-categories"
+      },
+      "inLanguage": "en-CA"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "{{ canonical_url }}#featured-categories",
+      "name": "Business furniture categories",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "numberOfItems": 4,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Seating",
+          "url": "{{ canonical_url }}collections/seating"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Desks & Workstations",
+          "url": "{{ canonical_url }}collections/desks"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Storage & Filing",
+          "url": "{{ canonical_url }}collections/storage"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Tables & Boardroom",
+          "url": "{{ canonical_url }}collections/boardroom"
+        }
+      ]
+    }
+  ]
+}
+</script>
+{%- render 'bbi-service-jsonld',
+    service_name: 'Office space planning',
+    service_description: 'We take your floor plan or square footage and return a fully-specced layout, with seat counts, sightlines, and freight logistics accounted for. AutoCAD or PDF floor plans accepted; on-site measure available.',
+    service_type: 'Office space planning',
+    id_suffix: 'service-space-planning' -%}
+{%- render 'bbi-service-jsonld',
+    service_name: 'Furniture delivery and installation',
+    service_description: 'Brant Business Interiors runs its own install crew for delivery, assembly, levelling, and removal of old furniture. After-hours and weekend installation available. Delivery across Canada; installation in Ontario and Western Canada.',
+    service_type: 'Furniture delivery and installation',
+    id_suffix: 'service-installation' -%}
+{%- render 'bbi-service-jsonld',
+    service_name: 'Furniture warranty and service',
+    service_description: 'We file the manufacturer warranty claim on your behalf and keep the piece in service, including loaner chairs during repair. 12-year mechanism warranty on ergoCentric task chairs; multi-year warranties across Global, OTG, and Heartwood.',
+    service_type: 'Furniture warranty and service',
+    id_suffix: 'service-warranty' -%}
