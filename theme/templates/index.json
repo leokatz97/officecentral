@@ -86,6 +86,16 @@
         "bottom_space_mobile": 0
       }
     },
+    "bbi-faq": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "{% render 'bbi-homepage-faq' %}",
+        "top_space_desktop": 0,
+        "bottom_space_desktop": 0,
+        "top_space_mobile": 0,
+        "bottom_space_mobile": 0
+      }
+    },
     "bbi-work": {
       "type": "custom-liquid",
       "settings": {
@@ -123,6 +133,7 @@
     "bbi-oecm",
     "bbi-industries",
     "bbi-services",
+    "bbi-faq",
     "bbi-work",
     "bbi-home-schema",
     "bbi-footer-wrap"
