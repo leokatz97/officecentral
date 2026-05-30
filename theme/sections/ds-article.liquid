@@ -163,7 +163,8 @@
   "url": "{{ canonical_url | escape }}",
   "author": {
     "@type": "Person",
-    "name": {{ article.author | default: 'Brant Business Interiors' | strip_html | json }}
+    "name": {{ article.author | default: 'Brant Business Interiors' | strip_html | json }},
+    "url": "https://www.brantbusinessinteriors.com/pages/about"
   },
   "publisher": {
     "@type": "Organization",
