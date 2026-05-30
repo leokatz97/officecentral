@@ -403,6 +403,87 @@ Monotonic, every bump accounted for. No unauthorized writes.
 
 ### POST-LAUNCH BACKLOG — 3-tier finalized
 
+#### 🚀 BLOG-LAUNCH ROADMAP — active plan (2026-05-29)
+
+**Goal:** ship the first cornerstone blog post live. Three phases. _(This is the active execution plan; the Tier 1 / Tier 2 / Tier 2B inventory below remains the canonical per-item detail reference.)_
+
+**Phase A — Pre-blog gates (~10–15 hrs · 2–3 focused work days)**
+
+- **Block 1 — Quick wins (~30 min)**
+  - OECM-TRUST-ALT-TEXT (~5 min)
+  - PERFORMANCE-MEASUREMENT-DISCIPLINE (~10 min)
+- **Block 2 — Schema + SEO foundation (~3.5–4.5 hrs)**
+  - HOMEPAGE-CONTENT-DENSITY · both lanes (~2–3 hrs · restored item)
+  - OG-META-WIRE-UP-SITEWIDE (~1.5 hrs · restored item · gates social shares for blog)
+- **Block 3 — Mobile LCP reasonable bar (~2–3 hrs)**
+  - HOTFIX-MOBILE-LCP-1b (~2–3 hrs · JS optimization)
+  - Success criterion: ship the JS work, NOT sub-2.5s lab LCP (no field data exists; lab metric is theoretical)
+  - LCP-1c (~30–45 min) deferred to Phase C unless time permits
+- **Block 4 — Catalog enrichment (~3–6 hrs)**
+  - OTHER-COLLECTION-TIER-A-ENRICHMENT (NEW Tier 2B item)
+    - Session 1: `do brand:global` (~90–120 min · 5 premium products workflow validation)
+    - Session 2: A + B priority (~2–3 hrs)
+    - Session 3: C-MAYBE speedrun in tier-b-only mode (~30–45 min)
+    - Tier A YAML ingest (~30–60 min)
+    - Workflow files: `~/Downloads/prompt-other-collection-tier-a-enrichment.md` + `tier-a-ingest.md`
+    - Multi-session safe; state in `data/reports/enrichment/*.yaml`
+    - Session 4 (NONE bucket, 71 products) deferred to Phase C
+- **Block 5 — Site verification (~30–60 min)**
+  - Theme check baseline + RRT spot-check across page types
+  - Cache-busted smoke test: homepage, brand pages, OECM page, 3 PDPs, collection grid
+  - Confirm merge state clean
+
+**Phase B — First blog publish (~3–4 hrs)**
+
+- Cornerstone Post 1 editorial pass (already drafted per Day 14 backlog)
+- Schema: Article + BreadcrumbList + FAQPage if applicable
+- Internal linking pass
+- Publish via Admin API
+- RRT on published URL + social-share preview check
+
+**Phase C — Parallel / post-blog (ongoing)**
+
+- **Content production (primary mode after Phase B):**
+  - Cornerstone Post 2 (gated on SERP analysis 2.2)
+  - Cornerstone Post 3 "Cubicle vs Open-Plan for Municipal Offices" (gated on 2.3)
+  - PAA mining → FAQ expansion
+  - Featured snippet mining
+- **Steve-gated (whenever Steve responds):**
+  - OECM-TRUST-CAPTIONS-1
+  - OUR-WORK-CLIENT-LOGOS (restored item)
+  - STEVE-SET-BLOG-FEATURED-IMAGE
+  - BRAND-PAGE-HERO-IMAGE-AUDIT
+- **Catalog continuation:**
+  - OTHER-COLLECTION Session 4 (NONE bucket, 71 products, ~45–60 min)
+- **Performance (informed by real field data):**
+  - HOTFIX-MOBILE-LCP-1c
+  - Additional perf guided by CrUX
+  - STORAGE-COLLECTION-COLD-CACHE
+- **SEO measurement infrastructure (Tier 2 carry-forward):**
+  - DataForSEO competitor recon (2.1)
+  - SERP analysis defensible angles (2.2)
+  - Keyword research Cornerstone 3 (2.3)
+  - Rank tracking baseline (2.4)
+  - Featured snippet mining (2.5)
+  - PAA mining (2.6)
+  - AI Overview tracking (2.7)
+- **Architectural hygiene (Tier 2B carry-forward):**
+  - BRAND-PAGE-COPY-FIX (Steve-gated, ~30–45 min)
+  - MANUFACTURER-LOGO-ACQUISITION (~1 hr + 10 min)
+  - AUTHOR-URL-FIELD (~5 min)
+  - CRITICAL-CSS-INLINE (~60–120 min)
+  - FETCH-FILE-STALE-ID (~10 min)
+  - PREFLIGHT-AUTOMATION residual (~30–45 min)
+  - HERO-SECTION-REFACTOR (~45–90 min)
+  - LOCALE-CONFIG-EN-CA (~15–20 min)
+  - BBI-SEO-METAFIELD-MIGRATION (~30–45 min)
+  - VERIFY-CACHE-BUSTER-DEFAULT (~15 min)
+  - FORENSIC-SNAPSHOT-TIME-WINDOWED (~30 min)
+  - DEV-THEME-PROVISIONING (~25 min)
+  - HP-SHOP-TILES-REFACTOR (~30–60 min)
+  - STARLITE-LEGACY-SNIPPETS-AUDIT (~30–60 min · restored item)
+
+
 **Tier 1 — Pending (Week 1, high priority):**
 - _(~90–120 min · 1b JS/TBT is the live lever · highest acquisition impact)_ **HOTFIX-MOBILE-LCP-1 🆕🔥** (Tier 1, **highest-acquisition-impact open item**, added 2026-05-27 late-night from QW-3 verification) — Mobile performance is genuinely failing on LIVE. Core Web Vitals → ranking is a more direct signal than rich-result eligibility, and the gap is enormous (LCP 13.3s vs Good threshold 2.5s = 5.3x over). **⚠️ REFRAME 2026-05-28 (RENDER-BLOCKING-1 diagnosis):** the headline LCP figures (13.3s baseline, "5.0s", "11.9s") are **Lantern simulation estimates**, not real paint — trace-observed LCP is 0.4–2.3s and the hero downloads <600ms every run. The real, measurable problem is **interactivity (TBT 134→3267ms)**, owned by sub-item 1b. No CrUX field data exists (site below traffic threshold), so lab LCP is the least trustworthy signal — track TBT, revisit LCP when field data appears. 1a-HERO-SRCSET shipped (confirmed working); RENDER-BLOCKING-1 diagnosed & ruled out; **1b is the sole remaining lever.**
 
@@ -465,6 +546,10 @@ Monotonic, every bump accounted for. No unauthorized writes.
 - _(~5 min · now unblocked — watcher shipped)_ **OECM-TRUST-ALT-TEXT** — `theme/sections/ds-lp-oecm.liquid:515` `trust_image_2` has hardcoded alt "Brantford General waiting area OECM install" but the image is now the Artcobell classroom photo (post-IMG-3 swap). Replace with setting-driven alt (best) or content-accurate alt that doesn't claim specific install provenance (e.g., "Modern collaborative classroom with active-learning seating and modular tables") — the photo's actual provenance as a BBI OECM install is unverified and the "Artcobell installation" framing would carry the same risk as the current Brantford General claim. ~5 min. **Blocked on WATCHER-FORENSICS** — any new `theme/**` edit requires the preflight check to land first.
 
 - **HP-SHOP-TILES-REFACTOR → moved to Tier 2B 2026-05-27 evening.** See revised entry in Tier 2 section below. (WATCHER-FORENSICS Item 2 re-attributed 2 of the 3 recurrences to the watcher; refactor urgency drops, architectural justification survives.)
+
+- _(~2–3 hrs · restored item 2026-05-29 · both lanes)_ **HOMEPAGE-CONTENT-DENSITY 🆕** (Tier 1) — Homepage reads thin above the value-proposition fold relative to the B2B institutional buyer's need for trust + breadth signals. Two lanes: **(a) copy/section density** — strengthen sections carrying the OECM moat, breadth-of-catalog, and Canadian-owned trust anchors without bloating LCP; **(b) proof density** — client logos / project photos / segment tiles surfaced higher. The homepage is the primary internal-link target from the first blog post, so density work compounds with Phase B. Restored to the tracked inventory 2026-05-29 (had dropped off the list). ~2–3 hrs across both lanes.
+- _(~1.5 hrs · restored item 2026-05-29 · gates blog social shares)_ **OG-META-WIRE-UP-SITEWIDE 🆕** (Tier 1) — Open Graph + Twitter-card meta are not reliably wired sitewide; social shares (the first blog post's in particular) render without title/description/image. Wire `og:title` / `og:description` / `og:image` / `og:type` / `og:url` + `twitter:card` into the sitewide `<head>` chrome with per-template overrides (PDP, collection, article, landing). **Directly gates Phase B** — a cornerstone post shared to LinkedIn/email without an OG image presents poorly. Restored 2026-05-29. ~1.5 hrs.
+- _(~Steve-gated · restored item 2026-05-29)_ **OUR-WORK-CLIENT-LOGOS 🆕** (Tier 1, **Steve-gated**) — Surface real client/institution logos (school boards, hospitals, municipalities) on the Our Work / homepage trust strip as social proof. **Steve-gated** — needs Steve to confirm which logos BBI has permission to display (institutional clients often restrict logo use). Restored 2026-05-29. Asset acquisition + a logo-strip render once greenlit; tracked in Phase C → Steve-gated until then.
 
 **Tier 1 — Completed:**
 - _(resolved 2026-05-29 · Fix1+1b+1c)_ **SCHEMA-CRIT-1 — ✅ FULLY RESOLVED 2026-05-29 (Fix 1 + CRIT-1b + CRIT-1c all shipped & RRT-confirmed)** (branches `feature/schema-crit-1-2026-05-27`, `feature/schema-crit-1b-2026-05-28`, `feature/schema-crit-1c-2026-05-29`). The largest schema item in the backlog, now closed end-to-end: **Fix 1** = BreadcrumbList position-2 URL (PR #28, Day 13); **CRIT-1b** = `itemCondition` + `priceValidUntil` + brand-dropped-by-decision + booster-seo removal (PR #36, Day 14); **CRIT-1c** = `hasMerchantReturnPolicy` + `shippingDetails` (Day 15 — see top-of-file Day 15 entry). RRT on all 3 PDP types: 7 valid items, 0 errors. Residual Merchant-listings non-critical WARN moved from structural-gap to deliberate monetary-omission (`shippingRate` + `returnShippingFeesAmount`, both honest-by-design omissions). Remaining PDP non-critical WARNs are pre-existing/tracked: F-8 (review/aggregateRating, no review data) + F-LOCALBUSINESS-IMAGE (needs Steve image) + M-2 (org priceRange, deliberately not asserted).
@@ -632,6 +717,8 @@ Monotonic, every bump accounted for. No unauthorized writes.
 - _(~25 min)_ **DEV-THEME-PROVISIONING** (added 2026-05-27 evening from WATCHER-FORENSICS Item 4 doctrine gap) — provision a dedicated dev theme in Shopify Admin (`Online Store → Themes → Add theme → Create blank` or duplicate the current main). Until this is done, the doctrine "never run `shopify theme dev` against any BBI theme, period" (per `01-safety-preflight.md` Watchers and auto-push section) is in effect — no `theme dev` workflow is available at all. Once provisioned: update preflight doc + memory entries to allow `shopify theme dev --theme=<dev-theme-id>` and update `scripts/preflight-watcher-check.sh` to allow that specific theme role≠main. ~15 min Shopify Admin action + ~10 min doc/script updates.
 
 - _(~30–60 min)_ **HP-SHOP-TILES-REFACTOR** (moved from Tier 1 2026-05-27 evening after WATCHER-FORENSICS Item 2 reconciliation) — move homepage "Shop the catalog" tile URLs out of `bbi-shop` section's `custom_liquid` raw HTML into `image_picker` schema settings (or a proper Liquid section using `image_url` filter calls). **Revised justification:** WATCHER-FORENSICS reconciled today's 3 apparent "Theme-Editor stale-cache" recurrences on this field as 2 plausibly watcher-attributable + 1 genuinely Theme-Editor (13:15:38). Watcher kill stops the dominant noise source, dropping urgency from Tier 1 to Tier 2B. However the underlying architectural fragility — untyped image URLs embedded in `custom_liquid` raw HTML are inherently vulnerable to a Theme-Editor save with stale cached state — remains real (Event 3 today). Refactor still wanted; just no longer urgent. ~30-60 min.
+- _(~30–60 min · restored item 2026-05-29)_ **STARLITE-LEGACY-SNIPPETS-AUDIT 🆕** (Tier 2B, low priority) — Audit and retire legacy Starlite-theme snippets/sections still present in `theme/` from the pre-rebuild theme lineage (DS-VERIFY 2026-05-14 flagged ~64 legacy-starlite candidate section files; the root `snippets/` carries ~98 Starlite-legacy snippets per the Day-13 canonical-path note). Confirm none are referenced by live templates, then remove the dead ones to shrink the theme-check surface and reduce edit-confusion risk. Cross-ref `data/reports/ds-verify-2026-05-14.{csv,md}`. Restored 2026-05-29. ~30–60 min.
+- _(~3–6 hrs · multi-session · NEW 2026-05-29 · Phase A Block 4)_ **OTHER-COLLECTION-TIER-A-ENRICHMENT 🆕** (Tier 2B) — Enrich the Tier-A products in the oversized `/collections/other` bucket (337 products published — flagged URGENT in the 2026-05-12 COLLECTION-AUDIT). Multi-session and state-safe; per-session YAML state in `data/reports/enrichment/*.yaml`. **Sessions:** (1) `do brand:global` — ~90–120 min, 5 premium products, validates the workflow; (2) A + B priority — ~2–3 hrs; (3) C-MAYBE speedrun in `tier-b-only` mode — ~30–45 min; (4) **deferred to Phase C** — NONE bucket, 71 products, ~45–60 min. Tier A YAML ingest ~30–60 min. **Workflow files:** `~/Downloads/prompt-other-collection-tier-a-enrichment.md` + `~/Downloads/tier-a-ingest.md`. Integrated as **Phase A Block 4** of the BLOG-LAUNCH ROADMAP above.
 
 **Tier 2B — Completed:**
 - _(shipped 2026-05-29 · commit a43c489 · branch unmerged)_ **BRAND-SERVICE-SCHEMA ✅ SHIPPED 2026-05-29** (commit `a43c489`, branch `feature/brand-service-schema-2026-05-29`, not yet merged to main — 6 Service entities across 5 brand-page templates) — _Original deferral note preserved:_ Emit a `Service` entity on each brand page describing BBI's *dealer relationship* per brand (custom design coordination, manufacturer-showroom visits, project delivery + install, OECM eligibility). CRIT-2-shaped pattern via a new `bbi-brand-service-jsonld.liquid` (mirrors `bbi-service-jsonld.liquid`). **Particularly relevant for Teknion** (no stock products in the BBI catalog — the relationship is pure service/specify-and-deliver) and partially for Global (mixed catalog + service). Defer until there's a clear AEO/positioning reason — BRAND-1's Brand entities already ground the manufacturer identities; this would add the service layer on top.
