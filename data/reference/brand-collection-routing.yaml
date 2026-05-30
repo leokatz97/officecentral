@@ -118,6 +118,92 @@ brand_routing:
     primary_collections_by_type: {}  # populate when first product encountered
     routing_tag_template: [brand:herman-miller, type:{product_type_slug}]
 
+  # --- Added session 3 (2026-05-30) — manufacturers surfaced by brand-recovery scan ---
+  # Stubs only; collections populate in Session 4 as products of each brand are enriched.
+  office_star_products:
+    manufacturer_name: Office Star Products
+    brand_tag: brand:office-star-products
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:office-star-products, type:{product_type_slug}]
+
+  deflecto:
+    manufacturer_name: deflecto
+    brand_tag: brand:deflecto
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:deflecto, type:{product_type_slug}]
+
+  gardex:
+    manufacturer_name: Gardex
+    brand_tag: brand:gardex
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:gardex, type:{product_type_slug}]
+
+  sentry_safe:
+    manufacturer_name: Sentry Safe
+    brand_tag: brand:sentry-safe
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:sentry-safe, type:{product_type_slug}]
+
+  borgo:
+    manufacturer_name: Borgo
+    brand_tag: brand:borgo
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:borgo, type:{product_type_slug}]
+
+  tayco:
+    manufacturer_name: Tayco
+    brand_tag: brand:tayco
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:tayco, type:{product_type_slug}]
+
+  foundations:
+    manufacturer_name: Foundations
+    brand_tag: brand:foundations
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:foundations, type:{product_type_slug}]
+
+  fellowes:
+    manufacturer_name: Fellowes
+    brand_tag: brand:fellowes
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:fellowes, type:{product_type_slug}]
+
+  links_contract_furniture:
+    manufacturer_name: Links Contract Furniture  # SKU prefix LCF (lookup short form: "Links Contract")
+    brand_tag: brand:links-contract-furniture
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:links-contract-furniture, type:{product_type_slug}]
+
+  3m:
+    manufacturer_name: 3M
+    brand_tag: brand:3m
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:3m, type:{product_type_slug}]
+
+  victor:
+    manufacturer_name: Victor
+    brand_tag: brand:victor
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:victor, type:{product_type_slug}]
+
+  allseating:
+    manufacturer_name: Allseating
+    brand_tag: brand:allseating
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:allseating, type:{product_type_slug}]
+
 # NOTE (session 2): type: tag slugs used this batch — type:storage, type:drafting-tables,
 #   type:sit-stand-desks, type:standing-desks, type:lighting, type:monitor-arms.
 #   Pending confirmation against live smart-collection rules; verify before relying on auto-routing.

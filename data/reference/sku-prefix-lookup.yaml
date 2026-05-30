@@ -1,0 +1,37 @@
+# SKU prefix -> manufacturer lookup (discovered Block 4 Session 3, 2026-05-30)
+# Future brand-recovery scans should match by SKU prefix as a DETERMINISTIC primary signal
+# (more reliable than body text, which can be wrong/boilerplate). Match on the alpha
+# prefix of the first non-empty variant SKU, longest stem first.
+
+sku_prefix_lookup:
+  # Global Furniture Group
+  GLB: Global Furniture Group
+  GLO: Global Furniture Group
+  OFGO: Global Furniture Group
+  OTG: Global Furniture Group
+  MVL: Global Furniture Group
+  # Other manufacturers
+  SAF: Safco
+  HTW: Heartwood
+  OSP: Office Star Products
+  SEN: Sentry Safe
+  DEF: deflecto
+  GDX: Gardex
+  BORGO: Borgo
+  FOU: Foundations
+  FEL: Fellowes
+  TAY: Tayco
+  TAYCO: Tayco
+  ALLSE: Allseating
+  LCF: Links Contract   # live vendor field applied as "Links Contract Furniture" (brand:links-contract-furniture)
+  MMM: 3M
+  VCT: Victor
+
+# Undecoded prefixes — pending Leo decode (deferred from Session 3)
+undecoded:
+  - HDL  # 40 products incl. INV/INVR
+  - IOF  # 26 products incl. W/UN/RAPB
+  - RIC  # 12 products
+  - HZN  # 10 products
+  - MTY  # 9 products
+  - SCN  # 7 products
