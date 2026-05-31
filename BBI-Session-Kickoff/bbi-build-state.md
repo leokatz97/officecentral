@@ -154,6 +154,33 @@ Added to the Day 17 shipped-work log:
 
 ---
 
+## 🗄️ Deferred Items Log (Off Active Plan) — 2026-05-30
+
+These items were removed from the Cowork bbi-launch-tracker artifact on 2026-05-30 to focus the artifact on remaining traffic-driving work. They are preserved here for institutional memory. Promote back to Active Plan only if their justification changes (field data, customer feedback, etc.).
+
+### Dev workflow & code hygiene (no visitor impact)
+- HERO-SECTION-REFACTOR — code cleanup, no visitor impact
+- HP-SHOP-TILES-REFACTOR — code cleanup, no visitor impact unless perf-related (unproven)
+- FETCH-FILE-STALE-ID — dev hygiene
+- PREFLIGHT-AUTOMATION residual — dev workflow improvement
+- VERIFY-CACHE-BUSTER-DEFAULT — dev hygiene
+- FORENSIC-SNAPSHOT-TIME-WINDOWED — debugging tool
+- DEV-THEME-PROVISIONING — dev workflow
+
+### Speculative or marginal performance (no proven user impact)
+- CRITICAL-CSS-INLINE — defer until CrUX shows real LCP problem
+- STORAGE-COLLECTION-COLD-CACHE — defer unless proven a real issue
+- HOTFIX-MOBILE-LCP-1c — defer until AVIS-APP-SCOPE-OPTIMIZATION done + CrUX data available
+
+### Aesthetic / trust polish (low traffic impact)
+- MANUFACTURER-LOGO-ACQUISITION — brand page polish, trust signal but not a traffic lever
+- BRAND-PAGE-HERO-IMAGE-AUDIT — aesthetic only
+- OUR-WORK-CLIENT-LOGOS — trust signal for conversion, not traffic
+- OG-TWITTER-IMAGE-EXPLICIT — already low priority
+- OG-IMG-PER-SEGMENT — asset-dependent, low priority
+
+---
+
 ## 🟢 Day 16 — 2026-05-29 — SCHEMA-BLOG-1 → BLOG SCHEMA ON `/blogs/news` + BLOGPOSTING ENHANCEMENT (H-2/F-11 RESOLVED — SOLO-ACTIONABLE SCHEMA LANE NOW COMPLETE) · SCHEMA-BRAND-1 → 7 BRAND ENTITIES ON 6 MANUFACTURER PAGES (F-13/H-3 RESOLVED) · F-LOCALBUSINESS-IMAGE → `image` FIELD ON BOTH CHROME LOCALBUSINESS NODES (RESOLVED) · **BRAND-PAGE-TEKNION-COPY-FIX → TEKNION↔GLOBAL "SISTER COMPANIES" COPY CORRECTION ON 3 PAGES (TIER 2B `BRAND-PAGE-COPY-FIX` CLOSED)** · **SCHEMA-CORPORATE-HIERARCHY-FIX → CHROME `parentOrganization` 2-TIER → 3-TIER (BBI → BRANT BASICS → OFFICE CENTRAL GROUP OF COMPANIES); TIER 2B CLOSED** · **SMALL-ITEMS-CLEANUP-A → AUTHOR-URL-FIELD + BRAND-PAGE-COPY-SINGLE-SOURCE-PHRASING (2 TIER 2B ITEMS CLOSED); OECM ARTICLE NOW FULLY ARTICLE-RICH-RESULT-ELIGIBLE** · **BRAND-SERVICE-SCHEMA → 6 `Service` ENTITIES ("AUTHORIZED [BRAND] DEALER") ACROSS 5 BRAND-PAGE TEMPLATES VIA PARAMETERIZED SHARED SNIPPET; TIER 2B CLOSED**
 
 ### 🟢 Day 16 afternoon — BRAND-PAGE-TEKNION-COPY-FIX ✅ SHIPPED 2026-05-29
