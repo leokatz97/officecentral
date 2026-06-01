@@ -1,3 +1,7 @@
+> ⚠️ **DEPRECATED** — This opener describes the pre-LAUNCH-1 theme model and is no longer accurate. The current authoritative session opener is [`BBI-Session-Kickoff/01-safety-preflight.md`](01-safety-preflight.md) (now includes the Phase 0 architecture-discovery gate). **Do not paste this file's content into new sessions.**
+
+---
+
 # BBI — New Session Kickoff
 **Last updated:** 2026-05-11
 
