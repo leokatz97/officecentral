@@ -2,9 +2,44 @@
 
 > **Source of truth.** This file is canonical. The `bbi-launch-tracker` Cowork artifact is the visual dashboard view of it — both update together. **Restructured 2026-05-24:** the day-block navigation (Day 9 / Day 10 / Day 11) was replaced with a linear **DO NEXT** queue (21 items in dependency order, now 16 after the Day 10 closures) plus a **RIGHT NOW** fireable-now list and an expanded **POST-LAUNCH BACKLOG**. The full session log, ⛔ Hard Rules + Safety Rules, technical sections, Wave A–H tables, and reference material are preserved verbatim below the divider. Full ship history lives in `docs/project/launch-tracker-archive.md`.
 
-**Current state:** 2026-06-01 (Day 19 morning · Day 18 close) · **🟢 LIVE — POST-LAUNCH** · Day 18 shipped **5 PRs (#66–#70)**: competitor keyword recon → Office Central header tagline → SKU-prefix decode v2 → ICP-KEYWORD-WALKTHROUGH session 1 (priority-keyword map + lock file) → Priority Page Content Refresh (7 surfaces SEO meta + Phase 0 architecture-discovery gate). Local `main` synced to `origin/main` @ `4561206`; merged content-refresh branch deleted. See the **Day 18** section below for the full ledger. *(The launch-day snapshot that previously occupied this line is preserved verbatim in the next paragraph for history.)*
+**Current state:** 2026-06-01 (Day 19) · **🟢 LIVE — POST-LAUNCH** · **Day 19 — PHASE-A-BLOCK-4-SESSION-5** shipped **27 Global-family PDPs enriched** with the 13-field `specs.*` framework + priority-keyword integration (PR #73, **open, awaiting Leo merge**). First enrichment session to apply the `priority-keywords.yaml` v1 lock to PDPs, validate **officestogo.com as the Newland source** (5/5), and the **sub-brand→Global parent** routing (all 27 → manufacturer = Global Furniture Group). Surfaced + fixed a **batch-wide warranty over-stamping** issue (agents defaulted "Limited Lifetime" on 14 metafields + 17 bodies) by re-sourcing both manufacturer warranty pages and applying precise per-catalog terms. Block 4 enrichment total now **59 products** (Sessions 1-5). · Day 18 shipped **5 PRs (#66–#70)** + reconciliation (#71) + rank-tracking (#72). See the **Day 19** and **Day 18** sections below. *(The launch-day snapshot that previously occupied this line is preserved verbatim in the next paragraph for history.)*
 
 **Launch-day snapshot (Day 11, 2026-05-25 — historical):** 2026-05-25 (Monday evening) · **🚀 LAUNCH DAY (Day 11) — IN PROGRESS** · **43 of 54 launch steps done (80%)** · Day 11 morning HIGH-3 fix landed (commit `7fb46b7` — closes the last SYS-VERIFY HIGH from LEAD-2). Day 11 afternoon/evening shipped parallel image rounds substantively advancing Step 46 IMAGE SWAP without waiting on the Upwork delivery — COLLECTION-IMG-PULL-1 (53 slots), BRAND-IMG-1 (12 slots), customer-stories (2 slots), homepage hp-featured (3 slots), INDUSTRY-HEROES + INDUSTRIES-HUB-TILES (4 slots) — for a Day 11 total of **~74 image slots filled**, with **~63 inventory slots still pending the Upwork delivery** for Step 46 to fully close. HOMEPAGE-BORDERS introduced the `--bbi-line` token; HEADER-POLISH shipped (with caveat: bar/nav rules modify CSS not loaded on BBI surface — see should-fix #1 in audit report); preview-dev tooling + gitignore hygiene also landed Day 11. **PRE-LAUNCH-AUDIT-1 verdict: ✅ READY FOR LAUNCH — 0 critical findings; LIVE integrity confirmed (`updated_at` 2026-05-16); DEV renders cleanly on all 8 key URLs with zero Liquid errors; theme-check baseline (2855 offenses) unchanged.** Target LAUNCH-2: once Upwork delivers remaining ~63 images + Step 46 closes + SYS-VERIFY-1 Phase 2 re-run + LAUNCH-0 image approval. The queue below is dependency-ordered with ⏳ ready / 🔒 blocked status flags — no day labels. *(This snapshot is the Day 11 evening sync, written 2026-05-25 after PRE-LAUNCH-AUDIT-1 — see `data/reports/pre-launch-audit-2026-05-25.md`.)*
+
+---
+
+## 🟢 Day 19 — 2026-06-01 — PHASE-A-BLOCK-4-SESSION-5 — CATALOG ENRICHMENT (27 Global-family PDPs) + PRIORITY-KW v1 APPLIED + WARRANTY RE-SOURCE · PR #73 ⏳ OPEN (awaiting Leo merge)
+
+**PHASE-A-BLOCK-4-SESSION-5 — 27 products enriched** with the 13-field `specs.*` framework, body_html rewrite to BBI voice, SEO title/meta, tags, and the first PDP application of `priority-keywords.yaml` **v1**. Production Admin-API writes only (productUpdate + embedded specs metafields) — **zero theme files touched**. PR [#73] open against `main` from `feature/phase-a-block-4-session-5-2026-06-01` (off `main` @ `d360d40`). **Do not auto-merge — Leo reviews.**
+
+### Batch composition (all Global Furniture Group family)
+- **5 Newland (NL/NLP)** — validated **OFFICESTOGO.COM-AS-PRIMARY-SOURCE-FOR-NEWLAND**: 5/5 sourced from officestogo.com product pages.
+- **3 OTG (Offices To Go)** + **19 Global parent** — validated **SUB-BRAND-HOUSE-RULE-LOCKED**: all 27 → `specs.manufacturer = "Global Furniture Group"`, sub-brand captured in `specs.product_line`.
+- Selection: Global-majority, funnel-relevant (executive-seating / waiting-room reroutes), pure accessories avoided. Excluded the 32 already-enriched handles (Sessions 1/2/4).
+
+### Results
+- **Auto-source:** 22/27 success · 5/27 partial (series-page fallback) · 0 fail (27/27 usable). Parallel 27-agent draft fan-out (~5.6 min wall-clock) per **PARALLEL-FAN-OUT-FOR-DRAFTING-SCALES**.
+- **Body state:** all 27 had real existing copy (0 boilerplate-corruption, 0 missing-body) and **0 pre-existing specs.* metafields** — clean slate, no merge conflicts.
+- **Priority keywords (v1):** 3 products landed genuinely-locked terms (executive-desks cluster on the 2 U/L management suites; waiting-room-seating cluster on the Craft cube). The remaining chairs use "ergonomic office chair"/"task chair" as **descriptive copy** (pending ergonomic-seating cluster, kept per Leo's call in title+meta); 15 products correctly landed **zero** priority keywords (no forced fit). Brand terms used descriptively only.
+- **Certs (GREENGUARD-IS-SERIES-LEVEL rule honored):** GREENGUARD applied to 19/27 (all confirmed on source, incl. Newland desking GREENGUARD/Gold per locked rule); 2 correctly left `certifications=[]` (unconfirmable); GREENGUARD **not** auto-applied.
+
+### Warranty over-stamping — caught + corrected (new operational finding)
+The drafting agents defaulted **"Limited Lifetime Warranty"** onto 14 metafields + 17 body copies, many unverified — directly conflicting with the "GFG seating ≠ lifetime" reality. Re-sourced **both** manufacturer warranty pages and applied **precise per-catalog terms** (Leo chose "precise sourced" over "zero-lifetime"):
+- **Offices To Go / value catalog** (OTG/MVL/Newland prefixes): OTG seating **2yr**, MVL seating **5yr** (+15yr frame), Newland desking/tables **15yr** (+5yr moving), electric base **5yr** — **no lifetime**.
+- **Global premium catalog** (bare-numeric model codes + panels): general seating = **ltd lifetime on frame/mechanism, 5yr on upholstery/foam/mesh**; laminate tables / metal filing / panels = **ltd lifetime**. Lifetime now appears on only **7** premium structural items (never value-catalog seating, always with the 5yr caveat). Metafield **and** body copy synced — 0 lifetime mismatches across 27.
+- **Lesson (candidate): AGENT-WARRANTY-DEFAULTS-NEED-SOURCE-VERIFICATION** — auto-source agents over-assert "Limited Lifetime"; warranty must be confirmed against the manufacturer warranty page per catalog/prefix, not defaulted. Certs (also series-level) held up fine; warranty did not.
+
+### Safety / verification
+- Preflight `scripts/preflight-write-check.sh`: **RESULT: PASS** at session start and re-run before writes (watcher clear; role=main `186373570873` verified). These were **Admin-API product writes** — independent of theme assets.
+- **Writes 27/27 · hardened readback 27/27 MATCH** (seo + descriptionHtml + tags + vendor + productType + every specs metafield, cosmetic-normalization tolerant) · cache-busted storefront curl **27/27 HTTP 200**.
+- **RRT spot-check** (5 PDPs): Product + BreadcrumbList JSON-LD valid; live render confirmed new SEO title/og:title/meta + corrected warranty (e.g. lumi "2-year warranty", not lifetime) + GREENGUARD Gold + Made in Canada.
+- **Theme check held** — `git status theme/` clean (0 theme files); offense count did not increase.
+- Artifacts: 27 pre-write snapshots `data/backups/session-5-*-pre-*.json` (gitignored), per-product write log `data/logs/session-5-*.log` (gitignored), review cards `data/reports/b4s5-review-cards.md`, final payloads `data/reports/b4s5-payloads/`, session scripts `scripts/b4s5-*.py` + draft workflow `scripts/b4s5-draft-workflow.js`.
+
+### Block 4 running total
+**59 products enriched** across Sessions 1-5 (S1=5, S2=8, S4=19, **S5=27**; S3 = 183 vendor corrections, not enrichment). Remaining Global pool: ~55 unenriched; plus MityBilt re-routes + deferred (UNKNOWN-prefix + boilerplate-corrupted).
+
+**Next:** Leo reviews/merges PR #73. Then Session 6 (next 25-30) **or** the LANDING-PAGE-THEME-CONTENT-REFRESH (highest acquisition impact per Day 19 rank-tracking baseline — reception desk + executive desk top opportunities).
 
 ---
 
