@@ -30,13 +30,25 @@
 }
 .bbi-header__inner{
   max-width:1320px;margin:0 auto;padding:0 32px;
-  height:72px;display:flex;align-items:center;gap:16px;
+  height:80px;display:flex;align-items:center;gap:16px;
+}
+
+/* ---- Brand block (logo + tagline) ---- */
+.bbi-header__brand{
+  display:flex;flex-direction:column;align-items:flex-start;
+  justify-content:center;flex-shrink:0;margin-right:24px;height:100%;
+}
+.bbi-header__tagline{
+  display:block;margin-top:3px;padding-left:6px;
+  font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
+  font-size:11px;font-weight:400;font-style:normal;line-height:1.2;letter-spacing:0.01em;
+  color:#666666;white-space:nowrap;
 }
 
 /* ---- Logo ---- */
 .bbi-header__logo{
   display:inline-flex;align-items:center;height:48px;
-  text-decoration:none;flex-shrink:0;margin-right:24px;
+  text-decoration:none;flex-shrink:0;margin-right:0;
 }
 .bbi-header__logo img{height:44px;width:auto;display:block;}
 .bbi-header__logo-text{
@@ -54,7 +66,7 @@
 /* Trigger button */
 .bbi-nav__item{
   display:inline-flex;align-items:center;gap:3px;
-  height:72px;padding:0 12px;
+  height:80px;padding:0 12px;
   background:none;border:none;cursor:pointer;
   color:var(--headerColor,#0B0B0C);
   font-family:var(--bodyFont,"Inter",system-ui,sans-serif);
@@ -485,14 +497,17 @@
 <header class="bbi-header" role="banner">
   <div class="bbi-header__inner">
 
-    {%- comment -%} Logo {%- endcomment -%}
-    <a class="bbi-header__logo" href="/" aria-label="Brant Business Interiors — home">
-      {%- if logo != blank -%}
-        {{ logo | image_url: width: 400 | image_tag: height: 44, alt: 'Brant Business Interiors', loading: 'eager' }}
-      {%- else -%}
-        <img src="{{ 'bbi-logo-v2.png' | asset_url }}" height="44" alt="Brant Business Interiors" loading="eager">
-      {%- endif -%}
-    </a>
+    {%- comment -%} Brand: logo + supporting tagline {%- endcomment -%}
+    <div class="bbi-header__brand">
+      <a class="bbi-header__logo" href="/" aria-label="Brant Business Interiors — home">
+        {%- if logo != blank -%}
+          {{ logo | image_url: width: 400 | image_tag: height: 44, alt: 'Brant Business Interiors', loading: 'eager' }}
+        {%- else -%}
+          <img src="{{ 'bbi-logo-v2.png' | asset_url }}" height="44" alt="Brant Business Interiors" loading="eager">
+        {%- endif -%}
+      </a>
+      <span class="bbi-header__tagline">A division of Office Central</span>
+    </div>
 
     {%- comment -%} Desktop navigation — all 5 items dropdown-only {%- endcomment -%}
     <nav class="bbi-header__nav" aria-label="Main navigation">
