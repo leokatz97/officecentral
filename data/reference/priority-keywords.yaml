@@ -1,0 +1,181 @@
+# BBI Priority Keywords — v1 (PARTIAL LOCK)
+# Generated from ICP-KEYWORD-WALKTHROUGH session 1 (2026-05-31).
+# Source map (human-readable): docs/strategy/bbi-keyword-map-2026-05-31.md
+# Recon source: PR #66 — COMPETITOR-KEYWORD-RECON-1 + SEED-EXPANSION (2026-05-30)
+#
+# SESSION 5+ PHASE 0: read this file to get locked page->keyword assignments before
+# touching page meta/copy. 4 of ~8 clusters are locked; the rest are listed under
+# `pending_clusters` and will be appended after walkthrough session 2.
+
+meta:
+  version: 1
+  status: partial-lock
+  date: 2026-05-31
+  locked_clusters: 4
+  source_doc: docs/strategy/bbi-keyword-map-2026-05-31.md
+  recon: "PR #66 (COMPETITOR-KEYWORD-RECON-1 + SEED-EXPANSION, 2026-05-30)"
+  scope_filter: >-
+    Ontario + Western Canada (BC/AB/SK/MB). B2B only. New product only. Quebec excluded.
+    DROP before trusting any count: foreign-geo (London/Melbourne/Dubai/etc.),
+    software/calculator/PDF/cost-research queries, used/liquidation/auction intent,
+    home-office terms, and same-SERP near-duplicate head terms (do not sum).
+  meta_title_suffix: "| Brant Business Interiors — a division of Office Central Inc. (OECM Supplier)"
+  lessons:
+    - SCOPE-FILTER-MATTERS-MORE-THAN-RAW-RECON-COUNTS  # recon counts inflated 2-2.5x
+    - HUB-AND-SPOKE-VALIDATES-AS-ARCHITECTURE          # service=hub, industry=spoke, collection=funnel
+
+architecture:
+  hub: design-services
+  spokes: [professional-services, healthcare]
+  funnel_targets: [reception, executive-desks, boardroom, waiting-room-seating]
+
+pages:
+  - id: design-services
+    role: hub
+    icp: both
+    surface: service_page
+    slug: /pages/office-space-planning
+    status: locked
+    cta_mode: quote            # design-consultation -> quote channel
+    primary_keyword: office space planning
+    secondary_keywords:
+      - space planning office
+      - space planning for office
+      - office layout planning
+      - workspace planning
+      - office design services
+      - office interior design services
+      - office reconfiguration
+    opportunistic:
+      - {kw: office floor plan, vol: 260, kd: 10}   # weakly held by theofficeshop.ca
+    cross_links_out: [professional-services, healthcare]
+    faq_pillar: [what is office space planning, office space planning standards, office space planning guidelines, office space planning checklist]
+    note: "Low volume (~400/mo core), near-zero competition, high-intent. Hub for space-planning intent."
+
+  - id: professional-services
+    role: spoke
+    icp: B
+    surface: industry_page
+    slug: /pages/professional-services       # existing page (ds-lp-professional-services)
+    status: locked
+    cta_mode: quote_then_cart
+    voice: ICP-B aesthetic / client-facing
+    primary_keyword: law firm office furniture
+    secondary_keywords:
+      - law office furniture
+      - accounting office furniture
+      - insurance office furniture
+      - financial services office design
+      - consulting office furniture
+    design_spoke_in: [financial services office design]   # from hub
+    funnels_to: [reception, executive-desks, boardroom, executive-seating]
+    excludes: [dental, medical]               # -> healthcare
+    note: "No high-volume vertical head term; conversion > traffic. Funnels to product collections."
+
+  - id: healthcare
+    role: spoke
+    icp: A/B straddle
+    surface: industry_page
+    slug: /pages/healthcare                   # existing page (ds-lp-healthcare)
+    status: locked
+    cta_mode: quote_then_cart
+    voice: private-clinic-first; OECM as trust signal, not hero
+    primary_keyword: healthcare furniture canada
+    secondary_keywords:
+      - healthcare furniture
+      - furniture healthcare
+      - medical furnitures
+      - medical office furniture
+      - furniture for medical office
+      - dental office furniture
+    product_spine: [office chairs for waiting room, waiting room chairs canada]
+    design_spoke_in: [medical office space planning, dental office design services]   # from hub
+    funnels_to: [reception, waiting-room-seating]
+    dental_routing: "Dental routed HERE (not professional-services) — clinical environment + search adjacency. See map doc cluster 2 for full rationale."
+    drop:
+      - "used/liquidation/auction medical terms (BBI sells new)"
+      - "new sickkids hospital / sickkids new hospital (navigational news, not product)"
+    note: "Owns ~470/mo real volume — strongest vertical head term in the map."
+
+  - id: reception
+    role: funnel_target
+    icp: both
+    surface: collection_page
+    slug: /collections/reception-desks
+    status: locked
+    cta_mode: cart_then_quote      # quote for canada/bulk
+    primary_keyword: reception desk
+    head_volume: 2900              # near-dupes (reception desk/desks/reception desk reception) = ONE SERP
+    secondary_keywords:
+      - l-shaped reception desk
+      - reception desk canada
+      - small reception desk
+      - modern reception desk
+      - reception desk for sale
+    funnel_from: [professional-services, healthcare]
+
+  - id: executive-desks
+    role: funnel_target
+    icp: both
+    surface: collection_page
+    slug: /collections/executive-desks
+    status: locked
+    cta_mode: cart_then_quote
+    primary_keyword: executive desk
+    head_volume: 1300
+    secondary_keywords:
+      - executive office desk
+      - l-shaped executive desk
+      - executive desk canada
+      - modern executive desk
+      - wood executive desk
+    funnel_from: [professional-services]
+    drop: [home office executive desks, executive desk for home office]   # excluded home-office ICP
+    reroute: ["executive desk chair leather -> executive-seating"]
+
+  - id: boardroom
+    role: funnel_target
+    icp: both
+    surface: collection_page
+    slug: /collections/boardroom-conference-tables
+    status: locked
+    cta_mode: quote_then_cart      # boardroom = project fit-out
+    primary_keyword: boardroom table
+    head_volume: 880
+    secondary_keywords:
+      - conference table             # 720
+      - wood boardroom table
+      - conference table canada
+      - modular conference table
+      - conference table with chairs
+    funnel_from: [professional-services]
+    reroute: ["boardroom chairs / conference table chairs -> executive-seating"]
+
+  - id: waiting-room-seating
+    role: funnel_target
+    icp: both
+    surface: collection_page
+    slug: /collections/waiting-room-seating
+    status: locked
+    cta_mode: cart_then_quote
+    primary_keyword: office chairs for waiting room
+    head_volume: 140
+    secondary_keywords:
+      - waiting room chairs canada
+    funnel_from: [healthcare]
+    long_tail_net_new: [medical office waiting room furniture, dental office waiting room furniture]
+
+# Not yet mapped — walkthrough session 2 (this week). Listed so Phase 0 knows they are PENDING, not missing.
+pending_clusters:
+  - id: education-library
+    icp: A
+    note: "Quick-win vertical whitespace (classroom/library furniture canada). Net-new, uncontested."
+  - id: eastern-ontario-geo
+    icp: both
+    note: "25 net-new geo kw (Peterborough/Oshawa/Kingston/Belleville) + OECM overlay -> geo_page."
+  - id: brand-dealer
+    icp: both
+    note: "39 net-new home-turf brand terms (ergocentric/global/keilhauer/obusforme/teknion) -> brand_page."
+  - id: ergonomic-seating-desks-storage
+    icp: both
+    note: "Shared product clusters (ergonomic chair, height-adjustable desk, filing). Split by CTA."
