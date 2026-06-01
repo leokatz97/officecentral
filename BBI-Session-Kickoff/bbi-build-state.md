@@ -34,6 +34,19 @@ Day-19 close-out after Session 6. Three read-only analysis artifacts + one Admin
 ### GFG warranty default → `null` · PR #75 ✅ MERGED
 Implements the S6 Lesson-1 recommendation at source. `data/reference/manufacturer-defaults.yaml` `global_furniture_group.warranty` changed from `Limited Lifetime Warranty` → `null` with a **"SOURCE PER PRODUCT — NEVER DEFAULT"** note. One-line YAML change; removes the over-stamping trap that agents kept tripping (14 metafields + 17 bodies in S5; caught-at-QA in S6). Branch `fix/gfg-warranty-default-null-2026-06-01`, merged to `main`.
 
+### COLLECTIONS-ARCHITECTURE — Phase 1: Protect + Brand ✅ EXECUTED (`data/reports/collections-arch-phase1-2026-06-01.md`)
+The high-value **additive** half of the locked architecture decision. **Admin-API only — 0 theme files, 0 redirects, 0 deletes.** Shipped as an **open PR** (not merged). HALT before the Phase 2 redirect/consolidation session.
+**Phase 0 soundness gate overrode 2 plan premises (snapshot was decision-grade, not byte-grade):**
+- **`book-displays-storage` & `laboratory-furniture` are ALREADY unpublished + 301 → `business-furniture`** (not published/empty-200 as the snapshot said) → no action; reversal = Phase 2. Only `keilhauer` is live-empty.
+- **0 Keilhauer SKUs exist in the catalog** (no `vendor=Keilhauer`, no `brand:keilhauer` tag) → keilhauer **cannot be populated**. Per Steve: **do NOT unpublish** (preserves #22 rank); queue `keilhauer → /pages/brands-keilhauer` for the Phase 2 redirect set instead.
+- **Live specs.* density = 49.8% (327/657)**, NOT the audit's ~15% (manufacturer 312, dimensions 290, country 265) → revisit specs-based filters in (2D).
+**Executed:**
+- **Vendor dedup — 7 clusters, 43 → 35 vendors.** Canonical = clean customer-facing names aligned to brand pages (Heartwood Manufacturing, OTG / Offices to Go, Deflecto, Office Star Products, Foundations Worldwide, Victor Technology, MityBilt). **57 products** (56 vendor + 1 tag-only), vendor + matching `brand:*` tag synced same pass. **57/57 readback MATCH.** Out of scope (flagged): 225 `vendor=BBI` data-errors (enrichment carry-forward).
+- **3 brand collections built on `vendor=X` smart rules** (not tags — tags incomplete; the 11 untagged Teknion proved it), published, storefront 200: `/collections/otg` (76), `/collections/heartwood` (39), `/collections/obusforme` (6). Non-competing **product-browse** meta (never "dealer Ontario") + body links → each `/pages/brands-X` story page (page owns brand SEO surface, collection = filterable grid). `ergocentric` left (1 SKU); `global-furniture` scaffold left (already empty+unpublished, redundant).
+- **`global-teknion` widened** with `vendor=Teknion` rule: **197 → 208** (picks up the 11 untagged Teknion SKUs).
+- **keilhauer: NO action** (still published, rule intact, count 0; Phase 2 redirect queued).
+Backups `data/backups/collections-arch-p1-2026-06-01/`; log `data/logs/dedup-2026-06-01.json`.
+
 ### COLLECTIONS-AUDIT — Phase 0, full-store, READ-ONLY (`data/reports/collections-audit.md`)
 Architecture decision-prep for the upcoming web-chat call. **No writes, no redirects, no meta edits.** Three structural facts:
 - **358 collections; the live nav exposes 9.** The other ~349 are nav-orphans (reachable only by direct URL / search / internal links / Google).
@@ -68,11 +81,12 @@ Read-only structural-SEO/AEO check of today's changed surfaces (53 S5+S6 PDPs + 
 
 **Next / carry-forward obligations:**
 1. **Steve — import `data/redirects/landing-refresh-301s.csv`** (4 rows; strip comment lines) via Shopify Admin → Navigation → URL Redirects → Import. **Boardroom row is higher-risk** (redirects the currently-ranking `boardroom-conference-meeting` → optimized `boardroom`) — watch the next weekly DataForSEO rank snapshot; recoverable by deleting the redirect.
-2. **Architecture web-chat call — 4 decisions** from collections-audit: (A) nav strategy — keep 9-collection minimalist nav or promote high-value ranking orphans (nesting chairs, cafeteria tables, fireproof cabinets, gaming); (B) `type-*`/`room-*` faceting — kill as dupes or activate as faceted browse; (C) brand architecture — approve vendor-cleanup → brand-collection build (populates empty brand scaffolds + rescues ranking-but-empty `keilhauer`); (D) filter set — add Brand (ready) + Made-in-Canada (vendor-derived) filters.
+2. **Architecture web-chat call — 4 decisions** from collections-audit (ALL LOCKED; A=keep 9-nav, B=kill type/room dupes, C=brand build, D=add filters). **(C) ✅ DONE — Collections Phase 1 (above): vendor dedup + brand collections built.** Remaining: **(A) nav** — surface ranking orphans via internal links (Phase 3 nav promotion); **(B) `type-*`/`room-*`** — kill as dupes (Phase 2 redirect); **(D) filter set** — add Brand (ready now post-dedup) + Made-in-Canada filters (specs density is 49.8%, not 15% — specs-based filters more viable than the audit thought).
+   - **⚠️ Phase 2 redirect-set additions:** `keilhauer → /pages/brands-keilhauer` (0 SKUs, can't populate; redirect preserves the #22 rank — do NOT unpublish). Carrying Keilhauer inventory is a separate Steve call.
 3. **Deferred build sessions:** exec-desks dedicated collection build (~30 executive-adjacent desks → publish + meta + links) **+ D3** (wire 85 enriched PDPs → canonical funnel collections, one edit per PDP).
 4. **✅ DONE — LANDING-PAGE-THEME-CONTENT-REFRESH (Surface B, 2026-06-01):** see the Surface B section below. On-page H1/body aligned with locked primary KWs on all 3 landing pages + Pro-Services funnel links to canonical collections + R5 sitewide title-suffix fix. First theme write since the catalog/landing pivot; preflight gate passed (no watcher; `186373570873` role=main confirmed by readback); every PUT verified by Admin-API readback. Shipped as an **open PR** (not merged).
-5. **vendor field dedupe (43→~30)** is the prerequisite for the brand-collection build in (2C).
-6. **⚠️ Collections Phase 1 — brand-collection build MUST reconcile with the existing `/pages/brands-*` brand PAGES.** BBI already has live brand *pages* (`/pages/brands-*`). Do **not** spin up `/collections/[brand]` collections that duplicate and cannibalize those pages — decide per brand whether the page or the collection is canonical (and 301/link the other), or the two surfaces will compete for the same brand head term. Wire this check into the (2C) brand-architecture decision *before* building any brand collection.
+5. **✅ DONE — vendor field dedupe (43→35)** + brand-collection build (Collections Phase 1, above).
+6. **✅ DONE — brand-page/collection reconciliation.** Resolved in Phase 1 via the locked split: PAGE (`/pages/brands-X`) owns the brand-story/"{Brand} dealer Ontario" SEO surface; COLLECTION (`/collections/X`) is the filterable product grid with product-browse meta that does NOT compete, linked from the page. Applied to OTG / Heartwood / ObusForme.
 
 ---
 
