@@ -32,7 +32,6 @@ sku_prefix_lookup:
   IOF: Intelligent Office Furniture
   RIC: Richelieu
   HZN: Horizon Furniture
-  ICN: Icon Office   # institutional-knowledge add; NOT yet seen in catalog export — see decoded_details
 
 # Rich decode metadata for prefixes resolved in the 2026-05-31 wrap-up
 # (Block 4 Session 3). Each entry records the supplier, whether it is a single
@@ -83,15 +82,6 @@ decoded_details:
     note: >-
       STAXX originally Source International, Demeter is contract — Horizon is the
       source catalog BBI buys through.
-  ICN:
-    vendor: Icon Office
-    type: Canadian commercial office furniture supplier
-    source: iconoffice.com/products/seating
-    note: >-
-      Added from Leo's institutional knowledge. NOT found in
-      products-export-2026-04-21.csv (0 ICN-prefix SKUs in the only SKU-bearing
-      export on disk). Confirm the prefix exists against the live Shopify catalog
-      before treating as a vendor-backfill candidate.
 
 # Undecoded prefixes — pending confirmation
 undecoded:
