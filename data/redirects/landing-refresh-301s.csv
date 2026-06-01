@@ -1,0 +1,9 @@
+Redirect from,Redirect to
+# Landing-refresh 301s — verified live 2026-06-01 (all targets resolve 200, no target self-redirects).
+# Strip comment lines before upload (Shopify Admin → Navigation → URL Redirects → Import).
+# NOTE: /collections/executive-desks already 301s → /collections/desks live (this row is a no-op / already-applied).
+#       It is a TEMP redirect — delete it before the exec-desks build gives that handle a real product home.
+/collections/reception,/collections/reception-desks-desks
+/collections/boardroom-conference-meeting,/collections/boardroom
+/collections/executive-desks,/collections/desks
+/collections/healthcare-seating,/pages/healthcare
