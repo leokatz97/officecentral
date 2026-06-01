@@ -197,6 +197,27 @@ PREFLIGHT CHECK — run the unified wrapper now (must pass before any work):
   preflight-role-check.sh — see scripts/test-preflight-checks.sh for
   the fail-on-bad regression suite that proves it.)
 
+CONTENT / PAGE-EDIT GATE — architecture discovery BEFORE scoping page or copy edits:
+  Any session that edits a page, collection, or its SEO/copy must START by
+  discovering WHERE the content actually lives — do NOT assume classic CMS
+  body_html. BBI uses a hybrid content model (lesson SHOPIFY-CONTENT-MODEL-
+  NOT-UNIFORM, docs/strategy/bbi-keyword-map-2026-05-31.md → Operational lessons):
+    - Landing pages (design-services, professional-services, healthcare, etc.):
+      CMS body is EMPTY; H1/intro/FAQ/CTA/links are hardcoded in theme Liquid
+      sections (ds-lp-*.liquid) via section.settings. Only SEO title/meta
+      (metafields global.title_tag / global.description_tag) are editable
+      WITHOUT a theme write — body/H1/FAQ/links need a theme-edit session.
+    - Collections: description body is a real CMS field but only renders if the
+      template section outputs {{ collection.description }} (true for
+      ds-collection-base / default collection.json; FALSE for ds-cs-base "base"
+      suffix and ds-cc-base). SEO seo{} (title/meta) always applies.
+    - Slugs in strategy docs are NOT authoritative — verify the real handle +
+      template against the live store and nav menu first.
+  Discovery query first (CMS body vs metafields vs template-section + does the
+  target field render), THEN scope what's editable, THEN decide if a theme-edit
+  session is required. SEO meta is always safe (no theme files). Precedent +
+  full friction log: docs/reviews/priority-refresh-2026-05-31.md (PHASE-C-STREAM-B).
+
 REFERENCE DOCS — read these to ground the session:
   - docs/plan/bbi-build-state.md             (canonical source of truth)
   - BBI-Session-Kickoff/02-current-status.md (latest session snapshot)
@@ -207,4 +228,14 @@ REFERENCE DOCS — read these to ground the session:
                                               before reporting any perf metric;
                                               PERFORMANCE-MEASUREMENT-DISCIPLINE
                                               = multi-run median on fast pages)
+  - data/reference/priority-keywords.yaml    (v1 — LOCKED page→keyword
+                                              assignments; read in Phase 0 of any
+                                              keyword/SEO/page-copy session BEFORE
+                                              touching meta or copy. 4 of ~8
+                                              clusters locked; rest PENDING under
+                                              pending_clusters, not missing)
+  - docs/strategy/bbi-keyword-map-2026-05-31.md
+                                             (human-readable keyword map +
+                                              Operational lessons incl.
+                                              SHOPIFY-CONTENT-MODEL-NOT-UNIFORM)
 ```

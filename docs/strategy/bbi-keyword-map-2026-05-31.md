@@ -167,6 +167,14 @@ Raw recon / seed-expansion net-new counts are inflated **2–2.5×** before the 
 **LESSON: HUB-AND-SPOKE-VALIDATES-AS-ARCHITECTURE**
 The site architecture that fell out of the data: **service pages = topic hubs** (Design Services owns space-planning intent and cross-links outward), **industry pages = spokes** (Professional Services, Healthcare — thin vertical long-tail, conversion > traffic, voiced per ICP), **collection pages = funnel targets** (Reception, Executive Desks, Boardroom, Waiting-room — own the fat generic product volume the spokes can't). Spokes funnel into shared collections rather than trying to own head terms themselves. This validated across all 4 clusters and should govern future page builds.
 
+**LESSON: SHOPIFY-CONTENT-MODEL-NOT-UNIFORM** *(added 2026-05-31, PHASE-C-STREAM-B)*
+BBI uses a **hybrid content architecture** — content lives in different places depending on the surface, and "edit a page" means something different for each:
+- **Landing pages** (design-services, professional-services, healthcare): CMS `body` is **empty**. All visible content (H1, intro, FAQ, CTAs, links) is in **theme Liquid sections** (`ds-lp-*.liquid`) driven by `section.settings`. Only SEO title/meta (`global.title_tag` / `global.description_tag` metafields) are editable without theme edits.
+- **Collections:** description body is a real CMS field, but only renders if the template's section outputs `{{ collection.description }}` — true for `ds-collection-base` (default), **false** for `ds-cs-base` (`base` suffix) and `ds-cc-base` (custom). SEO title/meta (`seo{}`) always apply regardless of template.
+- **Slugs in strategy docs are not authoritative** — verify against the live store + nav before scoping (the v1 YAML's `reception-desks` / `boardroom-conference-tables` didn't exist; `executive-desks` / `waiting-room-seating` had 0 products).
+
+**How to apply:** Any future "edit a page / refresh copy" session must **start with architecture discovery** — query the surface (CMS body vs. metafields vs. template-section), confirm the real handle + template, and confirm whether the target field actually renders — **before** scoping what's editable. Do not assume classic CMS `body_html`. SEO meta is always safe (no theme files); body/H1/FAQ/links on landing pages require a separate theme-edit session.
+
 ---
 
 ## Final status — walkthrough session 1 complete
