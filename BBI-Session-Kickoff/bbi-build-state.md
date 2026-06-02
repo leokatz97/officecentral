@@ -53,6 +53,18 @@
 
 ---
 
+## 🟢 Day 20 (follow-up 2) — 2026-06-02 — COLLECTIONS: Gated Batch-2 Source-Unpublish — batch-2 consolidation now LIVE → **Phase 2 COMPLETE end-to-end** · OPEN PR
+
+The gated trigger from the Phase-3 `desks.json` repoint deploy (#83). Steve imported `collections-phase2-batch2-deskfamilies-301s.csv`, so the 9 batch-2 desk-family redirects now exist; per the **dormant-redirect mechanic** they were inert while their sources stayed published. This session unpublished the 9 published sources so the redirects fire. **Admin-API publish toggles ONLY — 0 theme writes (no watcher gate), 0 redirect writes, 0 menu writes.** Dry-run → HALT → Leo approval → 9 live writes, per-source hardened readback. Report: `data/reports/collections-batch2-source-unpublish-2026-06-02.md`.
+
+- **Phase 0 (read-only safety crux):** all **9 / 9** batch-2 redirects present in the live Admin-API map (import landed fully), all 9 live targets == CSV targets (faithful), **4 / 4** keeper targets (`l-shape-desks`, `u-shape-desks`, `height-adjustable-tables`, `multi-person-workstations`) resolve 200 zero-chain, HARD GATE not tripped (0 missing), **0 / 9** sources are ranking handles. Script `scripts/phase0-batch2-classify.py` → `data/reports/phase0-batch2-classify-2026-06-02.json`.
+- **Inbound-link sanity:** nav clean — `collection.desks.json` tile points to keeper `l-shape-desks` (#83); `multi-person-workstations-desks` has 0 theme refs. One cosmetic residue: 10 landing-page sections use `height-adjustable-tables-desks` as a *product-teaser data fallback* (not a link), each backstopped on the next line by a published keeper → self-heals. Tracked as THEME-CLEANUP (watcher-gated, out of scope here).
+- **Phase 2 (executed):** **9 sources unpublished** — L-shape (3)→`l-shape-desks` + U-shape (2)→`u-shape-desks` + Height-adj (2)→`height-adjustable-tables` + Multi-person (2)→`multi-person-workstations`. **9/9 hardened-readback MATCH** (REST `published_at=null` authoritative) and **9/9 storefront 301 → keeper firing immediately** (no edge-lag, no 404, no chain). Script `scripts/phase1-batch2-unpublish.py --live`; log `data/logs/batch2-unpublish-2026-06-02.json`; pre-state backups in `data/backups/batch2-unpub-*-2026-06-02.json`.
+- **Empirical self-heal confirmed:** rendered `/pages/relocation` cache-busted post-unpublish — Top-products grid showed **4 real cards, 0 blank slots**; card 1 self-healed to a real height-adjustable product. STOP condition not triggered.
+- **🏁 Phase 2 now COMPLETE end-to-end** — both batches imported + activated (batch-1: 33 sources LIVE in follow-up 1; batch-2: 9 sources LIVE here). keilhauer still HELD (Steve's call). Cowork strip to follow on merge.
+
+---
+
 ## 🟢 Day 20 (follow-up) — 2026-06-02 — COLLECTIONS: Gated Batch-1 Source-Unpublish — batch-1 consolidation now LIVE · OPEN PR
 
 The gated trigger from the Day-20 carry-forward. Steve imported `collections-phase2-batch1-301s.csv`, so the 34 batch-1 redirects now exist; per the **dormant-redirect mechanic** they were inert while their sources stayed published. This session unpublished the published sources so the redirects fire. **Admin-API publish toggles ONLY — 0 theme writes (no watcher gate), 0 redirect writes, 0 menu writes.** Dry-run → HALT → Leo approval → 33 live writes, per-source hardened readback. Report: `data/reports/collections-batch1-source-unpublish-2026-06-02.md`.
