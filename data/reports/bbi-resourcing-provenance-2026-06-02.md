@@ -212,7 +212,38 @@ The filter reads card `data-vendor`, so any product left at `vendor=BBI` still r
 
 **Verdict:** writing the 97 tier-1 corrections **unblocks the Brand filter for those products**, but **~59 published-real products would still surface a "Brant Business Interiors" chip** — too large to ship the filter cleanly alongside. Recommend either (a) suppress the BBI chip in the filter UI until the Steve pass resolves the ~59, or (b) run the Steve pass on the tier-2 (18) + ambiguous (87) first. The tier-2 18 are the cheapest wins (already sourced, just need a confirm).
 
+## Ambiguous-review resolution (2026-06-02, filled sheet — LIVE WRITES)
+
+Steve's filled decode sheet (`bbi-ambiguous-review-2026-06-02.csv`) returned **20 of 87** rows with a `real_manufacturer`. Each filled value was re-validated against `manufacturer-defaults.yaml` + the 35 live store vendors. Blanks (67) were left **untouched** by design — they are handled by Brand-filter chip suppression, not by writing BBI (writing BBI would re-affirm the data error and re-surface the fake chip).
+
+**WRITTEN — 5 products (vendor + synced `brand:*` tag; Admin-API GraphQL `productUpdate`; per-item hardened readback all PASS):**
+
+| Handle | vendor: BBI → | brand tag | Basis |
+|---|---|---|---|
+| links-custom-reception-unit-60x72 | **Links Contract Furniture** | `brand:links-contract-furniture` | exact match in dict **and** live vendors |
+| student-chair-4-sizes-1 (C-HR) | **Alumni Educational Solutions** | `brand:alumni-educational-solutions` | Leo-approved new vendor (on-ICP education OEM) |
+| student-chair-4-sizes-copy (C-AIR) | **Alumni Educational Solutions** | `brand:alumni-educational-solutions` | Leo-approved new vendor |
+| student-chair-4-sizes (C-SVY) | **Alumni Educational Solutions** | `brand:alumni-educational-solutions` | Leo-approved new vendor |
+| anda-seat-phantom-king-gaming-style-office-chair (SYNN) | **AndaSeat** | `brand:andaseat` | Leo-approved new vendor (canonicalized) |
+
+New vendors created: **Alumni Educational Solutions**, **AndaSeat**.
+
+**FILLED but NOT written — 15 products → Steve / suppression (do not write):**
+
+| Filled value | N | Reason held |
+|---|---:|---|
+| `Global industrial` | 4 | distributor (globalindustrial.com), not OEM; **collides with existing "Global Furniture Group"** vendor. Real felt-acoustic OEM undecoded → Steve. |
+| `https://www.scnindustrial.com/` | 7 | value is a URL; SCN is a distributor — per-product OEM **needs supplier invoice** → Steve. |
+| `Workspace48` | 3 | **Leo decision: DROP** — canonical OEM unconfirmed → Steve. |
+| `B` | 1 | invalid/stray entry — not a manufacturer → Steve. |
+
+**BLANK — 67 products:** untouched → Brand-filter chip suppression.
+
+**Remaining `vendor=BBI` within this 87-row ambiguous set after writes: 82** (67 blank + 15 held). These remain in scope for chip suppression alongside the residual buckets above.
+
 ## Artifacts
 - Worksheet: `data/reports/bbi-resourcing-2026-06-02.csv` (+ `-evidence.json`)
 - Scan (read-only): `scripts/scan-bbi-resourcing-2026-06-02.py`
 - Apply (staged, dry-run default): `scripts/apply-bbi-resourcing-2026-06-02.py` — `--tier1 --live` writes the 97.
+- Ambiguous decode review sheet (filled): `data/reports/bbi-ambiguous-review-2026-06-02.csv` · exporter `scripts/export-bbi-ambiguous-review-2026-06-02.py`
+- Ambiguous-resolution apply (dry-run default, per-item readback): `scripts/apply-ambiguous-corrections.py` — local audit: `data/logs/ambiguous-corrections-*.json`, `data/backups/ambiguous-corrections-pre-*.json`
