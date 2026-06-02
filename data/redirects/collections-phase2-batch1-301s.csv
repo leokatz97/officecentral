@@ -1,0 +1,47 @@
+Redirect from,Redirect to
+# COLLECTIONS PHASE 2 — BATCH 1 (301s). Generated 2026-06-01. Verified live: every target resolves 200 with NO chain.
+# Import: Shopify Admin -> Navigation -> URL Redirects -> Import. STRIP these comment lines before upload.
+# NO theme dependency -> safe to import anytime. (Batch 2 / desk families is a SEPARATE file, gated on a theme repoint deploy.)
+# Do-not-touch gate: all 25 ranking handles are absent from the From column EXCEPT keilhauer (Batch D, the one deliberate ranking-URL redirect).
+#
+# --- Batch B: 2026-05-07 scaffold empties (0 products, none rank) -> nav parent ---
+/collections/acoustic-panels,/collections/panels-room-dividers
+/collections/active-seating,/collections/ergonomic-products
+/collections/beam-seating,/collections/seating
+/collections/bench-seating,/collections/seating
+/collections/boardroom-seating,/collections/boardroom
+/collections/boardroom-storage,/collections/boardroom
+/collections/conference-seating,/collections/boardroom
+/collections/ergonomic-accessories,/collections/ergonomic-products
+/collections/executive-seating,/collections/seating
+/collections/high-density-storage,/collections/storage
+/collections/mobile-storage,/collections/storage
+/collections/personal-storage,/collections/storage
+/collections/privacy-screens,/collections/panels-room-dividers
+/collections/wall-storage,/collections/storage
+#
+# --- Batch C1: type-* / room-* smart dupes -> nav twin (accumulator: into the ranking twin where one exists) ---
+/collections/type-chairs,/collections/seating
+/collections/type-desks,/collections/desks
+/collections/type-tables,/collections/tables
+/collections/type-storage,/collections/storage
+/collections/type-accessories,/collections/accessories
+/collections/type-lounge,/collections/seating
+/collections/type-outdoor,/collections/business-furniture
+/collections/room-boardroom,/collections/boardroom
+/collections/room-reception,/collections/reception-desks-desks
+/collections/room-accessories,/collections/accessories
+/collections/room-private-office,/collections/desks
+/collections/room-open-plan,/collections/desks
+/collections/room-lounge,/collections/seating
+/collections/room-training-room,/collections/training-flip-top-tables
+#
+# --- Batch C2: legacy dupe families WITH a ranking keeper -> redirect siblings INTO the ranking keeper ---
+/collections/pedestal-drawers,/collections/pedestal-drawers-storage
+/collections/pedestal-drawers-1,/collections/pedestal-drawers-storage
+/collections/fire-resistant-file-cabinets,/collections/fire-resistant-file-cabinets-storage
+/collections/fire-resistant-file-cabinets-safes,/collections/fire-resistant-file-cabinets-storage
+/collections/fire-resistant-safes,/collections/fire-resistant-safes-storage
+#
+# --- Batch D: ranking-sensitive (keilhauer #15, 0 SKUs, do-not-unpublish) -> route authority onto the live dealer page ---
+/collections/keilhauer,/pages/brands-keilhauer

@@ -1,0 +1,23 @@
+Redirect from,Redirect to
+# COLLECTIONS PHASE 2 — BATCH 2: legacy desk dupe families (301s). Generated 2026-06-01.
+# !!! DO NOT IMPORT UNTIL THE desks.json REPOINT PR IS DEPLOYED !!!
+# Two of these From handles are linked from LIVE collection.desks.json crosslink tiles:
+#   - /collections/height-adjustable-tables-desks
+#   - /collections/multi-person-workstations-desks
+# Importing before the repoint deploys would turn those live tiles into redirect hops.
+# Sequence: merge+deploy the desks.json repoint PR -> THEN import this file.
+#
+# Overlap-verified: only families whose siblings are near-identical product sets to the cleanest-handle keeper.
+# CONSOLIDATED: L-shape (100/100/100% subset), U-shape (100/94%), Height-adj (100/86%), Multi-person (100/89%).
+# DROPPED (genuinely distinct, NOT in this file): Straight desks family (siblings only 56-71% subset; +9 unique products).
+# Strip comment lines before upload.
+#
+/collections/l-shape-desks-desks,/collections/l-shape-desks
+/collections/l-shape-desks-1,/collections/l-shape-desks
+/collections/l-shape,/collections/l-shape-desks
+/collections/u-shape-desks-1,/collections/u-shape-desks
+/collections/u-shape-desks-desks,/collections/u-shape-desks
+/collections/height-adjustable-tables-1,/collections/height-adjustable-tables
+/collections/height-adjustable-tables-desks,/collections/height-adjustable-tables
+/collections/multi-person-workstations-1,/collections/multi-person-workstations
+/collections/multi-person-workstations-desks,/collections/multi-person-workstations
