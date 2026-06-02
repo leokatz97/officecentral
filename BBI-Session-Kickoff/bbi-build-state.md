@@ -8,6 +8,25 @@
 
 ---
 
+## 🟢 Day 19 — 2026-06-01 — COLLECTIONS-ARCHITECTURE Phase 2: Consolidation & Crawl Hygiene (PLAN + CSVs) · OPEN PR
+
+The redirect/consolidation half of the locked architecture decision. **NO live redirect writes, NO theme writes, NO deletes** — redirects ship as CSVs Steve imports (token lacks `write_content`). Provenance: `data/reports/collections-arch-phase2-2026-06-01.md` + 2 batch CSVs in `data/redirects/`.
+
+**Phase 0 safety gate (reads only):**
+- **Do-not-touch (ranks) list = 25 handles**, LIVE-confirmed from DataForSEO `ranked_keywords` (Canada, 2026-06-01), recorded in the report. All EXCLUDED from both CSVs except `keilhauer` (the one sanctioned Batch D exception).
+- **Snapshot stale a 3rd time:** pulled all **1,660 live redirects** + live GraphQL counts → **104 of 139 candidates already redirected** (zero chains). Nearly all of "Batch A" (legacy printer/consumer empties) was already 301'd in prior cleanup.
+- **Flagged out-of-scope:** `/collections/quiet-spaces` (live nav item) self-301s → accessories; `benching-desks` (#72) self-301s → desks (killed Steve's `room-open-plan → benching-desks` retarget — would chain; rerouted → desks).
+
+**Staged for Steve (staged import, between-batch rank monitoring):**
+- **Batch 1 CSV — 34 rows** (`collections-phase2-batch1-301s.csv`, no theme dependency, import anytime): Batch B scaffold empties (14) + Batch C1 type-*/room-* dupes (14, accumulator-routed into ranking twins) + Batch C2 ranking-keeper families (5: pedestals→pedestal-drawers-storage #31, fire cabinets/mixed→fire-resistant-file-cabinets-storage #22, fire safes→fire-resistant-safes-storage #48) + Batch D (`keilhauer → /pages/brands-keilhauer`).
+- **Batch 2 CSV — 9 rows** (`collections-phase2-batch2-deskfamilies-301s.csv`, ⚠ **DO NOT IMPORT until the desks.json repoint PR deploys**): legacy desk dupe families, overlap-verified. CONSOLIDATED L-shape/U-shape/Height-adj/Multi-person (siblings ≥86% subset of keeper); **DROPPED Straight desks** (siblings 56–71%, +9 unique = distinct).
+- **Repoint spec (separate watcher-gated theme PR, NOT this session):** 2 `collection.desks.json` crosslink tiles → `height-adjustable-tables-desks`→`height-adjustable-tables`, `multi-person-workstations-desks`→`multi-person-workstations`. Nav/footer + cornerstone blog confirmed clean.
+- **HELD:** `buy-canadian` (→ Made-in-Canada collection, Phase 3), `acoustic-pods`/`focus-rooms` (Quiet Spaces/Pods build candidates), `standing-tables` (intent unconfirmed), `mobile-pedestals`/`pedestals`/bookcases family (distinct).
+
+**Verification:** Batch 1 = 34 rows, Batch 2 = 9 rows; both — all targets resolve 200, zero chains, no duplicate From rows; 25 ranking handles absent from From columns except keilhauer (Batch D). 5 non-nav ranking targets live-curled 200.
+
+---
+
 ## 🟢 Day 19 — 2026-06-01 — SURFACE B — LANDING-PAGE ON-PAGE ALIGNMENT (THEME WRITE) + R5 SITEWIDE TITLE-SUFFIX FIX · OPEN PR
 
 **First live theme write since the catalog/landing pivot.** Aligned the *visible* on-page content (H1 / body) on the 3 landing pages with their already-optimized SEO meta (meta layer was done in #70; this closes the H1↔meta contradiction). **`title_tag`/`description_tag` untouched** — visible on-page copy + funnel links + title *render logic* only.
