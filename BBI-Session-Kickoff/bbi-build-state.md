@@ -26,6 +26,32 @@
 
 ---
 
+## 🟢 Day 21 — 2026-06-03 — HEARTWOOD SIT-TO-STAND PDP SPEC CORRECTION (LIVE Admin-API product write · resolves overstatement found in comparison/post-#1 research)
+
+Corrected four datasheet-confirmed overstatements on the Heartwood electric sit-to-stand spec copy. **LIVE Admin-API product write** (body_html + `specs.*`/`global.description_tag` metafields); **no theme write, no watcher** (watcher preflight PASS — none running; Admin-API write is theme-independent). Backups of all 5 candidate products' body_html + metafields saved BEFORE writing to `data/backups/heartwood-s2s-20260603-164314/`. Engine: `scripts/heartwood-s2s-correct.py` (dry-run default, `--live` to write; asserts each old substring exists, handles `list.*` metafields as JSON, and aborts if any forbidden token survives).
+
+**Scope decision (Leo: "you decide") — Tier 1 only (2 SKUs that carry all four overstated values exactly):**
+- **9687458873657** "Electric height adjustable sit to stand desks" (5 sizes) — handle `height-adjustable-table-5-sizes`
+- **9842444271929** "Quick assembly height adjustable base" — Heartwood **Cleo CLI-E1**, the same electric base sold base-only — handle `quick-assembly-height-adjustable-base`
+
+**Corrections applied (every occurrence across body + spec table + metafields):**
+| Field | Before | After |
+|---|---|---|
+| Warranty | "15-year mechanical/frame" (desk); "15-year structural + 7-year mechanical" (Cleo) | 2-year electrical / 5-year steel structure |
+| Stages | 3-stage / "Three-stage" | 2-stage / "Two-stage" |
+| Height range | 22"–47.5" (and "22" to 47.5") | 27.5"–45.5" |
+| Lift speed | 1.2"/sec (and "1.2 in/sec", "1.2 inches per second") | 1"/sec |
+
+Per-product metafields corrected: desk #…657 → `global.description_tag`, `specs.dimensions`, `specs.materials`, `specs.key_features`, `specs.warranty`. base #…929 → `global.description_tag`, `specs.dimensions`, `specs.materials`, `specs.key_features` (3 elements), `specs.warranty`.
+
+**Hardened independent Admin-API readback (fresh GET, both products): PASS ✅** — zero old strings remaining (grep `15-year` / `3-stage` / `Three-stage` / `47.5` / `1.2` = 0 across body + all `specs`/`global` metafields); new values (`2-stage`, `27.5`, `45.5`) confirmed present; `specs.warranty` now reads desk = "Limited lifetime warranty on laminates; 2-year electrical and 5-year steel-structure warranty", base = "5-year steel-structure warranty; 2-year electrical warranty".
+
+**🚩 FLAGGED for Leo/Steve — NOT changed (origin verification):** the Cleo base PDP (#…929) makes a **whole-base "Canadian-made" / "Built in Kelowna, BC" / "Made in Canada (Kelowna, BC)"** claim (intro line, body, and a `specs.key_features` element). Heartwood is a Kelowna BC manufacturer, but the **powered base may be imported** → origin needs separate verification before any whole-desk Made-in-Canada claim stays. Origin language left intact this pass per task scope. (The desk #…657 makes no Made-in-Canada copy claim; it does carry a standard `specs.country_of_manufacture = Canada` metafield — minor, also unverified.)
+
+**🚩 FLAGGED — Tier-2 NOT edited (separate datasheet needed):** three related electric SKUs share `3-stage` + `15-year mechanical` but state a **different 22"–48" range** and no lift speed, so they may be a different base config: **9665339851065** (L-shape height adjustable desk set), **9687455924537** (Premium height adjustable l-shape table), **9665360331065** (Premium height adjustable table). Left untouched — the task's listed height correction (22–47.5 → 27.5–45.5) does not match their "48", and there is no confirmed Premium-base datasheet figure. Recommend a follow-up pass once Heartwood Premium-line specs are verified.
+
+---
+
 ## 🟢 Day 21 — 2026-06-03 — COMPARISON-CONTENT TRAFFIC STRATEGY (deep research, DOCS/RESEARCH ONLY · OPEN PR, not merged)
 
 Reverse-engineered the Venn banking comparison posts that rank, adapted to office furniture under the North Star. **No live writes.** Deliverable: [`data/reports/comparison-content/comparison-content-strategy-2026-06-03.md`](../data/reports/comparison-content/comparison-content-strategy-2026-06-03.md) + auditable data appendix + 5 reproducible scripts (`scripts/comparison_phase*.py`) + 11 committed data CSVs (raw API JSON gitignored, regenerable). DataForSEO (Canada, en) throughout; figures cited + confidence-labelled.
