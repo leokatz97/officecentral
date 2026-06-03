@@ -4,16 +4,19 @@
 
 **Current state (session close 2026-06-03):** **🟢 LIVE — POST-LAUNCH.** **Catalog clean** — Collections Phase 2 COMPLETE end-to-end (PR #84, main `4b95ca4`) + Phase 3 nav LIVE (PR #83) + exec-desks built/published/surfaced (PR #85, main `5b0104f`). **Filter system DEFERRED** — the whole theme-native facet system (Brand/Type/Room, `ds-cs-base.liquid`) is down: the PR #88 fix (`push`→`concat` + dealer-name suppression) is byte-verified on role=main but does **NOT render for real users** (Leo's real browser, incl. cart-cookie bypass); non-render cause UNCONFIRMED → needs a **real-browser-confirmed redo**; non-harmful, zero regression; the Made-in-Canada FILTER is gated on the same fix. **Content roadmap LOCKED** — PR #89 merged, main `2c30f43` (`data/reports/content-roadmap-2026-06-03.md`): pillar priority P1>P2>P3>P4; **P1 design/space-planning = lead production focus**; ergonomics FAQ hub pulled early for AEO (winnable question/PAA vein, NOT high-KD head terms).
 
-**NEXT ACTIONS — ordered (mirrors the `bbi-launch-tracker` top):**
+**NEXT ACTIONS — ordered, content-first (mirrors the `bbi-launch-tracker` top):**
 1. **Post 1 schema** (~30 min · Leo) — verify/add **Article + FAQPage JSON-LD** on the LIVE Post 1 (editorial body live since 2026-05-23).
 2. **Blog #2 — P1 design/space-planning cornerstone** (Leo) — lead production focus per the locked roadmap; proven model from Post 1.
 3. **Ergonomics FAQ hub** (Leo) — pulled early for AEO; target the **winnable informational/question/PAA vein**, NOT high-KD head terms ("ergonomic office chair"/"standing desk").
-4. **`buy-canadian` Made-in-Canada collection build** (Claude Code) — filter-independent (a collection build, not a facet), buildable now.
-5. **Quiet Spaces / Pods collection build** (Claude Code) — filter-independent; re-home `telephone-booths` under it once built.
+4. **5 more blog posts — roadmap cadence** (Leo) — keep shipping cornerstone + cluster posts down the locked roadmap: more P1 design clusters, the P2 cornerstones (Post 2 Healthcare/FHT, Post 3 Cubicle-vs-Open-Plan municipal), with P3 ergonomics + P4 geo/buying interleaved. Article schema on all; FAQPage on question-format clusters.
+5. **`buy-canadian` Made-in-Canada collection build** (Claude Code) — filter-independent (a collection build, not a facet), buildable now.
+6. **Quiet Spaces / Pods collection build** (Claude Code) — filter-independent; re-home `telephone-booths` under it once built.
 
-**HELD:** **D3** — 85-PDP internal-linking pass + inbound links **TO Cornerstone Post 1** — gated until the remaining Tier 1 collection + exec-desks URLs are final.
+**CONTENT FEEDERS (next traffic wave):** GEO landing pages (Ontario city pages leveraging the Peterborough geo-confusion; interleave with P4 buying content) · ICP-KEYWORD-WALKTHROUGH (web-chat cluster lock — largely subsumed by the locked roadmap) · topic hubs.
 
-**DEFERRED (parked — full detail in the `bbi-launch-tracker` artifact + the Deferred Items Log / Day-20 sections below; not duplicated here):** filter render system · 119 `vendor=BBI` residual cleanup (Steve) · image-gen 14 sub-collection tiles + exec-desks tile · THEME-CLEANUP height-adjustable data-fallback repoints · build-state compaction (~564 KB) · keilhauer publish decision (Steve) · brand-page→collection wiring · stale PRs #1/#2/#5 · GEO landing pages + content feeders.
+**SEO / AEO — also pending:** **D3** 85-PDP internal-linking pass + inbound links **TO Cornerstone Post 1** (**HELD** until Tier 1 collection + exec-desks URLs final — the biggest internal-linking lever) · brand-page→collection wiring (anti-orphan) · 4 rescues (repopulate + internal-link rank-bleeding collections) · full-catalog `title_tag` >60-char scan (SERP truncation) · THEME-CLEANUP internal-link repoints · redirect decisions (keilhauer / `standing-tables`).
+
+**DEFERRED (parked — full detail in the `bbi-launch-tracker` artifact + the Deferred Items Log / Day-20 sections below; not duplicated here):** filter render system · 119 `vendor=BBI` residual cleanup (Steve) · image-gen 14 sub-collection tiles + exec-desks tile · build-state compaction (~564 KB) · stale PRs #1/#2/#5 · exec-desks manual maintenance · dupe-check 4 near-dup tile pairs.
 
 ---
 
