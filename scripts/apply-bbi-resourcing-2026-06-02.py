@@ -36,6 +36,13 @@ WORKSHEET = ROOT / 'data' / 'reports' / 'bbi-resourcing-2026-06-02.csv'
 
 # Sanity guard: BBI must never be a write target (it's the error we're fixing).
 BBI_NAMES = {'brant business interiors', 'bbi'}
+BBI_VENDOR = 'Brant Business Interiors'
+
+# Hardened safety guards (parity with apply-ambiguous-corrections.py, the 5-write pass):
+#   - refuse any row whose LIVE vendor != 'Brant Business Interiors' (drifted / already corrected)
+#   - refuse any row whose LIVE first SKU != the scanned sku_sample (product-ID drift)
+#   - refuse to ever write a BBI vendor or a brand:brant-* tag
+# Guard failures SKIP the row and are reported — never force-written.
 
 
 def _open(req):
@@ -114,22 +121,39 @@ def main():
     logf = logpath.open('a') if live else None
 
     done = 0
+    exceptions = []
     for i, r in enumerate(rows, 1):
         pid = r['product_id']
         gid = f'gid://shopify/Product/{pid}'
         handle = r['product_handle']
         new_vendor = r['recommended_vendor_correction']
-        if new_vendor.strip().lower() in BBI_NAMES:
-            print(f"XX HALT: refusing to write BBI as a vendor on {handle}")
-            sys.exit(4)
         brand_tag = f'brand:{slugify(new_vendor)}'
 
         current = rest('GET', f'/products/{pid}.json')['product']
+        cur_vendor = (current.get('vendor') or '')
         cur_tags = [t.strip() for t in (current.get('tags') or '').split(',') if t.strip()]
+        cur_skus = [v.get('sku', '') for v in (current.get('variants') or []) if v.get('sku')]
+        cur_sku = cur_skus[0] if cur_skus else ''
+        old_vendor = cur_vendor
+        exp_sku = (r.get('sku_sample') or '').strip()
+
+        # --- hardened safety guards: skip & report, never force ---
+        problems = []
+        if cur_vendor.strip().lower() not in BBI_NAMES:
+            problems.append(f"live vendor {cur_vendor!r} != BBI (drifted / already corrected)")
+        if exp_sku and cur_sku != exp_sku:
+            problems.append(f"live SKU {cur_sku!r} != scanned {exp_sku!r} (ID drift)")
+        if new_vendor.strip().lower() in BBI_NAMES or slugify(new_vendor).startswith('brant'):
+            problems.append("refusing to write a BBI vendor / brand:brant-* tag")
+        if problems:
+            exceptions.append({'handle': handle, 'pid': pid, 'tier': r['confidence_tier'],
+                               'new_vendor': new_vendor, 'problems': problems})
+            print(f"  SKIP [{i}/{len(rows)}] {handle}: {'; '.join(problems)}")
+            continue
+
         new_tags = list(cur_tags)
         if brand_tag not in new_tags:
             new_tags.append(brand_tag)
-        old_vendor = current.get('vendor')
 
         added = [t for t in [brand_tag] if t not in cur_tags]
         label = (f"[{i}/{len(rows)}] {r['confidence_tier']:5s} {handle[:40]:40s} "
@@ -174,15 +198,24 @@ def main():
 
     if live:
         logf.close()
-        print(f"\n=== DONE: {done}/{len(rows)} corrected, all readbacks MATCH. Log: {logpath.relative_to(ROOT)} ===")
+        print(f"\n=== DONE: {done}/{len(rows)} corrected, all readbacks MATCH. "
+              f"{len(exceptions)} skipped (guard). Log: {logpath.relative_to(ROOT)} ===")
     else:
+        writeable = [r for r in rows
+                     if r['product_id'] not in {e['pid'] for e in exceptions}]
         by_mfr = {}
-        for r in rows:
+        for r in writeable:
             by_mfr[r['recommended_vendor_correction']] = by_mfr.get(r['recommended_vendor_correction'], 0) + 1
-        print(f"\n--- DRY-RUN SUMMARY: {len(rows)} planned vendor corrections ---")
+        print(f"\n--- DRY-RUN SUMMARY: {len(writeable)} planned vendor corrections "
+              f"({len(exceptions)} skipped by guard) ---")
         for m, n in sorted(by_mfr.items(), key=lambda x: -x[1]):
             print(f"  {m:34s} {n:4d}  -> +brand:{slugify(m)}")
-        print("\nRe-run with --live to apply. AMBIGUOUS + SKIP rows untouched.")
+        print("\nRe-run with --tier1 --live to apply. AMBIGUOUS + SKIP rows untouched.")
+
+    if exceptions:
+        print(f"\n!! GUARD EXCEPTIONS ({len(exceptions)}) — skipped, NOT written:")
+        for e in exceptions:
+            print(f"   - {e['handle']} ({e['tier']}, ->{e['new_vendor']}): {'; '.join(e['problems'])}")
 
 
 if __name__ == '__main__':

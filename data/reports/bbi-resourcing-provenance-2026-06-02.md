@@ -6,9 +6,9 @@
 **Method:** Admin-API GraphQL read of all live `vendor:BBI` products → signal-based sourcing (SKU-prefix primary, per SKU-PREFIX-PATTERNS-ARE-DETERMINISTIC) → CONFIDENT/AMBIGUOUS classification. No Shopify writes, no theme files touched.
 
 ## Decisions locked (Leo, 2026-06-02)
-- **HDL folded into `Heartwood`** (single clean `brand:heartwood` chip; same brand family as HTW).
+- **HDL folded into Heartwood** — aligned at write time to the existing live canonical **`Heartwood Manufacturing`** (see execution record below).
 - **Scope = tier-1 only (97).** The 18 tier-2 sub-code/line/title promotions defer to the Steve/manual pile.
-- **HOLD — report only.** Zero Shopify writes this session; the apply script is staged for a future `--live` go.
+- **HOLD LIFTED (2026-06-02).** The 97 tier-1 corrections executed live; see **"Tier-1 execution record"** at the bottom of this doc.
 
 ## Summary
 
@@ -240,6 +240,30 @@ New vendors created: **Alumni Educational Solutions**, **AndaSeat**.
 **BLANK — 67 products:** untouched → Brand-filter chip suppression.
 
 **Remaining `vendor=BBI` within this 87-row ambiguous set after writes: 82** (67 blank + 15 held). These remain in scope for chip suppression alongside the residual buckets above.
+
+## Tier-1 execution record (2026-06-02 — hold lifted, LIVE WRITES)
+
+**Phase 0 re-verify (READ):** all 97 re-confirmed still `vendor="Brant Business Interiors"` live; 0 SKU drift; 0 guard exceptions. The 5 ambiguous writes confirmed landed (BBI 221→216).
+
+**Canonical-alignment correction (the one Phase-0 finding):** the live vendor list showed the staged SKU-decoder names would **fragment** existing brand chips — the store had already standardized on **`Heartwood Manufacturing` ×39** (`brand:heartwood-manufacturing`) and **`Horizon` ×5** (`brand:horizon`) in PR #62. The staged `Heartwood` / `Horizon Furniture` were therefore **aligned to the live canonical** (Leo-approved) before writing. MityBilt already matched live (`MityBilt` ×2); IOF + Richelieu are net-new vendors (no collision). The worksheet `recommended_vendor_correction` was updated to the canonical names (56 cells: 50 tier-1 + 6 tier-2 for forward consistency); `detected_manufacturer` kept as the raw decode for audit.
+
+**Hardened guards (added this session, 5-write parity):** the apply script now refuses any row where (a) live vendor ≠ `Brant Business Interiors`, (b) live first SKU ≠ the scanned `sku_sample` (ID drift), or (c) a BBI vendor / `brand:brant-*` tag would be written — skip-and-report, never force. Post-write readback HALTs hard on any mismatch.
+
+**WRITTEN — 97/97 PASS (all hardened readbacks MATCH, 0 guard skips):**
+
+| Vendor written | N | brand tag | Live chip effect |
+|---|---:|---|---|
+| Heartwood Manufacturing | 40 | `brand:heartwood-manufacturing` | 39 → **79** |
+| Intelligent Office Furniture | 26 | `brand:intelligent-office-furniture` | net-new |
+| Richelieu | 12 | `brand:richelieu` | net-new |
+| Horizon | 10 | `brand:horizon` | 5 → **15** |
+| MityBilt | 9 | `brand:mitybilt` | 2 → **11** |
+
+**Independent Admin-API readback (not the script's own log):** `Brant Business Interiors` 216 → **119**; no `Heartwood` or `Horizon Furniture` fragment vendor created; distinct vendors 37 → 39 (+IOF, +Richelieu).
+
+**Remaining `vendor=BBI` = 119** (chip-suppression scope) = **18** tier-2 deferred + **82** ambiguous (67 blank + 15 filled-but-held) + **19** services (SKIP — legitimate). Of these, the **19 services** are correctly BBI-as-vendor; the ~100 non-service residual still surfaces a "Brant Business Interiors" chip and is the suppression target until the Steve pass (tier-2 18 cheapest, then ambiguous 82). **Pre-existing fragment, out of scope:** 1 product still at vendor `HDL` / `brand:hdl` — fold into Heartwood Manufacturing in a follow-up.
+
+Audit: `data/logs/bbi-resourcing-20260602-200920.log` + `data/backups/bbi-resrc-*-pre-*.json` (gitignored).
 
 ## Artifacts
 - Worksheet: `data/reports/bbi-resourcing-2026-06-02.csv` (+ `-evidence.json`)
