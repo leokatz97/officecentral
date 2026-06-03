@@ -338,15 +338,20 @@ li.ds-cs__card--hidden{display:none;}
         {%- comment -%} ── Filter sidebar ── {%- endcomment -%}
         <aside class="ds-cs__sidebar" aria-label="Filter products">
           {%- liquid
-            # Collect distinct type:, room: tags and vendor names from this collection
+            # Collect distinct type:, room: tags and vendor names from this collection.
+            # NOTE: append via `concat` on a single-element array (split on a delimiter
+            # guaranteed absent from tags/vendors). Shopify Liquid has no `push` filter —
+            # using it is a silent no-op that leaves these lists empty (facets never render).
             assign type_tags = '' | split: ','
             assign room_tags = '' | split: ','
             assign vendor_list = '' | split: ','
             for tag in collection.all_tags
               if tag contains 'type:'
-                assign type_tags = type_tags | push: tag
+                assign _one = tag | split: '~~|~~'
+                assign type_tags = type_tags | concat: _one
               elsif tag contains 'room:'
-                assign room_tags = room_tags | push: tag
+                assign _one = tag | split: '~~|~~'
+                assign room_tags = room_tags | concat: _one
               endif
             endfor
             for product in collection.products
@@ -358,7 +363,8 @@ li.ds-cs__card--hidden{display:none;}
                 # (visible when no brand is filtered) — they just have no Brand checkbox.
                 assign vendor_check = product.vendor | downcase
                 unless vendor_check contains 'brant business interiors'
-                  assign vendor_list = vendor_list | push: product.vendor
+                  assign _one = product.vendor | split: '~~|~~'
+                  assign vendor_list = vendor_list | concat: _one
                 endunless
               endunless
             endfor
@@ -517,7 +523,11 @@ li.ds-cs__card--hidden{display:none;}
                     </a>
                     <div class="ds-cs__card-body">
                       {%- if product.vendor != blank -%}
-                        <p class="ds-cs__card-vendor">{{ product.vendor | escape }}</p>
+                        {%- comment -%} Suppress dealer-name vendor on the card label too (mirror facet line ~363). {%- endcomment -%}
+                        {%- assign _cv = product.vendor | downcase -%}
+                        {%- unless _cv contains 'brant business interiors' -%}
+                          <p class="ds-cs__card-vendor">{{ product.vendor | escape }}</p>
+                        {%- endunless -%}
                       {%- endif -%}
                       <a class="ds-cs__card-title" href="{{ product_url }}">
                         {{ product.title | escape }}

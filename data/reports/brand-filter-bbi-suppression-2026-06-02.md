@@ -2,7 +2,7 @@
 
 **Branch:** `feature/brand-filter-bbi-suppression-2026-06-02`
 **Theme write:** `sections/ds-cs-base.liquid` → role=main `186373570873`
-**Status:** suppression shipped + asset-verified · **Brand filter NOT live (facet does not render — see Discovery)**
+**Status:** ✅ **RESOLVED 2026-06-02** — facet-render bug root-caused (`push` no-op) + fixed + deployed + fresh-render verified. Brand/Type/Room facets live; #88 BBI suppression now active; card-label dealer name suppressed. **See "Resolution" at bottom.**
 
 ---
 
@@ -62,3 +62,28 @@ Live-page verification (cache-busted full render **and** Section Rendering API) 
 ## Next Phase 3 piece (after facet-render fix)
 
 Made-in-Canada filter + the `buy-canadian` Made-in-Canada collection (HELD handle).
+
+---
+
+## ✅ Resolution — facet-render bug fixed (2026-06-02)
+
+### Real root cause: `| push:` is not a Shopify Liquid filter
+The Discovery above mis-attributed the empty facets to "`collection.products` / `collection.all_tags` yield empty outside `{% paginate %}`." **That hypothesis was false.** The facet-build block ([ds-cs-base.liquid:340-365](../../theme/sections/ds-cs-base.liquid)) appended to `type_tags`/`room_tags`/`vendor_list` with `| push:` — **Shopify Liquid has no `push` filter**, so every append was a silent no-op and all three lists stayed empty arrays → all three `{% unless … blank %}` groups skipped → only the hardcoded Price filter rendered.
+
+Proof the "outside-paginate" theory was wrong: `l-shape-desks` has **31 products** (< any pagination cap) with valid `type:`/`room:` tags and 6 vendors, yet rendered **zero** facets. A 50-cap/empty-outside-paginate cause would still enumerate a sub-50 collection. The only size- and source-independent failure is the no-op append. `push` appeared in exactly these 3 lines theme-wide; `concat` (the supported idiom) nowhere.
+
+### Fix (Fix A + Fix B, one section file)
+- **Fix A** — replaced the 3 `| push:` with the Shopify-supported `concat`-via-`split` idiom (`assign _one = x | split: '~~|~~'` → `concat: _one`). Restores Brand + Type + Room together.
+- **Fix B** — card vendor label now suppresses the dealer name too (mirrors the facet substring test at line ~363): `{% unless _cv contains 'brant business interiors' %}`. Stops "Brant Business Interiors" leaking on product-card brand labels.
+
+### Brand 50-cap: theoretical, deferred
+Distribution across all **108 `base`-suffix collections**: max = **50** products, median 5, mean 8. **Zero exceed 50** (`51-100`: 0, `100+`: 0). So the unpaginated `collection.products` vendor loop sees every product on every collection today → Brand ships **complete**. `collection.products | map: 'vendor' | uniq` does NOT escape the cap; reliable >50 enumeration would need `{% paginate … by 250 %}`. Tracked as forward-compat only (triggers if a `base` collection ever grows past 50).
+
+### Deploy + verification
+- Watcher preflight PASS (no `shopify theme dev`); target `186373570873` confirmed `role=main`.
+- PUT → Admin-API readback **byte-for-byte MATCH** (SHA256 `0fff77a4fcf98b15`, 37,409 bytes); live asset has **0** `push`, **3** `concat: _one`, card-label suppression present.
+- **Fresh-render verification (cart-cookie cache bypass — Shopify full-page `page_cache` was serving stale pre-fix HTML to anonymous requests):** `l-shape-desks` renders **Type=4** (accessories/desk/desks/tables), **Room=2** (open-plan/private-office), **Brand=5** (Heartwood, OTG, Global, Intelligent Office Furniture, Tayco — **Brant Business Interiors absent**), `data-filter-group` brand+room+type present, **0** BBI card labels. Both fixes confirmed working.
+- Note: anonymous full-page cache lags theme edits; the fix is live in the theme and serves to fresh/uncached sessions immediately, to cached anonymous sessions once `page_cache` flips.
+
+### Known pre-existing (not this fix)
+`l-shape-desks` tag hygiene: both `type:desk` AND `type:desks` (+ `type:tables`, `type:accessories`) — dedup pass later.
