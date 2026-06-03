@@ -64,6 +64,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 6 | sit stand desk vs fixed desk / standing desk vs regular desk (decision) | standing desk benefits (480, KD14, supporting); are standing desks worth it (40, KD12); sit stand desk benefits (30). **Does NOT claim (live posts own):** best standing desk canada, standing desk for office (170, transactional), 20-8-2/90-90-90 (ergonomics hub). |
 | 7 | open office vs private office (decision) / open plan vs closed | open concept office (210, KD12); open plan office (110, KD17); private office (170); open plan office disadvantages (10); cellular office (10). **Does NOT claim:** cubicle-vs-bench (Slot 8); office layout types/ideas (pillar); hot desking (draft); office pod (acoustic-pods draft). |
 | 8 | cubicle vs open office / cubicles vs benching (decision, 20 LOW) | modern office cubicles (90); office workstations (170, supporting); benching workstation (20). **Referenced not targeted (catalog heads):** office cubicle(s) 1300, office partitions 390. **Does NOT claim:** rooms open-vs-private (Slot 7). |
+| 9 | office pods vs building meeting rooms (decision) | modular meeting room (10); huddle room (50); office pod cost (10). **Does NOT claim (acoustic-pods/quiet-spaces draft owns):** office pods 720, meeting pod 170, office phone booth 210, soundproof office pod 110, acoustic pod 30. |
 
 ---
 
@@ -162,6 +163,16 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Internal links (verified 200):** /collections/panel-systems, /collections/desks, /collections/acoustic-pods, /pages/design-services, /pages/quote.
 - **Sources:** Gensler 2023 (~12% prefer cubicles); panel-cost illustrative.
 - **Gates:** validate-meta 50/154 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 9 — Office Pods vs Building Meeting Rooms (brief #12) ✅ COMMITTED d4a3bae
+- **Primary kw:** office pods vs building meeting rooms (decision) + modular meeting room (10) / huddle room (50) / office pod cost (10).
+- **Intent / persona / stage:** the build-vs-buy capex decision for enclosed space · facility manager / ops · consideration.
+- **HOW THIS DIFFERS:** the economics decision (pod vs constructed room). Acoustic-pods/quiet-spaces draft owns product terms (office pod 720, phone booth 210, etc.) — explicitly NOT claimed here.
+- **AEO table design:** factor × modular pod × constructed room (6 rows) + "why pods win the math" + "when to build" `<ul>`. Distinct.
+- **FAQ:** cheaper than building?; move a pod?; permits?; when to build instead; worth it.
+- **Internal links (verified 200):** /collections/acoustic-pods, /collections/boardroom, /pages/design-services, /pages/quote.
+- **Sources:** Framery pod-vs-construction study; $10k–$30k+ built-room cost (officeinteriors); leasehold-vs-furniture.
+- **Gates:** validate-meta 56/153 PASS · check-handles 4/4 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
