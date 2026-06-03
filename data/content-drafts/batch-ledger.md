@@ -60,6 +60,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 2 | office furniture stores / store (590, KD1–6, commercial) | where to buy office furniture (+for business / good / online / where-to-buy variants, 10–20); office furniture near me (1300, KD19); office furniture stores near me (320); best place to buy office furniture (10). **Referenced not targeted:** costco/staples office furniture, office furniture online (brand-nav). |
 | 3 | lease vs buy / should you lease or buy office furniture (near-zero measured, AI-Overview + PAA) | office furniture rental/rent/renting/for-lease/to-lease (90, KD1); office equipment leasing (30, KD16); office furniture financing (10); office furniture leasing (10); lease to own (10); lease calculator (10, info). |
 | 4 | public sector / government / institutional office furniture (each ~10, LOW comp; whitespace moat) | contract furniture (70, supporting); commercial office furniture canada (30); healthcare/schools office furniture (10); accessible/AODA office furniture (10); institutional furniture (10). **Does NOT claim OECM-mechanics terms (cornerstone owns).** |
+| 5 | commercial grade office furniture / what is commercial grade / commercial vs residential furniture (10, LOW, info) | contract grade furniture; commercial office chair (30, KD42); office chair weight capacity (20). **Referenced not claimed as primary:** heavy duty office chair (170) — left to seating posts. |
 
 ---
 
@@ -112,6 +113,18 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Snippet targets:** "difference public vs private sector office furniture", "office furniture accessibility requirements", AI Overview for gov query.
 - **Sources:** AODA (design/spec framing, no cert over-claim); OECM 2025-470; founded-1964. Guardrails: no Indigenous-segment marketing; balanced healthcare tone.
 - **Gates:** validate-meta 57/150 PASS (meta shortened 162→150) · check-handles 6/6 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 5 — Commercial vs Consumer-Grade Office Furniture (brief #8) ✅ COMMITTED e4ce634
+- **Primary kw:** commercial grade / what is commercial grade / commercial vs residential furniture (info, low comp; AI-Overview). **Cluster:** contract grade furniture, commercial office chair (30), office chair weight capacity (20).
+- **Intent / persona / stage:** the *what makes furniture commercial-grade* education · any buyer tempted by consumer furniture · education/consideration; AEO hub.
+- **HOW THIS DIFFERS:** the canonical commercial-grade CONCEPT hub across ALL categories. Live standing-desks post has a desk-specific commercial-vs-consumer section → links here. Slot 4 applies durability to institutions; this explains the concept.
+- **Sub-points & canonical homes:** OWNS the rating marks (BIFMA/CSA/GREENGUARD), how-to-tell, duty-cycle, TCO, when-consumer-is-fine. Later posts (Slots 6,9,10,11,13) link here for "commercial-grade" depth.
+- **AEO table design:** attribute × consumer × commercial (7 rows) + how-to-tell `<ul>` + definition block. Distinct from prior tables.
+- **FAQ questions:** what is commercial-grade; commercial vs consumer difference; worth the cost; how to tell; weight capacity.
+- **Internal links (verified 200):** /collections/task-chairs, /collections/desks, /collections/storage-cabinets, /pages/design-services, /pages/quote.
+- **Snippet targets:** "what is commercial grade furniture", "how to tell if furniture is commercial grade", AI Overview.
+- **Sources:** ANSI/BIFMA, CSA/UL, GREENGUARD; steel-gauge + weight-capacity markers (general); TCO.
+- **Gates:** validate-meta 45/152 PASS (meta 157→152) · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
