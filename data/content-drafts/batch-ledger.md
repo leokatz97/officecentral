@@ -61,6 +61,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 3 | lease vs buy / should you lease or buy office furniture (near-zero measured, AI-Overview + PAA) | office furniture rental/rent/renting/for-lease/to-lease (90, KD1); office equipment leasing (30, KD16); office furniture financing (10); office furniture leasing (10); lease to own (10); lease calculator (10, info). |
 | 4 | public sector / government / institutional office furniture (each ~10, LOW comp; whitespace moat) | contract furniture (70, supporting); commercial office furniture canada (30); healthcare/schools office furniture (10); accessible/AODA office furniture (10); institutional furniture (10). **Does NOT claim OECM-mechanics terms (cornerstone owns).** |
 | 5 | commercial grade office furniture / what is commercial grade / commercial vs residential furniture (10, LOW, info) | contract grade furniture; commercial office chair (30, KD42); office chair weight capacity (20). **Referenced not claimed as primary:** heavy duty office chair (170) — left to seating posts. |
+| 6 | sit stand desk vs fixed desk / standing desk vs regular desk (decision) | standing desk benefits (480, KD14, supporting); are standing desks worth it (40, KD12); sit stand desk benefits (30). **Does NOT claim (live posts own):** best standing desk canada, standing desk for office (170, transactional), 20-8-2/90-90-90 (ergonomics hub). |
 
 ---
 
@@ -125,6 +126,18 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Snippet targets:** "what is commercial grade furniture", "how to tell if furniture is commercial grade", AI Overview.
 - **Sources:** ANSI/BIFMA, CSA/UL, GREENGUARD; steel-gauge + weight-capacity markers (general); TCO.
 - **Gates:** validate-meta 45/152 PASS (meta 157→152) · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 6 — Sit-Stand vs Fixed Desks for an Office (brief #9) ✅ COMMITTED db706d5
+- **Primary kw:** sit stand desk vs fixed desk / standing desk vs regular desk (decision) + standing desk benefits (480, KD14, supporting). 
+- **Intent / persona / stage:** the desk-DEPLOYMENT decision (all-sit-stand vs mixed vs fixed across a team) · office/facility manager planning a fit-out · consideration.
+- **HOW THIS DIFFERS:** the upstream deployment call; live standing-desks post owns "which model"; ergonomics hub owns health/20-8-2/90-90-90. This is whole-team rollout + cost-per-desk + who-to-prioritise.
+- **Sub-points & canonical homes:** OWNS sit-stand-vs-fixed deployment, mixed-deployment, cost-per-desk, who-to-prioritise, phasing. LINKS DOWN: which model→standing-desks comparison [held]; health depth→ergonomics hub [held].
+- **AEO table design:** desk-type × what-it-does × cost-per-desk × best-for (3 types) + "when fixed still makes sense" `<ul>`. Distinct.
+- **FAQ questions:** sit-stand or fixed for an office; everyone need sit-stand?; worth it for a business; sit-stand vs fixed-standing; standing all day better?
+- **Internal links (verified 200):** /collections/height-adjustable-tables, /collections/desks, /collections/task-chairs, /pages/design-services, /pages/quote.
+- **Snippet targets:** "sit stand vs fixed desk", "do you need sit-stand for everyone", CCOHS-aligned movement framing.
+- **Sources:** CCOHS sit/stand ergonomics; movement-benefit (not health claim). Guardrail: health Qs → consult clinician.
+- **Gates:** validate-meta 55/149 PASS (meta 162→149) · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
