@@ -67,6 +67,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 9 | office pods vs building meeting rooms (decision) | modular meeting room (10); huddle room (50); office pod cost (10). **Does NOT claim (acoustic-pods/quiet-spaces draft owns):** office pods 720, meeting pod 170, office phone booth 210, soundproof office pod 110, acoustic pod 30. |
 | 10 | mesh vs upholstered office chair / best office chair material (decision) | mesh vs fabric / mesh vs leather (related); are mesh chairs good (10). **Referenced not targeted (heads):** mesh office chair 720, leather office chair 1000, fabric office chair 320, mesh back office chair 140. **Does NOT claim:** "worth it"/long-hours (ergonomics hub); chair tier (Slot 11). |
 | 11 | task chair vs executive chair (decision) / what is a task chair (50) / office chair types (70) | **Referenced not targeted (heads):** executive office chair 880, executive chair 720, task chair 590, ergonomic task chair 390, high back office chair 320, conference chair 210. **Does NOT claim:** material (Slot 10); worth-it (ergonomics hub); conference-seating selection (Slot 13). |
+| 12 | filing cabinet vs shelving / vertical vs lateral file (decision) / office storage ideas (110, KD10) | office filing solutions (10). **Referenced not targeted (heads):** filing cabinet 12,100, office storage cabinet 720, office storage 590, lateral file cabinet 260, office bookcase 210, pedestal drawers 70. |
 
 ---
 
@@ -194,6 +195,15 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Internal links (verified 200):** /products/mvl2786-yoho-armless-low-back-task-chair (task ex), /products/concorde-high-back-executive-multi-tilter-2424 (exec ex), /collections/task-chairs, /collections/boardroom, /pages/quote.
 - **Category-post rule:** illustrative VERIFIED SKUs (Yoho/Concorde), conceptual, PDP routing.
 - **Gates:** validate-meta 49/148 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS (fixed anchor case).
+
+### Slot 12 — Filing Cabinets vs Shelving vs Pedestals (brief #11) ✅ COMMITTED 640a74f
+- **Primary kw:** filing cabinet vs shelving / vertical vs lateral file (decision) + office storage ideas (110, KD10). Heads referenced (filing cabinet 12,100 etc.).
+- **HOW THIS DIFFERS:** standalone storage type-selection; no overlap with other slots. Commercial-grade → Slot 5.
+- **AEO table design:** type × what-for × footprint/capacity × best-for (4 types) + "questions that decide your mix" `<ul>`. Distinct.
+- **FAQ:** filing vs shelving; vertical vs lateral; pedestal; secure storage; still need filing if digital.
+- **Internal links (verified 200):** /products/premium-series-lateral-file-cabinet-2-3-4-5-drawer-1, /products/bookcase-15-sizes-available, /products/newland-box-file-mobile-pedestal, /collections/storage-cabinets, /pages/quote.
+- **Category-post rule:** illustrative VERIFIED Global SKUs, conceptual, PDP routing.
+- **Gates:** validate-meta 56/152 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS (re-anchored non-unique "commercial storage").
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
