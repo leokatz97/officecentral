@@ -7,16 +7,16 @@
 **NEXT ACTIONS — ordered, content-first (mirrors the `bbi-launch-tracker` top):**
 1. **Post 1 schema** (~30 min · Leo) — verify/add **Article + FAQPage JSON-LD** on the LIVE Post 1 (editorial body live since 2026-05-23).
 2. **Blog #2 — P1 design/space-planning cornerstone** (Leo) — lead production focus per the locked roadmap; proven model from Post 1.
-3. **Ergonomics FAQ hub** (Leo) — pulled early for AEO; target the **winnable informational/question/PAA vein**, NOT high-KD head terms ("ergonomic office chair"/"standing desk").
-4. **5 more blog posts — roadmap cadence** (Leo) — keep shipping cornerstone + cluster posts down the locked roadmap: more P1 design clusters, the P2 cornerstones (Post 2 Healthcare/FHT, Post 3 Cubicle-vs-Open-Plan municipal), with P3 ergonomics + P4 geo/buying interleaved. Article schema on all; FAQPage on question-format clusters.
-5. **`buy-canadian` Made-in-Canada collection build** (Claude Code) — filter-independent (a collection build, not a facet), buildable now.
-6. **Quiet Spaces / Pods collection build** (Claude Code) — filter-independent; re-home `telephone-booths` under it once built.
+3. **Roadmap cadence — ~5 more posts** (Leo) — **ergonomics FAQ hub early for AEO** (winnable question/PAA vein, NOT high-KD head terms like "ergonomic office chair"/"standing desk"), then the P2 cornerstones (Post 2 Healthcare/FHT, Post 3 Cubicle-vs-Open-Plan municipal) with P3 + P4 geo/buying interleaved. Article schema on all; FAQPage on question-format clusters.
+4. **`buy-canadian` Made-in-Canada collection build** (Claude Code) — filter-independent (a collection build, not a facet), buildable now. **Finishing #4–#6 unblocks D3.**
+5. **Quiet Spaces / Pods collection build** (Claude Code) — filter-independent; re-home `telephone-booths` under it once built.
+6. **GEO landing pages (Eastern Ontario)** (Claude Code) — uncontested net-new whitespace: Peterborough/Oshawa/Kingston/Whitby/Belleville city pages; ties straight to the P4 buying content.
 
-**CONTENT FEEDERS (next traffic wave):** GEO landing pages (Ontario city pages leveraging the Peterborough geo-confusion; interleave with P4 buying content) · ICP-KEYWORD-WALKTHROUGH (web-chat cluster lock — largely subsumed by the locked roadmap) · topic hubs.
+**SEO / AEO — also pending:** **D3** 85-PDP internal-linking pass + inbound links **TO Cornerstone Post 1** (**HELD** until Tier 1 collection + exec-desks URLs final — unblocked once #4–#6 ship; the biggest internal-linking lever) · brand-page→collection wiring (anti-orphan) · 4 rescues (repopulate + internal-link rank-bleeding collections).
 
-**SEO / AEO — also pending:** **D3** 85-PDP internal-linking pass + inbound links **TO Cornerstone Post 1** (**HELD** until Tier 1 collection + exec-desks URLs final — the biggest internal-linking lever) · brand-page→collection wiring (anti-orphan) · 4 rescues (repopulate + internal-link rank-bleeding collections) · full-catalog `title_tag` >60-char scan (SERP truncation) · THEME-CLEANUP internal-link repoints · redirect decisions (keilhauer / `standing-tables`).
+**DEFERRED (parked — full detail in the `bbi-launch-tracker` artifact + the Deferred Items Log / Day-20 sections below; not duplicated here):** filter render system · 119 `vendor=BBI` residual cleanup (Steve) · image-gen 14 sub-collection tiles + exec-desks tile · build-state compaction (~564 KB) · full-catalog `title_tag` >60-char scan · THEME-CLEANUP internal-link repoints · redirect decisions (keilhauer / `standing-tables`) · stale PRs #1/#2/#5 · exec-desks manual maintenance · dupe-check 4 near-dup tile pairs.
 
-**DEFERRED (parked — full detail in the `bbi-launch-tracker` artifact + the Deferred Items Log / Day-20 sections below; not duplicated here):** filter render system · 119 `vendor=BBI` residual cleanup (Steve) · image-gen 14 sub-collection tiles + exec-desks tile · build-state compaction (~564 KB) · stale PRs #1/#2/#5 · exec-desks manual maintenance · dupe-check 4 near-dup tile pairs.
+*(Cut as subsumed by the locked roadmap: ICP-KEYWORD-WALKTHROUGH, standalone topic hubs.)*
 
 ---
 
