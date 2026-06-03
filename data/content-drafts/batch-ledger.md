@@ -65,6 +65,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 7 | open office vs private office (decision) / open plan vs closed | open concept office (210, KD12); open plan office (110, KD17); private office (170); open plan office disadvantages (10); cellular office (10). **Does NOT claim:** cubicle-vs-bench (Slot 8); office layout types/ideas (pillar); hot desking (draft); office pod (acoustic-pods draft). |
 | 8 | cubicle vs open office / cubicles vs benching (decision, 20 LOW) | modern office cubicles (90); office workstations (170, supporting); benching workstation (20). **Referenced not targeted (catalog heads):** office cubicle(s) 1300, office partitions 390. **Does NOT claim:** rooms open-vs-private (Slot 7). |
 | 9 | office pods vs building meeting rooms (decision) | modular meeting room (10); huddle room (50); office pod cost (10). **Does NOT claim (acoustic-pods/quiet-spaces draft owns):** office pods 720, meeting pod 170, office phone booth 210, soundproof office pod 110, acoustic pod 30. |
+| 10 | mesh vs upholstered office chair / best office chair material (decision) | mesh vs fabric / mesh vs leather (related); are mesh chairs good (10). **Referenced not targeted (heads):** mesh office chair 720, leather office chair 1000, fabric office chair 320, mesh back office chair 140. **Does NOT claim:** "worth it"/long-hours (ergonomics hub); chair tier (Slot 11). |
 
 ---
 
@@ -173,6 +174,16 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Internal links (verified 200):** /collections/acoustic-pods, /collections/boardroom, /pages/design-services, /pages/quote.
 - **Sources:** Framery pod-vs-construction study; $10k–$30k+ built-room cost (officeinteriors); leasehold-vs-furniture.
 - **Gates:** validate-meta 56/153 PASS · check-handles 4/4 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 10 — Mesh vs Upholstered Office Chairs (brief #10) ✅ COMMITTED add4843
+- **Primary kw:** mesh vs upholstered office chair / best office chair material (decision) + mesh/fabric/leather heads referenced.
+- **Intent / persona / stage:** seating material/finish choice · office manager / facilities buyer · consideration.
+- **HOW THIS DIFFERS:** material axis only. Ergonomics hub = worth-it/long-hours; Slot 11 = tier; Slot 5 = commercial-grade concept (linked).
+- **AEO table design:** 3-way attribute × mesh × fabric × leather (6 rows) + "when to choose each" + commercial angle. Distinct.
+- **FAQ:** mesh or fabric better; mesh disadvantages; best material; mesh vs leather; do mesh chairs last.
+- **Internal links (verified 200):** /products/kody-mesh-chair-otg13110 (mesh ex), /products/pacific-high-back-tilter (upholstered ex), /collections/task-chairs, /collections/buy-canadian, /pages/quote.
+- **Category-post rule:** illustrative VERIFIED SKUs (Kody/Pacific), conceptual, PDP routing; no SKU spec-listicle; flagged Heartwood SKU excluded (n/a).
+- **Gates:** validate-meta 50/155 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
