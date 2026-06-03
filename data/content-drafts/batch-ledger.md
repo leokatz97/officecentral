@@ -66,6 +66,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 8 | cubicle vs open office / cubicles vs benching (decision, 20 LOW) | modern office cubicles (90); office workstations (170, supporting); benching workstation (20). **Referenced not targeted (catalog heads):** office cubicle(s) 1300, office partitions 390. **Does NOT claim:** rooms open-vs-private (Slot 7). |
 | 9 | office pods vs building meeting rooms (decision) | modular meeting room (10); huddle room (50); office pod cost (10). **Does NOT claim (acoustic-pods/quiet-spaces draft owns):** office pods 720, meeting pod 170, office phone booth 210, soundproof office pod 110, acoustic pod 30. |
 | 10 | mesh vs upholstered office chair / best office chair material (decision) | mesh vs fabric / mesh vs leather (related); are mesh chairs good (10). **Referenced not targeted (heads):** mesh office chair 720, leather office chair 1000, fabric office chair 320, mesh back office chair 140. **Does NOT claim:** "worth it"/long-hours (ergonomics hub); chair tier (Slot 11). |
+| 11 | task chair vs executive chair (decision) / what is a task chair (50) / office chair types (70) | **Referenced not targeted (heads):** executive office chair 880, executive chair 720, task chair 590, ergonomic task chair 390, high back office chair 320, conference chair 210. **Does NOT claim:** material (Slot 10); worth-it (ergonomics hub); conference-seating selection (Slot 13). |
 
 ---
 
@@ -184,6 +185,15 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Internal links (verified 200):** /products/kody-mesh-chair-otg13110 (mesh ex), /products/pacific-high-back-tilter (upholstered ex), /collections/task-chairs, /collections/buy-canadian, /pages/quote.
 - **Category-post rule:** illustrative VERIFIED SKUs (Kody/Pacific), conceptual, PDP routing; no SKU spec-listicle; flagged Heartwood SKU excluded (n/a).
 - **Gates:** validate-meta 50/155 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 11 — Task Chair vs Executive Chair (brief #13) ✅ COMMITTED 8d45455
+- **Primary kw:** task chair vs executive chair (decision) + what is a task chair (50) + office chair types (70). Replaces new-vs-refurb (BBI sells new).
+- **HOW THIS DIFFERS:** seating TIER/role axis. Slot 10 = material; ergonomics hub = worth-it; Slot 5 = grade; Slot 13 = conference seating.
+- **AEO table design:** feature × task × executive (6 rows) + seating-ladder `<ul>` + which-for-whom. Distinct.
+- **FAQ:** task vs exec; what is a task chair; better for all-day; executive chairs ergonomic?; chair per role.
+- **Internal links (verified 200):** /products/mvl2786-yoho-armless-low-back-task-chair (task ex), /products/concorde-high-back-executive-multi-tilter-2424 (exec ex), /collections/task-chairs, /collections/boardroom, /pages/quote.
+- **Category-post rule:** illustrative VERIFIED SKUs (Yoho/Concorde), conceptual, PDP routing.
+- **Gates:** validate-meta 49/148 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS (fixed anchor case).
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
