@@ -70,6 +70,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 12 | filing cabinet vs shelving / vertical vs lateral file (decision) / office storage ideas (110, KD10) | office filing solutions (10). **Referenced not targeted (heads):** filing cabinet 12,100, office storage cabinet 720, office storage 590, lateral file cabinet 260, office bookcase 210, pedestal drawers 70. |
 | 13 | how to choose a conference table / conference table size (40, info) | **Referenced not targeted (heads):** boardroom table 880, conference table 720, conference room table 210, meeting table 170, modular conference table 70, boardroom furniture 30. **Cross-ref:** conference seating (Slot 11), pods-vs-rooms (Slot 9). |
 | 14 | reception area furniture (70, LOW) / office reception furniture (90) / how to choose reception area furniture | waiting area furniture (70); reception seating (40); reception furniture (40). **Referenced not targeted (heads):** reception desk 2900, waiting room chairs 590, reception desk for office 140. **Cross-ref:** guest-seating tier/material (Slots 10/11). |
+| 15 | office design trends 2026 / office design trends (editorial capstone) | modern office design (170); office design ideas (320); commercial office design (20); workplace trends 2026 (10). |
 
 ---
 
@@ -224,6 +225,21 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Internal links (verified 200):** /products/l-shape-reception-72-x-72-x-41-1, /products/sidero-guest-chair-28-colour-options, /collections/reception-desks-desks, /pages/design-services, /pages/quote.
 - **Category-post rule:** illustrative VERIFIED SKUs (L-shape reception, Sidero), conceptual, PDP routing.
 - **Gates:** validate-meta 52/149 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 15 — Office Design Trends 2026 for Ontario Workplaces (brief #3) ✅ COMMITTED b2262f0
+- **Primary kw:** office design trends 2026 / office design trends (editorial) + modern office design (170) / office design ideas (320) supporting.
+- **HOW THIS DIFFERS:** the batch CAPSTONE — editorial trends synthesis that references each deep topic and routes to a design consult, rather than re-explaining. Re-scoped from dropped thin "trendy styles" decor.
+- **AEO table design:** trend × what it means × what it needs (6 trends) + per-trend sections + "how to apply". Distinct.
+- **FAQ:** biggest 2026 trends; activity-based zoning; open-plan still a trend; sustainability in furniture; redesign whole office?
+- **Internal links (verified 200):** /collections/acoustic-pods, /collections/height-adjustable-tables, /collections/buy-canadian, /pages/design-services, /pages/quote.
+- **Cross-links (editorial; D3 content links HELD):** Slots 5,6,7,9 + acoustic-pods/canadian-made drafts + ergonomics hub + standing-desks + layout pillar.
+- **Gates:** validate-meta 48/149 PASS (meta 160→149) · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+---
+
+## ✅ BATCH COMPLETE — 15 of 15 drafted, committed, dry-run gates PASS (DOCS ONLY, no live writes, build-state untouched)
+
+All 15 posts: research (DataForSEO cluster + live SERP gap + cited evidence) → differentiated write (distinct intent/persona/stage, one canonical home per concept, varied AEO table + FAQ + intro/CTA) → PACK (title<60, meta<=155, faq_items byte-matched, interlinks verified 200) → validate-meta + check-handles + create-draft DRY RUN all PASS → committed. Category posts (10-14) reference only VERIFIED-clean SKUs (flagged Heartwood standing-desk SKU + any UNVERIFIABLE spec excluded). HALT for Leo's review. Nothing published; D3 content cross-links remain HELD.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
