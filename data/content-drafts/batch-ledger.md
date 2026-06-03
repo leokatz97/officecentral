@@ -56,11 +56,36 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 
 | Slot | Primary kw (claimed) | Cluster terms claimed |
 |---|---|---|
-| _(fill per post)_ | | |
+| 1 | office furniture supplier (70/mo, KD29, commercial) | how to choose office furniture (40, low-comp, info); supplier of/for office furniture (KD2–29 variants); best office furniture brands (10); office furniture supplier ontario/canada/near toronto (geo long-tail); commercial office furniture (90, supporting). **Reserved for geo pages:** office furniture toronto (480). |
+| 2 | office furniture stores / store (590, KD1–6, commercial) | where to buy office furniture (+for business / good / online / where-to-buy variants, 10–20); office furniture near me (1300, KD19); office furniture stores near me (320); best place to buy office furniture (10). **Referenced not targeted:** costco/staples office furniture, office furniture online (brand-nav). |
 
 ---
 
 ## POST ENTRIES (append one full block after each post is committed)
+
+### Slot 1 — How to Choose an Office Furniture Supplier in Ontario (brief #1) ✅ COMMITTED dd03dea
+- **Primary kw:** `office furniture supplier` (70/KD29, commercial) · winnable AEO anchor `how to choose office furniture` (40, low-comp). **Cluster claimed:** commercial office furniture (90), best office furniture brands (10), supplier of/for office furniture variants, geo long-tail "...in ontario/canada/near toronto".
+- **Intent / persona / stage:** the *who do I buy from* decision (supplier vetting) · office/facility manager + procurement lead (ICP A + B) · top-of-funnel evaluation, upstream of what/where.
+- **HOW THIS DIFFERS:** the supplier-VETTING hub (criteria/scorecard), not where-to-buy (Slot 2), not what-to-buy (category posts), not how-to-plan (pillar), not is-it-worth-it (ergonomics hub).
+- **Sub-points & canonical homes:** OWNS supplier evaluation criteria + scorecard + questions-to-ask + dealer-value-add + manufacturer-vs-dealer (high level). LINKS (don't re-explain): channel→Slot 2 [D3 held], commercial-grade depth→Slot 8 [D3 held], layout→pillar [D3 held], OECM-for-school-boards→cornerstone [D3 held].
+- **AEO table design:** supplier scorecard = criterion / why it matters / **green-flag-vs-red-flag** (new 3-col-with-redflag design) + questions checklist `<ul>`.
+- **FAQ questions:** factors to consider; manufacturer vs dealer; best value on a commercial order; delivery/install/warranty handling; public-sector buy without tender.
+- **Internal links (verified 200):** /collections/buy-canadian, /pages/oecm, /pages/design-services, /pages/industries, /pages/quote.
+- **Snippet targets:** "factors when choosing office furniture", "questions to ask office furniture supplier", manufacturer-vs-dealer, AI Overview for the head query.
+- **Sources:** BIFMA/CSA/GREENGUARD standards; Competition Bureau Made-in-Canada guidance; OECM Agreement 2025-470 (Brant Basics); founded-1964.
+- **Gates:** validate-meta 53/152 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 2 — Where to Buy Office Furniture: Dealer vs Big-Box vs Online (brief #4) ✅ COMMITTED 9cfcc24
+- **Primary kw:** `office furniture stores` (590/KD1, commercial) · conceptual angle `where to buy office furniture for business`. **Cluster claimed:** office furniture near me (1300), stores near me (320), where to buy variants, best place to buy (10).
+- **Intent / persona / stage:** the *where/which channel* decision (big-box vs online vs dealer) · same buyers at the price-vs-service comparison moment · consideration (parallel to Slot 1's *who*).
+- **HOW THIS DIFFERS:** owns the CHANNEL comparison; Slot 1 owns supplier-vetting criteria. No keyword/intent overlap. Big-box/online are comparison subjects, not targets.
+- **Sub-points & canonical homes:** OWNS channel matrix, cost-vs-service trade-off, "cheaper online?", "online vs in store", "Costco/Staples for business", used-vs-new (light, steers to new). LINKS: vet-a-dealer→Slot 1 [held]; commercial-grade depth→Slot 8 [held].
+- **AEO table design:** 6-col channel matrix (channel × best-for / commercial-grade? / design+install / warranty+service / procurement-PO) + "when a dealer is worth it" `<ul>` + one-line decision rule. Distinct from Slot 1's green/red scorecard.
+- **FAQ questions:** where do businesses buy; cheaper online?; big-box/office-supply for business; online vs in store; public-sector skip a tender via dealer.
+- **Internal links (verified 200):** /collections/task-chairs, /collections/desks, /pages/design-services, /pages/oecm, /pages/quote.
+- **Snippet targets:** "online vs in store", "is it cheaper to buy office furniture online", "where do businesses buy office furniture".
+- **Sources:** commercial vs home-grade duty cycle + BIFMA/CSA; TCO argument; OECM 2025-470 (dealer-only advantage). No competitor named/disparaged.
+- **Gates:** validate-meta 56/154 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
