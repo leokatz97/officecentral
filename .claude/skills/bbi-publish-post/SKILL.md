@@ -68,8 +68,15 @@ and never needs a second edit PR.
 2. **Apply the CONVENTIONS automatically** (full list in `reference.md`) so the draft is clean
    on arrival: no em-dashes; the exact OECM legal-entity wording; taxonomies framed as common
    patterns not canonical lists; worked examples ICP-realistic and internally consistent with
-   the cited figures; FAQ titled "Frequently Asked Questions" with text-preserving Q/A chips;
-   mandatory catalog interlinks; tables as embedded HTML; a clean non-redundant article handle.
+   the cited figures; tables as embedded HTML; a clean non-redundant article handle. The
+   standardized FAQ markup (the "Frequently Asked Questions" heading plus the text-preserving
+   Q/A chips) and the catalog interlinks are NOT hand-authored into the draft body. They are
+   generated deterministically by the engine at create-draft (PHASE 2a) from the PREP-locked
+   pack: PREP locks the FAQ text into `faq_items`, the plain draft FAQ heading into
+   `faq_old_heading`, and the verified interlink targets into the `interlinks` list. The draft
+   body therefore carries a plain FAQ (the `faq_old_heading` section with plain
+   `<p><strong>Question</strong> Answer</p>` items) and no `<a>` interlinks yet; the engine
+   inserts the chips and links at create and byte-gates the result before the unpublished POST.
 3. **Validate title and meta PROGRAMMATICALLY:**
    `python3 scripts/faq_interlink_engine.py validate-meta --title "..." --meta "..."`
    (title < 60, meta <= 155). Do not eyeball it.

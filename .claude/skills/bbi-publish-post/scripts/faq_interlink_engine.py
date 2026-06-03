@@ -287,6 +287,8 @@ def cmd_create_draft(a):
     print(f"CREATED unpublished id={aid} handle={rb['handle']} published={rb['published_at']}")
     print(f"  URL (draft): /blogs/news/{rb['handle']}")
     print('  READBACK byte-match (vs faq.items):', 'PASS' if ok2 else 'FAIL', '-', msg2)
+    if not ok2:
+        raise SystemExit('ABORT: post-create readback byte-match failed. Investigate the live draft.')
     print('  HALT: human adds featured image + alt text; Steve signs off. Then run flip-live.')
 
 def cmd_flip_live(a):
@@ -295,7 +297,9 @@ def cmd_flip_live(a):
     art = api(f"blogs/{spec['blog_id']}/articles/{aid}.json")['article']
     checks = []
     checks.append(('currently unpublished', art['published_at'] is None))
-    checks.append(('featured image present', bool(art.get('image'))))
+    img = art.get('image') or {}
+    checks.append(('featured image present', bool(img)))
+    checks.append(('featured image alt text present', bool((img.get('alt') or '').strip())))
     rb_pairs, _ = faq_items_metafield(spec['blog_id'], aid)
     fok, fmsg = (bytematch(parse_visible_faq(art['body_html']), rb_pairs) if rb_pairs else (False, 'no faq.items'))
     checks.append((f'faq.items byte-match ({fmsg})', fok))
