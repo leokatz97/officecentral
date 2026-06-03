@@ -14,9 +14,9 @@
 
 **SEO / AEO — also pending:** **D3** 85-PDP internal-linking pass + inbound links **TO Cornerstone Post 1** (**HELD** until Tier 1 collection + exec-desks URLs final — unblocked once #4–#6 ship; the biggest internal-linking lever) · brand-page→collection wiring (anti-orphan) · 4 rescues (repopulate + internal-link rank-bleeding collections).
 
-**DEFERRED (parked — full detail in the `bbi-launch-tracker` artifact + the Deferred Items Log / Day-20 sections below; not duplicated here):** filter render system · 119 `vendor=BBI` residual cleanup (Steve) · image-gen 14 sub-collection tiles + exec-desks tile · build-state compaction (~564 KB) · full-catalog `title_tag` >60-char scan · THEME-CLEANUP internal-link repoints · redirect decisions (keilhauer / `standing-tables`) · stale PRs #1/#2/#5 · exec-desks manual maintenance · dupe-check 4 near-dup tile pairs.
+**DEFERRED (parked — full detail in the `bbi-launch-tracker` artifact + the Deferred Items Log / Day-20 sections below; not duplicated here):** filter render system · 119 `vendor=BBI` residual cleanup (Steve) · image-gen 14 sub-collection tiles + exec-desks tile · build-state compaction (~564 KB) · full-catalog `title_tag` >60-char scan · THEME-CLEANUP internal-link repoints · redirect decisions (keilhauer / `standing-tables`) · stale PRs #1/#2/#5 · exec-desks manual maintenance.
 
-*(Cut as subsumed by the locked roadmap: ICP-KEYWORD-WALKTHROUGH, standalone topic hubs.)*
+*(Cut from the active tracker — preserved here / in build-state records, not action items: ICP-KEYWORD-WALKTHROUGH + standalone topic hubs (subsumed by the locked roadmap); dupe-check of 4 near-dup tile pairs (low-value label review on handles kept as distinct); straight-desks family (closed decision — siblings 56–71% match keeper, +9 unique = genuinely distinct, NOT a dupe, no redirect).)*
 
 ---
 
