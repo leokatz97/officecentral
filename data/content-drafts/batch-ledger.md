@@ -59,6 +59,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 1 | office furniture supplier (70/mo, KD29, commercial) | how to choose office furniture (40, low-comp, info); supplier of/for office furniture (KD2–29 variants); best office furniture brands (10); office furniture supplier ontario/canada/near toronto (geo long-tail); commercial office furniture (90, supporting). **Reserved for geo pages:** office furniture toronto (480). |
 | 2 | office furniture stores / store (590, KD1–6, commercial) | where to buy office furniture (+for business / good / online / where-to-buy variants, 10–20); office furniture near me (1300, KD19); office furniture stores near me (320); best place to buy office furniture (10). **Referenced not targeted:** costco/staples office furniture, office furniture online (brand-nav). |
 | 3 | lease vs buy / should you lease or buy office furniture (near-zero measured, AI-Overview + PAA) | office furniture rental/rent/renting/for-lease/to-lease (90, KD1); office equipment leasing (30, KD16); office furniture financing (10); office furniture leasing (10); lease to own (10); lease calculator (10, info). |
+| 4 | public sector / government / institutional office furniture (each ~10, LOW comp; whitespace moat) | contract furniture (70, supporting); commercial office furniture canada (30); healthcare/schools office furniture (10); accessible/AODA office furniture (10); institutional furniture (10). **Does NOT claim OECM-mechanics terms (cornerstone owns).** |
 
 ---
 
@@ -99,6 +100,18 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Snippet targets:** "is office furniture tax deductible canada", "disadvantages of leasing office furniture", AI Overview for the decision query.
 - **Sources:** CRA CCA Class 8 (20% declining-balance, "not tax advice"); durable-asset useful life; BBI financing/PO; OECM 2025-470.
 - **Gates:** validate-meta 47/155 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS. **FLAG: thin demand — confirm keep.**
+
+### Slot 4 — Office Furniture for Ontario Public Sector & Institutions (brief #2) ✅ COMMITTED 2d6f454
+- **Primary kw:** public/government/institutional office furniture (~10 each, LOW comp; whitespace moat) + `contract furniture` (70, supporting). **Cluster:** healthcare/schools office furniture, accessible/AODA, institutional furniture.
+- **Intent / persona / stage:** the *institutional what-to-furnish + requirements* view · office admins, facilities coordinators, public-sector procurement, health-team managers · consideration; AEO/positioning.
+- **HOW THIS DIFFERS:** cross-vertical BPS FURNISHING hub; the live cornerstone owns OECM *mechanics* + *school boards*. This links DOWN to cornerstone/oecm and does NOT re-explain mechanics.
+- **Sub-points & canonical homes:** OWNS public-vs-private requirements, per-vertical furnishing (health/municipal/schools/non-profit), AODA. LINKS: OECM mechanics→/pages/oecm + cornerstone [content held]; channel/who→Slots 1–2 [held].
+- **AEO table design:** requirement × typical-private × public-sector/institutional need (6 rows) + per-vertical H3s. Distinct from prior scorecards/matrices.
+- **FAQ questions:** public-vs-private furniture; furnish a gov/municipal office; accessibility requirements; buy without tender; hospital/health-team needs.
+- **Internal links (verified 200):** /pages/healthcare, /pages/government, /pages/education, /collections/task-chairs, /pages/oecm, /pages/quote.
+- **Snippet targets:** "difference public vs private sector office furniture", "office furniture accessibility requirements", AI Overview for gov query.
+- **Sources:** AODA (design/spec framing, no cert over-claim); OECM 2025-470; founded-1964. Guardrails: no Indigenous-segment marketing; balanced healthcare tone.
+- **Gates:** validate-meta 57/150 PASS (meta shortened 162→150) · check-handles 6/6 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
