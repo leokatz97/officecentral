@@ -98,14 +98,16 @@ Promotions/demotions from the framework's "borderline" guidance, with the number
 
 ### 🪑 P3 — Ergonomics, Wellness & Durability  *(priority #3 as a pillar — but HIGHEST raw AEO/PAA demand → run its FAQ cluster early)*
 
-**Pillar page:** **"The Ontario Buyer's Guide to Ergonomic Office Seating"** · `best office chairs` 4,400 / `ergonomics of chair` **14,800 (informational)** · informational→commercial · **→ seating collection; ergonomic-chairs collection; quote.**
+**Pillar page:** **"The Ontario Buyer's Guide to Ergonomic Office Seating"** · `ergonomics of chair` **14,800 (informational)** / `what is an ergonomic chair` (PAA) · informational · **→ seating collection; ergonomic-chairs collection; quote.**
+
+> **⚠️ Winnability:** Ergonomics clusters target informational/question/PAA queries (winnable + AEO-citable), NOT high-KD commercial head terms like "ergonomic office chair" / "standing desk" — those are owned by manufacturers and review sites and aren't organically winnable for a regional dealer. Pull early for AEO; P1 remains the lead production focus.
 
 | Cluster topic | Target keyword (vol/KD) | Intent | Conversion path |
 |---|---|---|---|
 | **PAA/AEO FAQ hub** — is an ergonomic chair worth it · 20-8-2 rule · 90-90-90 · best chair for long hours · is Herman Miller worth it *(merges A5 reframed, A31)* | `best office chair for long hours` 260 / huge PAA vein **[FAQ — primary AEO asset]** | informational | → seating; ergonomic-chairs collection |
-| Height-adjustable / sit-stand desk benefits *(merges bonus A: height-adjustable, A19 reframed, bonus B: desk-height)* | `standing desk` **18,100** / `sit-stand desk` 4,400 / `adjustable desk` 3,600 **[FAQ]** | commercial | → height-adjustable-tables collection |
+| Are standing desks worth it? / height-adjustable desk benefits & the 20-8-2 rule *(merges bonus A: height-adjustable, A19 reframed, bonus B: desk-height)* | `are standing desks worth it` / `what is the 20 8 2 rule` (PAA — winnable; NOT the `standing desk` 18,100 head term) **[FAQ]** | informational | → height-adjustable-tables collection |
 | Should we invest in ergonomic furniture for hybrid workers *(B8)* | ergonomic furniture roi *(no direct kw — AEO/topical)* **[FAQ]** | informational | → seating; design-services |
-| Best chairs for all-day comfort / different body types *(merges A31, bonus B: body types)* | `heavy duty office chairs` 170 / `best office chairs` 4,400 | commercial | → ergonomic-chairs collection |
+| What's the best chair for sitting long hours? / chairs for different body types *(merges A31, bonus B: body types)* | `best office chair for sitting long hours` / `how to tell if a chair is ergonomic` (PAA — winnable; NOT the `best office chairs` 4,400 head term) **[FAQ]** | informational | → ergonomic-chairs collection |
 | Most durable furniture for high-traffic spaces *(B15)* | `heavy duty office chairs` 170 / commercial-grade *(AEO/topical)* **[FAQ]** | commercial | → commercial-grade collections |
 | Home vs commercial-grade office furniture (durability differentiation) *(A6)* | commercial vs home grade *(no direct kw — AEO/topical)* **[FAQ]** | informational | → commercial collections; quote |
 | How long does office furniture last *(A32)* | furniture lifespan *(no direct kw — AEO/topical)* **[FAQ]** | informational | → quote; warranty FAQ |
