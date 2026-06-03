@@ -1,0 +1,436 @@
+[
+  {
+    "id": "9097354182969",
+    "handle": "mobile-folding-chair-storage-cart-3",
+    "title": "Mobile folding chair storage cart",
+    "brand": "Heartwood Manufacturing Ltd",
+    "models": ["TLT-CCART"],
+    "datasheet_sources": [
+      "https://www.heartwooddl.com/category/97/components/565/tlt-ccart.html",
+      "https://www.mills.ca/hdl-mobile-folding-chair-storage-cart-x-58-width-x-21-5-depth-x-75-height-granite-1-each--5"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "75\"H x 58\"W x 21.5\"D (1905 x 1473 x 546 mm)",
+        "datasheet_value": "58\"W x 21.5\"D x 75\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Mills/Heartwood distributor list 58\"W x 21-1/2\"D x 75\"H; same values as claimed (reordered). Metric conversion is internally consistent."
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "32 TLT-FC6 chairs or 26 TLT-FCB6 chairs",
+        "datasheet_value": "32 TLT-FC6 chairs or 26 TLT-FCB6 chairs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Distributor listings confirm 32 TLT-FC6 / 26 TLT-FCB6 (alternating-stack) capacity."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Granite finish; soft rubber locking casters (hard locking casters standard)",
+        "datasheet_value": "Granite finish; heavy-duty locking casters standard, optional soft/rubber casters",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Consistent with distributor description of granite finish and locking casters."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "2-year limited warranty",
+        "datasheet_value": "2-year limited warranty",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Stated 2-year limited warranty matches manufacturer disclosure."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "China",
+        "datasheet_value": "Manufactured by Heartwood Manufacturing Ltd. (Kelowna BC); ToughLite resin chairs and accessories are commonly imported, country not explicitly disclosed on the cart datasheet",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Retain 'China' only if a verified source (invoice/COO label) supports it; otherwise change to 'Not disclosed' pending vendor confirmation.",
+        "notes": "The ToughLite line is Heartwood's value/import-adjacent line (resin folding chairs). No public datasheet explicitly states 'China' for the TLT-CCART cart. The 'China' value cannot be independently confirmed from public sources, but is plausible for the ToughLite accessory line. Flag for vendor COO confirmation — do NOT silently assume."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "unverifiable"
+  },
+  {
+    "id": "9665339851065",
+    "handle": "l-shape-height-adjustable-desk-set",
+    "title": "L-shape height adjustable desk set",
+    "brand": "Heartwood Manufacturing Ltd.",
+    "models": ["HT-ADJ-Layout 5"],
+    "datasheet_sources": [
+      "https://www.heartwood.ca/series/19/height-adjustable.html",
+      "https://www.heartwooddl.com/series/29/height-adjustable.html"
+    ],
+    "spec_findings": [
+      {
+        "spec": "mechanism / stages",
+        "claimed": "Heavy-duty 3-stage steel frame; synchronized motor",
+        "datasheet_value": "Depends on base model. Cleo (CLI-E1)/Calypso (CAL-E1) = 3-stage; Athena (ATH-E1) = 2-stage. HT-ADJ-Layout is a conversion-kit family with no single fixed base.",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Confirm which base (Cleo/Calypso/Athena) ships with HT-ADJ-Layout 5 before asserting stage count.",
+        "notes": "HT-ADJ-Layout codes are L/U-shape height-adjustable CONVERSION layouts that can pair with different base families. '3-stage' is correct ONLY if Cleo/Calypso base; wrong if Athena. CONFIG DIVERGENCE — do not assert."
+      },
+      {
+        "spec": "height range",
+        "claimed": "22\" to 48\" (excluding 1\" top)",
+        "datasheet_value": "Calypso 22\"-48\"; Cleo 22\"-47.5\"; Athena 27.5\"-45.5\" (per Heartwood Height Adjustable base specs)",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Pin the base model; 22\"-48\" matches Calypso, not Cleo or Athena.",
+        "notes": "22\"-48\" is the CALYPSO range exactly. If the L-shape ships a Calypso base this is correct; if Cleo it should read 22\"-47.5\"; if Athena 27.5\"-45.5\". Tier-2 follow-up flag confirmed OPEN — range cannot be verified without base SKU."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited lifetime on laminates; 15-year mechanical; 2-year electrical components",
+        "datasheet_value": "Cleo/Calypso bases: 15yr structural / 7yr mechanical. Athena base: lifetime laminate / 2yr electric / 5yr steel.",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Resolve base model. The claimed '15-year mechanical' matches NO Heartwood base verbatim (Cleo/Calypso = 15yr structural + 7yr mechanical, not 15yr mechanical).",
+        "notes": "Claimed warranty is a hybrid that does not match any single published Heartwood base warranty. '15-year mechanical' conflates the 15yr STRUCTURAL term with mechanical. LEGAL severity — warranty overstatement risk. Tier-2 flag OPEN."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "CSA/UL Certified",
+        "datasheet_value": "CSA/UL Certified (all electric bases); BIFMA certified on 2-leg models",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "CSA/UL holds across the electric base line."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Heartwood Manufacturing builds/assembles in Kelowna BC ('Built in Canada' per base spec). Powered actuator/column origin not separately disclosed.",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Safe to state 'Assembled/Made in Canada' for the suite; do not claim the powered lift column itself is Canadian-made without supplier confirmation.",
+        "notes": "ORIGIN FLAG: laminate suite is Canadian; lift base marketed 'Built in Canada' but actuator columns on this product class are frequently imported. Assembly-in-Canada supported; component-level origin unverifiable."
+      }
+    ],
+    "config_divergence": true,
+    "config_divergence_note": "HT-ADJ-Layout 5 is a conversion-LAYOUT code, not a fixed base. Stage count, height range, and warranty all depend on which base (Calypso 3-stage 22-48 / Cleo 3-stage 22-47.5 / Athena 2-stage 27.5-45.5) is paired. Claimed values are a Calypso-range + non-matching-warranty hybrid. This is a Tier-2 '22-48 Premium/L-shape' SKU flagged in the prior pass — flag remains OPEN.",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9687458873657",
+    "handle": "height-adjustable-table-5-sizes",
+    "title": "Electric height adjustable sit to stand desks",
+    "brand": "Heartwood Manufacturing Ltd.",
+    "models": ["CLIE1-INV2442TOP"],
+    "datasheet_sources": [
+      "https://www.heartwood.ca/series/19/height-adjustable.html",
+      "https://www.heartwooddl.com/series/29/height-adjustable.html"
+    ],
+    "spec_findings": [
+      {
+        "spec": "height range",
+        "claimed": "27.5\" to 45.5\"",
+        "datasheet_value": "Cleo (CLI-E1): 22\" - 47.5\" (excluding top). 27.5\"-45.5\" is the ATHENA (ATH-E1) range.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "If base is genuinely Cleo (CLI-E1, per model code CLIE1-...), height range should be 22\"-47.5\". Current 27.5\"-45.5\" is the Athena value.",
+        "notes": "MODEL-MISMATCH from the prior correction. The model code CLIE1-INV2442TOP denotes a Cleo (CLI-E1) base, whose published range is 22\"-47.5\". The prior pass changed the range to 27.5\"-45.5\", which is the Athena spec. Either the model code is wrong or the corrected specs are. CONFIG DIVERGENCE."
+      },
+      {
+        "spec": "mechanism / stages",
+        "claimed": "Heavy-duty 2-stage steel frame; dual synchronized motors",
+        "datasheet_value": "Cleo (CLI-E1): 3-stage. 2-stage is the ATHENA (ATH-E1) frame.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Cleo base is 3-stage. If model is truly Cleo, revert to 3-stage. Current '2-stage' matches Athena.",
+        "notes": "Same model-mismatch pattern. Cleo = 3-stage per Heartwood. The prior pass set 2-stage (Athena value). Resolve which physical base ships under CLIE1-INV2442TOP."
+      },
+      {
+        "spec": "speed",
+        "claimed": "1\" per second",
+        "datasheet_value": "Cleo (CLI-E1): 1.2\" per second. 1\"/sec is the ATHENA (ATH-E1) speed.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Cleo = 1.2\"/sec. Current 1\"/sec matches Athena.",
+        "notes": "Consistent with the model-mismatch: every 'corrected' value here matches Athena, not Cleo."
+      },
+      {
+        "spec": "noise",
+        "claimed": "Below 55 dB",
+        "datasheet_value": "Cleo (CLI-E1): <55dB. (Athena is <50dB.)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "<55dB matches Cleo exactly (and is the one spec that does NOT match Athena's <50dB) — adds evidence the unit truly is a Cleo base, strengthening the case that the other 'corrected' values are wrong."
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "265 lbs (2-leg); 320 lbs (3-leg)",
+        "datasheet_value": "Cleo/Calypso: 265 lbs (2-leg) / 320 lbs (3-leg). (Athena: 220 / 330.)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "265/320 matches Cleo/Calypso, NOT Athena (220/330). Further confirms the base is a Cleo and the stage/range/speed/warranty 'corrections' to Athena values are mismatched."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited lifetime on laminates; 2-year electrical; 5-year steel-structure",
+        "datasheet_value": "Cleo (CLI-E1): 15-year structural / 7-year mechanical. The lifetime-laminate / 2yr electric / 5yr steel terms are the ATHENA warranty.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "If base is Cleo, the published warranty is 15yr structural / 7yr mechanical, not 2yr electrical / 5yr steel. Verify warranty against the base actually shipped before publishing.",
+        "notes": "LEGAL. The prior pass downgraded warranty 15yr->2yr electrical/5yr steel believing it was overstated, but those are ATHENA terms. For a true Cleo base this is now an UNDERSTATEMENT relative to Cleo's published 15yr structural / 7yr mechanical. Root cause is the unresolved Cleo-vs-Athena config divergence; warranty must be locked to the verified base."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "CSA/UL Certified",
+        "datasheet_value": "CSA/UL Certified",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Confirmed across the electric base line."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Heartwood electric bases marketed 'Built in Canada' (Kelowna BC). Powered actuator/column origin not separately disclosed.",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Phrase as 'Assembled / Built in Canada'. Do not assert the powered lift column itself is Canadian-made without manufacturer component-origin confirmation.",
+        "notes": "ORIGIN FLAG (left intact by prior pass): manufacturer is Kelowna BC and markets 'Built in Canada'; however lift columns/actuators in this product class are commonly imported. Assembly-in-Canada is supported; component-level Canadian origin of the powered base remains UNVERIFIABLE. Flag stays OPEN."
+      }
+    ],
+    "config_divergence": true,
+    "config_divergence_note": "CRITICAL: model code CLIE1-INV2442TOP = Cleo (CLI-E1) base, but the prior correction pass (171aca6) rewrote height range, stages, speed, and warranty to ATHENA (ATH-E1) values (27.5-45.5 / 2-stage / 1\"/sec / 2yr-elec-5yr-steel). The specs that were LEFT alone (noise <55dB, 265/320 capacity) match Cleo and contradict Athena. So the published spec block is now internally inconsistent: half Cleo, half Athena. Either (a) the SKU genuinely ships an Athena base and the model code is stale, or (b) it ships a Cleo base and the 'corrections' applied the wrong family's numbers. Must be resolved against the physical base/order before re-publishing. This is one of the two already-corrected Tier-1 SKUs and it is NOT clean.",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9688139923769",
+    "handle": "desk-single-pedestal-bbf",
+    "title": "Desk single pedestal bbf",
+    "brand": "Heartwood Manufacturing Ltd.",
+    "models": ["BURO-SPR4824B"],
+    "datasheet_sources": [
+      "https://www.heartwood.ca/",
+      "https://www.naturallywood.com/suppliers/listings/heartwood-manufacturing-ltd/"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "5 sizes: 24\"x48\", 30\"x48\", 30\"x60\", 30\"x72\", 36\"x72\"",
+        "datasheet_value": "Heartwood single-pedestal desks offered in standard laminate desk footprints (24x48 through 36x72)",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "",
+        "notes": "Sizes are plausible standard Heartwood laminate desk footprints but a model-specific BURO-SPR4824B size table was not located on a public datasheet. No contradiction found."
+      },
+      {
+        "spec": "materials",
+        "claimed": "1\" thick laminate panel construction throughout",
+        "datasheet_value": "1\" thick thermally fused laminate over particleboard core (Heartwood standard)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "1\" TFL construction is the documented Heartwood laminate standard."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited lifetime on laminates; 2-year on moving components",
+        "datasheet_value": "Heartwood laminate casegoods carry a limited lifetime laminate warranty; moving-component term not separately published per SKU",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "",
+        "notes": "Lifetime-laminate claim consistent with Heartwood; the specific 2-year moving-component term not independently confirmed for this model. No contradiction, but unverified."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Heartwood Manufacturing Ltd., Kelowna BC (B.C. Wood Supplier Directory)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Laminate casegoods are made in Kelowna BC. No powered components, so origin claim is clean."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "unverifiable"
+  },
+  {
+    "id": "9698682044729",
+    "handle": "bookcase",
+    "title": "Bookcase",
+    "brand": "Heartwood Manufacturing Ltd.",
+    "models": ["Optional door set: INV-32BKDRS"],
+    "datasheet_sources": [
+      "https://www.mills.ca/heartwood-innovations-bookcase-1-shelf-0-1-edge-4-shelves-material-particleboard-polyvinyl-chloride-pvc-edge-laminate-finish-evening-zen-thermofused-laminate-tfl-top--5",
+      "https://www.naturallywood.com/suppliers/listings/heartwood-manufacturing-ltd/"
+    ],
+    "spec_findings": [
+      {
+        "spec": "materials",
+        "claimed": "Thermally fused laminate over particleboard core",
+        "datasheet_value": "1\" commercial-grade shelves, 45lb particleboard core, thermally fused laminate, 3mm PVC edge",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches Heartwood Innovations bookcase construction described by distributors."
+      },
+      {
+        "spec": "shelves",
+        "claimed": "2 fixed + 1 adjustable shelf; 1\" construction",
+        "datasheet_value": "Shelf count varies by SKU height (distributors list 3- and 4-shelf variants); 1\" shelf, 0.1\"/3mm edge confirmed",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Confirm shelf count against the specific bookcase height ordered; distributor variants show differing shelf counts.",
+        "notes": "1\" construction VERIFIED. The exact 2-fixed+1-adjustable split is plausible but distributor listings show multiple shelf configs by height. No clear contradiction."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Heartwood Manufacturing Ltd., Kelowna BC",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Innovations laminate line made in Kelowna BC. No powered parts; origin clean."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "unverifiable"
+  },
+  {
+    "id": "9716463075641",
+    "handle": "mobile-drawer-unit-with-locks-inv-mpuf",
+    "title": "Mobile drawer unit with locks inv-mpuf",
+    "brand": "Heartwood Manufacturing Ltd.",
+    "models": ["INV-MPUF"],
+    "datasheet_sources": [
+      "https://store.kamloopsofficesystems.com/eOfficeProducts/Heartwood-Innovations-Box-Box-File-Pedestal-15.8-Width-x-21.8-Depth-x-28-Height-Particleboard-Evening-Zen-Laminate.html",
+      "https://www.heartwood.ca/"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "15.75\"W x 18.75\"D x 27.5\"H",
+        "datasheet_value": "Heartwood Innovations BBF mobile pedestal listed by a distributor as 15.8\"W x 21.8\"D x 28\"H",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Verify depth and height: distributor lists 21.8\"D x 28\"H vs claimed 18.75\"D x 27.5\"H. Width (15.75 vs 15.8) is consistent.",
+        "notes": "Width agrees (~15.8\"). Depth and height differ by ~3\" and 0.5\". The distributor listing (15.8 x 21.8 x 28) may be a different mobile-pedestal SKU; INV-MPUF model-specific datasheet not located. Treat as MISMATCH pending the INV-MPUF spec sheet — do not assume."
+      },
+      {
+        "spec": "configuration",
+        "claimed": "box/box/file, all 3 drawers lock, single key, locking casters, pencil tray",
+        "datasheet_value": "Box/box/file mobile pedestal, locking, with pencil tray (Heartwood Innovations)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "BBF + lock + pencil tray + casters consistent with Innovations mobile pedestal."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Heartwood Manufacturing Ltd., Kelowna BC",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Laminate Innovations line, Kelowna BC. No powered parts; origin clean."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9800572797241",
+    "handle": "heartwood-mobile-pedestal-bf",
+    "title": "Heartwood mobile pedestal bf",
+    "brand": "Heartwood Manufacturing Ltd.",
+    "models": ["BF (box/file)"],
+    "datasheet_sources": [
+      "https://www.heartwood.ca/",
+      "https://chairlines.com/collections/heartwood"
+    ],
+    "spec_findings": [
+      {
+        "spec": "weight_capacity",
+        "claimed": "250 lbs additional capacity (casters)",
+        "datasheet_value": "Heartwood mobile pedestal caster/load capacity not published per SKU on a public datasheet",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Confirm the 250 lb caster rating against the manufacturer cut sheet before publishing as a hard spec.",
+        "notes": "No public Heartwood datasheet located stating a 250 lb caster capacity. Cannot confirm or refute; do not invent."
+      },
+      {
+        "spec": "configuration",
+        "claimed": "box/file, all drawers lock, pencil tray, heavy-duty locking casters",
+        "datasheet_value": "BF mobile pedestal, locking, pencil tray (Heartwood)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "BF config + lock + pencil tray + casters consistent with Heartwood mobile pedestal line."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Heartwood Manufacturing Ltd., Kelowna BC",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Laminate pedestal, Kelowna BC. No powered parts; origin clean."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "unverifiable"
+  },
+  {
+    "id": "9855836586297",
+    "handle": "wardrobe-storage-cabinet-htwlevsr7218",
+    "title": "Wardrobe / storage cabinet — HTWLEVSR7218",
+    "brand": "Heartwood Manufacturing Ltd.",
+    "models": ["HTWLEVSR7218"],
+    "datasheet_sources": [
+      "https://www.heartwood.ca/",
+      "https://www.naturallywood.com/suppliers/listings/heartwood-manufacturing-ltd/"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "17.75\"W x 23.75\"D x 71.5\"H",
+        "datasheet_value": "Model-specific cut sheet for HTWLEVSR7218 not located on a public datasheet",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Confirm dimensions against the HTWLEVSR7218 manufacturer cut sheet.",
+        "notes": "71.5\"H full-height tower is plausible for a Heartwood wardrobe; exact W/D not independently confirmed. No contradiction found."
+      },
+      {
+        "spec": "features",
+        "claimed": "coat rod, 4 configurable shelves, optional reversible doors, no standard lock",
+        "datasheet_value": "Heartwood wardrobe/storage tower with coat rod and shelves (Levant/laminate series)",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "",
+        "notes": "Feature set plausible and consistent with Heartwood wardrobe towers; not independently confirmed per SKU. No contradiction."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada (Kelowna BC)",
+        "datasheet_value": "Heartwood Manufacturing Ltd., Kelowna BC",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Laminate wardrobe, Kelowna BC. No powered parts; origin clean."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "unverifiable"
+  }
+]

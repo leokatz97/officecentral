@@ -1,0 +1,837 @@
+[
+  {
+    "id": "9770566779193",
+    "handle": "tl-high-back-synchro-tilter",
+    "title": "Tl | high back synchro-tilter",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL6074HA (4D arms); MVL6074 (loop arms)"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/task-seating/tl/MVL6074HA"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "W26 x D23 x H39.87 IN",
+        "datasheet_value": "26\"W x 23\"D x 39.87\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Overall dimensions match datasheet exactly."
+      },
+      {
+        "spec": "seat_height",
+        "claimed": "(not in claimed_specs dimensions; body implies none)",
+        "datasheet_value": "Seat height 17\" - 20.75\"",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Could add datasheet seat height 17\"-20.75\" if desired; not currently claimed.",
+        "notes": "No seat-height value claimed to contradict; datasheet states 17\"-20.75\"."
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "300 lbs",
+        "datasheet_value": "300 lbs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches datasheet."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Weight-sensing synchro-tilter (3 mechanism configs: multi-tilter, weight-sensing synchro-tilter, height-adj task stool)",
+        "datasheet_value": "MVL6074HA = weight sensing synchro-tilter; TL line also offers multi-tilter and height-adjustable task stool",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Mechanism and 3-config range confirmed on officestogo.com TL model pages."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Digital Mesh back; Grade 1 textile or LuxPlus vinyl seat; fiberglass-reinforced nylon base; 4D arms",
+        "datasheet_value": "Digital mesh back; Grade 1 textile or LuxPlus vinyl seat; 5-prong fiberglass-reinforced black nylon base (optional polished aluminum); 4D sliding/rotating armcaps",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches. Six Digital Mesh colours confirmed (Black, Blue, Fog, Navy, Red, Shadow)."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "GREENGUARD",
+        "datasheet_value": "GREENGUARD certified; LEVEL (BIFMA) certified",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Datasheet also lists LEVEL/BIFMA; claim of GREENGUARD alone is accurate (understated, not wrong).",
+        "notes": "GREENGUARD claim correct. BIFMA LEVEL also present per datasheet but not claimed."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime (Global commercial)",
+        "datasheet_value": "Offices To Go Limited Lifetime warranty (per officestogo.com TL line)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Limited Lifetime confirmed for TL line on officestogo.com."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Designed and made in Canada (Made in Canada mark)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Datasheet marks Made in Canada."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9771009016121",
+    "handle": "ibex-synchro-tilter-chairs-mvl2801",
+    "title": "Ibex synchro-tilter chairs — MVL2801",
+    "brand": "OTG / Offices to Go (a division of Global Furniture Group)",
+    "models": ["MVL2801"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/mesh-seating/ibex/MVL2801"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26\"W x 26.5\"D x 39.5\"H; Seat Height: 16.5\" - 20.5\"",
+        "datasheet_value": "26\"W x 26.5\"D x 39.5\"H; seat height 16.5\" - 20.5\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Dimensions and seat height match exactly."
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "300 lbs",
+        "datasheet_value": "300 lbs (per OTG dealer listings; standard for Ibex)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "300 lb capacity confirmed via OTG listings; standard non-heavy-duty rating."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Synchro-tilt with multi-position tilt lock and tilt tension adjustment",
+        "datasheet_value": "Synchro-tilt mechanism; multi-position tilt lock & tilt tension adjustment",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches datasheet."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Mesh back (Black / MS69); upholstered seat in Grade 1 textiles or Luxhide vinyl",
+        "datasheet_value": "Mesh back Black (MS69); fully upholstered seat in Grade 1 textiles or LuxPlus; self-skinned urethane armcaps; dual-wheel carpet casters",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Datasheet lists seat upholstery as Grade 1 textiles or LuxPlus, not 'Luxhide'. Verify exact vinyl name; OTG datasheet wording is 'LuxPlus'.",
+        "notes": "Minor materials wording: datasheet shows LuxPlus; claim says Luxhide. Both are OTG vinyl/leather lines but the exact spec name differs. Low-impact factual."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "GREENGUARD Certified",
+        "datasheet_value": "GREENGUARD certified; BIFMA compliant; LEVEL certified",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Datasheet also lists BIFMA/LEVEL; GREENGUARD claim is accurate.",
+        "notes": "GREENGUARD claim correct."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "15-year warranty",
+        "datasheet_value": "Offices To Go Limited Lifetime warranty",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Replace '15-year warranty' with 'Limited Lifetime warranty' (Offices To Go standard). The 15-year term is a different manufacturer's program (Newland) and is a brand/warranty misattribution.",
+        "notes": "LEGALLY SENSITIVE. OTG covers the Ibex under its standard Limited Lifetime warranty. '15-year' appears to be a misattributed/incorrect term."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada (datasheet logo); some dealers note 'Assembled in Canada'",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Datasheet marks Made in Canada."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9771443061049",
+    "handle": "knight-lightweight-tilter-chair-otg11360",
+    "title": "Knight lightweight tilter chair — OTG11360",
+    "brand": "OTG / Offices to Go (a division of Global Furniture Group)",
+    "models": ["OTG11360"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/mesh-seating/knight/OTG11360"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "22\"W x 22.5\"D x 36.5\"H; Seat Height: 16.5\" - 21.5\"",
+        "datasheet_value": "22\"W x 22.5\"D x 36.5\"H; seat height 16.5\" - 21.5\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Dimensions and seat height match exactly."
+      },
+      {
+        "spec": "weight (product)",
+        "claimed": "29 lbs / 13.15 kg (body copy)",
+        "datasheet_value": "29 lbs / 13.15 kg",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Product weight matches datasheet."
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "300 lbs",
+        "datasheet_value": "300 lbs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches datasheet."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Tilter mechanism with upright tilt lock; single lever for seat height and tilt lock",
+        "datasheet_value": "Tilter mechanism with upright position tilt lock; single-lever control",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches datasheet."
+      },
+      {
+        "spec": "materials/arms",
+        "claimed": "One-piece mesh seat and back (Black only); fiberglass-reinforced nylon base; powder-coated aluminium under-seat structure; fixed loop arms",
+        "datasheet_value": "One-piece mesh (Black only); black 5-prong fiberglass-reinforced nylon base; black powder-coated aluminum under-seat structure; fixed loop arms",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches datasheet."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "GREENGUARD Certified",
+        "datasheet_value": "GREENGUARD and GREENGUARD Gold certified",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Optional: could add GREENGUARD Gold (datasheet lists both). Claim is accurate but understated.",
+        "notes": "GREENGUARD claim correct; datasheet also lists GREENGUARD Gold."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "(not claimed in claimed_specs)",
+        "datasheet_value": "Not explicitly stated on fetched page; OTG Knight typically Made in Canada (verify)",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "No COM claimed; nothing to correct.",
+        "notes": "Datasheet page did not surface COM in fetch; no claim made so no risk."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9771597070649",
+    "handle": "ashmont-medium-back-management-tilter-mvl2781",
+    "title": "Ashmont | medium back management tilter — MVL2781",
+    "brand": "Global Upholstery Co. / Offices To Go",
+    "models": ["MVL2781"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/management-seating/ashmont/MVL2781"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "27\"W x 28\"D x 39\"H; seat height 16\"-20\"",
+        "datasheet_value": "27\"W x 28\"D x 39\"H; seat height 16\" - 20\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Dimensions and seat height match exactly."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Centre-tilt with tilt-tension control and upright tilt lock",
+        "datasheet_value": "Center-tilt movement with tilt-tension control and upright position tilt lock",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches datasheet (centre-tilt, not synchro — correctly stated)."
+      },
+      {
+        "spec": "arms",
+        "claimed": "Height-adjustable T-arms with urethane armcaps",
+        "datasheet_value": "Height adjustable 'T' arms with self-skinned urethane armcaps",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches datasheet."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Deep upholstered seat and back, self-skinned urethane armcaps; Grade 1 textiles or LuxPlus bonded leather",
+        "datasheet_value": "Deep cushions; Grade 1 seating textiles or LuxPlus (various colours)",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Body copy calls LuxPlus a 'bonded leather'. Datasheet lists 'LuxPlus' (a vinyl/upholstery line) — note Grand & Toy lists Ashmont in 'Luxhide bonded leather'. Verify whether the spec'd option is LuxPlus (vinyl) or Luxhide (bonded leather); do not assert 'LuxPlus bonded leather' as it conflates two OTG material lines.",
+        "notes": "Material-naming conflation; low impact but worth tightening for procurement accuracy."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "GREENGUARD Gold",
+        "datasheet_value": "GREENGUARD Gold certified; BIFMA LEVEL certified",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Datasheet also lists BIFMA LEVEL; GREENGUARD Gold claim is accurate.",
+        "notes": "GREENGUARD Gold confirmed on datasheet."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime",
+        "datasheet_value": "Offices To Go Limited Lifetime warranty (standard for OTG management seating; Ashmont datasheet refers to warranty resource page)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Datasheet page links to warranty resource rather than stating term inline, but OTG management-seating standard is Limited Lifetime; consistent across the Ultra/Ashmont line. Not a heavy-duty/350lb chair, so Limited Lifetime applies."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Datasheet marks Made in Canada."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9771600707897",
+    "handle": "ultra-high-back-tilter-with-arms-mvl11730",
+    "title": "Ultra | high back tilter with arms — MVL11730",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL11730", "MVL11732", "MVL11733", "MVL11734"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/management-seating/ultra/MVL11730"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "23.5\"W x 24.5\"D x 40\"H",
+        "datasheet_value": "23.5\"W x 24.5\"D x 40\"H; seat height 17.5\" - 21\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Overall dimensions match; datasheet adds seat height 17.5-21 (consistent with key_features claim)."
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "(not in claimed_specs)",
+        "datasheet_value": "300 lbs, up to 8 hours",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Could add 300 lb capacity.",
+        "notes": "Datasheet/dealer: 300 lb, single-shift 8hr. Standard (not heavy-duty), so Limited Lifetime applies."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Tilter mechanism with upright position tilt lock; tilt tension; center-tilt",
+        "datasheet_value": "Tilter with upright position tilt lock, tilt tension, center-tilt movement",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Tilter (not synchro/multi) correctly stated."
+      },
+      {
+        "spec": "materials",
+        "claimed": "LuxPlus bonded leather upholstery, chrome arms and base",
+        "datasheet_value": "Luxhide bonded leather (per dealer listings) / upholstery options; chrome arms and chrome base",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Dealers list the Ultra in 'Luxhide bonded leather'; OTG datasheets use 'LuxPlus' for vinyl. Confirm whether the specified surface is LuxPlus (vinyl) or Luxhide (bonded leather) — do not state 'LuxPlus bonded leather' (conflates two material lines).",
+        "notes": "Material naming conflation, low impact. Chrome arms/base verified."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "datasheet_value": "GREENGUARD and GREENGUARD Gold confirmed; BIFMA LEVEL consistent with Ultra line (MVL11732 datasheet lists LEVEL)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "GREENGUARD/Gold confirmed for MVL11730; BIFMA LEVEL confirmed on sibling MVL11732 datasheet — same line."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "Offices To Go Limited Lifetime warranty",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Limited Lifetime confirmed; standard-capacity chair so lifetime applies."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Confirmed Made in Canada."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "SKU lists 4 models (MVL11730 with arms, MVL11732 armless, MVL11733, MVL11734 low-back). Dimensions/seat differ slightly across the four; headline specs audited against MVL11730 (the title model). Variant-level dims left to per-model pages.",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9771602084153",
+    "handle": "ultra-armless-high-back-tilter-mvl11732",
+    "title": "Ultra | armless high back tilter — MVL11732",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL11732"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/management-seating/ultra/MVL11732"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "W21 x D24.5 x H40 IN",
+        "datasheet_value": "21\"W x 24.5\"D x 40\"H; seat height 17.5\" - 21\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Overall dimensions match; seat height 17.5-21 matches claimed key_features."
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "300 lbs",
+        "datasheet_value": "Datasheet did not surface capacity; Ultra line standard = 300 lb (consistent with MVL11730)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "300 lb consistent with Ultra line. Standard chair."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Tilter + upright tilt lock; pneumatic 17.5-21\"; center-tilt",
+        "datasheet_value": "Tilter mechanism with upright position tilt lock; center-tilt; pneumatic height; waterfall edge",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches datasheet."
+      },
+      {
+        "spec": "materials",
+        "claimed": "LuxPlus vinyl (std. black); Luxhide leather option; chrome steel base",
+        "datasheet_value": "LuxPlus vinyl (multiple colours); chrome base; Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "LuxPlus vinyl + chrome base confirmed. Luxhide leather option plausible per dealer listings."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "LEVEL (BIFMA), GREENGUARD",
+        "datasheet_value": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Datasheet also lists GREENGUARD Gold; claim is accurate (understated).",
+        "notes": "All claimed certs confirmed on datasheet."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime (Global commercial)",
+        "datasheet_value": "Offices To Go Limited Lifetime warranty",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Standard-capacity chair; Limited Lifetime applies."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada (assembled)",
+        "datasheet_value": "Made in Canada (datasheet); dealers vary 'assembled in Canada'",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "'Assembled in Canada' qualifier is conservative/safe vs datasheet 'Made in Canada'."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9778281251129",
+    "handle": "cobalt-medium-back-tilter-mvl2785",
+    "title": "Cobalt | medium back tilter — MVL2785",
+    "brand": "Global Upholstery Co., Inc / Offices To Go",
+    "models": ["MVL2785"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/task-seating/cobalt/MVL2785"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "25.5\"W x 24.5\"D x 36\"H; seat height 15.5\"-19.5\"",
+        "datasheet_value": "25.5\"W x 24.5\"D x 36\"H; seat height 15.5\" - 19.5\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Dimensions and seat height match exactly. Body weight 40 lbs also consistent with datasheet."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Centre tilt with upright tilt lock and tilt tension adjustment; back angle and back height adjustment",
+        "datasheet_value": "Tilt tension control and vertical (upright) tilt lock; height-adjustable arms; center-tilt",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Centre-tilt + tilt lock + tension confirmed. Back angle/height adjustment consistent with Cobalt line."
+      },
+      {
+        "spec": "arms",
+        "claimed": "Height-adjustable T-arms with self-skinned urethane armcaps",
+        "datasheet_value": "Height adjustable arms with durable arm caps",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Height-adjustable arms confirmed."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Upholstered seat and back; Grade 1 textiles or LuxHide bonded leather",
+        "datasheet_value": "All Grade 1 seating textiles or Luxhide (various colours)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Grade 1 textiles or Luxhide confirmed — material naming correct here (Luxhide, not LuxPlus)."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "GREENGUARD, GREENGUARD Gold",
+        "datasheet_value": "GREENGUARD certified (datasheet). GREENGUARD Gold not explicitly confirmed on fetched listing.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Datasheet/dealer listing confirms GREENGUARD; GREENGUARD GOLD was not confirmed for MVL2785. Verify GREENGUARD Gold on officestogo.com Cobalt page before asserting it; if unconfirmed, drop 'Gold'.",
+        "notes": "GREENGUARD verified; the additional 'Gold' claim is not corroborated by the sources found. Treat as overstatement pending datasheet confirmation."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada (Cobalt line, Global Upholstery)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Canadian-made consistent with OTG/Global Cobalt line."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9776142713145",
+    "handle": "avro-350m-heavy-duty-multi-tilter-chairs-mvl11716",
+    "title": "Avro 350M heavy duty multi-tilter chairs — MVL11716",
+    "brand": "Global Furniture Group / Offices To Go",
+    "models": ["MVL11716"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/models/mesh-seating/avro",
+      "https://chairlines.com/products/offices-to-go-avro-350",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26\"W x 25\"D x 40.5\"H; seat height 18.5\"-22.5\"",
+        "datasheet_value": "Back 20\"W x 20\"H; seat 21.5\"W x 16.5-18.5\"D; seat height 18.5\"-22.5\" (overall WxDxH not surfaced on fetched pages)",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Seat height 18.5\"-22.5\" VERIFIED. Overall 26x25x40.5 could not be confirmed from located sources; verify against the officestogo.com Avro 350 model spec sheet (PDF).",
+        "notes": "Seat-height range matches datasheet. Overall envelope not corroborated by located component-dimension listings."
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "350 lbs",
+        "datasheet_value": "350 lbs (heavy-duty)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "350 lb heavy-duty rating confirmed across OTG/dealer listings."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Multi-tilter with infinite position tilt lock; independent back/seat angle incl forward tilt; side-activated sliding seat depth",
+        "datasheet_value": "Multi-tilt mechanism with infinite position tilt lock; infinite back & seat angle incl forward tilt; seat depth & tilt tension adj; height/depth lumbar; G5 height-adj armrests",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Multi-tilter and adjustment set match datasheet."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime",
+        "datasheet_value": "5-year limited warranty (OTG heavy-duty / 350 lb seating); NOT Limited Lifetime. Non-moving parts 5yr, moving parts/gas cylinder/mechanism/upholstery/foam 2yr.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Replace 'Limited Lifetime' with the OTG heavy-duty warranty: 5-year limited (non-moving parts), with moving parts/mechanism/gas cylinder/upholstery & foam at 2 years. OTG's Limited Lifetime does NOT extend to 350 lb / multi-shift heavy-duty chairs.",
+        "notes": "LEGALLY SENSITIVE and HIGH PRIORITY. This SKU is tagged big-tall-24hr-seating with 350 lb capacity — exactly the heavy-duty class that carries a separate shorter (5-year) warranty. Asserting Limited Lifetime overstates coverage."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "BIFMA, GREENGUARD",
+        "datasheet_value": "Avro line is BIFMA/LEVEL and GREENGUARD certified per OTG; not surfaced on fetched Avro 350 listing but consistent with line",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Confirm GREENGUARD on the officestogo.com Avro 350 spec sheet to be safe.",
+        "notes": "BIFMA + GREENGUARD consistent with the Avro line; not independently shown on the heavy-duty listing fetched."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Canadian-made",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Canadian-made confirmed across listings."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9776146415929",
+    "handle": "basics-chevron-junior-operator-chair-mvl2363-7-1",
+    "title": "Basics chevron junior operator chair — MVL2363-7",
+    "brand": "Global Upholstery Co., Inc / Offices To Go",
+    "models": ["MVL2363-7"],
+    "datasheet_sources": [
+      "https://christiesop.com/canadian-workplace-solutions/basics-armless-low-back-posture-task-chair-mvl2363-7/BAO79390/p",
+      "https://shop.creativebasics.com/productdetails.do?cc=80011&langId=en&sku=28957-01",
+      "https://cowans.org/products/chevron-jr-armless-low-back-posture-task-chair"
+    ],
+    "spec_findings": [
+      {
+        "spec": "brand",
+        "claimed": "Global Upholstery Co., Inc / Offices To Go (title: 'Basics chevron junior operator chair')",
+        "datasheet_value": "Basics by Global (Chevron Jr) — a Global Furniture Group brand. Sold as 'Basics Chevron Junior Operator', not under the Offices To Go brand line.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Attribute to the Basics brand (Global Furniture Group), not Offices To Go. MVL2363-7 is a Basics Chevron Jr model; OTG branding is a misattribution. Confirm whether BBI is listing it as a Basics or OTG SKU.",
+        "notes": "Brand misattribution. The model is Basics Chevron Jr; the dataset brand string pairs it with Offices To Go. Both are Global divisions but the product line is Basics."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Fusion Fabric (Carbon), cushioned waterfall seat",
+        "datasheet_value": "Carbon Fusion Fabric; cushioned waterfall seat",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Carbon Fusion Fabric confirmed."
+      },
+      {
+        "spec": "key_features",
+        "claimed": "Armless low-back; pneumatic seat height; adjustable back angle and back height; hard floor casters",
+        "datasheet_value": "Armless low-back posture task chair; pneumatic seat height; adjustable back angle & height; hard floor casters; optional height-adj arms sold separately",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Feature set matches dealer/manufacturer listings."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "GREENGUARD",
+        "datasheet_value": "GREENGUARD certified (Basics/Global low-emission program)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "GREENGUARD consistent with Basics line; confirm on the Basics spec sheet."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "(not in claimed_specs)",
+        "datasheet_value": "Lifetime warranty per dealer listings (standard-capacity chair)",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "No warranty claimed; if added, dealer listings cite a lifetime warranty for this standard-capacity Basics chair.",
+        "notes": "No warranty asserted in claimed_specs, so no risk. Standard capacity (not heavy-duty)."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Canadian-made confirmed."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9782581297465",
+    "handle": "ashmont-medium-back-guest-chair-mvl2782",
+    "title": "Ashmont | medium back guest chair — MVL2782",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL2782", "MVL2782F", "MVL2780", "MVL2781"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/management-seating/ashmont/MVL2782"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "24.5\"W x 25.5\"D x 36.5\"H",
+        "datasheet_value": "24.5\"W x 25.5\"D x 36.5\"H; seat height 17\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Overall dimensions match exactly."
+      },
+      {
+        "spec": "base/frame",
+        "claimed": "Sled base with oval steel tube frame; upholstered armcaps",
+        "datasheet_value": "Sled base, oval steel tube frame; upholstered armcaps; deep soft cushions",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Sled base + oval steel tube + upholstered armcaps confirmed."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Deep soft cushions on seat and back; Grade 1 textiles or Luxhide (body copy)",
+        "datasheet_value": "Grade 1 seating textiles or LuxPlus (various colours)",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Body copy says 'Luxhide'; datasheet lists 'LuxPlus' for the Ashmont guest. Verify exact upholstery line name; do not interchange Luxhide (bonded leather) and LuxPlus (vinyl).",
+        "notes": "Material-naming inconsistency only; low impact."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "datasheet_value": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "All three certifications confirmed on datasheet."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "Offices To Go Limited Lifetime warranty (standard guest chair)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Standard-capacity guest chair; Limited Lifetime applies."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Confirmed Made in Canada."
+      }
+    ],
+    "config_divergence": true,
+    "config_divergence_note": "SKU bundles four models: MVL2782 (guest), MVL2782F (Grade 1 textile variant — body copy notes 'formerly MVL2782F'), MVL2780 (high back management TILTER), and MVL2781 (medium back management TILTER). MVL2780/MVL2781 are tilter task chairs, not guest chairs, and have different dimensions/mechanisms than the MVL2782 guest chair audited here. Headline specs verified against MVL2782 only. Flagging the mixed guest+tilter model list rather than guessing combined specs.",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9782584049977",
+    "handle": "brighton-high-back-tilter-mvl2787",
+    "title": "Brighton | high back tilter — MVL2787",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL2787"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/management-seating/brighton/MVL2787"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26.5\"W x 28\"D x 44\"H",
+        "datasheet_value": "26.5\"W x 28\"D x 44\"H; seat height 16.5\" - 20.5\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Overall dimensions match; seat height 16.5-20.5 matches claimed key_features."
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "(not in claimed_specs)",
+        "datasheet_value": "300 lbs (per dealer listings)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Could add 300 lb capacity.",
+        "notes": "Standard-capacity chair, 300 lb per dealers."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Tilter with upright position tilt lock; tilt tension; center-tilt; back/lumbar and back angle adjustment",
+        "datasheet_value": "Tilter mechanism with upright position tilt lock and tilt tension adjustment; lumbar height adjustment; loop arms with upholstered armcaps",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Tilter (not synchro/multi) correctly stated; lumbar + loop arms confirmed."
+      },
+      {
+        "spec": "materials",
+        "claimed": "LuxPlus vinyl upholstery, contoured seat and back",
+        "datasheet_value": "Upholstered in LuxPlus vinyl",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "LuxPlus vinyl correctly named here."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "datasheet_value": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold (all three logos on datasheet)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "All three certifications confirmed on officestogo.com datasheet."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "Offices To Go Limited Lifetime warranty",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Standard-capacity chair; Limited Lifetime applies."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Confirmed Made in Canada on datasheet."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  }
+]

@@ -1,0 +1,977 @@
+[
+  {
+    "id": "9098317070649",
+    "handle": "large-fire-water-safe-13-x-16-x-19-black-2",
+    "title": "Large fire/water safe 13\" x 16\" x 19\" - black — 13\" x 16\" x 19\"",
+    "brand": "Sentry Group",
+    "models": ["SFW082DTB"],
+    "datasheet_sources": [
+      "https://www.sentrysafe.com/product/SFW082DTB"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions (exterior)",
+        "claimed": "13\"W × 16\"D × 19\"H (exterior)",
+        "datasheet_value": "13.7\"H × 16.3\"W × 19.3\"D (exterior)",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Exterior 16.3\"W × 19.3\"D × 13.7\"H. The published label maps the three numbers to the wrong axes — 19\" is the depth, not the height, and 13.7\" is the height, not the width. The safe is a low/wide chest-style fire safe, not a tall cabinet.",
+        "notes": "SentrySafe lists H×W×D = 13.7×16.3×19.3 in. Claimed values are roughly the right magnitudes (rounded) but assigned to the wrong dimensions, giving a misleading footprint."
+      },
+      {
+        "spec": "fire rating",
+        "claimed": "UL 1-hr fire; \"UL-listed 1-hour fire protection\"",
+        "datasheet_value": "UL Classified protection for 1 hour at temperatures up to 1700°F (927°C)",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "State \"UL Classified (1-hour, up to 1700°F)\" not \"UL Listed.\" SentrySafe describes this as UL Classified fire protection. UL Listed and UL Classified are distinct UL marks; fire-rating wording is legally sensitive.",
+        "notes": "Duration (1 hr) is correct; the certification word is wrong. Manufacturer wording is 'UL Classified.'"
+      },
+      {
+        "spec": "water rating",
+        "claimed": "ETL waterproof 5\"/24hr",
+        "datasheet_value": "ETL Verified protection in up to 5 inches of water for 24 hours",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches datasheet exactly."
+      },
+      {
+        "spec": "digital media fire rating (ETL 1-hr)",
+        "claimed": "ETL digital media; \"ETL-verified 1-hour digital media fire protection\"",
+        "datasheet_value": "Not stated on the SFW082DTB product page (page lists UL Classified fire + ETL water + ETL drop only)",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Confirm an ETL data/media fire rating exists for this exact model before publishing; the current SentrySafe page does not list a digital-media rating for SFW082DTB.",
+        "notes": "Some SentrySafe combo models carry a media rating, but it is not shown for SFW082DTB. Do not assert without a model-specific source."
+      },
+      {
+        "spec": "impact / drop rating",
+        "claimed": "(not in headline claimed_specs; body does not assert)",
+        "datasheet_value": "ETL Verified to withstand a 15 ft drop during a fire",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Optional: could add ETL 15-ft drop rating, which the datasheet supports.",
+        "notes": "Not currently claimed; datasheet supports it if BBI wants to add."
+      },
+      {
+        "spec": "locking bolts",
+        "claimed": "1\" bolts; \"large 1\\\" bolts\"",
+        "datasheet_value": "3 large 1-inch live-locking bolts",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Bolt size matches; datasheet specifies a count of 3."
+      },
+      {
+        "spec": "lock type",
+        "claimed": "dual combo + key",
+        "datasheet_value": "Combination lock with key (dual combination/key)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "hinge",
+        "claimed": "pry-resistant hinge",
+        "datasheet_value": "Pry-resistant hinge bar",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Steel",
+        "datasheet_value": "Steel-cased fire insulation / solid steel construction",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "United States",
+        "datasheet_value": "Not stated on SentrySafe product page",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Remove the explicit 'United States' origin claim unless a manufacturer source confirms it. Country-of-origin is legally sensitive and the datasheet does not state it.",
+        "notes": "SentrySafe (Master Lock / Fortune Brands) sources safes from multiple plants; no origin shown for this SKU."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9103335326009",
+    "handle": "sentry-safe-security-safe-with-electronic-lock-4",
+    "title": "Sentry safe security safe with electronic lock",
+    "brand": "Sentry Safe",
+    "models": ["X125"],
+    "datasheet_sources": [
+      "https://www.sentrysafe.com/product/X125"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions (interior)",
+        "claimed": "Interior: 16-3/4\"W × 12-5/8\"D × 10-1/2\"H",
+        "datasheet_value": "Interior: 16.8\"W × 11.6\"D × 10.5\"H (10.5\"H × 16.8\"W × 11.6\"D)",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Interior depth is ~11.6\", not 12-5/8\" (12.625\"). Width (16-3/4\"≈16.8\") and height (10-1/2\"=10.5\") are correct. Correct the depth.",
+        "notes": "Depth overstated by ~1 inch. SentrySafe gives interior 10.5H×16.8W×11.6D."
+      },
+      {
+        "spec": "capacity",
+        "claimed": "1.2 cu ft",
+        "datasheet_value": "1.18 cu.ft.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "1.18 rounds to 1.2; acceptable."
+      },
+      {
+        "spec": "lock type",
+        "claimed": "electronic lock + key",
+        "datasheet_value": "Digital lock (programmable 1-8 digit code) with override key",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "locking bolts",
+        "claimed": "2 live bolts",
+        "datasheet_value": "Two steel live-locking bolts",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Armored steel",
+        "datasheet_value": "Solid steel construction, concealed hinges",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Note: datasheet says 'solid steel,' BBI says 'armored steel.' Functionally equivalent marketing language; acceptable.",
+        "notes": "'Armored steel' is common SentrySafe X-series language; solid-steel on the current spec table."
+      },
+      {
+        "spec": "weight",
+        "claimed": "35.1 lbs (body copy)",
+        "datasheet_value": "26.84 lb",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Correct stated weight to ~26.8 lb per current SentrySafe spec, or remove the weight line. 35.1 lb overstates by ~8 lb.",
+        "notes": "Body copy line 'Model X125 | 35.1 lbs.' Some retailers list 30-35 lb; the manufacturer page currently lists 26.84 lb. Use manufacturer figure."
+      },
+      {
+        "spec": "removable shelf",
+        "claimed": "removable shelf",
+        "datasheet_value": "Removable shelf included",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "cable tether port",
+        "claimed": "cable tether port / security cable access port",
+        "datasheet_value": "Power cord access port for plugged-in devices",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Minor wording: datasheet frames it as a power-cord access port (for charging devices inside). Functionally the same opening; 'cable access port' is accurate.",
+        "notes": "Matches in substance."
+      },
+      {
+        "spec": "bolt-down hardware",
+        "claimed": "bolt-down hardware included",
+        "datasheet_value": "Bolt-down capability noted; hardware listed as available accessory on some sources",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Confirm whether bolt-down hardware ships in-box vs. sold separately before claiming 'included.' Sources conflict.",
+        "notes": "Manufacturer page notes bolt-down capability; one source lists hardware as a separate purchase."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9103473934649",
+    "handle": "electric-dual-monitor-height-adjustable-standing-desk-workstation-dc450",
+    "title": "Electric dual monitor height adjustable standing desk workstation — DC450",
+    "brand": "Victor Technology LLC",
+    "models": ["DC450"],
+    "datasheet_sources": [
+      "https://victortech.com/products/victor-high-rise-electric-dual-monitor-standing-desk"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions / work surface",
+        "claimed": "28″W x 23″D",
+        "datasheet_value": "28\"W x 23\"D",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "lift / height range",
+        "claimed": "1″–20″",
+        "datasheet_value": "1\" to 20\" above desk",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches exactly."
+      },
+      {
+        "spec": "weight_capacity (work surface)",
+        "claimed": "20 lbs total",
+        "datasheet_value": "20 lbs on work surface",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "monitor capacity",
+        "claimed": "two monitors up to 25″, 12.5 lbs each",
+        "datasheet_value": "Two monitors up to 25\" wide, 12.5 lbs each",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Laminate-coated MDF worktop, steel/aluminum frame",
+        "datasheet_value": "Laminate-coated MDF, steel, aluminum",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "safety sensor",
+        "claimed": "Safety obstacle sensor — stops lift on obstacle detection",
+        "datasheet_value": "Advanced safety sensor halts movement on obstacle detection",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "keyboard tray",
+        "claimed": "Retractable keyboard tray / full-size retractable keyboard tray",
+        "datasheet_value": "Keyboard tray listed by Victor retailers (OfficeCrave, Staples); the victortech.com page emphasizes dual monitor mounts and does not call out a keyboard tray in its bullet summary",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Major Victor retailers consistently list a retractable keyboard/laptop tray for the DC450; claim is supported. Slight ambiguity because the manufacturer bullet summary leads with monitor mounts."
+      },
+      {
+        "spec": "assembly / installation",
+        "claimed": "Fully assembled, no tools or installation required",
+        "datasheet_value": "Place on existing desk; no permanent attachment/clamps; VESA monitor mounting required for monitors",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Minor: monitors must be VESA-mounted to the arms, so 'no tools' is slightly optimistic for monitor setup, but the unit itself needs no install. Acceptable.",
+        "notes": "Unit is freestanding; monitor mounting uses VESA holes."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9685598110009",
+    "handle": "willow-bariatric-chair",
+    "title": "Willow bariatric chair",
+    "brand": "Lesro Industries",
+    "models": ["WL1401", "WL1402", "WL1801", "WL1802"],
+    "datasheet_sources": [
+      "https://www.lesro.com/lesro-create/WL1401",
+      "https://www.btod.com/ls-wl1801g5"
+    ],
+    "spec_findings": [
+      {
+        "spec": "weight_capacity",
+        "claimed": "600 lbs",
+        "datasheet_value": "Up to 600 lbs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches Lesro Willow bariatric rating."
+      },
+      {
+        "spec": "dimensions (WL1401 with arms)",
+        "claimed": "30\"W x 27\"D x 34\"H overall; seat 26\"W x 18\"D x 18.5\"H; arm height 26\"H",
+        "datasheet_value": "Overall 30\"W x 27\"D x 34\"H; seat ~26\"W x 18\"D, seat height 18.5\", arm height 26\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "dimensions (WL1801 wide-seat with arms)",
+        "claimed": "30\"W x 27\"D x 34\"H overall; seat 30\"W x 18\"D x 18.5\"H; arm height 26\"H",
+        "datasheet_value": "Seat 30\"W x 18\"D, seat height 18.5\", back 30\"W x 15\"H, arm height 26\"H, overall 30\"W x 27\"D x 34\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited lifetime warranty on frame and assemblies; 2 years on upholstery",
+        "datasheet_value": "Limited lifetime on all frames and assemblies; fabric/vinyl/PVC-free PU/Crypton warranted 2 years from shipment",
+        "classification": "VERIFIED",
+        "severity": "legal",
+        "recommended_correction": "",
+        "notes": "Matches Lesro warranty exactly. Legally sensitive claim is correct."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "USA",
+        "datasheet_value": "Made in the USA",
+        "classification": "VERIFIED",
+        "severity": "legal",
+        "recommended_correction": "",
+        "notes": "Lesro states Made in the USA. Correct."
+      },
+      {
+        "spec": "materials / Matrex / soy foam",
+        "claimed": "Steel frame oval legs; soy-based foam; Matrex seat support; fabric or healthcare vinyl; water-based adhesives",
+        "datasheet_value": "Matrex seat support confirmed; heavy-duty steel construction; upholstered. Soy-based foam and water-based adhesives are Lesro eco-line standards.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matrex seat support explicitly confirmed. Soy foam / water-based adhesives are standard Lesro eco claims; consistent with brand."
+      },
+      {
+        "spec": "armless variants",
+        "claimed": "Armless variant available (WL1402/WL1802)",
+        "datasheet_value": "WL1402 and WL1802 are the armless Willow models",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Model lineup matches."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9710313079097",
+    "handle": "safco-2130sl-desk-mount-for-monitor-keyboard",
+    "title": "Safco 2130SL Sit-Stand Desktop Workstation",
+    "brand": "Safco",
+    "models": ["2130SL"],
+    "datasheet_sources": [
+      "https://www.officecrave.com/safco-2130sl.html",
+      "https://www.staples.com/Safco-Desktop-Sit-Stand-Workstation-2130SL/product_2352352"
+    ],
+    "spec_findings": [
+      {
+        "spec": "weight_capacity",
+        "claimed": "11 lbs (\"Holds up to 11 lbs\")",
+        "datasheet_value": "Monitor arm supports up to 11 lbs; keyboard tray rated up to 15 lbs (sources cite a 15 lb capacity for the tray)",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Clarify the 11 lb figure as the monitor-arm capacity. Reseller specs list 11 lb (monitor) and a separate 15 lb (keyboard tray) figure; presenting a single 'holds up to 11 lbs' number is ambiguous. Confirm against Safco's official spec sheet.",
+        "notes": "Could not load safcoproducts.com (403/404). Reseller data shows both 11 lb (monitor) and 15 lb (tray). The 11 lb claim is defensible for the monitor but the blanket framing is imprecise."
+      },
+      {
+        "spec": "platform dimensions",
+        "claimed": "26\"W x 10-3/4\"D platform; 28\"D footprint",
+        "datasheet_value": "Reseller specs list ~28\" top width x ~15.7\" top depth; platform width near 26\" cited elsewhere",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Verify platform width (26\" vs 28\") and depth against Safco's official 2130SL spec sheet before publishing; reseller dimension figures vary (26 vs 28 W; 10.75 vs 15.7 D).",
+        "notes": "Conflicting reseller dimensions; Safco's own page was not reachable. Do not treat current dims as confirmed."
+      },
+      {
+        "spec": "height adjustment",
+        "claimed": "adjusts 12-1/4\" in height",
+        "datasheet_value": "Adjustable lift/lock platform (range not confirmed on a manufacturer source reached)",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Confirm 12-1/4\" travel against Safco spec sheet.",
+        "notes": "Resellers confirm individually adjustable monitor/keyboard heights but did not confirm the exact 12.25\" figure."
+      },
+      {
+        "spec": "retrofit thickness",
+        "claimed": "Retrofits desks/worksurfaces up to 3\" thick",
+        "datasheet_value": "Designed to retrofit work surfaces up to 3\" thick",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches reseller spec."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Steel and aluminum construction",
+        "datasheet_value": "Steel and aluminum with powder-coat finish",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty (Safco)",
+        "datasheet_value": "Manufacturer's limited lifetime warranty",
+        "classification": "VERIFIED",
+        "severity": "legal",
+        "recommended_correction": "",
+        "notes": "Safco limited lifetime warranty confirmed by resellers; consistent with Safco's standard."
+      },
+      {
+        "spec": "cable management / tool-free",
+        "claimed": "Concealed cable management; tool-free lift-and-tilt",
+        "datasheet_value": "Cable management concealed within adjustable arm; lift/lock with no knobs or levers; tilt adjustment",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "unverifiable"
+  },
+  {
+    "id": "9724981215545",
+    "handle": "napa-boardroom-conference-table",
+    "title": "Napa boardroom conference table",
+    "brand": "Office Star",
+    "models": ["NAP-27", "NAP-32", "NAP-35", "NAP-36", "NAP-37", "NAP-38"],
+    "datasheet_sources": [
+      "https://aceofficesystems.com/products/napa-8-foot-race-track-conference-table",
+      "https://madisonliquidators.com/part-number/NAP-36-___/",
+      "https://sdofficefurniture.com/products/office-star-products-napa-conference-table-71x35x29-nap-35-urb"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions (NAP-35)",
+        "claimed": "NAP-35: 71\"W × 35\"D × 29\"H",
+        "datasheet_value": "NAP-35: 71\"W x 35\"D x 29\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches. Note body copy line writes it as '35\"W × 71\"L' (W/L swapped vs the claimed_specs label) — internally inconsistent wording; standardize to 71\"W x 35\"D."
+      },
+      {
+        "spec": "dimensions (NAP-36 8-ft racetrack)",
+        "claimed": "NAP-36: 95\"W × 44\"D × 29\"H",
+        "datasheet_value": "NAP-36: 95\"W x 44\"D x 29\"H (8-ft racetrack)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "dimensions (NAP-38)",
+        "claimed": "NAP-38: 144\"W × 48\"D × 29\"H",
+        "datasheet_value": "Not independently confirmed on a reached source",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Confirm NAP-38 (12-ft) dimensions against Office Star spec sheet before relying on them.",
+        "notes": "NAP-35 and NAP-36 confirmed; NAP-38 not located. Plausible for a 12-ft table but unverified."
+      },
+      {
+        "spec": "table shape (global tag)",
+        "claimed": "global tag: \"Napa oval conference table\" / \"curved profile\"",
+        "datasheet_value": "Napa NAP-36 is a racetrack (rounded-rectangle) conference table; rectangular variants also exist",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Replace 'oval' with 'racetrack' (or 'rectangular/racetrack depending on size'). The Napa line is racetrack/rectangular, not oval.",
+        "notes": "Marketing copy calls it 'oval'; manufacturer/retailer naming is 'racetrack.' Minor but inaccurate shape descriptor."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "ANSI/BIFMA",
+        "datasheet_value": "Napa line complies with ANSI/BIFMA standards",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "10 years (materials and workmanship); 5 years (laminate finishes)",
+        "datasheet_value": "10-year limited warranty on materials/workmanship for casegoods; laminate finishes 5 years (original purchaser, normal commercial use)",
+        "classification": "VERIFIED",
+        "severity": "legal",
+        "recommended_correction": "",
+        "notes": "Matches Office Star casegoods warranty. Correct."
+      },
+      {
+        "spec": "materials / edge",
+        "claimed": "Engineered wood top with laminate finish; 3mm PVC tri-groove edge banding",
+        "datasheet_value": "Laminate top with 3mm PVC edge (tri-groove damage-resistant edge is Office Star Napa standard)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Consistent with Napa line construction."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "China",
+        "datasheet_value": "Not stated on reached sources",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Confirm origin against Office Star documentation before publishing 'China.' Office Star imports much of its line, so the claim is plausible, but unverified — and origin claims are legally sensitive.",
+        "notes": "No manufacturer source confirmed country of origin."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9779951436089",
+    "handle": "fireking-storage-cabinet-72-high",
+    "title": "FireKing 72\" Fire-Rated Storage Cabinet",
+    "brand": "FireKing",
+    "models": ["CF7236-D"],
+    "datasheet_sources": [
+      "https://www.filing.com/FireKing-Storage-Cabinet-72-inch-p/cf7236-d.htm",
+      "https://www.safeandvaultstore.com/products/fireking-cf7236-d-secure-storage-cabinet-cf7236-d",
+      "https://www.digitalbuyer.com/fireking-cf7236-d-fireproof-storage-cabinet.html"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions (exterior)",
+        "claimed": "36\"W x 19.3\"D x 72\"H exterior",
+        "datasheet_value": "36\"W x 19.25\"D x 72\"H exterior",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "19.3\" vs 19-1/4\" (19.25\") — rounding; matches."
+      },
+      {
+        "spec": "dimensions (interior)",
+        "claimed": "31-7/8\"W x 15\"D x 67-7/8\"H interior",
+        "datasheet_value": "31-7/8\"W x 15\"D x 67-7/8\"H interior",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches exactly."
+      },
+      {
+        "spec": "fire rating",
+        "claimed": "UL Class 350 one-hour fire rating — interior stays below 350°F",
+        "datasheet_value": "UL Class 350 1-hour; internal temp stays below 350°F when exterior exceeds 1700°F",
+        "classification": "VERIFIED",
+        "severity": "legal",
+        "recommended_correction": "",
+        "notes": "Matches. Legally sensitive fire rating is correct."
+      },
+      {
+        "spec": "shelf capacity",
+        "claimed": "Up to 160 lbs per shelf (evenly distributed)",
+        "datasheet_value": "160 lbs per shelf",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "shelf configuration",
+        "claimed": "One fixed plus four adjustable shelves",
+        "datasheet_value": "Four adjustable shelves (adjustable in 1/2\" increments)",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Datasheet/resellers describe four adjustable shelves. The 'one fixed plus four adjustable' (5 total) claim is not supported — verify the fixed shelf and total count against FireKing's spec sheet, or change to 'four adjustable shelves.'",
+        "notes": "Marketing claims 5 shelves (1 fixed + 4 adj); reseller specs consistently say four adjustable shelves. Possible the deck/base counts as a shelf surface, but unconfirmed."
+      },
+      {
+        "spec": "fire insulation / construction",
+        "claimed": "100% gypsum fire insulation reinforced with 14-gauge galvanized steel wire lattice; welded steel body",
+        "datasheet_value": "100% gypsum insulation reinforced by a 1\"x2\" lattice of 14-gauge galvanized welded steel wire; cold-rolled steel body",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "lock",
+        "claimed": "Medeco high-security keylock",
+        "datasheet_value": "High-security UL-listed key lock (brand 'Medeco' not stated on reached sources; E-Lock optional)",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Drop the specific 'Medeco' brand unless confirmed by FireKing. Sources confirm a high-security UL-listed key lock but do not name Medeco for this SKU.",
+        "notes": "The lock IS high-security and UL-listed; the Medeco brand attribution is unverified."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty (with in-fire replacement guarantee)",
+        "datasheet_value": "Limited lifetime warranty against mechanical/operational malfunction; free replacement if damaged in a fire while owned by original purchaser",
+        "classification": "VERIFIED",
+        "severity": "legal",
+        "recommended_correction": "",
+        "notes": "Matches FireKing warranty including the in-fire replacement guarantee. Correct."
+      },
+      {
+        "spec": "water resistance",
+        "claimed": "Water-resistant against sprinklers and fire hoses",
+        "datasheet_value": "Water resistant (cabinet is water resistant per FireKing)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Consistent with FireKing description."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "United States",
+        "datasheet_value": "Not stated on reached sources",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Confirm 'United States' origin against FireKing before publishing. FireKing manufactures fire files in New Albany, IN, so the claim is plausible, but a model-specific source was not reached.",
+        "notes": "FireKing is US-based; origin likely correct but unverified for this SKU."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9827425616185",
+    "handle": "kensington-universal-charge-sync-tablet-cabinet",
+    "title": "Kensington Universal Charge & Sync Tablet Cabinet",
+    "brand": "Kensington",
+    "models": ["K67771"],
+    "datasheet_sources": [
+      "https://www.kensington.com/p/products/technology-device-security-products/charging-station-cables/charge-sync-cabinet-universal-tablet/",
+      "https://www.encoredataproducts.com/charge-sync/kensington-charge-sync-cabinet-universal-tablet-black/"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "16.93\"H x 15.75\"W x 13.78\"D (430 x 400 x 350 mm)",
+        "datasheet_value": "430 (H) x 400 (W) x 350 (D) mm",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches; inch conversion is correct."
+      },
+      {
+        "spec": "capacity",
+        "claimed": "Holds up to 10 tablets",
+        "datasheet_value": "Holds up to 10 tablets",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "stackable to 30",
+        "claimed": "Stackable to manage up to 30 devices",
+        "datasheet_value": "Not confirmed on reached Kensington/reseller sources (kensington.com pages returned errors)",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Confirm the 3-high/30-device stacking claim against Kensington's official K67771 spec sheet before publishing.",
+        "notes": "Could not load Kensington product pages (HTTP 500). Stacking is a feature on some Kensington cabinets but not confirmed for K67771."
+      },
+      {
+        "spec": "cooling fan",
+        "claimed": "Built-in cooling fan prevents overheating",
+        "datasheet_value": "Not confirmed on reached sources",
+        "classification": "UNVERIFIABLE",
+        "severity": "factual",
+        "recommended_correction": "Confirm presence of a cooling fan against Kensington spec sheet; not surfaced on reachable sources.",
+        "notes": "Some Kensington charge cabinets are passively cooled. Verify before claiming an active fan."
+      },
+      {
+        "spec": "tamper-resistant door / lock",
+        "claimed": "Tamper-resistant retracting door with keyed lock",
+        "datasheet_value": "Secured storage; tamper-resistant door (Kensington Charge & Sync cabinet feature)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Consistent with Kensington description; case-on storage confirmed."
+      },
+      {
+        "spec": "universal cased-device fit",
+        "claimed": "Universal fit — iPad, Galaxy Tab, Kindle and more, cases on",
+        "datasheet_value": "Charges/syncs even when tablets are in a rugged case; universal tablet fit",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "1-Year Limited Warranty",
+        "datasheet_value": "Not confirmed on reached sources",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Confirm warranty term against Kensington (Kensington often offers multi-year or limited warranties varying by product). Verify before publishing '1-Year.'",
+        "notes": "Kensington page unreachable; warranty term not confirmed for K67771."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "unverifiable"
+  },
+  {
+    "id": "9827425812793",
+    "handle": "kensington-ac12-security-charging-cabinet",
+    "title": "Kensington AC12 security charging cabinet",
+    "brand": "Kensington",
+    "models": ["AC12"],
+    "datasheet_sources": [
+      "https://www.kensington.com/p/products/technology-device-security-products/charging-station-cables/ac12-12-bay-security-charging-cabinet-taa/",
+      "https://www.officedepot.com/a/products/569057/Kensington-AC12-12-Bay-Security-Charging/",
+      "https://www.cdw.com/product/kensington-ac12-12-bay-security-charging-cabinet-cabinet-unit-for-12-devi/4174911"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "16.5\"W × 23.2\"D × 28.1\"H",
+        "datasheet_value": "16.5\"W x 23.2\"D x 28.1\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches exactly."
+      },
+      {
+        "spec": "capacity",
+        "claimed": "12-device capacity",
+        "datasheet_value": "Holds up to 12 devices",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "compatibility",
+        "claimed": "iOS and Android compatible",
+        "datasheet_value": "Universal fit up to 14\" — Chromebooks, Surface, MacBook Air, iPads, Galaxy Tabs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches (universal device support)."
+      },
+      {
+        "spec": "AC power strip",
+        "claimed": "AC power strip — each device uses its own charger",
+        "datasheet_value": "AC power strip accommodates each device's own power cord; charges up to 90W each",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "slide-out drawers",
+        "claimed": "slide-out drawers",
+        "datasheet_value": "12 slide-out drawers for check-in/check-out",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "casters",
+        "claimed": "4 locking casters",
+        "datasheet_value": "Four rubber wheels; locking foot pedals on the two front wheels",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Change '4 locking casters' to '4 casters with locking front pedals (two front wheels lock).' The datasheet says only the two front wheels lock, not all four.",
+        "notes": "Minor but factual: claim implies all 4 lock; Kensington states only the 2 front wheels have locking pedals."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9832610988345",
+    "handle": "ceiling-grids-sound-acoustic-dampeners-1",
+    "title": "Ceiling grids sound acoustic dampeners",
+    "brand": "MergeWorks",
+    "models": [
+      "EchoDeco Grid Baffle 4'",
+      "EchoDeco Grid Baffle 8'",
+      "EchoDeco Grid Baffle 12'",
+      "EchoDeco Grid Baffle 20'",
+      "EchoDeco Grid Baffle 24'",
+      "EchoDeco Grid Baffle 28'"
+    ],
+    "datasheet_sources": [
+      "https://mergeworks.com/resources/materials-finishes/",
+      "https://mergeworks.com/products/acoustic-solutions/echodeco-grid-baffles/",
+      "https://mergeworks.com/product/echodeco-grid-baffle-20/"
+    ],
+    "spec_findings": [
+      {
+        "spec": "material",
+        "claimed": "EchoScape polyester acoustic material — 60% post-consumer recycled PET; VOC-free, AZO dye free, tackable, 100% recyclable",
+        "datasheet_value": "EchoScape: durable polyester, 60% post-consumer recycled PET water bottles; VOC-free, AZO dye free, tackable, 100% recyclable",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches MergeWorks materials page exactly."
+      },
+      {
+        "spec": "NRC rating (9mm)",
+        "claimed": "NRC 0.85 (3/8\" / 9mm)",
+        "datasheet_value": "3/8\" (9mm): NRC 0.85",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "NRC rating (18mm)",
+        "claimed": "NRC 0.90 (3/4\" / 18mm)",
+        "datasheet_value": "3/4\" (18mm): NRC 0.90",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "fire rating",
+        "claimed": "ASTM E84 Class A",
+        "datasheet_value": "ASTM E84 Class A fire-rated",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "material thickness (global tag)",
+        "claimed": "global tag: \"12mm felt ceiling grid acoustic dampeners\"",
+        "datasheet_value": "Material is 9mm or 18mm EchoScape polyester (PET), not 12mm felt",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Fix the global description tag: it is NOT '12mm felt.' The product is 9mm or 18mm EchoScape PET polyester. Replace '12mm felt' with the correct thickness/material.",
+        "notes": "The SEO/global tag contradicts the structured specs. 12mm is not an offered thickness and the material is PET polyester, not felt."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "3 years (EchoScape 9mm and 18mm)",
+        "datasheet_value": "Not confirmed on reached MergeWorks sources",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Confirm the 3-year material warranty against MergeWorks before publishing; not surfaced on the materials/product pages reached.",
+        "notes": "Warranty term not found on reachable MergeWorks pages."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "USA / Made in the USA",
+        "datasheet_value": "Not confirmed on reached MergeWorks sources",
+        "classification": "UNVERIFIABLE",
+        "severity": "legal",
+        "recommended_correction": "Confirm 'Made in USA' against MergeWorks. MergeWorks is a US (Texas) manufacturer so the claim is plausible, but it was not stated on the reached pages — origin claims are legally sensitive.",
+        "notes": "MergeWorks is US-based; likely correct but unverified on reached sources."
+      },
+      {
+        "spec": "grid compatibility / run lengths",
+        "claimed": "ACT 9/16\" and 15/16\" T-grid; 2'x2' and 2'x4' layouts; run lengths 4'-28'; magnetic On-The-Grid variant",
+        "datasheet_value": "EchoDeco Grid Baffles for suspended ACT grid ceilings; multiple run lengths; used as clouds or wall-to-wall (20' product page confirmed)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Grid-baffle product family and configuration consistent with MergeWorks EchoDeco Grid Baffle line."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "10196146585913",
+    "handle": "part-time-armless-task-chair-mvl2836",
+    "title": "Part-Time | Armless Task Chair MVL2836",
+    "brand": "ergoCentric",
+    "models": ["MVL2836"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/task-seating/part-time/MVL2836"
+    ],
+    "spec_findings": [
+      {
+        "spec": "brand / manufacturer",
+        "claimed": "brand = ergoCentric; body copy: \"Built by ergoCentric in Canada\"",
+        "datasheet_value": "Model MVL2836 'Part-Time' is an Offices to Go product, manufactured by Global Furniture Group (officestogo.com). It is NOT an ergoCentric product.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Correct the manufacturer attribution. The Part-Time MVL2836 is made by Offices to Go / Global Furniture Group, not ergoCentric. Remove 'Built by ergoCentric' and 'ergoCentric' brand tagging. (Both firms are Canadian, so 'Made in Canada' still holds — see below — but the brand name is wrong.)",
+        "notes": "The model code MVL2836 resolves to officestogo.com Part-Time series. This is a brand misattribution running through the title, brand field, and body copy."
+      },
+      {
+        "spec": "dimensions",
+        "claimed": "20.5\"W x 24.5\"D x 36.5\"H",
+        "datasheet_value": "20.5\"W x 24.5\"D x 36.5\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches Offices to Go spec exactly."
+      },
+      {
+        "spec": "seat height range",
+        "claimed": "Pneumatic seat height adjustment 16.5\"-21.5\"",
+        "datasheet_value": "Pneumatic seat height 16.5\" to 21.5\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Task mechanism; seat depth adjustment; waterfall seat edge",
+        "datasheet_value": "Task mechanism; adjustable seat depth; waterfall seat edge",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "casters",
+        "claimed": "Dual-wheel carpet casters",
+        "datasheet_value": "Dual wheel carpet casters",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "upholstery",
+        "claimed": "Grade 1 seating textiles standard; Bantam bleach-cleanable vinyl available",
+        "datasheet_value": "Available in all grade 1 seating textiles; Bantam vinyl option",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "GREENGUARD Gold, LEVEL",
+        "datasheet_value": "GREENGUARD and GREENGUARD Gold certified; LEVEL certified",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada / Made in Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "legal",
+        "recommended_correction": "",
+        "notes": "Made in Canada confirmed by Offices to Go. Origin claim is correct (even though the brand attribution to ergoCentric is not)."
+      }
+    ],
+    "config_divergence": true,
+    "config_divergence_note": "Brand misattribution: SKU is tagged/branded as ergoCentric and body copy says 'Built by ergoCentric in Canada,' but model MVL2836 'Part-Time' is an Offices to Go / Global Furniture Group product. The physical specs, GREENGUARD/LEVEL certs, and Made-in-Canada all verify against the Offices to Go datasheet — only the manufacturer name is wrong. Flagging rather than rewriting per Heartwood tier discipline.",
+    "overall": "has_mismatch"
+  }
+]
