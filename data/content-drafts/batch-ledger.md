@@ -62,6 +62,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 4 | public sector / government / institutional office furniture (each ~10, LOW comp; whitespace moat) | contract furniture (70, supporting); commercial office furniture canada (30); healthcare/schools office furniture (10); accessible/AODA office furniture (10); institutional furniture (10). **Does NOT claim OECM-mechanics terms (cornerstone owns).** |
 | 5 | commercial grade office furniture / what is commercial grade / commercial vs residential furniture (10, LOW, info) | contract grade furniture; commercial office chair (30, KD42); office chair weight capacity (20). **Referenced not claimed as primary:** heavy duty office chair (170) — left to seating posts. |
 | 6 | sit stand desk vs fixed desk / standing desk vs regular desk (decision) | standing desk benefits (480, KD14, supporting); are standing desks worth it (40, KD12); sit stand desk benefits (30). **Does NOT claim (live posts own):** best standing desk canada, standing desk for office (170, transactional), 20-8-2/90-90-90 (ergonomics hub). |
+| 7 | open office vs private office (decision) / open plan vs closed | open concept office (210, KD12); open plan office (110, KD17); private office (170); open plan office disadvantages (10); cellular office (10). **Does NOT claim:** cubicle-vs-bench (Slot 8); office layout types/ideas (pillar); hot desking (draft); office pod (acoustic-pods draft). |
 
 ---
 
@@ -138,6 +139,18 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Snippet targets:** "sit stand vs fixed desk", "do you need sit-stand for everyone", CCOHS-aligned movement framing.
 - **Sources:** CCOHS sit/stand ergonomics; movement-benefit (not health claim). Guardrail: health Qs → consult clinician.
 - **Gates:** validate-meta 55/149 PASS (meta 162→149) · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 7 — Open-Plan vs Private Offices (brief #7) ✅ COMMITTED ba405a1
+- **Primary kw:** open office vs private office (decision) + open concept office (210) / open plan office (110) supporting. 
+- **Intent / persona / stage:** the office-structure binary · owner/facility manager planning a fit-out · consideration; design-consult whitespace.
+- **HOW THIS DIFFERS:** open-floor vs private/enclosed only. Slot 8 = cubicle-vs-bench (workstation axis); pillar = full method; acoustic-pods/hot-desking drafts own those.
+- **Sub-points & canonical homes:** OWNS open-vs-private trade-off, research summary, zoned/hybrid answer, furniture-per-zone. LINKS: pillar UP [held]; pods deep-dive→acoustic-pods draft [held].
+- **AEO table design:** factor × open-plan × private/cellular (5 rows) + research evidence block + zone-for-both. Distinct.
+- **FAQ questions:** open vs private better; disadvantages of open-plan; reduce productivity?; best layout for most; how to add privacy.
+- **Internal links (verified 200):** /collections/desks, /collections/panel-systems, /collections/acoustic-pods, /pages/design-services, /pages/quote.
+- **Snippet targets:** "disadvantages of open-plan office", "best office layout", "how to add privacy to an open office".
+- **Sources:** 2013 42,000-worker satisfaction study (US/FI/CA/AU); ~20-min refocus-after-distraction (EU Parliament briefing). Fact-check before publish.
+- **Gates:** validate-meta 45/154 PASS (meta 162→154) · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
