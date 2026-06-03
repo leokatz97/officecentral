@@ -69,6 +69,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 11 | task chair vs executive chair (decision) / what is a task chair (50) / office chair types (70) | **Referenced not targeted (heads):** executive office chair 880, executive chair 720, task chair 590, ergonomic task chair 390, high back office chair 320, conference chair 210. **Does NOT claim:** material (Slot 10); worth-it (ergonomics hub); conference-seating selection (Slot 13). |
 | 12 | filing cabinet vs shelving / vertical vs lateral file (decision) / office storage ideas (110, KD10) | office filing solutions (10). **Referenced not targeted (heads):** filing cabinet 12,100, office storage cabinet 720, office storage 590, lateral file cabinet 260, office bookcase 210, pedestal drawers 70. |
 | 13 | how to choose a conference table / conference table size (40, info) | **Referenced not targeted (heads):** boardroom table 880, conference table 720, conference room table 210, meeting table 170, modular conference table 70, boardroom furniture 30. **Cross-ref:** conference seating (Slot 11), pods-vs-rooms (Slot 9). |
+| 14 | reception area furniture (70, LOW) / office reception furniture (90) / how to choose reception area furniture | waiting area furniture (70); reception seating (40); reception furniture (40). **Referenced not targeted (heads):** reception desk 2900, waiting room chairs 590, reception desk for office 140. **Cross-ref:** guest-seating tier/material (Slots 10/11). |
 
 ---
 
@@ -214,6 +215,15 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Internal links (verified 200):** /products/boat-shaped-conference-table, /products/training-flip-top-tables-1, /collections/boardroom, /pages/design-services, /pages/quote.
 - **Category-post rule:** illustrative VERIFIED Global SKUs (Zira boat-shape, flip-top), conceptual, PDP routing.
 - **Gates:** validate-meta 49/152 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 14 — Reception Area Furniture Guide (brief #15) ✅ COMMITTED 5d767af
+- **Primary kw:** reception area furniture (70, LOW) / office reception furniture (90). Heads referenced (reception desk 2900, waiting room chairs 590).
+- **HOW THIS DIFFERS:** reception/lobby furnishing room-guide. Slot 13 = boardroom; Slots 10/11 = guest-seating tier/material (cross-ref).
+- **AEO table design:** "what to include" piece × job × commercial tip (5 pieces). Distinct.
+- **FAQ:** what furniture needed; how big a desk; best waiting seating; accessible desk (AODA); first impression.
+- **Internal links (verified 200):** /products/l-shape-reception-72-x-72-x-41-1, /products/sidero-guest-chair-28-colour-options, /collections/reception-desks-desks, /pages/design-services, /pages/quote.
+- **Category-post rule:** illustrative VERIFIED SKUs (L-shape reception, Sidero), conceptual, PDP routing.
+- **Gates:** validate-meta 52/149 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
