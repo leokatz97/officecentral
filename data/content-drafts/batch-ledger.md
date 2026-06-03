@@ -68,6 +68,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 10 | mesh vs upholstered office chair / best office chair material (decision) | mesh vs fabric / mesh vs leather (related); are mesh chairs good (10). **Referenced not targeted (heads):** mesh office chair 720, leather office chair 1000, fabric office chair 320, mesh back office chair 140. **Does NOT claim:** "worth it"/long-hours (ergonomics hub); chair tier (Slot 11). |
 | 11 | task chair vs executive chair (decision) / what is a task chair (50) / office chair types (70) | **Referenced not targeted (heads):** executive office chair 880, executive chair 720, task chair 590, ergonomic task chair 390, high back office chair 320, conference chair 210. **Does NOT claim:** material (Slot 10); worth-it (ergonomics hub); conference-seating selection (Slot 13). |
 | 12 | filing cabinet vs shelving / vertical vs lateral file (decision) / office storage ideas (110, KD10) | office filing solutions (10). **Referenced not targeted (heads):** filing cabinet 12,100, office storage cabinet 720, office storage 590, lateral file cabinet 260, office bookcase 210, pedestal drawers 70. |
+| 13 | how to choose a conference table / conference table size (40, info) | **Referenced not targeted (heads):** boardroom table 880, conference table 720, conference room table 210, meeting table 170, modular conference table 70, boardroom furniture 30. **Cross-ref:** conference seating (Slot 11), pods-vs-rooms (Slot 9). |
 
 ---
 
@@ -204,6 +205,15 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Internal links (verified 200):** /products/premium-series-lateral-file-cabinet-2-3-4-5-drawer-1, /products/bookcase-15-sizes-available, /products/newland-box-file-mobile-pedestal, /collections/storage-cabinets, /pages/quote.
 - **Category-post rule:** illustrative VERIFIED Global SKUs, conceptual, PDP routing.
 - **Gates:** validate-meta 56/152 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS (re-anchored non-unique "commercial storage").
+
+### Slot 13 — Conference & Boardroom Table Buying Guide (brief #14) ✅ COMMITTED bb07fc5
+- **Primary kw:** how to choose a conference table / conference table size (40, info). Heads referenced (boardroom table 880, conference table 720).
+- **HOW THIS DIFFERS:** the table buying guide (size/shape/power/material). Slot 11 = conference seating (cross-ref); Slot 9 = pods-vs-built-rooms.
+- **AEO table design:** seats-by-size (people × length × room) — snippet magnet. Plus shape `<ul>` + power/cable + material. Distinct.
+- **FAQ:** size a conference table; how many seats; boardroom vs conference; best shape; built-in power.
+- **Internal links (verified 200):** /products/boat-shaped-conference-table, /products/training-flip-top-tables-1, /collections/boardroom, /pages/design-services, /pages/quote.
+- **Category-post rule:** illustrative VERIFIED Global SKUs (Zira boat-shape, flip-top), conceptual, PDP routing.
+- **Gates:** validate-meta 49/152 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
