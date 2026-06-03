@@ -156,7 +156,7 @@ Brant Business Interiors, a division of Office Central Inc., has furnished Ontar
 
 ## Meta
 - **Title tag (<60):** `How to Plan an Office Layout: An Ontario Guide` (46). Suffix handled by template.
-- **Meta description (≤158):** `A practical office space-planning guide for Ontario businesses and institutions: how much space you need, the four layouts, a 7-step workflow, and a free layout.` (161 ⚠️ over 156; see PUBLISH PACK §1)
+- **Meta description (≤158):** `An office space-planning guide for Ontario businesses and institutions: how much space you need, the four layouts, a 7-step workflow, and a free layout.` (152)
 - **Handle:** `how-to-plan-an-office-layout-ontario`
 - **Tags:** design, space planning, office layout, Ontario
 
@@ -184,8 +184,8 @@ Brant Business Interiors, a division of Office Central Inc., has furnished Ontar
 ## 1. Title tag + meta description (FINAL)
 - **Title tag (page portion, <60):** `How to Plan an Office Layout: An Ontario Guide` (**46 chars.** Verified post-edit; the earlier "49" was a miscount, title text unchanged.)
   - Template appends the locked suffix ` | Brant Business Interiors — a division of Office Central Inc. (OECM Supplier)` (north-star voice rule). Do **not** hand-type the suffix into the title. *(The em-dash inside the backticked suffix is a verbatim quote of the locked template output, not body copy; left intact deliberately.)*
-- **Meta description (≤158):** `A practical office space-planning guide for Ontario businesses and institutions: how much space you need, the four layouts, a 7-step workflow, and a free layout.` (**161 chars; verified post-edit.**)
-  - ⚠️ **Count correction (pre-existing, NOT caused by em-dash removal):** the description is **161 chars**, over the **≤156** target (and the ≤158 limit noted here). The text is byte-identical to the original draft; the earlier "156" was a miscount. **Editorial decision for Leo: needs a trim before publish.** Suggested compliant rewrite (**152 chars**, primary kw intact): `An office space-planning guide for Ontario businesses and institutions: how much space you need, the four layouts, a 7-step workflow, and a free layout.` (not applied; confirm or supply your own.)
+- **Meta description (≤158):** `An office space-planning guide for Ontario businesses and institutions: how much space you need, the four layouts, a 7-step workflow, and a free layout.` (**152 chars.**)
+  - ✅ **Meta finalized (2026-06-03, Leo-approved):** trimmed to **152 chars**, inside the **≤156** SERP-truncation target. The prior "A practical..." version was **161 chars** (pre-existing length, NOT from the em-dash work; the earlier "156" label was a miscount). Final keeps all three signals: primary keyword (office space-planning + "the four layouts"), the Ontario business/institutional framing, and the free-layout click hook.
 - **Handle:** `how-to-plan-an-office-layout-ontario`
 - **Author:** Steve Katz (matches Cornerstone Post 1).
 - **Tags:** `design, space planning, office layout, Ontario`
