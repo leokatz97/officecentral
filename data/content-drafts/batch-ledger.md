@@ -58,6 +58,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 |---|---|---|
 | 1 | office furniture supplier (70/mo, KD29, commercial) | how to choose office furniture (40, low-comp, info); supplier of/for office furniture (KD2–29 variants); best office furniture brands (10); office furniture supplier ontario/canada/near toronto (geo long-tail); commercial office furniture (90, supporting). **Reserved for geo pages:** office furniture toronto (480). |
 | 2 | office furniture stores / store (590, KD1–6, commercial) | where to buy office furniture (+for business / good / online / where-to-buy variants, 10–20); office furniture near me (1300, KD19); office furniture stores near me (320); best place to buy office furniture (10). **Referenced not targeted:** costco/staples office furniture, office furniture online (brand-nav). |
+| 3 | lease vs buy / should you lease or buy office furniture (near-zero measured, AI-Overview + PAA) | office furniture rental/rent/renting/for-lease/to-lease (90, KD1); office equipment leasing (30, KD16); office furniture financing (10); office furniture leasing (10); lease to own (10); lease calculator (10, info). |
 
 ---
 
@@ -86,6 +87,18 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Snippet targets:** "online vs in store", "is it cheaper to buy office furniture online", "where do businesses buy office furniture".
 - **Sources:** commercial vs home-grade duty cycle + BIFMA/CSA; TCO argument; OECM 2025-470 (dealer-only advantage). No competitor named/disparaged.
 - **Gates:** validate-meta 56/154 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 3 — Lease vs Buy Office Furniture: A Canadian Guide (brief #5) ✅ COMMITTED e2792f5
+- **Primary kw:** `lease vs buy / should you lease or buy office furniture` (near-zero measured, AI-Overview fires + rich PAA). **Cluster claimed:** office furniture rental/rent/lease (90, KD1), office equipment leasing (30), financing (10), lease-to-own (10).
+- **Intent / persona / stage:** the *how to pay / acquire* decision · owner-operator + finance/ops manager · consideration, high commercial intent.
+- **HOW THIS DIFFERS:** acquisition-FINANCE axis (lease/rent/finance/buy) — not who (Slot 1), not where (Slot 2). Re-scoped to conclude buy+finance (BBI sells new; roadmap dropped consumer "rent").
+- **Sub-points & canonical homes:** OWNS lease-vs-rent-vs-finance-vs-buy, Canadian CCA Class 8 tax angle, when-leasing-wins, finance-the-purchase. LINKS: commercial-grade depth→Slot 8 [held]; design→pillar [held].
+- **AEO table design:** 4-option acquisition matrix (buy/finance/lease/rent × upfront / ownership / 7–10yr total cost / best-for) + "when leasing makes sense" `<ul>`. Distinct from Slots 1–2.
+- **FAQ questions:** tax deductible in Canada (CCA); disadvantages of leasing; expense vs asset; finance the purchase; when renting makes sense.
+- **Internal links (verified 200):** /collections/desks, /collections/task-chairs, /pages/design-services, /pages/oecm, /pages/quote.
+- **Snippet targets:** "is office furniture tax deductible canada", "disadvantages of leasing office furniture", AI Overview for the decision query.
+- **Sources:** CRA CCA Class 8 (20% declining-balance, "not tax advice"); durable-asset useful life; BBI financing/PO; OECM 2025-470.
+- **Gates:** validate-meta 47/155 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS. **FLAG: thin demand — confirm keep.**
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
