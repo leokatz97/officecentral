@@ -63,6 +63,7 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 | 5 | commercial grade office furniture / what is commercial grade / commercial vs residential furniture (10, LOW, info) | contract grade furniture; commercial office chair (30, KD42); office chair weight capacity (20). **Referenced not claimed as primary:** heavy duty office chair (170) — left to seating posts. |
 | 6 | sit stand desk vs fixed desk / standing desk vs regular desk (decision) | standing desk benefits (480, KD14, supporting); are standing desks worth it (40, KD12); sit stand desk benefits (30). **Does NOT claim (live posts own):** best standing desk canada, standing desk for office (170, transactional), 20-8-2/90-90-90 (ergonomics hub). |
 | 7 | open office vs private office (decision) / open plan vs closed | open concept office (210, KD12); open plan office (110, KD17); private office (170); open plan office disadvantages (10); cellular office (10). **Does NOT claim:** cubicle-vs-bench (Slot 8); office layout types/ideas (pillar); hot desking (draft); office pod (acoustic-pods draft). |
+| 8 | cubicle vs open office / cubicles vs benching (decision, 20 LOW) | modern office cubicles (90); office workstations (170, supporting); benching workstation (20). **Referenced not targeted (catalog heads):** office cubicle(s) 1300, office partitions 390. **Does NOT claim:** rooms open-vs-private (Slot 7). |
 
 ---
 
@@ -151,6 +152,16 @@ Live anchors already own: `oecm` + school-board procurement terms · `office lay
 - **Snippet targets:** "disadvantages of open-plan office", "best office layout", "how to add privacy to an open office".
 - **Sources:** 2013 42,000-worker satisfaction study (US/FI/CA/AU); ~20-min refocus-after-distraction (EU Parliament briefing). Fact-check before publish.
 - **Gates:** validate-meta 45/154 PASS (meta 162→154) · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
+
+### Slot 8 — Cubicles vs Open Benching Workstations (brief #6) ✅ COMMITTED a3ab5d2
+- **Primary kw:** cubicle vs open office / cubicles vs benching (decision, 20 LOW) + modern office cubicles (90) / office workstations (170) supporting.
+- **Intent / persona / stage:** the workstation-type decision · facility manager / office planner · consideration.
+- **HOW THIS DIFFERS:** workstation enclosure (panelled cubicles vs open benching). Slot 7 = rooms; hot-desking draft = assignment; acoustic-pods draft = pods. Catalog heads (cubicle/workstations 1300/170) referenced not targeted.
+- **AEO table design:** factor × cubicles × benching (6 rows) + "why cubicles evolved" + "modern middle ground". Distinct.
+- **FAQ:** cubicles vs benching difference; cubicles outdated?; which better; cubicle disadvantages; benching cheaper.
+- **Internal links (verified 200):** /collections/panel-systems, /collections/desks, /collections/acoustic-pods, /pages/design-services, /pages/quote.
+- **Sources:** Gensler 2023 (~12% prefer cubicles); panel-cost illustrative.
+- **Gates:** validate-meta 50/154 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match PASS.
 
 <!-- TEMPLATE per post:
 ### Slot N — <title> (brief #X)
