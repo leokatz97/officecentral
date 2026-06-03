@@ -351,7 +351,15 @@ li.ds-cs__card--hidden{display:none;}
             endfor
             for product in collection.products
               unless product.vendor == blank or vendor_list contains product.vendor
-                assign vendor_list = vendor_list | push: product.vendor
+                # Suppress our own dealer-name vendor strings from the Brand facet
+                # ("Brant Business Interiors" + "Office Central & Brant Business Interiors").
+                # These are the store/dealer, not manufacturers. Substring match catches both.
+                # Cards still render with data-vendor intact, so these products stay browsable
+                # (visible when no brand is filtered) — they just have no Brand checkbox.
+                assign vendor_check = product.vendor | downcase
+                unless vendor_check contains 'brant business interiors'
+                  assign vendor_list = vendor_list | push: product.vendor
+                endunless
               endunless
             endfor
           -%}
