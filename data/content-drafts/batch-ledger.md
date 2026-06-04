@@ -282,3 +282,19 @@ Per Leo: deeper, hard Ontario/Canada/2026, real Canadian competitive landscape n
 | 15 / 21 | 1143→1315 | Pod phone booths (quiet-spaces trend) |
 
 **All 15: validate-meta + faq byte-match + check-handles (every PDP/collection/page 200) PASS.** Shopify drafts untouched (re-sync after approval). HALT for Leo + Steve review; D3 content cross-links remain HELD plain text; FLAGGED-STEVE items (Made-in-Canada, warranty) still deferred.
+
+---
+
+## BATCH 2 — SYSTEM C: "Best Alternative to [Competitor]" series (DOCS ONLY, LEGAL-GATED, branch `content-batch2-systemC-alternatives-2026-06-04`, PR not merged)
+
+Per Batch-2 plan Part 2 (System C). **Highest-risk content in the program: every named-competitor statement is factual/public/cited/neutral (model-contrast, never disparagement) and HALTS for a real lawyer + Steve before any publish.** Three real targets only (Staples/G&T/Northern/Newmarket dropped off-strategy; Source flagged for later). Sequential, ≥2,200 words each, real verified PDPs, model-contrast table, byte-matched FAQ, 6 interlinks (verified 200). New brand-nav keywords claimed by Batch 2 — no collision with Track A clusters or live anchors.
+
+### Page 1 — Best Alternative to POI Business Interiors (Ontario) ✅ COMMITTED (files 22-*)
+- **Primary kw:** `poi business interiors` (1,300/mo · KD8 · navigational · +60% yr) + `poi furniture` (90, +57% qtr). Modifier intent "alternative to POI", not the bare brand.
+- **Competitor public model (cited):** full-service interiors firm — "over 65 years of industry leadership… Furniture, A/V Technology, Flooring, Construction Solutions, Facility Management, and Moves & Relocations" (POI Google profile); Steelcase Premier Partner (poi.ca/MapQuest/Steelcase); Toronto/North York + Barrie/London/Windsor; corporate/healthcare/education/government; **POI is an OECM supplier partner** (oecm.ca).
+- **HONESTY PIVOT:** plan guessed OECM as the wedge vs POI — POI ALSO holds OECM, so OECM is framed as a SHARED credential, never a POI gap. BBI wedge = furniture-focused multi-line model, transparent verified products/pricing online, in-house design + Ontario-wide install, no enterprise/project minimum.
+- **Products cited (verified-spec 2026-06-03; no product Made-in-Canada/warranty-years asserted):** Avro mesh-back MVL3101 (PDP); 96x50 4-person Ionic benching; Prime/Premium lateral file. Channel/PDP links: buy-canadian, avro PDP, design-services, industries, oecm, quote.
+- **Cluster/PAA covered:** poi alternative + reviews, poi furniture, business interiors toronto; AIO head PAA (best office furniture brand, save money on office furniture) addressed via FAQ.
+- **Word count:** 2,281. **Gates:** validate-meta 52/148 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match (5 items, 6 links) PASS.
+- **LEGAL FLAG:** 6 named-competitor statements (L-1..L-6) tabled in 22-*.md for lawyer review. Trademark hygiene: nominative use only, no logo, no implied affiliation.
+- **Claimed keywords:** `poi business interiors`, `poi furniture`, `poi business interiors alternative`.
