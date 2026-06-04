@@ -28,6 +28,40 @@
 
 ---
 
+## 🟢 Day 21 — 2026-06-03 — SPEC-AUDIT §5 FACTUAL CORRECTIONS (batch-fixable only) — LIVE Admin-API product writes · 13 SKUs · branch + PR, NOT merged
+
+**What:** applied the §5 batch-fixable factual mismatches from the spec-audit report (`docs/reviews/spec-audit-comparison-categories-2026-06-03.md`). **LIVE Admin-API writes** (`body_html` + `specs.*` + `global.title_tag`/`description_tag` metafields, which mirror SEO); **no theme write, no watcher** (watcher preflight PASS — no `shopify theme dev` running; product writes are theme-independent). EXCLUDED by scope: §3 (warranty/origin/certs — Steve-gated), §4 (config/wrong-model divergences), and brand mis-tags (need resolution). Engine: `scripts/push-spec5-factual-fixes.py` (dry-run default; asserts each old substring exists live → BLOCKS the product on any NO-MATCH; per-SKU timestamped backup of full body+metafields+seo to `data/backups/spec5-<id>-20260603-205734.json` BEFORE writing; hardened readback after). Dry run was green (13/13, 0 blocked) and Leo-approved before `--live`.
+
+**Re-confirm discipline (the Heartwood lesson):** each SKU re-checked against its cited datasheet in the findings JSON; the verified value had to be UNAMBIGUOUS (single datasheet, no config conflict, no "verify/confirm/unless" hedge). Any ambiguity → SKIP + FLAG, never guess.
+
+**13 SKUs corrected (LIVE, all readback-VERIFIED):**
+- `9699268591929` Sidero guest chair — overall height 32"H → **33"H** (`specs.dimensions`)
+- `9708357452089` OTG10740 masi — weight 27.5 lbs → **33 lbs / 15 kg** (body + `specs.weight`)
+- `9771515150649` The Accord — seat height 18–22"H → **17–21"H**; **knee-tilt → center-tilt** (2670-4) (body ×2 + `specs.dimensions` + `specs.key_features` + `global.description_tag`)
+- `9727967494457` Vertical file 2-dr — model **MVL25201 → 26-201**, depth 25" → **26.6"** (body ×4 + `global.title_tag` + `global.description_tag`; `specs.*` were already correct from a prior pass)
+- `9727969984825` 4-dr vertical file — body depth 25" → **26.56"**, weight 112 → **118 lbs** (body only; `specs.*` already correct)
+- `9950669635897` Newland 16" pedestal — dimensions `16"W` → **`16"W x 22.7"D x 28"H`** (`specs.dimensions`)
+- `9664290455865` Ibex MVL2823 — meta-tag **synchro-tilt → multi-tilter** (`global.description_tag`)
+- `9747454427449` Sparrow OTG10920 — **stacks 4 high → 5 high** (body ×2 + `specs.key_features`)
+- `9098317070649` Large fire/water safe — exterior axis remap `13"W×16"D×19"H` → **`16.3"W×19.3"D×13.7"H`** (body ×2 + `specs.dimensions`; warranty/origin/UL-Classified untouched — those are §3)
+- `9103335326009` Sentry safe X125 — interior depth 12-5/8" → **11.6"**; weight 35.1 → **26.8 lbs** (body ×2 + `specs.dimensions` + `specs.weight`)
+- `9724981215545` Napa conference table — **oval → racetrack** (body ×2 + `global.title_tag` + `global.description_tag`; origin "China" untouched — §3)
+- `9827425812793` Kensington AC12 — "4 locking casters" → **"4 casters with locking front pedals (two front wheels lock)"** (body ×2 + `specs.key_features`)
+- `9832610988345` Ceiling grids — **"12mm felt" → "9mm or 18mm EchoScape PET"** (body ×2 + `global.description_tag`; warranty/origin untouched — §3)
+
+**Readback note:** all 13 VERIFIED. `9950669635897` initially logged READBACK-MISMATCH — a **false positive** in the verifier (old `16"W` is a substring of new `16"W x 22.7"D x 28"H`, tripping the "old-still-present" check); independent GET confirmed the stored value is `16"W x 22.7"D x 28"H`. Log: `data/logs/spec5-fixes-20260603-205734.json`.
+
+**SKIPPED + flagged for the follow-up resolution pass (in §5 but failed the unambiguous re-check):**
+- `9816457904441` **MVL2732 Annapolis** (Luxhide → LuxPlus vinyl) — "Luxhide" is in the **product title + `model_codes`** and the audit flags conflicting channel listings → high blast radius + ambiguity.
+- `9666756935993` **Six 31** (polyester → Quilt QL10) — same SKU's mechanism reclassification is hedged "unless verifying"; fixing one spec leaves it internally inconsistent.
+- `9103392276793` **Pedestal box/box/file** (remove cushion claim) — covers mobile + non-mobile variants; remove-vs-qualify genuinely ambiguous.
+- Audit-hedged "verify/confirm": `9688255365433` U-shape Zira (265→350 lb), `9716463075641` Mobile drawer INV-MPUF (depth/height), `10042763280697` Mesh chair Java (transposed dims), `9779951436089` FireKing (shelf count), and the LuxPlus-vs-Luxhide family `9771009016121`/`9771597070649`/`9771600707897`/`9782581297465`.
+- Brand mis-tags excluded as out-of-scope (resolution, not auto-fix): `9768066646329` Ergo Boss, `9103183151417` L-shape reception (Heartwood→Newland), `9782586507577` Ibex (Kompanion→Ibex), `9666757919033` Overtime (ergoCentric→OTG), `9776146415929` Basics Chevron, plus the `9114485391673` "9300→Prime" line ref.
+
+**No theme write. Branch + PR, NOT merged. HALT.**
+
+---
+
 ## 🟡 Day 21 — 2026-06-03 — CATALOG SPEC-AUDIT (comparison-target categories) — AUDIT ONLY, DOCS PR, NOT MERGED · no live writes
 
 **What:** a verify-and-cache pass across the nine comparison-target categories so product-specific comparisons pump out fast AND accurate, and the rest of the Heartwood-type overstatements surface. **AUDIT ONLY** — verified, reported, cached; **zero live PDP writes** (corrections run later in reviewed batches; warranty/origin Steve-gated). DOCS branch `audit/spec-audit-comparison-categories-2026-06-03`, opened as a PR, **not merged**.
