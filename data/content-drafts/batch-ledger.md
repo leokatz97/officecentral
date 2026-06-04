@@ -350,4 +350,11 @@ Built legal-hardened from draft v1 (5 measures inline). **Both flagged PROMINENT
 - **Links (verified 200):** /products/part-time-armless-task-chair-mvl2836, /products/concorde-high-back-24hr-executive-synchro-tilter-2424, /collections/buy-canadian, /pages/design-services, /pages/oecm, /pages/quote.
 - **Length:** 2,252 words (≥2,200 floor PASS). **Gates:** validate-meta 58/149 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match 6/6 PASS · 0 em-dashes.
 
-## ✅ BATCH 2 SYSTEM C — now 5 of 5 drafted + gated (POI/atWork/Office Shop hardened + Staples/G&T new), DOCS ONLY, all LEGAL-GATED. Staples + G&T marked HIGHER-ENFORCEMENT-RISK for the lawyer. Nothing publishes until lawyer + Steve sign off; POI first, then watch.
+## ✅ BATCH 2 SYSTEM C — now 5 of 5 drafted + gated (POI/atWork/Office Shop hardened + Staples/G&T new), all LEGAL-GATED. Staples + G&T marked HIGHER-ENFORCEMENT-RISK for the lawyer. Nothing publishes until lawyer + Steve sign off; POI first, then watch.
+
+### UNPUBLISHED DRAFTS CREATED (2026-06-04) — Staples + Grand & Toy POSTed as published:false
+- Staples → article **689253482809**, handle `staples-office-furniture-alternative-ontario`, published:false.
+- Grand & Toy → article **689253515577**, handle `grand-and-toy-office-furniture-alternative-ontario`, published:false.
+- Independent Admin-API readback PASS: published_at=null, title_tag+description_tag set, faq.items present, FAQ byte-match. Featured image + alt NOT set (added in Admin at publish; flip-live enforces alt).
+- Prior 3 System C drafts NOT re-created (POI 689253155129 / atWork 689253187897 / Office Shop 689253220665 already existed).
+- Manifest: `data/content-drafts/batch-2-systemC-created-drafts-2026-06-04.md`. flip-live still HARD-GATED on lawyer + Steve; publish POI first and watch.
