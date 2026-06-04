@@ -317,4 +317,18 @@ Per Leo: deeper, hard Ontario/Canada/2026, real Canadian competitive landscape n
 
 ---
 
+## BATCH 2 — Wave 1 ROLL-OUT (2026-06-04) — 3 more SAFE pages on the same branch (Toronto geo, Ottawa geo, Supplier roundup). DOCS ONLY, dry-run gates only, no `--live`. Same claims discipline as the pilot. Fresh DataForSEO Canada pull 2026-06-04.
+
+### B2 Page 3 — Office Furniture in Toronto, Ontario (System B, geo) ✅ COMMITTED
+- **Primary kw:** `office furniture toronto` (480/mo, navigational + foreign commercial, CPC $9.70 — geo anchor, highest-volume geo, lane reserved by Slot 1 ledger note). **Cluster claimed:** office furniture stores toronto (40/mo, +33% q / +100% yr, secondary H2); commercial office furniture toronto (nav+commercial, semantic); office chairs toronto (590 — routed to /collections/task-chairs, not targeted as a page); executive / boardroom / modern office furniture toronto (semantic). **Referenced, NOT targeted (honest-capture):** used office furniture toronto (480, commercial) + liquidation toronto — BBI new-only, answered honestly, no fake used stock. **Cross-geo:** distinct from Mississauga (210).
+- **Intent / persona / stage:** local commercial where-do-I-buy-downtown intent · Toronto office/facilities manager + founder + BPS buyer · consideration/transactional, navigational skew → won on real local substance.
+- **HOW THIS DIFFERS from Mississauga:** different districts (Financial District/Bay Street, King West/Liberty Village/Distillery/Corktown, Discovery District/MaRS, Queen's Park/University Ave, Midtown/North York vs Mississauga's Airport Corporate Centre/Meadowvale/Hurontario/Sheridan Park/Dixie); different sectors (finance/professional-services/tech/government/creative vs corporate/logistics/pharma); DIFFERENT delivery wedge (downtown loading-dock + freight-elevator + COI + after-hours window vs Mississauga 400-series highway logistics); different products; office-furniture-store-vs-dealer H2 unique to Toronto. NOT a city-swap.
+- **ANTI-THIN substance:** 5 named districts, 5 sectors, downtown-tower delivery mechanics (dock booking, padded freight elevator, certificate of insurance, after-hours/weekend windows), institutions (Queen's Park/provincial agencies, City of Toronto, TDSB/TCDSB, UHN/Sinai/SickKids, U of T/TMU/George Brown/Seneca). 6 city-specific FAQs.
+- **Products cited (verified set 2026-06-03, distinct from Mississauga/Manufacturers/System C):** Global Zira executive workstation 10x10 (ZRA504), Annapolis high-back luxhide tilter (MVL2732), Offices to Go Format mesh-back synchro-tilter (MVL3191), Global Zira height-adjustable desk suite (Z108), Office Star Napa boardroom table (NAP series), Global Sidero guest chair. No product Made-in-Canada/maple-leaf; warranty qualitative; BIFMA/GREENGUARD/dimensions only.
+- **Internal links (verified 200):** /products/executive-workstation-10x10, /products/format-high-mesh-back-synchro-tilter, /products/u-shape-height-adjustable-desk-suite-zira, /collections/task-chairs, /pages/oecm, /pages/quote. D3 content cross-links (Slot 1 supplier guide, OECM cornerstone, industries) referenced in plain prose, HELD.
+- **Length:** 2,353 words (≥1,800 geo floor PASS).
+- **Gates:** validate-meta 36/141 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match 6/6 PASS · 0 em-dashes.
+
+---
+
 ## ✅ BATCH 2 WAVE 1 PILOT — 2 of 2 drafted + gated (DOCS ONLY). HALT for Leo's review before rolling the rest of Wave 1. System C (legal-gated alternative) NOT in this pilot.
