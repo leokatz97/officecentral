@@ -329,6 +329,16 @@ Per Leo: deeper, hard Ontario/Canada/2026, real Canadian competitive landscape n
 - **Length:** 2,353 words (≥1,800 geo floor PASS).
 - **Gates:** validate-meta 36/141 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match 6/6 PASS · 0 em-dashes.
 
+### B2 Page 4 — Office Furniture in Ottawa, Ontario (System B, geo) ✅ COMMITTED
+- **Primary kw:** `office furniture ottawa` (260/mo, navigational, CPC $7.89 — geo). **Cluster claimed:** office furniture stores ottawa (20/mo, KD7, secondary H2); commercial/government office furniture ottawa (semantic). **Referenced, NOT targeted (honest-capture):** used office furniture ottawa (320, commercial, +50% m) + used office chairs/industrial ottawa — BBI new-only, answered honestly. **Cross-geo:** distinct from Toronto + Mississauga.
+- **Intent / persona / stage:** local commercial + institutional-procurement intent · Ottawa procurement/facilities lead + department admin + Kanata founder + hospital buyer · consideration/transactional with a strong public-sector skew.
+- **HOW THIS DIFFERS:** strongest OECM/BPS tie-in of the geo set (federal + Ontario gov dominant) — the OECM-path section is the page's centre of gravity, links DOWN to the OECM cornerstone (plain prose, D3 HELD). Different districts (federal precinct/ByWard, Kanata North tech park, provincial/BPS cluster, healthcare, Nepean/Ottawa South) and sectors (government/tech/healthcare) than Toronto (finance/creative) or Mississauga (corporate/logistics). UNIQUE angle: secure / fire-rated records storage (government + healthcare). NOT a city-swap.
+- **ANTI-THIN substance:** federal precinct + ByWard Market, Kanata North (largest tech park in Canada), provincial/BPS cluster, The Ottawa Hospital + CHEO, suburban Nepean/Ottawa South; government-building delivery coordination (loading dock, security screening, after-hours, fiscal-year deadlines); OECM mechanics referenced (not re-explained) + federal framework noted as separate. 6 institutional-buyer FAQs.
+- **Products cited (verified set 2026-06-03, distinct from Toronto/Mississauga/Manufacturers/System C):** Offices to Go Stradic mesh-back tilter (MVL11860), Global 2600-series 4-drawer legal vertical file (26-451), FireKing UL Class 350 fire-rated cabinet (CF7236-D), Offices to Go management U-suite w/ 3-stage height-adjustable table (NLP410), Global Terina flip-top training tables, Lesro Willow bariatric guest chair (600 lb). No product Made-in-Canada/maple-leaf; warranty qualitative; BIFMA/GREENGUARD/UL/dimensions/capacity only.
+- **Internal links (verified 200):** /products/mvl11860-stradic-mesh-back-tilter, /products/2600-series-4-drawer-vertical-file-legal-26-451, /products/fireking-storage-cabinet-72-high, /products/management-u-shaped-suite-with-3-stage-height-adjustable-table-nlp410, /pages/oecm, /pages/quote. D3 content cross-links (OECM cornerstone, Slot 1 supplier guide, industries) plain prose, HELD.
+- **Length:** 2,205 words (≥1,800 geo floor PASS).
+- **Gates:** validate-meta 35/149 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match 6/6 PASS · 0 em-dashes.
+
 ---
 
 ## ✅ BATCH 2 WAVE 1 PILOT — 2 of 2 drafted + gated (DOCS ONLY). HALT for Leo's review before rolling the rest of Wave 1. System C (legal-gated alternative) NOT in this pilot.
