@@ -331,15 +331,26 @@ All 15 drafts read in full (brief `.md` + body `.html` + `-PACK.json`). No stati
 **FLAGGED-LEO**
 - Restore a specific BBI **financing** line if BBI offers one (Slot 3 / 09).
 - Confirm **delivery footprint** and restore national/Western Canada wording if real (Slots 1, 2, 15 — see 6.5).
-- **L-B5** "free design consultation/layout" (10 posts) — verify genuinely free.
-- **L-B11** lockable / fire-rated filing (Slot 12 / 18) — verify catalog carries it (kept as soft advice).
-- **S-8** BIFMA "hundreds of thousands of test cycles" (Slot 5 / 11) — verify magnitude (kept).
-- **S-9** weight-band internal inconsistency — 250 lb used as both consumer-top and commercial-bottom (Slot 5 / 11) — reconcile (kept).
-- **S-14** "major 2026 workplace design reports" (Slot 15 / 21) — name 1–2 reports or keep as soft consensus (kept).
 - **S-7** optional: add CAD + a C&W/JLL citation to the $10k–$30k figure (Slot 9 / 15).
 - Routine capability verifies **L-B6 / L-B9 / L-B10 / L-B12** (catalog breadth, PO acceptance, drawer-count) — kept, low risk.
+
+*(Five items closed in the 2026-06-04 second pass — S-8, S-9, S-14 firmed by edit; L-B5, L-B11 cleared as verified true. See **6.8**.)*
 
 **FLAGGED-STEVE**
 - Restore verified **Canadian-made / Made-in-Canada** product lines where true (O-1, O-2, O-3, O-4, O-5); re-add the 🍁 accent alongside any restored origin copy.
 - Decide **add-vs-omit** origin copy on Slots 11 & 12 (O-6).
 - Restore defensible **warranty** statements (W-1 dealer term; W-2 component coverage; W-3 commercial-warranty line).
+
+### 6.8 Second clearance pass (2026-06-04) — Leo items resolved
+
+*Edits limited to Slot 5 (file 11) and Slot 15 (file 21) `.html` bodies + Slot 5 `-PACK.json` faq_items. Voice/structure/interlink anchors preserved; faq_items byte-synced. No live writes; build-state untouched; PR #102 still open (not merged). Gates re-run on both edited slots: validate-meta PASS, check-handles PASS, create-draft DRY RUN PASS (faq byte-match + interlink count).*
+
+| Ref | Slot/file | Disposition | What was done |
+|---|---|---|---|
+| **S-8** BIFMA "hundreds of thousands of test cycles" | 5 / 11 | **FIRMED (resolved)** | No single cycle-count exists to cite — ANSI/BIFMA X5.1 is a battery of ~20 separate tests, each with its own acceptance level. The specific cycle-number claim was **removed**; copy now references **compliance with the standard** ("a battery of separate strength, stability, and durability tests, each with its own pass level"; "A chair tested to ANSI/BIFMA X5.1 has passed that full battery of tests"). |
+| **S-9** weight-band internal inconsistency (250 lb used as both consumer-top and commercial-bottom) | 5 / 11 | **FIRMED (resolved)** | Both figures are **true under different standards** — now attributed so they no longer read as contradictory. General-purpose seating is rated under **ANSI/BIFMA X5.1** for occupants up to **~253 lb (95th percentile)**; heavy-duty / large-occupant seating is rated under the **separate ANSI/BIFMA X5.11** for **~253 to 400 lb**. Consumer/residential weight cell reframed to "often unrated, or a low stated limit" (the 250-lb figure is the X5.1 commercial general-purpose rating, not a consumer ceiling). Table row + weight-capacity FAQ updated; PACK faq_items byte-synced. |
+| **S-14** "major 2026 workplace design reports" (no source named) | 15 / 21 | **FIRMED (resolved)** | Generic reference replaced with **named primary sources**: **Gensler's Design Forecast 2026** and its **"6 Trends Shaping Design in 2026"**, the **Gensler 2026 Global Workplace Survey** (16,000+ office workers across 16 countries), and **JLL's Global Design Perspectives 2026**. Brief, accurate attributions only — no figures beyond what those sources state. |
+| **L-B5** "free design consultation/layout" (10 posts) | all | **CLEARED (verified true)** | Confirmed genuinely free; kept as written. No edit needed. |
+| **L-B11** lockable / fire-rated filing | 12 / 18 | **CLEARED (verified true)** | Confirmed BBI catalog carries lockable and fire-rated filing; kept as written. No edit needed. |
+
+**FLAGGED-STEVE items unchanged** — Made-in-Canada (O-1 → O-6) and warranty (W-1 → W-3) remain deferred to a later restore pass; the conservative wording stands and the posts publish as-is.
