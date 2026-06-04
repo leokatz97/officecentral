@@ -254,3 +254,31 @@ All 15 posts: research (DataForSEO cluster + live SERP gap + cited evidence) →
 - **Sources:** <cited>
 - **Status:** drafted / PACK / dry-run gates PASS / committed <sha>
 -->
+
+---
+
+## DEEPEN PASS (2026-06-04) — all 15 deepened, retitled, #1-BBI-product added, gates PASS (DOCS ONLY, PR #102, NOT merged)
+
+Per Leo: deeper, hard Ontario/Canada/2026, real Canadian competitive landscape named factually (non-disparaging), real verified products with PDP links, **a specific Brant Business Interiors product at #1 in every post**, "where to get them" channel guidance. Each post: fresh DataForSEO live Ontario SERP + PAA + AI-Overview (within locked clusters) → deepened write → PACK rebuilt (title<60, meta<=155, faq_items byte-synced, interlinks unique + 200) → validate-meta + transform byte-match + check-handles PASS → committed.
+
+**Titles** retitled to 2026-comparison / Ontario-Canada frame (12 changed; 07/10/21 already geo). **Claims discipline held throughout:** no product Made-in-Canada or specific warranty terms (Steve-gated; manufacturer-as-Canadian-company facts only); no BBI financing (Slot 3); Ontario-wide delivery; OECM canonical wording; CRA Class 8 / Framery+CBRE / Kim&de Dear / Gloria Mark / Gensler / JLL kept as cleared; Heartwood SKU 9687458873657 excluded; §5 guardrails (no Sidero height, L-shape reception brand not stated). "#1 BBI product" = ranking BBI's own carried products on its own site (legitimate merchant editorial); competitor *references* stay factual/neutral.
+
+| Slot/file | Words before→after | #1 BBI product (PDP) |
+|---|---|---|
+| 1 / 07 | 1737→2593 | (vetting hub; landscape table, no single #1) |
+| 2 / 08 | 1372→1842 | (channel guide; real-CAD price bands) |
+| 3 / 09 | 1344→1568 | L-shaped desk w/ double pedestals |
+| 4 / 10 | 1073→1258 | Institutional Series lateral file |
+| 5 / 11 | 1205→1802 | Accord / Robust 500lb / 2600 steel file (3 exemplars) |
+| 6 / 12 | 1025→1253 | Global FreeFit height-adjustable benching |
+| 7 / 13 | 1028→1330 | 6-person benching w/ acoustic dividers |
+| 8 / 14 | 923→1147 | 96x50 Ionic benching run |
+| 9 / 15 | 935→1087 | Pod phone booths |
+| 10 / 16 | 932→1324 | Avro mesh-back (MVL3101) |
+| 11 / 17 | 902→1336 | Adapt (task) + Concorde (exec) |
+| 12 / 18 | 935→1447 | Premium Series lateral file |
+| 13 / 19 | 1069→1297 | Global Zira boat-shaped table |
+| 14 / 20 | 961→1221 | L-shape reception desk |
+| 15 / 21 | 1143→1315 | Pod phone booths (quiet-spaces trend) |
+
+**All 15: validate-meta + faq byte-match + check-handles (every PDP/collection/page 200) PASS.** Shopify drafts untouched (re-sync after approval). HALT for Leo + Steve review; D3 content cross-links remain HELD plain text; FLAGGED-STEVE items (Made-in-Canada, warranty) still deferred.
