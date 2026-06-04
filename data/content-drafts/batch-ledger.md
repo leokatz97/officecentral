@@ -339,6 +339,18 @@ Per Leo: deeper, hard Ontario/Canada/2026, real Canadian competitive landscape n
 - **Length:** 2,205 words (≥1,800 geo floor PASS).
 - **Gates:** validate-meta 35/149 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match 6/6 PASS · 0 em-dashes.
 
+### B2 Page 5 — Top Commercial Office Furniture Suppliers in Ontario (System A, supplier roundup) ✅ COMMITTED
+- **Primary kw:** the SUPPLIER/DEALER landscape — `commercial office furniture suppliers` (10/mo, commercial) + `office furniture suppliers ontario` / `office furniture dealers ontario` (long-tail/AEO; related set thin) + `office furniture companies` (30/mo, commercial). Rides the named-brand-comparison + AI-Overview intent. **Cluster claimed:** office furniture suppliers/dealers ontario, commercial office furniture suppliers, office furniture companies ontario. **Referenced not targeted:** `source office furniture` (4,400 cluster) — named in prose only (Source's national in-stock model), flagged for System-C treatment, not targeted here.
+- **Intent / persona / stage:** the *which supplier/landscape* comparison · Ontario commercial + institutional buyer mapping the field · consideration. System A pattern (like the Manufacturers guide) but for DEALERS, not makers.
+- **HOW THIS DIFFERS / DE-CONFLICT:** SUPPLIERS/DEALERS landscape (vs Manufacturers guide = MAKERS — cross-linked in prose, D3 HELD). Slot 1 owns how-to-CHOOSE/vet a supplier (criteria framework — linked UP in prose, D3 HELD); this roundup owns the named-supplier LANDSCAPE + comparison table. No collision: different intent (list/compare vs vet).
+- **LEGAL POSTURE (light glance, NOT full System-C):** every competitor described factually from its OWN public source, neutral model/position descriptors, NO superiority claim, NO disparagement, NO implied affiliation. On-page 'A note on sources' lists each source + verified 2026-06-04. Competitors: POI (poi.ca + OECM dir), The Office Shop (theofficeshop.ca + OECM furniture list), atWork (atwork.ca, verified 2026-06-04 — Canadian since 1983, e-comm + used/deals, Ontario showrooms), Grand & Toy (grandandtoy.com + OECM; ODP Group; Workspace Interiors), Staples Professional (staplesprofessional.ca + OECM since 2009). Source EXCLUDED from dated table (sourceofficefurniture.ca 403 on 2026-06-04) — prose-only by public positioning, re-verify at publish. atWork OECM cell = 'not identified' (verify at publish). BBI framed favorably on real strengths WITHOUT ranking others down; explicit 'no single best supplier, only best fit'.
+- **Comparison table:** supplier × public model × coverage × fits × OECM-furniture-partner (5 competitors + BBI; embedded HTML, caption + scope).
+- **Products/links (verified 200):** /collections/buy-canadian, /collections/task-chairs, /pages/design-services, /pages/industries, /pages/oecm, /pages/quote. Manufacturers guide + Slot 1 supplier-vetting guide cross-linked in plain prose, HELD.
+- **Length:** 2,500 words (≥2,200 roundup floor PASS).
+- **Gates:** validate-meta 52/154 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match 6/6 PASS · 0 em-dashes.
+
 ---
+
+## ✅ BATCH 2 WAVE 1 — pilot (2) + roll-out (3: Toronto, Ottawa, Supplier roundup) = 5 SAFE pages drafted + gated (DOCS ONLY, no live writes). Toronto vs Mississauga confirmed materially distinct. Supplier roundup carries a light-legal-glance flag. HALT for Leo's review.
 
 ## ✅ BATCH 2 WAVE 1 PILOT — 2 of 2 drafted + gated (DOCS ONLY). HALT for Leo's review before rolling the rest of Wave 1. System C (legal-gated alternative) NOT in this pilot.
