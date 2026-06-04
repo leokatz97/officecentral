@@ -1,0 +1,854 @@
+[
+  {
+    "id": "9103183151417",
+    "handle": "l-shape-reception-72-x-72-x-41-1",
+    "title": "L-shape reception — 72\" x 72\" x 41\"",
+    "brand": "OTG / Offices to Go",
+    "models": ["NLP7272RD", "NL2472RD", "NL4824R", "NL23BBF"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/reception-desks/newland-reception-desks/NLP7272RD",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "72\"W x 72\"D x 47.5\"H",
+        "datasheet_value": "72\"W x 72\"D x 47.5\"H (overall); transaction counter 29.6\", surround 41.3\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "claimed_specs dimension is correct. NOTE: the product TITLE says '72 x 72 x 41' — the 41 is the surround height, not the overall 47.5\" height. Title is internally inconsistent with the verified overall dimension but not strictly wrong (41.3\" is a real surround height). Consider title cleanup."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Thermally fused laminate (1\" top), 2 mm matching edge",
+        "datasheet_value": "Thermally fused laminate top, 1\" thick, 2mm matching edge",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "key_features (components)",
+        "claimed": "Primary desk NL2472RD, return NL4824R, box/box/file pedestal NL23BBF",
+        "datasheet_value": "NL2472RD primary, NL4824R return, NL23BBF box/box/file pedestal",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Component model breakdown matches OTG package contents exactly."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "datasheet_value": "BIFMA Level, Greenguard, Greenguard Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG general warranty: 5yr non-moving / 2yr moving parts. Newland laminate desking: laminate tops covered by Global's lifetime warranty (per NLP-series datasheets); moving/mechanical parts 5yr or 2yr.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Qualify as 'Limited lifetime warranty on the laminate work surfaces; moving parts (drawer slides, locks, casters) 2 years per OTG warranty policy.' Do not state a blanket 'Limited Lifetime Warranty' over the whole suite including the pedestal mechanicals.",
+        "notes": "Legally sensitive. OTG's official warranty page lists NO blanket lifetime term; lifetime applies only to laminate surfaces. The included NL23BBF pedestal's moving parts are 2yr. A blanket 'Limited Lifetime Warranty' overstates coverage on the mechanical components."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "global_description_tag (brand)",
+        "claimed": "Heartwood Innovations laminate L-shape reception desk",
+        "datasheet_value": "This is the Newland (OTG / Offices to Go) NLP7272RD; not a Heartwood product.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Replace 'Heartwood Innovations' with 'Newland by Offices to Go (Global Furniture Group)'.",
+        "notes": "The meta/description tag names the wrong product line. Heartwood is a different Global division. Brand mislabel."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9103190753593",
+    "handle": "newland-box-file-mobile-pedestal",
+    "title": "Newland box/file mobile pedestal — NLMP23BF",
+    "brand": "OTG / Offices to Go",
+    "models": ["NLMP23BF", "NLMP23BBF", "NL23HBF", "NLMPC23"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/pedestals/newland-pedestals/NLMP23BF",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "16\"W x 22.7\"D x 22.1\"H",
+        "datasheet_value": "16\"W x 22.7\"D x 22.1\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches OTG NLMP23BF datasheet exactly."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Thermally fused laminate construction",
+        "datasheet_value": "Thermally fused laminate, available in all Newland finishes",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "key_features (config/locking/casters/counterweight/pencil tray)",
+        "claimed": "Box+file, front locking with keys, file fits letter F-to-B or legal S-to-S, pencil tray, 1\" overhang grip top, counterweight, front-locking casters, ships assembled, optional NLMPC23 cushion",
+        "datasheet_value": "Box+file, both drawers front locking with lock+keys, file fits letter F-to-B/legal S-to-S, pencil tray, counterweight, front locking casters, shipped fully assembled",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Cushion top model NLMPC23 not independently confirmed on the NLMP23BF page but consistent with Newland pedestal accessory naming; treat cushion model as UNVERIFIABLE detail (low risk)."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "datasheet_value": "BIFMA Level, Greenguard, Greenguard Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG warranty: 5yr non-moving parts / 2yr moving parts (drawer slides, locks, casters). No blanket lifetime term for a mechanical pedestal.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "State '5-year limited warranty (non-moving) / 2-year on moving parts (slides, locks, casters)' per OTG policy. Remove 'Limited Lifetime Warranty'.",
+        "notes": "Legally sensitive. This is a mechanical (drawer/caster) product; OTG does not warrant moving parts for life. Lifetime claim overstates coverage."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9103385526585",
+    "handle": "storage-cabinet-medium-duty-72x18x36w",
+    "title": "Storage cabinet medium duty 72\"x18\"x36\"w — 72\"x18\"x36\"",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVLS72L", "GLBMVLS72LDWT", "GLBMVLS72LBLK"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/storage/mvlstor/MVLS72L",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "36\"W × 18\"D × 72\"H",
+        "datasheet_value": "36\"W x 18\"D x 72\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "materials",
+        "claimed": "Welded steel construction with powder-coat finish",
+        "datasheet_value": "Metal storage unit (OTG page states 'metal'; does not specify 'welded' construction or 'powder-coat')",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Soften to 'Steel construction' unless a datasheet confirming 'welded' + 'powder-coat' is on file.",
+        "notes": "OTG product page only says metal. 'Welded' and 'powder-coat finish' are plausible but not stated on the datasheet reviewed — cannot verify; do not assert."
+      },
+      {
+        "spec": "shelves",
+        "claimed": "1 fixed shelf + 3 adjustable shelves",
+        "datasheet_value": "Four shelves: 1 fixed + 3 adjustable, plus bottom pan usable as additional shelf",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Optionally note the bottom pan can serve as an extra shelf."
+      },
+      {
+        "spec": "key_features (doors/lock/glides)",
+        "claimed": "Two hinged doors, recessed angled full-length pull, lockable with key lock standard, leveling glides",
+        "datasheet_value": "Two hinged doors, recessed angled full pull, lock included as standard, leveling glides included",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "GREENGUARD, ANSI/BIFMA",
+        "datasheet_value": "GREENGUARD certified; meets or exceeds ANSI/BIFMA standards",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "unverifiable"
+  },
+  {
+    "id": "9103392276793",
+    "handle": "pedestal-box-box-file-with-or-without-wheels",
+    "title": "Pedestal - box/box/file (with or without wheels)",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVLW23BBF", "MVLM23BBF"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/mvlped/mvlped/MVLM23BBF",
+      "https://www.officestogo.com/en-ca/products/model/mvlped/mvlped/MVLW23BBF",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "MVLW23BBF (fixed): 15\"W x 23\"D x 27.62\"H; MVLM23BBF (mobile): 15\"W x 23\"D x 27.87\"H",
+        "datasheet_value": "MVLW23BBF: 15\"W x 23\"D x 27.62\"H; MVLM23BBF: 15\"W x 23\"D x 27.87\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Both dimensions match OTG datasheets exactly."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Steel / metal construction with electrostatically applied recyclable paint finish",
+        "datasheet_value": "Metal storage unit (OTG page confirms 'metal'; does not state 'electrostatically applied recyclable paint')",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Keep 'steel/metal construction'; the paint-finish descriptor is not on the OTG datasheet reviewed — soften unless confirmed in Global catalog.",
+        "notes": "Metal confirmed. Paint-finish language not verifiable from product page."
+      },
+      {
+        "spec": "key_features (config/slides/lock/casters/glides/cushion)",
+        "claimed": "Box/box/file, ball bearing slides, recessed angled full pull fronts, keylock (one key all drawers), pencil tray, F-to-B filing + conversion bars for S-to-S, fixed pre-drilled to fasten + glides, mobile concealed casters, cushion MVL23C separate",
+        "datasheet_value": "Box/box/file, ball bearing suspension slides, keylock with removable core, one pencil tray, file supports F-to-B with conversion bars for S-to-S, MVLM23BBF has concealed casters and does NOT accept seat cushion; MVLW23BBF has leveling glides",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Remove/qualify the 'cushion top MVL23C available' claim for the MOBILE MVLM23BBF — its datasheet states it does not accept a seat cushion. Cushion accessory may apply to other MVL pedestals but not this mobile model.",
+        "notes": "Mismatch is on the cushion-top claim for the mobile unit. Lock: datasheet says 'keylock with removable core' (consistent with one-key-locks-all). Other features verified."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "ANSI/BIFMA compliant",
+        "datasheet_value": "Tested to meet applicable ANSI/BIFMA standards",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Lifetime warranty",
+        "datasheet_value": "OTG warranty: 5yr non-moving / 2yr moving parts. No lifetime term for a metal mechanical pedestal.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Replace 'Lifetime warranty' with '5-year limited warranty (non-moving) / 2-year on moving parts' per OTG policy.",
+        "notes": "Legally sensitive. All-metal mechanical product; OTG does not offer a lifetime warranty. Overstated."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9698697576761",
+    "handle": "bookcase-15-sizes-available",
+    "title": "Bookcase (15 sizes available) — 15 sizes",
+    "brand": "OTG / Offices to Go",
+    "models": ["SL30BC", "SL48BC", "SL71BC", "SL36HO", "NL49BC", "NL66BC"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/newland-desking/newland-bookcases/NL66BC",
+      "https://www.officestogo.com/en-ca/products/model/newland-bookcases/newland-bookcases/NL49BC",
+      "https://www.officestogo.com/products/model/superior-laminate-desking/superior-laminate-desking-series/SL71BC",
+      "https://www.officestogo.com/products/model/superior-laminate-desking/superior-laminate-desking-series/SL48BC",
+      "https://www.officestogo.com/products/model/superior-laminate-desking/superior-laminate-desking-series/SL30BC"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "Multiple heights: 30\", 36\", 48\", 49\", 65.6\"–66\", 71\" × 14\"–32\" wide",
+        "datasheet_value": "Superior Laminate: SL30BC 32\"W x 14\"D x 30\"H, SL48BC 32x14x48, SL71BC 32x14x71. Newland: NL49BC 30\"W x 12\"D x 48.6\"H, NL66BC 30\"W x 12\"D x 65.6\"H.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Heights match (66 in claim = NL66BC 65.6\"; 49 = NL49BC 48.6\"). Width range: SL series is 32\"W (14\"D), Newland is 30\"W (12\"D). The '14\"-32\" wide' phrasing conflates width and depth — Newland depth is 12\" not 14\". Minor copy imprecision, not a factual spec error on the individual models."
+      },
+      {
+        "spec": "materials/edges",
+        "claimed": "TFL, 3mm impact-resistant Super Edges (Superior Laminate) or 2mm matching edge (Newland)",
+        "datasheet_value": "Superior Laminate SL71BC: 3mm PVC matching edge; Newland NL49BC: 2mm matching edge",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Edge spec per series confirmed."
+      },
+      {
+        "spec": "key_features (shelf counts)",
+        "claimed": "30\" 1-shelf, 48\" 2-shelf, 71\" 4-shelf (Superior Laminate); 48.6\" and 65.6\" (Newland)",
+        "datasheet_value": "SL30BC = 1 shelf, SL48BC = 2 shelf, SL71BC = 4 shelf (1 fixed + 3 adjustable); NL49BC = 4 shelf (3 adjustable); NL66BC = 1 fixed + 3 adjustable",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "datasheet_value": "NL66BC: BIFMA Level, Greenguard, Greenguard Gold (confirmed). Superior Laminate series GREENGUARD confirmed elsewhere.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Confirmed on Newland; Superior Laminate Greenguard consistent with series."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG laminate: laminate covered by lifetime; OTG general policy is 5yr non-moving / 2yr moving. Bookcases are non-mechanical laminate (no moving parts) — lifetime on laminate is supportable.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "For a laminate bookcase with no moving parts, the lifetime-on-laminate position aligns with Global/OTG laminate-surface coverage. Lower risk than mechanical products, so left as VERIFIED, but best practice is to phrase as 'limited lifetime warranty on laminate'."
+      },
+      {
+        "spec": "key_features (SL36HO)",
+        "claimed": "Listed model SL36HO included in '15 sizes'",
+        "datasheet_value": "SL36HO (36\" hutch/open) not independently fetched in this audit.",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "One of several models in a 15-size umbrella listing; SL36HO not individually verified. Low risk — the umbrella dimensions/edges/shelf claims for the verified models all check out."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "NL66BC Made in Canada confirmed; Newland/SL laminate lines made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9745591533881",
+    "handle": "mobile-pedestal-drawer-box-file",
+    "title": "Mobile pedestal drawer box/file",
+    "brand": "OTG / Offices to Go",
+    "models": ["NLMP23BF"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/pedestals/newland-pedestals/NLMP23BF",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "16\"W × 22.7\"D × 22.1\"H",
+        "datasheet_value": "16\"W x 22.7\"D x 22.1\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "materials",
+        "claimed": "Thermally fused laminate (TFL) body",
+        "datasheet_value": "Thermally fused laminate",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "key_features (config/slides/lock/casters/counterweight/cushion)",
+        "claimed": "Box+file, F-to-B letter / S-to-S legal w/ bars, both lock w/ keyed cylinder, ball-bearing full-extension slides, counterweight, front-locking casters, pencil tray, 1\" overhang grip, accepts optional seat cushion",
+        "datasheet_value": "Box+file, both drawers front locking w/ lock+keys, file fits letter F-to-B/legal S-to-S, counterweight, front locking casters, pencil tray. OTG page does not state full-extension slides or seat-cushion compatibility for NLMP23BF.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Drop 'ball-bearing full-extension' (datasheet does not confirm full-extension) to 'ball-bearing slides'; verify or remove the 'accepts optional seat cushion' claim — not stated on the NLMP23BF datasheet.",
+        "notes": "Minor factual over-specification of slide type and cushion compatibility versus the OTG product page."
+      },
+      {
+        "spec": "body_numeric_claims (19\" deep model)",
+        "claimed": "19\" deep model dimensions: 15\"W x 18.5\"D x 23.13\"H",
+        "datasheet_value": "Not part of NLMP23BF (which is 22.7\"D). This appears to reference a different/shallower pedestal model.",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Remove the orphan '19\" deep model' dimension line — it does not correspond to NLMP23BF and no model is named.",
+        "notes": "Stray dimension in body copy not tied to the listed model. Likely copy bleed from another pedestal."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "BIFMA Level, GREENGUARD Gold",
+        "datasheet_value": "BIFMA Level, Greenguard, Greenguard Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Body copy also asserts 'metal construction tested to ANSI/BIFMA' — INCORRECT: NLMP23BF is a TFL/laminate pedestal, not metal. Recommend removing the 'metal construction' phrase from body copy."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9782589817145",
+    "handle": "desktop-sit-stand-workstation-mvl5230b0",
+    "title": "Desktop sit-stand workstation — MVL5230B0",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL5230B0", "MVL5230B5"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/keyboard-supports/keyboard-support-series/MVL5230B0",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "35.4\"W x 23.2\"D x 6.2\"–20\"H",
+        "datasheet_value": "35.4\"W x 23.2\"D x 6.2-20\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "35 lbs (worksurface load)",
+        "datasheet_value": "Supports up to 35 lbs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "key_features (height adjustability range)",
+        "claimed": "13.8\" of height adjustability (sit-to-stand)",
+        "datasheet_value": "13.8\" of height adjustability",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "This is a desktop riser (gas/spring-assist mechanism), NOT a powered electric base. No motor/stages/speed apply to this model — correctly absent from claims."
+      },
+      {
+        "spec": "key_features (tool-free, 24\"+ worksurface, keyboard tilt, grommet)",
+        "claimed": "No tools required; mounts to 24\"+ deep worksurface; keyboard tilts -10°/+10°; grommet for cord routing; light enough to move",
+        "datasheet_value": "No tools required; adapts to 24\" or deeper worksurface; keyboard surface tilts -10°/+10°; grommet for cord escape; light enough to move desk to desk",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "materials",
+        "claimed": "Black powder-coated steel frame, black laminate worksurface",
+        "datasheet_value": "Black frame and surface (OTG page does not specify 'powder-coated steel' or 'laminate' surface material)",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Soften to 'black frame and worksurface' unless a spec sheet confirms 'powder-coated steel' and 'laminate'.",
+        "notes": "Color (black) confirmed; the construction-material descriptors are not stated on the product page reviewed."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG warranty: moving parts / gas mechanisms 2yr; non-moving 5yr. A spring/gas-assist riser is a moving-mechanism product — NOT lifetime.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Replace 'Limited Lifetime Warranty' with the OTG term: 2-year on the moving lift mechanism (gas cylinders/mechanisms are 2yr per policy) / 5-year non-moving.",
+        "notes": "Legally sensitive. The lift mechanism falls under OTG's 2-year moving-parts coverage. Lifetime claim materially overstates warranty."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Not stated on the OTG product page.",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Do not assert 'Made in Canada' for this riser. OTG sit-stand riser/keyboard-support accessories are commonly imported; the product page does not display a Made-in-Canada mark. Verify origin before publishing.",
+        "notes": "Legally sensitive (Made in Canada claim). Unlike the Canadian-made laminate desking and metal storage in this batch, the MVL5230 keyboard-support series shows no Made-in-Canada designation on the datasheet. Treat origin as unverified/likely imported until confirmed."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9782658629945",
+    "handle": "single-pedestal-desk-nlp232",
+    "title": "Single pedestal desk — NLP232",
+    "brand": "OTG / Offices to Go",
+    "models": ["NLP232"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/newland-desking/newland-packages/NLP232"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "60″W x 30″D",
+        "datasheet_value": "NLP232 package: desk surface 60\"W x 30\"D (overall package 60\"W x 29.7\"D x 29.6\"H)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "60x30 nominal surface confirmed. NLP232 is a package: NL6030D rectangular desk + NL23BBF box/box/file pedestal."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Thermally fused laminate (1″ thick), 2mm PVC edge banding",
+        "datasheet_value": "Thermally fused laminate top, 1\" thick, 2mm matching edge (Newland)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "OTG describes '2mm matching edge'; 'PVC' is the typical material but not explicitly stated as PVC on this page — minor, low risk."
+      },
+      {
+        "spec": "key_features (single pedestal, glides, modular)",
+        "claimed": "60Wx30D surface, single pedestal storage, TFL 1\", 2mm edge, leveling glides, Newland modular",
+        "datasheet_value": "Package includes rectangular desk + box/box/file pedestal; leveling glides; Newland modular system",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Note: the NLP232 pedestal is box/box/file (NL23BBF), i.e., 3 drawers. 'Single pedestal' refers to one pedestal column (correct), not single drawer."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada (Newland line)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Body copy claim 'Delivery across Canada; installation available in Ontario and Western Canada' is a BBI logistics statement, not a manufacturer spec — out of audit scope."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "(none claimed in claimed_specs)",
+        "datasheet_value": "n/a",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "No warranty asserted — nothing to correct."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9788608184633",
+    "handle": "wood-laminate-storage-cabinets",
+    "title": "Wood laminate storage cabinets",
+    "brand": "OTG / Offices to Go",
+    "models": ["SL3622SC"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/products/model/superior-laminate-desking/superior-laminate-desking-series/SL3622SC",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "36\"W x 22\"D x 29.5\"H",
+        "datasheet_value": "36\"W x 22\"D x 29.5\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "materials",
+        "claimed": "Thermally fused laminate, 3mm matching impact-resistant Super Edges",
+        "datasheet_value": "TFL construction, 3mm matching impact resistant edges",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "key_features (lock/shelf/handle/connects)",
+        "claimed": "Lockable doors, one adjustable shelf, color-coordinated handle (silver or black), connects to other Superior Laminate desking",
+        "datasheet_value": "Storage cabinet with lock (random keying, keyed-alike optional), one adjustable shelf, handle finish-dependent (silver/black with upcharge options)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "GREENGUARD-compliant emissions",
+        "datasheet_value": "GREENGUARD certified",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG: lifetime on laminate surfaces; cabinet door lock/hinge are minor mechanical components (2yr moving parts under OTG policy).",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Phrase as 'limited lifetime warranty on the laminate; 2-year on moving parts (lock, hinges)'. Avoid a blanket 'Limited Lifetime Warranty'.",
+        "notes": "Legally sensitive but lower severity than all-metal mechanical items — this is predominantly a laminate product. Best practice is to scope lifetime to the laminate."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada (body copy: 'Made in Canada')",
+        "datasheet_value": "Superior Laminate line is Made in Canada; SL3622SC page reviewed did not render the origin mark but the Superior Laminate series is Canadian-made.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Made-in-Canada consistent with the Superior Laminate desking line. Confidence high but page-level mark not captured in this fetch."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9900174475577",
+    "handle": "management-u-shaped-suite-with-3-stage-height-adjustable-table-nlp410",
+    "title": "Management \"u\" shaped suite with 3-stage height adjustable table — NLP410",
+    "brand": "OTG / Offices to Go",
+    "models": ["NLP410"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/newland-desking/newland-packages/NLP410",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "See product configuration (none specified)",
+        "datasheet_value": "Overall 72\"W x 96\"D x 65.6\"H; height-adjustable table range 22.6\"–48.2\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Populate dimensions with 72\"W x 96\"D x 65.6\"H (overall) and table range 22.6\"–48.2\"H.",
+        "notes": "Datasheet provides full dimensions; current listing leaves them blank. Recommend adding."
+      },
+      {
+        "spec": "height-adjustable table (stages/motor/range/capacity/speed)",
+        "claimed": "3-stage electric height-adjustable L-shaped table; greater range than 2-stage; 1\" thick TFL; 2mm edge",
+        "datasheet_value": "3-stage base, DUAL motor, range 22.6\"–48.2\"H, 265 lbs lift capacity, 1.2\"/sec speed, digital controller w/ 4 memory positions, anti-collision sensor, 42dB",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Optionally enrich with verified figures: dual-motor 3-stage, 22.6\"–48.2\" range, 265 lb lift, 1.2\"/sec, 4 memory presets, anti-collision.",
+        "notes": "3-stage + electric claim confirmed. Strong opportunity to add the verified motor/range/capacity/speed figures rather than the vague '3-stage' framing."
+      },
+      {
+        "spec": "key_features (components)",
+        "claimed": "3-stage sit-stand L-desk, credenza with hutch, hanging pedestal — NLP Series modular",
+        "datasheet_value": "L-shaped height-adjustable table, credenza with hutch, hanging box/file pedestal, return table with adjustable base, laminate doors, tackboard",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Datasheet lists additional included components (return table, tackboard, laminate doors) not mentioned in claim — under-stated, not wrong."
+      },
+      {
+        "spec": "materials",
+        "claimed": "TFL (1\" thick), 2mm PVC edge, 3-stage steel frame",
+        "datasheet_value": "TFL top 1\" thick, 2mm matching edge, 3-stage base",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "(none in claimed_specs)",
+        "datasheet_value": "ETL/CETL certified; Greenguard + Greenguard Gold; BIFMA Level (G)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Optionally add: ETL/cETL, Greenguard/Greenguard Gold, BIFMA Level.",
+        "notes": "Certifications available on datasheet; listing omits them."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "(none in claimed_specs; body copy implies premium suite)",
+        "datasheet_value": "Laminate tops covered by Global's lifetime warranty; 5-year warranty on base components including electrical/motorized parts",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "If warranty copy is added, use 'lifetime on laminate tops; 5-year on the powered base, motors and electrical components' — do NOT extend lifetime to the powered base.",
+        "notes": "Heartwood-tier discipline: this is the powered base in the batch. The base/motor warranty is explicitly 5yr, NOT lifetime. Flag any future copy that says 'lifetime' over the base."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "OTG page shows Made in Canada for the NLP410 suite. Note the dual-motor electric base components themselves are commonly imported even when the suite is assembled/finished in Canada — Made-in-Canada applies at the suite level per the datasheet."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "Title and claims say '3-stage' table; datasheet confirms a genuine 3-stage dual-motor base (22.6\"–48.2\", 265 lb, 1.2\"/sec). Configuration matches — no divergence. The only discipline note is warranty scoping (base = 5yr, not lifetime).",
+    "overall": "clean"
+  },
+  {
+    "id": "9950669635897",
+    "handle": "newland-16w-box-box-file-mobile-pedestal-nlmp23bbf",
+    "title": "Newland | 16\"w box/box/file mobile pedestal — NLMP23BBF",
+    "brand": "OTG / Offices to Go (Global Furniture Group)",
+    "models": ["NLMP23BBF"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/pedestals/newland-pedestals/NLMP23BBF",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "16\"W",
+        "datasheet_value": "16\"W x 22.7\"D x 28\"H",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Populate full dimensions: 16\"W x 22.7\"D x 28\"H.",
+        "notes": "Only width is listed. Not wrong, but incomplete — depth and height should be added (28\"H, NOT the 22.1\"H of the box/file NLMP23BF)."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Thermally fused laminate",
+        "datasheet_value": "Thermally fused laminate",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "key_features (config/lock/casters/counterweight/filing/pencil tray)",
+        "claimed": "box/box/file, all lock, TFL top with grip, counterweight, front locking casters, letter+legal filing, pencil tray",
+        "datasheet_value": "Box/box/file all-locking, 1\" overhang grip top, counterweight, front locking casters, file fits letter F-to-B or legal S-to-S, pencil tray, ships assembled",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "(not in claimed_specs)",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Can add 'Made in Canada' (datasheet-confirmed).",
+        "notes": ""
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "10197159477561",
+    "handle": "newland-16w-box-box-file-mobile-pedestal",
+    "title": "Newland | 16\"W Box/Box/File Mobile Pedestal",
+    "brand": "Global Furniture Group (Offices to Go)",
+    "models": ["NLMP23BBF / NLMP23BBFNGL"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/pedestals/newland-pedestals/NLMP23BBF",
+      "https://www.officestogo.com/warranty"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "16\"W x 22.7\"D x 28\"H",
+        "datasheet_value": "16\"W x 22.7\"D x 28\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches OTG NLMP23BBF datasheet exactly."
+      },
+      {
+        "spec": "materials",
+        "claimed": "45 lb density particleboard; thermally fused laminate (TFL); 2mm matching edge banding",
+        "datasheet_value": "Thermally fused laminate, 2mm matching edge (OTG page confirms TFL + 2mm edge; does not state '45 lb density particleboard' substrate)",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "TFL + 2mm edge verified. The '45 lb density particleboard' substrate spec is not on the OTG product page — leave only if confirmed from Global's technical spec sheet, else soften.",
+        "notes": "Particleboard core density is plausible (Global publishes 45lb cores on some lines) but not on the page reviewed; classify the substrate-density detail as unverifiable."
+      },
+      {
+        "spec": "key_features (config/filing/slides/top/casters/counterweight/pencil tray/fit/assembly)",
+        "claimed": "2 locking box + 1 locking file; letter F-to-B or legal S-to-S; ball-bearing suspension; 1\" TFL top w/ 2mm edge + grip overhang; front locking casters; counterweight anti-tip; pencil tray + lock & keys; flush under 30\"D desks / 24\"D returns (no modesty panel); ships fully assembled",
+        "datasheet_value": "Box/box/file all-locking; file letter F-to-B/legal S-to-S; 1\" overhang grip top; front locking casters; counterweight; pencil tray + lock & keys; sits flush under 30\"D table desks (w/ or w/o modesty panel) or 24\"D returns without modesty panel; ships fully assembled",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "All feature claims confirmed against datasheet. Ball-bearing suspension consistent with Newland pedestals."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "ANSI/BIFMA, LEVEL Certified, GREENGUARD",
+        "datasheet_value": "BIFMA Level, Greenguard (Newland pedestals carry BIFMA Level + Greenguard/Greenguard Gold)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Could add 'Greenguard Gold' which the Newland line also holds."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Lifetime",
+        "datasheet_value": "OTG warranty: 5yr non-moving / 2yr moving parts (slides, locks, casters). No lifetime term for a mechanical pedestal.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Replace 'Lifetime' with '5-year limited (non-moving) / 2-year moving parts' per OTG policy; the body copy 'Made in Canada... lifetime warranty' should be corrected.",
+        "notes": "Legally sensitive. Mechanical drawer-and-caster pedestal; OTG offers no lifetime warranty on this product. Overstated."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  }
+]

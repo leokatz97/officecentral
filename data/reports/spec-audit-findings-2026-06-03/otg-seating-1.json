@@ -1,0 +1,817 @@
+[
+  {
+    "id": "9664281542969",
+    "handle": "ashton-high-back-tilter",
+    "title": "Ashton | high back tilter",
+    "brand": "OTG / Offices to Go",
+    "models": ["OTG11858B", "OTG11859B"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/management-seating/ashton/OTG11858B",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26\"W x 25.5\"D x 44.5\"H",
+        "datasheet_value": "26\"W x 25.5\"D x 44.5\"H",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches OTG11858B datasheet exactly."
+      },
+      {
+        "spec": "seat_height",
+        "claimed": "18.5\"-22\" (in key_features)",
+        "datasheet_value": "18.5\" - 22\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "(not claimed on page)",
+        "datasheet_value": "300 lbs",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "No capacity claim on the page; datasheet lists 300 lbs (general seating). Nothing to flag."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Center-tilt mechanism with upright position lock; tilt tension adjustment",
+        "datasheet_value": "Center tilt with upright position tilt lock; tilt tension adjustment",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "[GREENGUARD, GREENGUARD Gold]",
+        "datasheet_value": "GREENGUARD, GREENGUARD Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG Limited Lifetime Warranty program: frame lifetime; BUT upholstery/textiles/mesh, pneumatic lifts, mechanisms, casters and plastic components are 2 or 5 years by series (8hr/5-day use).",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Acceptable as the program name, but body copy that implies all-component lifetime coverage overstates it. Consider 'OTG Limited Lifetime Warranty (lifetime on frame; 2-5 yr on mechanism, lift, upholstery & casters)'.",
+        "notes": "General seating: lifetime is the program name. Functional/wearing parts are NOT lifetime. Flagged as advisory, not a mismatch."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Not stated on the OTG product page fetched; OTG management seating is commonly Canadian-assembled but origin was not confirmed on the datasheet.",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Confirm 'Made in Canada' badge on the OTG11858B spec PDF before asserting origin (legally sensitive).",
+        "notes": "Origin not surfaced on the fetched page; do not assume."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9664289014073",
+    "handle": "ibex-upholstered-seat-mesh-back-multi-tilter-1",
+    "title": "Ibex | upholstered seat & mesh back multi-tilter — MVL2803",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL2803", "OTG2803", "MVL2801", "MVL2804", "MVL2806", "MVL2817", "MVL2819C", "MVL2831BSUU", "MVL2832C"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/mesh-seating/ibex/MVL2803",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26\"W x 27\"D x 39.5\"H; Seat Height: 17.5\" - 21.5\"",
+        "datasheet_value": "26\"W x 27\"D x 39.5\"H; Seat Height 17.5\" - 21.5\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "materials",
+        "claimed": "Upholstered seat fabric, mesh back",
+        "datasheet_value": "Mesh back (Black MS69); seat in Grade 1 textiles or LuxPlus; SSU armcaps",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Upholstered seat + mesh back confirmed."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Multi-tilt mechanism; adjustable lumbar; height-adjustable arms; five-star base",
+        "datasheet_value": "Multi-tilter mechanism, infinite-position tilt lock, tilt tension, independent back & seat angle, height-adjustable lumbar, T-arms",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "(none claimed)",
+        "datasheet_value": "GREENGUARD, BIFMA compliant, LEVEL",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Could add GREENGUARD/BIFMA LEVEL (datasheet supports them).",
+        "notes": "No cert claim made, so nothing overstated."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG Limited Lifetime program: lifetime frame; 2-5 yr on mesh/upholstery, lift, mechanism, casters.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Same advisory as Ashton — qualify component terms in body copy.",
+        "notes": "Program name correct; component caps apply."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada (badge present on MVL2803 page)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Datasheet shows Made in Canada logo."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "Note: global_description_tag says 'Global Ibex' — Ibex is the Offices To Go (OTG) line under Global Furniture Group; branding wording is loose but not a spec error.",
+    "overall": "clean"
+  },
+  {
+    "id": "9664290455865",
+    "handle": "ibex-mesh-seat-back-multi-tilter-1",
+    "title": "Ibex | mesh seat & back multi-tilter",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL2823", "MVL2803", "MVL2821", "MVL2813", "MVL2824", "MVL2801", "MVL2804", "MVL2826", "MVL2806"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/mesh-seating/ibex/MVL2823",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26\"W x 27\"D x 39.5\"H",
+        "datasheet_value": "26\"W x 27\"D x 39.5\"H; seat height 17.5\"-21.5\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Matches MVL2823 (mesh seat + mesh back variant)."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Black mesh seat and back (MS69), self-skinned urethane armcaps",
+        "datasheet_value": "Air-flow mesh seat and back, Black mesh (MS69) only, SSU armcaps",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Full mesh seat + back confirmed for MVL2823."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Multi-tilter mechanism with infinite-position tilt lock; tilt tension; independent back & seat angle; forward seat angle; height-adjustable lumbar",
+        "datasheet_value": "Multi-tilter mechanism, infinite-position tilt lock, tilt tension, independent back & seat angle adjustment",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "[BIFMA, GREENGUARD, LEVEL G]",
+        "datasheet_value": "GREENGUARD, BIFMA compliant, LEVEL",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "'LEVEL G' should read 'LEVEL' (BIFMA LEVEL sustainability rating); datasheet does not specify a 'G' tier here.",
+        "notes": "Certs present; 'LEVEL G' wording is imprecise but the certifications themselves are correct."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG Limited Lifetime program: lifetime frame; 2-5 yr on mesh/lift/mechanism/casters.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Same component-term advisory.",
+        "notes": ""
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Engineered in Canada / Made in Canada (badge on MVL2823 page)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "mechanism_descriptor (body copy)",
+        "claimed": "global_description_tag calls it a 'synchro-tilt mechanism'",
+        "datasheet_value": "MVL2823 uses a MULTI-TILTER mechanism, not synchro-tilt.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Change description-tag 'synchro-tilt mechanism' to 'multi-tilter mechanism' to match the model and the rest of the page copy.",
+        "notes": "The key_features list correctly says multi-tilter; only the SEO description tag says synchro-tilt. Internal contradiction + datasheet says multi-tilter."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9664325615929",
+    "handle": "overtime-350-high-back-heavy-duty-multi-tilter",
+    "title": "Overtime 350 | high back heavy duty multi-tilter",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL13040", "MVL13090"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/heavy-duty-seating/overtime-350/MVL13040",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26\"W x 26\"D x 42\"H",
+        "datasheet_value": "26\"W x 26\"D x 42\"H; seat height 19\"-23\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "350 lbs (heavy duty)",
+        "datasheet_value": "350 lbs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "seat_height",
+        "claimed": "19\"-23\" (key_features)",
+        "datasheet_value": "19\" - 23\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "[BIFMA LEVEL, GREENGUARD, GREENGUARD Gold]",
+        "datasheet_value": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada (badge on MVL13040 page)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Canadian-made claim confirmed by datasheet."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "HEAVY DUTY SEATING = 5 YEARS (per OTG warranty summary, heavy-duty seating, users up to 350 lbs, 8hr/5-day). NOT lifetime.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Change warranty to '5-Year Limited Warranty' (OTG heavy-duty seating term). Do NOT advertise lifetime on this heavy-duty model.",
+        "notes": "OTG's own warranty document places heavy-duty seating in a 5-year tier, distinct from the lifetime general-seating program. Legally sensitive overstatement."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9666389082425",
+    "handle": "ibex-mesh-back-drafting-stool-task-chair-with-arms",
+    "title": "Ibex mesh back drafting stool task chair with arms",
+    "brand": "Global Upholstery Co. / Global Furniture Group (Offices To Go)",
+    "models": ["MVL2808F / MVL2808F JN02"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/mesh-seating/ibex/MVL2808",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26\"W x 26.5\"D x 48\"H; seat height 23\"-33\"",
+        "datasheet_value": "26\"W x 26.5\"D x 48\"H; seat height 23\" - 33\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "materials",
+        "claimed": "Ebony mesh back; upholstered seat (Grade 1 fabric or Luxhide)",
+        "datasheet_value": "Air-flow mesh back (Black MS69); upholstered seat in Grade 1 textiles or LuxPlus; SSU armcaps",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Minor: datasheet seat option is 'LuxPlus', page says 'Luxhide' — verify the exact upholstery grade name.",
+        "notes": "Materially correct; upholstery grade name wording differs."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Task mechanism; height-adjustable arms; height-adjustable chromed footring",
+        "datasheet_value": "Task mechanism; height-adjustable arms; adjustable chromed footrest",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "[GREENGUARD]",
+        "datasheet_value": "GREENGUARD, BIFMA compliant, LEVEL",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Optional: could add BIFMA LEVEL (datasheet supports). Claimed cert is correct and under-stated, not over-stated.",
+        "notes": ""
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada / Made in Canada",
+        "datasheet_value": "Made in Canada (badge on MVL2808 page)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Canadian-made claim confirmed."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "(no warranty field claimed)",
+        "datasheet_value": "OTG Limited Lifetime program (general seating); component caps 2-5 yr.",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "No warranty claim on the page; nothing to flag."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9666756935993",
+    "handle": "six-31-medium-back-multi-tilter-glbotg11631b",
+    "title": "Six 31 | medium back multi-tilter — GLBOTG11631B",
+    "brand": "OTG / Offices to Go",
+    "models": ["OTG11631B", "GLBOTG11631B", "OTG11531B", "OTG11613B"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/work-task-seating/work-task-seating-series/OTG11631B",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "25.5\"W x 25\"D x 44\"H",
+        "datasheet_value": "25.5\"W x 25\"D x 44\"H; seat height 18.5\"-22.5\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "seat_height",
+        "claimed": "18.5\"-22.5\" (key_features)",
+        "datasheet_value": "18.5\" - 22.5\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Operator/multi-tilter mechanism; independent back AND seat angle; infinite-position tilt lock; tilt tension; back height adjustment",
+        "datasheet_value": "OPERATOR mechanism — single lever back angle and seat angle with tension adjustment. Official model name: 'Six 31 | Medium Back Operator'. Not a multi-tilter; no infinite-position tilt lock listed.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Reclassify as 'operator mechanism (single-lever back & seat angle + tension)'. Remove 'multi-tilter', 'independent back and seat angle adjustment', and 'infinite-position tilt lock' unless verifying against the specific OTG11631B variant — the datasheet describes a simpler operator chair. Title 'multi-tilter' overstates the mechanism.",
+        "notes": "OTG markets OTG11631B as a Medium Back Operator, not a multi-tilter. Operator mechanisms are simpler (single-lever) than multi-tilters. The title and key_features overstate the adjustment range."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Black polyester upholstery; SSU T-arm armcaps; 5-star base",
+        "datasheet_value": "Quilt fabric Black (QL10) only; height-adjustable T-style arms with urethane caps; 5-star base",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Datasheet stock upholstery is 'Quilt, Black (QL10) only', not generic 'polyester'. Adjust upholstery descriptor.",
+        "notes": "Minor materials wording mismatch."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "(none claimed)",
+        "datasheet_value": "GREENGUARD, GREENGUARD Gold",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Could add GREENGUARD / GREENGUARD Gold (datasheet supports).",
+        "notes": "No cert claim made."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "5-Year Limited Warranty",
+        "datasheet_value": "OTG general-seating program: lifetime frame, 2-5 yr on upholstery/lift/mechanism/casters. A 5-year term is consistent with the functional-component tier.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "5-year claim is conservative and consistent with the OTG component warranty (does not overstate). Acceptable."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Not stated on the OTG11631B page fetched.",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Confirm 'Made in Canada' badge on the OTG11631B spec PDF before asserting origin (legally sensitive).",
+        "notes": "Origin not surfaced; do not assume."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "Mechanism mismatch flagged at spec level (operator vs multi-tilter) but not a full config divergence — dimensions/seat height match the OTG11631B datasheet, so it is the same model, just mislabelled as a multi-tilter.",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9666757919033",
+    "handle": "overtime-high-back-multi-tilter-chair-mvl2756",
+    "title": "Overtime | high back multi-tilter chair — MVL2756",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL2756", "MVL2756F"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/multi-task-seating/overtime/MVL2756",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26\"W x 24.5\"D x 42\"H; seat height 17\"-21\"",
+        "datasheet_value": "26\"W x 24.5\"D x 42\"H; seat height 17\" - 21\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "300 lbs",
+        "datasheet_value": "300 lbs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Confirmed via Tenaquip listing and Grand & Toy; general (not heavy-duty) seating."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Multi-tilt mechanism; infinite position tilt lock; tilt tension; adjustable back height; height-adjustable arms",
+        "datasheet_value": "Multi-tilter mechanism, infinite position tilt lock, tilt tension, infinite back & seat angle incl. forward tilt, ratchet back height, height/width adjustable arms",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "materials",
+        "claimed": "Molded foam seat & back with Luxhide bonded leather or grade 1 fabric; nylon 5-star base; dual-wheel casters",
+        "datasheet_value": "Memory foam top seat; Grade 1 textiles or Luxhide; 5-star base; dual-wheel carpet casters",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Datasheet emphasises 'memory foam top'; consistent."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "[GREENGUARD]",
+        "datasheet_value": "GREENGUARD (BIFMA/LEVEL typical for line but confirm on PDF)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "GREENGUARD claim is supported; not overstated."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Designed and manufactured in Canada (per OTG/Grand & Toy listing)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Canadian-made confirmed."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime warranty",
+        "datasheet_value": "OTG Limited Lifetime program (general multi-task seating, up to 300 lbs): lifetime frame; 2-5 yr on foam/upholstery/lift/mechanism/casters.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Same component-term advisory as other general-seating SKUs; qualify component coverage in body copy.",
+        "notes": "Program name correct (this is general seating at 300 lbs, NOT heavy-duty, so lifetime program applies — unlike the Overtime 350)."
+      },
+      {
+        "spec": "brand_descriptor (body copy)",
+        "claimed": "global_description_tag calls it 'the ergoCentric Overtime MVL2756'",
+        "datasheet_value": "MVL2756 is an Offices To Go / Global Furniture Group product. ergoCentric is a SEPARATE, unrelated Canadian chair manufacturer.",
+        "classification": "MISMATCH",
+        "severity": "factual",
+        "recommended_correction": "Remove 'ergoCentric' — replace with 'Offices To Go' or 'Global'. ergoCentric is a different brand entirely; attributing this chair to them is incorrect.",
+        "notes": "Brand misattribution in the SEO description tag. The MVL prefix is Global/OTG, not ergoCentric."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9666760606009",
+    "handle": "format-high-back-synchro-tilter-with-adjustable-headrest-chair-mvl3192",
+    "title": "Format | high back synchro-tilter with adjustable headrest chair — MVL3192",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL3192", "MVL3191"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/mesh-seating/format/MVL3191",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "24.5\"W x 23\"D x 50.5\"H",
+        "datasheet_value": "Seat height 16\"-20\"; Format MVL3192 (headrest model) overall height is taller than MVL3191 due to headrest. Overall WxDxH not individually surfaced on fetched page for MVL3192.",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Confirm the 50.5\"H overall on the MVL3192 spec PDF; the headrest model is the tallest in the series so a ~50\" height is plausible but unconfirmed.",
+        "notes": "Seat height 16-20 verified; overall dims for the headrest variant not individually confirmed."
+      },
+      {
+        "spec": "seat_height",
+        "claimed": "16\"-20\" (key_features)",
+        "datasheet_value": "16\" - 20\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Synchro-tilt mechanism with tilt-lock and tension control; ratchet back height; tilting adjustable headrest",
+        "datasheet_value": "Synchro-tilt mechanism; ratchet back height; upright-position tilt-lock + tension; MVL3192 = tilting headrest model",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Synchro-tilt and headrest confirmed for MVL3192."
+      },
+      {
+        "spec": "certifications",
+        "claimed": "[BIFMA LEVEL, GREENGUARD, GREENGUARD Gold]",
+        "datasheet_value": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada (badge on Format page)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG Limited Lifetime program (general seating): lifetime frame; 2-5 yr on mesh/lift/mechanism/casters.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Same component-term advisory.",
+        "notes": ""
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9666761457977",
+    "handle": "format-high-mesh-back-synchro-tilter",
+    "title": "Format | high mesh back synchro-tilter",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL3191", "MVL3191B", "MVL3191F", "MVL3192"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/mesh-seating/format/MVL3191",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "seat_height",
+        "claimed": "Seat height 16\"-20\" (overall not stated)",
+        "datasheet_value": "16\" - 20\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Page honestly states overall dims not provided — good practice."
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Synchro-tilt mechanism with tilt lock and tension; ratchet back height; height/width adjustable arms",
+        "datasheet_value": "Synchro-tilt mechanism; ratchet back height; tilt-lock + tension; height/width adjustable arms with SSU armcaps",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "MVL3191 is the non-headrest Format synchro-tilter; matches."
+      },
+      {
+        "spec": "materials",
+        "claimed": "Breathable mesh back; contoured cushioned seat; soft self-skinned urethane armcaps",
+        "datasheet_value": "Breathable mesh back (Black); Grade 1 textiles / LuxPlus seat; SSU armcaps",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "[BIFMA LEVEL, GREENGUARD, GREENGUARD Gold]",
+        "datasheet_value": "BIFMA LEVEL, GREENGUARD, GREENGUARD Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada (badge on Format page)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "OTG Limited Lifetime program (general seating): lifetime frame; 2-5 yr on components.",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Same component-term advisory.",
+        "notes": ""
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  },
+  {
+    "id": "9667800334649",
+    "handle": "overtime-350-high-back-heavy-duty-multi-tilter-mvl13040",
+    "title": "Overtime 350 | high back heavy duty multi-tilter — MVL13040",
+    "brand": "OTG / Offices to Go",
+    "models": ["MVL13040", "MVL13040F"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/heavy-duty-seating/overtime-350/MVL13040",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26\"W x 26\"D x 42\"H",
+        "datasheet_value": "26\"W x 26\"D x 42\"H; seat height 19\"-23\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "350 lbs",
+        "datasheet_value": "350 lbs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Multi-tilt mechanism rated for 350 lbs; ratchet back height; height/width adjustable arms; seat depth adjustment; pneumatic 19\"-23\"",
+        "datasheet_value": "Multi-tilter mechanism; infinite tilt lock + tension; back & seat angle incl. forward tilt; ratchet back height; height/width adjustable arms with rotating/sliding/lockable armcaps; seat depth adjustment; memory foam top",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "Canada",
+        "datasheet_value": "Made in Canada (badge on MVL13040 page)",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "Canadian-made confirmed."
+      },
+      {
+        "spec": "warranty",
+        "claimed": "Limited Lifetime Warranty",
+        "datasheet_value": "HEAVY DUTY SEATING = 5 YEARS per the OTG warranty summary (heavy-duty seating, users up to 350 lbs, 8hr/5-day). NOT lifetime.",
+        "classification": "MISMATCH",
+        "severity": "legal",
+        "recommended_correction": "Change warranty to '5-Year Limited Warranty'. OTG explicitly places heavy-duty (350 lb) seating in a 5-year tier, not the lifetime general-seating program.",
+        "notes": "Same legal issue as the other Overtime 350 SKU (id 9664325615929). Heavy-duty seating is 5 years per OTG's own warranty document; 'Limited Lifetime' overstates the term."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "Duplicate-listing note: this SKU (MVL13040) and SKU 9664325615929 are the same Overtime 350 high-back model; both carry the identical warranty overstatement.",
+    "overall": "has_mismatch"
+  },
+  {
+    "id": "9676166496569",
+    "handle": "kody-mesh-chair-otg13110",
+    "title": "Kody mesh chair — OTG13110",
+    "brand": "OTG / Offices to Go (a division of Global Furniture Group)",
+    "models": ["OTG13110"],
+    "datasheet_sources": [
+      "https://www.officestogo.com/en-ca/products/model/mesh-seating/kody/OTG13110",
+      "https://files.officestogo.com/files/OTG_warranty_EN_2021-01.pdf"
+    ],
+    "spec_findings": [
+      {
+        "spec": "dimensions",
+        "claimed": "26.5\"W x 22.5\"D x 41.75\"H; Seat Height 19\"-24\"",
+        "datasheet_value": "26.5\"W x 22.5\"D x 41.75\"H; seat height 19\" - 24\"",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "weight_capacity",
+        "claimed": "300 lbs",
+        "datasheet_value": "300 lbs",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "mechanism",
+        "claimed": "Synchro-tilt mechanism integrated flush into seat pan; 2-setting tilt tension; multi-position tilt lock and recline lock; height-adjustable arms",
+        "datasheet_value": "Synchro-tilter with 2-setting tilt tension; multi-position tilt lock; recline lock; height-adjustable arms",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "materials",
+        "claimed": "Black polyester fabric seat; black mesh back",
+        "datasheet_value": "Black polyester seat; black mesh back",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": ""
+      },
+      {
+        "spec": "certifications",
+        "claimed": "[GREENGUARD Certified]",
+        "datasheet_value": "GREENGUARD, GREENGUARD Gold",
+        "classification": "VERIFIED",
+        "severity": "",
+        "recommended_correction": "Optional: could add GREENGUARD Gold (datasheet supports). Claimed cert is correct, not overstated.",
+        "notes": ""
+      },
+      {
+        "spec": "warranty",
+        "claimed": "(no warranty field claimed)",
+        "datasheet_value": "OTG Limited Lifetime program (general seating): lifetime frame; 2-5 yr components.",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "",
+        "notes": "No warranty claim on the page; nothing to flag."
+      },
+      {
+        "spec": "country_of_manufacture",
+        "claimed": "(no country_of_manufacture field claimed)",
+        "datasheet_value": "Not stated on the OTG13110 page fetched. Body copy says 'Canada's OECM-eligible supplier since 1964' which refers to BBI the dealer, not the chair's origin.",
+        "classification": "UNVERIFIABLE",
+        "severity": "",
+        "recommended_correction": "Do not add a 'Made in Canada' claim for OTG13110 without confirming origin on the spec PDF — OTG imports several mesh task lines (legally sensitive).",
+        "notes": "No origin claim made about the product itself; advisory only."
+      }
+    ],
+    "config_divergence": false,
+    "config_divergence_note": "",
+    "overall": "clean"
+  }
+]
