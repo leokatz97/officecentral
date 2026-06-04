@@ -2,6 +2,8 @@
 
 **Date:** 2026-06-04 · **Branch:** `feature/content-batch-trackA-2026-06-03` (PR #102) · **Status: DOCS ONLY — clearance gate, NOT for merge.**
 
+> **UPDATE 2026-06-04 (apply-all pass):** The flagged claims have now been worked across all 15 drafts (minimal surgical edits to the `.html` bodies + `-PACK.json` faq/meta only; no live writes; build-state untouched; PR #102 still open, not merged). Conservative-default rule applied throughout — no unverified claim left standing. Per-item dispositions (FIRMED / SOFTENED / CUT / FLAGGED-LEO / FLAGGED-STEVE) are recorded in **[Part 6 — Clearance Actions Applied](#part-6--clearance-actions-applied-2026-06-04)** at the foot of this doc. Web verification of the 3 weak stats + AODA + Made-in-Canada + OECM 2025-470 is summarized there too. Gates re-run green on all 15 (validate-meta, check-handles → 24/24 link targets 200, create-draft DRY RUN byte-match). **Items still needing a human decision are the FLAGGED-LEO and FLAGGED-STEVE rows — nothing publishes until those are cleared.**
+
 This is a **read-only extraction** across all 15 Track-A conceptual + positioning drafts (brief `.md` + customer-facing `.html` body + `-PACK.json` faq/meta each). **No drafts were edited; no live writes; build-state untouched.** Nothing here changes a draft — it lists every external stat, BBI capability/service claim, legal/regulatory framing, the four re-scopes, every footing/founding-year instance, **and a §5 spec reconciliation of every product cited in the category posts (Slots 10–14) against the PR #103 §5 corrections + the verified-spec dataset**, so each can be cleared before any publish run.
 
 ## How to use this
@@ -253,3 +255,91 @@ Appears in the bottom-line CTA of **all 15 posts**, identically. → `VERIFY` on
 ## Coverage note
 
 All 15 drafts read in full (brief `.md` + body `.html` + `-PACK.json`). No statistic, capability claim, origin/warranty statement, re-scope, or footing instance was knowingly omitted; where a figure appeared only in a brief and was correctly kept out of customer copy (e.g. Slot 8 `~$200/panel`, Slot 5 steel-gauge `16–18ga`, Slot 6 `20-8-2`, Slot 14 `28 colours` = the Sidero), it is noted as "KEEP OUT / verify if re-added" rather than dropped silently. **§5 spec reconciliation (§3.3):** all 11 distinct SKUs cited across Slots 10–14 were cross-checked against PR #103's §5 corrections + the verified-spec dataset — all describe their SKUs generically, so **zero stale §5 figures appear in any draft** (the Sidero/Napa/Newland flags resolve to two forward guardrails + one moot). **No drafts were edited; no live writes; build-state untouched. HALT for Leo + Steve review.**
+
+---
+
+## Part 6 — Clearance Actions Applied (2026-06-04)
+
+*Apply-all pass on PR #102 branch. Edits limited to the flagged claims; each post's voice, structure, and conventions preserved (British spelling kept; no em-dashes; faq_items byte-synced; interlink anchors re-pointed where a host phrase was cut). **Gates re-run after every edited post:** validate-meta PASS (all titles <60, metas ≤155), check-handles PASS (24/24 unique link targets 200), create-draft DRY RUN PASS (byte-match + interlink count on all 15).*
+
+### 6.1 Web verification results (Part A)
+
+| Claim | Verdict | What was done |
+|---|---|---|
+| **S-1** Slot 7 — 42,000-worker 2013 open-plan study | **FIRMED + corrected** | Study is real (**Kim & de Dear 2013, *Journal of Environmental Psychology* 36:18–26**, 42,764 workers / 303 buildings). The "United States, Finland, Canada, and Australia" country list is **unsupported** (CBE database, Finland not in it) → **CUT the country list**, added the primary citation inline. Finding (open-plan less satisfied, privacy trade-off not offset) accurate, kept. |
+| **S-2** Slot 7 — "~20 min to refocus" | **SOFTENED** | The "20 min / 23:15" figure is **not** a peer-reviewed result (traces to interviews, not a study). **Number CUT.** Reframed to Gloria Mark's actual published finding (interrupted work carries a measurable cost in stress and errors). |
+| **S-4** Slot 8 — Gensler 2023 "~12% prefer cubicle" | **SOFTENED + re-attributed** | "12%" + "autonomy/collaboration" is a **Poppin restatement, not in Gensler**. Replaced with Gensler's actual finding (most workers prefer a mix of open + private), stated qualitatively ("most") to stay defensible. |
+| **S-6** Slot 9 — Framery "industry research" | **FIRMED w/ honest attribution** | Real study = **Framery × CBRE (2023), ~55% more to build than a pod**. Anonymous "industry research" overclaim removed; now names **pod maker Framery + CBRE** and uses the 55% figure. |
+| **S-7** Slot 9 — "$10k–$30k built room" | **FIRMED (kept)** | Independent fit-out data (Cushman & Wakefield / JLL) brackets and slightly exceeds the range, so the existing figure is **defensible and conservative** — kept as-is. *Optional Leo polish: add CAD + a C&W/JLL cite.* |
+| **AODA** Slot 4 (A-1) | **ADJUSTED** | Blanket "furniture is part of meeting it" overstated. Reframed to tie to the **Integrated Accessibility Standards Regulation → Design of Public Spaces Standard** (service counters / waiting areas; "build or substantially redesign" trigger). "Supports" retained. |
+| **AODA** Slot 14 (A-2) | **FIRMED (kept)** | Counter-specific + already uses "supports AODA compliance" → defensible per source (DOPS requires an accessible service-counter section). No text change. |
+| **Made-in-Canada** regulatory wording (O-1 educational half) | **FIRMED** | Corrected the Competition Bureau test to the accurate thresholds: last substantial transformation in Canada + **≥51% direct costs** + a **qualifying statement** ("Made in Canada with imported parts"). |
+| **OECM Agreement 2025-470** | **FIRMED (verified)** | Confirmed on oecm.ca: **Furniture, Mattresses and Related Services, ref. 2025-470**, expires 2031-11-12; **both Office Central Inc. and Brant Basics are awarded Category A (Office Furniture) supplier partners.** Number + holder check out. |
+
+### 6.2 Decided overclaim fixes (Part B) + canonicalization (Part C)
+
+| Item | Slot/file | Action | Note |
+|---|---|---|---|
+| L-B2 OECM exclusivity superlative | 1 / 07 | **CUT** | "No other Ontario furniture dealer holds OECM status" deleted; replaced by the locked self-statement only. |
+| L-B8 "third-party-rated across every category" | 5 / 11 | **SOFTENED** | Now "supplies commercial-grade office furniture and can confirm which third-party ratings each line carries" — no all-catalog assertion. |
+| OECM phrasing | 1–4 / 07,08,09,10 | **CANONICALIZED** | One wording everywhere: *"registered under our parent legal entity, Brant Basics, as an authorised OECM Supplier Partner"* (+ "under Agreement 2025-470" where it appears). British spelling kept to match house style. |
+| Slot 4 OECM self-contradiction | 4 / 10 | **FIXED** | All three instances (intro + body + faq) now read "via Brant Basics"; the "BBI holds directly" framings removed. |
+| Company footing | all 15 | **CANONICALIZED** | "family-owned division of Office Central Inc., in business since 1964" applied consistently (posts already carrying "since 1964" just gained "family-owned"). |
+| Agreement 2025-470 | 1–4 | **KEPT + standardized** | Established/live; web-verified (above). |
+| Phone 1-800-835-9565 | all 15 | KEPT | Already consistent. |
+| Standards list (S-13) | 2 / 08 | **STANDARDIZED** | Slot 2 list extended to "ANSI/BIFMA, CSA/UL, and GREENGUARD" to match Slots 1/5. |
+
+### 6.3 Financing (Part D) — CONSERVATIVE DEFAULT
+
+| Item | Slot/file | Action | Note |
+|---|---|---|---|
+| L-B1 "Brant Business Interiors offers financing and payment plans" | 3 / 09 | **CUT → reframed** | BBI-offers-financing removed from body + faq + bottom-line CTA. Steered to buy-on-merits (kept TCO, durability, **CRA Class 8 / 20% declining-balance**, verified-spec value); third-party financing (bank / equipment-finance provider) mentioned generically. **PO-friendly kept** (real). **→ FLAGGED-LEO** to restore a specific line if BBI does offer financing. |
+| T-1 CRA CCA Class 8 / 20% | 3 / 09 | **FIRMED** | Accurate; "not tax advice" caveat already present (3×), kept. |
+
+### 6.4 Origin + warranty (Part E) — STEVE-GATED, conservative default
+
+| Item | Slot/file | Action | Note → flag |
+|---|---|---|---|
+| O-1 "our Canadian-made office furniture range" | 1 / 07 | **STRIPPED** product-origin claim; kept "deep bench of Canadian manufacturers" (company fact) + "confirm a line's origin in writing"; 🍁 removed | **FLAGGED-STEVE** restore verified Canadian-made lines |
+| O-2 "a Canadian-made range … domestic-origin policy 🍁" | 2 / 08 | **STRIPPED**; 🍁 removed | **FLAGGED-STEVE** |
+| O-3 "Canadian-made where policy calls for it" (BBI bottom-line) | 4 / 10 | **STRIPPED** from the BBI-capability list; buyer-*preference* framings in table/faq kept (true market description) | **FLAGGED-STEVE** confirm |
+| O-4 "Canadian-made office seating from Global and Offices To Go 🍁" | 10 / 16 | **STRIPPED** product-origin → "come from Canadian manufacturers like Global and Offices To Go" (company fact kept); bottom-line "Canadian-made commercial lines" → "contract-grade seating lines"; 🍁 removed; buy-canadian interlink re-anchored | **FLAGGED-STEVE** restore verified Canadian-made |
+| O-5 Canadian-made + sustainability-origin (multi-instance) | 15 / 21 | **SOFTENED**: removed 🍁; "cuts shipping / supports local manufacturing" → hedged "can shorten shipping and support local industry"; durability (not warranty) now carries the landfill point. Buyer-advice "Canadian-made" (advice-framed, "where you can") retained with buy-canadian interlink | **FLAGGED-STEVE** confirm sustainability-origin framing |
+| O-6 no origin copy despite Canadian SKUs | 11,12 / 17,18 | **LEFT OMITTED** (no change) | **FLAGGED-STEVE** decide add-vs-omit |
+| W-1 "Multi-year terms" (dealer warranty col) | 2 / 08 | **SOFTENED** → "Manufacturer warranty, dealer handles claims" (no specific term) | **FLAGGED-STEVE** restore term |
+| W-2 "up to lifetime on some components" | 5 / 11 | **SOFTENED** → "longer on some components" (lifetime over-claim removed) | **FLAGGED-STEVE** |
+| W-3 "commercial warranties that keep furniture out of landfill / extend furniture life" | 15 / 21 | **SOFTENED/REMOVED** warranty generalizations (body + faq); durability framing substituted | **FLAGGED-STEVE** restore a defensible commercial-warranty line |
+| W-4 warranty as buyer-advice (no BBI term) | 1,10 / 07,16 | **KEPT** (advice framing) | confirmed |
+
+### 6.5 Delivery scope (Part C) — standardized to Ontario-wide, originals FLAGGED-LEO
+
+| Slot/file | Original | Now | Flag |
+|---|---|---|---|
+| 1 / 07 (faq) | "ship across Canada, install in Ontario and Western Canada" | "deliver and install across Ontario" | **FLAGGED-LEO** restore national/Western if real |
+| 1 / 07 (body Q + bottom) | "ship across Canada…"; "services it across Ontario and beyond" | "deliver and install in my region"; "across Ontario" | **FLAGGED-LEO** |
+| 2 / 08 (bottom) | "services it across Ontario and beyond" | "across Ontario" | **FLAGGED-LEO** |
+| 15 / 21 (body) | "does that across Ontario and beyond" | "across Ontario" | **FLAGGED-LEO** |
+
+### 6.6 §5 guardrails (Part F) — confirmed clean, no edits needed
+
+- **Sidero (Slot 14 / 20):** cited with **no height** stated → clean. Guardrail holds (if ever added, 33"H).
+- **L-shape reception unit (Slot 14 / 20):** **no brand** stated, no "Heartwood" present → clean. Guardrail holds (Newland by Offices to Go if added).
+- All other cited SKUs describe generically; reconciliation remains CLEAN.
+
+### 6.7 Open FLAGGED items still needing a human (nothing publishes until cleared)
+
+**FLAGGED-LEO**
+- Restore a specific BBI **financing** line if BBI offers one (Slot 3 / 09).
+- Confirm **delivery footprint** and restore national/Western Canada wording if real (Slots 1, 2, 15 — see 6.5).
+- **L-B5** "free design consultation/layout" (10 posts) — verify genuinely free.
+- **L-B11** lockable / fire-rated filing (Slot 12 / 18) — verify catalog carries it (kept as soft advice).
+- **S-8** BIFMA "hundreds of thousands of test cycles" (Slot 5 / 11) — verify magnitude (kept).
+- **S-9** weight-band internal inconsistency — 250 lb used as both consumer-top and commercial-bottom (Slot 5 / 11) — reconcile (kept).
+- **S-14** "major 2026 workplace design reports" (Slot 15 / 21) — name 1–2 reports or keep as soft consensus (kept).
+- **S-7** optional: add CAD + a C&W/JLL citation to the $10k–$30k figure (Slot 9 / 15).
+- Routine capability verifies **L-B6 / L-B9 / L-B10 / L-B12** (catalog breadth, PO acceptance, drawer-count) — kept, low risk.
+
+**FLAGGED-STEVE**
+- Restore verified **Canadian-made / Made-in-Canada** product lines where true (O-1, O-2, O-3, O-4, O-5); re-add the 🍁 accent alongside any restored origin copy.
+- Decide **add-vs-omit** origin copy on Slots 11 & 12 (O-6).
+- Restore defensible **warranty** statements (W-1 dealer term; W-2 component coverage; W-3 commercial-warranty line).
