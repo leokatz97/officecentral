@@ -308,3 +308,18 @@ Per Batch-2 plan Part 2 (System C). **Highest-risk content in the program: every
 - **Word count:** 2,255. **Gates:** validate-meta 45/140 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match (5 items, 6 links) PASS.
 - **LEGAL FLAG:** 8 named-competitor statements (L-1..L-8) tabled in 23-*.md. Trademark hygiene: nominative only, no logo, no affiliation.
 - **Claimed keywords:** `atwork office furniture`, `atwork office furniture canada`, `atwork office furniture alternative`.
+
+### Page 3 — The Office Shop alternative (Ontario) ✅ COMMITTED (files 24-*)
+- **Primary kw:** `the office shop` (390/mo · KD16 · navigational, foreign_intent commercial · +22% yr). Modifier "the office shop alternative".
+- **Competitor public model (cited, theofficeshop.ca):** "the premier Office Furniture Dealership of Ontario"; founded 1996, 20+ yrs; 2025/2026 Canadian Choice Award; WBE-certified women-owned; partner-brand roster (Global/Lacasse/Krug/Humanscale/National/Keilhauer/Workspace48/Watson/Three H); services incl. consult/design/install/reconfig/moving/ergonomic/rentals+used; product pages show brand descriptions but NO specs/SKUs/prices (quote-first); Markham HQ + Toronto showroom.
+- **BBI honest contrast (both are dealers — contrast is transparency/landscape/OECM, not model type):** real products with specs/dimensions/certs/pricing online vs quote-first; honest full Canadian landscape (multi-line) vs curated roster; OECM Supplier Partner (verbatim; Office Shop's OECM status NOT asserted). Includes explicit "when The Office Shop is the right pick" fairness section (track record, partner brands, women-owned supplier diversity).
+- **Products cited (verified-spec):** Accord high-back tilter (PDP); Zira boat-shaped conference table (PDP); L-shape reception 72x72; Robust 500lb. Links: accord PDP, boat PDP, buy-canadian, design-services, oecm, quote.
+- **Cluster/PAA covered:** the office shop alternative; SERP gap = its own Source-Brampton page is the lone Canadian B2B "alternative" answer (rest US consumer + forums); PAA "who makes the best office furniture / save money" addressed via FAQ.
+- **Word count:** 2,209. **Gates:** validate-meta 37/155 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match (5 items, 6 links) PASS.
+- **LEGAL FLAG:** 7 named-competitor statements (L-1..L-7) tabled in 24-*.md, highest tone scrutiny (peer dealer). Trademark hygiene: nominative only, no logo, no affiliation; partner brands named only to describe their public roster.
+- **Claimed keywords:** `the office shop`, `the office shop alternative`.
+
+---
+
+## ✅ BATCH 2 SYSTEM C — 3 of 3 drafted, committed, dry-run gates PASS (DOCS ONLY, no live writes, build-state untouched, PR NOT merged)
+POI / atWork / The Office Shop alternative pages. All ≥2,200 words, model/approach-contrast tables, real verified PDPs, byte-matched FAQ, 6 interlinks each (verified 200), validate-meta PASS, no em-dashes. **Every named-competitor statement is factual/public/cited/neutral and tabled per page for a real lawyer.** HARD LEGAL GATE: nothing publishes until a lawyer + Steve sign off on the competitor framing; then publish ONE first and watch before the rest. New brand-nav keywords claimed (no Track A / live-anchor collision).
