@@ -298,3 +298,13 @@ Per Batch-2 plan Part 2 (System C). **Highest-risk content in the program: every
 - **Word count:** 2,281. **Gates:** validate-meta 52/148 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match (5 items, 6 links) PASS.
 - **LEGAL FLAG:** 6 named-competitor statements (L-1..L-6) tabled in 22-*.md for lawyer review. Trademark hygiene: nominative use only, no logo, no implied affiliation.
 - **Claimed keywords:** `poi business interiors`, `poi furniture`, `poi business interiors alternative`.
+
+### Page 2 — atWork Office Furniture alternative (Ontario) ✅ COMMITTED (files 23-*)
+- **Primary kw:** `atwork office furniture` (590/mo · navigational · +23% yr · HIGH paid comp, CPC ~$2.26) + `atwork office furniture canada` (10). Modifier "atwork alternative".
+- **Competitor public model (cited, atwork.ca):** "Proudly Canadian, Founded & Owned"; online retail e-commerce catalogue; group of regionally branded locations (Bakers/Lovers/Blair's/Jeff's atWork); new + dedicated used-and-deals section; free shipping on most chairs across Canada (ships US); services incl. design/install/rentals/leasing-financing; showrooms Toronto/Cambridge/London/Hamilton.
+- **BBI honest contrast:** design-led project (layout-first) vs retail catalogue; new commercial-grade only spec-matched for reorders vs new+used; Ontario-wide install vs national freight; single-source service + PO fit; OECM Supplier Partner (verbatim). **atWork OECM status NOT asserted either way** (R-1 lesson). Explicitly notes BOTH are proudly Canadian — differentiation is service model, not nationality.
+- **Products cited (verified-spec):** Adapt synchro-tilter MVL11724 (PDP); Newland L-desk double-pedestal NLP522; FreeFit HA benching. Links: design-services, task-chairs, oecm, adapt PDP, desks, quote.
+- **Cluster/PAA covered:** atwork alternative canada/reviews/near me, commercial office furniture canada; AIO PAA (best office furniture brand, 2/3 rule, Canadian alternative to Ikea) addressed via FAQ angle.
+- **Word count:** 2,255. **Gates:** validate-meta 45/140 PASS · check-handles 6/6 200 · create-draft DRY RUN byte-match (5 items, 6 links) PASS.
+- **LEGAL FLAG:** 8 named-competitor statements (L-1..L-8) tabled in 23-*.md. Trademark hygiene: nominative only, no logo, no affiliation.
+- **Claimed keywords:** `atwork office furniture`, `atwork office furniture canada`, `atwork office furniture alternative`.
