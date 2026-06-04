@@ -116,6 +116,9 @@
 .article-share__link { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 14px; border: 1px solid var(--borderColor); border-radius: 100px; font-size: 13px; font-weight: 500; text-decoration: none; color: var(--textColor); transition: border-color 0.15s, background 0.15s; }
 .article-share__link:hover { border-color: var(--saleBadgeBackground); color: var(--saleBadgeBackground); }
 
+/* ── Legal disclaimer (site-wide, blog articles only) ─────────────────────── */
+.article-disclaimer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--borderColor); font-size: 12px; line-height: 1.6; color: rgba(var(--textColor-rgb),0.45); }
+
 /* ── Related products ────────────────────────────────────────────────────── */
 .article-related { padding: 56px 0; background: var(--alternateBackground); border-top: 1px solid var(--borderColor); }
 .article-related__inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -286,6 +289,11 @@
              rel="noopener noreferrer"
              aria-label="Share on X / Twitter">X</a>
         </div>
+
+        <!-- Legal disclaimer - site-wide, rendered on every blog article -->
+        <p class="article-disclaimer">
+          This article is provided for general informational purposes only and does not constitute legal, financial, procurement, or other professional advice. Product specifications, pricing, and availability are subject to change. Brant Business Interiors makes no representations or warranties, express or implied, as to the accuracy, completeness, or currency of this content. For details specific to your project, please contact us for a quote or consultation.
+        </p>
       </div>
     </section>
 
