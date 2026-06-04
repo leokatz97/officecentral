@@ -45,22 +45,37 @@ Distinct from Page 1 (Avro/Ionic/lateral) and Page 2 (Adapt/L-desk/FreeFit). All
 ## F. LEGAL FLAG TABLE — every named-Office-Shop statement for the lawyer (System C hard gate; highest tone scrutiny — peer dealer)
 All factual, public, neutral, approach-not-quality. No disparagement / unverifiable negative / rigged ranking. Includes explicit acknowledgements of The Office Shop's strengths.
 
-| # | Statement (paraphrase) | Public source | Class | Note |
-|---|---|---|---|---|
-| L-1 | "the premier Office Furniture Dealership of Ontario"; serves workplace/education/healthcare/home-office | theofficeshop.ca (quoted) | FACTUAL/PUBLIC | Direct quote |
-| L-2 | Founded 1996; 20+ years; award-winning; WBE-certified women-owned business; Markham HQ + showrooms | theofficeshop.ca | FACTUAL/PUBLIC | Stated positively/respectfully |
-| L-3 | Partner-brand roster incl. Global, Lacasse, Krug, Humanscale, National, Keilhauer, Workspace 48, Watson, Three H | theofficeshop.ca brand pages | FACTUAL/PUBLIC | Brand list is public |
-| L-4 | Services incl. consulting, design, install, reconfiguration, moving, ergonomic, used consultations | theofficeshop.ca services | FACTUAL/PUBLIC | Service list |
-| L-5 | "product lines are shown with brand descriptions but without published specifications, SKUs, or prices, and product pages direct the visitor to request a quote" | theofficeshop.ca product pages (observed) | FACTUAL/PUBLIC | The key neutral contrast; verifiable on their live site. Framed as a valid model choice, not a flaw. |
-| L-6 | Framing The Office Shop as "consultative/quote-first partner-brand dealer" vs BBI "transparent multi-line dealer"; both capable | Inference from L-1..L-5 | OPINION/FIT, substantiated | Approach-fit characterization, explicitly respectful; lawyer to confirm tone |
-| L-7 | "When The Office Shop's model is the right pick" — names its track record, partner brands, women-owned certification as legitimate reasons to choose it | theofficeshop.ca | FACTUAL/FAIRNESS | Pro-competitor section; reduces disparagement risk |
+**Hardened 2026-06-04:** every row re-confirmed live on theofficeshop.ca with the exact URL + verification date. No cuts required — all Office Shop claims re-confirmed current.
+
+| # | Statement (paraphrase) | Public source (URL) | Verified | Class | Note |
+|---|---|---|---|---|---|
+| L-1 | "the premier Office Furniture Dealership of Ontario"; serves workplace/education/healthcare/home-office | https://theofficeshop.ca/ (quoted) | 2026-06-04 | FACTUAL/PUBLIC | Direct quote |
+| L-2 | Founded 1996; award-winning (2025 & 2026 Canadian Choice Award); WBE Canada certified women-owned; Markham HQ + showrooms | https://theofficeshop.ca/ | 2026-06-04 | FACTUAL/PUBLIC | Stated positively/respectfully; "founded 1996" re-confirmed on homepage |
+| L-3 | Partner-brand roster incl. Global, Groupe Lacasse, Krug, Humanscale, National, Keilhauer, Workspace 48, Watson, Three H | https://theofficeshop.ca/ (brand pages) | 2026-06-04 | FACTUAL/PUBLIC | Brand list is public |
+| L-4 | Services incl. consulting, space planning/design, install, reconfiguration, moving, ergonomic, rentals & used consultations | https://theofficeshop.ca/ (services) | 2026-06-04 | FACTUAL/PUBLIC | Service list |
+| L-5 | "product lines are shown with brand descriptions but without published specifications, SKUs, or prices, and product pages direct the visitor to request a quote" | https://theofficeshop.ca/ (product pages, observed: all route to "Request A Quote") | 2026-06-04 | FACTUAL/PUBLIC | The key neutral contrast; verifiable on their live site today. Framed as a valid model choice, not a flaw. |
+| L-6 | Framing The Office Shop as "consultative/quote-first partner-brand dealer" vs BBI "transparent multi-line dealer"; both capable, BBI the better FIT for research-first/OECM buyers | Inference from L-1..L-5 (Office Shop's own model) | 2026-06-04 | OPINION/FIT, substantiated | Approach-FIT characterization (not objective superiority), explicitly respectful; superiority scrub applied (see log); lawyer to confirm tone |
+| L-7 | "When The Office Shop's model is the right pick" — names its track record, partner brands, women-owned certification as legitimate reasons to choose it | https://theofficeshop.ca/ | 2026-06-04 | FACTUAL/FAIRNESS | Pro-competitor section; reduces disparagement risk |
+
+**Non-affiliation disclaimer (added to body, after the comparison table):** *"The Office Shop is a trademark of its respective owner, referenced here only for identification and comparison; Brant Business Interiors is not affiliated with, endorsed by, or partnered with The Office Shop."*
 
 **Trademark hygiene:** "The Office Shop" used nominatively only; no logo; no implied affiliation/endorsement; partner brands (Krug/Humanscale/Three H) named only to describe The Office Shop's public roster.
 
-## G. GATES (this run — DRY RUN)
-- validate-meta: (output appended at commit) title<60 / meta<=155 — target PASS.
+**CIPO registration status (The Office Shop):** **CIPO check pending — for lawyer to confirm.** The Canadian Trademarks Database (https://ised-isde.canada.ca/cipo/trademark-search/srch) is a JavaScript interface that did not return queryable results via automated fetch on 2026-06-04. No legal conclusion drawn; the lawyer to confirm registration/application number and status. Note: "the office shop" is a common/descriptive phrase, which may bear on distinctiveness — for the lawyer to assess, not asserted here.
+
+## F.1 SUPERIORITY SCRUB LOG (2026-06-04) — instances reframed (highest tone scrutiny: peer dealer)
+1. "Publishing the spec and the price respects the buyer's time and is the opposite of a quote-first model" (implied put-down of the quote-first model) → "Publishing the spec and the price up front is a different approach from a quote-first model, and it fits buyers who prefer to research before they engage."
+2. "match the seat to the duty cycle on spec rather than on a salesperson's word" (implied dig at consultative sales) → "match the seat to the duty cycle directly from the published spec."
+- Retained as acceptable: hook explicitly disclaims superiority ("the honest question is not who is better"); "Where Brant Business Interiors is the better fit" (fit-scoped, consistent across all three pages); the F.2-style fairness section "When The Office Shop's model is the right pick" + "The argument here is not that one dealer is better in every case" (explicit non-superiority).
+
+## F.2 TITLE OPTIONS FOR THE LAWYER (do not change unilaterally; lawyer picks)
+- **(a) Current — max SEO:** "The Office Shop Alternative (Ontario)". Carries the brand entity + "Alternative" modifier (no "Best" superlative); strongest match to "the office shop alternative" intent. Note "the office shop" is descriptive, which may lower trademark risk (lawyer to assess).
+- **(b) Editorial/referential — lower profile:** "The Office Shop vs Brant Business Interiors: an Ontario buyer's comparison". Mark used referentially in a comparison frame; still carries the SEO entity. **Tradeoff:** (a) ranks the "alternative" modifier; (b) reads as neutral editorial and is the safer trademark posture. Given this is the most peer-to-peer page, (b) may be the more comfortable default.
+
+## G. GATES (post-hardening re-run, DRY RUN)
+- validate-meta: title 37 / meta 155 — PASS.
 - check-handles: 6/6 targets 200 (2026-06-04).
-- create-draft DRY RUN: FAQ -> "Frequently Asked Questions", 5 items, 6 links, byte-match — target PASS.
+- create-draft DRY RUN: FAQ -> "Frequently Asked Questions", 5 items, 6 links, byte-match — PASS. Word count 2,248 (≥2,200). No em-dashes.
 
 ## HALT
-Legal-gated, highest tone scrutiny (peer dealer). No create-draft --live until LEGAL FLAG table clears lawyer + Steve. Publish after the first System C page is live and watched.
+Legal-gated, highest tone scrutiny (peer dealer). This hardening REDUCES risk; it does NOT clear the page. No create-draft --live until the LEGAL FLAG table (incl. CIPO confirmation + title choice) clears lawyer + Steve. Publish after the first System C page (POI) is live and watched.

@@ -49,23 +49,38 @@ All three were storefront-200 verified 2026-06-04.
 - **Links (catalog, verified 200):** buy-canadian, avro PDP, design-services, industries, oecm, quote. D3 content cross-links HELD.
 
 ## F. LEGAL FLAG TABLE — every named-POI statement for the lawyer (System C hard gate)
-Each is factual, public, neutrally framed, model-not-quality. **No disparagement, no unverifiable negative, no rigged ranking.** Lawyer to confirm each before publish.
+Each is factual, public, neutrally framed, model-not-quality. **No disparagement, no unverifiable negative, no rigged ranking.** **Hardened 2026-06-04:** every row re-traced to POI's OWN current public source with the exact URL + verification date; claims not re-confirmable on poi.ca today were CUT or softened (see hardening log). Lawyer to confirm each before publish.
 
-| # | Statement in draft (paraphrase) | Public source | Class | Note |
-|---|---|---|---|---|
-| L-1 | POI offers "over 65 years of industry leadership" and "expertise in Furniture, A/V Technology, Flooring, Construction Solutions, Facility Management, and Moves & Relocations" | POI Google Business Profile (POI's own words), quoted | FACTUAL/PUBLIC | Direct quote of POI's self-description |
-| L-2 | "POI creates workspaces… for corporate, education & healthcare" | poi.ca homepage meta, quoted | FACTUAL/PUBLIC | Direct quote |
-| L-3 | POI "is publicly identified as a Steelcase Premier Partner, anchoring its product offer around the Steelcase line" | poi.ca; MapQuest; Steelcase att-site | FACTUAL/PUBLIC | Steelcase relationship is publicly stated by POI and Steelcase |
-| L-4 | POI operates from Toronto/North York with additional Ontario locations incl. Barrie, London, Windsor; serves corporate, healthcare, education, government | Google KG; poi.ca/locations; LinkedIn | FACTUAL/PUBLIC | Geographic + sector facts |
-| L-5 | "POI Business Interiors LP is also listed as a supplier partner under OECM's Furniture, Mattresses and Related Services agreement" | oecm.ca/supplier-partners/poi-business-interiors-lp/ | FACTUAL/PUBLIC | Used to BBI's credit-sharing (honest), never as a POI negative |
-| L-6 | Framing POI as a "full-service contract interiors model… built for large projects" and BBI as the better fit for furniture-only/SMB jobs | Inference from L-1..L-4 (model description) | OPINION/FIT, substantiated | Model-fit characterization, non-disparaging; lawyer to confirm tone |
+| # | Statement in hardened draft (paraphrase) | Public source (URL) | Verified | Class | Note |
+|---|---|---|---|---|---|
+| L-1 | POI describes itself as "a leading supplier of office, healthcare and educational product solutions" and lists services incl. AV technology integration, facility management, relocation/moves, planning and design, and leasing through Steelcase Financial Services | https://www.poi.ca/services/ (POI's own words, quoted) | 2026-06-04 | FACTUAL/PUBLIC | **Softened from prior draft.** Dropped unre-confirmable Google-KG phrasing ("over 65 years", "Flooring", "Construction Solutions") — not shown on poi.ca today. Now sourced verbatim to poi.ca/services. |
+| L-2 | "POI creates workspaces featuring business furnishings, office furniture & interior solutions for corporate, education & healthcare" | https://www.poi.ca/ (homepage meta, quoted) | 2026-06-04 | FACTUAL/PUBLIC | Direct quote |
+| L-3 | POI "is publicly identified as a Steelcase Premier Partner, anchoring its product offer around the Steelcase line" | https://www.poi.ca/ ; https://www.mapquest.com/ca/ontario/poi-business-interiors-454645607 ("a premier Steelcase partner"); https://att-site.my.steelcase.com/about-poi/ | 2026-06-04 | FACTUAL/PUBLIC | Steelcase relationship publicly stated by POI and Steelcase; leasing-via-Steelcase-Financial-Services also confirmed on poi.ca/services |
+| L-4 | POI operates from Toronto/North York with additional Ontario locations; serves corporate, healthcare, education, and government | https://www.poi.ca/locations/ ; https://www.poi.ca/ ; https://ca.linkedin.com/company/poi-business-interiors | 2026-06-04 | FACTUAL/PUBLIC | **Softened:** specific city enumeration (Barrie/London/Windsor) removed; now "additional Ontario locations" (poi.ca/locations confirms multiple). Sectors confirmed poi.ca + LinkedIn. |
+| L-5 | "POI Business Interiors LP is also listed as a supplier partner under OECM's Furniture, Mattresses and Related Services agreement" | https://oecm.ca/supplier-partners/poi-business-interiors-lp/ | 2026-06-04 | FACTUAL/PUBLIC | Used to BBI's credit-sharing (honest, OECM is a SHARED credential), never as a POI negative |
+| L-6 | Framing POI as a "full-service contract interiors model… built for large projects" and BBI as the better-FIT alternative for furniture-only/SMB jobs | Inference from L-1..L-5 (POI's own model description) | 2026-06-04 | OPINION/FIT, substantiated | Model-FIT characterization (not objective superiority); superiority scrub applied (see log); lawyer to confirm tone |
+
+**Non-affiliation disclaimer (added to body, after the comparison table):** *"POI Business Interiors is a trademark of its respective owner, referenced here only for identification and comparison; Brant Business Interiors is not affiliated with, endorsed by, or partnered with POI Business Interiors."*
 
 **Trademark hygiene:** "POI Business Interiors" / "POI" used nominatively only; no logo; no implied affiliation/endorsement; "Steelcase" named only to describe POI's public partner relationship.
 
-## G. GATES (this run — DRY RUN, no writes)
-- validate-meta: (run output appended at commit) title<60 / meta<=155 — target PASS.
-- check-handles: 6/6 targets 200 (verified 2026-06-04).
-- create-draft DRY RUN: FAQ -> "Frequently Asked Questions", 5 items, 6 links, byte-match — target PASS.
+**CIPO registration status (POI Business Interiors):** **CIPO check pending — for lawyer to confirm.** The Canadian Trademarks Database (https://ised-isde.canada.ca/cipo/trademark-search/srch) is a JavaScript interface that did not return queryable results via automated fetch on 2026-06-04; registration/application number and status to be confirmed by the lawyer. No legal conclusion drawn. (Whether s. 22 depreciation-of-goodwill applies depends on registration status, which is why this is recorded but unresolved.)
+
+## F.1 SUPERIORITY SCRUB LOG (2026-06-04) — instances reframed to buyer-FIT
+1. Hook: "one of Ontario's largest and longest-running workplace interiors firms" (unsourced superlative about POI) → "an established, full-service workplace interiors firm."
+2. "Breadth is the dealer's structural advantage" → "Breadth is what a multi-line dealer is built for."
+3. "Publishing the spec is how we respect your time, and it is the opposite of a model where product detail lives behind a consultation" (implied put-down) → "Publishing the spec up front is a different approach… and it fits buyers who prefer to research first."
+4. "the dealer route is leaner" → "the dealer route fits."
+- Retained as acceptable buyer-FIT (not objective-superiority): "better-fit alternative", "Where a furniture-focused dealer is the better fit", "better-matched alternative" (all fit-scoped + hedged); plus the explicit non-superiority disclaimer in para 2 ("The point is not that one firm is better than the other in the abstract").
+
+## F.2 TITLE OPTIONS FOR THE LAWYER (do not change unilaterally; lawyer picks)
+- **(a) Current — max SEO:** "Best Alternative to POI Business Interiors (Ontario)". Puts the competitor mark inside a marketing superlative ("Best Alternative to") → higher s. 22 / superlative profile; strongest match to the "alternative to POI" search intent.
+- **(b) Editorial/referential — lower profile:** "POI Business Interiors vs Brant Business Interiors: an Ontario buyer's comparison". Mark used referentially in a comparison frame (no superlative); still carries the SEO entity; lower trademark-superlative profile. **Tradeoff:** (a) ranks the "alternative" modifier harder; (b) reads as neutral editorial and is the safer trademark posture.
+
+## G. GATES (post-hardening re-run, DRY RUN, no writes)
+- validate-meta: title 52 / meta 148 — PASS.
+- check-handles: 6/6 targets 200 (2026-06-04).
+- create-draft DRY RUN: FAQ -> "Frequently Asked Questions", 5 items, 6 links, byte-match — PASS. Word count 2,327 (≥2,200). No em-dashes.
 
 ## HALT
-System C is legal-gated. Do not create-draft --live until the LEGAL FLAG table clears a real lawyer and Steve. After sign-off, publish ONE System C page first and watch before the others.
+System C is legal-gated. This hardening REDUCES risk; it does NOT clear the page. Do not create-draft --live until the LEGAL FLAG table (incl. CIPO confirmation + title choice) clears a real lawyer and Steve. After sign-off, publish ONE System C page first (POI) and watch before the others.
