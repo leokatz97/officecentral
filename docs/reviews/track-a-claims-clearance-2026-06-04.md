@@ -2,13 +2,13 @@
 
 **Date:** 2026-06-04 · **Branch:** `feature/content-batch-trackA-2026-06-03` (PR #102) · **Status: DOCS ONLY — clearance gate, NOT for merge.**
 
-This is a **read-only extraction** across all 15 Track-A conceptual + positioning drafts (brief `.md` + customer-facing `.html` body + `-PACK.json` faq/meta each). **No drafts were edited; no live writes; build-state untouched.** Nothing here changes a draft — it lists every external stat, BBI capability/service claim, legal/regulatory framing, the four re-scopes, and every footing/founding-year instance, so each can be cleared before any publish run.
+This is a **read-only extraction** across all 15 Track-A conceptual + positioning drafts (brief `.md` + customer-facing `.html` body + `-PACK.json` faq/meta each). **No drafts were edited; no live writes; build-state untouched.** Nothing here changes a draft — it lists every external stat, BBI capability/service claim, legal/regulatory framing, the four re-scopes, every footing/founding-year instance, **and a §5 spec reconciliation of every product cited in the category posts (Slots 10–14) against the PR #103 §5 corrections + the verified-spec dataset**, so each can be cleared before any publish run.
 
 ## How to use this
 
 Every item below is assigned to ONE clearer and carries a proposed action. Work the two clearer lists, then the four re-scope sign-offs, then the consistency fixes.
 
-- **Clearer (A) — LEO:** factual accuracy, BBI capability/service truth, external stats sourcing, the four re-scopes, footing consistency. → [Part 3](#part-3--clearer-a--leo) + [Part 2](#part-2--the-four-re-scopes-leo-sign-off) + [Part 1](#part-1--footing--founding-year-consistency-check).
+- **Clearer (A) — LEO:** factual accuracy, BBI capability/service truth, external stats sourcing, **§5 spec reconciliation of cited SKUs (§3.3)**, the four re-scopes, footing consistency. → [Part 3](#part-3--clearer-a--leo) (incl. §3.3 §5 reconciliation) + [Part 2](#part-2--the-four-re-scopes-leo-sign-off) + [Part 1](#part-1--footing--founding-year-consistency-check).
 - **Clearer (B) — STEVE (STEVE-GATED):** every Made-in-Canada / origin statement, and every warranty mention. → [Part 4](#part-4--clearer-b--steve-steve-gated).
 
 **Action vocabulary:** `KEEP` (cleared as-is) · `VERIFY` (confirm true/accurate before publish) · `CAVEAT` (needs a disclaimer or softening) · `CUT` (remove unless substantiated).
@@ -47,6 +47,7 @@ These are the load-bearing claims — if any is false the post must not publish:
 6. **Made-in-Canada / origin (Slots 1, 2, 4, 10, 15 — STEVE):** STEVE-GATED.
 7. **Warranty generalizations (Slots 2, 5, 15 — STEVE):** STEVE-GATED.
 8. **Founding-year inconsistency (Part 1, Leo):** `since 1964` appears in only 2 of 15 posts.
+9. **§5 spec reconciliation — CLEAN, guardrail only (§3.3, Leo):** every SKU cited in the category posts (Slots 10–14) is described generically (name + PDP route, no hard spec/shape number), so **zero stale §5 figures appear in any draft body.** The three flagged items resolve as: **Sidero 33"H** cited (Slot 14) with no height stated; **Napa oval→racetrack** not cited at all (Slot 13 cites the Zira *boat-shape*, correctly); **Newland pedestal dims** apply to an un-cited SKU. Action is forward-looking only — if Leo adds a figure at voice pass, use the §5-corrected value.
 
 ---
 
@@ -178,6 +179,35 @@ Appears in the bottom-line CTA of **all 15 posts**, identically. → `VERIFY` on
 
 *(Tax content note — Slot 3 CRA CCA Class 8 — is a Leo factual item but lives under Legal/Regulatory; see Part 4 cross-reference T-1, kept with the caveat tracking.)*
 
+### 3.3 §5 spec reconciliation — category posts (Slots 10–14)
+
+*Clearer: LEO. Cross-checks every product cited in the five category/product posts against the **§5 factual corrections shipped in PR #103** (`fix/spec-audit-s5-factual-corrections-2026-06-03`, 13 SKUs LIVE) and the **verified-spec dataset** (`data/reports/spec-audit-verified-specs-2026-06-03.json`). Scope = Slots 10 (mesh-vs-upholstered), 11 (task-vs-exec), 12 (filing/shelving/pedestals), 13 (conference table), 14 (reception).*
+
+**Headline finding — CLEAN: zero stale §5 figures in any draft body.** Every cited SKU is described **generically — product name + PDP route only, no hard dimension / shape / mechanism / brand number** — per the "category-post rule" stated in each brief (*"illustrative VERIFIED SKUs, conceptual, PDP routing"*). Because no draft exposes a hard spec, no §5-corrected value can be contradicted. The reconciliation is therefore a **forward guardrail**, not a fix list: if Leo adds any figure at voice pass, it must use the §5-corrected value below.
+
+**The three task-flagged corrections, resolved:**
+- **Sidero overall height (§5: 32"H → 33"H, SKU `9699268591929`)** — Sidero **is** cited (Slot 14, *"a commercial guest chair like the Global Sidero, offered in many colours"*) but the body states **no height / no dimension** → no stale figure. **Guardrail:** if a height is added, use **33"H**, not 32"H.
+- **Napa shape (§5: oval → racetrack, SKU `9724981215545`)** — Napa is **not cited in any of the 15 drafts** → moot for Track A. Slot 13 instead cites the **Global Zira boat-shaped table** (`/products/boat-shaped-conference-table`) and describes it as *"boat-shaped"*, which is accurate for that SKU and **not** a §5-flagged shape. No action.
+- **Newland pedestal dimensions (§5: `16"W` → `16"W x 22.7"D x 28"H`, SKU `9950669635897` = NLMP23**B**BF)** — that corrected SKU is **not cited**. Slot 12 cites a **different** Newland pedestal, `/products/newland-box-file-mobile-pedestal` (`9103190753593` = NLMP23BF), and states **no dimensions** → no stale figure.
+
+**Cited-SKU reconciliation table:**
+
+| SKU cited (handle) | Post | Spec/shape stated in BODY | §5 / audit PDP status | Reconciliation → action |
+|---|---|---|---|---|
+| Kody mesh chair (`kody-mesh-chair-otg13110`) | Slot 10 | none (generic "breathable mesh back") | not in §5 | **CLEAN** |
+| Pacific high-back tilter (`pacific-high-back-tilter`) | Slot 10 | none (generic "executive feel") | not in §5 | **CLEAN** |
+| Yoho task chair (`mvl2786-yoho-armless-low-back-task-chair`) | Slot 11 | none (generic) | not in §5 | **CLEAN** |
+| Concorde exec multi-tilter (`concorde-high-back-executive-multi-tilter-2424`, `9666744680761`) | Slot 11 | none (generic) | §3b origin pending; **NOT** the §5-corrected 24HR Concorde (`9924907008313`/`…613945`) | **CLEAN** (no claim) — guardrail: don't import a 24HR Concorde spec onto this exec SKU |
+| Global Premium Series lateral file (`premium-series-lateral-file-cabinet-2-3-4-5-drawer-1`, `9114485391673`) | Slot 12 | "available in two to five drawers" | §5 **deferred** "9300→Prime" line-ref (skipped, resolution pass); §3c cert + §3a warranty pending | **CLEAN** — drawer count matches the handle; draft says "Premium Series" (BBI title), **not** "9300" → `KEEP`. Guardrail: don't add "9300 Series"; PDP cert/warranty stay Steve-gated |
+| Global bookcase (`bookcase-15-sizes-available`) | Slot 12 | none ("Global bookcase, 15 sizes") | not in §5 | **CLEAN** |
+| Global Newland mobile pedestal (`newland-box-file-mobile-pedestal`, `9103190753593` = NLMP23BF) | Slot 12 | none (generic) | §3a warranty pending; **NOT** the §5-dimension SKU | **CLEAN** — §5 dim fix is on a different, un-cited SKU |
+| Global Zira boat-shaped table (`boat-shaped-conference-table`, `9103187345721`) | Slot 13 | shape "boat-shaped" | §3b origin pending; shape **not** §5-flagged | **CLEAN** — "boat-shaped" accurate; Napa (oval→racetrack) is a different, un-cited SKU |
+| Flip-top training tables (`training-flip-top-tables-1`, `9686674637113`) | Slot 13 | none (generic) | §3a warranty pending (folding = 1yr, lifetime over-claim on PDP) | **CLEAN** — post asserts no warranty; guardrail keeps it that way |
+| L-shape reception unit (`l-shape-reception-72-x-72-x-41-1`, `9103183151417`) | Slot 14 | none — body says "our L-shape reception unit" (no brand, no dims) | §5 **deferred** BRAND mis-tag (Heartwood → Newland by Offices to Go); §3a warranty | **CLEAN now** — no brand stated. **Guardrail (VERIFY):** if a brand is added, use "Newland by Offices to Go (Global)", **never "Heartwood"** |
+| Global Sidero guest chair (`sidero-guest-chair-28-colour-options`, `9699268591929`) | Slot 14 | none — "offered in many colours" (no height/dim) | §5 **CORRECTED** height 32→**33"H**; brand "Global" correct | **CLEAN now** — no height stated. **Guardrail (VERIFY):** if a height/dim is added, use **33"H** |
+
+**Net:** `KEEP` all category posts as-is on §5 grounds; the only Leo actions are the two forward guardrails (Sidero height = 33"H; L-shape reception brand = Newland-not-Heartwood) **if** specs are added during the voice pass. Several cited PDPs still carry open §3 (origin/warranty/cert) or deferred §5 (line-ref/brand) items at the **PDP level** — none is asserted in the post bodies, so they don't gate these drafts, but they are the reason the generic-citation discipline must hold through voice pass.
+
 ---
 
 ## Part 4 — Clearer (B) — STEVE (STEVE-GATED)
@@ -222,4 +252,4 @@ Appears in the bottom-line CTA of **all 15 posts**, identically. → `VERIFY` on
 
 ## Coverage note
 
-All 15 drafts read in full (brief `.md` + body `.html` + `-PACK.json`). No statistic, capability claim, origin/warranty statement, re-scope, or footing instance was knowingly omitted; where a figure appeared only in a brief and was correctly kept out of customer copy (e.g. Slot 8 `~$200/panel`, Slot 5 steel-gauge `16–18ga`, Slot 6 `20-8-2`, Slot 14 `28 colours`), it is noted as "KEEP OUT / verify if re-added" rather than dropped silently. **No drafts were edited; no live writes; build-state untouched. HALT for Leo + Steve review.**
+All 15 drafts read in full (brief `.md` + body `.html` + `-PACK.json`). No statistic, capability claim, origin/warranty statement, re-scope, or footing instance was knowingly omitted; where a figure appeared only in a brief and was correctly kept out of customer copy (e.g. Slot 8 `~$200/panel`, Slot 5 steel-gauge `16–18ga`, Slot 6 `20-8-2`, Slot 14 `28 colours` = the Sidero), it is noted as "KEEP OUT / verify if re-added" rather than dropped silently. **§5 spec reconciliation (§3.3):** all 11 distinct SKUs cited across Slots 10–14 were cross-checked against PR #103's §5 corrections + the verified-spec dataset — all describe their SKUs generically, so **zero stale §5 figures appear in any draft** (the Sidero/Napa/Newland flags resolve to two forward guardrails + one moot). **No drafts were edited; no live writes; build-state untouched. HALT for Leo + Steve review.**
