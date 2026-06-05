@@ -22,3 +22,18 @@ Roundup carries a **light-legal-glance** flag before flip-live (factual/neutral 
 | Best Alternative to Grand & Toy Office Furniture (Ontario) | (recorded on the System C branch PACK) | grand-and-toy-office-furniture-alternative-ontario | /blogs/news/grand-and-toy-office-furniture-alternative-ontario | false |
 
 System C drafts (Staples, Grand & Toy, plus the 3 prior POI/atWork/Office Shop) stay `published:false` until a lawyer + Steve sign off on the named-competitor framing. Then publish ONE first (POI) and watch before the rest. Staples + Grand & Toy are marked HIGHER-ENFORCEMENT-RISK targets.
+
+## DESIGN/SEGMENT pages (branch `content-batch2-design-segment-2026-06-04`) — normal publish flow later
+
+6 NET-NEW drafts created as **UNPUBLISHED (`published:false`, `published_at=None`)** on the News blog (`108557861177`) via `create-draft --live` on 2026-06-04. Each readback confirmed draft + FAQ byte-match PASS + SEO title_tag/description_tag set (all meta <=155). Nothing published. Featured image + alt added in Admin at publish (flip-live enforces alt). All product/page interlinks verified storefront-200; all SKUs distinct from the Wave-1 geo/manufacturer/roundup drafts.
+
+| Post | Type | Article ID | Handle | Draft URL | published |
+|---|---|---|---|---|---|
+| Office Space Planning Guide for Ontario Businesses | design/space-planning | 689254302009 | office-space-planning-guide-ontario | /blogs/news/office-space-planning-guide-ontario | false |
+| How Much Office Space Do You Need Per Employee? | design/space-planning | 689254334777 | how-much-office-space-do-you-need | /blogs/news/how-much-office-space-do-you-need | false |
+| Office Fit-Out and Renovation Guide for Ontario | design/space-planning | 689254367545 | office-fit-out-renovation-guide-ontario | /blogs/news/office-fit-out-renovation-guide-ontario | false |
+| Designing for Hybrid and Activity-Based Work | design/space-planning | 689254400313 | hybrid-activity-based-work-office-design | /blogs/news/hybrid-activity-based-work-office-design | false |
+| Office Furniture for Ontario Law Firms | segment guide | 689254433081 | office-furniture-ontario-law-firms | /blogs/news/office-furniture-ontario-law-firms | false |
+| Medical and Dental Clinic Furniture in Ontario | segment guide | 689254498617 | medical-dental-clinic-furniture-ontario | /blogs/news/medical-dental-clinic-furniture-ontario | false |
+
+These 6 are SAFE pattern (no System-C legal gate). Before flip-live each still needs: Leo voice pass, featured image + alt in Admin, Steve sign-off, then `flip-live --spec PACK.json --live`, then build-state row + Cowork reconcile. Same normal publish flow as the Wave-1 SAFE pages.
