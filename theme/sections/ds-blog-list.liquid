@@ -137,27 +137,6 @@
       </div>
     </header>
 
-    <!-- Category filter chips (tag-based) -->
-    {%- if blog.articles_count > 0 -%}
-      {%- assign all_tags = blog.all_tags -%}
-      {%- if all_tags.size > 0 -%}
-        <nav class="blog-filters" aria-label="Filter articles by topic">
-          <div class="blog-filters__inner">
-            <a href="{{ blog.url }}"
-               class="blog-filter-chip"
-               {% unless current_tags %}aria-current="true"{% endunless %}>All</a>
-            {%- for tag in all_tags -%}
-              <a href="{{ blog.url }}/tagged/{{ tag | handle }}"
-                 class="blog-filter-chip"
-                 {% if current_tags contains tag %}aria-current="true"{% endif %}>
-                {{- tag -}}
-              </a>
-            {%- endfor -%}
-          </div>
-        </nav>
-      {%- endif -%}
-    {%- endif -%}
-
     <!-- Article grid -->
     <section class="blog-grid">
       <div class="blog-grid__inner">
