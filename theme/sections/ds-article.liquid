@@ -118,6 +118,7 @@
 
 /* ── Legal disclaimer (site-wide, blog articles only) ─────────────────────── */
 .article-disclaimer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--borderColor); font-size: 12px; line-height: 1.6; color: rgba(var(--textColor-rgb),0.45); }
+.article-disclaimer__date { display: block; margin-top: 8px; font-size: 11px; color: rgba(var(--textColor-rgb),0.4); }
 
 /* ── Related products ────────────────────────────────────────────────────── */
 .article-related { padding: 56px 0; background: var(--alternateBackground); border-top: 1px solid var(--borderColor); }
@@ -292,7 +293,10 @@
 
         <!-- Legal disclaimer - site-wide, rendered on every blog article -->
         <p class="article-disclaimer">
-          This article is provided for general informational purposes only and does not constitute legal, financial, procurement, or other professional advice. Product specifications, pricing, and availability are subject to change. Brant Business Interiors makes no representations or warranties, express or implied, as to the accuracy, completeness, or currency of this content. For details specific to your project, please contact us for a quote or consultation.
+          This article is provided for general informational purposes only and does not constitute legal, financial, procurement, or other professional advice. Pricing and specifications reflect publicly available manufacturer information and Canadian market data and are subject to change without notice. Brant Business Interiors makes no representations or warranties, express or implied, as to the accuracy, completeness, or currency of this content. For details specific to your project, please contact us for a quote or consultation.
+          {%- if article.published_at != blank -%}
+            <span class="article-disclaimer__date">Published {{ article.published_at | date: '%B %-d, %Y' }}.</span>
+          {%- endif -%}
         </p>
       </div>
     </section>
