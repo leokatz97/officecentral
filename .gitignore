@@ -1,6 +1,13 @@
 .env
 .env.*
 .mcp.json
+
+# Onboarding MCP local virtualenv (recreate from requirements.txt)
+bbi_onboarding_mcp/.venv/
+
+# Python bytecode
+__pycache__/
+*.pyc
 theme/config/settings_data.json
 .DS_Store
 
