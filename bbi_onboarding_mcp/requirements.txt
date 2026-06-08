@@ -1,0 +1,7 @@
+# BBI Onboarding MCP — runtime dependencies
+# Requires Python >= 3.10 (MCP SDK constraint). Built/tested on 3.12.
+mcp>=1.2.0            # official Python MCP SDK (FastMCP, streamable-HTTP transport)
+uvicorn>=0.30        # ASGI server for the streamable-HTTP app
+PyYAML>=6.0          # read the 3 canonical reference YAMLs + re-export snapshot
+PyJWT[crypto]>=2.8   # OAuth mode: verify RS256 JWT access tokens against an IdP JWKS
+# starlette + httpx are pulled in transitively by mcp; pinned indirectly.

@@ -1,0 +1,2093 @@
+{
+  "meta": {
+    "generated": "2026-06-08",
+    "store": "office-central-online.myshopify.com",
+    "api_version": "2024-10",
+    "purpose": "Consolidated brand onboarding reference for downstream intake tool. GET-only snapshot.",
+    "sources": [
+      "data/reference/manufacturer-defaults.yaml",
+      "data/reference/sku-prefix-lookup.yaml",
+      "data/reference/brand-collection-routing.yaml",
+      "Shopify Admin API GET /smart_collections, /custom_collections, /products (status=active)"
+    ],
+    "collection_membership_legend": {
+      "SMART": "rule/tag-based smart collection — product joins by carrying the required tag(s)",
+      "MANUAL": "custom collection — product must be added via a Collect (write_products)",
+      "missing": "handle routed in reference files but no such collection exists on the store yet"
+    },
+    "prefix_match_method": "Leading alpha run of the first non-empty variant SKU, greedy longest-known-prefix match.",
+    "live_product_filter": "status=active AND published_at not null (live on Online Store).",
+    "counts": {
+      "active_products_fetched": 596,
+      "live_published_products": 587,
+      "products_without_sku_skipped": 52,
+      "products_numeric_sku_no_alpha_prefix": 5,
+      "smart_collections_on_store": 69,
+      "custom_collections_on_store": 322,
+      "brands": 29,
+      "orphan_prefixes": 44,
+      "routed_but_missing_collections": 4
+    },
+    "google_product_category_note": "No google_product_category is recorded in any of the three reference files; field emitted as null for every brand."
+  },
+  "brands": [
+    {
+      "brand_key": "3m",
+      "canonical_manufacturer": "3M",
+      "brand_tag": "brand:3m",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "MMM"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:3m",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 1,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "allseating",
+      "canonical_manufacturer": "Allseating",
+      "brand_tag": "brand:allseating",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "ALLSE"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:allseating",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "borgo",
+      "canonical_manufacturer": "Borgo",
+      "brand_tag": "brand:borgo",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "BORGO"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:borgo",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 1,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "ergocentric",
+      "canonical_manufacturer": "ErgoCentric",
+      "brand_tag": "brand:ergocentric",
+      "sub_brands": [],
+      "sku_prefixes": [],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:ergocentric",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "Canada",
+        "certifications_typical": [
+          "GREENGUARD",
+          "BIFMA"
+        ],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "fellowes",
+      "canonical_manufacturer": "Fellowes",
+      "brand_tag": "brand:fellowes",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "FEL"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:fellowes",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 10,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "fireking",
+      "canonical_manufacturer": "FireKing",
+      "brand_tag": "brand:fireking",
+      "sub_brands": [],
+      "sku_prefixes": [],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:fireking",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {
+        "storage_filing": [
+          "storage",
+          "fire-resistant-file-cabinets-storage"
+        ]
+      },
+      "target_collections": [
+        {
+          "handle": "storage",
+          "membership": "SMART",
+          "collection_id": 526847377721,
+          "title": "Storage & Filing",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:storage"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:filing"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:bookcases"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:cabinets"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:lateral-files"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"type:storage\"",
+            "equals \"type:filing\"",
+            "equals \"type:bookcases\"",
+            "equals \"type:cabinets\"",
+            "equals \"type:lateral-files\""
+          ]
+        },
+        {
+          "handle": "fire-resistant-file-cabinets-storage",
+          "membership": "MANUAL",
+          "collection_id": 473349620025,
+          "title": "Fire Resistant File Cabinets (Storage)"
+        }
+      ],
+      "smart_collection_tag_conditions": [
+        "equals \"type:storage\"",
+        "equals \"type:filing\"",
+        "equals \"type:bookcases\"",
+        "equals \"type:cabinets\"",
+        "equals \"type:lateral-files\""
+      ],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "USA",
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "foundations",
+      "canonical_manufacturer": "Foundations",
+      "brand_tag": "brand:foundations",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "FOU"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:foundations",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "gardex",
+      "canonical_manufacturer": "Gardex",
+      "brand_tag": "brand:gardex",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "GDX"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:gardex",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 6,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "global_furniture_group",
+      "canonical_manufacturer": "Global Furniture Group",
+      "brand_tag": "brand:global-furniture-group",
+      "sub_brands": [
+        "Basics",
+        "Offices To Go",
+        "OTG",
+        "ObusForme"
+      ],
+      "sku_prefixes": [
+        "GLB",
+        "GLO",
+        "MVL",
+        "OFGO",
+        "OTG"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:global-furniture-group",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {
+        "task_chair": [
+          "gfg-chairs",
+          "task-chairs"
+        ],
+        "executive_chair": [
+          "gfg-chairs",
+          "task-chairs"
+        ],
+        "drafting_stool": [
+          "gfg-chairs",
+          "stools-drafting-chairs"
+        ],
+        "conference_chair": [
+          "gfg-chairs",
+          "conference-seating"
+        ],
+        "lounge_chair": [
+          "gfg-chairs",
+          "lounge-seating"
+        ],
+        "guest_chair": [
+          "gfg-chairs",
+          "guest-seating"
+        ],
+        "side_chair": [
+          "gfg-chairs",
+          "guest-seating"
+        ],
+        "desk": [
+          "gfg-desks",
+          "desks"
+        ],
+        "storage_filing": [
+          "gfg-storage",
+          "storage-filing"
+        ],
+        "workstation": [],
+        "height_adjustable_desk": [],
+        "panel_system": [],
+        "flip_top_table": [],
+        "bar_stool": []
+      },
+      "target_collections": [
+        {
+          "handle": "gfg-chairs",
+          "membership": "SMART",
+          "collection_id": 527497003321,
+          "title": "Global Seating",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "brand:global-furniture-group"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:chairs"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"brand:global-furniture-group\"",
+            "equals \"type:chairs\""
+          ]
+        },
+        {
+          "handle": "task-chairs",
+          "membership": "SMART",
+          "collection_id": 526379024697,
+          "title": "Task Chairs",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "task-chair"
+            },
+            {
+              "column": "type",
+              "relation": "contains",
+              "condition": "task"
+            },
+            {
+              "column": "title",
+              "relation": "contains",
+              "condition": "task chair"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"task-chair\""
+          ]
+        },
+        {
+          "handle": "stools-drafting-chairs",
+          "membership": "MANUAL",
+          "collection_id": 471847960889,
+          "title": "Stools & Drafting Chairs"
+        },
+        {
+          "handle": "conference-seating",
+          "membership": "MANUAL",
+          "collection_id": 526866809145,
+          "title": "Conference Seating"
+        },
+        {
+          "handle": "lounge-seating",
+          "membership": "MANUAL",
+          "collection_id": 508412756281,
+          "title": "Lounge Seating"
+        },
+        {
+          "handle": "guest-seating",
+          "membership": "MANUAL",
+          "collection_id": 472894112057,
+          "title": "Guest (Seating)"
+        },
+        {
+          "handle": "gfg-desks",
+          "membership": "SMART",
+          "collection_id": 527497068857,
+          "title": "Global Desks & Workstations",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "brand:global-furniture-group"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:desks"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"brand:global-furniture-group\"",
+            "equals \"type:desks\""
+          ]
+        },
+        {
+          "handle": "desks",
+          "membership": "SMART",
+          "collection_id": 526847344953,
+          "title": "Desks & Workstations",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:desks"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:benching"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:workstations"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:sit-stand"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"type:desks\"",
+            "equals \"type:benching\"",
+            "equals \"type:workstations\"",
+            "equals \"type:sit-stand\""
+          ]
+        },
+        {
+          "handle": "gfg-storage",
+          "membership": "SMART",
+          "collection_id": 527497101625,
+          "title": "Global Storage & Filing",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "brand:global-furniture-group"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:storage"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"brand:global-furniture-group\"",
+            "equals \"type:storage\""
+          ]
+        },
+        {
+          "handle": "storage-filing",
+          "membership": "missing",
+          "collection_id": null,
+          "title": null
+        }
+      ],
+      "smart_collection_tag_conditions": [
+        "equals \"brand:global-furniture-group\"",
+        "equals \"type:chairs\"",
+        "equals \"task-chair\"",
+        "equals \"type:desks\"",
+        "equals \"type:benching\"",
+        "equals \"type:workstations\"",
+        "equals \"type:sit-stand\"",
+        "equals \"type:storage\""
+      ],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "Canada",
+        "certifications_typical": [
+          "GREENGUARD",
+          "BIFMA"
+        ],
+        "warranty": null
+      },
+      "live_product_count": 247,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "hon",
+      "canonical_manufacturer": "HON",
+      "brand_tag": "brand:hon",
+      "sub_brands": [],
+      "sku_prefixes": [],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:hon",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "USA",
+        "certifications_typical": [
+          "GREENGUARD",
+          "BIFMA"
+        ],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "heartwood",
+      "canonical_manufacturer": "Heartwood",
+      "brand_tag": "brand:heartwood",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "HDL",
+        "HTW"
+      ],
+      "documented_sub_codes": [
+        "INV",
+        "INVMP",
+        "INVR",
+        "INVREC",
+        "LEV",
+        "LEVSR",
+        "SOHO",
+        "TUCANA"
+      ],
+      "routing_tag_template": [
+        "brand:heartwood",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "Canada",
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 81,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "herman_miller",
+      "canonical_manufacturer": "Herman Miller",
+      "brand_tag": "brand:herman-miller",
+      "sub_brands": [],
+      "sku_prefixes": [],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:herman-miller",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "USA",
+        "certifications_typical": [
+          "GREENGUARD",
+          "BIFMA"
+        ],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "horizonfurniture",
+      "canonical_manufacturer": "Horizon Furniture",
+      "brand_tag": null,
+      "sub_brands": [],
+      "sku_prefixes": [
+        "HZN"
+      ],
+      "documented_sub_codes": [
+        "CM",
+        "DEM",
+        "ECA",
+        "ECAPS",
+        "JV",
+        "KL",
+        "NK",
+        "SHOPTECH",
+        "STAXX"
+      ],
+      "routing_tag_template": null,
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {},
+      "live_product_count": 14,
+      "status": "active",
+      "notes": [
+        "In sku-prefix-lookup but no brand-collection-routing entry; target collections not yet defined."
+      ]
+    },
+    {
+      "brand_key": "humanscale",
+      "canonical_manufacturer": "Humanscale",
+      "brand_tag": "brand:humanscale",
+      "sub_brands": [],
+      "sku_prefixes": [],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:humanscale",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {
+        "task_chair": [
+          "humanscale-chairs",
+          "task-chairs"
+        ],
+        "sit_stand_desk": [
+          "sit-stand-workstations",
+          "desktop-sit-stand"
+        ],
+        "task_light": [
+          "lighting"
+        ]
+      },
+      "target_collections": [
+        {
+          "handle": "humanscale-chairs",
+          "membership": "missing",
+          "collection_id": null,
+          "title": null
+        },
+        {
+          "handle": "task-chairs",
+          "membership": "SMART",
+          "collection_id": 526379024697,
+          "title": "Task Chairs",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "task-chair"
+            },
+            {
+              "column": "type",
+              "relation": "contains",
+              "condition": "task"
+            },
+            {
+              "column": "title",
+              "relation": "contains",
+              "condition": "task chair"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"task-chair\""
+          ]
+        },
+        {
+          "handle": "sit-stand-workstations",
+          "membership": "MANUAL",
+          "collection_id": 471844585785,
+          "title": "Sit-Stand Workstations"
+        },
+        {
+          "handle": "desktop-sit-stand",
+          "membership": "MANUAL",
+          "collection_id": 473196298553,
+          "title": "Desktop Sit Stand"
+        },
+        {
+          "handle": "lighting",
+          "membership": "MANUAL",
+          "collection_id": 473197248825,
+          "title": "Lighting"
+        }
+      ],
+      "smart_collection_tag_conditions": [
+        "equals \"task-chair\""
+      ],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "Canada",
+        "certifications_typical": [
+          "GREENGUARD"
+        ],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "intelligentofficefurniture",
+      "canonical_manufacturer": "Intelligent Office Furniture",
+      "brand_tag": null,
+      "sub_brands": [],
+      "sku_prefixes": [
+        "IOF"
+      ],
+      "documented_sub_codes": [
+        "HA",
+        "LOCK",
+        "PN",
+        "RAPB",
+        "UN"
+      ],
+      "routing_tag_template": null,
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {},
+      "live_product_count": 35,
+      "status": "active",
+      "notes": [
+        "In sku-prefix-lookup but no brand-collection-routing entry; target collections not yet defined."
+      ]
+    },
+    {
+      "brand_key": "keilhauer",
+      "canonical_manufacturer": "Keilhauer",
+      "brand_tag": "brand:keilhauer",
+      "sub_brands": [],
+      "sku_prefixes": [],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:keilhauer",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "Canada",
+        "certifications_typical": [
+          "GREENGUARD",
+          "BIFMA"
+        ],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "kensington",
+      "canonical_manufacturer": "Kensington",
+      "brand_tag": "brand:kensington",
+      "sub_brands": [],
+      "sku_prefixes": [],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:kensington",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {
+        "charging_cabinet": [
+          "storage"
+        ]
+      },
+      "target_collections": [
+        {
+          "handle": "storage",
+          "membership": "SMART",
+          "collection_id": 526847377721,
+          "title": "Storage & Filing",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:storage"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:filing"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:bookcases"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:cabinets"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:lateral-files"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"type:storage\"",
+            "equals \"type:filing\"",
+            "equals \"type:bookcases\"",
+            "equals \"type:cabinets\"",
+            "equals \"type:lateral-files\""
+          ]
+        }
+      ],
+      "smart_collection_tag_conditions": [
+        "equals \"type:storage\"",
+        "equals \"type:filing\"",
+        "equals \"type:bookcases\"",
+        "equals \"type:cabinets\"",
+        "equals \"type:lateral-files\""
+      ],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "USA",
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "links_contract_furniture",
+      "canonical_manufacturer": "Links Contract Furniture",
+      "brand_tag": "brand:links-contract-furniture",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "LCF"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:links-contract-furniture",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 1,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "mitybilt",
+      "canonical_manufacturer": "MityBilt",
+      "brand_tag": "brand:mitybilt",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "MTY"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:mitybilt",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 9,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "office_star_products",
+      "canonical_manufacturer": "Office Star Products",
+      "brand_tag": "brand:office-star-products",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "OSP"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:office-star-products",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 14,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "richelieu",
+      "canonical_manufacturer": "Richelieu",
+      "brand_tag": null,
+      "sub_brands": [],
+      "sku_prefixes": [
+        "RIC"
+      ],
+      "documented_sub_codes": [
+        "DS",
+        "JAX",
+        "MOMENTUM",
+        "OME",
+        "PBK",
+        "PP",
+        "S2S",
+        "SIT2STAND"
+      ],
+      "routing_tag_template": null,
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {},
+      "live_product_count": 13,
+      "status": "active",
+      "notes": [
+        "In sku-prefix-lookup but no brand-collection-routing entry; target collections not yet defined."
+      ]
+    },
+    {
+      "brand_key": "safco",
+      "canonical_manufacturer": "Safco",
+      "brand_tag": "brand:safco",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "SAF"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:safco",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {
+        "drafting_table": [
+          "drafting-tables",
+          "tables"
+        ],
+        "standing_desk": [
+          "standing-desks",
+          "desks"
+        ],
+        "desktop_riser": [
+          "desktop-sit-stand",
+          "monitor-arms"
+        ]
+      },
+      "target_collections": [
+        {
+          "handle": "drafting-tables",
+          "membership": "MANUAL",
+          "collection_id": 487507525945,
+          "title": "Drafting Tables"
+        },
+        {
+          "handle": "tables",
+          "membership": "SMART",
+          "collection_id": 526847410489,
+          "title": "Tables",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:tables"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:folding-tables"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:training-tables"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:cafeteria-tables"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"type:tables\"",
+            "equals \"type:folding-tables\"",
+            "equals \"type:training-tables\"",
+            "equals \"type:cafeteria-tables\""
+          ]
+        },
+        {
+          "handle": "standing-desks",
+          "membership": "missing",
+          "collection_id": null,
+          "title": null
+        },
+        {
+          "handle": "desks",
+          "membership": "SMART",
+          "collection_id": 526847344953,
+          "title": "Desks & Workstations",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:desks"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:benching"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:workstations"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:sit-stand"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"type:desks\"",
+            "equals \"type:benching\"",
+            "equals \"type:workstations\"",
+            "equals \"type:sit-stand\""
+          ]
+        },
+        {
+          "handle": "desktop-sit-stand",
+          "membership": "MANUAL",
+          "collection_id": 473196298553,
+          "title": "Desktop Sit Stand"
+        },
+        {
+          "handle": "monitor-arms",
+          "membership": "MANUAL",
+          "collection_id": 473196233017,
+          "title": "Monitor Arms"
+        }
+      ],
+      "smart_collection_tag_conditions": [
+        "equals \"type:tables\"",
+        "equals \"type:folding-tables\"",
+        "equals \"type:training-tables\"",
+        "equals \"type:cafeteria-tables\"",
+        "equals \"type:desks\"",
+        "equals \"type:benching\"",
+        "equals \"type:workstations\"",
+        "equals \"type:sit-stand\""
+      ],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "USA",
+        "certifications_typical": [
+          "GREENGUARD"
+        ],
+        "warranty": null
+      },
+      "live_product_count": 10,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "sentry_safe",
+      "canonical_manufacturer": "Sentry Safe",
+      "brand_tag": "brand:sentry-safe",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "SEN"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:sentry-safe",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 5,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "steelcase",
+      "canonical_manufacturer": "Steelcase",
+      "brand_tag": "brand:steelcase",
+      "sub_brands": [],
+      "sku_prefixes": [],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:steelcase",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "Canada",
+        "certifications_typical": [
+          "GREENGUARD",
+          "BIFMA"
+        ],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "tayco",
+      "canonical_manufacturer": "Tayco",
+      "brand_tag": "brand:tayco",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "TAY",
+        "TAYCO"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:tayco",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 5,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "teknion",
+      "canonical_manufacturer": "Teknion",
+      "brand_tag": "brand:teknion",
+      "sub_brands": [],
+      "sku_prefixes": [],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:teknion",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {
+        "task_chair": [
+          "teknion-chairs",
+          "task-chairs"
+        ]
+      },
+      "target_collections": [
+        {
+          "handle": "teknion-chairs",
+          "membership": "missing",
+          "collection_id": null,
+          "title": null
+        },
+        {
+          "handle": "task-chairs",
+          "membership": "SMART",
+          "collection_id": 526379024697,
+          "title": "Task Chairs",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "task-chair"
+            },
+            {
+              "column": "type",
+              "relation": "contains",
+              "condition": "task"
+            },
+            {
+              "column": "title",
+              "relation": "contains",
+              "condition": "task chair"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"task-chair\""
+          ]
+        }
+      ],
+      "smart_collection_tag_conditions": [
+        "equals \"task-chair\""
+      ],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "Canada",
+        "certifications_typical": [
+          "GREENGUARD",
+          "BIFMA"
+        ],
+        "warranty": null
+      },
+      "live_product_count": 0,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "victor",
+      "canonical_manufacturer": "Victor",
+      "brand_tag": "brand:victor",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "VCT"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:victor",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 2,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "deflecto",
+      "canonical_manufacturer": "deflecto",
+      "brand_tag": "brand:deflecto",
+      "sub_brands": [],
+      "sku_prefixes": [
+        "DEF"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:deflecto",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": null,
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 8,
+      "status": "active",
+      "notes": []
+    },
+    {
+      "brand_key": "undecoded:SCN",
+      "canonical_manufacturer": null,
+      "brand_tag": null,
+      "sub_brands": [],
+      "sku_prefixes": [
+        "SCN"
+      ],
+      "routing_tag_template": null,
+      "collections_by_type": {},
+      "target_collections": [],
+      "smart_collection_tag_conditions": [],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {},
+      "live_product_count": 9,
+      "status": "steve-gated",
+      "notes": [
+        "Undecoded SKU prefix — TBD (Steve confirmation required)",
+        "category: Steel lockers (FL/FJ/FN sub-codes) + outdoor site furnishings (NJ/ND sub-codes)",
+        "resolution: Confirm via supplier invoice with Steve"
+      ]
+    }
+  ],
+  "orphans": [
+    {
+      "prefix": "WS",
+      "live_product_count": 3,
+      "sample_skus": [
+        "WS48-AXBL1260BLKWHI",
+        "WS48 AGE2DSD126/#_F INV2448TOP",
+        "WS48-PLANTER/B"
+      ],
+      "sample_products": [
+        {
+          "handle": "bar-leaner-1-span-collaborative",
+          "title": "Bar leaner 1-span collaborative",
+          "vendor": "Axis"
+        },
+        {
+          "handle": "dual-sided-height-adjustable-table",
+          "title": "Dual sided height adjustable table",
+          "vendor": "Brant Business Interiors"
+        },
+        {
+          "handle": "indoor-planter",
+          "title": "Indoor planter",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "BAOMVL",
+      "live_product_count": 3,
+      "sample_skus": [
+        "BAOMVL1873",
+        "BAOMVL1894",
+        "BAOMVL1893"
+      ],
+      "sample_products": [
+        {
+          "handle": "basics-comfort-time-ultra-multi-tilter-chairs-mvl1873-1",
+          "title": "Basics comfort-time ultra multi-tilter chairs MVL1873 MVL1875 (available with a headrest)",
+          "vendor": "Global Furniture Group"
+        },
+        {
+          "handle": "elora-multi-tilter-high-back-chair-black-petite-seat-baomvl1894",
+          "title": "Elora multi-tilter high back chair black petite seat — BAOMVL1894",
+          "vendor": "Global Furniture Group"
+        },
+        {
+          "handle": "elora-multi-tilter-high-back-chair-black-baomvl1893",
+          "title": "Elora multi-tilter high back chair black — BAOMVL1893",
+          "vendor": "Global Furniture Group"
+        }
+      ]
+    },
+    {
+      "prefix": "BELAIR",
+      "live_product_count": 3,
+      "sample_skus": [
+        "BELAIR HCG474712-4RCA12",
+        "BELAIR HCG473608-4DAG12",
+        "BELAIR HCG16-ORB12"
+      ],
+      "sample_products": [
+        {
+          "handle": "ceiling-grids-sound-acoustic-dampeners-1",
+          "title": "Ceiling grids sound acoustic dampeners",
+          "vendor": "MergeWorks"
+        },
+        {
+          "handle": "ceiling-grids-sound-acoustic-dampeners-copy",
+          "title": "Ceiling grids sound acoustic dampeners",
+          "vendor": "Brant Business Interiors"
+        },
+        {
+          "handle": "ceiling-grids-sound-acoustic-dampeners-orb",
+          "title": "Ceiling grids sound acoustic dampeners orb",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "NLP",
+      "live_product_count": 3,
+      "sample_skus": [
+        "NLP109",
+        "NLP321",
+        "NLP224 WCR"
+      ],
+      "sample_products": [
+        {
+          "handle": "desk-double-pedestal",
+          "title": "Desk double pedestal",
+          "vendor": "Brant Business Interiors"
+        },
+        {
+          "handle": "desk-u-shape-mlp205-1",
+          "title": "Desk u-shape",
+          "vendor": "Brant Business Interiors"
+        },
+        {
+          "handle": "table-desk-13-colour-options",
+          "title": "Table desk 13 colour options — 13 colour",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "BURO",
+      "live_product_count": 2,
+      "sample_skus": [
+        "BURO-CTBO 9636+ HB9636",
+        "BURO-SPR4824B"
+      ],
+      "sample_products": [
+        {
+          "handle": "boat-shaped-conference-table-96-x-36-x-29",
+          "title": "Boat shaped conference table — 96\" x 36\" x 29\"",
+          "vendor": "Brant Business Interiors"
+        },
+        {
+          "handle": "desk-single-pedestal-bbf",
+          "title": "Desk single pedestal bbf",
+          "vendor": "Heartwood Manufacturing"
+        }
+      ]
+    },
+    {
+      "prefix": "BCMB",
+      "live_product_count": 2,
+      "sample_skus": [
+        "BCMB2429",
+        "BCMB2429WHTSIDEPANEL"
+      ],
+      "sample_products": [
+        {
+          "handle": "bookcase-15-sizes-available",
+          "title": "Bookcase (15 sizes available) — 15 sizes",
+          "vendor": "OTG / Offices to Go"
+        },
+        {
+          "handle": "dual-coloured-bookcase-15-sizes-available",
+          "title": "Dual coloured bookcase (15 sizes available) — 15 sizes",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "BEL",
+      "live_product_count": 2,
+      "sample_skus": [
+        "BEL HWS1212-CIR9",
+        "BEL-HFP154829-GVS"
+      ],
+      "sample_products": [
+        {
+          "handle": "felt-acoustic-wall-tiles",
+          "title": "Felt acoustic wall tiles",
+          "vendor": "Brant Business Interiors"
+        },
+        {
+          "handle": "planter",
+          "title": "Planter",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "FIRCF",
+      "live_product_count": 2,
+      "sample_skus": [
+        "FIRCF7236DPA",
+        "FIRCF4436DPA"
+      ],
+      "sample_products": [
+        {
+          "handle": "fireking-storage-cabinet-72-high",
+          "title": "FireKing 72\" Fire-Rated Storage Cabinet",
+          "vendor": "FireKing"
+        },
+        {
+          "handle": "fireking-storage-cabinet-44-high",
+          "title": "Fireking storage cabinet 44\" high — 44\"",
+          "vendor": "FireKing"
+        }
+      ]
+    },
+    {
+      "prefix": "GLC",
+      "live_product_count": 2,
+      "sample_skus": [
+        "GLC-FFHAB506",
+        "GLC-GFT3072R"
+      ],
+      "sample_products": [
+        {
+          "handle": "freefit-benching-height-adjustable-176w-x-62-5d-ffhab506-2",
+          "title": "Freefit benching height adjustable 176\"w x 62.5\"d (ffhab506) — FFHAB506",
+          "vendor": "Global Furniture Group"
+        },
+        {
+          "handle": "ganging-plates-for-terina-tables-gfcngfp",
+          "title": "Ganging plates for terina tables gfcngfp",
+          "vendor": "Global Furniture Group"
+        }
+      ]
+    },
+    {
+      "prefix": "INSTALLATION",
+      "live_product_count": 2,
+      "sample_skus": [
+        "Installation1000",
+        "Installation475"
+      ],
+      "sample_products": [
+        {
+          "handle": "installation1000",
+          "title": "Installation1000",
+          "vendor": "Brant Business Interiors"
+        },
+        {
+          "handle": "installation475",
+          "title": "Installation475",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "KMW",
+      "live_product_count": 2,
+      "sample_skus": [
+        "KMW64415",
+        "KMW67862"
+      ],
+      "sample_products": [
+        {
+          "handle": "kensington-ac12-security-charging-cabinet",
+          "title": "Kensington AC12 security charging cabinet",
+          "vendor": "Kensington"
+        },
+        {
+          "handle": "kensington-universal-charge-sync-tablet-cabinet",
+          "title": "Kensington Universal Charge & Sync Tablet Cabinet",
+          "vendor": "Kensington"
+        }
+      ]
+    },
+    {
+      "prefix": "MTB",
+      "live_product_count": 1,
+      "sample_skus": [
+        "MTB-JSMED.18"
+      ],
+      "sample_products": [
+        {
+          "handle": "120-medicine-wheel-ottomans",
+          "title": "120\" Medicine Wheel Ottomans",
+          "vendor": "Office Central & Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "TEK",
+      "live_product_count": 1,
+      "sample_skus": [
+        "TEK-LLF60L2036D1A 2102204"
+      ],
+      "sample_products": [
+        {
+          "handle": "6-drawer-end-tab-cabinet-s128-drawers",
+          "title": "6 drawer end tab cabinet S128 drawers — 6 drawer",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "SYNN",
+      "live_product_count": 1,
+      "sample_skus": [
+        "SYNN-AD18XL-58-B-PVC"
+      ],
+      "sample_products": [
+        {
+          "handle": "anda-seat-phantom-king-gaming-style-office-chair",
+          "title": "Anda seat phantom king gaming style office chair",
+          "vendor": "AndaSeat"
+        }
+      ]
+    },
+    {
+      "prefix": "INNOVATION",
+      "live_product_count": 1,
+      "sample_skus": [
+        "INNOVATION LAY75"
+      ],
+      "sample_products": [
+        {
+          "handle": "boardroom-table-rectangular-94-5x47-25",
+          "title": "Boardroom Table Rectangular 94.5\"x47.25\"",
+          "vendor": "Office Central & Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "ERG",
+      "live_product_count": 1,
+      "sample_skus": [
+        "ERG-CS25703"
+      ],
+      "sample_products": [
+        {
+          "handle": "corner-maker-2-sizes",
+          "title": "Corner maker — 2 sizes",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "DELIVERY",
+      "live_product_count": 1,
+      "sample_skus": [
+        "Delivery85"
+      ],
+      "sample_products": [
+        {
+          "handle": "delivery-charge-85-00",
+          "title": "Delivery charge $85. — 00",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "OCD",
+      "live_product_count": 1,
+      "sample_skus": [
+        "OCD175"
+      ],
+      "sample_products": [
+        {
+          "handle": "delivery-charge-175-00",
+          "title": "Delivery charge 175. — 00",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "BOSVLED",
+      "live_product_count": 1,
+      "sample_skus": [
+        "BOSVLED500"
+      ],
+      "sample_products": [
+        {
+          "handle": "desk-lamp-5-30-w-led-bulb-adjustable-metal-acrylic-desk-mountable",
+          "title": "Desk lamp - 5.30 w LED bulb - adjustable - metal, acrylic - desk mountable",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "CLIE",
+      "live_product_count": 1,
+      "sample_skus": [
+        "CLIE1-INV2442TOP"
+      ],
+      "sample_products": [
+        {
+          "handle": "height-adjustable-table-5-sizes",
+          "title": "Electric height adjustable sit to stand desks",
+          "vendor": "Heartwood Manufacturing"
+        }
+      ]
+    },
+    {
+      "prefix": "INNOVATIONS",
+      "live_product_count": 1,
+      "sample_skus": [
+        "INNOVATIONS PKG"
+      ],
+      "sample_products": [
+        {
+          "handle": "executive-u-shape-desk-set",
+          "title": "Executive u-shape desk set",
+          "vendor": "Heartwood Manufacturing"
+        }
+      ]
+    },
+    {
+      "prefix": "HCA",
+      "live_product_count": 1,
+      "sample_skus": [
+        "HCA4747-BAM9-T"
+      ],
+      "sample_products": [
+        {
+          "handle": "felt-acoustic-room-dividers",
+          "title": "Felt acoustic room dividers",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "SPR",
+      "live_product_count": 1,
+      "sample_skus": [
+        "SPR-LLR99554"
+      ],
+      "sample_products": [
+        {
+          "handle": "gas-lift-monitor-riser",
+          "title": "Gas lift monitor riser",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "MGE",
+      "live_product_count": 1,
+      "sample_skus": [
+        "MGE-1091503100000"
+      ],
+      "sample_products": [
+        {
+          "handle": "hardfloor-casters",
+          "title": "Hardfloor casters",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "JNT",
+      "live_product_count": 1,
+      "sample_skus": [
+        "JNT5946JC"
+      ],
+      "sample_products": [
+        {
+          "handle": "hideaway-storage-cabinet-1",
+          "title": "Hideaway storage cabinet",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "HSC",
+      "live_product_count": 1,
+      "sample_skus": [
+        "HSC-NV3EWH"
+      ],
+      "sample_products": [
+        {
+          "handle": "humanscale-nova-lighting",
+          "title": "Humanscale Nova LED Task Light",
+          "vendor": "Humanscale"
+        }
+      ]
+    },
+    {
+      "prefix": "RYNO",
+      "live_product_count": 1,
+      "sample_skus": [
+        "Ryno"
+      ],
+      "sample_products": [
+        {
+          "handle": "indestructible-ryno-furniture",
+          "title": "Indestructible ryno furniture",
+          "vendor": "Pineapple Contracts"
+        }
+      ]
+    },
+    {
+      "prefix": "HT",
+      "live_product_count": 1,
+      "sample_skus": [
+        "HT-ADJ-Layout 5"
+      ],
+      "sample_products": [
+        {
+          "handle": "l-shape-height-adjustable-desk-set",
+          "title": "L-shape height adjustable desk set",
+          "vendor": "Heartwood Manufacturing"
+        }
+      ]
+    },
+    {
+      "prefix": "RSIRDL",
+      "live_product_count": 1,
+      "sample_skus": [
+        "RSIRDL110U"
+      ],
+      "sample_products": [
+        {
+          "handle": "led-desk-lamp-with-usb-and-night-light",
+          "title": "LED desk lamp with USB and night light",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "RDL",
+      "live_product_count": 1,
+      "sample_skus": [
+        "RDL-140QI-B"
+      ],
+      "sample_products": [
+        {
+          "handle": "led-desk-lamp-with-wireless-charger-led",
+          "title": "LED desk lamp with wireless charger - LED",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "CAB",
+      "live_product_count": 1,
+      "sample_skus": [
+        "CAB1622LOBBF-CTS3636G-DSK2436LR-ECU246048CLF-LTS1224G-LTS1236G"
+      ],
+      "sample_products": [
+        {
+          "handle": "links-custom-reception-unit-60x72",
+          "title": "Links custom reception unit — 60\"x72\"",
+          "vendor": "Links Contract Furniture"
+        }
+      ]
+    },
+    {
+      "prefix": "DIVERSIFIEDAFT",
+      "live_product_count": 1,
+      "sample_skus": [
+        "DIVERSIFIEDAFT48305"
+      ],
+      "sample_products": [
+        {
+          "handle": "makerspace-tables",
+          "title": "Makerspace tables",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "HTM",
+      "live_product_count": 1,
+      "sample_skus": [
+        "HTM3058T/KEZLIFT"
+      ],
+      "sample_products": [
+        {
+          "handle": "manual-height-adjustable-table",
+          "title": "Manual height adjustable table",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "ERGOACCESS",
+      "live_product_count": 1,
+      "sample_skus": [
+        "ERGOACCESS-LR72-927B-G1"
+      ],
+      "sample_products": [
+        {
+          "handle": "oci-platinum-monitor-arms",
+          "title": "Oci platinum monitor arms",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "GLI",
+      "live_product_count": 1,
+      "sample_skus": [
+        "GLI T9AB226455"
+      ],
+      "sample_products": [
+        {
+          "handle": "screenflex-room-dividers",
+          "title": "Screenflex room dividers",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "RCL",
+      "live_product_count": 1,
+      "sample_skus": [
+        "RCL-ADR2w"
+      ],
+      "sample_products": [
+        {
+          "handle": "sit-stand-adjustable-desk-riser-32-wide",
+          "title": "Sit stand adjustable desk riser 32\" wide — 32\"",
+          "vendor": "Rocelco"
+        }
+      ]
+    },
+    {
+      "prefix": "SOFT",
+      "live_product_count": 1,
+      "sample_skus": [
+        "Soft Pods-1"
+      ],
+      "sample_products": [
+        {
+          "handle": "soft-pods",
+          "title": "Soft pods",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "SANOMA",
+      "live_product_count": 1,
+      "sample_skus": [
+        "Sanoma"
+      ],
+      "sample_products": [
+        {
+          "handle": "sonoma",
+          "title": "Sonoma",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "SP",
+      "live_product_count": 1,
+      "sample_skus": [
+        "SP22104P030"
+      ],
+      "sample_products": [
+        {
+          "handle": "sphere-power",
+          "title": "Sphere power",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "TEKNION",
+      "live_product_count": 1,
+      "sample_skus": [
+        "Teknion-Call Tek Rep"
+      ],
+      "sample_products": [
+        {
+          "handle": "untethered-go-further-go-anywhere-by-teknion",
+          "title": "Teknion Untethered: go further, go anywhere by:",
+          "vendor": "Teknion"
+        }
+      ]
+    },
+    {
+      "prefix": "GFT",
+      "live_product_count": 1,
+      "sample_skus": [
+        "GFT2448R"
+      ],
+      "sample_products": [
+        {
+          "handle": "terina-training-tables-rectangular-table-8-sizes",
+          "title": "Terina training tables rectangular table — 8 sizes",
+          "vendor": "Global Furniture Group"
+        }
+      ]
+    },
+    {
+      "prefix": "MYB",
+      "live_product_count": 1,
+      "sample_skus": [
+        "MYB- AT2448Z"
+      ],
+      "sample_products": [
+        {
+          "handle": "trapezoid-tables-3-sizes",
+          "title": "Trapezoid tables (3 sizes) — 3 sizes",
+          "vendor": "MityBilt"
+        }
+      ]
+    },
+    {
+      "prefix": "ASSTD",
+      "live_product_count": 1,
+      "sample_skus": [
+        "Asstd-see website"
+      ],
+      "sample_products": [
+        {
+          "handle": "u-shape-d-top-workstation",
+          "title": "U-shape d-top workstation",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "INNO",
+      "live_product_count": 1,
+      "sample_skus": [
+        "INNO-LAYOUT 67"
+      ],
+      "sample_products": [
+        {
+          "handle": "u-shape-height-adjust-desk",
+          "title": "U-shape height adjust desk",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    }
+  ],
+  "routed_but_missing_collections": [
+    {
+      "handle": "storage-filing",
+      "routed_for_brands": [
+        "Global Furniture Group"
+      ]
+    },
+    {
+      "handle": "humanscale-chairs",
+      "routed_for_brands": [
+        "Humanscale"
+      ]
+    },
+    {
+      "handle": "standing-desks",
+      "routed_for_brands": [
+        "Safco"
+      ]
+    },
+    {
+      "handle": "teknion-chairs",
+      "routed_for_brands": [
+        "Teknion"
+      ]
+    }
+  ]
+}

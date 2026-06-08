@@ -1,0 +1,225 @@
+# Brand → collection routing recommendations
+# OVERRIDES the CSV recommended_sub_collection_* columns (which session 1 proved are weak hints, not directives)
+# Source: session 1 findings (PR #60), updated as future sessions discover more
+
+manual_collects_collections:
+  - handle: stools-drafting-chairs
+    collection_id: 471847960889  # confirmed session 1 product 5
+
+brand_routing:
+  global_furniture_group:
+    manufacturer_name: Global Furniture Group
+    brand_tag: brand:global-furniture-group
+    sub_brands:
+      # Sub-brand house rule: manufacturer field = "Global Furniture Group"
+      # Sub-brand goes in product_line field with a parenthetical or as "Basics: {line}"
+      - Basics
+      - Offices To Go
+      - OTG
+      - ObusForme
+    primary_collections_by_type:
+      task_chair: [gfg-chairs, task-chairs]
+      executive_chair: [gfg-chairs, task-chairs]
+      drafting_stool: [gfg-chairs, stools-drafting-chairs]  # second collection requires manual /collects
+      conference_chair: [gfg-chairs, conference-seating]
+      lounge_chair: [gfg-chairs, lounge-seating]
+      guest_chair: [gfg-chairs, guest-seating]
+      side_chair: [gfg-chairs, guest-seating]
+      desk: [gfg-desks, desks]
+      storage_filing: [gfg-storage, storage-filing]
+      # --- new types encountered Session 4 (tag-only routing for now; collection slugs TODO) ---
+      workstation: []            # TODO: no collection recipe yet — tag-only (executive-workstation-10x10)
+      height_adjustable_desk: [] # TODO: likely folds into desk recipe — confirm (NLP412 sit-stand)
+      panel_system: []           # TODO: no collection recipe yet — tag-only (ML freestanding partitions)
+      flip_top_table: []         # TODO: no collection recipe yet — tag-only (Bungee tables)
+      bar_stool: []              # TODO: no collection recipe yet — tag-only (ML bar stool)
+    routing_tag_template: [brand:global-furniture-group, type:{product_type_slug}]
+
+  teknion:
+    manufacturer_name: Teknion
+    brand_tag: brand:teknion
+    sub_brands: []
+    primary_collections_by_type:
+      task_chair: [teknion-chairs, task-chairs]
+      # populate remaining types when first Teknion product is enriched
+    routing_tag_template: [brand:teknion, type:{product_type_slug}]
+
+  humanscale:
+    manufacturer_name: Humanscale
+    brand_tag: brand:humanscale
+    sub_brands: []
+    primary_collections_by_type:
+      task_chair: [humanscale-chairs, task-chairs]
+      sit_stand_desk: [sit-stand-workstations, desktop-sit-stand]  # eFloat Quattro (session 2)
+      task_light: [lighting]                                        # Nova (session 2)
+    routing_tag_template: [brand:humanscale, type:{product_type_slug}]
+
+  # --- Added session 2 (2026-05-30); were csv_fallback this batch, lifted into lookup ---
+  safco:
+    manufacturer_name: Safco
+    brand_tag: brand:safco
+    sub_brands: []
+    primary_collections_by_type:
+      drafting_table: [drafting-tables, tables]      # Ranger 7732A, Vista 3960/3951
+      standing_desk: [standing-desks, desks]         # AlphaBetter (education segment)
+      desktop_riser: [desktop-sit-stand, monitor-arms]  # 2130SL Active Collection
+    routing_tag_template: [brand:safco, type:{product_type_slug}]
+
+  fireking:
+    manufacturer_name: FireKing
+    brand_tag: brand:fireking
+    sub_brands: []
+    primary_collections_by_type:
+      storage_filing: [storage, fire-resistant-file-cabinets-storage]  # CF7236-D fire cabinet
+    routing_tag_template: [brand:fireking, type:{product_type_slug}]
+
+  # --- Added session 4 (2026-05-30): caught as a Session 3 brand-recovery miss ---
+  mitybilt:
+    manufacturer_name: MityBilt
+    brand_tag: brand:mitybilt
+    sub_brands: []
+    primary_collections_by_type: {}  # Populate when first product enriched
+    routing_tag_template: [brand:mitybilt, type:{product_type_slug}]
+
+  kensington:
+    manufacturer_name: Kensington
+    brand_tag: brand:kensington
+    sub_brands: []
+    primary_collections_by_type:
+      charging_cabinet: [storage]  # K67771 tablet charge/sync cabinet (CSV "fire-resistant" rec was wrong)
+    routing_tag_template: [brand:kensington, type:{product_type_slug}]
+
+  # --- Added session 3 (2026-05-30) — brand-recovery audit; collections populate as products surface ---
+  steelcase:
+    manufacturer_name: Steelcase
+    brand_tag: brand:steelcase
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:steelcase, type:{product_type_slug}]
+
+  keilhauer:
+    manufacturer_name: Keilhauer
+    brand_tag: brand:keilhauer
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:keilhauer, type:{product_type_slug}]
+
+  ergocentric:
+    manufacturer_name: ErgoCentric
+    brand_tag: brand:ergocentric
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:ergocentric, type:{product_type_slug}]
+
+  heartwood:
+    manufacturer_name: Heartwood
+    brand_tag: brand:heartwood
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:heartwood, type:{product_type_slug}]
+
+  hon:
+    manufacturer_name: HON
+    brand_tag: brand:hon
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:hon, type:{product_type_slug}]
+
+  herman_miller:
+    manufacturer_name: Herman Miller
+    brand_tag: brand:herman-miller
+    sub_brands: []
+    primary_collections_by_type: {}  # populate when first product encountered
+    routing_tag_template: [brand:herman-miller, type:{product_type_slug}]
+
+  # --- Added session 3 (2026-05-30) — manufacturers surfaced by brand-recovery scan ---
+  # Stubs only; collections populate in Session 4 as products of each brand are enriched.
+  office_star_products:
+    manufacturer_name: Office Star Products
+    brand_tag: brand:office-star-products
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:office-star-products, type:{product_type_slug}]
+
+  deflecto:
+    manufacturer_name: deflecto
+    brand_tag: brand:deflecto
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:deflecto, type:{product_type_slug}]
+
+  gardex:
+    manufacturer_name: Gardex
+    brand_tag: brand:gardex
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:gardex, type:{product_type_slug}]
+
+  sentry_safe:
+    manufacturer_name: Sentry Safe
+    brand_tag: brand:sentry-safe
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:sentry-safe, type:{product_type_slug}]
+
+  borgo:
+    manufacturer_name: Borgo
+    brand_tag: brand:borgo
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:borgo, type:{product_type_slug}]
+
+  tayco:
+    manufacturer_name: Tayco
+    brand_tag: brand:tayco
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:tayco, type:{product_type_slug}]
+
+  foundations:
+    manufacturer_name: Foundations
+    brand_tag: brand:foundations
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:foundations, type:{product_type_slug}]
+
+  fellowes:
+    manufacturer_name: Fellowes
+    brand_tag: brand:fellowes
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:fellowes, type:{product_type_slug}]
+
+  links_contract_furniture:
+    manufacturer_name: Links Contract Furniture  # SKU prefix LCF (lookup short form: "Links Contract")
+    brand_tag: brand:links-contract-furniture
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:links-contract-furniture, type:{product_type_slug}]
+
+  3m:
+    manufacturer_name: 3M
+    brand_tag: brand:3m
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:3m, type:{product_type_slug}]
+
+  victor:
+    manufacturer_name: Victor
+    brand_tag: brand:victor
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:victor, type:{product_type_slug}]
+
+  allseating:
+    manufacturer_name: Allseating
+    brand_tag: brand:allseating
+    sub_brands: []
+    primary_collections_by_type: {}
+    routing_tag_template: [brand:allseating, type:{product_type_slug}]
+
+# NOTE (session 2): type: tag slugs used this batch — type:storage, type:drafting-tables,
+#   type:sit-stand-desks, type:standing-desks, type:lighting, type:monitor-arms.
+#   Pending confirmation against live smart-collection rules; verify before relying on auto-routing.
+
+# Fallback: if vendor not in this lookup, fall back to CSV recommended_sub_collection_* + Leo override

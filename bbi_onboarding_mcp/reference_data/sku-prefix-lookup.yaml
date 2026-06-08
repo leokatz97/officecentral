@@ -1,0 +1,99 @@
+# SKU prefix -> manufacturer lookup (discovered Block 4 Session 3, 2026-05-30)
+# Future brand-recovery scans should match by SKU prefix as a DETERMINISTIC primary signal
+# (more reliable than body text, which can be wrong/boilerplate). Match on the alpha
+# prefix of the first non-empty variant SKU, longest stem first.
+
+sku_prefix_lookup:
+  # Global Furniture Group
+  GLB: Global Furniture Group
+  GLO: Global Furniture Group
+  OFGO: Global Furniture Group
+  OTG: Global Furniture Group
+  MVL: Global Furniture Group
+  # Other manufacturers
+  SAF: Safco
+  HTW: Heartwood
+  OSP: Office Star Products
+  SEN: Sentry Safe
+  DEF: deflecto
+  GDX: Gardex
+  BORGO: Borgo
+  FOU: Foundations
+  FEL: Fellowes
+  TAY: Tayco
+  TAYCO: Tayco
+  ALLSE: Allseating
+  LCF: Links Contract   # live vendor field applied as "Links Contract Furniture" (brand:links-contract-furniture)
+  MMM: 3M
+  VCT: Victor
+  MTY: MityBilt   # decoded Session 4 — caught as a Session 3 brand-recovery miss (cluster-seating-2 was mis-vendored to Global)
+  # Decoded Block 4 Session 3 wrap-up (2026-05-31) — see decoded_details below
+  HDL: Heartwood Distributors Ltd.   # distributor code; same brand family as HTW (Heartwood)
+  IOF: Intelligent Office Furniture
+  RIC: Richelieu
+  HZN: Horizon Furniture
+
+# Rich decode metadata for prefixes resolved in the 2026-05-31 wrap-up
+# (Block 4 Session 3). Each entry records the supplier, whether it is a single
+# manufacturer or a distributor aggregating multiple OEMs, the dominant internal
+# sub-code families, and the source used to confirm the decode.
+decoded_details:
+  HDL:
+    vendor: Heartwood Distributors Ltd.
+    type: Distributor (multiple OEM lines)
+    key_sub_codes:
+      - INV/INVR/INVMP/INVREC = Innovations laminate desking (flagship)
+      - LEV/LEVSR = Levels bookcases
+      - Tucana, SOHO, Upscale series
+    note: >-
+      59 products / 203 variant SKUs — largest single prefix family. Distributor
+      pattern, not single-manufacturer. Same brand family as the existing HTW =
+      Heartwood mapping.
+  IOF:
+    vendor: Intelligent Office Furniture
+    type: Manufacturer (Canadian-made)
+    key_sub_codes:
+      - UN = Universal casegoods
+      - RAPB = racetrack/laminate conference tables
+      - PN/HA = height-adjustable tables
+      - LOCK = laminate lockers
+    source: ioflive.com / intelligentofficefurniture.com
+    note: Made in Canada — relevant for OECM/Canadian-owned positioning.
+  RIC:
+    vendor: Richelieu (Richelieu Ergo)
+    type: Manufacturer + distributor hybrid
+    key_sub_codes:
+      - JAX = sit-stand keyboard arms
+      - Momentum = keyboard arms
+      - S2S/Sit2Stand = sit-stand workstations
+      - PP = Power Plant
+      - PBK/OME/DS = charging accessories
+    source: richelieu.com (numeric part numbers are exact matches)
+    note: Accessories/ergo add-ons — good cross-sell on desk PDPs.
+  HZN:
+    vendor: Horizon Furniture
+    type: Distributor (multiple OEM seating + accessories)
+    key_sub_codes:
+      - Shoptech = industrial/lab task stools
+      - DEM = Demeter mid-back ergonomic
+      - NK/STAXX = stacking/banquet
+      - ECAPS/ECA/KL/JV/CM = keyboard trays, iPad holders, ergonomic accessories
+    source: horizon-furniture.com
+    note: >-
+      STAXX originally Source International, Demeter is contract — Horizon is the
+      source catalog BBI buys through.
+
+# Undecoded prefixes — pending confirmation
+undecoded:
+  SCN:
+    status: TBD (Steve confirmation required)
+    category: >-
+      Steel lockers (FL/FJ/FN sub-codes) + outdoor site furnishings
+      (NJ/ND sub-codes)
+    closest_matches:
+      - ASM (Anthony Steel Mfg.) for lockerettes
+      - Canaan Site Furnishings for recycled-plastic picnic tables
+    pattern: >-
+      Likely distributor source-code aggregating multiple OEMs, not a single
+      manufacturer
+    resolution: Confirm via supplier invoice with Steve
