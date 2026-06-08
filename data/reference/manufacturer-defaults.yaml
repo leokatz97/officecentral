@@ -7,14 +7,26 @@ global_furniture_group:
   country_of_manufacture: Canada
   certifications_typical: [GREENGUARD, BIFMA]
   notes: |
-    Sub-brands Basics, Offices To Go (OTG), ObusForme — manufacturer field = Global Furniture Group;
-    capture sub-brand in product_line. All sub-brands also Canada-manufactured.
+    AMENDED 2026-06-08: Offices To Go (OTG) + its Newland desking line were CARVED OUT into a standalone
+    brand — see the `otg_offices_to_go` entry below. Remaining Global sub-brands: Basics, ObusForme —
+    manufacturer field = Global Furniture Group; capture sub-brand in product_line. All Canada-manufactured.
     Cert pattern (observed Session 4, 20-product batch): ANSI/BIFMA is reliably confirmable at the
-    product/series page; GREENGUARD is only confirmable for some lines (e.g. Newland desking carries
-    GREENGUARD/GREENGUARD Gold) and is frequently NOT documented for seating/filing lines. Do NOT
-    auto-apply GREENGUARD as a default — confirm per product, else leave certifications=[] and flag missing.
-    Newland is a value desking line sold under the Offices To Go sub-brand; spec sheets often live on
-    officestogo.com and authorized-dealer pages (e.g. ugoburo.ca), not globalfurnituregroup.com.
+    product/series page; GREENGUARD is only confirmable for some lines and is frequently NOT documented
+    for seating/filing lines. Do NOT auto-apply GREENGUARD as a default — confirm per product, else leave
+    certifications=[] and flag missing.
+
+otg_offices_to_go:
+  warranty: null  # SOURCE PER PRODUCT — NEVER DEFAULT. OTG/value seating = 2yr, value laminate (non-moving) = 5yr (officestogo.com/warranty). Same source-verification rule as Global; see AGENT-WARRANTY-DEFAULTS-NEED-SOURCE-VERIFICATION in bbi-build-state.md.
+  country_of_manufacture: Canada
+  certifications_typical: []
+  notes: |
+    Carved out of Global Furniture Group 2026-06-08 (SUB-BRAND-HOUSE-RULE amended). Standalone brand:
+    vendor field "OTG / Offices to Go", tag brand:otg-offices-to-go, otg-* smart collections.
+    Canada-manufactured (same plants as Global). Sub-brand/line: Newland (value laminate desking, NLP prefix).
+    Certs: do NOT auto-apply GREENGUARD. Newland desking carries GREENGUARD/GREENGUARD Gold but OTG
+    seating/filing lines frequently do not — confirm per product, else leave certifications=[] and flag.
+    Spec sheets often live on officestogo.com and authorized-dealer pages (e.g. ugoburo.ca), NOT
+    globalfurnituregroup.com (build-state lesson OFFICESTOGO.COM-AS-PRIMARY-SOURCE-FOR-NEWLAND).
 
 teknion:
   warranty: null  # populate from source per product
