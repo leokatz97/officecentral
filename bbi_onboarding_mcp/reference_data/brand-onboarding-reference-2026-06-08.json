@@ -25,7 +25,7 @@
       "smart_collections_on_store": 69,
       "custom_collections_on_store": 322,
       "brands": 29,
-      "orphan_prefixes": 44,
+      "orphan_prefixes": 29,
       "routed_but_missing_collections": 4
     },
     "google_product_category_note": "No google_product_category is recorded in any of the three reference files; field emitted as null for every brand."
@@ -167,7 +167,9 @@
       "canonical_manufacturer": "FireKing",
       "brand_tag": "brand:fireking",
       "sub_brands": [],
-      "sku_prefixes": [],
+      "sku_prefixes": [
+        "FIRCF"
+      ],
       "documented_sub_codes": [],
       "routing_tag_template": [
         "brand:fireking",
@@ -240,7 +242,7 @@
         "certifications_typical": [],
         "warranty": null
       },
-      "live_product_count": 0,
+      "live_product_count": 2,
       "status": "active",
       "notes": []
     },
@@ -307,7 +309,9 @@
         "ObusForme"
       ],
       "sku_prefixes": [
+        "GFT",
         "GLB",
+        "GLC",
         "GLO",
         "MVL",
         "OFGO",
@@ -538,7 +542,7 @@
         ],
         "warranty": null
       },
-      "live_product_count": 247,
+      "live_product_count": 250,
       "status": "active",
       "notes": []
     },
@@ -575,8 +579,15 @@
       "brand_tag": "brand:heartwood",
       "sub_brands": [],
       "sku_prefixes": [
+        "BURO",
+        "CLIE",
         "HDL",
-        "HTW"
+        "HT",
+        "HTM",
+        "HTW",
+        "INNO",
+        "INNOVATION",
+        "INNOVATIONS"
       ],
       "documented_sub_codes": [
         "INV",
@@ -601,7 +612,7 @@
         "certifications_typical": [],
         "warranty": null
       },
-      "live_product_count": 81,
+      "live_product_count": 89,
       "status": "active",
       "notes": []
     },
@@ -668,7 +679,9 @@
       "canonical_manufacturer": "Humanscale",
       "brand_tag": "brand:humanscale",
       "sub_brands": [],
-      "sku_prefixes": [],
+      "sku_prefixes": [
+        "HSC"
+      ],
       "documented_sub_codes": [],
       "routing_tag_template": [
         "brand:humanscale",
@@ -750,7 +763,7 @@
         ],
         "warranty": null
       },
-      "live_product_count": 0,
+      "live_product_count": 1,
       "status": "active",
       "notes": []
     },
@@ -813,7 +826,9 @@
       "canonical_manufacturer": "Kensington",
       "brand_tag": "brand:kensington",
       "sub_brands": [],
-      "sku_prefixes": [],
+      "sku_prefixes": [
+        "KMW"
+      ],
       "documented_sub_codes": [],
       "routing_tag_template": [
         "brand:kensington",
@@ -879,7 +894,7 @@
         "certifications_typical": [],
         "warranty": null
       },
-      "live_product_count": 0,
+      "live_product_count": 2,
       "status": "active",
       "notes": []
     },
@@ -915,7 +930,8 @@
       "brand_tag": "brand:mitybilt",
       "sub_brands": [],
       "sku_prefixes": [
-        "MTY"
+        "MTY",
+        "MYB"
       ],
       "documented_sub_codes": [],
       "routing_tag_template": [
@@ -931,7 +947,7 @@
         "certifications_typical": [],
         "warranty": null
       },
-      "live_product_count": 9,
+      "live_product_count": 10,
       "status": "active",
       "notes": []
     },
@@ -1219,7 +1235,10 @@
       "canonical_manufacturer": "Teknion",
       "brand_tag": "brand:teknion",
       "sub_brands": [],
-      "sku_prefixes": [],
+      "sku_prefixes": [
+        "TEK",
+        "TEKNION"
+      ],
       "documented_sub_codes": [],
       "routing_tag_template": [
         "brand:teknion",
@@ -1277,7 +1296,7 @@
         ],
         "warranty": null
       },
-      "live_product_count": 0,
+      "live_product_count": 2,
       "status": "active",
       "notes": []
     },
@@ -1358,40 +1377,19 @@
   ],
   "orphans": [
     {
-      "prefix": "WS",
-      "live_product_count": 3,
-      "sample_skus": [
-        "WS48-AXBL1260BLKWHI",
-        "WS48 AGE2DSD126/#_F INV2448TOP",
-        "WS48-PLANTER/B"
-      ],
-      "sample_products": [
-        {
-          "handle": "bar-leaner-1-span-collaborative",
-          "title": "Bar leaner 1-span collaborative",
-          "vendor": "Axis"
-        },
-        {
-          "handle": "dual-sided-height-adjustable-table",
-          "title": "Dual sided height adjustable table",
-          "vendor": "Brant Business Interiors"
-        },
-        {
-          "handle": "indoor-planter",
-          "title": "Indoor planter",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
       "prefix": "BAOMVL",
       "live_product_count": 3,
       "sample_skus": [
+        "BAOMVL1893",
         "BAOMVL1873",
-        "BAOMVL1894",
-        "BAOMVL1893"
+        "BAOMVL1894"
       ],
       "sample_products": [
+        {
+          "handle": "elora-multi-tilter-high-back-chair-black-baomvl1893",
+          "title": "Elora multi-tilter high back chair black — BAOMVL1893",
+          "vendor": "Global Furniture Group"
+        },
         {
           "handle": "basics-comfort-time-ultra-multi-tilter-chairs-mvl1873-1",
           "title": "Basics comfort-time ultra multi-tilter chairs MVL1873 MVL1875 (available with a headrest)",
@@ -1400,11 +1398,6 @@
         {
           "handle": "elora-multi-tilter-high-back-chair-black-petite-seat-baomvl1894",
           "title": "Elora multi-tilter high back chair black petite seat — BAOMVL1894",
-          "vendor": "Global Furniture Group"
-        },
-        {
-          "handle": "elora-multi-tilter-high-back-chair-black-baomvl1893",
-          "title": "Elora multi-tilter high back chair black — BAOMVL1893",
           "vendor": "Global Furniture Group"
         }
       ]
@@ -1439,19 +1432,19 @@
       "prefix": "NLP",
       "live_product_count": 3,
       "sample_skus": [
-        "NLP109",
         "NLP321",
+        "NLP109",
         "NLP224 WCR"
       ],
       "sample_products": [
         {
-          "handle": "desk-double-pedestal",
-          "title": "Desk double pedestal",
+          "handle": "desk-u-shape-mlp205-1",
+          "title": "Desk u-shape",
           "vendor": "Brant Business Interiors"
         },
         {
-          "handle": "desk-u-shape-mlp205-1",
-          "title": "Desk u-shape",
+          "handle": "desk-double-pedestal",
+          "title": "Desk double pedestal",
           "vendor": "Brant Business Interiors"
         },
         {
@@ -1462,22 +1455,28 @@
       ]
     },
     {
-      "prefix": "BURO",
-      "live_product_count": 2,
+      "prefix": "WS",
+      "live_product_count": 3,
       "sample_skus": [
-        "BURO-CTBO 9636+ HB9636",
-        "BURO-SPR4824B"
+        "WS48-PLANTER/B",
+        "WS48 AGE2DSD126/#_F INV2448TOP",
+        "WS48-AXBL1260BLKWHI"
       ],
       "sample_products": [
         {
-          "handle": "boat-shaped-conference-table-96-x-36-x-29",
-          "title": "Boat shaped conference table — 96\" x 36\" x 29\"",
+          "handle": "indoor-planter",
+          "title": "Indoor planter",
           "vendor": "Brant Business Interiors"
         },
         {
-          "handle": "desk-single-pedestal-bbf",
-          "title": "Desk single pedestal bbf",
-          "vendor": "Heartwood Manufacturing"
+          "handle": "dual-sided-height-adjustable-table",
+          "title": "Dual sided height adjustable table",
+          "vendor": "Brant Business Interiors"
+        },
+        {
+          "handle": "bar-leaner-1-span-collaborative",
+          "title": "Bar leaner 1-span collaborative",
+          "vendor": "Axis"
         }
       ]
     },
@@ -1505,59 +1504,19 @@
       "prefix": "BEL",
       "live_product_count": 2,
       "sample_skus": [
-        "BEL HWS1212-CIR9",
-        "BEL-HFP154829-GVS"
+        "BEL-HFP154829-GVS",
+        "BEL HWS1212-CIR9"
       ],
       "sample_products": [
-        {
-          "handle": "felt-acoustic-wall-tiles",
-          "title": "Felt acoustic wall tiles",
-          "vendor": "Brant Business Interiors"
-        },
         {
           "handle": "planter",
           "title": "Planter",
           "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "FIRCF",
-      "live_product_count": 2,
-      "sample_skus": [
-        "FIRCF7236DPA",
-        "FIRCF4436DPA"
-      ],
-      "sample_products": [
-        {
-          "handle": "fireking-storage-cabinet-72-high",
-          "title": "FireKing 72\" Fire-Rated Storage Cabinet",
-          "vendor": "FireKing"
         },
         {
-          "handle": "fireking-storage-cabinet-44-high",
-          "title": "Fireking storage cabinet 44\" high — 44\"",
-          "vendor": "FireKing"
-        }
-      ]
-    },
-    {
-      "prefix": "GLC",
-      "live_product_count": 2,
-      "sample_skus": [
-        "GLC-FFHAB506",
-        "GLC-GFT3072R"
-      ],
-      "sample_products": [
-        {
-          "handle": "freefit-benching-height-adjustable-176w-x-62-5d-ffhab506-2",
-          "title": "Freefit benching height adjustable 176\"w x 62.5\"d (ffhab506) — FFHAB506",
-          "vendor": "Global Furniture Group"
-        },
-        {
-          "handle": "ganging-plates-for-terina-tables-gfcngfp",
-          "title": "Ganging plates for terina tables gfcngfp",
-          "vendor": "Global Furniture Group"
+          "handle": "felt-acoustic-wall-tiles",
+          "title": "Felt acoustic wall tiles",
+          "vendor": "Brant Business Interiors"
         }
       ]
     },
@@ -1565,136 +1524,32 @@
       "prefix": "INSTALLATION",
       "live_product_count": 2,
       "sample_skus": [
-        "Installation1000",
-        "Installation475"
+        "Installation475",
+        "Installation1000"
       ],
       "sample_products": [
-        {
-          "handle": "installation1000",
-          "title": "Installation1000",
-          "vendor": "Brant Business Interiors"
-        },
         {
           "handle": "installation475",
           "title": "Installation475",
           "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "KMW",
-      "live_product_count": 2,
-      "sample_skus": [
-        "KMW64415",
-        "KMW67862"
-      ],
-      "sample_products": [
-        {
-          "handle": "kensington-ac12-security-charging-cabinet",
-          "title": "Kensington AC12 security charging cabinet",
-          "vendor": "Kensington"
         },
         {
-          "handle": "kensington-universal-charge-sync-tablet-cabinet",
-          "title": "Kensington Universal Charge & Sync Tablet Cabinet",
-          "vendor": "Kensington"
-        }
-      ]
-    },
-    {
-      "prefix": "MTB",
-      "live_product_count": 1,
-      "sample_skus": [
-        "MTB-JSMED.18"
-      ],
-      "sample_products": [
-        {
-          "handle": "120-medicine-wheel-ottomans",
-          "title": "120\" Medicine Wheel Ottomans",
-          "vendor": "Office Central & Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "TEK",
-      "live_product_count": 1,
-      "sample_skus": [
-        "TEK-LLF60L2036D1A 2102204"
-      ],
-      "sample_products": [
-        {
-          "handle": "6-drawer-end-tab-cabinet-s128-drawers",
-          "title": "6 drawer end tab cabinet S128 drawers — 6 drawer",
+          "handle": "installation1000",
+          "title": "Installation1000",
           "vendor": "Brant Business Interiors"
         }
       ]
     },
     {
-      "prefix": "SYNN",
+      "prefix": "ASSTD",
       "live_product_count": 1,
       "sample_skus": [
-        "SYNN-AD18XL-58-B-PVC"
+        "Asstd-see website"
       ],
       "sample_products": [
         {
-          "handle": "anda-seat-phantom-king-gaming-style-office-chair",
-          "title": "Anda seat phantom king gaming style office chair",
-          "vendor": "AndaSeat"
-        }
-      ]
-    },
-    {
-      "prefix": "INNOVATION",
-      "live_product_count": 1,
-      "sample_skus": [
-        "INNOVATION LAY75"
-      ],
-      "sample_products": [
-        {
-          "handle": "boardroom-table-rectangular-94-5x47-25",
-          "title": "Boardroom Table Rectangular 94.5\"x47.25\"",
-          "vendor": "Office Central & Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "ERG",
-      "live_product_count": 1,
-      "sample_skus": [
-        "ERG-CS25703"
-      ],
-      "sample_products": [
-        {
-          "handle": "corner-maker-2-sizes",
-          "title": "Corner maker — 2 sizes",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "DELIVERY",
-      "live_product_count": 1,
-      "sample_skus": [
-        "Delivery85"
-      ],
-      "sample_products": [
-        {
-          "handle": "delivery-charge-85-00",
-          "title": "Delivery charge $85. — 00",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "OCD",
-      "live_product_count": 1,
-      "sample_skus": [
-        "OCD175"
-      ],
-      "sample_products": [
-        {
-          "handle": "delivery-charge-175-00",
-          "title": "Delivery charge 175. — 00",
+          "handle": "u-shape-d-top-workstation",
+          "title": "U-shape d-top workstation",
           "vendor": "Brant Business Interiors"
         }
       ]
@@ -1714,160 +1569,6 @@
       ]
     },
     {
-      "prefix": "CLIE",
-      "live_product_count": 1,
-      "sample_skus": [
-        "CLIE1-INV2442TOP"
-      ],
-      "sample_products": [
-        {
-          "handle": "height-adjustable-table-5-sizes",
-          "title": "Electric height adjustable sit to stand desks",
-          "vendor": "Heartwood Manufacturing"
-        }
-      ]
-    },
-    {
-      "prefix": "INNOVATIONS",
-      "live_product_count": 1,
-      "sample_skus": [
-        "INNOVATIONS PKG"
-      ],
-      "sample_products": [
-        {
-          "handle": "executive-u-shape-desk-set",
-          "title": "Executive u-shape desk set",
-          "vendor": "Heartwood Manufacturing"
-        }
-      ]
-    },
-    {
-      "prefix": "HCA",
-      "live_product_count": 1,
-      "sample_skus": [
-        "HCA4747-BAM9-T"
-      ],
-      "sample_products": [
-        {
-          "handle": "felt-acoustic-room-dividers",
-          "title": "Felt acoustic room dividers",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "SPR",
-      "live_product_count": 1,
-      "sample_skus": [
-        "SPR-LLR99554"
-      ],
-      "sample_products": [
-        {
-          "handle": "gas-lift-monitor-riser",
-          "title": "Gas lift monitor riser",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "MGE",
-      "live_product_count": 1,
-      "sample_skus": [
-        "MGE-1091503100000"
-      ],
-      "sample_products": [
-        {
-          "handle": "hardfloor-casters",
-          "title": "Hardfloor casters",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "JNT",
-      "live_product_count": 1,
-      "sample_skus": [
-        "JNT5946JC"
-      ],
-      "sample_products": [
-        {
-          "handle": "hideaway-storage-cabinet-1",
-          "title": "Hideaway storage cabinet",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "HSC",
-      "live_product_count": 1,
-      "sample_skus": [
-        "HSC-NV3EWH"
-      ],
-      "sample_products": [
-        {
-          "handle": "humanscale-nova-lighting",
-          "title": "Humanscale Nova LED Task Light",
-          "vendor": "Humanscale"
-        }
-      ]
-    },
-    {
-      "prefix": "RYNO",
-      "live_product_count": 1,
-      "sample_skus": [
-        "Ryno"
-      ],
-      "sample_products": [
-        {
-          "handle": "indestructible-ryno-furniture",
-          "title": "Indestructible ryno furniture",
-          "vendor": "Pineapple Contracts"
-        }
-      ]
-    },
-    {
-      "prefix": "HT",
-      "live_product_count": 1,
-      "sample_skus": [
-        "HT-ADJ-Layout 5"
-      ],
-      "sample_products": [
-        {
-          "handle": "l-shape-height-adjustable-desk-set",
-          "title": "L-shape height adjustable desk set",
-          "vendor": "Heartwood Manufacturing"
-        }
-      ]
-    },
-    {
-      "prefix": "RSIRDL",
-      "live_product_count": 1,
-      "sample_skus": [
-        "RSIRDL110U"
-      ],
-      "sample_products": [
-        {
-          "handle": "led-desk-lamp-with-usb-and-night-light",
-          "title": "LED desk lamp with USB and night light",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "RDL",
-      "live_product_count": 1,
-      "sample_skus": [
-        "RDL-140QI-B"
-      ],
-      "sample_products": [
-        {
-          "handle": "led-desk-lamp-with-wireless-charger-led",
-          "title": "LED desk lamp with wireless charger - LED",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
       "prefix": "CAB",
       "live_product_count": 1,
       "sample_skus": [
@@ -1878,6 +1579,20 @@
           "handle": "links-custom-reception-unit-60x72",
           "title": "Links custom reception unit — 60\"x72\"",
           "vendor": "Links Contract Furniture"
+        }
+      ]
+    },
+    {
+      "prefix": "DELIVERY",
+      "live_product_count": 1,
+      "sample_skus": [
+        "Delivery85"
+      ],
+      "sample_products": [
+        {
+          "handle": "delivery-charge-85-00",
+          "title": "Delivery charge $85. — 00",
+          "vendor": "Brant Business Interiors"
         }
       ]
     },
@@ -1896,15 +1611,15 @@
       ]
     },
     {
-      "prefix": "HTM",
+      "prefix": "ERG",
       "live_product_count": 1,
       "sample_skus": [
-        "HTM3058T/KEZLIFT"
+        "ERG-CS25703"
       ],
       "sample_products": [
         {
-          "handle": "manual-height-adjustable-table",
-          "title": "Manual height adjustable table",
+          "handle": "corner-maker-2-sizes",
+          "title": "Corner maker — 2 sizes",
           "vendor": "Brant Business Interiors"
         }
       ]
@@ -1938,6 +1653,76 @@
       ]
     },
     {
+      "prefix": "HCA",
+      "live_product_count": 1,
+      "sample_skus": [
+        "HCA4747-BAM9-T"
+      ],
+      "sample_products": [
+        {
+          "handle": "felt-acoustic-room-dividers",
+          "title": "Felt acoustic room dividers",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "JNT",
+      "live_product_count": 1,
+      "sample_skus": [
+        "JNT5946JC"
+      ],
+      "sample_products": [
+        {
+          "handle": "hideaway-storage-cabinet-1",
+          "title": "Hideaway storage cabinet",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "MGE",
+      "live_product_count": 1,
+      "sample_skus": [
+        "MGE-1091503100000"
+      ],
+      "sample_products": [
+        {
+          "handle": "hardfloor-casters",
+          "title": "Hardfloor casters",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "MTB",
+      "live_product_count": 1,
+      "sample_skus": [
+        "MTB-JSMED.18"
+      ],
+      "sample_products": [
+        {
+          "handle": "120-medicine-wheel-ottomans",
+          "title": "120\" Medicine Wheel Ottomans",
+          "vendor": "Office Central & Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "OCD",
+      "live_product_count": 1,
+      "sample_skus": [
+        "OCD175"
+      ],
+      "sample_products": [
+        {
+          "handle": "delivery-charge-175-00",
+          "title": "Delivery charge 175. — 00",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
       "prefix": "RCL",
       "live_product_count": 1,
       "sample_skus": [
@@ -1952,16 +1737,44 @@
       ]
     },
     {
-      "prefix": "SOFT",
+      "prefix": "RDL",
       "live_product_count": 1,
       "sample_skus": [
-        "Soft Pods-1"
+        "RDL-140QI-B"
       ],
       "sample_products": [
         {
-          "handle": "soft-pods",
-          "title": "Soft pods",
+          "handle": "led-desk-lamp-with-wireless-charger-led",
+          "title": "LED desk lamp with wireless charger - LED",
           "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "RSIRDL",
+      "live_product_count": 1,
+      "sample_skus": [
+        "RSIRDL110U"
+      ],
+      "sample_products": [
+        {
+          "handle": "led-desk-lamp-with-usb-and-night-light",
+          "title": "LED desk lamp with USB and night light",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "RYNO",
+      "live_product_count": 1,
+      "sample_skus": [
+        "Ryno"
+      ],
+      "sample_products": [
+        {
+          "handle": "indestructible-ryno-furniture",
+          "title": "Indestructible ryno furniture",
+          "vendor": "Pineapple Contracts"
         }
       ]
     },
@@ -1975,6 +1788,20 @@
         {
           "handle": "sonoma",
           "title": "Sonoma",
+          "vendor": "Brant Business Interiors"
+        }
+      ]
+    },
+    {
+      "prefix": "SOFT",
+      "live_product_count": 1,
+      "sample_skus": [
+        "Soft Pods-1"
+      ],
+      "sample_products": [
+        {
+          "handle": "soft-pods",
+          "title": "Soft pods",
           "vendor": "Brant Business Interiors"
         }
       ]
@@ -1994,83 +1821,35 @@
       ]
     },
     {
-      "prefix": "TEKNION",
+      "prefix": "SPR",
       "live_product_count": 1,
       "sample_skus": [
-        "Teknion-Call Tek Rep"
+        "SPR-LLR99554"
       ],
       "sample_products": [
         {
-          "handle": "untethered-go-further-go-anywhere-by-teknion",
-          "title": "Teknion Untethered: go further, go anywhere by:",
-          "vendor": "Teknion"
-        }
-      ]
-    },
-    {
-      "prefix": "GFT",
-      "live_product_count": 1,
-      "sample_skus": [
-        "GFT2448R"
-      ],
-      "sample_products": [
-        {
-          "handle": "terina-training-tables-rectangular-table-8-sizes",
-          "title": "Terina training tables rectangular table — 8 sizes",
-          "vendor": "Global Furniture Group"
-        }
-      ]
-    },
-    {
-      "prefix": "MYB",
-      "live_product_count": 1,
-      "sample_skus": [
-        "MYB- AT2448Z"
-      ],
-      "sample_products": [
-        {
-          "handle": "trapezoid-tables-3-sizes",
-          "title": "Trapezoid tables (3 sizes) — 3 sizes",
-          "vendor": "MityBilt"
-        }
-      ]
-    },
-    {
-      "prefix": "ASSTD",
-      "live_product_count": 1,
-      "sample_skus": [
-        "Asstd-see website"
-      ],
-      "sample_products": [
-        {
-          "handle": "u-shape-d-top-workstation",
-          "title": "U-shape d-top workstation",
+          "handle": "gas-lift-monitor-riser",
+          "title": "Gas lift monitor riser",
           "vendor": "Brant Business Interiors"
         }
       ]
     },
     {
-      "prefix": "INNO",
+      "prefix": "SYNN",
       "live_product_count": 1,
       "sample_skus": [
-        "INNO-LAYOUT 67"
+        "SYNN-AD18XL-58-B-PVC"
       ],
       "sample_products": [
         {
-          "handle": "u-shape-height-adjust-desk",
-          "title": "U-shape height adjust desk",
-          "vendor": "Brant Business Interiors"
+          "handle": "anda-seat-phantom-king-gaming-style-office-chair",
+          "title": "Anda seat phantom king gaming style office chair",
+          "vendor": "AndaSeat"
         }
       ]
     }
   ],
   "routed_but_missing_collections": [
-    {
-      "handle": "storage-filing",
-      "routed_for_brands": [
-        "Global Furniture Group"
-      ]
-    },
     {
       "handle": "humanscale-chairs",
       "routed_for_brands": [
@@ -2081,6 +1860,12 @@
       "handle": "standing-desks",
       "routed_for_brands": [
         "Safco"
+      ]
+    },
+    {
+      "handle": "storage-filing",
+      "routed_for_brands": [
+        "Global Furniture Group"
       ]
     },
     {
