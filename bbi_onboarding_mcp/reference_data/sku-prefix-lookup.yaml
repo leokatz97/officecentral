@@ -10,6 +10,8 @@ sku_prefix_lookup:
   OFGO: Global Furniture Group
   OTG: Global Furniture Group
   MVL: Global Furniture Group
+  GLC: Global Furniture Group   # backfill 2026-06-08 — Global Freefit benching / Terina (GLC-FFHAB/GFT cross-refs); vendor+tag=Global
+  GFT: Global Furniture Group   # backfill 2026-06-08 — Global Terina training tables (GFT2448R); vendor+tag=Global
   # Other manufacturers
   SAF: Safco
   HTW: Heartwood
@@ -32,6 +34,20 @@ sku_prefix_lookup:
   IOF: Intelligent Office Furniture
   RIC: Richelieu
   HZN: Horizon Furniture
+  # --- Deterministic orphan-prefix backfill 2026-06-08 (evidence: live vendor + brand:* tag + SKU code) ---
+  HSC: Humanscale     # vendor=Humanscale, brand:humanscale (HSC-NV3EWH "Humanscale Nova LED Task Light")
+  KMW: Kensington     # vendor=Kensington, brand:kensington (KMW = Kensington Microware code)
+  FIRCF: FireKing     # vendor=FireKing, brand:fireking (FIRCF7236DPA fire-rated cabinet)
+  TEK: Teknion        # Teknion lateral file code (TEK-LLF...); pairs with TEKNION
+  TEKNION: Teknion    # vendor=Teknion (Teknion-Call Tek Rep)
+  MYB: MityBilt       # vendor=MityBilt (MYB-AT2448Z); same brand family as MTY
+  BURO: Heartwood     # vendor=Heartwood Manufacturing, brand:heartwood-manufacturing (BURO-SPR... casegoods)
+  CLIE: Heartwood     # vendor=Heartwood Manufacturing, brand:heartwood-manufacturing (CLIE1-INV...; INV=Innovations)
+  INNOVATIONS: Heartwood   # vendor=Heartwood Manufacturing — Innovations flagship line (INNOVATIONS PKG)
+  INNOVATION: Heartwood    # Heartwood Innovations casegoods (INNOVATION LAY75 boardroom table); nested under INNOVATIONS
+  INNO: Heartwood          # Heartwood Innovations casegoods (INNO-LAYOUT 67 u-shape desk); nested under INNOVATIONS
+  HT: Heartwood            # Heartwood/HDL height-adjustable layout family (HT-ADJ; cf. HDL-HT-ADJ-LAYOUT)
+  HTM: Heartwood           # Heartwood manual height-adjustable table (HTM3058T); explicit map so 2-char HT can't silently swallow it
 
 # Rich decode metadata for prefixes resolved in the 2026-05-31 wrap-up
 # (Block 4 Session 3). Each entry records the supplier, whether it is a single
