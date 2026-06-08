@@ -118,15 +118,17 @@ def required_tags_from_rule(smart_collection: dict) -> tuple[list[str], list[str
 
 # ── FEED / BORN-FEED-READY VERDICT ───────────────────────────────────────────
 def feed_ready_verdict(*, vendor, specs_written, google_category,
-                       identifier, identifier_exists, image_ok, price_or_quote) -> dict:
-    """Compute a born-feed-ready verdict + the gaps that block it."""
+                       identifier_satisfied, image_ok, price_or_quote) -> dict:
+    """Compute a born-feed-ready verdict + the gaps that block it.
+    `identifier_satisfied` = has a GTIN OR is flagged as a custom product (no GTIN
+    needed). The caller decides how that boolean is established."""
     gaps = []
     if not vendor:
         gaps.append("missing vendor/brand")
     if not google_category:
         gaps.append("no google_product_category")
-    if not (identifier or identifier_exists):
-        gaps.append("no GTIN/identifier and identifier_exists not asserted")
+    if not identifier_satisfied:
+        gaps.append("no GTIN and not flagged as a custom product (mm-google-shopping.custom_product)")
     if not image_ok:
         gaps.append("no image passing the >=500px check")
     if not price_or_quote:
@@ -134,3 +136,26 @@ def feed_ready_verdict(*, vendor, specs_written, google_category,
     if not specs_written:
         gaps.append("no sourced specs written")
     return {"born_feed_ready": len(gaps) == 0, "gaps": gaps}
+
+
+def feed_ready_from_product(p: dict) -> dict:
+    """Derive born-feed-ready PURELY from persisted product state (a node from
+    ShopifyClient.get_product_full). Used by BOTH verify_product and
+    onboard_product's post-write readback so the two tools always agree."""
+    from . import config  # local import to avoid cycle at module load
+    variants = [v["node"] for v in p.get("variants", {}).get("edges", [])]
+    images = [i["node"] for i in p.get("images", {}).get("edges", [])]
+    specs = {e["node"]["key"]: e["node"]["value"]
+             for e in p.get("metafields", {}).get("edges", [])}
+    google_cat = (p.get("googleProductCategory") or {}).get("value")
+    custom_product = str((p.get("customProduct") or {}).get("value") or "").lower() == "true"
+    has_gtin = any((v.get("barcode") or "").strip() for v in variants)
+    image_ok = any((i.get("width") or 0) >= config.MIN_IMAGE_PX and
+                   (i.get("height") or 0) >= config.MIN_IMAGE_PX for i in images)
+    price = variants[0].get("price") if variants else None
+    price_or_quote = bool(price and price not in ("0.00", "0", None)) \
+        or ("quote-only" in (p.get("tags") or []))
+    return feed_ready_verdict(
+        vendor=p.get("vendor"), specs_written=bool(specs), google_category=google_cat,
+        identifier_satisfied=(has_gtin or custom_product),
+        image_ok=image_ok, price_or_quote=price_or_quote)

@@ -182,10 +182,14 @@ def onboard_product(
             report["warnings"].append(n)
 
     # ── Feed attributes ─────────────────────────────────────────────────────
+    # Google semantics: identifier_exists=false means the product legitimately has
+    # NO GTIN (custom product) -> persisted as mm-google-shopping.custom_product=true.
+    # A real `identifier` is written to the variant barcode. If neither is present
+    # the item is NOT feed-eligible (you can't claim an identifier exists without one).
     feed = feed or {}
     google_cat = feed.get("google_product_category") or resolution.default_google_product_category
     identifier = feed.get("identifier")
-    identifier_exists = bool(feed.get("identifier_exists"))
+    gtin_exempt = (feed.get("identifier_exists") is False)  # explicit false only
     condition = feed.get("condition") or config.DEFAULT_CONDITION
 
     # ── Image pre-checks (>=500px) ──────────────────────────────────────────
@@ -221,10 +225,11 @@ def onboard_product(
                             "planned": client.planned_writes}
         report["collections"] = coll_plan
         report["feed"] = {"google_product_category": google_cat, "condition": condition,
-                          "identifier": identifier, "identifier_exists": identifier_exists}
-        report["feed_verdict"] = guards.feed_ready_verdict(
+                          "identifier": identifier, "custom_product": gtin_exempt}
+        # Projected from inputs (no product exists yet to read back).
+        report["feed_verdict_projected"] = guards.feed_ready_verdict(
             vendor=vendor_final, specs_written=bool(kept_specs), google_category=google_cat,
-            identifier=identifier, identifier_exists=identifier_exists,
+            identifier_satisfied=(bool(identifier) or gtin_exempt),
             image_ok=any_image_ok, price_or_quote=bool(price) or quote_only)
         report["note"] = "DRY RUN — no writes performed. Re-run with dry_run=false to apply."
         return report
@@ -252,12 +257,21 @@ def onboard_product(
     if war and war.get("text"):
         mf.append({"namespace": "specs", "key": "warranty",
                    "type": "single_line_text_field", "value": str(war["text"])})
-    # Feed metafields.
+    # Feed metafields — every feed-relevant decision is persisted to the product
+    # so verify_product can re-derive the same verdict from state alone.
     if google_cat:
         mf.append({"namespace": "mm-google-shopping", "key": "google_product_category",
                    "type": "single_line_text_field", "value": str(google_cat)})
     mf.append({"namespace": "mm-google-shopping", "key": "condition",
                "type": "single_line_text_field", "value": condition})
+    # GTIN-exempt assertion -> the field the store's Google channel actually consumes.
+    if not identifier and gtin_exempt:
+        mf.append({"namespace": "mm-google-shopping", "key": "custom_product",
+                   "type": "boolean", "value": "true"})
+    elif identifier:
+        # A real identifier exists (written to the variant barcode); not a custom product.
+        mf.append({"namespace": "mm-google-shopping", "key": "custom_product",
+                   "type": "boolean", "value": "false"})
     if mf:
         client.set_metafields(gid, mf)
     report["writes"]["metafields"] = [m["namespace"] + "." + m["key"] for m in mf]
@@ -302,12 +316,12 @@ def onboard_product(
     report["readback_checks"] = checks
     report["readback_all_ok"] = all(checks.values())
 
+    # born-feed-ready derived PURELY from persisted state (same fn verify_product
+    # uses), so the two tools always agree.
+    rb_custom = str((rb.get("customProduct") or {}).get("value") or "").lower() == "true"
     report["feed"] = {"google_product_category": google_cat, "condition": condition,
-                      "identifier": identifier, "identifier_exists": identifier_exists}
-    report["feed_verdict"] = guards.feed_ready_verdict(
-        vendor=vendor_final, specs_written=bool(kept_specs), google_category=google_cat,
-        identifier=identifier, identifier_exists=identifier_exists,
-        image_ok=any_image_ok, price_or_quote=bool(price) or quote_only)
+                      "identifier": identifier, "custom_product": rb_custom}
+    report["feed_verdict"] = guards.feed_ready_from_product(rb)
 
     if not report["readback_all_ok"]:
         report["status"] = "partial"
@@ -439,14 +453,11 @@ def verify_product(*, handle: Optional[str] = None, id: Optional[str] = None) ->
     images = [i["node"] for i in p.get("images", {}).get("edges", [])]
     member_handles = [e["node"]["handle"] for e in p.get("collections", {}).get("edges", [])]
     google_cat = (p.get("googleProductCategory") or {}).get("value") if p.get("googleProductCategory") else None
-    image_ok = any((i.get("width") or 0) >= config.MIN_IMAGE_PX and
-                   (i.get("height") or 0) >= config.MIN_IMAGE_PX for i in images)
+    custom_product = str((p.get("customProduct") or {}).get("value") or "").lower() == "true"
     price = variants[0].get("price") if variants else None
 
-    verdict = guards.feed_ready_verdict(
-        vendor=p.get("vendor"), specs_written=bool(specs), google_category=google_cat,
-        identifier=None, identifier_exists=False, image_ok=image_ok,
-        price_or_quote=bool(price and price != "0.00") or ("quote-only" in (p.get("tags") or [])))
+    # Same persisted-state derivation onboard_product uses -> verdicts always agree.
+    verdict = guards.feed_ready_from_product(p)
 
     pid = p.get("legacyResourceId")
     return {
@@ -457,7 +468,9 @@ def verify_product(*, handle: Optional[str] = None, id: Optional[str] = None) ->
                     "tags": p.get("tags"), "admin_url": f"{config.ADMIN_BASE}/products/{pid}",
                     "storefront_url": p.get("onlineStoreUrl")},
         "specs": specs,
-        "feed": {"google_product_category": google_cat, "price": price},
+        "feed": {"google_product_category": google_cat, "price": price,
+                 "gtin": next((v.get("barcode") for v in variants if v.get("barcode")), None),
+                 "custom_product": custom_product},
         "images": [{"url": i.get("url"), "width": i.get("width"),
                     "height": i.get("height"), "passes_500px":
                     (i.get("width") or 0) >= config.MIN_IMAGE_PX and

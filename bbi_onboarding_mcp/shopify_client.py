@@ -190,10 +190,11 @@ class ShopifyClient:
             seo { title description }
             featuredImage { url width height }
             images(first: 50) { edges { node { url width height altText } } }
-            variants(first: 50) { edges { node { sku price } } }
+            variants(first: 50) { edges { node { sku price barcode } } }
             collections(first: 50) { edges { node { id handle title } } }
             metafields(first: 50, namespace: "specs") { edges { node { key value type } } }
             googleProductCategory: metafield(namespace: "mm-google-shopping", key: "google_product_category") { value }
+            customProduct: metafield(namespace: "mm-google-shopping", key: "custom_product") { value }
         } }""" % sel
         data = self.gql(q, version=config.WRITE_GQL_API)
         node = data.get("product") or data.get("productByHandle")

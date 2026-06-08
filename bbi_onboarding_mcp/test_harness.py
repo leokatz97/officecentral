@@ -81,13 +81,24 @@ def test_offline():
 
     # Feed verdict.
     good = guards.feed_ready_verdict(vendor="X", specs_written=True, google_category="Furniture",
-                                     identifier="123", identifier_exists=False, image_ok=True,
-                                     price_or_quote=True)
+                                     identifier_satisfied=True, image_ok=True, price_or_quote=True)
     _ok("complete feed -> born_feed_ready", good["born_feed_ready"])
     bad = guards.feed_ready_verdict(vendor=None, specs_written=False, google_category=None,
-                                    identifier=None, identifier_exists=False, image_ok=False,
-                                    price_or_quote=False)
+                                    identifier_satisfied=False, image_ok=False, price_or_quote=False)
     _ok("empty feed -> not ready, gaps listed", not bad["born_feed_ready"] and bad["gaps"])
+
+    # custom_product satisfies the identifier gap, derived from persisted state.
+    node_custom = {"vendor": "Global", "productType": "Chairs", "tags": [],
+                   "variants": {"edges": [{"node": {"sku": "X", "price": "10.00", "barcode": ""}}]},
+                   "images": {"edges": [{"node": {"width": 800, "height": 600}}]},
+                   "metafields": {"edges": [{"node": {"key": "weight_capacity", "value": "300 lb"}}]},
+                   "googleProductCategory": {"value": "Furniture > Chairs"},
+                   "customProduct": {"value": "true"}}
+    _ok("custom_product=true -> feed-ready from persisted state",
+        guards.feed_ready_from_product(node_custom)["born_feed_ready"])
+    node_no_id = dict(node_custom, customProduct={"value": "false"})
+    _ok("no GTIN + custom_product=false -> NOT feed-ready",
+        not guards.feed_ready_from_product(node_no_id)["born_feed_ready"])
 
     # Required-tags from a synthetic smart rule.
     tags, notes = guards.required_tags_from_rule({"rules": [
@@ -167,7 +178,7 @@ def test_net():
         _ok("missing collection reported not created",
             any(c.get("status") == "missing-reported-not-created" for c in ob.get("collections", [])))
         _ok("warranty omitted (unconfirmed)", any("warranty" in w for w in ob["warnings"]))
-        print("    feed_verdict ->", json.dumps(ob.get("feed_verdict")))
+        print("    feed_verdict_projected ->", json.dumps(ob.get("feed_verdict_projected")))
 
     cc = tools.create_collection(name="MCP Test Collection ZZZ", type="smart",
                                  rule=[{"column": "tag", "relation": "equals", "condition": "type:test"}],
@@ -192,17 +203,20 @@ def test_live_draft(sku: str):
         specs=[{"name": "Weight capacity", "value": "300 lb",
                 "source_url": "https://example.com/spec", "source_date": "2026-06-08"}],
         feed={"google_product_category": "Furniture > Chairs", "condition": "new",
-              "identifier_exists": True},
+              "identifier_exists": False},  # GTIN-exempt -> custom_product=true
+        images=[{"url": "https://picsum.photos/id/237/800/600.jpg", "alt": "test", "position": 1}],
         collections=["task-chairs"],
         made_in_canada={"confirmed_by_steve": True, "date": "2026-06-08"},
         dry_run=False)
-    print(json.dumps(ob, indent=2, default=str)[:3000])
+    print(json.dumps(ob, indent=2, default=str)[:3500])
     _ok("live draft created", ob["status"] in ("ok", "partial", "already_exists"))
     if ob.get("product"):
         _ok("status is draft", ob["product"]["status"].lower() == "draft")
+        _ok("onboard feed-ready=true", ob["feed_verdict"]["born_feed_ready"])
         vp = tools.verify_product(id=ob["product"]["id"])
         _ok("verify_product finds the draft", vp["status"] == "ok")
         _ok("verify confirms draft (not published)", vp["product"]["status"].lower() == "draft")
+        _ok("verify feed-ready=true (agrees with onboard)", vp["feed_verdict"]["born_feed_ready"])
         print("    REVIEW IN ADMIN:", ob["product"]["admin_url"])
 
 
