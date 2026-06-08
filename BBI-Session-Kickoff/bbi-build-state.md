@@ -258,7 +258,7 @@ The gated trigger from the Day-20 carry-forward. Steve imported `collections-pha
 
 ## 🟢 Day 19 — 2026-06-01 — COLLECTIONS-ARCHITECTURE Phase 2: Consolidation & Crawl Hygiene (PLAN + CSVs) · OPEN PR
 
-The redirect/consolidation half of the locked architecture decision. **NO live redirect writes, NO theme writes, NO deletes** — redirects ship as CSVs Steve imports (token lacks `write_content`). Provenance: `data/reports/collections-arch-phase2-2026-06-01.md` + 2 batch CSVs in `data/redirects/`.
+The redirect/consolidation half of the locked architecture decision. **NO live redirect writes, NO theme writes, NO deletes** — redirects ship as CSVs Steve imports (process choice for Steve's review — NOT a scope limit; the token holds `write_content`, re-verified 2026-06-08, so API POST is available). Provenance: `data/reports/collections-arch-phase2-2026-06-01.md` + 2 batch CSVs in `data/redirects/`.
 
 **Phase 0 safety gate (reads only):**
 - **Do-not-touch (ranks) list = 25 handles**, LIVE-confirmed from DataForSEO `ranked_keywords` (Canada, 2026-06-01), recorded in the report. All EXCLUDED from both CSVs except `keilhauer` (the one sanctioned Batch D exception).
@@ -329,7 +329,7 @@ The SEO **meta** layer was already done in #70; this workstream is the visible o
 - Migrated optimized **reception** meta → **`reception-desks-desks`** (the canonical that actually ranks #36/#41); 301 the 3-product dupe.
 - Repaired broken **`/collections/healthcare`** meta (honest, non-keyword-targeted — the page `/pages/healthcare` owns `healthcare furniture canada`).
 - **Unpublished** empty `healthcare-seating` (sitemap hygiene).
-- Generated a **4-row 301 CSV** for Steve's manual Shopify-Admin import (token lacks `write_content` — redirects ship as CSV, never POSTed).
+- Generated a **4-row 301 CSV** for Steve's manual Shopify-Admin import (CSV chosen for Steve's review — the token holds `write_content`, re-verified 2026-06-08, so API POST was available but intentionally not used here).
 - **Deferred (intentional):** exec-desks dedicated build session (build a ~30-product executive-adjacent smart collection, then publish + meta + links — literal 3-SKU reading is too thin), and **D3** (wire the 85 enriched PDPs → canonical funnel collections, one edit per PDP).
 
 ### SITE-HEALTH / REGRESSION AUDIT (`data/reports/site-health-regression.md`)
