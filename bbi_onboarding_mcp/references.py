@@ -65,10 +65,41 @@ class ReferenceData:
 
     # ── loading ──────────────────────────────────────────────────────────
     def _newest_export(self) -> Optional[Path]:
-        candidates = sorted(config.EXPORT_DIR.glob(config.EXPORT_GLOB))
-        return candidates[-1] if candidates else None
+        # Most-recently-written wins (robust to any date-stamp format and to a
+        # re-baseline copied in by hand). create_collection's re-export is newest.
+        candidates = list(config.EXPORT_DIR.glob(config.EXPORT_GLOB))
+        if not candidates:
+            return None
+        return max(candidates, key=lambda p: (p.stat().st_mtime, p.name))
+
+    @staticmethod
+    def _ensure_seeded() -> None:
+        """Seed the persistent STATE_DIR from the read-only bundle (or repo data/)
+        the first time. Idempotent: only copies files that are missing, so a
+        create_collection re-export already in STATE_DIR is never overwritten."""
+        config.STATE_DIR.mkdir(parents=True, exist_ok=True)
+        yaml_names = ("sku-prefix-lookup.yaml", "manufacturer-defaults.yaml",
+                      "brand-collection-routing.yaml")
+        for fname in yaml_names:
+            dst = config.STATE_DIR / fname
+            if dst.exists():
+                continue
+            for src_dir in (config.BUNDLE_REF_DIR, config.REPO_REF_DIR):
+                src = src_dir / fname
+                if src.exists():
+                    dst.write_bytes(src.read_bytes())
+                    break
+        # Snapshot: only seed if STATE_DIR has none yet (preserve later re-exports).
+        if not list(config.STATE_DIR.glob(config.EXPORT_GLOB)):
+            for src_dir in (config.BUNDLE_REF_DIR, config.REPO_EXPORT_DIR):
+                cands = sorted(src_dir.glob(config.EXPORT_GLOB)) if src_dir.exists() else []
+                if cands:
+                    src = cands[-1]
+                    (config.STATE_DIR / src.name).write_bytes(src.read_bytes())
+                    break
 
     def load(self) -> None:
+        self._ensure_seeded()
         self.export_path = self._newest_export()
         if not self.export_path:
             raise config.ConfigError(

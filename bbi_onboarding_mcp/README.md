@@ -70,6 +70,21 @@ server** you control — the lowest-effort path is an IdP (Auth0, Okta, WorkOS, 
 Cognito) with the app/connection **restricted to Steve's single account**, which gives
 you OAuth 2.1 + PKCE + DCR for free. See "Production OAuth setup" below.
 
+### How writes are restricted to ONLY Steve's account
+Two independent layers, both required:
+1. **Token validation** (`auth.py:_verify_jwt`) — every request's `Authorization: Bearer`
+   JWT is checked for **signature** (RS256 against the IdP JWKS), **issuer** (`iss` ==
+   `OAUTH_ISSUER`), **audience** (`aud` == `OAUTH_AUDIENCE`), and **expiry** (`exp`
+   mandatory). Any failure → `401`.
+2. **Subject allowlist** (`auth.py:_verify_jwt`) — a valid token is **necessary but not
+   sufficient**. The token's `sub` (or its email claim) must appear in
+   `OAUTH_ALLOWED_SUBJECTS` / `OAUTH_ALLOWED_EMAILS`, or the request is rejected
+   (`401 "subject not authorized"`). If the allowlist is empty the server **won't start**
+   in oauth mode. This is the explicit lock to Steve — even if your IdP issued a token to
+   someone else, this server refuses them.
+
+(The IdP-side single-account restriction is belt-and-suspenders on top of layer 2.)
+
 ---
 
 ## Environment variables
@@ -82,13 +97,19 @@ you OAuth 2.1 + PKCE + DCR for free. See "Production OAuth setup" below.
 | `MCP_AUTH_MODE` | yes | `oauth` \| `bearer` \| `none`. |
 | `MCP_AUTH_SECRET` | bearer mode | Shared secret for `Authorization: Bearer`. |
 | `OAUTH_JWKS_URL` | oauth mode | Your IdP's JWKS endpoint (e.g. `https://you.auth0.com/.well-known/jwks.json`). |
-| `OAUTH_ISSUER` | oauth mode | Expected token `iss`. |
-| `OAUTH_AUDIENCE` | oauth mode | Expected token `aud` (this server's identifier). |
+| `OAUTH_ISSUER` | oauth mode | Expected token `iss`. **Required** in oauth mode (validated). |
+| `OAUTH_AUDIENCE` | oauth mode | Expected token `aud` (this server's identifier). **Required** in oauth mode (validated). |
+| `OAUTH_ALLOWED_SUBJECTS` | oauth mode* | Comma/space-separated token `sub` values allowed to invoke tools. |
+| `OAUTH_ALLOWED_EMAILS` | oauth mode* | Comma/space-separated emails allowed (matched case-insensitively against the email claim). |
+| `OAUTH_EMAIL_CLAIM` | no | Claim name holding the email. Default `email`. |
 | `OAUTH_REQUIRED_SCOPE` | no | Space-delimited scopes the token must carry. |
 | `MCP_PUBLIC_URL` | oauth (prod) | Public HTTPS URL of this server; used in the RFC 9728 metadata + 401 challenge. |
 | `MCP_HOST` / `MCP_PORT` | no | Bind address. Default `127.0.0.1:8000`. |
 | `MCP_NAV_MENU_HANDLE` | no | Nav menu a sub-collection is placed under. Default `main-menu-2`. |
 | `MCP_DATA_DIR` | no | Writable dir for backups + audit logs. Default `<repo>/data`. |
+| `MCP_STATE_DIR` | prod | **Persistent** writable dir for the canonical reference the server reads + re-exports. Default `<MCP_DATA_DIR>/onboarding-mcp-state`. **Must be on a persistent volume** (see Persistence). |
+
+\* In oauth mode the server **refuses to start** unless at least one of `OAUTH_ALLOWED_SUBJECTS` / `OAUTH_ALLOWED_EMAILS` is set — a valid IdP token alone is never sufficient.
 
 The Shopify token's existing scope gaps (no `write_publications` / `write_inventory` /
 `write_files` / metaobjects) are a useful natural blast-radius limit.
@@ -138,23 +159,44 @@ The server is host-agnostic streamable-HTTP. Any platform that serves a public H
 endpoint, can hold env secrets, and supports persistent HTTP works (small VPS,
 Fly.io, Render, Railway, a container on Cloud Run, etc.).
 
+Host **Python ≥ 3.10** is required (MCP SDK floor; built/tested on 3.12).
+
 1. Ship the repo (or just the `bbi_onboarding_mcp/` package — it bundles its own
    `reference_data/` copy of the canonical references, so it is self-contained).
 2. `pip install -r bbi_onboarding_mcp/requirements.txt`.
-3. Set env: `SHOPIFY_TOKEN`, `MCP_AUTH_MODE=oauth`, the `OAUTH_*` vars, `MCP_PUBLIC_URL`,
-   `MCP_HOST=0.0.0.0`, `MCP_PORT=$PORT`, `MCP_DATA_DIR=/var/lib/bbi-mcp` (writable).
+3. Set env (all required vars):
+   - `SHOPIFY_TOKEN`, `SHOPIFY_STORE`
+   - `MCP_AUTH_MODE=oauth`
+   - `OAUTH_JWKS_URL`, `OAUTH_ISSUER`, `OAUTH_AUDIENCE`
+   - `OAUTH_ALLOWED_SUBJECTS` and/or `OAUTH_ALLOWED_EMAILS` (Steve's `sub` / email)
+   - `MCP_PUBLIC_URL=https://<your-host>`
+   - `MCP_HOST=0.0.0.0`, `MCP_PORT=$PORT`
+   - `MCP_DATA_DIR=/var/lib/bbi-mcp` (writable)
+   - `MCP_STATE_DIR=/var/lib/bbi-mcp/state` (**persistent volume** — see Persistence)
 4. Run behind TLS: `python -m bbi_onboarding_mcp.server` (or
    `uvicorn "bbi_onboarding_mcp.server:build_app" --factory --host 0.0.0.0 --port $PORT`).
 5. Front it with HTTPS (the platform's TLS, or a reverse proxy). The MCP endpoint is
    `https://<your-host>/mcp`; the OAuth metadata is at
    `https://<your-host>/.well-known/oauth-protected-resource`.
 
+### Persistence (important)
+`create_collection` registers the new route and **re-exports the canonical snapshot**
+that `resolve_sku` / `onboard_product` then read. That snapshot lives in `MCP_STATE_DIR`,
+which is **seeded once** from the bundled read-only `reference_data/` and thereafter
+read **and** written there. If `MCP_STATE_DIR` is not on a persistent volume, a restart
+or redeploy reverts to the bundle and **loses every collection registered since deploy**.
+Mount it on persistent storage. To re-baseline from a fresh repo snapshot, delete the
+state dir (or copy a newer `brand-onboarding-reference-*.json` into it).
+
 ### Production OAuth setup (one-time)
-1. Create an app/API in your IdP (Auth0/Okta/etc.). Audience = your `MCP_PUBLIC_URL`.
-2. Restrict the connection to **Steve's single account** (this is the "lock to one user").
-3. Enable Dynamic Client Registration on the IdP (Claude prefers DCR), or pre-register
+1. Create an app/API in your IdP (Auth0/Okta/etc.). Audience = your `OAUTH_AUDIENCE`.
+2. **Set the server allowlist** to Steve's principal: `OAUTH_ALLOWED_EMAILS=steve@…`
+   (or `OAUTH_ALLOWED_SUBJECTS=<his sub>`). This is the enforced "lock to one user".
+3. Optionally also restrict the IdP connection to Steve's single account (defence in depth).
+4. Enable Dynamic Client Registration on the IdP (Claude prefers DCR), or pre-register
    a client and hand Steve the Client ID/Secret for the dialog's *Advanced settings*.
-4. Set `OAUTH_JWKS_URL`, `OAUTH_ISSUER`, `OAUTH_AUDIENCE` on the server.
+5. Set `OAUTH_JWKS_URL`, `OAUTH_ISSUER`, `OAUTH_AUDIENCE` on the server. The server
+   refuses to start if any of these — or the allowlist — is missing.
 
 ---
 

@@ -65,23 +65,45 @@ def _verify_jwt(token: str) -> tuple[bool, str]:
         from jwt import PyJWKClient
     except ImportError:
         return False, "server misconfigured: PyJWT[crypto] not installed"
+    # Issuer + audience are mandatory in oauth mode (enforced at startup too).
+    if not config.OAUTH_ISSUER or not config.OAUTH_AUDIENCE:
+        return False, "server misconfigured: OAUTH_ISSUER/OAUTH_AUDIENCE required"
     try:
         signing_key = PyJWKClient(config.OAUTH_JWKS_URL).get_signing_key_from_jwt(token)
         claims = jwt.decode(
             token,
-            signing_key.key,
+            signing_key.key,                 # signature: RS256 against IdP JWKS
             algorithms=["RS256"],
-            audience=config.OAUTH_AUDIENCE if config.OAUTH_AUDIENCE else None,
-            issuer=config.OAUTH_ISSUER if config.OAUTH_ISSUER else None,
-            options={"verify_aud": bool(config.OAUTH_AUDIENCE)},
+            audience=config.OAUTH_AUDIENCE,   # audience: must match this server
+            issuer=config.OAUTH_ISSUER,       # issuer: must match the IdP
+            options={"verify_aud": True, "verify_iss": True, "verify_exp": True,
+                     "require": ["exp", "iss", "aud"]},  # expiry mandatory
         )
     except Exception as e:  # noqa: BLE001 - any verification failure → 401
         return False, f"jwt verification failed: {e.__class__.__name__}"
+
+    # Optional scope gate.
     if config.OAUTH_REQUIRED_SCOPE:
         granted = set((claims.get("scope") or "").split())
         if not set(config.OAUTH_REQUIRED_SCOPE.split()).issubset(granted):
             return False, "insufficient_scope"
-    return True, "ok"
+
+    # AUTHORIZATION: the principal must be on the allowlist. A valid token is not
+    # enough — this is what restricts writes to Steve's account only.
+    return authorize_claims(claims)
+
+
+def authorize_claims(claims: dict) -> tuple[bool, str]:
+    """Allowlist check over verified token claims. Pure/testable. A valid token is
+    necessary but NOT sufficient — the `sub` or email claim must be allowlisted."""
+    if not config.OAUTH_ALLOWED_SUBJECTS and not config.OAUTH_ALLOWED_EMAILS:
+        return False, "server misconfigured: no subject allowlist (OAUTH_ALLOWED_SUBJECTS/EMAILS)"
+    sub = claims.get("sub")
+    email = str(claims.get(config.OAUTH_EMAIL_CLAIM) or "").lower()
+    if (sub and sub in config.OAUTH_ALLOWED_SUBJECTS) or \
+       (email and email in config.OAUTH_ALLOWED_EMAILS):
+        return True, "ok"
+    return False, "subject not authorized"
 
 
 def authenticate(headers: dict) -> tuple[bool, str]:

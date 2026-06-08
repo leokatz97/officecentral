@@ -98,6 +98,43 @@ def test_offline():
     _ok("derives tag-equals conditions", tags == ["brand:acme", "type:chairs"])
     _ok("flags non-tag rule as unsatisfiable", len(notes) == 1)
 
+    # ── AUTHORIZATION allowlist (pure claims check) ──────────────────────────
+    from . import auth
+    orig_subs, orig_emails = config.OAUTH_ALLOWED_SUBJECTS, config.OAUTH_ALLOWED_EMAILS
+    try:
+        config.OAUTH_ALLOWED_SUBJECTS, config.OAUTH_ALLOWED_EMAILS = [], []
+        ok0, r0 = auth.authorize_claims({"sub": "anyone"})
+        _ok("empty allowlist -> rejected (no authenticated-but-anyone)", not ok0 and "allowlist" in r0)
+        config.OAUTH_ALLOWED_SUBJECTS = ["auth0|steve123"]
+        config.OAUTH_ALLOWED_EMAILS = ["steve@brantbusinessinteriors.com"]
+        _ok("allowlisted sub accepted", auth.authorize_claims({"sub": "auth0|steve123"})[0])
+        _ok("allowlisted email accepted (case-insensitive)",
+            auth.authorize_claims({"sub": "x", "email": "STEVE@brantbusinessinteriors.com"})[0])
+        _ok("non-allowlisted principal rejected",
+            not auth.authorize_claims({"sub": "auth0|intruder", "email": "evil@x.com"})[0])
+    finally:
+        config.OAUTH_ALLOWED_SUBJECTS, config.OAUTH_ALLOWED_EMAILS = orig_subs, orig_emails
+
+    # ── PERSISTENCE: re-export survives a fresh load (simulates restart) ─────
+    refs2 = ReferenceData()
+    test_handle = "mcp-persist-check-zzz"
+    target_brand = refs2.brands[0]["brand_key"]
+    res = refs2.register_route_and_reexport(
+        collection_meta={"handle": test_handle, "type": "manual",
+                         "collection_id": 999999, "title": "MCP Persist Check"},
+        auto_route_brands=[target_brand], date_stamp="2026-06-08-persisttest", dry_run=False)
+    _ok("re-export wrote to persistent STATE_DIR",
+        str(config.STATE_DIR) in res["export_path"])
+    refs3 = ReferenceData()  # fresh load = simulates a process restart
+    b = refs3.brand_by_key(target_brand)
+    persisted = any(tc.get("handle") == test_handle for tc in (b.get("target_collections") or []))
+    _ok("new route survives restart (read side sees create_collection write)", persisted)
+    # cleanup the test snapshot so we don't leave it as the newest
+    import os as _os
+    _stale = config.STATE_DIR / "brand-onboarding-reference-2026-06-08-persisttest.json"
+    if _stale.exists():
+        _os.remove(_stale)
+
 
 def test_net():
     print("\n== NETWORK READS + DRY-RUN (no writes executed) ==")

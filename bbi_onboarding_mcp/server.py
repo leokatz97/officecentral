@@ -138,8 +138,19 @@ def main():
           f"api_default={config.DEFAULT_API}")
     if mode == "bearer" and not config.MCP_AUTH_SECRET:
         raise config.ConfigError("MCP_AUTH_MODE=bearer requires MCP_AUTH_SECRET")
-    if mode == "oauth" and not config.OAUTH_JWKS_URL:
-        raise config.ConfigError("MCP_AUTH_MODE=oauth requires OAUTH_JWKS_URL (and issuer/audience)")
+    if mode == "oauth":
+        missing = [n for n, v in (("OAUTH_JWKS_URL", config.OAUTH_JWKS_URL),
+                                  ("OAUTH_ISSUER", config.OAUTH_ISSUER),
+                                  ("OAUTH_AUDIENCE", config.OAUTH_AUDIENCE)) if not v]
+        if missing:
+            raise config.ConfigError(f"MCP_AUTH_MODE=oauth requires: {', '.join(missing)}")
+        if not config.OAUTH_ALLOWED_SUBJECTS and not config.OAUTH_ALLOWED_EMAILS:
+            raise config.ConfigError(
+                "MCP_AUTH_MODE=oauth requires a subject allowlist — set OAUTH_ALLOWED_SUBJECTS "
+                "and/or OAUTH_ALLOWED_EMAILS. Refusing to start an authenticated-but-anyone "
+                "write endpoint.")
+        allow_n = len(config.OAUTH_ALLOWED_SUBJECTS) + len(config.OAUTH_ALLOWED_EMAILS)
+        print(f"  authorization: {allow_n} principal(s) on the allowlist")
     uvicorn.run(build_app(), host=config.HOST, port=config.PORT)
 
 

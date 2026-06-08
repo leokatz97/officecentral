@@ -21,18 +21,26 @@ PKG_DIR = Path(__file__).resolve().parent
 REPO_ROOT = PKG_DIR.parent
 ENV_PATH = REPO_ROOT / ".env"
 
-# The server holds its OWN copy of the canonical references (bundled in the
-# package so a deployed host is self-contained — data/ is gitignored). Falls
-# back to the repo's data/ dirs for local development if the bundle is absent.
-_PKG_REF = PKG_DIR / "reference_data"
-REFERENCE_DIR = _PKG_REF if _PKG_REF.exists() else (REPO_ROOT / "data" / "reference")
-EXPORT_DIR = _PKG_REF if _PKG_REF.exists() else (REPO_ROOT / "data" / "exports")
+# Read-only seed shipped inside the package (so a fresh host is self-contained),
+# plus the repo's data/ dirs as a secondary seed source for local dev.
+BUNDLE_REF_DIR = PKG_DIR / "reference_data"
+REPO_REF_DIR = REPO_ROOT / "data" / "reference"
+REPO_EXPORT_DIR = REPO_ROOT / "data" / "exports"
 
 # Backups + audit logs: a writable data dir (override with MCP_DATA_DIR on a host
 # where the repo layout isn't present).
 _DATA_DIR = Path(os.environ.get("MCP_DATA_DIR", str(REPO_ROOT / "data")))
 BACKUP_DIR = _DATA_DIR / "backups"
 LOG_DIR = _DATA_DIR / "logs"
+
+# PERSISTENT, WRITABLE home for the canonical reference the server both READS
+# (resolve_sku / onboard_product) and WRITES (create_collection re-export). It is
+# seeded once from BUNDLE_REF_DIR and must live on a persistent volume so amendments
+# survive restart AND redeploy (the bundled package copy is replaced on redeploy).
+# Point MCP_STATE_DIR at a persistent mount in production.
+STATE_DIR = Path(os.environ.get("MCP_STATE_DIR", str(_DATA_DIR / "onboarding-mcp-state")))
+REFERENCE_DIR = STATE_DIR   # YAMLs read from the persistent copy
+EXPORT_DIR = STATE_DIR      # snapshot read + re-exported here (single source of truth)
 
 # Canonical reference files (authoritative YAML sources + merged snapshot).
 SKU_PREFIX_YAML = REFERENCE_DIR / "sku-prefix-lookup.yaml"
@@ -95,9 +103,22 @@ MCP_AUTH_SECRET = os.environ.get("MCP_AUTH_SECRET")  # bearer mode shared secret
 
 # OAuth mode settings (external IdP issues the tokens; we only verify).
 OAUTH_JWKS_URL = os.environ.get("OAUTH_JWKS_URL")        # e.g. https://you.auth0.com/.well-known/jwks.json
-OAUTH_ISSUER = os.environ.get("OAUTH_ISSUER")            # token `iss` must match
-OAUTH_AUDIENCE = os.environ.get("OAUTH_AUDIENCE")        # token `aud` must match (this server)
+OAUTH_ISSUER = os.environ.get("OAUTH_ISSUER")            # token `iss` must match (required in oauth mode)
+OAUTH_AUDIENCE = os.environ.get("OAUTH_AUDIENCE")        # token `aud` must match (required in oauth mode)
 OAUTH_REQUIRED_SCOPE = os.environ.get("OAUTH_REQUIRED_SCOPE", "")  # optional space-delimited
+
+
+def _csv_env(name: str) -> list[str]:
+    return [x.strip() for x in os.environ.get(name, "").replace(",", " ").split() if x.strip()]
+
+
+# AUTHORIZATION allowlist — ONLY these principals may invoke any tool. A valid IdP
+# token is necessary but NOT sufficient: the token's `sub` (or email claim) must be
+# on the list. In oauth mode the server refuses to start if the list is empty, so a
+# public write endpoint is never "authenticated-but-anyone".
+OAUTH_ALLOWED_SUBJECTS = _csv_env("OAUTH_ALLOWED_SUBJECTS")          # token `sub` values
+OAUTH_ALLOWED_EMAILS = [e.lower() for e in _csv_env("OAUTH_ALLOWED_EMAILS")]  # token email values
+OAUTH_EMAIL_CLAIM = os.environ.get("OAUTH_EMAIL_CLAIM", "email")     # claim holding the email
 
 # Public URL of this server (for RFC 9728 Protected Resource Metadata).
 PUBLIC_URL = os.environ.get("MCP_PUBLIC_URL", "").rstrip("/")
