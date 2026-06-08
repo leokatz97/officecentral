@@ -24,8 +24,8 @@
       "products_numeric_sku_no_alpha_prefix": 5,
       "smart_collections_on_store": 69,
       "custom_collections_on_store": 322,
-      "brands": 29,
-      "orphan_prefixes": 29,
+      "brands": 30,
+      "orphan_prefixes": 26,
       "routed_but_missing_collections": 4
     },
     "google_product_category_note": "No google_product_category is recorded in any of the three reference files; field emitted as null for every brand."
@@ -304,18 +304,16 @@
       "brand_tag": "brand:global-furniture-group",
       "sub_brands": [
         "Basics",
-        "Offices To Go",
-        "OTG",
         "ObusForme"
       ],
       "sku_prefixes": [
+        "BAOMVL",
         "GFT",
         "GLB",
         "GLC",
         "GLO",
         "MVL",
-        "OFGO",
-        "OTG"
+        "OFGO"
       ],
       "documented_sub_codes": [],
       "routing_tag_template": [
@@ -952,6 +950,404 @@
       "notes": []
     },
     {
+      "brand_key": "otg_offices_to_go",
+      "canonical_manufacturer": "OTG / Offices to Go",
+      "brand_tag": "brand:otg-offices-to-go",
+      "sub_brands": [
+        "Newland"
+      ],
+      "sku_prefixes": [
+        "BCMB",
+        "NLP",
+        "OTG"
+      ],
+      "documented_sub_codes": [],
+      "routing_tag_template": [
+        "brand:otg-offices-to-go",
+        "type:{product_type_slug}"
+      ],
+      "collections_by_type": {
+        "task_chair": [
+          "otg-chairs",
+          "task-chairs"
+        ],
+        "executive_chair": [
+          "otg-chairs",
+          "task-chairs"
+        ],
+        "drafting_stool": [
+          "otg-chairs",
+          "stools-drafting-chairs"
+        ],
+        "conference_chair": [
+          "otg-chairs",
+          "conference-seating"
+        ],
+        "lounge_chair": [
+          "otg-lounge",
+          "lounge-seating"
+        ],
+        "guest_chair": [
+          "otg-chairs",
+          "guest-seating"
+        ],
+        "side_chair": [
+          "otg-chairs",
+          "guest-seating"
+        ],
+        "desk": [
+          "otg-desks",
+          "desks"
+        ],
+        "height_adjustable_desk": [
+          "otg-desks",
+          "desks"
+        ],
+        "storage_filing": [
+          "otg-storage",
+          "storage"
+        ],
+        "bookcase": [
+          "otg-storage",
+          "bookcases"
+        ],
+        "table": [
+          "otg-tables",
+          "tables"
+        ],
+        "panel_system": [
+          "otg-panels"
+        ]
+      },
+      "target_collections": [
+        {
+          "handle": "otg-chairs",
+          "membership": "SMART",
+          "collection_id": 527496642873,
+          "title": "OTG Seating",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "brand:otg-offices-to-go"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:chairs"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"brand:otg-offices-to-go\"",
+            "equals \"type:chairs\""
+          ]
+        },
+        {
+          "handle": "task-chairs",
+          "membership": "SMART",
+          "collection_id": 526379024697,
+          "title": "Task Chairs",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "task-chair"
+            },
+            {
+              "column": "type",
+              "relation": "contains",
+              "condition": "task"
+            },
+            {
+              "column": "title",
+              "relation": "contains",
+              "condition": "task chair"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"task-chair\""
+          ]
+        },
+        {
+          "handle": "stools-drafting-chairs",
+          "membership": "MANUAL",
+          "collection_id": 471847960889,
+          "title": "Stools & Drafting Chairs"
+        },
+        {
+          "handle": "conference-seating",
+          "membership": "MANUAL",
+          "collection_id": 526866809145,
+          "title": "Conference Seating"
+        },
+        {
+          "handle": "otg-lounge",
+          "membership": "SMART",
+          "collection_id": 527496806713,
+          "title": "OTG Lounge Seating",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "brand:otg-offices-to-go"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:lounge"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"brand:otg-offices-to-go\"",
+            "equals \"type:lounge\""
+          ]
+        },
+        {
+          "handle": "lounge-seating",
+          "membership": "MANUAL",
+          "collection_id": 508412756281,
+          "title": "Lounge Seating"
+        },
+        {
+          "handle": "guest-seating",
+          "membership": "MANUAL",
+          "collection_id": 472894112057,
+          "title": "Guest (Seating)"
+        },
+        {
+          "handle": "otg-desks",
+          "membership": "SMART",
+          "collection_id": 527496675641,
+          "title": "OTG Desks & Workstations",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "brand:otg-offices-to-go"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:desks"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"brand:otg-offices-to-go\"",
+            "equals \"type:desks\""
+          ]
+        },
+        {
+          "handle": "desks",
+          "membership": "SMART",
+          "collection_id": 526847344953,
+          "title": "Desks & Workstations",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:desks"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:benching"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:workstations"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:sit-stand"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"type:desks\"",
+            "equals \"type:benching\"",
+            "equals \"type:workstations\"",
+            "equals \"type:sit-stand\""
+          ]
+        },
+        {
+          "handle": "otg-storage",
+          "membership": "SMART",
+          "collection_id": 527496708409,
+          "title": "OTG Storage & Filing",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "brand:otg-offices-to-go"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:storage"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"brand:otg-offices-to-go\"",
+            "equals \"type:storage\""
+          ]
+        },
+        {
+          "handle": "storage",
+          "membership": "SMART",
+          "collection_id": 526847377721,
+          "title": "Storage & Filing",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:storage"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:filing"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:bookcases"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:cabinets"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:lateral-files"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"type:storage\"",
+            "equals \"type:filing\"",
+            "equals \"type:bookcases\"",
+            "equals \"type:cabinets\"",
+            "equals \"type:lateral-files\""
+          ]
+        },
+        {
+          "handle": "bookcases",
+          "membership": "MANUAL",
+          "collection_id": 471750443321,
+          "title": "Bookcases"
+        },
+        {
+          "handle": "otg-tables",
+          "membership": "SMART",
+          "collection_id": 527496741177,
+          "title": "OTG Tables",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "brand:otg-offices-to-go"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:tables"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"brand:otg-offices-to-go\"",
+            "equals \"type:tables\""
+          ]
+        },
+        {
+          "handle": "tables",
+          "membership": "SMART",
+          "collection_id": 526847410489,
+          "title": "Tables",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:tables"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:folding-tables"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:training-tables"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:cafeteria-tables"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"type:tables\"",
+            "equals \"type:folding-tables\"",
+            "equals \"type:training-tables\"",
+            "equals \"type:cafeteria-tables\""
+          ]
+        },
+        {
+          "handle": "otg-panels",
+          "membership": "SMART",
+          "collection_id": 527496839481,
+          "title": "OTG Panels & Dividers",
+          "smart_rules": [
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "brand:otg-offices-to-go"
+            },
+            {
+              "column": "tag",
+              "relation": "equals",
+              "condition": "type:panels"
+            }
+          ],
+          "smart_tag_conditions": [
+            "equals \"brand:otg-offices-to-go\"",
+            "equals \"type:panels\""
+          ]
+        }
+      ],
+      "smart_collection_tag_conditions": [
+        "equals \"brand:otg-offices-to-go\"",
+        "equals \"type:chairs\"",
+        "equals \"task-chair\"",
+        "equals \"type:lounge\"",
+        "equals \"type:desks\"",
+        "equals \"type:benching\"",
+        "equals \"type:workstations\"",
+        "equals \"type:sit-stand\"",
+        "equals \"type:storage\"",
+        "equals \"type:filing\"",
+        "equals \"type:bookcases\"",
+        "equals \"type:cabinets\"",
+        "equals \"type:lateral-files\"",
+        "equals \"type:tables\"",
+        "equals \"type:folding-tables\"",
+        "equals \"type:training-tables\"",
+        "equals \"type:cafeteria-tables\"",
+        "equals \"type:panels\""
+      ],
+      "default_google_product_category": null,
+      "manufacturer_defaults": {
+        "country_of_manufacture": "Canada",
+        "certifications_typical": [],
+        "warranty": null
+      },
+      "live_product_count": 8,
+      "status": "active",
+      "notes": []
+    },
+    {
       "brand_key": "office_star_products",
       "canonical_manufacturer": "Office Star Products",
       "brand_tag": "brand:office-star-products",
@@ -1377,32 +1773,6 @@
   ],
   "orphans": [
     {
-      "prefix": "BAOMVL",
-      "live_product_count": 3,
-      "sample_skus": [
-        "BAOMVL1893",
-        "BAOMVL1873",
-        "BAOMVL1894"
-      ],
-      "sample_products": [
-        {
-          "handle": "elora-multi-tilter-high-back-chair-black-baomvl1893",
-          "title": "Elora multi-tilter high back chair black — BAOMVL1893",
-          "vendor": "Global Furniture Group"
-        },
-        {
-          "handle": "basics-comfort-time-ultra-multi-tilter-chairs-mvl1873-1",
-          "title": "Basics comfort-time ultra multi-tilter chairs MVL1873 MVL1875 (available with a headrest)",
-          "vendor": "Global Furniture Group"
-        },
-        {
-          "handle": "elora-multi-tilter-high-back-chair-black-petite-seat-baomvl1894",
-          "title": "Elora multi-tilter high back chair black petite seat — BAOMVL1894",
-          "vendor": "Global Furniture Group"
-        }
-      ]
-    },
-    {
       "prefix": "BELAIR",
       "live_product_count": 3,
       "sample_skus": [
@@ -1424,32 +1794,6 @@
         {
           "handle": "ceiling-grids-sound-acoustic-dampeners-orb",
           "title": "Ceiling grids sound acoustic dampeners orb",
-          "vendor": "Brant Business Interiors"
-        }
-      ]
-    },
-    {
-      "prefix": "NLP",
-      "live_product_count": 3,
-      "sample_skus": [
-        "NLP321",
-        "NLP109",
-        "NLP224 WCR"
-      ],
-      "sample_products": [
-        {
-          "handle": "desk-u-shape-mlp205-1",
-          "title": "Desk u-shape",
-          "vendor": "Brant Business Interiors"
-        },
-        {
-          "handle": "desk-double-pedestal",
-          "title": "Desk double pedestal",
-          "vendor": "Brant Business Interiors"
-        },
-        {
-          "handle": "table-desk-13-colour-options",
-          "title": "Table desk 13 colour options — 13 colour",
           "vendor": "Brant Business Interiors"
         }
       ]
@@ -1477,26 +1821,6 @@
           "handle": "bar-leaner-1-span-collaborative",
           "title": "Bar leaner 1-span collaborative",
           "vendor": "Axis"
-        }
-      ]
-    },
-    {
-      "prefix": "BCMB",
-      "live_product_count": 2,
-      "sample_skus": [
-        "BCMB2429",
-        "BCMB2429WHTSIDEPANEL"
-      ],
-      "sample_products": [
-        {
-          "handle": "bookcase-15-sizes-available",
-          "title": "Bookcase (15 sizes available) — 15 sizes",
-          "vendor": "OTG / Offices to Go"
-        },
-        {
-          "handle": "dual-coloured-bookcase-15-sizes-available",
-          "title": "Dual coloured bookcase (15 sizes available) — 15 sizes",
-          "vendor": "Brant Business Interiors"
         }
       ]
     },

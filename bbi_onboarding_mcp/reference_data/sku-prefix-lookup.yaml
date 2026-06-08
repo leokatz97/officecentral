@@ -8,10 +8,15 @@ sku_prefix_lookup:
   GLB: Global Furniture Group
   GLO: Global Furniture Group
   OFGO: Global Furniture Group
-  OTG: Global Furniture Group
-  MVL: Global Furniture Group
+  MVL: Global Furniture Group    # STAYS on Global — split prefix (MVL2363-7 = Basics, MVL2836 = OTG); parent is the deterministic catch-all (Leo, 2026-06-08). Re-route true-OTG MVL items per-product.
   GLC: Global Furniture Group   # backfill 2026-06-08 — Global Freefit benching / Terina (GLC-FFHAB/GFT cross-refs); vendor+tag=Global
   GFT: Global Furniture Group   # backfill 2026-06-08 — Global Terina training tables (GFT2448R); vendor+tag=Global
+  BAOMVL: Global Furniture Group # backfill 2026-06-08 — Basics multi-tilter chairs (BAOMVL1893/1873/1894); live vendor+tag=Global (BAO=Basics line). Stays Global despite the MVL substring.
+  # OTG / Offices to Go — carved out of Global Furniture Group 2026-06-08 (SUB-BRAND-HOUSE-RULE amended; see bbi-build-state.md).
+  # Offices To Go is now its own brand (own vendor field + brand:otg-offices-to-go tag + otg-* smart collections). Basics + ObusForme remain Global sub-brands.
+  OTG: OTG / Offices to Go      # moved off Global 2026-06-08 — OTG seating/desks/storage; vendor "OTG / Offices to Go", tag brand:otg-offices-to-go
+  NLP: OTG / Offices to Go      # backfill 2026-06-08 — Newland laminate desks (NLP321/109/224); Newland = OTG value desking line, lives on officestogo.com (build-state OFFICESTOGO.COM-AS-PRIMARY-SOURCE-FOR-NEWLAND)
+  BCMB: OTG / Offices to Go     # backfill 2026-06-08 — OTG bookcases (BCMB2429); live vendor "OTG / Offices to Go" + brand:otg-offices-to-go
   # Other manufacturers
   SAF: Safco
   HTW: Heartwood
