@@ -11,11 +11,11 @@ brand_routing:
     manufacturer_name: Global Furniture Group
     brand_tag: brand:global-furniture-group
     sub_brands:
-      # Sub-brand house rule: manufacturer field = "Global Furniture Group"
-      # Sub-brand goes in product_line field with a parenthetical or as "Basics: {line}"
+      # Sub-brand house rule (AMENDED 2026-06-08): manufacturer field = "Global Furniture Group";
+      # sub-brand goes in product_line field with a parenthetical or as "Basics: {line}".
+      # Offices To Go / OTG (incl. the Newland desking line) were CARVED OUT into their own brand
+      # `otg_offices_to_go` on 2026-06-08 — they are no longer Global sub-brands. Basics + ObusForme stay.
       - Basics
-      - Offices To Go
-      - OTG
       - ObusForme
     primary_collections_by_type:
       task_chair: [gfg-chairs, task-chairs]
@@ -34,6 +34,32 @@ brand_routing:
       flip_top_table: []         # TODO: no collection recipe yet — tag-only (Bungee tables)
       bar_stool: []              # TODO: no collection recipe yet — tag-only (ML bar stool)
     routing_tag_template: [brand:global-furniture-group, type:{product_type_slug}]
+
+  # --- Carved out of Global Furniture Group 2026-06-08 (SUB-BRAND-HOUSE-RULE amended; see bbi-build-state.md) ---
+  # Offices To Go is now a standalone brand: own vendor field "OTG / Offices to Go", own brand:otg-offices-to-go
+  # tag, and its own otg-* smart collection family (already live on the store, brand-tag + type-tag ruled).
+  # Prefixes OTG (seating/desks/storage), NLP (Newland value desking), BCMB (bookcases). MVL STAYS on Global
+  # (split Basics/OTG prefix). Newland is captured as the value desking sub-brand below.
+  otg_offices_to_go:
+    manufacturer_name: OTG / Offices to Go
+    brand_tag: brand:otg-offices-to-go
+    sub_brands:
+      - Newland   # value laminate desking line (NLP prefix); spec sheets on officestogo.com
+    primary_collections_by_type:
+      task_chair: [otg-chairs, task-chairs]
+      executive_chair: [otg-chairs, task-chairs]
+      drafting_stool: [otg-chairs, stools-drafting-chairs]  # second collection requires manual /collects
+      conference_chair: [otg-chairs, conference-seating]
+      lounge_chair: [otg-lounge, lounge-seating]
+      guest_chair: [otg-chairs, guest-seating]
+      side_chair: [otg-chairs, guest-seating]
+      desk: [otg-desks, desks]
+      height_adjustable_desk: [otg-desks, desks]   # Newland sit-stand / laminate desking (NLP)
+      storage_filing: [otg-storage, storage]
+      bookcase: [otg-storage, bookcases]            # BCMB bookcases
+      table: [otg-tables, tables]
+      panel_system: [otg-panels]
+    routing_tag_template: [brand:otg-offices-to-go, type:{product_type_slug}]
 
   teknion:
     manufacturer_name: Teknion
