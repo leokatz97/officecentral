@@ -21,20 +21,23 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
     <title>{%- if template == 'index' -%}Brant Business Interiors · OECM Furniture · Peterborough{%- else -%}
-      {{ page_title }}
+      {%- comment -%} TITLE-FIX (2026-06-10): the brand suffix must never render truncated mid-word (e.g. "… | Brant Business", cutting "Interiors"). Some title_tag metafields were stored hard-clamped to 60 chars and clipped the suffix. New rule: if the FULL brand is already present, render verbatim; otherwise strip any clipped "| Brant…" fragment and re-append the full " | Brant Business Interiors" only when it fits within 60 chars, else drop it cleanly (Google appends the site name itself). Supersedes the R5 en-dash logic; keeps the same ≤60-char budget and aligns with icp.md (pipe suffix, product titles keep their model code). {%- endcomment -%}
+      {%- assign _pt = page_title | strip -%}
+      {%- if _pt contains 'Brant Business Interiors' -%}
+        {{ _pt }}
+      {%- else -%}
+        {%- assign _base = _pt | split: ' | Brant' | first | strip -%}
+        {{ _base }}
+        {%- assign _branded = _base | append: ' | Brant Business Interiors' -%}
+        {%- assign _branded_len = _branded | size -%}
+        {%- if _branded_len <= 60 %} | Brant Business Interiors{%- endif -%}
+      {%- endif -%}
       {%- if current_tags %}
         &ndash; tagged "{{ current_tags | join: ', ' }}"
       {%- endif -%}
       {%- if current_page != 1 %}
         &ndash; Page {{ current_page -}}
       {%- endif -%}
-      {%- comment -%} SEO-AUDIT-1: broaden the suffix-suppression check to "Brant" / "OECM" / shop.name so SEO-AUDIT-1 title_tags (50-60 char) don't get double-suffixed with the longer shop.name. PDP/product titles without any of these get a brand suffix appended for SERP brand association. R5 (2026-06-01): append the SHORT brand "Brant Business Interiors" (24ch) instead of the 41-char shop.name, and only when page_title is short enough that the rendered title stays <=60 chars (33 + " - Brant Business Interiors" = 60). Longer product titles render clean with no suffix — Google appends the site name itself. {%- endcomment -%}
-      {%- unless page_title contains 'Brant' or page_title contains 'OECM' or page_title contains shop.name %}
-        {%- assign r5_title_len = page_title | strip | size -%}
-        {%- if r5_title_len <= 33 -%}
-          &ndash; Brant Business Interiors
-        {%- endif -%}
-      {%- endunless -%}
     {%- endif -%}</title>
 
     {% if template == 'index' %}

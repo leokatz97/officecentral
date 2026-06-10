@@ -13,6 +13,10 @@
     - Levels with blank bc*_name are omitted from the list.
     - Up to 4 levels supported. Extend to bc5 if ever needed.
     - bc1_url / bcN_url should be absolute (include shop.url prefix).
+    - ⚠️ Liquid does NOT apply filters to {% render %} argument values. Build each
+      absolute URL with an {% assign %} BEFORE the render call and pass the plain
+      variable — passing `bcN_url: shop.url | append: path` silently forwards the
+      bare shop.url and the crumb self-links to the homepage.
 {%- endcomment -%}
 
 {%- unless bc1_name == blank -%}

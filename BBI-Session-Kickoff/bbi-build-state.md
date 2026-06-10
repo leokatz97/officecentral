@@ -47,6 +47,24 @@
 
 ---
 
+## 🟢 Day 21 — 2026-06-10 — THREE THEME AUDIT FIXES (trust chip · breadcrumb URLs · title suffix) — theme writes · branch + PR, NOT merged
+
+**What:** three localized audit fixes, one branch → PR. **THEME writes** (Liquid/JSON), so PREFLIGHT ran first: live theme reconfirmed `186373570873` role=**main** ("BBI Landing Dev" = name trap) via `GET /themes.json`; **no `shopify theme dev` watcher** running. Branch `fix/theme-audit-trust-breadcrumb-title-2026-06-10` off **main** (the vendor-cleanup chore branch was not used). **5 files changed:**
+
+1. **Trust chip — `theme/templates/index.json`** (`bbi-trust` custom-liquid blob): the lone outlier `30+ Years in Business` → **`Since 1964`**, matching the 31× "since 1964" used everywhere else (the 30+ was mathematically wrong). Not Theme-Editor-editable (it's inside the template JSON).
+
+2. **Breadcrumb URLs — `ds-cc-base.liquid` (×2) + `ds-cs-base.liquid` (×1)**: on category/sub-collection pages crumbs 2 & 3 (and 4 on sub-collections) self-linked to the homepage. **Root cause:** Liquid does **not** apply filters to `{% render %}` argument values, so `bcN_url: shop.url | append: path` silently forwarded the bare `shop.url`. Fix = pre-`assign` the absolute URLs to plain vars, then pass them — the **exact pattern `bbi-product-jsonld.liquid` already uses** (its PDP breadcrumb emits correct URLs live, proving the pattern). Snippet `bbi-breadcrumb-jsonld.liquid` left functionally unchanged; added a ⚠️ comment documenting the render-arg-filter trap. PDP call site untouched → no PDP regression.
+
+3. **Title suffix truncation — `theme/layout/theme.liquid` `<title>` builder**: desks collection + News blog index `<title>` clipped to `… | Brant Business` (cutting "Interiors"). **Real root cause = the stored `title_tag` metafields are themselves hard-clamped mid-word** (`global.title_tag` on `desks` and blog `news` literally store `…| Brant Business`); the theme rendered `page_title` verbatim. New builder rule (supersedes R5 en-dash logic, same ≤60-char budget, icp.md-aligned pipe suffix): if the FULL brand is already present → render verbatim; else strip any clipped `| Brant…` fragment (`split: ' | Brant' | first`) and re-append the full ` | Brant Business Interiors` only when it fits ≤60 chars, else drop it cleanly.
+
+**Verified on a throwaway unpublished preview theme** (pushed local theme via `shopify theme push --unpublished`, rendered with a cookie-jar preview session, **deleted after** — main never written): home chip = "Since 1964"; desks breadcrumb JSON-LD crumbs 2/3 → `/collections/business-furniture` + `/collections/desks`; titles intact sitewide — home (`Brant Business Interiors · OECM Furniture · Peterborough`), desks (`Office Desks & Workstations Ontario`), blog (`Office Furniture News & Buying Guides`), OECM page (unchanged), PDP (`…5 Sizes | Brant Business Interiors`, full suffix intact); PDP breadcrumb still 4 correct levels.
+
+**Deferred / follow-up (not in this PR):** PDP "Other" breadcrumb (needs product-tag work). Also flagged: the theme builder now renders the `<title>` cleanly, but the **truncated `title_tag` metafield data is still raw** — so `og:title` (which reads `page_title` directly in `meta-tags.liquid`) still shows `… | Brant Business` on desks + News. True root-cause fix = repair the 2 clamped metafields via Admin API (drops the suffix to fit, or shortens the base to retain brand ≤60); separate Admin-API write, Leo to approve.
+
+**No write to live main. Branch + PR, NOT merged — Leo reviews + previews. HALT.**
+
+---
+
 ## 🟢 Day 21 — 2026-06-03 — SPEC-AUDIT §5 FACTUAL CORRECTIONS (batch-fixable only) — LIVE Admin-API product writes · 13 SKUs · branch + PR, NOT merged
 
 **What:** applied the §5 batch-fixable factual mismatches from the spec-audit report (`docs/reviews/spec-audit-comparison-categories-2026-06-03.md`). **LIVE Admin-API writes** (`body_html` + `specs.*` + `global.title_tag`/`description_tag` metafields, which mirror SEO); **no theme write, no watcher** (watcher preflight PASS — no `shopify theme dev` running; product writes are theme-independent). EXCLUDED by scope: §3 (warranty/origin/certs — Steve-gated), §4 (config/wrong-model divergences), and brand mis-tags (need resolution). Engine: `scripts/push-spec5-factual-fixes.py` (dry-run default; asserts each old substring exists live → BLOCKS the product on any NO-MATCH; per-SKU timestamped backup of full body+metafields+seo to `data/backups/spec5-<id>-20260603-205734.json` BEFORE writing; hardened readback after). Dry run was green (13/13, 0 blocked) and Leo-approved before `--live`.
