@@ -59,9 +59,15 @@
 
 **Verified on a throwaway unpublished preview theme** (pushed local theme via `shopify theme push --unpublished`, rendered with a cookie-jar preview session, **deleted after** — main never written): home chip = "Since 1964"; desks breadcrumb JSON-LD crumbs 2/3 → `/collections/business-furniture` + `/collections/desks`; titles intact sitewide — home (`Brant Business Interiors · OECM Furniture · Peterborough`), desks (`Office Desks & Workstations Ontario`), blog (`Office Furniture News & Buying Guides`), OECM page (unchanged), PDP (`…5 Sizes | Brant Business Interiors`, full suffix intact); PDP breadcrumb still 4 correct levels.
 
-**Deferred / follow-up (not in this PR):** PDP "Other" breadcrumb (needs product-tag work). Also flagged: the theme builder now renders the `<title>` cleanly, but the **truncated `title_tag` metafield data is still raw** — so `og:title` (which reads `page_title` directly in `meta-tags.liquid`) still shows `… | Brant Business` on desks + News. True root-cause fix = repair the 2 clamped metafields via Admin API (drops the suffix to fit, or shortens the base to retain brand ≤60); separate Admin-API write, Leo to approve.
+**✅ FOLLOW-UP DONE (2026-06-10, same session) — truncated `title_tag` metafields repaired (LIVE Admin-API, theme-independent, no watcher).** The 2 hard-clamped `global.title_tag` metafields were rewritten so the stored SEO title / `og:title` now match the now-clean rendered `<title>`:
+- **Desks collection** (`gid://…/Collection/526847344953`): `Office Desks & Workstations Ontario | Brant Business` → **`Office Desks & Workstations Ontario`**
+- **News blog** (`gid://…/Blog/108557861177`): `Office Furniture News & Buying Guides | Brant Business` → **`Office Furniture News & Buying Guides`**
 
-**No write to live main. Branch + PR, NOT merged — Leo reviews + previews. HALT.**
+No brand suffix retained — the full ` | Brant Business Interiors` overflows 60 chars for both, and the new builder drops it cleanly anyway, so data + render agree. `metafieldsSet` (single_line_text_field), **0 userErrors, exact-match readback PASS**; backup `data/backups/title-tag-fix-20260610.json`; engine `scripts/fix-truncated-title-tags-2026-06-10.py`. A follow-up `collectionUpdate` re-asserting the same `seo.title` was issued to flush the desks full-page edge cache (Shopify ignores cache-bust params; a collection write invalidates it). **Live verify (cache-busted):** both pages now render `<title>` + `og:title` + `twitter:title` clean, no mid-word cut. This repair is independent of the theme PR — it improves both the current live theme and the post-merge builder.
+
+**Deferred / still open (not in this PR):** PDP "Other" breadcrumb (needs product-tag work).
+
+**Theme fixes: no write to live main — branch + PR #123, NOT merged (Leo reviews + previews). Metafield repair: LIVE Admin-API data write, done + verified. HALT.**
 
 ---
 
