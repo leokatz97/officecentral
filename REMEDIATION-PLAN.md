@@ -73,9 +73,12 @@ Legend: **CODE-DONE** = done in this PR · **MANUAL-MINE** = Leo does it in Shop
   and reminder emails are **not** a notification template — install an app that
   watches `financial_status == pending` orders and sends a timed sequence, e.g.
   a "payment reminder / unpaid order" app or Shopify **Flow** + email action.
-  Configure: trigger on order created with pending status, send at +2 days and
-  +5 days, and **stop the sequence when the order is marked Paid**. Wire the
-  app's merge tags to order number, amount due, and customer first name.
+  Configure: trigger on order created with pending status, send at **+2 days and
+  +5 days only (no immediate reminder** — the Order confirmation is now the
+  immediate invoice), **auto-cancel OFF** (do not let the app close unpaid
+  orders), and **stop the sequence when the order is marked Paid**. Wire the
+  app's merge tags to order number, amount due, and customer first name
+  (`{order}` / `{amount}` / `{first_name}` placeholders in the copy file).
   *(Claude cannot install apps — config instructions only.)*
 
 ## Step 7 — Confirm sender email — **MANUAL-MINE**
