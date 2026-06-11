@@ -465,6 +465,24 @@ unchanged.
 
 ---
 
+## Collection-copy carrier ruling (Step 2.2 — 2026-06-11)
+
+Separate from the `storefront_callable` ≥10-product **brand-chip** gate above: this records which carried brands may be **named in collection body copy**. The `storefront_callable` flag governs which Brand facet chips render on category pages; copy-naming is a per-collection editorial call made when the category description is written.
+
+**Ruling (fire-resistant file cabinets / storage category, Step 2.2 copy push):**
+
+| Brand | In collection copy | Notes |
+|---|---|---|
+| **Gardex** | ✅ **NAMED** (added 2026-06-11) | Named as a carried fire-resistant brand in the `fire-resistant-file-cabinets-storage` description. First copy-named carrier for the fire-resistant category (distinct from `FireKing`, which is in the canonical map above at 1 product / not chip-callable). |
+| **IOF** | ❌ unnamed — **pending review** | Carried (26 products, re-vendored 2026-06-02) but held out of copy pending review. |
+| **Uline** | ❌ unnamed — **pending review** | See Uline entry above — single product, attribution on `height-adjustable-base-pneumatic` may be wrong; distributor not manufacturer. Held. |
+| **Lesro** | ❌ unnamed — **pending review** | See Lesro Industries entry above — 1 enriched product (`willow-bariatric-chair`, waiting-room/bariatric). Held. |
+| **Horizon** | ❌ unnamed — **pending review** | See Horizon entry above — 5 products (Shoptech corporate / Horizon seating line). Held. |
+
+**Convention:** naming a carrier in collection copy is a deliberate, reviewed decision (factual dealer-status statements only — never an asserted comparison). Default is **unnamed** until reviewed. Source of record for this ruling: `docs/reviews/step-2-2-category-copy-push-2026-06-11.md`.
+
+---
+
 ## Catalog exclusion tag conventions
 
 ### `exclude:business-furniture`

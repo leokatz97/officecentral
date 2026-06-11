@@ -80,6 +80,7 @@
    - `/collections/waiting-room-seating` — exists but **0 products**.
    - Remapped to nav-canonical, product-bearing handles: `reception` (3p), `office-suites-desks` (13p, executive), `boardroom` (25p), `reception-side-guest-chairs` (28p, waiting).
 3. **Collection description rendering is template-dependent.** Only `ds-collection-base` (default `collection.json`) renders `{{ collection.description }}`. The `base`-suffix (`ds-cs-base`) and custom (`ds-cc-base`) sections do **not** — so body writes only surface on default-template collections. 3 of 4 funnel collections are SEO-meta-only as a result.
+   - **⚠️ SUPERSEDED 2026-06-11 (Step 2.1):** the `ds-cs-base` claim no longer holds — Step 2.1 added an answer-first intro that renders `{{ collection.description }}` (above the grid) + a FAQ band, so `base`-suffix sub-collections now surface their body (enabling the Step 2.2 category-copy push). `ds-cc-base` remains description-less. True when written (pre-2.1); retained for history.
 4. **Spec count off by one.** Spec header said "8 pages"; the enumerated scope is 7 surfaces.
 5. **Pre-existing title truncation.** Several legacy SEO titles were stored cut mid-word at "...| Brant". New titles use the full "| Brant Business Interiors" within the 60-char budget.
 
