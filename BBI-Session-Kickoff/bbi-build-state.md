@@ -28,6 +28,45 @@
 
 ---
 
+## 🟢 Day 21 — 2026-06-11 — STEP 1 NEWS-DRAFTS BATCH — FLIP-READINESS CONSOLIDATION (triage + medical-dental word-count fix + pre-publish content check) — DOC ONLY · PRs #125 / #126 / #127 MERGED · NOTHING PUBLISHED
+
+**What:** consolidated close-out of the three merged Step 1 sessions over the **12-draft "Step 1" News batch** (the alternatives / comparison / planning set created as unpublished drafts on the News blog `108557861177`, `published:false`, IDs `689253…`–`689255…` — a **separate, later batch** from the Track A slots 07–21 logged above). This is the **first build-state record of this batch** (all three review docs left build-state untouched by design; deltas carried forward to this doc PR). **Doc-only — no theme write, no Admin-API write, no flip, no `--live`. Nothing published.** Manual publish is **Leo's**, by hand in Shopify (featured image + `image.alt` + flip) — the engine `flip-live` gate hard-requires a featured image **and** non-empty `image.alt`, both still empty on all 12, so none can flip yet.
+
+**Authoritative sources (all merged to main; rows reconciled against these, not re-derived):**
+- `docs/reviews/step1-triage-20260611T044329Z.md` — **PR #125** · Step 1(a) flip-readiness triage (DRY; 12 drafts audited against `create-*` backups + independent Admin-API readback through the three engine gates).
+- `docs/reviews/step1-fix-medical-dental-wordcount-2026-06-11.md` — **PR #126** · medical-dental draft expanded over the 2,200-word floor (draft body PUT only, stayed `published:false`).
+- `docs/reviews/step1-precheck-12news-batch-2026-06-11.md` — **PR #127** · READ-ONLY pre-publish content check of the 8 content-clear drafts (engine gates DRY).
+
+**Per-draft status (12). Words = latest independent Admin-API readback. None has a featured image or `image.alt`, so none can flip until Leo adds both.**
+
+| # | slug | id | words | status | gate | next action |
+|---|---|---|---|---|---|---|
+| 1 | poi-business-interiors-alternative-ontario | 689253155129 | 2344 | **CONTENT-CLEAR · DRAFT** | all PASS | Leo: image + alt → manual publish |
+| 2 | the-office-shop-alternative-ontario | 689253220665 | 2260 | **CONTENT-CLEAR · DRAFT** | all PASS | Leo: image + alt → manual publish |
+| 3 | staples-office-furniture-alternative-ontario | 689253482809 | 2229 | **CONTENT-CLEAR · DRAFT** | all PASS | Leo: image + alt → manual publish |
+| 4 | grand-and-toy-office-furniture-alternative-ontario | 689253515577 | 2270 | **CONTENT-CLEAR · DRAFT** | all PASS | Leo: image + alt → manual publish |
+| 5 | commercial-office-furniture-suppliers-ontario | 689253450041 | 2513 | **CONTENT-CLEAR · DRAFT** | all PASS | Leo: image + alt → manual publish |
+| 6 | how-much-office-space-do-you-need | 689254334777 | 2540 | **CONTENT-CLEAR · DRAFT** | all PASS | Leo: image + alt → manual publish |
+| 7 | hybrid-activity-based-work-office-design | 689254400313 | 2531 | **CONTENT-CLEAR · DRAFT** | all PASS | Leo: image + alt → manual publish |
+| 8 | medical-dental-clinic-furniture-ontario | 689254498617 | 2264 | **CONTENT-CLEAR · DRAFT** (was NEEDS-FIX @ 2,085 → fixed to 2,270 in PR #126; pre-check re-read 2,264) | all PASS | Leo: image + alt → manual publish |
+| 9 | office-furniture-ottawa-ontario | 689253417273 | 2217 | **HOLD — Step 7** (city de-dup) | all PASS | do NOT publish — held for the Step 7 geo strategy call |
+| 10 | office-space-planning-guide-ontario | 689254302009 | 2750 | **HOLD-REPURPOSE — do NOT publish** | gates PASS, blocking cannibalization flag | mine for the Step 2 design-services page, then archive |
+| 11 | steelcase-chairs-vs-canadian-ergonomic-seating | 689255219513 | 2216 | **CAUTIOUS — held for legal glance** | all PASS | do NOT clear — legal glance + pre-publish header fix |
+| 12 | nightingale-vs-global-canadian-seating | 689255285049 | 2229 | **CAUTIOUS — held for legal glance** | all PASS | do NOT clear — legal glance + pre-publish header fix |
+
+**Publish-track (8 content-clear, still DRAFT):** rows 1–8 above passed every engine gate (`validate-meta`, `check-handles` 6/6 → storefront 200, `verify-faq` byte-match), carry the verbatim OECM string, zero em-dashes, zero literal "BBI" in body, zero `/blogs/news` content links (D3 stays HELD as plain text), `author = Steve Katz`, `published_at = null`. **Row 8 (medical-dental)** moved out of NEEDS-FIX: PR #126 added a ~185-word clinic-seating-selection paragraph (furniture-buying depth only — no healthcare-segment essay, so it stays the cross-link TARGET for Step 5 healthcare + Step 6 clinics review without pre-empting them); body-only `PUT` with `published` omitted, independent readback confirms `published_at = null`, all gates re-PASS. **No blocker remains before Leo's image + alt + manual publish on any of the 8.**
+
+**HOLD (2 — do NOT publish):**
+- **office-furniture-ottawa-ontario (9):** all gates pass and it would be publish-ready, but it is **HELD for Step 7** (city-template de-dup). Geographically **distinct** from the live Toronto article (`office-furniture-toronto-ontario`) — no keyword dup — but held pending the Step 7 geo strategy call. Do not clear.
+- **office-space-planning-guide-ontario (10):** **HOLD-REPURPOSE — do NOT publish.** Cannibalizes the live layout pillar (`how-to-plan-an-office-layout-ontario`, id `689229365561`) **and** the design-services page's locked primary keyword "office space planning". Disposition: mine its unique material for the **Step 2 design-services page**, then **archive** the draft.
+
+**CAUTIOUS — held for legal glance (2 — framing confirmed compliant in triage; do NOT clear):**
+- **steelcase-chairs-vs-canadian-ergonomic-seating (11)** and **nightingale-vs-global-canadian-seating (12):** both name a **non-carried** brand (Steelcase / Nightingale). Triage verdict = framing **COMPLIANT** (fit-based only, never an asserted "X beats Y", non-carried brand explicitly marked `No (referenced for comparison)`, nominative trademark use), but per instruction these are **NOT cleared** — verdict stays "CAUTIOUS — legal glance required". **Required pre-publish edit on BOTH:** comparison-table column header `Carried by BBI` → **`Carried by Brant Business Interiors`** (the "never publish 'BBI' to customers" rule). A Steelcase-named comparison already shipped live (`steelcase-vs-teknion-ontario-comparison`, id `689255186745`) as precedent — but that is **not** a clearance for these two.
+
+**Net:** 8 content-clear & DRAFT (pending Leo's image+alt+manual publish), 2 HOLD, 2 CAUTIOUS-legal. **0 flipped, 0 published, 0 LIVE.** Theme, collections, and store untouched.
+
+---
+
 ## 🟢 Day 21 — 2026-06-10 — VENDOR=BBI RESIDUAL CLEANUP (active slice) — LIVE Admin-API product writes · 18 SKUs · branch + PR (doc only), NOT merged
 
 **What:** mapped + began clearing the parked `vendor=Brant Business Interiors` residual, scoped to the **90 ACTIVE products** carrying that dealer-name-as-data-error vendor. **Mapping-then-write, two-turn:** turn 1 produced a reviewed reassignment map (Leo-approved); turn 2 executed **only the unambiguous slice**. **LIVE Admin-API product writes** (`productUpdate` — `vendor` + `status`); **no theme write, no watcher** (Admin-API is theme-independent). Live theme reconfirmed `186373570873` role=MAIN ("BBI Landing Dev" = name trap) before starting. Map artifact: `data/reports/vendor-bbi-reassignment-map-2026-06-10.csv` (90 rows: title/handle/gid/sku/prefix/current+proposed vendor/bucket/flag). Resolver = `data/reference/sku-prefix-lookup.yaml` (+ `decoded_details` sub-codes) keyed on first-variant SKU prefix.
