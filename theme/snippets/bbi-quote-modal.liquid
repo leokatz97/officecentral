@@ -465,6 +465,9 @@ class BbiQuoteModal extends HTMLElement {
         });
       }
     });
+
+    /* Re-open in success state if we just came back from a native submit. */
+    this._maybeShowPostSubmitSuccess();
   }
 
   open(ctx = {}) {
@@ -543,59 +546,93 @@ class BbiQuoteModal extends HTMLElement {
     }
   }
 
-  _populateRecap() {
-    const recap = this.querySelector('#bbi-qm-success-recap');
-    if (!recap) return;
-    const name     = (this._form.querySelector('#bbi-qm-name')?.value || '').trim();
-    const email    = (this._form.querySelector('#bbi-qm-email')?.value || '').trim();
-    const enquiry  = this._form.querySelector('#bbi-qm-enquiry')?.value || '';
-    const product  = (document.getElementById('bbi-qm-product-title')?.value || '').trim();
+  /* Snapshot the user-facing recap fields BEFORE the native submit navigates
+     away. Stashed in sessionStorage so the success panel can re-render after
+     Shopify redirects back with ?contact_posted=true (the page reloads, so
+     the live form fields are gone by then). */
+  _buildRecap() {
+    return {
+      name:    (this._form.querySelector('#bbi-qm-name')?.value || '').trim(),
+      email:   (this._form.querySelector('#bbi-qm-email')?.value || '').trim(),
+      enquiry: this._form.querySelector('#bbi-qm-enquiry')?.value || '',
+      product: (document.getElementById('bbi-qm-product-title')?.value || '').trim(),
+    };
+  }
 
+  _renderRecap(data) {
+    const recap = this.querySelector('#bbi-qm-success-recap');
+    if (!recap || !data) return;
     const rows = [
-      { label: 'Name',         value: name    },
-      { label: 'Email',        value: email   },
-      { label: 'Enquiry type', value: enquiry },
-      { label: 'Product',      value: product },
+      { label: 'Name',         value: data.name    },
+      { label: 'Email',        value: data.email   },
+      { label: 'Enquiry type', value: data.enquiry },
+      { label: 'Product',      value: data.product },
     ].filter(r => r.value);
 
     recap.innerHTML = rows.map(r =>
       `<div class="bbi-qm-success-recap-row">
         <span class="bbi-qm-success-recap-label">${r.label}</span>
-        <span class="bbi-qm-success-recap-value">${r.value.replace(/</g,'&lt;')}</span>
+        <span class="bbi-qm-success-recap-value">${String(r.value).replace(/</g,'&lt;')}</span>
       </div>`
     ).join('');
   }
 
-  async _handleSubmit(e) {
-    e.preventDefault();
-    if (!this._submitBtn) return;
+  /* On page load: if Shopify redirected back here after a successful contact
+     submit (?contact_posted=true), open the dialog straight into its success
+     state, populate the recap from the pre-submit stash, then clean the param
+     so a refresh doesn't re-trigger it. */
+  _maybeShowPostSubmitSuccess() {
+    let posted = false;
+    try {
+      posted = new URLSearchParams(location.search).get('contact_posted') === 'true';
+    } catch (_) { return; }
+    if (!posted) return;
 
-    this._submitBtn.disabled = true;
-    this._submitBtn.textContent = 'Sending…';
-    this._error.removeAttribute('data-visible');
+    let recap = null;
+    try {
+      const raw = sessionStorage.getItem('bbi-quote-recap');
+      if (raw) recap = JSON.parse(raw);
+      sessionStorage.removeItem('bbi-quote-recap');
+    } catch (_) { /* sessionStorage blocked — show success without recap */ }
+
+    /* Only treat this as a quote-modal submit if we have our own stash.
+       A bare contact_posted=true with no stash means a different contact
+       form (e.g. the contact page) posted — leave that alone. */
+    if (!recap) return;
+
+    this._renderRecap(recap);
+    this._formWrap.hidden = true;
+    this._showingSuccess = true;
+    this._success.setAttribute('data-visible', '');
+    if (this._dialog && typeof this._dialog.showModal === 'function' && !this._dialog.open) {
+      this._dialog.showModal();
+    }
+    const closeBtn = this.querySelector('#bbi-qm-success-close');
+    if (closeBtn) setTimeout(() => closeBtn.focus(), 50);
 
     try {
-      const data = new FormData(this._form);
-      await fetch('/contact', {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'text/html' }
-      });
-      /* Shopify processes the contact form before redirecting — if fetch
-         completes without throwing, the submission reached Shopify and the
-         notification email was sent. Treat any completed response as success. */
-      this._formWrap.hidden = true;
-      this._populateRecap();
-      this._showingSuccess = true;
-      this._success.setAttribute('data-visible', '');
-      this.querySelector('#bbi-qm-success-close').focus();
-      this._form.reset();
-    } catch {
-      /* Only a network error (no response at all) reaches here. */
-      this._error.setAttribute('data-visible', '');
-      this._submitBtn.disabled = false;
-      this._submitBtn.textContent = 'Send quote request →';
+      const url = new URL(location.href);
+      url.searchParams.delete('contact_posted');
+      history.replaceState({}, '', url.pathname + url.search + url.hash);
+    } catch (_) { /* history API unavailable — param stays, harmless */ }
+  }
+
+  /* Native submit. Do NOT preventDefault and do NOT fetch() — AJAX-posting
+     /contact bypasses Shopify's native contact flow (spam/bot protection) so
+     the notification email is never sent. Let the Shopify contact form submit
+     natively to /contact; Shopify sends the email and redirects back with
+     ?contact_posted=true, which _maybeShowPostSubmitSuccess() handles on reload. */
+  _handleSubmit(e) {
+    this._error.removeAttribute('data-visible');
+    try {
+      sessionStorage.setItem('bbi-quote-recap', JSON.stringify(this._buildRecap()));
+    } catch (_) { /* recap is a nicety; submission proceeds regardless */ }
+    /* Lightweight in-flight state — the page navigates immediately after. */
+    if (this._submitBtn) {
+      this._submitBtn.disabled = true;
+      this._submitBtn.textContent = 'Sending…';
     }
+    /* No preventDefault: browser now POSTs natively to /contact. */
   }
 }
 customElements.define('bbi-quote-modal', BbiQuoteModal);
