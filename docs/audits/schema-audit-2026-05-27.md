@@ -38,7 +38,8 @@
 | [`theme/snippets/bbi-product-jsonld.liquid`](../../theme/snippets/bbi-product-jsonld.liquid) | 49 | `Product` w/ optional `additionalProperty[]` from specs metafields | PDPs |
 | [`theme/snippets/bbi-breadcrumb-jsonld.liquid`](../../theme/snippets/bbi-breadcrumb-jsonld.liquid) | 19 | `BreadcrumbList` (1-4 levels) | PDPs, collection pages, sub-collection pages |
 | [`theme/sections/ds-cc-base.liquid`](../../theme/sections/ds-cc-base.liquid) | 532, 562, 570 | `FAQPage` (if blocks present) + `BreadcrumbList` (2 or 3 level) | collection pages |
-| [`theme/sections/ds-cs-base.liquid`](../../theme/sections/ds-cs-base.liquid) | 296 | `BreadcrumbList` (sub-collection) | sub-collection pages |
+| [`theme/sections/ds-cs-base.liquid`](../../theme/sections/ds-cs-base.liquid) | 296 | `BreadcrumbList` (sub-collection) + `FAQPage` via `bbi-faq-jsonld` (when `faq.items` present — **added 2026-06-11, Step 2.1**) | sub-collection pages |
+| [`theme/snippets/bbi-faq-jsonld.liquid`](../../theme/snippets/bbi-faq-jsonld.liquid) | — | `FAQPage` from a `"Question\|\|Answer"` list (**8th JSON-LD snippet — added 2026-06-11, Step 2.1; post-dates this audit**) | sub-collection pages (+ Step 6 review pages) |
 | [`theme/sections/ds-article.liquid`](../../theme/sections/ds-article.liquid) | 149, 192 | `BlogPosting` + optional `FAQPage` (from `article.metafields.faq.items`) | blog article pages |
 | [`theme/sections/ds-lp-oecm.liquid`](../../theme/sections/ds-lp-oecm.liquid) | 297 | `@graph: [GovernmentService, FAQPage]` | `/pages/oecm` |
 | [`theme/sections/ds-lp-quote.liquid`](../../theme/sections/ds-lp-quote.liquid) | 356 | `@graph: [Service, FAQPage]` | `/pages/quote` |
@@ -46,6 +47,8 @@
 | [`theme/sections/ds-lp-delivery.liquid`](../../theme/sections/ds-lp-delivery.liquid) | 149 | `Service` (uses `@id` ref to `#organization`) | `/pages/delivery` |
 | [`theme/sections/ds-lp-design-services.liquid`](../../theme/sections/ds-lp-design-services.liquid) | 14, 31 | `HowTo` + `FAQPage` | `/pages/design-services` |
 | [`theme/sections/ds-lp-faq.liquid`](../../theme/sections/ds-lp-faq.liquid) | 138 | `FAQPage` (5 hardcoded Q&A) | `/pages/faq` |
+
+> **`bbi-faq-jsonld.liquid` (added 2026-06-11, Step 2.1 — recorded retroactively).** The 8th JSON-LD snippet and the first **parameterized + reusable** FAQ emitter: it renders one `FAQPage` from a passed `list.single_line_text_field` of `"Question||Answer"` lines (entries without `||` are skipped), and the visible accordion text is decode-equal to the emitted Q/A. On collection pages it is driven by `collection.metafields.faq.items` (see the README "Metafields the theme reads" registry); it was built reusable for the upcoming **Step 6 review pages**. Honest framing unchanged from the inline FAQPage emitters above: `FAQPage` earns no SERP rich result for a non-gov/health site — entity-graph / AI-Overview grounding value only.
 
 ### Sections with NO surface-specific schema (chrome-only)
 

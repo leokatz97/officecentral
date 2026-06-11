@@ -73,6 +73,23 @@ The **website-fix-checklist** opens at [http://localhost:8080/website-fix-checkl
 
 ---
 
+## Metafields the theme reads
+
+The theme only **reads** metafields (never writes them — set via Admin API / scripts). Canonical registry of the custom namespaces + keys the live theme depends on:
+
+| Namespace.key | Type | Read by | Purpose |
+|---|---|---|---|
+| `collection.metafields.faq.items` | `list.single_line_text_field` | `ds-cs-base.liquid` (FAQ band) → `bbi-faq-jsonld.liquid` | Collection FAQ source of truth. One `"Question\|\|Answer"` string per list entry; entries missing the `\|\|` delimiter are skipped. Drives the visible accordion **and** the FAQPage JSON-LD (the two are byte/decode-equal). Added in Step 2.1; populated per category page in Step 2.2. |
+| `article.metafields.faq.items` | `list.single_line_text_field` | `ds-article.liquid` (FAQ section + FAQPage JSON-LD) | Same `"Question\|\|Answer"` convention for blog articles. Populate only where the post has real, visible on-page Q&A (Google requires markup to mirror the visible section). |
+| `collection.metafields.bbi.parent_hub_handle` | `single_line_text_field` | `ds-cs-base.liquid` (breadcrumb + parent-hub derivation) | Handle of the parent category hub for a sub-collection (e.g. `seating`). Set on `bariatric-seating` in Step 2.0 when it moved to `templateSuffix=base`. Section-setting fallback applies when the metafield is blank. |
+| `collection.metafields.bbi.parent_hub_title` | `single_line_text_field` | `ds-cs-base.liquid` (breadcrumb label) | Display title of the parent hub (e.g. `Seating`). Pairs with `parent_hub_handle`. |
+| `product.metafields.specs.*` | mixed | `bbi-product-jsonld.liquid` (`additionalProperty[]`) + PDP spec table | Per-product spec fields from the enrichment pipeline (Hero 100). See `docs/strategy/brand-canonical-map.md` for the `specs.manufacturer` canonical vocabulary. |
+| `*.metafields.global.title_tag` / `global.description_tag` | `single_line_text_field` | Shopify SEO meta (`<title>` / `<meta name="description">`) | Native SEO title/meta; always apply regardless of template. |
+
+> JSON-LD emitter inventory (which snippet emits what schema, per surface) lives in [docs/audits/schema-audit-2026-05-27.md](docs/audits/schema-audit-2026-05-27.md).
+
+---
+
 ## Working context — critical
 
 - **OECM supplier partner:** Both Office Central and Brant Basics are verified OECM partners. Ontario school boards / hospitals / libraries / universities / municipalities can buy from BBI through OECM without open tender. No Ontario competitor has this status.
