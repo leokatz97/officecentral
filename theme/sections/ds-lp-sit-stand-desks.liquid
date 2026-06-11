@@ -1,0 +1,573 @@
+{%- comment -%}
+  Section: ds-lp-sit-stand-desks
+  Purpose: Sit-Stand / Height-Adjustable Desks commercial-hub landing page — BBI Design System v2.
+           Answer-first hub that LINKS OUT to the live ranges/collections and the comparison
+           blog posts; it never restates product catalogs.
+  Used by: page.sit-stand-desks.json (handle: sit-stand-desks)
+  Sections: nav → breadcrumbs → hero → intro (answer-first) → differentiators → brand lines →
+            cross-link tiles → entity/OECM note → FAQ → CTA closer → footer → entity JSON-LD.
+  JSON-LD: bbi-org-schema is emitted by bbi-nav (NOT re-emitted here). After the footer this page
+           emits bbi-service-jsonld + bbi-faq-jsonld (provider/@id → …/#organization).
+  FAQ:     Merchant-editable `faq_item` blocks. The visible .lp-faq accordion AND the faq_items list
+           passed to bbi-faq-jsonld are built from the SAME blocks (question + "||" + answer, plain
+           text, no divergent transforms) so the schema text byte-matches the on-page Q/A
+           (SCHEMA-CRIT-1). Block copy must never contain "||" or the "~~~" entry delimiter.
+  Notes:   Canadian-made / since-1964 copy carries the maple-leaf accent (.bbi-icon--leaf), per the
+           BBI brand rule. The height-calculator ships later as a SIBLING template section.
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+/* ============================================================
+   BBI Design Tokens — DS v2
+   ============================================================ */
+:root {
+  --bodyFont: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --headingFont: "Inter Tight", "Inter", system-ui, sans-serif;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --inputRadius: 4px; --buttonRadius: 4px; --cardRadius: 8px;
+  --shadow-sm: 0 1px 2px rgba(11,11,12,.04), 0 2px 8px rgba(11,11,12,.05);
+  --saleBadgeBackground: #D4252A;
+  --saleBadgeBackground-rgb: 212,37,42;
+  --fs-h0: 44px; --lh-h0: 1.05; --ls-h0: -0.02em;
+  --fs-h1: 32px; --lh-h1: 1.1; --ls-h1: -0.015em;
+  --fs-h2: 24px; --lh-h2: 1.15; --ls-h2: -0.01em;
+  --fs-h3: 18px; --lh-h3: 1.25;
+  --fs-body: 16px; --lh-body: 1.55;
+  --fs-small: 13px;
+  --fs-button: 15px; --lh-button: 1; --ls-button: 0.01em;
+}
+@media (min-width: 768px) {
+  :root {
+    --fs-h0: 72px; --lh-h0: 1.0;
+    --fs-h1: 48px; --lh-h1: 1.05;
+    --fs-h2: 32px; --lh-h2: 1.1;
+    --fs-h3: 22px; --lh-h3: 1.2;
+    --fs-small: 14px;
+  }
+}
+.lp-ds.scheme-default {
+  --background: #FFFFFF; --background-rgb: 255,255,255;
+  --alternateBackground: #FAFAFA; --alternateBackground-rgb: 250,250,250;
+  --cardBackground: #FFFFFF;
+  --textColor: #0B0B0C; --textColor-rgb: 11,11,12;
+  --linkColor: #0B0B0C; --headingColor: #0B0B0C; --headingColor-rgb: 11,11,12;
+  --buttonBackground: #D4252A; --buttonColor: #FFFFFF; --buttonBorder: #D4252A;
+  --buttonBackgroundHover: #0B0B0C; --buttonColorHover: #FFFFFF; --buttonBorderHover: #0B0B0C;
+  --alternateButtonBackground: #FFFFFF; --alternateButtonColor: #0B0B0C; --alternateButtonBorder: #0B0B0C;
+  --alternateButtonBackgroundHover: #0B0B0C; --alternateButtonColorHover: #FFFFFF; --alternateButtonBorderHover: #0B0B0C;
+  --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
+  --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
+}
+.lp-ds .scheme-inverse {
+  --background: #0B0B0C; --background-rgb: 11,11,12;
+  --alternateBackground: #161618;
+  --textColor: #FFFFFF; --textColor-rgb: 255,255,255;
+  --linkColor: #FFFFFF; --headingColor: #FFFFFF; --headingColor-rgb: 255,255,255;
+  --buttonBackground: #FFFFFF; --buttonColor: #0B0B0C; --buttonBorder: #FFFFFF;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --alternateButtonBackground: transparent; --alternateButtonColor: #FFFFFF; --alternateButtonBorder: #FFFFFF;
+  --alternateButtonBackgroundHover: #FFFFFF; --alternateButtonColorHover: #0B0B0C; --alternateButtonBorderHover: #FFFFFF;
+  --borderColor: #1F1F21;
+}
+
+/* ============================================================
+   Base + Shared Components
+   ============================================================ */
+.lp-ds *, .lp-ds *::before, .lp-ds *::after { box-sizing: border-box; }
+.lp-ds { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
+.lp-ds img { display: block; max-width: 100%; height: auto; }
+.lp-ds a { color: var(--linkColor); }
+.lp-ds .bbi-mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.lp-ds .bbi-icon--leaf { display: inline-block; width: 14px; height: 14px; vertical-align: -2px; color: #D4252A; flex-shrink: 0; }
+.lp-ds .bbi-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2); padding: 12px 20px; min-height: 44px;
+  font-family: var(--bodyFont); font-size: var(--fs-button); line-height: var(--lh-button);
+  letter-spacing: var(--ls-button); font-weight: 600; border-radius: var(--buttonRadius);
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.lp-ds .bbi-btn:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
+.lp-ds .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
+.lp-ds .bbi-btn--full { width: 100%; }
+.lp-ds .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.lp-ds .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.lp-ds .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
+.lp-ds .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
+.lp-ds .arrow { display: inline-block; transition: transform 120ms ease; }
+.lp-ds .bbi-btn:hover .arrow { transform: translateX(3px); }
+.lp-ds .bbi-badge--oecm {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; background: #F0F4FF; color: #0B0B0C;
+  border: 1px solid #CBD5F0; border-radius: 4px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.lp-ds .bbi-badge--oecm .dot { width: 6px; height: 6px; border-radius: 50%; background: #2563EB; flex-shrink: 0; }
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.lp-hero { background: var(--alternateBackground); padding: var(--space-16) 0; }
+.lp-hero__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 1fr; gap: var(--space-12); align-items: center; }
+@media (min-width: 768px) { .lp-hero__inner { grid-template-columns: 1fr 1fr; gap: var(--space-16); } }
+.lp-hero__eyebrow { color: var(--textColor); opacity: 0.55; margin: 0 0 var(--space-4); }
+.lp-hero__eyebrow-label { opacity: 1; }
+.lp-hero__text h1 { font-family: var(--headingFont); font-size: var(--fs-h0); line-height: var(--lh-h0); letter-spacing: var(--ls-h0); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-6); }
+.lp-hero__standfirst { font-size: 18px; line-height: 1.6; color: var(--textColor); opacity: 0.8; margin: 0 0 var(--space-8); max-width: 540px; }
+.lp-hero__cta-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+.lp-hero__media { border-radius: var(--cardRadius); overflow: hidden; }
+.lp-hero__media img { width: 100%; height: 400px; object-fit: cover; border-radius: var(--cardRadius); }
+.lp-hero__badge { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 var(--space-6); font-size: 13px; font-weight: 600; color: var(--textColor); }
+.lp-hero__badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--saleBadgeBackground); flex-shrink: 0; }
+
+/* ============================================================
+   Intro (answer-first)
+   ============================================================ */
+.lp-intro { background: var(--background); padding: var(--space-16) 0; }
+.lp-intro__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-intro__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.lp-intro__inner h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-8); max-width: 760px; text-wrap: balance; }
+.lp-intro__body { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+@media (min-width: 768px) { .lp-intro__body { grid-template-columns: 1fr 1fr; } }
+.lp-intro__body p { margin: 0; line-height: 1.7; }
+.lp-intro__body h3 { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-2); }
+
+/* ============================================================
+   Differentiators
+   ============================================================ */
+.lp-diff { background: var(--alternateBackground); padding: var(--space-16) 0; border-top: 1px solid var(--borderColor); border-bottom: 1px solid var(--borderColor); }
+.lp-diff__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-diff__head { margin-bottom: var(--space-12); }
+.lp-diff__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.lp-diff__head h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0; max-width: 600px; }
+.lp-diff__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+@media (min-width: 640px) { .lp-diff__grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .lp-diff__grid { grid-template-columns: repeat(4, 1fr); } }
+.lp-diff-card { background: var(--cardBackground); border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+.lp-diff-card__num { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--textColor); opacity: 0.35; }
+.lp-diff-card__icon { width: 36px; height: 36px; color: var(--textColor); }
+.lp-diff-card__icon svg { width: 100%; height: 100%; }
+.lp-diff-card__label { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0; }
+.lp-diff-card__sentence { font-size: 14px; line-height: 1.6; color: var(--textColor); opacity: 0.75; margin: 0; }
+.lp-diff-card__meta { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--textColor); opacity: 0.55; margin: 0; }
+
+/* ============================================================
+   Cross-link tiles (Session A standardization)
+   ============================================================ */
+.lp-ds .lp-crosslinks{padding:var(--space-16) 0;background:var(--background);border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-ds .lp-crosslinks__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ds .lp-crosslinks__head{margin-bottom:var(--space-8);}
+.lp-ds .lp-crosslinks__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.lp-ds .lp-crosslinks__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ds .lp-crosslinks h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-ds .lp-crosslinks__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);}
+.lp-ds .lp-crosslinks__tile{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--space-4);padding:var(--space-6);background:var(--background);border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);transition:background-color 160ms ease,border-color 160ms ease;}
+.lp-ds .lp-crosslinks__tile:hover{background:var(--alternateBackground);}
+.lp-ds .lp-crosslinks__tile-icon{width:28px;height:28px;color:rgba(var(--textColor-rgb),0.55);}
+.lp-ds .lp-crosslinks__tile-label{display:flex;flex-direction:column;gap:2px;}
+.lp-ds .lp-crosslinks__tile-name{font-family:var(--headingFont);font-size:18px;font-weight:600;color:var(--headingColor);}
+.lp-ds .lp-crosslinks__tile-meta{font-size:13px;color:rgba(var(--textColor-rgb),0.6);font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.04em;}
+.lp-ds .lp-crosslinks__tile-arrow{width:18px;height:18px;color:rgba(var(--textColor-rgb),0.55);transition:transform 160ms ease;}
+.lp-ds .lp-crosslinks__tile:hover .lp-crosslinks__tile-arrow{transform:translateX(4px);color:var(--textColor);}
+
+/* ============================================================
+   Entity / OECM note (Session A / AI-8 standardization)
+   ============================================================ */
+.lp-ds .lp-entity-note{padding:var(--space-12) 0;background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-ds .lp-entity-note__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-6);}
+.lp-ds .lp-entity-note__badge{flex-shrink:0;}
+.lp-ds .lp-entity-note p{font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),0.65);margin:0;text-wrap:pretty;max-width:88ch;}
+.lp-ds .lp-entity-note b{color:rgba(var(--textColor-rgb),0.85);font-weight:600;}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.lp-faq { background: var(--background); padding: var(--space-16) 0; }
+.lp-faq__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-faq__head { margin-bottom: var(--space-12); }
+.lp-faq__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.lp-faq__head h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0; max-width: 700px; }
+.lp-faq__item { border-bottom: 1px solid var(--borderColor); }
+.lp-faq__trigger { width: 100%; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-6) 0; background: none; border: none; cursor: pointer; text-align: left; font-family: var(--bodyFont); font-size: 16px; font-weight: 600; color: var(--headingColor); }
+.lp-faq__trigger:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; border-radius: 2px; }
+.lp-faq__trigger-num { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--textColor); opacity: 0.35; flex-shrink: 0; width: 22px; }
+.lp-faq__trigger span:nth-child(2) { flex: 1; }
+.lp-faq__chevron { flex-shrink: 0; transition: transform 200ms ease; color: var(--textColor); opacity: 0.5; }
+.lp-faq__item--open .lp-faq__chevron { transform: rotate(180deg); }
+.lp-faq__answer { display: none; padding: 0 0 var(--space-6) calc(22px + var(--space-4)); }
+.lp-faq__item--open .lp-faq__answer { display: block; }
+.lp-faq__answer p { margin: 0 0 var(--space-4); line-height: 1.7; }
+.lp-faq__answer p:last-child { margin-bottom: 0; }
+
+/* ============================================================
+   CTA Closer
+   ============================================================ */
+.bbi-cta-section { padding: var(--space-16) 0; background: var(--background); }
+.bbi-cta-section__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 1fr; gap: var(--space-12); align-items: center; }
+@media (min-width: 768px) { .bbi-cta-section__inner { grid-template-columns: 1fr auto; } }
+.bbi-cta-section__eyebrow { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.bbi-cta-section__heading { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-4); }
+.bbi-cta-section__sub { font-size: 16px; line-height: 1.65; color: var(--textColor); opacity: 0.75; margin: 0; max-width: 520px; }
+.bbi-cta-section__actions { display: flex; flex-direction: column; gap: var(--space-4); align-items: flex-start; }
+.bbi-cta-section__trust { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--textColor); opacity: 0.75; line-height: 1.5; }
+.bbi-cta-section__trust .dot { width: 6px; height: 6px; border-radius: 50%; background: #D4252A; flex-shrink: 0; margin-top: 4px; }
+.bbi-cta-section__trust a { color: var(--linkColor); }
+
+@media(max-width:980px){
+  .lp-ds .bbi-footer__top{grid-template-columns:1fr;gap:var(--space-8);}
+  .lp-ds .bbi-footer__cols{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:640px){
+  .lp-ds .bbi-footer__cols{grid-template-columns:1fr;}
+}
+@media(max-width:1023px){.lp-ds .lp-crosslinks__grid{grid-template-columns:1fr;}}
+</style>
+
+<div class="lp-ds scheme-default">
+
+  {%- render 'bbi-nav', logo: section.settings.logo, active: 'shop' -%}
+
+  <!-- BREADCRUMBS -->
+  {%- render 'bbi-crumbs', c2_label: 'Sit-Stand Desks' -%}
+
+  <!-- HERO -->
+  <section class="lp-hero" aria-label="Hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <p class="lp-hero__eyebrow bbi-mono">
+          <span class="lp-hero__eyebrow-label">{{ section.settings.hero_eyebrow | default: 'Shop · Sit-Stand Desks' }}</span>
+        </p>
+        <span class="lp-hero__badge">
+          <span class="lp-hero__badge-dot"></span>
+          Ontario supplier since 1964 <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg>
+        </span>
+        <h1>{{ section.settings.hero_heading | default: 'Sit-stand desks for Ontario workplaces — supplied, delivered, and installed.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.hero_standfirst | default: 'A sit-stand desk is a height-adjustable desk that moves between sitting and standing height, usually on an electric motor. Brant Business Interiors is the Ontario commercial supplier — height-adjustable desks and sit-to-stand workstations from the brands we carry, sold to businesses and institutions since 1964 with delivery and installation across the province.' }}</p>
+        <div class="lp-hero__cta-row">
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.hero_cta_primary_url | default: '/collections/height-adjustable-tables' }}">{{ section.settings.hero_cta_primary_label | default: 'Browse the range' }} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }}</a>
+        </div>
+      </div>
+      <div class="lp-hero__media" aria-hidden="true">
+        {%- if section.settings.hero_image != blank -%}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', fetchpriority: 'high', width: 900, alt: section.settings.hero_image.alt | default: 'Sit-stand desks for Ontario workplaces — Brant Business Interiors' }}
+        {%- else -%}
+          <img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/design-services-product.png?v=1778074380" alt="Sit-stand desks for Ontario workplaces — Brant Business Interiors" loading="eager" width="900" height="400">
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO (answer-first) -->
+  <section class="lp-intro" aria-label="About commercial sit-stand desks">
+    <div class="lp-intro__inner">
+      <p class="lp-intro__eyebrow bbi-mono">{{ section.settings.intro_eyebrow | default: 'What you are buying' }}</p>
+      <h2>{{ section.settings.intro_heading | default: 'Commercial sit-stand desks, specified and installed — not flat-packed and shipped.' }}</h2>
+      <div class="lp-intro__body">
+        <div>
+          <h3>What a commercial sit-stand desk is</h3>
+          <p>{{ section.settings.intro_para1 | default: 'A sit-stand desk — also called a height-adjustable desk, electric standing desk, or sit-to-stand workstation — raises and lowers so the same person can work seated or standing through the day. Commercial-grade frames carry heavier loads, run quieter dual motors, and hold a programmed height range built for full-day institutional use, not occasional home use.' }}</p>
+        </div>
+        <div>
+          <h3>Why buy through a dealer</h3>
+          <p>{{ section.settings.intro_para2 | default: 'Buying an office standing desk through Brant Business Interiors means the height range and load are specified to your space, the desk is delivered and installed by our own Ontario crew, and the manufacturer warranty is supported locally — not a box on a pallet you assemble and register yourself. One contact for the quote, the install, and any service after.' }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFERENTIATORS -->
+  <section class="lp-diff" aria-label="Why buy sit-stand desks from Brant Business Interiors">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">{{ section.settings.diff_eyebrow | default: 'Why Brant Business Interiors' }}</p>
+        <h2>{{ section.settings.diff_heading | default: 'Commercial supply, not a drop-ship box.' }}</h2>
+      </div>
+      <div class="lp-diff__grid">
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">01</span>
+          <span class="lp-diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16v4H4zM6 8v12M18 8v12M4 14h16"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label">Commercial-grade frames</h3>
+          <p class="lp-diff-card__sentence">Heavier load ratings, quieter dual-motor lift columns, and adjustable-height ranges built for full-day institutional use — specified to your desktop and footprint.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">02</span>
+          <span class="lp-diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z" transform="translate(5.5 5.5)"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label">Canadian-made options <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg></h3>
+          <p class="lp-diff-card__sentence">We carry Canadian-made height-adjustable lines alongside imported options, so buyers with domestic-content or lead-time priorities have a real choice — not one catalogue.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">03</span>
+          <span class="lp-diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7zM5.5 18.5a2 2 0 100 .01M18.5 18.5a2 2 0 100 .01"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label">Delivery + install, Ontario-wide</h3>
+          <p class="lp-diff-card__sentence">Our own crew delivers, assembles, levels, and places every desk, and clears the packaging — across Ontario. The space is work-ready when they leave.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">04</span>
+          <span class="lp-diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <h3 class="lp-diff-card__label">Dealer authority + OECM trust</h3>
+          <p class="lp-diff-card__sentence">Authorized dealer for the lines we carry, with local warranty support. Eligible Ontario institutions can buy without an open tender under our OECM Supplier Partner agreement.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND LINES (carrier gate — only the four named here) -->
+  <section class="lp-diff" aria-label="Sit-stand desk brand lines we carry" style="background:var(--background);">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">{{ section.settings.brands_eyebrow | default: 'Brand lines we carry' }}</p>
+        <h2>{{ section.settings.brands_heading | default: 'Height-adjustable desking from the lines we stand behind.' }}</h2>
+      </div>
+      <div class="lp-diff__grid">
+        <article class="lp-diff-card">
+          <p class="lp-diff-card__meta">Manufacturer</p>
+          <h3 class="lp-diff-card__label">Heartwood Manufacturing</h3>
+          <p class="lp-diff-card__sentence">Canadian laminate desking and casegoods builder whose programs include height-adjustable desking for institutional and executive fit-outs. <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg></p>
+        </article>
+        <article class="lp-diff-card">
+          <p class="lp-diff-card__meta">Manufacturer</p>
+          <h3 class="lp-diff-card__label">Global Furniture Group</h3>
+          <p class="lp-diff-card__sentence">Canadian-made <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg> contract furniture maker with a broad height-adjustable table and bench range for open-plan and private offices.</p>
+        </article>
+        <article class="lp-diff-card">
+          <p class="lp-diff-card__meta">Manufacturer</p>
+          <h3 class="lp-diff-card__label">OTG / Offices to Go</h3>
+          <p class="lp-diff-card__sentence">Value-tier office line carrying height-adjustable desk bases and tops — a practical sit-stand choice for budget-conscious fit-outs.</p>
+        </article>
+        <article class="lp-diff-card">
+          <p class="lp-diff-card__meta">Manufacturer</p>
+          <h3 class="lp-diff-card__label">Humanscale</h3>
+          <p class="lp-diff-card__sentence">Ergonomics specialist whose sit-stand and desk-mounted height-adjustable solutions focus on movement and posture across the workday.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSS-LINK TILES -->
+  <section class="lp-crosslinks" aria-label="Browse the sit-stand range and compare models">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse &amp; compare</p>
+        <h2>Find the right sit-stand desk for your space.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+        <a href="/collections/height-adjustable-tables" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 11 H25"/><path d="M5 11 V23 M23 11 V23"/><path d="M3 8 H25 V11 H3 Z"/><path d="M14 11 V23"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Height-adjustable tables</span><span class="lp-crosslinks__tile-meta">Browse the range</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/collections/desktop-sit-stand" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="5" y="14" width="18" height="3"/><path d="M9 14 V8 h10 v6"/><path d="M11 20 V24 M17 20 V24"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Desktop sit-stand risers</span><span class="lp-crosslinks__tile-meta">Convert an existing desk</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/collections/sit-stand-workstations" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="6" width="9" height="9"/><rect x="16" y="6" width="9" height="9"/><path d="M5 15 V22 M10 15 V22 M18 15 V22 M23 15 V22"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Sit-stand workstations</span><span class="lp-crosslinks__tile-meta">Benching &amp; multi-user</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/blogs/news/best-standing-desks-canada" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="5" y="3" width="18" height="22" rx="2"/><path d="M9 8 H19 M9 12 H19 M9 16 H15"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Best standing desks in Canada</span><span class="lp-crosslinks__tile-meta">Which model — comparison</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+        <a href="/blogs/news/sit-stand-vs-fixed-desks-office" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M14 4 V24"/><path d="M5 9 L14 4 L23 9"/><circle cx="6" cy="13" r="2"/><circle cx="22" cy="13" r="2"/></svg></span>
+          <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">Sit-stand vs fixed desks</span><span class="lp-crosslinks__tile-meta">Should we even — decision</span></span>
+          <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTITY / OECM NOTE -->
+  <section class="lp-entity-note" aria-label="Legal entity and OECM registration">
+    <div class="lp-entity-note__inner">
+      <span class="lp-entity-note__badge bbi-badge bbi-badge--oecm">
+        <span class="dot"></span>
+        OECM Supplier Partner
+      </span>
+      <p><b>Brant Business Interiors</b> is registered under our parent legal entity, Brant Basics, as an authorized OECM Supplier Partner. Eligible Ontario broader-public-sector buyers — school boards, hospitals, and municipalities — can purchase sit-stand desks from us without an open tender. Family-owned and supplying Ontario workplaces since 1964 <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg>, from 296 George St N, Peterborough, ON K9J 3H2.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  {%- comment -%}
+    Byte-match (SCHEMA-CRIT-1): the visible accordion below and the faq_items list passed to
+    bbi-faq-jsonld (after the footer) are built from the SAME faq_item blocks. Visible question/answer
+    use `| escape`; the snippet serializes the same strings via `| json`. No divergent transforms.
+    Block copy must contain neither "||" (the Q/A delimiter) nor "~~~" (the entry delimiter used to
+    assemble the list — see below).
+  {%- endcomment -%}
+  {%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
+  {%- if faq_blocks.size > 0 -%}
+  <section class="lp-faq" aria-label="Frequently asked questions">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <p class="lp-faq__eyebrow bbi-mono">Common questions</p>
+        <h2>{{ section.settings.faq_heading | default: 'Sit-stand desks — common buyer questions.' }}</h2>
+      </div>
+      <div class="lp-faq__list" id="ss-faq-list">
+        {%- for block in faq_blocks -%}
+          <div class="lp-faq__item{% if forloop.first %} lp-faq__item--open{% endif %}" {{ block.shopify_attributes }}>
+            <button class="lp-faq__trigger" aria-expanded="{{ forloop.first | json }}">
+              <span class="lp-faq__trigger-num">0{{ forloop.index }}</span>
+              <span>{{ block.settings.question | escape }}</span>
+              <span class="lp-faq__chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+            </button>
+            <div class="lp-faq__answer">
+              <p>{{ block.settings.answer | escape }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  <!-- CTA CLOSER -->
+  <section class="bbi-cta-section scheme-inverse" aria-label="Call to action">
+    <div class="bbi-cta-section__inner">
+      <div>
+        <p class="bbi-cta-section__eyebrow">Request a quote</p>
+        <h2 class="bbi-cta-section__heading">{{ section.settings.closer_heading | default: 'Spec your sit-stand desks with a real person.' }}</h2>
+        <p class="bbi-cta-section__sub">{{ section.settings.closer_sub | default: 'Tell us the headcount, the heights you need to clear, and your timeline. We will quote the right height-adjustable desks for your space — with delivery and installation across Ontario.' }}</p>
+      </div>
+      <div class="bbi-cta-section__actions">
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.closer_cta_url | default: '/pages/quote' }}">{{ section.settings.closer_cta_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }}</a>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span><b>Brant Business Interiors</b> &middot; 296 George St N, Peterborough, ON K9J 3H2 &middot; <a href="tel:18008359565">1-800-835-9565</a> &middot; supplying Ontario since 1964.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
+
+  {%- comment -%} ── Entity JSON-LD (after footer). Organization/LocalBusiness is emitted by bbi-nav → bbi-org-schema and is NOT re-emitted here. ── {%- endcomment -%}
+  {%- render 'bbi-service-jsonld',
+    service_name: section.settings.service_name | default: 'Sit-Stand & Height-Adjustable Desk Supply, Delivery and Installation',
+    service_description: section.settings.service_description | default: 'Commercial sit-stand and height-adjustable desk supply for Ontario businesses and institutions — electric standing desks, sit-to-stand workstations, and desktop risers from the brands Brant Business Interiors carries, specified to your space and delivered and installed by our own Ontario crew. Authorized dealer with local warranty support; OECM Supplier Partner for eligible broader-public-sector buyers.',
+    service_type: 'Sit-stand and height-adjustable desk supply and installation',
+    area_served: 'Ontario, Canada',
+    id_suffix: 'service-sit-stand'
+  -%}
+
+  {%- comment -%} Build faq_items ("Question||Answer" per block) from the SAME blocks the accordion renders, then split into the array bbi-faq-jsonld expects. {%- endcomment -%}
+  {%- liquid
+    assign faq_build = ''
+    for block in faq_blocks
+      if block.settings.question != blank and block.settings.answer != blank
+        assign faq_build = faq_build | append: block.settings.question | append: '||' | append: block.settings.answer | append: '~~~'
+      endif
+    endfor
+    assign faq_items = faq_build | split: '~~~'
+  -%}
+  {%- render 'bbi-faq-jsonld', faq_items: faq_items -%}
+
+</div><!-- /lp-ds -->
+
+<script>
+(function() {
+  var list = document.getElementById('ss-faq-list');
+  if (!list) return;
+  list.addEventListener('click', function(e) {
+    var btn = e.target.closest('.lp-faq__trigger');
+    if (!btn) return;
+    var item = btn.closest('.lp-faq__item');
+    var isOpen = item.classList.contains('lp-faq__item--open');
+    list.querySelectorAll('.lp-faq__item--open').forEach(function(el) {
+      el.classList.remove('lp-faq__item--open');
+      el.querySelector('.lp-faq__trigger').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('lp-faq__item--open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Sit-Stand Desks Landing",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Header logo" },
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Shop · Sit-Stand Desks" },
+    { "type": "text", "id": "hero_heading", "label": "H1 heading", "default": "Sit-stand desks for Ontario workplaces — supplied, delivered, and installed." },
+    { "type": "textarea", "id": "hero_standfirst", "label": "Standfirst paragraph", "default": "A sit-stand desk is a height-adjustable desk that moves between sitting and standing height, usually on an electric motor. Brant Business Interiors is the Ontario commercial supplier — height-adjustable desks and sit-to-stand workstations from the brands we carry, sold to businesses and institutions since 1964 with delivery and installation across the province." },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "text", "id": "hero_cta_primary_label", "label": "Hero CTA label", "default": "Browse the range" },
+    { "type": "url", "id": "hero_cta_primary_url", "label": "Hero CTA URL (default: /collections/height-adjustable-tables)" },
+    { "type": "header", "content": "Phone" },
+    { "type": "text", "id": "phone", "label": "Phone (display)", "default": "1-800-835-9565" },
+    { "type": "text", "id": "phone_href", "label": "Phone (href, digits only)", "default": "18008359565" },
+    { "type": "header", "content": "Intro" },
+    { "type": "text", "id": "intro_eyebrow", "label": "Eyebrow", "default": "What you are buying" },
+    { "type": "text", "id": "intro_heading", "label": "Heading", "default": "Commercial sit-stand desks, specified and installed — not flat-packed and shipped." },
+    { "type": "textarea", "id": "intro_para1", "label": "Paragraph 1 (what it is)", "default": "A sit-stand desk — also called a height-adjustable desk, electric standing desk, or sit-to-stand workstation — raises and lowers so the same person can work seated or standing through the day. Commercial-grade frames carry heavier loads, run quieter dual motors, and hold a programmed height range built for full-day institutional use, not occasional home use." },
+    { "type": "textarea", "id": "intro_para2", "label": "Paragraph 2 (why a dealer)", "default": "Buying an office standing desk through Brant Business Interiors means the height range and load are specified to your space, the desk is delivered and installed by our own Ontario crew, and the manufacturer warranty is supported locally — not a box on a pallet you assemble and register yourself. One contact for the quote, the install, and any service after." },
+    { "type": "header", "content": "Differentiators" },
+    { "type": "text", "id": "diff_eyebrow", "label": "Eyebrow", "default": "Why Brant Business Interiors" },
+    { "type": "text", "id": "diff_heading", "label": "Heading", "default": "Commercial supply, not a drop-ship box." },
+    { "type": "header", "content": "Brand lines" },
+    { "type": "text", "id": "brands_eyebrow", "label": "Eyebrow", "default": "Brand lines we carry" },
+    { "type": "text", "id": "brands_heading", "label": "Heading", "default": "Height-adjustable desking from the lines we stand behind." },
+    { "type": "header", "content": "FAQ" },
+    { "type": "text", "id": "faq_heading", "label": "FAQ heading", "default": "Sit-stand desks — common buyer questions." },
+    { "type": "header", "content": "Closer" },
+    { "type": "text", "id": "closer_heading", "label": "Heading", "default": "Spec your sit-stand desks with a real person." },
+    { "type": "textarea", "id": "closer_sub", "label": "Sub-copy", "default": "Tell us the headcount, the heights you need to clear, and your timeline. We will quote the right height-adjustable desks for your space — with delivery and installation across Ontario." },
+    { "type": "text", "id": "closer_cta_label", "label": "Closer CTA label", "default": "Request a Quote" },
+    { "type": "url", "id": "closer_cta_url", "label": "Closer CTA URL (default: /pages/quote)" },
+    { "type": "header", "content": "Service schema (JSON-LD)" },
+    { "type": "text", "id": "service_name", "label": "Service name", "default": "Sit-Stand & Height-Adjustable Desk Supply, Delivery and Installation" },
+    { "type": "textarea", "id": "service_description", "label": "Service description (plain text)", "default": "Commercial sit-stand and height-adjustable desk supply for Ontario businesses and institutions — electric standing desks, sit-to-stand workstations, and desktop risers from the brands Brant Business Interiors carries, specified to your space and delivered and installed by our own Ontario crew. Authorized dealer with local warranty support; OECM Supplier Partner for eligible broader-public-sector buyers." }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Answer (plain text — no \"||\" or \"~~~\")" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Sit-Stand Desks Landing",
+      "blocks": [
+        { "type": "faq_item", "settings": { "question": "What is a sit-stand desk?", "answer": "A sit-stand desk is a height-adjustable desk that raises and lowers so the same person can work seated or standing through the day. Commercial models usually use an electric dual-motor base with a programmable height range. They are also called height-adjustable desks, electric standing desks, or sit-to-stand workstations." } },
+        { "type": "faq_item", "settings": { "question": "Do you deliver and install sit-stand desks across Ontario?", "answer": "Yes. Our own crew delivers, assembles, levels, and places every desk and clears the packaging, across Ontario. The space is work-ready when they leave — you are not assembling a flat-pack or booking a separate installer." } },
+        { "type": "faq_item", "settings": { "question": "Can I order just one, or do I need a bulk quantity?", "answer": "Both. We supply single height-adjustable desks for a private office and full floors of sit-stand workstations for institutional fit-outs. Tell us the quantity and timeline and we will quote it either way." } },
+        { "type": "faq_item", "settings": { "question": "Are any of your sit-stand desks Canadian-made?", "answer": "Yes. We carry Canadian-made height-adjustable lines alongside imported options, so buyers with domestic-content or lead-time priorities have a real choice. Ask us to flag the Canadian-made lines on your quote." } },
+        { "type": "faq_item", "settings": { "question": "Can Ontario institutions buy without an open tender?", "answer": "Eligible Ontario broader-public-sector buyers — school boards, hospitals, and municipalities — can purchase from us without an open tender under our OECM Supplier Partner agreement, held by our parent legal entity, Brant Basics. Call us and we will confirm your eligibility." } },
+        { "type": "faq_item", "settings": { "question": "What is the difference between a sit-stand desk and a desktop riser?", "answer": "A sit-stand desk replaces the whole desk with a height-adjustable frame and top. A desktop riser sits on your existing desk and lifts just the working surface. Risers are a lower-cost way to convert desks you already own; a full sit-stand desk gives a cleaner result and a wider height range." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
