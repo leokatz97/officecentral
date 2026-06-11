@@ -478,15 +478,18 @@ class BbiQuoteModal extends HTMLElement {
     document.getElementById('bbi-qm-product-title').value = ctx.productTitle || '';
     document.getElementById('bbi-qm-collection-handle').value = ctx.collectionHandle || '';
 
-    /* Populate subject for inbox routing */
-    const subjectMap = {
-      'quote':   '[Quote Request] via Brant Business Interiors',
-      'design':  '[Design Consultation] via Brant Business Interiors',
-      'oecm':    '[OECM Inquiry] via Brant Business Interiors',
-      'contact': '[General Contact] via Brant Business Interiors'
-    };
+    /* Context-aware subject — this becomes the notification email's title line.
+       Product context wins over collection, which wins over the generic. */
     const subjectEl = document.getElementById('bbi-qm-subject');
-    if (subjectEl) subjectEl.value = subjectMap[leadType] || subjectMap['quote'];
+    if (subjectEl) {
+      if (ctx.productTitle) {
+        subjectEl.value = '[Quote] ' + ctx.productTitle;
+      } else if (ctx.collectionHandle) {
+        subjectEl.value = '[Quote] ' + ctx.collectionHandle.replace(/-/g, ' ');
+      } else {
+        subjectEl.value = '[Quote] General enquiry';
+      }
+    }
 
     /* Update enquiry type select to match lead_type */
     const sel = document.getElementById('bbi-qm-enquiry');
@@ -624,9 +627,52 @@ class BbiQuoteModal extends HTMLElement {
      ?contact_posted=true, which _maybeShowPostSubmitSuccess() handles on reload. */
   _handleSubmit(e) {
     this._error.removeAttribute('data-visible');
+
+    /* Snapshot recap FIRST — it reads the product-title hidden field, which we
+       disable a few lines down. (Disabling leaves .value readable, but we keep
+       the documented order regardless.) */
     try {
       sessionStorage.setItem('bbi-quote-recap', JSON.stringify(this._buildRecap()));
     } catch (_) { /* recap is a nicety; submission proceeds regardless */ }
+
+    /* Read the context off the hidden fields while they're still live. */
+    const productTitle     = (document.getElementById('bbi-qm-product-title')?.value || '').trim();
+    const productHandle    = (document.getElementById('bbi-qm-product-handle')?.value || '').trim();
+    const collectionHandle = (document.getElementById('bbi-qm-collection-handle')?.value || '').trim();
+    const leadType         = (document.getElementById('bbi-qm-lead-type')?.value || 'quote').trim();
+
+    /* Reshape the message synchronously BEFORE the native POST (no preventDefault),
+       so these DOM mutations ride along in the submission:
+         · prepend a clean context block — ONLY when context exists
+         · append a single tidy routing line carrying the lead type
+       The customer's typed message sits in between. */
+    const bodyEl = this._form.querySelector('#bbi-qm-body');
+    if (bodyEl) {
+      let prefix = '';
+      if (productTitle) {
+        prefix = 'Product: ' + productTitle + '\n';
+        if (productHandle) prefix += location.origin + '/products/' + productHandle + '\n';
+        prefix += '\n';
+      } else if (collectionHandle) {
+        prefix = 'Category: ' + collectionHandle.replace(/-/g, ' ') + '\n\n';
+      }
+      bodyEl.value = prefix + bodyEl.value + '\n\n— via website quote form (' + leadType + ')';
+    }
+
+    /* DISABLE the hidden context/metadata fields so they don't POST — disabled
+       controls aren't submitted, which is what drops the blank
+       "Product Handle:/Title:/Collection Handle:" rows from the email. Their
+       info now lives in the subject + body block above. (These structured
+       fields — product_handle/title, lead_type, tags — may be reintroduced in a
+       routing-friendly form when the LEAD-INBOX per-type routing task lands.) */
+    ['bbi-qm-product-handle', 'bbi-qm-product-title', 'bbi-qm-collection-handle',
+     'bbi-qm-product', 'bbi-qm-lead-type'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.disabled = true;
+    });
+    const tagsEl = this._form.querySelector('input[name="contact[tags]"]');
+    if (tagsEl) tagsEl.disabled = true;
+
     /* Lightweight in-flight state — the page navigates immediately after. */
     if (this._submitBtn) {
       this._submitBtn.disabled = true;
