@@ -294,6 +294,12 @@ li.ds-cs__card--hidden{display:none;}
 .ds-cs__intro a:hover{color:#A81E22;}
 .ds-cs__intro ul,.ds-cs__intro ol{margin:0 0 var(--space-4);padding-left:var(--space-6);}
 .ds-cs__intro li{margin-bottom:var(--space-2);}
+/* Inline maple-leaf accent inside the intro copy (collection.description). The
+   .bbi-icon--leaf SVG ships with no width/height attrs and relies on CSS that
+   lives only in ds-lp-* sections; scope the canonical 14px sizing here so the
+   leaf renders inline (not full replaced-element size) on collection pages. */
+.ds-cs__intro .bbi-icon,
+.ds-cs__intro .bbi-icon--leaf{display:inline-block;width:14px;height:14px;vertical-align:-2px;color:#D4252A;flex-shrink:0;}
 
 /* ── FAQ band ────────────────────────────────────────────────────── */
 .ds-cs__faq{background:var(--alternateBackground);border-top:1px solid var(--borderColor);padding:var(--space-12) 0;}
