@@ -1,0 +1,56 @@
+{%- comment -%}
+  Snippet: bbi-faq-jsonld
+  Purpose: Renders a single FAQPage JSON-LD block from a list of "Question||Answer"
+           strings. Shared across sub-collection pages (ds-cs-base) and review
+           pages (Step 6). The visible FAQ accordion MUST be built from the same
+           list, split on the same "||" delimiter, with no divergent text
+           transforms, so the schema text byte-matches the on-page Q/A text
+           (SCHEMA-CRIT-1).
+  Usage (render is sandboxed — build the list with {% assign %} first, then pass
+  the plain variable; render does NOT apply filters to argument values, same
+  convention as bbi-breadcrumb-jsonld):
+    {%- assign faq_items = collection.metafields.faq.items.value -%}
+    {%- render 'bbi-faq-jsonld', faq_items: faq_items -%}
+  Notes:
+    - Each list entry is "Question||Answer". Entries missing "||" are skipped
+      (malformed). Question = part before "||", Answer = part after.
+    - HONESTY RULE (SCHEMA-CRIT-1c): emits NOTHING if faq_items is blank or yields
+      zero valid pairs — never an empty FAQPage.
+    - No URLs in this schema, so no absolute-URL handling needed.
+    - Strings serialized via `| json`. No `strip` / smart-quote / truncation here:
+      the visible accordion splits the SAME source identically, so any transform
+      added here must be mirrored there or the byte-match breaks.
+{%- endcomment -%}
+{%- liquid
+  assign _faq_valid = '' | split: ','
+  unless faq_items == blank
+    for _entry in faq_items
+      if _entry contains '||'
+        assign _one = _entry | split: '~~|~~'
+        assign _faq_valid = _faq_valid | concat: _one
+      endif
+    endfor
+  endunless
+-%}
+{%- if _faq_valid.size > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for _entry in _faq_valid -%}
+      {%- assign _parts = _entry | split: '||' -%}
+      {%- unless forloop.first -%},{%- endunless -%}
+    {
+      "@type": "Question",
+      "name": {{ _parts[0] | json }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ _parts[1] | json }}
+      }
+    }
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}

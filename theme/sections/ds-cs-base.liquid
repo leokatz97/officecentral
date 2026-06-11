@@ -282,6 +282,40 @@ li.ds-cs__card--hidden{display:none;}
   width:6px;height:6px;border-radius:50%;
   background:#D4252A;flex-shrink:0;
 }
+
+/* ── Intro: answer-first collection.description (above grid) ──────── */
+.ds-cs__intro{padding:var(--space-8) 0 0;}
+.ds-cs__intro .ds-cs__inner{max-width:1280px;}
+.ds-cs__intro p{font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);margin:0 0 var(--space-4);max-width:72ch;}
+.ds-cs__intro p:last-child{margin-bottom:0;}
+.ds-cs__intro h2{font-family:var(--headingFont);font-weight:var(--headingFontWeight);font-size:var(--fs-h2);line-height:var(--lh-h2);color:var(--headingColor);margin:var(--space-8) 0 var(--space-4);}
+.ds-cs__intro h3{font-family:var(--headingFont);font-weight:var(--headingFontWeight);font-size:var(--fs-h3);line-height:var(--lh-h3);color:var(--headingColor);margin:var(--space-6) 0 var(--space-3);}
+.ds-cs__intro a{color:var(--accentRed);text-decoration:underline;}
+.ds-cs__intro a:hover{color:#A81E22;}
+.ds-cs__intro ul,.ds-cs__intro ol{margin:0 0 var(--space-4);padding-left:var(--space-6);}
+.ds-cs__intro li{margin-bottom:var(--space-2);}
+
+/* ── FAQ band ────────────────────────────────────────────────────── */
+.ds-cs__faq{background:var(--alternateBackground);border-top:1px solid var(--borderColor);padding:var(--space-12) 0;}
+.ds-cs__faq .ds-cs__inner{max-width:1280px;}
+.ds-cs__faq-title{font-family:var(--headingFont);font-weight:var(--headingFontWeight);font-size:var(--fs-h2);line-height:var(--lh-h2);color:var(--headingColor);margin:0 0 var(--space-8);}
+.ds-cs__faq-list{display:flex;flex-direction:column;}
+.ds-cs__faq-item{border-bottom:1px solid var(--borderColor);}
+.ds-cs__faq-item:first-child{border-top:1px solid var(--borderColor);}
+.ds-cs__faq-item summary{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
+  padding:var(--space-4) 0;cursor:pointer;list-style:none;user-select:none;
+  font-family:var(--headingFont);font-weight:var(--headingFontWeight);
+  font-size:var(--fs-h3);line-height:var(--lh-h3);color:var(--headingColor);
+}
+.ds-cs__faq-item summary::-webkit-details-marker{display:none;}
+.ds-cs__faq-item summary::after{
+  content:"+";flex:0 0 auto;font-family:var(--bodyFont);font-weight:400;
+  font-size:20px;line-height:1;color:var(--accentRed);
+}
+.ds-cs__faq-item[open] summary::after{content:"\2212";}
+.ds-cs__faq-item summary:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;border-radius:var(--inputRadius);}
+.ds-cs__faq-answer{padding:0 0 var(--space-4);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);max-width:72ch;}
 </style>
 
 <div class="ds-cs">
@@ -303,6 +337,10 @@ li.ds-cs__card--hidden{display:none;}
       bc3_name: parent_title, bc3_url: _bc_parent_url,
       bc4_name: page_title, bc4_url: _bc_self_url
   -%}
+
+  {%- comment -%} 2.1: FAQPage JSON-LD — co-located with the other structured data and UNCONDITIONAL on product count (do not nest in the paginate/products.size block). Emits nothing when faq.items is blank or yields zero valid "Q||A" pairs. {%- endcomment -%}
+  {%- assign faq_items = collection.metafields.faq.items.value -%}
+  {%- render 'bbi-faq-jsonld', faq_items: faq_items -%}
 
   {%- comment -%} ── Hero strip ── {%- endcomment -%}
   <section class="ds-cs__hero">
@@ -333,6 +371,13 @@ li.ds-cs__card--hidden{display:none;}
       </div>
     </div>
   </section>
+
+  {%- comment -%} ── Intro: answer-first collection.description above the grid (2.1). Empty description ⇒ renders nothing; mirrors the hero_subtitle blank-guard. ── {%- endcomment -%}
+  {%- if collection.description != blank -%}
+  <section class="ds-cs__intro">
+    <div class="ds-cs__inner">{{ collection.description }}</div>
+  </section>
+  {%- endif -%}
 
   {%- comment -%} ── Body: sidebar + product grid ── {%- endcomment -%}
   <section class="ds-cs__body">
@@ -608,6 +653,26 @@ li.ds-cs__card--hidden{display:none;}
       </div>{%- comment -%}/.ds-cs__layout{%- endcomment -%}
     </div>
   </section>
+
+  {%- comment -%} ── FAQ band (2.1) — visible accordion. Byte-matches the FAQPage JSON-LD in the head zone: SAME faq_items, SAME "||" split, SAME skip-if-missing-"||" rule, no divergent transforms (summary text == JSON-LD name, answer == acceptedAnswer.text). FAQ values are plain text → escape only. ── {%- endcomment -%}
+  {%- if collection.metafields.faq.items != blank -%}
+  <section class="ds-cs__faq" aria-label="Frequently asked questions">
+    <div class="ds-cs__inner">
+      <h2 class="ds-cs__faq-title">Frequently asked questions</h2>
+      <div class="ds-cs__faq-list">
+        {%- for _entry in collection.metafields.faq.items.value -%}
+          {%- if _entry contains '||' -%}
+            {%- assign _parts = _entry | split: '||' -%}
+            <details class="ds-cs__faq-item">
+              <summary>{{ _parts[0] | escape }}</summary>
+              <div class="ds-cs__faq-answer">{{ _parts[1] | escape }}</div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
 
   {%- comment -%} ── Phone CTA closer ── {%- endcomment -%}
   {%- if section.settings.show_phone_cta -%}
