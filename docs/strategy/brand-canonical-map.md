@@ -463,6 +463,28 @@ canonical `brand:heartwood-manufacturing-ltd`. Sub-step B will
 migrate this single tag. The canonical Heartwood entry remains
 unchanged.
 
+### 2026-06-11 — Data-hygiene vendor = manufacturer corrections (DOC-PR batch #2)
+
+Two `vendor` → true-manufacturer corrections landed via the live `productUpdate`
+GraphQL mutation (Admin-API, theme-independent). Recorded here for canonical
+manufacturer vocabulary; operational record in `BBI-Session-Kickoff/bbi-build-state.md`
+(Day-21 DOC-PR batch #2 section).
+
+- **Diversified Woodcrafts** — *new manufacturer.* "Makerspace tables" re-vendored
+  to **Diversified Woodcrafts** (SKU `DIVERSIFIEDAFT48305`; product description
+  updated). School / lab / makerspace furniture maker. Single product →
+  `is_standalone=True`, `storefront_callable=False` (1-product count, below the
+  ≥10-product brand-chip gate).
+- **Heartwood Manufacturing Ltd.** — "Boardroom Table Rectangular 94.5×47.25"
+  re-vendored to **Heartwood Manufacturing** on its INNOVATION / `HDL-INV`-series
+  SKU (`heartwooddl.com`). Consistent with the canonical Heartwood / Innovations
+  attribution above (INNOVATIONS-FIX, 2026-05-13); the Heartwood entry is unchanged.
+
+**⚠️ Tooling trap (record so future sessions don't repeat it):** the `update-product`
+MCP tool exposes **no `vendor` field** — passing a vendor is a **silent no-op**.
+Vendor writes must go through the `productUpdate` GraphQL mutation (the same path the
+live `vendor=BBI` residual cleanup uses).
+
 ---
 
 ## Collection-copy carrier ruling (Step 2.2 — 2026-06-11)
