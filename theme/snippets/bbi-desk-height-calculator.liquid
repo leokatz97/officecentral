@@ -1,0 +1,449 @@
+{%- comment -%}
+  Snippet: bbi-desk-height-calculator
+  Purpose: Mid-page ergonomic desk-height tool for the Sit-Stand Desks landing page.
+           A visitor enters their height (inches or cm) and gets estimated guidance for a
+           standing desk surface, a seated desk surface, monitor-top (eye) height, and seat
+           height — each shown as a comfort RANGE with an explicit "estimate" caveat.
+  Used by: ds-lp-sit-stand-desks.liquid — rendered ONCE, mid-page, after the "Browse & compare"
+           cross-link tiles and before the entity/OECM note + FAQ. Lives inside the section's
+           `.lp-ds.scheme-default` wrapper, so all DS tokens (CSS custom properties, .bbi-mono,
+           .bbi-btn--*, .bbi-icon--leaf) are in scope. No new design tokens are invented here.
+
+  Progressive enhancement (works with JS OFF):
+    - The explainer prose, the four static ergonomic-guidance cards, and the cited sources all
+      render server-side in plain HTML — indexable and usable without JavaScript.
+    - The interactive <bbi-desk-height-calculator> custom element is hidden until it is upgraded
+      (`:not(:defined)` → display:none), so a JS-off visitor never sees a dead form; they keep the
+      full static guidance instead. The live calculator only ENHANCES the static content.
+
+  Data integrity (no assumed numbers):
+    - Ergonomic TARGETS are taken verbatim from CCOHS (Canadian Centre for Occupational Health
+      and Safety) — Office Ergonomics: Sit/Stand Desk; Working in a Standing Position; Working in
+      a Sitting Position; and BIFMA G1-2013 for the published seated/sit-stand desk envelopes.
+      The targets are: work surface at elbow height (forearms parallel, elbow ~90°); monitor top
+      at or just below eye level (sight line 0–30° below horizontal); seat so feet are flat,
+      thighs roughly level, knees ~90°.
+    - Height-derived FIGURES are clearly labelled estimates and shown as ranges. The standing
+      surface and eye/seat figures scale stature by published body-segment proportions
+      (Drillis & Contini, 1966: standing elbow ≈ 0.63 H, eye ≈ 0.936 H). The seated surface is
+      shown as the BIFMA published range (not a single fabricated number). A MEASURED standing
+      elbow height (gold standard) can be entered to replace the standing estimate with a precise
+      figure.
+    - Recommended SURFACE heights are clamped to the verified carried range ≈ 22"–49.5"
+      (Heartwood low → Global Zira Z108 high). Out-of-range results point to a desktop riser /
+      contact, never an implied product outside verified specs.
+
+  Carrier gate: the only brands this tool may name are Heartwood, Global, OTG, Humanscale.
+  No second FAQPage node is emitted here (the page keeps its single byte-matched FAQPage).
+{%- endcomment -%}
+
+{%- liquid
+  assign coll_tables = '/collections/height-adjustable-tables'
+  assign coll_risers = '/collections/desktop-sit-stand'
+-%}
+
+{% style %}
+  .lp-ds .bbi-calc { background: var(--background); padding: var(--space-16) 0; border-top: 1px solid var(--borderColor); }
+  .lp-ds .bbi-calc__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+  .lp-ds .bbi-calc__head { max-width: 760px; margin-bottom: var(--space-12); }
+  .lp-ds .bbi-calc__eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); color: rgba(var(--textColor-rgb), 0.6); margin: 0 0 var(--space-3); }
+  .lp-ds .bbi-calc__eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1px; background: var(--saleBadgeBackground); }
+  .lp-ds .bbi-calc__head h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-4); text-wrap: balance; }
+  .lp-ds .bbi-calc__lede { font-size: 16px; line-height: 1.7; color: rgba(var(--textColor-rgb), 0.8); margin: 0; }
+
+  .lp-ds .bbi-calc__layout { display: grid; grid-template-columns: 1fr; gap: var(--space-8); align-items: start; }
+  @media (min-width: 900px) { .lp-ds .bbi-calc__layout { grid-template-columns: 360px 1fr; gap: var(--space-12); } }
+
+  /* Interactive tool — hidden until the custom element is upgraded (JS on). */
+  .lp-ds bbi-desk-height-calculator { display: block; }
+  .lp-ds bbi-desk-height-calculator:not(:defined) { display: none; }
+  .lp-ds .bbi-calc__tool { background: var(--cardBackground); border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: var(--space-8); box-shadow: var(--shadow-sm); }
+  .lp-ds .bbi-calc__tool-title { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-2); }
+  .lp-ds .bbi-calc__tool-sub { font-size: 14px; line-height: 1.6; color: rgba(var(--textColor-rgb), 0.7); margin: 0 0 var(--space-6); }
+
+  .lp-ds .bbi-calc__field { margin-bottom: var(--space-6); }
+  .lp-ds .bbi-calc__label { display: block; font-size: 14px; font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-2); }
+  .lp-ds .bbi-calc__units { border: 0; padding: 0; margin: 0 0 var(--space-6); }
+  .lp-ds .bbi-calc__units legend { padding: 0; }
+  .lp-ds .bbi-calc__radio-row { display: flex; gap: var(--space-2); margin-top: var(--space-2); }
+  .lp-ds .bbi-calc__radio { display: inline-flex; align-items: center; gap: var(--space-2); flex: 1; padding: 10px 12px; border: 1px solid var(--borderColor); border-radius: var(--inputRadius); font-size: 14px; cursor: pointer; }
+  .lp-ds .bbi-calc__radio input { accent-color: var(--saleBadgeBackground); width: 16px; height: 16px; }
+  .lp-ds .bbi-calc__radio:focus-within { outline: 2px solid var(--textColor); outline-offset: 2px; }
+  .lp-ds .bbi-calc__input-wrap { position: relative; display: flex; align-items: center; }
+  .lp-ds .bbi-calc__input { width: 100%; font-family: var(--bodyFont); font-size: 16px; color: var(--textColor); background: var(--background); border: 1px solid var(--borderColor); border-radius: var(--inputRadius); padding: 12px 48px 12px 14px; min-height: 48px; }
+  .lp-ds .bbi-calc__input:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; border-color: var(--textColor); }
+  .lp-ds .bbi-calc__input.is-error { border-color: var(--saleBadgeBackground); }
+  .lp-ds .bbi-calc__unit { position: absolute; right: 14px; font-size: 13px; font-weight: 600; color: rgba(var(--textColor-rgb), 0.55); pointer-events: none; }
+  .lp-ds .bbi-calc__hint { font-size: 13px; line-height: 1.5; color: rgba(var(--textColor-rgb), 0.6); margin: var(--space-2) 0 0; }
+  .lp-ds .bbi-calc__hint.is-error { color: var(--saleBadgeBackground); font-weight: 600; }
+  .lp-ds .bbi-calc__details { margin: 0 0 var(--space-6); border: 1px solid var(--borderColor); border-radius: var(--inputRadius); }
+  .lp-ds .bbi-calc__details summary { cursor: pointer; padding: 12px 14px; font-size: 14px; font-weight: 600; color: var(--headingColor); }
+  .lp-ds .bbi-calc__details summary:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; border-radius: var(--inputRadius); }
+  .lp-ds .bbi-calc__details[open] summary { border-bottom: 1px solid var(--borderColor); }
+  .lp-ds .bbi-calc__details-body { padding: var(--space-6) 14px 2px; }
+
+  .lp-ds .bbi-calc__results { margin-top: var(--space-6); }
+  .lp-ds .bbi-calc__results-label { color: rgba(var(--textColor-rgb), 0.55); margin: 0 0 var(--space-3); }
+  .lp-ds .bbi-calc__result-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+  @media (min-width: 560px) { .lp-ds .bbi-calc__result-grid { grid-template-columns: 1fr 1fr; } }
+  .lp-ds .bbi-calc-card { background: var(--alternateBackground); border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: var(--space-6); }
+  .lp-ds .bbi-calc-card__label { font-family: var(--headingFont); font-size: 15px; font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-2); }
+  .lp-ds .bbi-calc-card__value { font-family: var(--headingFont); font-size: 26px; line-height: 1.1; font-weight: 600; color: var(--headingColor); margin: 0; }
+  .lp-ds .bbi-calc-card__range { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.02em; color: rgba(var(--textColor-rgb), 0.6); margin: var(--space-1) 0 var(--space-3); }
+  .lp-ds .bbi-calc-card__rule { font-size: 13px; line-height: 1.5; color: rgba(var(--textColor-rgb), 0.75); margin: 0 0 var(--space-2); }
+  .lp-ds .bbi-calc-card__caveat { font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(var(--textColor-rgb), 0.5); margin: 0; }
+  .lp-ds .bbi-calc__notice { display: flex; gap: var(--space-3); align-items: flex-start; margin-top: var(--space-6); padding: var(--space-6); background: var(--alternateBackground); border: 1px solid var(--borderColor); border-left: 3px solid var(--saleBadgeBackground); border-radius: var(--inputRadius); font-size: 14px; line-height: 1.6; color: var(--textColor); }
+  .lp-ds .bbi-calc__notice svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px; color: var(--saleBadgeBackground); }
+  .lp-ds .bbi-calc__notice a { color: var(--linkColor); font-weight: 600; }
+
+  /* Static guidance — always rendered (JS-off fallback + indexable copy). */
+  .lp-ds .bbi-calc__static h3 { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-4); }
+  .lp-ds .bbi-calc__static-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+  @media (min-width: 560px) { .lp-ds .bbi-calc__static-grid { grid-template-columns: 1fr 1fr; } }
+  .lp-ds .bbi-calc__guide { border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: var(--space-6); background: var(--cardBackground); }
+  .lp-ds .bbi-calc__guide-label { font-family: var(--headingFont); font-size: 15px; font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-1); }
+  .lp-ds .bbi-calc__guide-figure { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; color: var(--textColor); margin: 0 0 var(--space-2); }
+  .lp-ds .bbi-calc__guide-rule { font-size: 13px; line-height: 1.55; color: rgba(var(--textColor-rgb), 0.75); margin: 0 0 var(--space-2); }
+  .lp-ds .bbi-calc__guide-caveat { font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(var(--textColor-rgb), 0.5); margin: 0; }
+
+  .lp-ds .bbi-calc__links { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-8); }
+  .lp-ds .bbi-calc__sources { margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--borderColor); font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; line-height: 1.7; letter-spacing: 0.02em; color: rgba(var(--textColor-rgb), 0.55); }
+  .lp-ds .bbi-calc__sources a { color: rgba(var(--textColor-rgb), 0.75); }
+{% endstyle %}
+
+<section class="bbi-calc" aria-labelledby="bbi-calc-heading">
+  <div class="bbi-calc__inner">
+
+    <div class="bbi-calc__head">
+      <p class="bbi-calc__eyebrow bbi-mono">Tool · Desk height</p>
+      <h2 id="bbi-calc-heading">What height should your desk be?</h2>
+      <p class="bbi-calc__lede">A height-adjustable desk only helps if it is set to <em>you</em>. The ergonomic targets below come from the Canadian Centre for Occupational Health and Safety (CCOHS): set the work surface level with your elbows, the monitor top at or just below eye level, and the seat so your feet are flat and thighs roughly level. Enter your height for a personalised starting point — every figure is an estimate to adjust to comfort.</p>
+    </div>
+
+    <div class="bbi-calc__layout">
+
+      <!-- INTERACTIVE TOOL (progressive enhancement — hidden until upgraded) -->
+      <bbi-desk-height-calculator
+        data-tables-url="{{ coll_tables }}"
+        data-risers-url="{{ coll_risers }}">
+        <div class="bbi-calc__tool">
+          <p class="bbi-calc__tool-title">Estimate your set-up</p>
+          <p class="bbi-calc__tool-sub">Enter your height. For the most accurate standing-desk figure, measure your elbow height under “More accurate”.</p>
+
+          <form class="bbi-calc__form" data-form novalidate>
+            <fieldset class="bbi-calc__units">
+              <legend class="bbi-calc__label">Units</legend>
+              <div class="bbi-calc__radio-row" role="radiogroup" aria-label="Measurement units">
+                <label class="bbi-calc__radio"><input type="radio" name="bbi-calc-unit" value="in" checked> Inches</label>
+                <label class="bbi-calc__radio"><input type="radio" name="bbi-calc-unit" value="cm"> Centimetres</label>
+              </div>
+            </fieldset>
+
+            <div class="bbi-calc__field">
+              <label class="bbi-calc__label" for="bbi-calc-height">Your height</label>
+              <div class="bbi-calc__input-wrap">
+                <input class="bbi-calc__input" id="bbi-calc-height" name="height" type="number" inputmode="decimal" step="any" min="0" autocomplete="off" aria-describedby="bbi-calc-height-hint" data-height>
+                <span class="bbi-calc__unit" data-unit-label aria-hidden="true">in</span>
+              </div>
+              <p class="bbi-calc__hint" id="bbi-calc-height-hint" data-hint>Enter your height in inches (about 58–80).</p>
+            </div>
+
+            <details class="bbi-calc__details">
+              <summary>More accurate: add a measured elbow height</summary>
+              <div class="bbi-calc__details-body">
+                <div class="bbi-calc__field">
+                  <label class="bbi-calc__label" for="bbi-calc-elbow-stand">Standing elbow height</label>
+                  <div class="bbi-calc__input-wrap">
+                    <input class="bbi-calc__input" id="bbi-calc-elbow-stand" name="elbow-stand" type="number" inputmode="decimal" step="any" min="0" autocomplete="off" aria-describedby="bbi-calc-elbow-stand-hint" data-elbow-stand>
+                    <span class="bbi-calc__unit" data-unit-label aria-hidden="true">in</span>
+                  </div>
+                  <p class="bbi-calc__hint" id="bbi-calc-elbow-stand-hint">Stand tall, shoulders relaxed, elbow bent ~90°. Measure floor to the underside of your elbow. This is the gold-standard input for your standing desk height.</p>
+                </div>
+                <div class="bbi-calc__field">
+                  <label class="bbi-calc__label" for="bbi-calc-elbow-seat">Seated elbow height</label>
+                  <div class="bbi-calc__input-wrap">
+                    <input class="bbi-calc__input" id="bbi-calc-elbow-seat" name="elbow-seat" type="number" inputmode="decimal" step="any" min="0" autocomplete="off" aria-describedby="bbi-calc-elbow-seat-hint" data-elbow-seat>
+                    <span class="bbi-calc__unit" data-unit-label aria-hidden="true">in</span>
+                  </div>
+                  <p class="bbi-calc__hint" id="bbi-calc-elbow-seat-hint">Sit with feet flat and thighs level, elbow bent ~90°. Measure floor to elbow. Optional — gives a precise seated desk figure.</p>
+                </div>
+              </div>
+            </details>
+
+            <button type="submit" class="bbi-btn bbi-btn--primary bbi-btn--lg bbi-btn--full">Calculate my heights <span class="arrow" aria-hidden="true">→</span></button>
+          </form>
+
+          <div class="bbi-calc__results" data-results role="region" aria-live="polite" aria-labelledby="bbi-calc-results-label" hidden>
+            <p class="bbi-calc__results-label bbi-mono" id="bbi-calc-results-label">Your estimated set-up</p>
+            <div class="bbi-calc__result-grid" data-results-grid></div>
+            <div data-notice></div>
+          </div>
+        </div>
+      </bbi-desk-height-calculator>
+
+      <!-- STATIC GUIDANCE (always rendered: indexable + JS-off fallback) -->
+      <div class="bbi-calc__static">
+        <h3>The four heights that matter</h3>
+        <div class="bbi-calc__static-grid">
+
+          <div class="bbi-calc__guide">
+            <p class="bbi-calc__guide-label">Standing desk surface</p>
+            <p class="bbi-calc__guide-figure">≈ 37–47 in · 95–120 cm</p>
+            <p class="bbi-calc__guide-rule">Set it level with your standing elbows — shoulders relaxed, forearms parallel to the floor, elbow about 90° (CCOHS).</p>
+            <p class="bbi-calc__guide-caveat">Estimate — adjust to comfort</p>
+          </div>
+
+          <div class="bbi-calc__guide">
+            <p class="bbi-calc__guide-label">Seated desk surface</p>
+            <p class="bbi-calc__guide-figure">≈ 22–30 in · 56–76 cm</p>
+            <p class="bbi-calc__guide-rule">Sit with feet flat and thighs level, then set the top at your seated elbow height — forearms parallel, elbow about 90° (CCOHS / BIFMA G1).</p>
+            <p class="bbi-calc__guide-caveat">Estimate — adjust to comfort</p>
+          </div>
+
+          <div class="bbi-calc__guide">
+            <p class="bbi-calc__guide-label">Monitor top (eye level)</p>
+            <p class="bbi-calc__guide-figure">≈ 55–70 in · 140–178 cm standing</p>
+            <p class="bbi-calc__guide-rule">Put the top of the screen at, or just below, eye level — about an arm’s length away, sight line 0–30° below horizontal. Too high strains more than slightly low (CCOHS).</p>
+            <p class="bbi-calc__guide-caveat">Estimate — adjust to comfort</p>
+          </div>
+
+          <div class="bbi-calc__guide">
+            <p class="bbi-calc__guide-label">Seat height</p>
+            <p class="bbi-calc__guide-figure">≈ 16–21 in · 40–53 cm</p>
+            <p class="bbi-calc__guide-rule">Raise the seat until your feet rest flat and your thighs are roughly level, knees about 90° — the seat top sits just below your kneecap (CCOHS).</p>
+            <p class="bbi-calc__guide-caveat">Estimate — adjust to comfort</p>
+          </div>
+
+        </div>
+
+        <div class="bbi-calc__links">
+          <a class="bbi-btn bbi-btn--secondary" href="{{ coll_tables }}">Browse desks that hit your range <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="bbi-btn bbi-btn--secondary" href="{{ coll_risers }}">Desktop sit-stand risers <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+
+        <p class="bbi-calc__sources">
+          Sources — ergonomic targets:
+          <a href="https://www.ccohs.ca/oshanswers/ergonomics/office/sit_stand_desk.html" target="_blank" rel="noopener nofollow">CCOHS · Office Ergonomics: Sit/Stand Desk</a>;
+          <a href="https://www.ccohs.ca/oshanswers/ergonomics/standing/standing_basic.html" target="_blank" rel="noopener nofollow">CCOHS · Working in a Standing Position</a>;
+          <a href="https://www.ccohs.ca/oshanswers/ergonomics/sitting/sitting_basic.html" target="_blank" rel="noopener nofollow">CCOHS · Working in a Sitting Position</a>;
+          <a href="https://www.ccohs.ca/oshanswers/ergonomics/office/monitor_positioning.html" target="_blank" rel="noopener nofollow">CCOHS · Monitor Positioning</a>;
+          desk-range envelope: ANSI/BIFMA G1-2013 Ergonomics Guideline. Height-derived figures use published body-segment proportions (Drillis &amp; Contini, 1966) and are estimates, not measurements.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  if (window.customElements && customElements.get('bbi-desk-height-calculator')) { return; }
+  window.BBI = window.BBI || {};
+
+  // Verified carried surface-height range: 22"–49.5" (Heartwood low → Global Zira Z108 high).
+  var MIN_SURFACE_CM = 22 * 2.54;     // 55.88
+  var MAX_SURFACE_CM = 49.5 * 2.54;   // 125.73
+  var BAND_CM = 3;                    // ±3 cm comfort band (~±1.2")
+
+  // Published body-segment proportions of stature (Drillis & Contini, 1966).
+  var R_ELBOW_STAND = 0.630;          // standing elbow height
+  var R_EYE_STAND = 0.936;            // standing eye height
+  var R_SEAT = 0.260;                 // popliteal (seat) height — conservative
+
+  function cmToIn(cm) { return cm / 2.54; }
+  function inToCm(inch) { return inch * 2.54; }
+  function roundIn(v) { return Math.round(v * 2) / 2; }       // nearest 0.5"
+  function roundCm(v) { return Math.round(v); }               // nearest 1 cm
+
+  // Format a centimetre value as "X in (Y cm)" or "Y cm (X in)" by chosen unit, no false precision.
+  function fmt(cm, unit) {
+    var inch = roundIn(cmToIn(cm));
+    var c = roundCm(cm);
+    return unit === 'cm' ? (c + ' cm (' + inch + ' in)') : (inch + ' in (' + c + ' cm)');
+  }
+  function fmtRange(lowCm, highCm, unit) {
+    if (unit === 'cm') { return roundCm(lowCm) + '–' + roundCm(highCm) + ' cm · ' + roundIn(cmToIn(lowCm)) + '–' + roundIn(cmToIn(highCm)) + ' in'; }
+    return roundIn(cmToIn(lowCm)) + '–' + roundIn(cmToIn(highCm)) + ' in · ' + roundCm(lowCm) + '–' + roundCm(highCm) + ' cm';
+  }
+
+  function el(tag, cls, html) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (html != null) { n.innerHTML = html; }
+    return n;
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+
+  window.BBI.DeskHeightCalculator = class extends HTMLElement {
+    connectedCallback() {
+      this.form = this.querySelector('[data-form]');
+      this.heightInput = this.querySelector('[data-height]');
+      this.elbowStandInput = this.querySelector('[data-elbow-stand]');
+      this.elbowSeatInput = this.querySelector('[data-elbow-seat]');
+      this.hint = this.querySelector('[data-hint]');
+      this.results = this.querySelector('[data-results]');
+      this.grid = this.querySelector('[data-results-grid]');
+      this.noticeWrap = this.querySelector('[data-notice]');
+      this.unitLabels = this.querySelectorAll('[data-unit-label]');
+      this.unitInputs = this.querySelectorAll('input[name="bbi-calc-unit"]');
+      this.tablesUrl = this.getAttribute('data-tables-url') || '/collections/height-adjustable-tables';
+      this.risersUrl = this.getAttribute('data-risers-url') || '/collections/desktop-sit-stand';
+      if (!this.form) { return; }
+
+      this.form.addEventListener('submit', function (e) { e.preventDefault(); this.calculate(); }.bind(this));
+      Array.prototype.forEach.call(this.unitInputs, function (r) {
+        r.addEventListener('change', this.onUnitChange.bind(this));
+      }.bind(this));
+    }
+
+    get unit() {
+      var checked = this.querySelector('input[name="bbi-calc-unit"]:checked');
+      return checked ? checked.value : 'in';
+    }
+
+    onUnitChange() {
+      var unit = this.unit;
+      Array.prototype.forEach.call(this.unitLabels, function (s) { s.textContent = unit; });
+      this.hint.textContent = unit === 'cm'
+        ? 'Enter your height in centimetres (about 147–203).'
+        : 'Enter your height in inches (about 58–80).';
+      this.hint.classList.remove('is-error');
+      this.heightInput.classList.remove('is-error');
+      // Recompute live if a value is already present.
+      if (this.heightInput.value) { this.calculate(); }
+    }
+
+    readCm(input) {
+      if (!input || input.value === '') { return null; }
+      var v = parseFloat(input.value);
+      if (isNaN(v) || v <= 0) { return null; }
+      return this.unit === 'cm' ? v : inToCm(v);
+    }
+
+    calculate() {
+      var unit = this.unit;
+      var hCm = this.readCm(this.heightInput);
+
+      // Validate height against a sane human range so we never emit nonsense.
+      if (hCm === null || hCm < 120 || hCm > 220) {
+        this.heightInput.classList.add('is-error');
+        this.hint.classList.add('is-error');
+        this.hint.textContent = unit === 'cm'
+          ? 'Please enter a height between about 120 and 220 cm.'
+          : 'Please enter a height between about 47 and 87 in.';
+        this.heightInput.focus();
+        return;
+      }
+      this.heightInput.classList.remove('is-error');
+      this.hint.classList.remove('is-error');
+      this.hint.textContent = unit === 'cm'
+        ? 'Enter your height in centimetres (about 147–203).'
+        : 'Enter your height in inches (about 58–80).';
+
+      var measuredStand = this.readCm(this.elbowStandInput);
+      var measuredSeat = this.readCm(this.elbowSeatInput);
+
+      // Standing surface = standing elbow height (CCOHS). Gold standard = measured.
+      var standCenter = measuredStand !== null ? measuredStand : R_ELBOW_STAND * hCm;
+      var standBasis = measuredStand !== null ? 'from your measured elbow height' : 'estimated from your height';
+
+      // Monitor top ≈ standing eye level. Seat ≈ popliteal height.
+      var eyeCenter = R_EYE_STAND * hCm;
+      var seatCenter = R_SEAT * hCm;
+
+      var cards = [];
+
+      // 1 — Standing desk surface (clamped to verified carried range).
+      cards.push(this.makeCard(
+        'Standing desk surface',
+        standCenter, BAND_CM, unit,
+        'Level with your standing elbows — forearms parallel, elbow ~90°.',
+        standBasis
+      ));
+
+      // 2 — Seated desk surface. Measured seated elbow → precise; else BIFMA published range.
+      if (measuredSeat !== null) {
+        cards.push(this.makeCard(
+          'Seated desk surface',
+          measuredSeat, BAND_CM, unit,
+          'At your seated elbow height — feet flat, thighs level, forearms parallel.',
+          'from your measured elbow height'
+        ));
+      } else {
+        cards.push(this.makeRangeCard(
+          'Seated desk surface',
+          inToCm(22), inToCm(30), unit,
+          'Set to your seated elbow height — feet flat, thighs level, elbow ~90° (BIFMA G1 seated range).',
+          'published range — add a measured seated elbow height to refine'
+        ));
+      }
+
+      // 3 — Monitor top (eye level), standing.
+      cards.push(this.makeCard(
+        'Monitor top (eye level)',
+        eyeCenter, BAND_CM, unit,
+        'Top of screen at or just below eye level, sight line 0–30° below horizontal. Lower it when seated.',
+        'estimated standing eye height'
+      ));
+
+      // 4 — Seat height.
+      cards.push(this.makeCard(
+        'Seat height',
+        seatCenter, BAND_CM, unit,
+        'Feet flat, thighs roughly level, knees ~90° — seat top just below the kneecap.',
+        'estimated from your height'
+      ));
+
+      this.grid.innerHTML = '';
+      cards.forEach(function (c) { this.grid.appendChild(c); }.bind(this));
+
+      // Out-of-carried-range guidance for the standing surface.
+      this.noticeWrap.innerHTML = '';
+      var lowCm = standCenter - BAND_CM, highCm = standCenter + BAND_CM;
+      if (highCm < MIN_SURFACE_CM || lowCm > MAX_SURFACE_CM) {
+        var notice = el('div', 'bbi-calc__notice');
+        notice.appendChild(el('span', null,
+          '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 6v5M10 14h.01"/></svg>'));
+        notice.appendChild(el('span', null,
+          'Your standing figure falls outside the height range of the desks we carry (about 22–49.5 in). A desktop sit-stand riser or accessory may suit you better — <a href="' + esc(this.risersUrl) + '">browse risers</a> or <a href="/pages/quote">contact us</a> and we will help you spec it.'));
+        this.noticeWrap.appendChild(notice);
+      }
+
+      this.results.hidden = false;
+    }
+
+    // Card with a clamped midpoint value + comfort band.
+    makeCard(label, centerCm, bandCm, unit, rule, basis) {
+      var lo = centerCm - bandCm, hi = centerCm + bandCm;
+      // Clamp display to the verified carried range for SURFACE figures only.
+      var isSurface = label.indexOf('desk surface') !== -1;
+      var dispCenter = centerCm, dispLo = lo, dispHi = hi;
+      if (isSurface) {
+        dispCenter = Math.min(Math.max(centerCm, MIN_SURFACE_CM), MAX_SURFACE_CM);
+        dispLo = Math.max(lo, MIN_SURFACE_CM);
+        dispHi = Math.min(hi, MAX_SURFACE_CM);
+      }
+      var card = el('div', 'bbi-calc-card');
+      card.appendChild(el('p', 'bbi-calc-card__label', esc(label)));
+      card.appendChild(el('p', 'bbi-calc-card__value', esc(fmt(dispCenter, unit))));
+      card.appendChild(el('p', 'bbi-calc-card__range', 'Comfort range ' + esc(fmtRange(dispLo, dispHi, unit))));
+      card.appendChild(el('p', 'bbi-calc-card__rule', esc(rule)));
+      card.appendChild(el('p', 'bbi-calc-card__caveat', 'Estimate · ' + esc(basis) + ' · adjust to comfort'));
+      return card;
+    }
+
+    // Card that shows a published RANGE rather than a single derived number.
+    makeRangeCard(label, lowCm, highCm, unit, rule, basis) {
+      var card = el('div', 'bbi-calc-card');
+      card.appendChild(el('p', 'bbi-calc-card__label', esc(label)));
+      card.appendChild(el('p', 'bbi-calc-card__value', esc(fmtRange(lowCm, highCm, unit).split(' · ')[0])));
+      card.appendChild(el('p', 'bbi-calc-card__range', esc(fmtRange(lowCm, highCm, unit))));
+      card.appendChild(el('p', 'bbi-calc-card__rule', esc(rule)));
+      card.appendChild(el('p', 'bbi-calc-card__caveat', 'Estimate · ' + esc(basis) + ' · adjust to comfort'));
+      return card;
+    }
+  };
+
+  customElements.define('bbi-desk-height-calculator', window.BBI.DeskHeightCalculator);
+})();
+</script>
