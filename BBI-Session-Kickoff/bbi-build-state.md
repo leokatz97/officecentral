@@ -28,6 +28,22 @@
 
 ---
 
+## 🟢 Day 22 — 2026-06-12 — STEP 5a — COMMERCIAL-HUB LANDING (Ergonomic Office Chairs) — BUILT, UNPUBLISHED — doc-only close-out · branch `docs/step5a-closeout-2026-06-12` · HALT for review → squash-merge · NOTHING further written to store/theme here
+
+**Locked build order 5a → 5b; this records 5a (built, not yet live). 5b not started.**
+
+> **First build-state record of the commercial-hub landing program** (sit-stand #135/#136, Global/Teknion dealer #137/#138 shipped earlier but were not logged here). No prior "5a row" existed — this dated section IS the row, per the file's newest-at-top convention.
+
+**5a Ergonomic Office Chairs — BUILT.** Section `theme/sections/ds-lp-ergonomic-office-chairs.liquid` + template `theme/templates/page.ergonomic-office-chairs.json` (**PR #139, squash-merged `99b4f96`, linear ff**). Page resource **`gid://shopify/Page/172018008377` created UNPUBLISHED** (`isPublished:false`, `templateSuffix=ergonomic-office-chairs`; SEO `title_tag` 57ch `Ergonomic Office Chairs Canada | Brant Business Interiors` / `description_tag` 153ch). **AWAITING: Leo copy review + hero image/alt (Theme Editor) + manual publish.** Live URL to be appended on publish. **Not closed — not live yet.**
+
+**Build discipline (record):** mirrored the freshest sibling `ds-lp-sit-stand-desks` chrome + `.lp-*` vocab (no new tokens/classes); live tokens only; red accent-only. **No-assumed-specs** — every spec file-cited to `data/specs.json` (Robust GLB74475 500lb/BIFMA X5.11/ltd-lifetime-25yr · Raven OTG10703B 400lb/24-7/GREENGUARD Gold · Format MVL3192 mesh synchro-tilt+headrest/BIFMA LEVEL+GREENGUARD Gold · Arlo MVL13085 300lb/seat 17–22.5″/GREENGUARD Gold; Roma 1900 300lb/BIFMA e3 LEVEL at the Global-line level). **Carrier gate** — ergoCentric/Keilhauer/Humanscale named company-level only; ObusForme only as a Global line. FAQ byte-match via shared `bbi-faq-jsonld` (`||`/`~~~`, snippet untouched); Service node via `bbi-service-jsonld` (`id_suffix=service-ergonomic-chairs`). Theme push verified by independent Admin-API readback (section bytes sha256-MATCH; template parsed JSON, 6 FAQ blocks). `shopify theme check`: only `HardcodedRoutes` warnings on cross-links — same offense class as the approved sit-stand sibling; no errors on the new files.
+
+**Keyword lock (record):** `/pages/ergonomic-office-chairs` recorded in `data/reference/priority-keywords.yaml` as the LOCKED owner of `ergonomic office chair canada` (primary) + `ergonomic office chair` / `ergonomic task chair` / `office chair for back pain` (secondaries); these four de-conflicted out of the PENDING `ergonomic-seating-desks-storage` cluster so its later split cannot reassign them (desk/storage terms remain unclaimed).
+
+**Files touched (this doc PR, docs only):** `data/reference/priority-keywords.yaml` · `BBI-Session-Kickoff/bbi-build-state.md`. No theme write, no Admin-API write in this session. The pre-existing untracked working-tree changes are out of scope — NOT staged.
+
+---
+
 ## 🟢 Day 21 — 2026-06-11 — DOC-PR BATCH #2 — Step 2 COMPLETE (9/9) + post-#130 corrections — DOC ONLY · branch `docs/step2-reconcile-batch2-2026-06-11` · HALT for review → squash-merge · NOTHING WRITTEN to store/theme
 
 **What:** one consolidated docs-only PR folding the documentation drift accumulated **after** doc-PR #130 (main `c16e067`) into its canonical homes, and **correcting two statements #130 left stale** — both now superseded by the merged theme-reconcile PR #131 (main `3f24e53`). **No theme write, no Admin-API write, no script run that mutates the store. Markdown / context edits only.** All store-side work referenced here (bariatric reactivation, vendor corrections) was executed + verified in prior LIVE sessions; this PR only **records** it.
