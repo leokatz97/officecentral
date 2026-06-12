@@ -2,6 +2,58 @@
   "sections": {
     "ds-lp-brands-global-teknion": {
       "type": "ds-lp-brands-global-teknion",
+      "blocks": {
+        "faq_teknion_dealer": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Brant Business Interiors an authorized Teknion dealer?",
+            "answer": "Yes. Brant Business Interiors is an authorized Teknion dealer serving Ontario. We specify, quote, deliver, and install Teknion contract furniture — workstations, demountable and architectural wall systems, and height-adjustable desking — for corporate and institutional workplaces, with delivery and installation by our own crew across the province."
+          }
+        },
+        "faq_global_dealer": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Brant Business Interiors an authorized Global Furniture Group dealer?",
+            "answer": "Yes. Brant Business Interiors is an authorized Global Furniture Group dealer in Ontario, carrying the full Global range — seating, desks, tables, and storage — plus the OTG (Offices to Go) value line and ObusForme ergonomic seating. We quote, deliver, and install across the province, with the manufacturer warranty supported locally."
+          }
+        },
+        "faq_fit_together": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do Global, Teknion, OTG, and ObusForme fit together?",
+            "answer": "Global, OTG, and ObusForme are all Global Furniture Group lines; Teknion is a separate, Feldberg-family-owned sister company to Global. Global is the flagship for chairs, desks, tables, and storage at commercial quality. Teknion is the premium-design sister brand for executive suites and high-design open-plan systems. OTG (Offices to Go), a division of Global Furniture Group, is the high-volume value line for institutional budgets. ObusForme covers the ergonomic-specialist niche. Finish palettes and engineering standards are coordinated across the Global lines, so mixing them within one project is straightforward."
+          }
+        },
+        "faq_lead_time": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you stock GFG-family products or are they made to order?",
+            "answer": "Most GFG-family products are made to order, with some standard items available from stock. Standard-finish, high-volume pieces such as task chairs, standard-depth desks, and basic lateral files can sometimes ship from stock for faster delivery. Brant Business Interiors confirms the exact lead time on every quote."
+          }
+        },
+        "faq_spec_across_tiers": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I spec across multiple Global Furniture Group and Teknion tiers in one project?",
+            "answer": "Yes — this is the typical institutional use case. Teknion for the executive offices and boardroom; Global for the open floor and shared meeting spaces; OTG for workhorse departmental seating and casegoods; ObusForme where ergonomic back-support is the priority. Brant Business Interiors consolidates the quote, design layout, delivery, and Ontario install across all tiers in a single project file."
+          }
+        },
+        "faq_oecm": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are Global Furniture Group and Teknion products available under OECM?",
+            "answer": "Yes. The Global Furniture Group family — Global, OTG, and ObusForme — is available under OECM Agreement 2025-470. Ontario institutional buyers can reference the agreement number on their purchase order and skip the open tender process. We include the OECM line item on every quote."
+          }
+        }
+      },
+      "block_order": [
+        "faq_teknion_dealer",
+        "faq_global_dealer",
+        "faq_fit_together",
+        "faq_lead_time",
+        "faq_spec_across_tiers",
+        "faq_oecm"
+      ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
         "hero_image": "shopify://shop_images/bbi-brand-global-teknion-hero.jpg"
