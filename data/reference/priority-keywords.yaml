@@ -165,6 +165,26 @@ pages:
     funnel_from: [healthcare]
     long_tail_net_new: [medical office waiting room furniture, dental office waiting room furniture]
 
+  - id: ergonomic-office-chairs
+    role: hub                        # commercial-hub landing; funnels down to the ergonomic collection
+    icp: both
+    surface: landing_page            # ds-lp-ergonomic-office-chairs.liquid (Step 5a)
+    slug: /pages/ergonomic-office-chairs
+    status: locked
+    cta_mode: cart_then_quote
+    primary_keyword: ergonomic office chair canada
+    secondary_keywords:
+      - ergonomic office chair
+      - ergonomic task chair
+      - office chair for back pain
+    cross_links_out: [/collections/ergonomic-products, /pages/brands-ergocentric]
+    claimed_from_pending: ergonomic-seating-desks-storage   # see de-confliction annotation on that cluster
+    note: >-
+      Step 5a commercial hub (PR #139, page gid://shopify/Page/172018008377, UNPUBLISHED pending
+      Leo copy review + hero image + manual publish). LOCKED owner of the four terms above — these
+      are carved out of the PENDING `ergonomic-seating-desks-storage` cluster and must NOT be
+      reassigned when that cluster is split. Desk/storage terms in that cluster remain unclaimed.
+
 # Not yet mapped — walkthrough session 2 (this week). Listed so Phase 0 knows they are PENDING, not missing.
 pending_clusters:
   - id: education-library
@@ -179,3 +199,11 @@ pending_clusters:
   - id: ergonomic-seating-desks-storage
     icp: both
     note: "Shared product clusters (ergonomic chair, height-adjustable desk, filing). Split by CTA."
+    claimed:
+      # De-conflict (Step 5a, 2026-06-12): the ergonomic-CHAIR terms below are already LOCKED to
+      # /pages/ergonomic-office-chairs (see pages: above). Do NOT reassign them when this cluster is
+      # split — only the desk/storage/height-adjustable terms remain available here.
+      - {kw: ergonomic office chair canada, owner: /pages/ergonomic-office-chairs}
+      - {kw: ergonomic office chair, owner: /pages/ergonomic-office-chairs}
+      - {kw: ergonomic task chair, owner: /pages/ergonomic-office-chairs}
+      - {kw: office chair for back pain, owner: /pages/ergonomic-office-chairs}
