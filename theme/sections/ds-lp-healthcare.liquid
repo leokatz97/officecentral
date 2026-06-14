@@ -376,28 +376,17 @@
 }
 </style>
 
-{%- comment -%} SCHEMA-CRIT-2 (2026-05-28): Service + FAQPage JSON-LD. FAQPage mirrors the visible FAQ section below — keep in sync if FAQ copy changes. {%- endcomment -%}
+{%- comment -%} SCHEMA-CRIT-2 (2026-05-28): Service JSON-LD (single #service node). {%- endcomment -%}
+{%- comment -%} Step 5b (2026-06-14): FAQPage JSON-LD is NO LONGER inline here. It is rendered from the
+  faq_item blocks via bbi-faq-jsonld, co-located with the visible FAQ accordion below, so the schema
+  text byte-matches the on-page Q/A by construction (SCHEMA-CRIT-1). Edit FAQ copy in the page template
+  blocks — both the visible accordion and the schema update together. {%- endcomment -%}
 {%- render 'bbi-service-jsonld',
   service_name: "Healthcare & Clinical Furniture Supply and Installation",
-  service_description: "Commercial-grade furniture for Ontario hospitals, long-term care homes, family health teams, community health centres, and private clinics and dental practices — antimicrobial and cleanable seating, waiting-room and reception furniture, and treatment-space furnishings — supplied and installed by Brant Business Interiors' own Ontario crew. Free space plan on every project. OECM Agreement 2025-470 for eligible institutional buyers; PO or NET-30 for private practices.",
+  service_description: "Commercial-grade furniture for Ontario private clinics and dental practices, physiotherapy and family health teams, walk-in and community health centres, long-term care homes, and hospitals — exam-room and consultation seating, waiting-room and reception furniture, bariatric seating, and patient recliners, with wipeable vinyl and antimicrobial-treated fabric options specified per line. Verified clinical seating includes the Global Care GC Comet 500 lb bariatric stacking armchair and the Global Care Primacare patient recliner with sit-to-stand armcaps. Supplied and installed by Brant Business Interiors' own Ontario crew, with a free space plan on every project. OECM Agreement 2025-470 for eligible institutional buyers; PO or NET-30 for private practices.",
   service_type: "Healthcare and clinical furniture supply and installation",
   area_served: "Ontario, Canada"
 -%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "Do you supply furniture for private clinics and dental practices, not just hospitals?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — most of our healthcare clients are private practices: dental offices, physiotherapy clinics, walk-in clinics, family health teams, and audiology and optometry practices. We also work with hospitals, long-term care homes, and community health centres. Same commercial-grade catalog, same free space plan, same Ontario install crew regardless of organization size. Private clinics pay with PO or NET-30; institutional buyers use OECM Agreement 2025-470." } },
-    { "@type": "Question", "name": "What surfaces are cleanable / infection-control compatible?", "acceptedAnswer": { "@type": "Answer", "text": "We spec upholstery with antimicrobial treatment and sealed or impervious surfaces on request — common choices include vinyl, polyurethane, Crypton, and antimicrobial woven fabrics. Hard surfaces (laminates, steel frames, solid polymer) clean with standard hospital-grade disinfectants. Tell us your cleaning protocol on the quote and we'll flag cleaning compatibility per line." } },
-    { "@type": "Question", "name": "Which healthcare organizations are OECM-eligible under Agreement 2025-470?", "acceptedAnswer": { "@type": "Answer", "text": "Ontario hospitals and CCACs, long-term care homes, family health teams, community health centres, and ministry-funded clinics are OECM-eligible — they buy from us under Agreement 2025-470 without an open tender. Private clinics and dental practices are not OECM-eligible (OECM only covers the broader public sector) but buy the same catalog at contract pricing with PO or NET-30. Not sure where your organization sits? Call 1-800-835-9565 — five-minute confirmation." } },
-    { "@type": "Question", "name": "Can you install in an operating clinic, hospital unit, or LTC home without disrupting patients?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — after-hours, weekend, and phased installs are standard for operating clinical sites. Our own install crew handles uncrating, assembly, levelling, placement, and removal of old furniture so the space is patient-ready when they leave. For hospital and ministry sites we deploy W5-cleared installers. For multi-floor or multi-unit facilities, we sequence delivery windows with your operations team." } },
-    { "@type": "Question", "name": "What's the typical lead time on a multi-room clinical fit-out?", "acceptedAnswer": { "@type": "Answer", "text": "Most in-stock task and waiting-room seating ships within 2–3 weeks. Custom-upholstered seating, bariatric, or boardroom-grade tables are typically 6–10 weeks depending on the manufacturer. We confirm lead time per line on every quote and flag long-lead items clearly. Tell us your patient-move-in or facility-opening date and we'll work backwards." } },
-    { "@type": "Question", "name": "Do you handle multi-site rollouts — hospital networks, FHT consortiums, LTC chains?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — multi-site healthcare rollouts are most of our institutional work. We quote per-site with a master roll-up, sequence installs around clinical calendars (after-hours, weekend, or unit-by-unit), and ship to a single warehouse or direct-to-site depending on your facilities team's preference. One Ontario project manager owns the file across every location." } },
-    { "@type": "Question", "name": "Does every healthcare quote include a free space plan?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free 2D layout on every project. Send your floor plan (AutoCAD, PDF, or sketch) and our design team sizes the pieces, specs the finishes, and shows you the layout before you commit. Especially useful for waiting rooms, reception, and nurses' stations where patient flow, sightlines, and clearance constraints matter. On-site measure available when needed." } }
-  ]
-}
-</script>
 
 <div class="lp-hc">
 
@@ -449,8 +438,9 @@
       <p class="lp-intro__eyebrow bbi-mono">Why clinicians and procurement specify us</p>
       <h2>Furniture that holds up in a busy clinical environment &mdash; and cleans down at end of shift.</h2>
       <div class="lp-intro__body">
-        <p>Brant Business Interiors supplies commercial-grade furniture to Ontario private clinics, dental and medical offices, physiotherapy and audiology practices, family health teams, long-term care homes, and hospital environments. Every piece is specified for high-traffic clinical use &mdash; cleanable surfaces, durable frames, ergonomic options for staff who spend a full day on their feet or at a workstation.</p>
-        <p>Cleanable upholstery (vinyl and antimicrobial-fabric options), wipe-down laminates, and sealed-frame seating are available across most authorized lines. We flag the cleaning compatibility per line on every quote.</p>
+        <p>Brant Business Interiors supplies commercial-grade furniture to Ontario private clinics and dental practices first &mdash; dental operatories, physiotherapy and chiropractic clinics, walk-in and family health teams, optometry and audiology practices &mdash; and to long-term care homes and hospital environments. Every piece is specified for the space it sits in: exam-room and consultation seating sized for tight rooms, waiting-room and reception seating built for all-day public traffic, bariatric chairs and patient recliners where transfer support matters, and cleanable surfaces throughout.</p>
+        <p>Cleanable upholstery &mdash; wipeable vinyl and antimicrobial-treated fabric options &mdash; plus wipe-down laminates and sealed-frame seating are available across most authorized lines. Antimicrobial treatment is a fabric option you specify, not a built-in property of every chair; vinyl is wipeable and cleanable rather than inherently antimicrobial. We flag the cleaning compatibility of each line on the quote so infection-control sign-off is straightforward. For how clinics weigh finishes and seating, see our guide to <a href="/blogs/news/medical-dental-clinic-furniture-ontario">medical &amp; dental clinic furniture in Ontario</a>.</p>
+        <p>For verified clinical seating, our Global Care line includes the <a href="/products/gc-comet-bariatric-stacking-armchair-gc2180-1">GC Comet bariatric stacking armchair</a> &mdash; rated to 500&nbsp;lb on a tubular steel frame and compact enough for an exam or consult room &mdash; and the Primacare patient recliner with forward-gripping armcaps for safe sit-to-stand transitions. Behavioural-health-appropriate and tamper-resistant seating is specified per requirement.</p>
         <p>Ontario hospitals, LTC homes, and FHTs purchase under OECM Supplier Partner Agreement 2025-470 without an open tender. Private clinics and dental practices buy the same catalog with PO or NET-30. Same Ontario account team end-to-end.</p>
       </div>
     </div>
@@ -598,7 +588,7 @@
       <div class="lp-coverage__head">
         <p class="lp-coverage__eyebrow">Coverage</p>
         <h2>OECM Agreement 2025-470 &mdash; coverage by category and brand.</h2>
-        <p class="lp-coverage__sub">Healthcare buyers most commonly draw from Seating, Desks/workstations, and Storage categories. Antimicrobial fabric, vinyl, and cleanable laminate options available across most lines. All categories below are Agreement 2025-470 &mdash; institutional healthcare buyers (hospitals, LTC, FHTs) buy without re-tendering; private clinics buy the same catalog with PO or NET-30.</p>
+        <p class="lp-coverage__sub">Healthcare buyers most commonly draw from Seating &mdash; waiting-room, exam-room, bariatric, and patient-recliner &mdash; plus Desks/workstations and Storage. Wipeable vinyl, antimicrobial-treated fabric, and cleanable laminate options are available across most lines. All categories below are Agreement 2025-470 &mdash; institutional healthcare buyers (hospitals, LTC, FHTs) buy without re-tendering; private clinics buy the same catalog with PO or NET-30.</p>
       </div>
       <div class="lp-coverage__table-wrap">
         <table class="lp-coverage__table">
@@ -623,7 +613,7 @@
           </tbody>
         </table>
       </div>
-      <p class="lp-coverage__footnote">Need bariatric, antimicrobial, or vinyl-grade specifically? Call <a href="tel:18008359565"><b>1-800-835-9565</b></a> &mdash; ergoCentric (clinical task seating) and 25+ additional Agreement 2025-470 lines aren&rsquo;t on the storefront yet.</p>
+      <p class="lp-coverage__footnote">Need bariatric or patient seating specifically? Our Global Care line includes the GC Comet bariatric stacking armchair (500&nbsp;lb, exam-room sized) and the Primacare patient recliner with sit-to-stand armcaps. Call <a href="tel:18008359565"><b>1-800-835-9565</b></a> &mdash; ergoCentric clinical task seating, the Primacare recliner, and 25+ additional Agreement 2025-470 lines aren&rsquo;t on the storefront yet.</p>
     </div>
   </section>
 
@@ -670,7 +660,7 @@
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M16 3 L27 7 V16 c0 7 -5 11 -11 13 c-6 -2 -11 -6 -11 -13 V7 Z"/><path d="M11 16 l4 4 l6 -8"/></svg>
           </span>
           <h3 class="lp-diff-card__label">Cleanable &amp; durable</h3>
-          <p class="lp-diff-card__sentence">Commercial-grade upholstery and surfaces that hold up to busy waiting rooms, exam areas, and staff workstations &mdash; and clean easily at end of shift. Vinyl and antimicrobial fabric options available.</p>
+          <p class="lp-diff-card__sentence">Commercial-grade upholstery and surfaces that hold up to busy waiting rooms, exam rooms, and staff workstations &mdash; and clean down at end of shift. Wipeable vinyl and antimicrobial-treated fabric options; bariatric stacking chairs rated to 500&nbsp;lb and patient recliners with sit-to-stand armcaps available through our Global Care line.</p>
         </article>
 
         <article class="lp-diff-card">
@@ -788,7 +778,19 @@
   </section>
   {%- endif -%}
 
-  {%- comment -%}FAQ{%- endcomment -%}
+  {%- comment -%}
+    FAQ — single source of truth (Step 5b, SCHEMA-CRIT-1).
+    The visible accordion AND the FAQPage JSON-LD are both built from the faq_item blocks
+    defined in page.healthcare.json, so the schema text byte-matches the on-page Q/A by
+    construction. Author block answers as plain text with literal punctuation (— ' –),
+    NOT HTML entities and NO inline links — both renderings share one source string.
+    `||` joins question/answer, `~~~` separates entries (matches bbi-faq-jsonld; the
+    `~~|~~` split inside that snippet is a dead no-op — see its header).
+  {%- endcomment -%}
+  {%- capture faq_pairs -%}{%- for block in section.blocks -%}{%- if block.type == 'faq_item' -%}{{ block.settings.question }}||{{ block.settings.answer }}~~~{%- endif -%}{%- endfor -%}{%- endcapture -%}
+  {%- assign faq_items = faq_pairs | split: '~~~' -%}
+  {%- render 'bbi-faq-jsonld', faq_items: faq_items -%}
+
   <section class="lp-faq" aria-label="Frequently asked questions">
     <div class="lp-faq__inner">
       <div class="lp-faq__head">
@@ -797,84 +799,22 @@
         <p class="lp-faq__cta">Still have a question? <a href="tel:18008359565">Call 1-800-835-9565</a> or <a href="/pages/quote">request a quote</a> and we&rsquo;ll respond in 1 business day.</p>
       </div>
       <div class="lp-faq__list">
-
-        <details class="lp-faq-item">
-          <summary>
-            <span class="lp-faq-item__num">01</span>
-            <span class="lp-faq-item__q">Do you supply furniture for private clinics and dental practices, not just hospitals?</span>
-            <span class="lp-faq-item__icon" aria-hidden="true"></span>
-          </summary>
-          <div class="lp-faq-item__body">
-            <p>Yes &mdash; most of our healthcare clients are private practices: dental offices, physiotherapy clinics, walk-in clinics, family health teams, and audiology and optometry practices. We also work with hospitals, long-term care homes, and community health centres. Same commercial-grade catalog, same free space plan, same Ontario install crew regardless of organization size. Private clinics pay with PO or NET-30; institutional buyers use OECM Agreement 2025-470.</p>
-          </div>
-        </details>
-
-        <details class="lp-faq-item">
-          <summary>
-            <span class="lp-faq-item__num">02</span>
-            <span class="lp-faq-item__q">What surfaces are cleanable / infection-control compatible?</span>
-            <span class="lp-faq-item__icon" aria-hidden="true"></span>
-          </summary>
-          <div class="lp-faq-item__body">
-            <p>We spec upholstery with antimicrobial treatment and sealed or impervious surfaces on request &mdash; common choices include vinyl, polyurethane, Crypton, and antimicrobial woven fabrics. Hard surfaces (laminates, steel frames, solid polymer) clean with standard hospital-grade disinfectants. Tell us your cleaning protocol on the quote and we&rsquo;ll flag cleaning compatibility per line.</p>
-          </div>
-        </details>
-
-        <details class="lp-faq-item">
-          <summary>
-            <span class="lp-faq-item__num">03</span>
-            <span class="lp-faq-item__q">Which healthcare organizations are OECM-eligible under Agreement 2025-470?</span>
-            <span class="lp-faq-item__icon" aria-hidden="true"></span>
-          </summary>
-          <div class="lp-faq-item__body">
-            <p>Ontario hospitals and CCACs, long-term care homes, family health teams, community health centres, and ministry-funded clinics are OECM-eligible &mdash; they buy from us under Agreement 2025-470 without an open tender. Private clinics and dental practices are not OECM-eligible (OECM only covers the broader public sector) but buy the same catalog at contract pricing with PO or NET-30. Not sure where your organization sits? Call <a href="tel:18008359565">1-800-835-9565</a> &mdash; five-minute confirmation.</p>
-          </div>
-        </details>
-
-        <details class="lp-faq-item">
-          <summary>
-            <span class="lp-faq-item__num">04</span>
-            <span class="lp-faq-item__q">Can you install in an operating clinic, hospital unit, or LTC home without disrupting patients?</span>
-            <span class="lp-faq-item__icon" aria-hidden="true"></span>
-          </summary>
-          <div class="lp-faq-item__body">
-            <p>Yes &mdash; after-hours, weekend, and phased installs are standard for operating clinical sites. Our own install crew handles uncrating, assembly, levelling, placement, and removal of old furniture so the space is patient-ready when they leave. For hospital and ministry sites we deploy W5-cleared installers. For multi-floor or multi-unit facilities, we sequence delivery windows with your operations team.</p>
-          </div>
-        </details>
-
-        <details class="lp-faq-item">
-          <summary>
-            <span class="lp-faq-item__num">05</span>
-            <span class="lp-faq-item__q">What&rsquo;s the typical lead time on a multi-room clinical fit-out?</span>
-            <span class="lp-faq-item__icon" aria-hidden="true"></span>
-          </summary>
-          <div class="lp-faq-item__body">
-            <p>Most in-stock task and waiting-room seating ships within 2&ndash;3 weeks. Custom-upholstered seating, bariatric, or boardroom-grade tables are typically 6&ndash;10 weeks depending on the manufacturer. We confirm lead time per line on every quote and flag long-lead items clearly. Tell us your patient-move-in or facility-opening date and we&rsquo;ll work backwards.</p>
-          </div>
-        </details>
-
-        <details class="lp-faq-item">
-          <summary>
-            <span class="lp-faq-item__num">06</span>
-            <span class="lp-faq-item__q">Do you handle multi-site rollouts &mdash; hospital networks, FHT consortiums, LTC chains?</span>
-            <span class="lp-faq-item__icon" aria-hidden="true"></span>
-          </summary>
-          <div class="lp-faq-item__body">
-            <p>Yes &mdash; multi-site healthcare rollouts are most of our institutional work. We quote per-site with a master roll-up, sequence installs around clinical calendars (after-hours, weekend, or unit-by-unit), and ship to a single warehouse or direct-to-site depending on your facilities team&rsquo;s preference. One Ontario project manager owns the file across every location.</p>
-          </div>
-        </details>
-
-        <details class="lp-faq-item">
-          <summary>
-            <span class="lp-faq-item__num">07</span>
-            <span class="lp-faq-item__q">Does every healthcare quote include a free space plan?</span>
-            <span class="lp-faq-item__icon" aria-hidden="true"></span>
-          </summary>
-          <div class="lp-faq-item__body">
-            <p>Yes &mdash; free 2D layout on every project. Send your floor plan (AutoCAD, PDF, or sketch) and our design team sizes the pieces, specs the finishes, and shows you the layout before you commit. Especially useful for waiting rooms, reception, and nurses&rsquo; stations where patient flow, sightlines, and clearance constraints matter. On-site measure available when needed.</p>
-          </div>
-        </details>
-
+        {%- assign faq_n = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq_item' -%}
+            {%- assign faq_n = faq_n | plus: 1 -%}
+            <details class="lp-faq-item" {{ block.shopify_attributes }}>
+              <summary>
+                <span class="lp-faq-item__num">{{ faq_n | prepend: '0' | slice: -2, 2 }}</span>
+                <span class="lp-faq-item__q">{{ block.settings.question }}</span>
+                <span class="lp-faq-item__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="lp-faq-item__body">
+                <p>{{ block.settings.answer }}</p>
+              </div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
       </div>
     </div>
   </section>
@@ -1009,9 +949,35 @@
       "label": "Product 4 (default: second chair)"
     }
   ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "info": "Plain text. Do not use the || or ~~~ characters."
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "info": "Plain text, single paragraph, no links. Use literal punctuation (— ' –), not HTML entities — the visible answer and the FAQPage schema share this exact text and must byte-match. Do not use the || or ~~~ characters."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
   "presets": [
     {
-      "name": "Healthcare Landing Page"
+      "name": "Healthcare Landing Page",
+      "blocks": [
+        { "type": "faq_item" },
+        { "type": "faq_item" },
+        { "type": "faq_item" }
+      ]
     }
   ]
 }

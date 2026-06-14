@@ -2,9 +2,85 @@
   "sections": {
     "lp-healthcare": {
       "type": "ds-lp-healthcare",
+      "blocks": {
+        "faq-private-clinics": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you supply furniture for private clinics and dental practices, not just hospitals?",
+            "answer": "Yes — most of our healthcare clients are private practices: dental offices, physiotherapy clinics, walk-in clinics, family health teams, and audiology and optometry practices. We also work with hospitals, long-term care homes, and community health centres. Same commercial-grade catalog, same free space plan, same Ontario install crew regardless of organization size. Private clinics pay with PO or NET-30; institutional buyers use OECM Agreement 2025-470."
+          }
+        },
+        "faq-cleanable": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What surfaces are cleanable and infection-control compatible?",
+            "answer": "We spec wipeable and impervious surfaces on request — common choices include vinyl, polyurethane, Crypton, and antimicrobial-treated woven fabrics. Vinyl is wipeable and cleanable rather than inherently antimicrobial; antimicrobial treatment is a fabric option you add, not a default. Hard surfaces — laminates, steel frames, solid polymer — clean with standard hospital-grade disinfectants. Tell us your cleaning protocol on the quote and we'll flag cleaning compatibility per line."
+          }
+        },
+        "faq-bariatric-patient": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you carry bariatric and patient seating rated for clinical use?",
+            "answer": "Yes. Our Global Care line includes the GC Comet bariatric stacking armchair, rated to 500 lb active weight on a tubular steel frame and compact at 31.5 inches wide so it fits exam and consultation rooms — it also stacks two-high for storage. For patient recliners, the Global Care Primacare offers forward-gripping wood armcaps that assist safe sit-to-stand transitions, vinyl upholstery that wipes down, and high-density foam cushioning. Both exceed ANSI/BIFMA. Not every clinical model is on the storefront yet — call 1-800-835-9565 and we'll quote the right one."
+          }
+        },
+        "faq-exam-behavioural": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can you furnish exam rooms, waiting rooms, and behavioural-health spaces specifically?",
+            "answer": "Yes. We size exam-room and consultation seating for tight clearances, spec waiting-room and reception seating built for all-day public traffic with cleanable surfaces, and quote bariatric seating where weight rating matters. For behavioural-health and other higher-acuity spaces we spec tamper-resistant and ligature-conscious options to your requirement rather than off a fixed list. Send the room and the use and we'll match the seating to it."
+          }
+        },
+        "faq-oecm-eligible": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Which healthcare organizations are OECM-eligible under Agreement 2025-470?",
+            "answer": "Ontario hospitals and CCACs, long-term care homes, family health teams, community health centres, and ministry-funded clinics are OECM-eligible — they buy from us under Agreement 2025-470 without an open tender. Private clinics and dental practices are not OECM-eligible (OECM only covers the broader public sector) but buy the same catalog at contract pricing with PO or NET-30. Not sure where your organization sits? Call 1-800-835-9565 — five-minute confirmation."
+          }
+        },
+        "faq-install": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can you install in an operating clinic, hospital unit, or LTC home without disrupting patients?",
+            "answer": "Yes — after-hours, weekend, and phased installs are standard for operating clinical sites. Our own install crew handles uncrating, assembly, levelling, placement, and removal of old furniture so the space is patient-ready when they leave. For hospital and ministry sites we deploy W5-cleared installers. For multi-floor or multi-unit facilities, we sequence delivery windows with your operations team."
+          }
+        },
+        "faq-lead-time": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What's the typical lead time on a multi-room clinical fit-out?",
+            "answer": "Most in-stock task and waiting-room seating ships within 2–3 weeks. Custom-upholstered seating, bariatric, or boardroom-grade tables are typically 6–10 weeks depending on the manufacturer. We confirm lead time per line on every quote and flag long-lead items clearly. Tell us your patient-move-in or facility-opening date and we'll work backwards."
+          }
+        },
+        "faq-multi-site": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you handle multi-site rollouts — hospital networks, FHT consortiums, LTC chains?",
+            "answer": "Yes — multi-site healthcare rollouts are most of our institutional work. We quote per-site with a master roll-up, sequence installs around clinical calendars (after-hours, weekend, or unit-by-unit), and ship to a single warehouse or direct-to-site depending on your facilities team's preference. One Ontario project manager owns the file across every location."
+          }
+        },
+        "faq-space-plan": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does every healthcare quote include a free space plan?",
+            "answer": "Yes — free 2D layout on every project. Send your floor plan (AutoCAD, PDF, or sketch) and our design team sizes the pieces, specs the finishes, and shows you the layout before you commit. Especially useful for waiting rooms, reception, and nurses' stations where patient flow, sightlines, and clearance constraints matter. On-site measure available when needed."
+          }
+        }
+      },
+      "block_order": [
+        "faq-private-clinics",
+        "faq-cleanable",
+        "faq-bariatric-patient",
+        "faq-exam-behavioural",
+        "faq-oecm-eligible",
+        "faq-install",
+        "faq-lead-time",
+        "faq-multi-site",
+        "faq-space-plan"
+      ],
       "settings": {
         "heading": "Canadian Healthcare Furniture for Clinics & Clinical Environments",
-        "subheading": "Brant Business Interiors is a Canadian healthcare furniture supplier \u2014 cleanable, durable, and professionally specified for private clinics, dental and medical offices, long-term care, and hospital environments across Ontario. Call 1-800-835-9565.",
+        "subheading": "Brant Business Interiors is a Canadian healthcare furniture supplier — cleanable, durable, and professionally specified for private clinics, dental and medical offices, long-term care, and hospital environments across Ontario. Call 1-800-835-9565.",
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
         "hero_image": "shopify://shop_images/OCI-Healthcare-Carousel-3.jpg",
         "trust_image_1": "shopify://shop_images/OCI-Inspiration-Breakroom.jpg",
