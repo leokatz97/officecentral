@@ -44,6 +44,30 @@
 
 ---
 
+## 🟢 PROGRAM BACKFILL — 2026-06-11 — COMMERCIAL-HUB LANDING: Steps 3 (Sit-Stand Desks) + 4 (Global/Teknion dealer deepen) — DOC ONLY · recorded 2026-06-14 · branch `docs/build-state-backfill-steps3-4-2026-06-14` · HALT for review → squash-merge · NOTHING written to store/theme here
+
+> **Backfill record, not a new build.** The commercial-hub landing program shipped to live across PRs #135–#139, but only **Step 5a** (Ergonomic Office Chairs, #139/#140) was logged in this file — see the Day 22 (5a) section directly above, which named these earlier steps only in passing ("sit-stand #135/#136, Global/Teknion dealer #137/#138 shipped earlier but were not logged here"). This single dated section now records the two missing steps — **Step 3 (sit-stand)** and **Step 4 (Global/Teknion dealer deepen)** — in the file's newest-at-top "Day" convention. Dated **2026-06-11** (when #135–#138 squash-merged to `main`); slotted below the 2026-06-12 Day-22 (5a) row and above the 2026-06-11 Day-21 doc-PR rows to keep reverse-chronological order. The theme/Admin work itself shipped + verified in those prior LIVE sessions; this section only **records** it. **No theme write, no Admin-API write, no published-state change in this doc PR.** Step 2 (`bbi-faq-jsonld.liquid` + answer-first intro + 9-page byte-matched FAQ) is **already recorded** — see Day-21 reconciliation PART B items 3/4/6 + DOC-PR batch #2 items 3 & 4 below — and is intentionally **not** duplicated here.
+
+**Locked build order was 3 → 4 → 5a → 5b. This backfills 3 and 4; both are LIVE.**
+
+### Step 3 — Sit-Stand Desks commercial-hub landing — BUILT + PUBLISHED (LIVE)
+
+- **Section + template (PR #135, squash-merged `9d06ceb`, linear ff):** `theme/sections/ds-lp-sit-stand-desks.liquid` (573 lines) + `theme/templates/page.sit-stand-desks.json` (65 lines) created. First commercial-hub landing in the program; established the `.lp-*` chrome later reused by the Global/Teknion deepen and the 5a ergonomic-chairs sibling.
+- **Desk-height calculator tool (PR #136, squash-merged `77d0370`, linear ff):** new snippet `theme/snippets/bbi-desk-height-calculator.liquid` (449 lines) added + wired into the section (3-line render hook) with a 10-line `page.sit-stand-desks.json` settings update. Interactive sit/stand height tool on the landing page.
+- **Page resource:** `/pages/sit-stand-desks` created **and PUBLISHED** (live), `templateSuffix=sit-stand-desks`. Live URL: https://www.brantbusinessinteriors.com/pages/sit-stand-desks.
+- **Inbound link:** the `height-adjustable-tables` collection `collection.description` carries an inbound link to `/pages/sit-stand-desks` (Admin-API store-side content, not a repo asset).
+- **Discipline:** theme-files-only PRs (no Admin-API writes in the PRs themselves); `.lp-*` vocab + live tokens only.
+
+### Step 4 — Global/Teknion dealer page deepen — DEEPENED (LIVE)
+
+- **Dealer-page deepen (PR #137, squash-merged `da952dc`, linear ff):** `theme/sections/ds-lp-brands-global-teknion.liquid` + `theme/templates/page.brands-global-teknion.json` deepened — AEO answer-first dealer lines, a byte-matched **FAQPage (6 `faq_item` blocks** in the template, verified count), Global verified-spec proof, and NAP / heritage (Brant Business Interiors, 296 George St N Peterborough, family-owned since 1964). OECM Agreement 2025-470 surfaced. (+52 lines added to the template = the 6 FAQ blocks; ~144-line section rewrite.)
+- **OECM-consistency fix (PR #138, squash-merged `45b772a`, linear ff):** restored **Teknion** in the OECM FAQ answer for OECM consistency — a 2-line touch on both `ds-lp-brands-global-teknion.liquid` and `page.brands-global-teknion.json`. (Mirrors the same Teknion-in-OECM-answer restore later applied to the OECM page; keeps the carried-brands list consistent across OECM-bearing surfaces.)
+- **Page/section:** template `page.brands-global-teknion.json` + section `ds-lp-brands-global-teknion.liquid` (the dealer page was pre-existing; these PRs deepened it).
+
+**Files touched (this doc PR, docs only):** `BBI-Session-Kickoff/bbi-build-state.md` (this section only). No theme write, no Admin-API write, no published-state change. The pre-existing untracked working-tree changes (`docs/strategy/bbi-screens-audit-v1.md` deletion, `scripts/build-step-2-2-payloads.py`, `scripts/verify-step-2-2-render.py`, `data/content-drafts/step-2-2-category-copy.md`, `data/reports/_catalog-feed-snapshot-2026-06-05.json`, `theme/config/`) are **out of scope — NOT staged.** The Day 22 (5a) entry above and all prior rows are **untouched.**
+
+---
+
 ## 🟢 Day 21 — 2026-06-11 — DOC-PR BATCH #2 — Step 2 COMPLETE (9/9) + post-#130 corrections — DOC ONLY · branch `docs/step2-reconcile-batch2-2026-06-11` · HALT for review → squash-merge · NOTHING WRITTEN to store/theme
 
 **What:** one consolidated docs-only PR folding the documentation drift accumulated **after** doc-PR #130 (main `c16e067`) into its canonical homes, and **correcting two statements #130 left stale** — both now superseded by the merged theme-reconcile PR #131 (main `3f24e53`). **No theme write, no Admin-API write, no script run that mutates the store. Markdown / context edits only.** All store-side work referenced here (bariatric reactivation, vendor corrections) was executed + verified in prior LIVE sessions; this PR only **records** it.
