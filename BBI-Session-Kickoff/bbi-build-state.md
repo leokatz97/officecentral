@@ -28,6 +28,22 @@
 
 ---
 
+## 🟢 Day 25 — 2026-06-15 — STEP 6 — REVIEW PAGE #2 (EXECUTIVE) LIVE & SCHEMA-VERIFIED — doc-only close-out · branch `docs/step6-page2-closeout-2026-06-15` · HALT for review → squash-merge · NOTHING written to store/theme here
+
+**Records Step 6 review Page #2 — executive office chairs. Built + shipped live + page resource created (PR #147); published 2026-06-15; this doc PR only records it. Additive — prior rows (incl. the Day-24 Step 6 infra + Page #1 record) untouched. No theme write, no Admin-API write, no published-state change here.**
+
+### Step 6 — Page #2 — Executive office chairs — LIVE & SCHEMA-VERIFIED
+
+- **Template-only on `ds-review-base`** — the shared section + `bbi-review-product-jsonld` snippet are **UNCHANGED** (Page #1 intact; no section/schema fork). Template `page.review-executive.json` (**PR #147, squash-merged `26bba80`**). Page `gid://shopify/Page/172091670841`; handle `best-executive-office-chairs`; `template_suffix = review-executive`. **SEO title 55ch / meta 143ch.** Live URL: https://www.brantbusinessinteriors.com/pages/best-executive-office-chairs. **Published 2026-06-15.**
+- **Carried + verified anchors only** (specs rendered from each product's `specs.*` metafields — zero typed figures): **Ergo Boss** (Global), **Ashton** (OTG), **Brighton MVL2787** (OTG). Cross-links wired to **`/collections/seating`** (131 products) — **NOT** the empty `/collections/executive-seating`.
+- **Live JSON-LD verified via Google Rich Results (2026-06-15):** **10 valid items** — **3 Product + 3 merchant-listing** (the 3 anchors) · **1 carousel** (the `ItemList`) · **1 BreadcrumbList** · sitewide **LocalBusiness + Organization**. **FAQPage + Service present in the markup** (not Rich-Results-eligible result types → not counted by RR, but emitting). **ZERO `Review` / `aggregateRating`** anywhere (correctly dark — no owned reviews).
+- **FLAG (product-data, NOT a Step 6 defect):** Ergo Boss `specs.*` are thin (no dimensions / no certifications) — enrich from the Global spec sheet; **improves the Ergo Boss PDP too**, not just this page.
+- **FLAG (site-hygiene):** `/collections/executive-seating` is a **200-but-EMPTY** collection (0 products) — populate, or hide/redirect, so it can't be linked into a dead end.
+
+**Files touched (this doc PR, docs only):** `BBI-Session-Kickoff/bbi-build-state.md` (this section only) · `data/reference/priority-keywords.yaml` (new `/pages/best-executive-office-chairs` locked-owner entry). No theme write, no Admin-API write, no published-state change. The pre-existing untracked working-tree changes are **out of scope — NOT staged.** The Day-24 (Step 6 infra + Page #1) entry below and all prior rows are **untouched.**
+
+---
+
 ## 🟢 Day 24 — 2026-06-15 — STEP 6 — REVIEW PAGES: INFRA BUILT + PAGE #1 LIVE & SCHEMA-VERIFIED — doc-only close-out · branch `docs/step6-closeout-2026-06-15` · HALT for review → squash-merge · NOTHING written to store/theme here
 
 **Records Step 6 — the review/comparison page program. Infra + Page #1 shipped + verified in prior LIVE sessions (PR #145); this doc PR only records it. Additive — prior rows untouched. No theme write, no Admin-API write, no published-state change here.**
