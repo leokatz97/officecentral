@@ -28,6 +28,22 @@
 
 ---
 
+## 🟢 Day 26 — 2026-06-15 — STEP 6 — REVIEW PAGE #3 (MEDICAL & DENTAL CLINICS) LIVE & SCHEMA-VERIFIED — doc-only close-out · branch `docs/step6-clinics-closeout` · HALT for review → squash-merge · NOTHING written to store/theme here
+
+**Records Step 6 review Page #3 — medical & dental clinic chairs. Built + shipped live + page resource created & published (PR #149); published 2026-06-15; this doc PR only records it. Additive — prior rows (incl. the Day-25 Page #2 and Day-24 infra + Page #1 records) untouched. No theme write, no Admin-API write, no published-state change here.**
+
+### Step 6 — Page #3 — Medical & dental clinic chairs — LIVE & SCHEMA-VERIFIED
+
+- **Template-only on `ds-review-base`** — the shared section + `bbi-review-product-jsonld` snippet are **UNCHANGED** (Pages #1/#2 intact; no section/schema fork). Template `page.review-medical-clinics.json` (**PR #149, squash-merged `ed8c3a9`**). Page `gid://shopify/Page/172096520505`; handle `best-office-chairs-medical-clinics`; `template_suffix = review-medical-clinics`. **SEO title 47ch / meta 153ch.** Live URL: https://www.brantbusinessinteriors.com/pages/best-office-chairs-medical-clinics. **Published 2026-06-15.**
+- **Carried + verified anchors only** (specs rendered from each product's `specs.*` metafields — zero typed figures), split patient/staff: **GC Comet GC2180-1** (Global Care — 500 lb bariatric patient/waiting; **legit dual-use w/ Page #1**), **Sidero** (Global — waiting/reception guest), **Format MVL3192** (OTG — clinic staff desks). **Excluded: Willow (Lesro — non-carried, carrier gate); Primacare GC3608MRC (Global Care — archived/404, named-not-linked).**
+- **Honesty gates held:** no "antimicrobial" product claim (only a wipe-clean / "ask us about antimicrobial-treated upholstery" buyer consideration); no behavioural-health carried-line claim.
+- **Live JSON-LD verified via page-source audit (2026-06-15):** **exactly 1 each** `ItemList` (3 Product nodes) · `Service` (`service-review-medical-clinics`) · `FAQPage` (5 Q/A) · `BreadcrumbList` (Home → Ergonomic Office Chairs → Medical & Dental Clinic Chairs) + sitewide `Organization`. **ZERO `Review` / `aggregateRating`** anywhere (correctly dark — no owned reviews).
+- **Cross-links (all 200-checked):** `/pages/healthcare` (5b segment) · `/blogs/news/medical-dental-clinic-furniture-ontario` (segment editorial) · `/pages/ergonomic-office-chairs` (5a chair hub) · `/pages/best-office-chairs-heavy-duty` (Page #1 sibling) · collections `/collections/bariatric-seating` (5 products) + `/collections/guest-seating` (39). **Empty `*-seating` collections avoided** (`healthcare-seating` / `waiting-room-seating` / `exam-room-seating` all 200-but-0-products).
+
+**Files touched (this doc PR, docs only):** `BBI-Session-Kickoff/bbi-build-state.md` (this section only) · `data/reference/priority-keywords.yaml` (new `/pages/best-office-chairs-medical-clinics` locked-owner entry). No theme write, no Admin-API write, no published-state change. The pre-existing untracked working-tree changes are **out of scope — NOT staged.** The Day-25 (Page #2) entry below and all prior rows are **untouched.**
+
+---
+
 ## 🟢 Day 25 — 2026-06-15 — STEP 6 — REVIEW PAGE #2 (EXECUTIVE) LIVE & SCHEMA-VERIFIED — doc-only close-out · branch `docs/step6-page2-closeout-2026-06-15` · HALT for review → squash-merge · NOTHING written to store/theme here
 
 **Records Step 6 review Page #2 — executive office chairs. Built + shipped live + page resource created (PR #147); published 2026-06-15; this doc PR only records it. Additive — prior rows (incl. the Day-24 Step 6 infra + Page #1 record) untouched. No theme write, no Admin-API write, no published-state change here.**
