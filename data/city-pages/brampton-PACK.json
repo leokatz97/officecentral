@@ -1,0 +1,127 @@
+{
+  "city": "Brampton",
+  "slug": "brampton",
+  "handle": "office-furniture-brampton",
+  "page_type": "coverage_page",
+  "cluster_flag": "coverage",
+  "wave_recommendation": "A",
+  "1_handle_check": {
+    "handle": "office-furniture-brampton",
+    "status": "FREE (404)",
+    "method": "Shopify Admin GraphQL pages(query:\"office-furniture\") — only office-furniture-mississauga returned; this handle absent",
+    "collision": null
+  },
+  "2_existing_collision": {
+    "city_article_office-furniture-{city}-ontario": "NONE — full article inventory (hasNextPage:false) shows only Toronto + Ottawa city articles, both excluded from this batch",
+    "city_page": "NONE (Mississauga is the only existing office-furniture-* page)",
+    "status": "no collision"
+  },
+  "3_dataforseo": {
+    "location": "Canada (country-level; google_ads Ontario,Canada cross-checked for primaries)",
+    "primary": {
+      "keyword": "office furniture brampton",
+      "search_volume": 140,
+      "keyword_difficulty": null,
+      "kd_note": "no KD value returned (sparse SERP for the geo term; treat as low — comparable Ontario geo terms returned KD 5-19)",
+      "intent": "navigational"
+    },
+    "secondaries": {
+      "office furniture delivery brampton": "no standalone DB volume (<10; supporting term)",
+      "office furniture installation brampton": "no standalone DB volume (<10; supporting term)",
+      "commercial office furniture brampton": "no standalone DB volume (<10; supporting term)"
+    },
+    "used_intent_DIFFERENT_do_not_target": {
+      "keyword": "used office furniture brampton",
+      "search_volume": 90,
+      "note": "USED/secondhand intent — BBI sells new only. Recorded for awareness; NOT a target on this page."
+    },
+    "ambiguous_name": false
+  },
+  "4_keyword_deconflict": {
+    "primary_owned_anywhere": false,
+    "evidence": "priority-keywords.yaml has no geo/city primary locked; eastern-ontario-geo cluster is PENDING (not locked).",
+    "status": "FREE — do NOT lock now (locking is per-build close-out)",
+    "eastern_cluster_note": null
+  },
+  "5_local_proof": {
+    "coverage_status": "coverage-only",
+    "has_real_project": false,
+    "photo_paths": [],
+    "honesty_gate": "data/oci-photos/ has NO city-tagged project photos. Only named client is 'Mattamy' (city unconfirmed) — NOT assigned to any city. All other shots are generic inspiration/sector. No local project may be claimed for this city."
+  },
+  "6_seo_draft": {
+    "title_tag": "Office Furniture in Brampton | Brant Business Interiors",
+    "title_len": 55,
+    "title_ok": true,
+    "description_tag": "Brant Business Interiors delivers and installs office furniture in Brampton — our own Ontario crew, family-owned since 1964. Call 1-800-835-9565.",
+    "description_len": 145,
+    "description_ok": true,
+    "framing": "coverage / delivery-and-installation; since 1964; OECM trust signal"
+  },
+  "7_differentiation_hook": {
+    "angle": "Brampton & Peel Region",
+    "service_area": "Brampton, Bramalea and Peel Region, Ontario, Canada",
+    "hook": "Brampton is a logistics and distribution town — warehouse head-offices, 3PL admin floors and a fast-growing municipal footprint. It sits right beside our Mississauga coverage in Peel, so we can phase a Brampton fit-out and a Mississauga one off the same crew and the same week.",
+    "anti_doorway": "City-specific economic/geographic context + real neighbouring-area coverage; honest, not a name-swap."
+  },
+  "8_faq_set": [
+    {
+      "q": "Do you deliver office furniture to Brampton?",
+      "a": "Yes. Brant Business Interiors delivers and installs commercial office furniture throughout Brampton and Bramalea, Caledon and the rest of Peel Region, next door to our Mississauga coverage. We're a family-owned Ontario dealer headquartered in Peterborough, and we coordinate a delivery window for your site, then place, assemble and level everything with our own installation crew."
+    },
+    {
+      "q": "Does Brant Business Interiors have a showroom in Brampton?",
+      "a": "No. We're headquartered at 296 George St N in Peterborough and serve Brampton as a delivery and installation coverage area, not a storefront. You work with our Ontario account team by phone and email, and our crew comes to your Brampton site to deliver and install. Call 1-800-835-9565 to plan a project or request a quote."
+    },
+    {
+      "q": "Is installation included on Brampton orders?",
+      "a": "Professional assembly and installation is included with most orders. For larger fit-outs or after-hours and weekend work in occupied Brampton spaces, any added scope is noted in your quote upfront — there are no surprise fees. Our crew places, assembles and levels every piece and removes the packaging the same day."
+    },
+    {
+      "q": "How long does delivery to Brampton take?",
+      "a": "Lead times depend on the product, not the location. Stock items typically deliver within one to two weeks; custom or made-to-order pieces run roughly four to twelve weeks by manufacturer. We confirm your delivery window at order confirmation and give advance notice before delivery day."
+    },
+    {
+      "q": "Can Brampton schools, hospitals and municipalities buy without a tender?",
+      "a": "Eligible Ontario broader-public-sector buyers in Brampton — school boards, hospitals and municipalities — can purchase office furniture and installation from us without an open tender under our OECM Supplier Partner agreement, held by our parent legal entity, Brant Basics. Private businesses simply order direct. Call us and we'll confirm your eligibility."
+    }
+  ],
+  "nap": {
+    "legal_parent": "Brant Basics",
+    "brand": "Brant Business Interiors",
+    "hq_address": "296 George St N, Peterborough, ON K9J 3H2",
+    "phone": "1-800-835-9565",
+    "phone_href": "18008359565",
+    "since": "1964"
+  },
+  "cross_links": [
+    {
+      "url": "/pages/oecm",
+      "status": "200 / published"
+    },
+    {
+      "url": "/pages/design-services",
+      "status": "200 / published"
+    },
+    {
+      "url": "/pages/delivery",
+      "status": "200 / published"
+    },
+    {
+      "url": "/pages/quote",
+      "status": "200 / published"
+    },
+    {
+      "url": "/collections/business-furniture",
+      "status": "200 / 648 products"
+    },
+    {
+      "url": "/collections/seating",
+      "status": "200 / 131 products"
+    },
+    {
+      "url": "/collections/desks",
+      "status": "200 / 41 products"
+    }
+  ]
+}
