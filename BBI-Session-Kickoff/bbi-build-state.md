@@ -28,6 +28,27 @@
 
 ---
 
+## 🟢 Day 24 — 2026-06-15 — STEP 6 — REVIEW PAGES: INFRA BUILT + PAGE #1 LIVE & SCHEMA-VERIFIED — doc-only close-out · branch `docs/step6-closeout-2026-06-15` · HALT for review → squash-merge · NOTHING written to store/theme here
+
+**Records Step 6 — the review/comparison page program. Infra + Page #1 shipped + verified in prior LIVE sessions (PR #145); this doc PR only records it. Additive — prior rows untouched. No theme write, no Admin-API write, no published-state change here.**
+
+### Step 6 — Review pages — INFRA BUILT
+
+- **PR #145, squash-merged `6753247`, live on theme `186373570873` (role=main).** Shared infrastructure for the review/comparison page type:
+  - `theme/sections/ds-review-base.liquid` — shared section, settings + blocks-driven (`chair` / `feature` / `faq_item` block types). The spec-comparison reuses the PDP `.pdp-spec-row` grid straight from each chair's `specs.*` metafields (no spec duplication; one source of truth = the product records).
+  - `theme/snippets/bbi-review-product-jsonld.liquid` — clone of `bbi-product-jsonld` emitting an **ItemList of Product nodes**. `aggregateRating` / `review` are **honesty-gated** to `product.metafields.reviews.rating_count > 0` → **dark today** (no owned reviews), auto-activates when reviews are collected.
+
+### Step 6 — Page #1 — Heavy-Duty & 24/7 office chairs — LIVE
+
+- **Template `page.review-heavy-duty.json`.** Page `gid://shopify/Page/172072632633`; handle `best-office-chairs-heavy-duty`; `template_suffix = review-heavy-duty`. **SEO title 58ch / meta 154ch.** Live URL: https://www.brantbusinessinteriors.com/pages/best-office-chairs-heavy-duty.
+- **Carried + verified anchors only:** Raven 400 (OTG10703B), Robust (GLB74475), GC Comet (GC2180-1). **Willow / Lesro excluded** (non-carried).
+- **Live JSON-LD verified 5/5 (2026-06-15 readback of the rendered URL):** exactly one each — **ItemList** (3 Product nodes, each with name / sku / offers + `additionalProperty` specs, each `url`→its own PDP) · **Service** (provider `@id`→`#organization`) · **FAQPage** (6 Q&A, all 6 byte-matched to the visible accordion) · **BreadcrumbList** (3-level, all item URLs absolute `https://…`). **ZERO `Review` / `aggregateRating`** anywhere (correctly dark — no owned reviews). No JSON parse errors, no duplicate nodes.
+- **FLAG (product-data, NOT a Step 6 defect):** Robust `sku` is `GLB2526` vs model `GLB74475`; GC Comet `sku` is `GLB GC2180` (embedded space). Reconcile the canonical SKUs on the product records — **affects the PDPs too**, not just this page.
+
+**Files touched (this doc PR, docs only):** `BBI-Session-Kickoff/bbi-build-state.md` (this section only) · `data/reference/priority-keywords.yaml` (new `/pages/best-office-chairs-heavy-duty` locked-owner entry). No theme write, no Admin-API write, no published-state change. The pre-existing untracked working-tree changes (`docs/strategy/bbi-screens-audit-v1.md` deletion, `scripts/build-step-2-2-payloads.py`, `scripts/verify-step-2-2-render.py`, `data/content-drafts/step-2-2-category-copy.md`, `data/reports/_catalog-feed-snapshot-2026-06-05.json`, `theme/config/`) are **out of scope — NOT staged.** The Day-23 (5b) entry below and all prior rows are **untouched.**
+
+---
+
 ## 🟢 Day 23 — 2026-06-14 — STEP 5b — HEALTHCARE LP DEEPEN — BUILT + LIVE · + STEP 5a STATUS → LIVE/PUBLISHED — doc-only close-out · branch `docs/step5b-closeout-2026-06-14` · HALT for review → squash-merge · NOTHING written to store/theme here
 
 **Locked build order 5a → 5b is complete. This records 5b (built + live) and updates 5a's status (now live/published). Additive status update — prior rows (the Day-22 5a row + the PROGRAM BACKFILL section) are referenced, NOT rewritten.**
