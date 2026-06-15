@@ -28,6 +28,25 @@
 
 ---
 
+## 🟢 Day 27 — 2026-06-15 — STEP 6 — REVIEW PAGE #4 (LAW FIRMS) LIVE & SCHEMA-VERIFIED — doc-only close-out · branch `docs/step6-lawfirms-closeout` · HALT for review → squash-merge · NOTHING written to store/theme here
+
+**Records Step 6 review Page #4 — law-firm office chairs. The final launch review page. Built + shipped live + page resource created & published (PR #151); published 2026-06-15; this doc PR only records it. Additive — prior rows (incl. the Day-26 Page #3, Day-25 Page #2 and Day-24 infra + Page #1 records) untouched. No theme write, no Admin-API write, no published-state change here.**
+
+### Step 6 — Page #4 — Law-firm office chairs — LIVE & SCHEMA-VERIFIED
+
+- **Template-only on `ds-review-base`** — the shared section + `bbi-review-product-jsonld` / `bbi-faq-jsonld` snippets are **UNCHANGED** (Pages #1/#2/#3 intact; no section/schema fork). Template `page.review-law-firms.json` (**PR #151, squash-merged `a9a23c5`**). Page `gid://shopify/Page/172096880953`; handle `best-office-chairs-law-firms`; `template_suffix = review-law-firms`. **SEO title 52ch / meta 143ch.** Live URL: https://www.brantbusinessinteriors.com/pages/best-office-chairs-law-firms. **Published 2026-06-15.**
+- **Carried + verified anchors only** (specs rendered from each product's `specs.*` metafields — zero typed figures): **Ergo Boss** (Global), **Ashton** (OTG), **Brighton MVL2787** (OTG) — **the same three anchors as Page #2, reframed to the law-firm PRODUCT + use-case angle** (partner's chair / leather look for associates / wipe-clean for reception). All ACTIVE + storefront-live; vendor = manufacturer. **No exclusions** (no archived/404/non-carried candidate this page).
+- **Ergo Boss specs are thin** (parked item — `dimensions` / `weight_capacity` / `certifications` metafields absent, so those rows simply do not render; model code / materials / warranty / country only). Nothing fabricated; still a valid `ItemList` node. Carried forward from Page #2: enrich from the Global spec sheet — improves the Ergo Boss PDP too.
+- **Live JSON-LD verified via page-source audit (2026-06-15):** **exactly 1 each** `ItemList` (3 Product nodes) · `Service` (`service-review-law-firms`) · `FAQPage` (5 Q/A) · `BreadcrumbList` (Home → Ergonomic Office Chairs → Office Chairs for Law Firms) + sitewide `Organization`. **ZERO `Review` / `aggregateRating`** anywhere (correctly dark — no owned reviews).
+- **Complements, does not restate:** the published segment article `/blogs/news/office-furniture-ontario-law-firms` (SEGMENT level) and review Page #2 (executive head terms) are cross-linked, not duplicated — this page is PRODUCT + use-case (lawyer intent).
+- **Cross-links (all 200-checked):** `/pages/best-executive-office-chairs` (Page #2 sibling, leant-on for leather-exec depth) · `/pages/ergonomic-office-chairs` (5a chair hub / breadcrumb parent) · `/pages/professional-services` (segment + funnel) · `/blogs/news/office-furniture-ontario-law-firms` (segment editorial) · `/blogs/news/task-chair-vs-executive-chair` · `/collections/seating` (131 products). **Empty `/collections/executive-seating` (200-but-0-products) avoided** in favour of `/collections/seating`.
+
+**OPEN ITEM (carried forward — product-data, NOT a Step 6 defect):** OTG `specs.warranty` on **Ashton** and **Brighton MVL2787** reads "Limited Lifetime Warranty" — this renders straight from the metafield and may overstate OTG's actual warranty (≈ short-term per the enrichment warranty rule). Live site-wide already (these are also Page #2 anchors), not introduced here. **Steve to verify / correct at source**; the fix is data-side and improves the PDPs + Pages #2/#4 together.
+
+**Files touched (this doc PR, docs only):** `BBI-Session-Kickoff/bbi-build-state.md` (this section only) · `data/reference/priority-keywords.yaml` (new `/pages/best-office-chairs-law-firms` locked-owner entry). No theme write, no Admin-API write, no published-state change. The pre-existing untracked working-tree changes are **out of scope — NOT staged.** The Day-26 (Page #3) entry below and all prior rows are **untouched.**
+
+---
+
 ## 🟢 Day 26 — 2026-06-15 — STEP 6 — REVIEW PAGE #3 (MEDICAL & DENTAL CLINICS) LIVE & SCHEMA-VERIFIED — doc-only close-out · branch `docs/step6-clinics-closeout` · HALT for review → squash-merge · NOTHING written to store/theme here
 
 **Records Step 6 review Page #3 — medical & dental clinic chairs. Built + shipped live + page resource created & published (PR #149); published 2026-06-15; this doc PR only records it. Additive — prior rows (incl. the Day-25 Page #2 and Day-24 infra + Page #1 records) untouched. No theme write, no Admin-API write, no published-state change here.**
