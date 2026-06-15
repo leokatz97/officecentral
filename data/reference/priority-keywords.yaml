@@ -230,6 +230,30 @@ pages:
       terms (ergonomic office chair[ canada] / ergonomic task chair / office chair for back pain —
       owned by /pages/ergonomic-office-chairs).
 
+  - id: medical-dental-clinic-chairs
+    role: landing                    # review/comparison landing; funnels to carried clinic patient/guest/staff seating
+    icp: both
+    surface: landing_page            # ds-review-base.liquid + page.review-medical-clinics.json (Step 6 review Page #3)
+    slug: /pages/best-office-chairs-medical-clinics
+    status: locked
+    cta_mode: cart_then_quote
+    primary_keyword: medical office chair
+    secondary_keywords:
+      - dental office chair
+      - office chair for medical clinic
+      - exam room chair
+      - clinic seating
+    note: >-
+      Step 6 review Page #3 (PR #149, page gid://shopify/Page/172096520505, LIVE — published
+      2026-06-15). LOCKED owner of "medical office chair" + the four secondaries above — product +
+      use-case (CHAIR) level. COMPLEMENTS, does NOT cannibalize: /pages/healthcare owns the
+      segment / FURNITURE level (healthcare furniture canada + medical office furniture / dental
+      office furniture — do NOT claim those here) and 5a /pages/ergonomic-office-chairs owns the
+      generic ergonomic chair-hub head terms. De-confliction check 2026-06-15: confirmed no prior
+      owner claimed "medical office chair" (or any of the four secondaries) before locking — the
+      only adjacent collision, "medical office furniture", is healthcare's and was deliberately left
+      out of this page's secondaries.
+
 # Not yet mapped — walkthrough session 2 (this week). Listed so Phase 0 knows they are PENDING, not missing.
 pending_clusters:
   - id: education-library
