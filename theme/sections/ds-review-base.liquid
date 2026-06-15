@@ -1,0 +1,756 @@
+{%- comment -%}
+  Section: ds-review-base  (Step 6 — SHARED review / product-pick hub)
+  Purpose: Reusable, settings+blocks-driven commercial REVIEW page. Page #1 is the
+           Heavy-Duty & 24/7 office chairs hub; pages #2–4 (law firms / clinics /
+           executive) reuse this SAME section and supply their own content via their
+           page.review-*.json template — no per-page section forks.
+  Used by: page.review-heavy-duty.json (handle: best-office-chairs-heavy-duty) and
+           the later review templates.
+  Sections: nav → breadcrumbs → hero → intro (answer-first) + E-E-A-T byline →
+            best-for use-cases → spec COMPARISON (chair blocks, data-driven from each
+            product's specs.* metafields — same single source as the PDP) →
+            what-to-look-for (feature blocks) → cross-link tiles → entity/OECM note →
+            FAQ (faq_item blocks) → CTA closer → footer → entity JSON-LD.
+  Blocks:   `chair`    — one anchor product per block (product picker). Its specs.*
+                         metafields are the ONLY spec source rendered (no hand-typed
+                         figures). Carrier gate: only wire CARRIED products.
+            `feature`  — a "what to look for" / differentiator card.
+            `faq_item` — one Q/A. Visible accordion AND bbi-faq-jsonld are built from
+                         the SAME blocks (question + "||" + answer, split on "~~~"),
+                         so the schema text byte-matches the on-page Q/A (SCHEMA-CRIT-1).
+                         Block copy must never contain "||" or "~~~".
+  JSON-LD:  Organization/LocalBusiness is emitted by bbi-nav → bbi-org-schema and is
+            NOT re-emitted here. After the footer this page emits, exactly once each:
+              • bbi-review-product-jsonld — ItemList of full Product nodes (one per
+                chair block). aggregateRating/review are honesty-gated OFF until a
+                product carries real owned reviews (none today) — never fabricated.
+              • bbi-service-jsonld (id_suffix per template; provider → …/#organization)
+              • bbi-breadcrumb-jsonld (absolute URLs assigned before the render call)
+              • bbi-faq-jsonld (only if faq_item blocks exist)
+  Specs:    No-assumed-specs. Every figure in the comparison comes from the referenced
+            product's specs.* metafields (= data/specs.json, pushed live). Made-in-
+            Canada + warranty are sourced from those metafields (Steve-gated copy).
+  Notes:    Canadian-made / since-1964 copy carries the maple-leaf accent
+            (.bbi-icon--leaf). Reuses the .lp-* vocabulary from ds-lp-* and the
+            .pdp-spec-row grid from ds-pdp-base — no new design tokens.
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+/* ============================================================
+   BBI Design Tokens — DS v2 (shared with ds-lp-*)
+   ============================================================ */
+:root {
+  --bodyFont: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --headingFont: "Inter Tight", "Inter", system-ui, sans-serif;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --inputRadius: 4px; --buttonRadius: 4px; --cardRadius: 8px;
+  --shadow-sm: 0 1px 2px rgba(11,11,12,.04), 0 2px 8px rgba(11,11,12,.05);
+  --saleBadgeBackground: #D4252A;
+  --saleBadgeBackground-rgb: 212,37,42;
+  --fs-h0: 44px; --lh-h0: 1.05; --ls-h0: -0.02em;
+  --fs-h1: 32px; --lh-h1: 1.1; --ls-h1: -0.015em;
+  --fs-h2: 24px; --lh-h2: 1.15; --ls-h2: -0.01em;
+  --fs-h3: 18px; --lh-h3: 1.25;
+  --fs-body: 16px; --lh-body: 1.55;
+  --fs-small: 13px;
+  --fs-button: 15px; --lh-button: 1; --ls-button: 0.01em;
+}
+@media (min-width: 768px) {
+  :root {
+    --fs-h0: 72px; --lh-h0: 1.0;
+    --fs-h1: 48px; --lh-h1: 1.05;
+    --fs-h2: 32px; --lh-h2: 1.1;
+    --fs-h3: 22px; --lh-h3: 1.2;
+    --fs-small: 14px;
+  }
+}
+.lp-ds.scheme-default {
+  --background: #FFFFFF; --background-rgb: 255,255,255;
+  --alternateBackground: #FAFAFA; --alternateBackground-rgb: 250,250,250;
+  --cardBackground: #FFFFFF;
+  --textColor: #0B0B0C; --textColor-rgb: 11,11,12;
+  --linkColor: #0B0B0C; --headingColor: #0B0B0C; --headingColor-rgb: 11,11,12;
+  --buttonBackground: #D4252A; --buttonColor: #FFFFFF; --buttonBorder: #D4252A;
+  --buttonBackgroundHover: #0B0B0C; --buttonColorHover: #FFFFFF; --buttonBorderHover: #0B0B0C;
+  --alternateButtonBackground: #FFFFFF; --alternateButtonColor: #0B0B0C; --alternateButtonBorder: #0B0B0C;
+  --alternateButtonBackgroundHover: #0B0B0C; --alternateButtonColorHover: #FFFFFF; --alternateButtonBorderHover: #0B0B0C;
+  --borderColor: #E5E5E7; --borderColor-rgb: 229,229,231;
+  --shadowColor: #0B0B0C; --shadowColor-rgb: 11,11,12;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+.lp-ds .scheme-inverse {
+  --background: #0B0B0C; --background-rgb: 11,11,12;
+  --alternateBackground: #161618;
+  --textColor: #FFFFFF; --textColor-rgb: 255,255,255;
+  --linkColor: #FFFFFF; --headingColor: #FFFFFF; --headingColor-rgb: 255,255,255;
+  --buttonBackground: #FFFFFF; --buttonColor: #0B0B0C; --buttonBorder: #FFFFFF;
+  --buttonBackgroundHover: #D4252A; --buttonColorHover: #FFFFFF; --buttonBorderHover: #D4252A;
+  --alternateButtonBackground: transparent; --alternateButtonColor: #FFFFFF; --alternateButtonBorder: #FFFFFF;
+  --alternateButtonBackgroundHover: #FFFFFF; --alternateButtonColorHover: #0B0B0C; --alternateButtonBorderHover: #FFFFFF;
+  --borderColor: #1F1F21;
+}
+
+/* ============================================================
+   Base + Shared Components
+   ============================================================ */
+.lp-ds *, .lp-ds *::before, .lp-ds *::after { box-sizing: border-box; }
+.lp-ds { font-family: var(--bodyFont); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--textColor); background: var(--background); -webkit-font-smoothing: antialiased; }
+.lp-ds img { display: block; max-width: 100%; height: auto; }
+.lp-ds a { color: var(--linkColor); }
+.lp-ds .bbi-mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.lp-ds .bbi-icon--leaf { display: inline-block; width: 14px; height: 14px; vertical-align: -2px; color: #D4252A; flex-shrink: 0; }
+.lp-ds .bbi-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2); padding: 12px 20px; min-height: 44px;
+  font-family: var(--bodyFont); font-size: var(--fs-button); line-height: var(--lh-button);
+  letter-spacing: var(--ls-button); font-weight: 600; border-radius: var(--buttonRadius);
+  border: 1px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  white-space: nowrap;
+}
+.lp-ds .bbi-btn:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; }
+.lp-ds .bbi-btn--lg { min-height: 52px; padding: 16px 24px; font-size: 16px; }
+.lp-ds .bbi-btn--full { width: 100%; }
+.lp-ds .bbi-btn--primary { background: var(--buttonBackground); color: var(--buttonColor); border-color: var(--buttonBorder); }
+.lp-ds .bbi-btn--primary:hover { background: var(--buttonBackgroundHover); color: var(--buttonColorHover); border-color: var(--buttonBorderHover); }
+.lp-ds .bbi-btn--secondary { background: var(--alternateButtonBackground); color: var(--alternateButtonColor); border-color: var(--alternateButtonBorder); }
+.lp-ds .bbi-btn--secondary:hover { background: var(--alternateButtonBackgroundHover); color: var(--alternateButtonColorHover); border-color: var(--alternateButtonBorderHover); }
+.lp-ds .arrow { display: inline-block; transition: transform 120ms ease; }
+.lp-ds .bbi-btn:hover .arrow { transform: translateX(3px); }
+.lp-ds .bbi-badge--oecm {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; background: #F0F4FF; color: #0B0B0C;
+  border: 1px solid #CBD5F0; border-radius: 4px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.lp-ds .bbi-badge--oecm .dot { width: 6px; height: 6px; border-radius: 50%; background: #2563EB; flex-shrink: 0; }
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.lp-hero { background: var(--alternateBackground); padding: var(--space-16) 0; }
+.lp-hero__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 1fr; gap: var(--space-12); align-items: center; }
+@media (min-width: 768px) { .lp-hero__inner { grid-template-columns: 1fr 1fr; gap: var(--space-16); } }
+.lp-hero__eyebrow { color: var(--textColor); opacity: 0.55; margin: 0 0 var(--space-4); }
+.lp-hero__eyebrow-label { opacity: 1; }
+.lp-hero__text h1 { font-family: var(--headingFont); font-size: var(--fs-h0); line-height: var(--lh-h0); letter-spacing: var(--ls-h0); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-6); }
+.lp-hero__standfirst { font-size: 18px; line-height: 1.6; color: var(--textColor); opacity: 0.8; margin: 0 0 var(--space-8); max-width: 540px; }
+.lp-hero__cta-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+.lp-hero__media { border-radius: var(--cardRadius); overflow: hidden; }
+.lp-hero__media img { width: 100%; height: 400px; object-fit: cover; border-radius: var(--cardRadius); }
+.lp-hero__badge { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 var(--space-6); font-size: 13px; font-weight: 600; color: var(--textColor); }
+.lp-hero__badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--saleBadgeBackground); flex-shrink: 0; }
+
+/* ============================================================
+   Intro (answer-first) + E-E-A-T byline
+   ============================================================ */
+.lp-intro { background: var(--background); padding: var(--space-16) 0; }
+.lp-intro__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-intro__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.lp-intro__inner h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-6); max-width: 760px; text-wrap: balance; }
+.lp-intro__byline { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.5; color: rgba(var(--textColor-rgb), 0.6); margin: 0 0 var(--space-8); max-width: 760px; }
+.lp-intro__byline .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saleBadgeBackground); flex-shrink: 0; margin-top: 5px; }
+.lp-intro__byline b { color: rgba(var(--textColor-rgb), 0.85); font-weight: 600; }
+.lp-intro__body { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+@media (min-width: 768px) { .lp-intro__body { grid-template-columns: 1fr 1fr; } }
+.lp-intro__body p { margin: 0; line-height: 1.7; }
+.lp-intro__body h3 { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-2); }
+
+/* ============================================================
+   Diff / best-for / what-to-look-for grids (shared .lp-diff)
+   ============================================================ */
+.lp-diff { background: var(--alternateBackground); padding: var(--space-16) 0; border-top: 1px solid var(--borderColor); border-bottom: 1px solid var(--borderColor); }
+.lp-diff__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-diff__head { margin-bottom: var(--space-12); }
+.lp-diff__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.lp-diff__head h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0; max-width: 640px; }
+.lp-diff__head p.lp-diff__sub { font-size: 16px; line-height: 1.6; color: var(--textColor); opacity: 0.7; margin: var(--space-4) 0 0; max-width: 680px; }
+.lp-diff__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+@media (min-width: 640px) { .lp-diff__grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .lp-diff__grid { grid-template-columns: repeat(4, 1fr); } }
+.lp-diff__grid--3 { grid-template-columns: 1fr; }
+@media (min-width: 640px) { .lp-diff__grid--3 { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .lp-diff__grid--3 { grid-template-columns: repeat(3, 1fr); } }
+.lp-diff-card { background: var(--cardBackground); border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+.lp-diff-card__num { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--textColor); opacity: 0.35; }
+.lp-diff-card__icon { width: 36px; height: 36px; color: var(--textColor); }
+.lp-diff-card__icon svg { width: 100%; height: 100%; }
+.lp-diff-card__label { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0; }
+.lp-diff-card__sentence { font-size: 14px; line-height: 1.6; color: var(--textColor); opacity: 0.75; margin: 0; }
+.lp-diff-card__meta { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--textColor); opacity: 0.55; margin: 0; }
+
+/* ============================================================
+   Spec COMPARISON (chair cards) — reuses .pdp-spec-row from ds-pdp-base
+   ============================================================ */
+.rev-compare { background: var(--background); padding: var(--space-16) 0; }
+.rev-compare__inner { max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+.rev-compare__head { margin-bottom: var(--space-12); }
+.rev-compare__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.rev-compare__head h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0; max-width: 680px; text-wrap: balance; }
+.rev-compare__head p.rev-compare__sub { font-size: 16px; line-height: 1.6; color: var(--textColor); opacity: 0.7; margin: var(--space-4) 0 0; max-width: 720px; }
+.rev-compare__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+@media (min-width: 720px) { .rev-compare__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .rev-compare__grid { grid-template-columns: repeat(3, 1fr); } }
+.rev-card { background: var(--cardBackground); border: 1px solid var(--borderColor); border-radius: var(--cardRadius); padding: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
+.rev-card__pick { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(var(--saleBadgeBackground-rgb), 0.08); color: var(--saleBadgeBackground); border: 1px solid rgba(var(--saleBadgeBackground-rgb), 0.25); border-radius: 4px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+.rev-card__media { border-radius: var(--inputRadius); overflow: hidden; background: var(--alternateBackground); aspect-ratio: 4 / 3; }
+.rev-card__media img { width: 100%; height: 100%; object-fit: contain; }
+.rev-card__meta { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--textColor); opacity: 0.55; margin: 0; }
+.rev-card__title { font-family: var(--headingFont); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--headingColor); margin: 0; }
+.rev-card__title a { color: var(--headingColor); text-decoration: none; }
+.rev-card__title a:hover { text-decoration: underline; }
+.rev-card__bestfor { font-size: 14px; line-height: 1.6; color: var(--textColor); opacity: 0.8; margin: 0; }
+.rev-card__cta { margin-top: auto; }
+.rev-card__cta .bbi-btn { width: 100%; }
+/* lifted from ds-pdp-base — spec rows inside each comparison card */
+.rev-card .pdp-specs-table { border-top: 1px solid var(--textColor); margin-top: var(--space-2); }
+.rev-card .pdp-spec-row { display: grid; grid-template-columns: 38% 62%; gap: var(--space-3); padding: 12px 0; border-bottom: 1px solid var(--borderColor); }
+.rev-card .pdp-spec-row__label { font-family: var(--font-mono, monospace); font-size: 10px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(var(--textColor-rgb), 0.6); }
+.rev-card .pdp-spec-row__value { font-size: 14px; line-height: 1.5; color: var(--textColor); }
+.rev-card .pdp-spec-row__value ul { list-style: none; padding: 0; margin: 0; }
+.rev-card .pdp-spec-row__value li { position: relative; padding-left: 18px; margin-bottom: 4px; }
+.rev-card .pdp-spec-row__value li:last-child { margin-bottom: 0; }
+.rev-card .pdp-spec-row__value li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 9px; height: 1px; background: var(--textColor); }
+
+/* ============================================================
+   Cross-link tiles (Session A standardization)
+   ============================================================ */
+.lp-ds .lp-crosslinks{padding:var(--space-16) 0;background:var(--background);border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-ds .lp-crosslinks__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-ds .lp-crosslinks__head{margin-bottom:var(--space-8);}
+.lp-ds .lp-crosslinks__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-3);}
+.lp-ds .lp-crosslinks__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-ds .lp-crosslinks h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;text-wrap:balance;}
+.lp-ds .lp-crosslinks__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);}
+.lp-ds .lp-crosslinks__tile{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--space-4);padding:var(--space-6);background:var(--background);border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);transition:background-color 160ms ease,border-color 160ms ease;}
+.lp-ds .lp-crosslinks__tile:hover{background:var(--alternateBackground);}
+.lp-ds .lp-crosslinks__tile-icon{width:28px;height:28px;color:rgba(var(--textColor-rgb),0.55);}
+.lp-ds .lp-crosslinks__tile-label{display:flex;flex-direction:column;gap:2px;}
+.lp-ds .lp-crosslinks__tile-name{font-family:var(--headingFont);font-size:18px;font-weight:600;color:var(--headingColor);}
+.lp-ds .lp-crosslinks__tile-meta{font-size:13px;color:rgba(var(--textColor-rgb),0.6);font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0.04em;}
+.lp-ds .lp-crosslinks__tile-arrow{width:18px;height:18px;color:rgba(var(--textColor-rgb),0.55);transition:transform 160ms ease;}
+.lp-ds .lp-crosslinks__tile:hover .lp-crosslinks__tile-arrow{transform:translateX(4px);color:var(--textColor);}
+
+/* ============================================================
+   Entity / OECM note
+   ============================================================ */
+.lp-ds .lp-entity-note{padding:var(--space-12) 0;background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-ds .lp-entity-note__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-6);}
+.lp-ds .lp-entity-note__badge{flex-shrink:0;}
+.lp-ds .lp-entity-note p{font-size:13px;line-height:1.55;color:rgba(var(--textColor-rgb),0.65);margin:0;text-wrap:pretty;max-width:88ch;}
+.lp-ds .lp-entity-note b{color:rgba(var(--textColor-rgb),0.85);font-weight:600;}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.lp-faq { background: var(--background); padding: var(--space-16) 0; }
+.lp-faq__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+.lp-faq__head { margin-bottom: var(--space-12); }
+.lp-faq__eyebrow { color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.lp-faq__head h2 { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0; max-width: 700px; }
+.lp-faq__item { border-bottom: 1px solid var(--borderColor); }
+.lp-faq__trigger { width: 100%; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-6) 0; background: none; border: none; cursor: pointer; text-align: left; font-family: var(--bodyFont); font-size: 16px; font-weight: 600; color: var(--headingColor); }
+.lp-faq__trigger:focus-visible { outline: 2px solid var(--textColor); outline-offset: 2px; border-radius: 2px; }
+.lp-faq__trigger-num { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--textColor); opacity: 0.35; flex-shrink: 0; width: 22px; }
+.lp-faq__trigger span:nth-child(2) { flex: 1; }
+.lp-faq__chevron { flex-shrink: 0; transition: transform 200ms ease; color: var(--textColor); opacity: 0.5; }
+.lp-faq__item--open .lp-faq__chevron { transform: rotate(180deg); }
+.lp-faq__answer { display: none; padding: 0 0 var(--space-6) calc(22px + var(--space-4)); }
+.lp-faq__item--open .lp-faq__answer { display: block; }
+.lp-faq__answer p { margin: 0 0 var(--space-4); line-height: 1.7; }
+.lp-faq__answer p:last-child { margin-bottom: 0; }
+
+/* ============================================================
+   CTA Closer
+   ============================================================ */
+.bbi-cta-section { padding: var(--space-16) 0; background: var(--background); }
+.bbi-cta-section__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); display: grid; grid-template-columns: 1fr; gap: var(--space-12); align-items: center; }
+@media (min-width: 768px) { .bbi-cta-section__inner { grid-template-columns: 1fr auto; } }
+.bbi-cta-section__eyebrow { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--textColor); opacity: 0.5; margin: 0 0 var(--space-4); }
+.bbi-cta-section__heading { font-family: var(--headingFont); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--headingColor); margin: 0 0 var(--space-4); }
+.bbi-cta-section__sub { font-size: 16px; line-height: 1.65; color: var(--textColor); opacity: 0.75; margin: 0; max-width: 520px; }
+.bbi-cta-section__actions { display: flex; flex-direction: column; gap: var(--space-4); align-items: flex-start; }
+.bbi-cta-section__trust { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--textColor); opacity: 0.75; line-height: 1.5; }
+.bbi-cta-section__trust .dot { width: 6px; height: 6px; border-radius: 50%; background: #D4252A; flex-shrink: 0; margin-top: 4px; }
+.bbi-cta-section__trust a { color: var(--linkColor); }
+
+@media(max-width:980px){
+  .lp-ds .bbi-footer__top{grid-template-columns:1fr;gap:var(--space-8);}
+  .lp-ds .bbi-footer__cols{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:640px){
+  .lp-ds .bbi-footer__cols{grid-template-columns:1fr;}
+}
+@media(max-width:1023px){.lp-ds .lp-crosslinks__grid{grid-template-columns:1fr;}}
+</style>
+
+<div class="lp-ds scheme-default">
+
+  {%- render 'bbi-nav', logo: section.settings.logo, active: 'shop' -%}
+
+  <!-- BREADCRUMBS (visible band mirrors the BreadcrumbList JSON-LD below) -->
+  {%- render 'bbi-crumbs',
+      c2_label: section.settings.crumb_parent_label | default: 'Ergonomic Office Chairs',
+      c2_href: section.settings.crumb_parent_href | default: '/pages/ergonomic-office-chairs',
+      c3_label: section.settings.crumb_label | default: 'Heavy-Duty & 24/7 Office Chairs' -%}
+
+  <!-- HERO -->
+  <section class="lp-hero" aria-label="Hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <p class="lp-hero__eyebrow bbi-mono">
+          <span class="lp-hero__eyebrow-label">{{ section.settings.hero_eyebrow | default: 'Shop · Heavy-Duty & 24/7 Chairs' }}</span>
+        </p>
+        <span class="lp-hero__badge">
+          <span class="lp-hero__badge-dot"></span>
+          Ontario supplier since 1964 <svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg>
+        </span>
+        <h1>{{ section.settings.hero_heading | default: 'The best heavy-duty & 24/7 office chairs for Canadian workplaces.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.hero_standfirst | default: 'Big-and-tall, bariatric, and multi-shift seating rated to 400 and 500 lb — specified, delivered, and installed across Ontario by Brant Business Interiors since 1964.' }}</p>
+        <div class="lp-hero__cta-row">
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.hero_cta_primary_url | default: '/collections/big-heavy-seating' }}">{{ section.settings.hero_cta_primary_label | default: 'Browse heavy-duty seating' }} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }}</a>
+        </div>
+      </div>
+      <div class="lp-hero__media" aria-hidden="true">
+        {%- if section.settings.hero_image != blank -%}
+          {{ section.settings.hero_image | image_url: width: 900 | image_tag: loading: 'eager', fetchpriority: 'high', width: 900, alt: section.settings.hero_image.alt | default: section.settings.hero_heading | default: 'Heavy-duty office chairs — Brant Business Interiors' }}
+        {%- else -%}
+          <img src="https://cdn.shopify.com/s/files/1/0859/0413/0361/files/design-services-product.png?v=1778074380" alt="{{ section.settings.hero_heading | default: 'Heavy-duty office chairs — Brant Business Interiors' | escape }}" loading="eager" width="900" height="400">
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO (answer-first) + E-E-A-T byline -->
+  <section class="lp-intro" aria-label="About heavy-duty and 24/7 office chairs">
+    <div class="lp-intro__inner">
+      <p class="lp-intro__eyebrow bbi-mono">{{ section.settings.intro_eyebrow | default: 'The short answer' }}</p>
+      <h2>{{ section.settings.intro_heading | default: 'The best heavy-duty office chair is the one rated for the weight and the hours it will actually carry.' }}</h2>
+      <p class="lp-intro__byline">
+        <span class="dot"></span>
+        <span>{{ section.settings.eeat_note | default: 'Specified by Brant Business Interiors — authorized contract-seating dealer and OECM Supplier Partner, supplying and installing office chairs across Ontario since 1964.' }}</span>
+      </p>
+      <div class="lp-intro__body">
+        <div>
+          <h3>{{ section.settings.intro_h3_1 | default: 'What "heavy-duty" actually means' }}</h3>
+          <p>{{ section.settings.intro_para1 | default: 'A heavy-duty office chair is built and weight-rated for bigger bodies and longer hours than a standard task chair — typically a 400 or 500 lb capacity, a reinforced mechanism and base, and, for control rooms and dispatch desks, a 24/7 occupancy rating. For most Canadian workplaces the right pick comes down to three numbers: the heaviest user it must support, whether it runs one shift or around the clock, and whether it is for a desk, a waiting room, or a clinical space.' }}</p>
+        </div>
+        <div>
+          <h3>{{ section.settings.intro_h3_2 | default: 'Why buy through Brant Business Interiors' }}</h3>
+          <p>{{ section.settings.intro_para2 | default: 'We carry contract-grade heavy-duty seating from Global Furniture Group and Offices to Go, match the model to who is sitting and for how long, and deliver and install it with our own Ontario crew. One contact for the quote, the delivery, and any warranty service after — not a carton you assemble and register yourself.' }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST-FOR USE-CASES -->
+  {%- if section.settings.bestfor_1_label != blank or section.settings.bestfor_2_label != blank or section.settings.bestfor_3_label != blank or section.settings.bestfor_4_label != blank -%}
+  <section class="lp-diff" aria-label="Who heavy-duty seating is for" style="background:var(--background);border-top:none;">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">{{ section.settings.bestfor_eyebrow | default: 'Best for' }}</p>
+        <h2>{{ section.settings.bestfor_heading | default: 'Built for the desks a standard chair cannot carry.' }}</h2>
+      </div>
+      <div class="lp-diff__grid">
+        {%- assign bf_n = 0 -%}
+        {%- for i in (1..4) -%}
+          {%- assign lbl_key = 'bestfor_' | append: i | append: '_label' -%}
+          {%- assign bdy_key = 'bestfor_' | append: i | append: '_body' -%}
+          {%- assign lbl = section.settings[lbl_key] -%}
+          {%- assign bdy = section.settings[bdy_key] -%}
+          {%- if lbl != blank -%}
+            {%- assign bf_n = bf_n | plus: 1 -%}
+            <article class="lp-diff-card">
+              <span class="lp-diff-card__num">0{{ bf_n }}</span>
+              <h3 class="lp-diff-card__label">{{ lbl }}</h3>
+              <p class="lp-diff-card__sentence">{{ bdy }}</p>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  <!-- SPEC COMPARISON (chair blocks — every figure from the product's specs.* metafields) -->
+  {%- assign chair_blocks = section.blocks | where: 'type', 'chair' -%}
+  {%- if chair_blocks.size > 0 -%}
+  <section class="rev-compare" aria-label="Heavy-duty office chairs compared">
+    <div class="rev-compare__inner">
+      <div class="rev-compare__head">
+        <p class="rev-compare__eyebrow bbi-mono">{{ section.settings.compare_eyebrow | default: 'Compared · chairs we carry' }}</p>
+        <h2>{{ section.settings.compare_heading | default: 'Three heavy-duty chairs, side by side.' }}</h2>
+        {%- if section.settings.compare_sub != blank -%}<p class="rev-compare__sub">{{ section.settings.compare_sub }}</p>{%- endif -%}
+      </div>
+      <div class="rev-compare__grid">
+        {%- for block in chair_blocks -%}
+          {%- assign cp = block.settings.chair_product -%}
+          {%- if cp == blank -%}{%- continue -%}{%- endif -%}
+          {%- liquid
+            assign c_manufacturer = cp.metafields.specs.manufacturer.value
+            assign c_model        = cp.metafields.specs.model_codes.value
+            assign c_dimensions   = cp.metafields.specs.dimensions.value
+            assign c_weight_cap   = cp.metafields.specs.weight_capacity.value
+            assign c_materials    = cp.metafields.specs.materials.value
+            assign c_certs        = cp.metafields.specs.certifications.value
+            assign c_warranty     = cp.metafields.specs.warranty.value
+            assign c_country      = cp.metafields.specs.country_of_manufacture.value
+          -%}
+          <article class="rev-card" {{ block.shopify_attributes }}>
+            {%- if block.settings.pick_label != blank -%}
+              <span class="rev-card__pick">{{ block.settings.pick_label }}</span>
+            {%- endif -%}
+            <div class="rev-card__media">
+              {%- if cp.featured_image != blank -%}
+                {{ cp.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', width: 480, alt: cp.featured_image.alt | default: cp.title }}
+              {%- endif -%}
+            </div>
+            <p class="rev-card__meta">{{ c_manufacturer | default: cp.vendor | escape }}{% if c_model != blank %} · {{ c_model | join: ', ' | escape }}{% endif %}</p>
+            <h3 class="rev-card__title"><a href="{{ cp.url }}">{{ cp.title | escape }}</a></h3>
+            {%- if block.settings.best_for != blank -%}
+              <p class="rev-card__bestfor">{{ block.settings.best_for }}</p>
+            {%- endif -%}
+            <div class="pdp-specs-table">
+              {%- if c_weight_cap != blank -%}
+                <div class="pdp-spec-row"><span class="pdp-spec-row__label">Weight Capacity</span><span class="pdp-spec-row__value">{{ c_weight_cap | escape }}</span></div>
+              {%- endif -%}
+              {%- if c_dimensions != blank -%}
+                <div class="pdp-spec-row"><span class="pdp-spec-row__label">Dimensions</span><span class="pdp-spec-row__value">{{ c_dimensions | escape }}</span></div>
+              {%- endif -%}
+              {%- if c_certs != blank and c_certs.size > 0 -%}
+                <div class="pdp-spec-row"><span class="pdp-spec-row__label">Certifications</span><span class="pdp-spec-row__value"><ul>{%- for c in c_certs -%}<li>{{ c | escape }}</li>{%- endfor -%}</ul></span></div>
+              {%- endif -%}
+              {%- if c_materials != blank -%}
+                <div class="pdp-spec-row"><span class="pdp-spec-row__label">Materials</span><span class="pdp-spec-row__value">{{ c_materials | escape }}</span></div>
+              {%- endif -%}
+              {%- if c_warranty != blank -%}
+                <div class="pdp-spec-row"><span class="pdp-spec-row__label">Warranty</span><span class="pdp-spec-row__value">{{ c_warranty | escape }}</span></div>
+              {%- endif -%}
+              {%- if c_country != blank -%}
+                <div class="pdp-spec-row"><span class="pdp-spec-row__label">Made In</span><span class="pdp-spec-row__value">{% if c_country contains 'Canada' %}<svg class="bbi-icon bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg> {% endif %}{{ c_country | escape }}</span></div>
+              {%- endif -%}
+            </div>
+            <div class="rev-card__cta">
+              <a class="bbi-btn bbi-btn--secondary" href="{{ cp.url }}">View details &amp; request a quote <span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  <!-- WHAT TO LOOK FOR (feature blocks) -->
+  {%- assign feature_blocks = section.blocks | where: 'type', 'feature' -%}
+  {%- if feature_blocks.size > 0 -%}
+  <section class="lp-diff" aria-label="What to look for in a heavy-duty office chair">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">{{ section.settings.feature_eyebrow | default: 'What to look for' }}</p>
+        <h2>{{ section.settings.feature_heading | default: 'How to choose a heavy-duty chair that lasts.' }}</h2>
+        {%- if section.settings.feature_sub != blank -%}<p class="lp-diff__sub">{{ section.settings.feature_sub }}</p>{%- endif -%}
+      </div>
+      <div class="lp-diff__grid{% if feature_blocks.size == 3 %} lp-diff__grid--3{% endif %}">
+        {%- for block in feature_blocks -%}
+          <article class="lp-diff-card" {{ block.shopify_attributes }}>
+            <span class="lp-diff-card__num">0{{ forloop.index }}</span>
+            <span class="lp-diff-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <h3 class="lp-diff-card__label">{{ block.settings.feat_title }}</h3>
+            <p class="lp-diff-card__sentence">{{ block.settings.feat_body }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  <!-- CROSS-LINK TILES (settings-driven; a tile renders only when its URL is set) -->
+  {%- if section.settings.xlink_1_url != blank or section.settings.xlink_2_url != blank or section.settings.xlink_3_url != blank or section.settings.xlink_4_url != blank or section.settings.xlink_5_url != blank or section.settings.xlink_6_url != blank -%}
+  <section class="lp-crosslinks" aria-label="Browse the range and read the buying guides">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">{{ section.settings.xlink_eyebrow | default: 'Browse & compare' }}</p>
+        <h2>{{ section.settings.xlink_heading | default: 'Keep exploring heavy-duty seating.' }}</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+        {%- for i in (1..6) -%}
+          {%- assign xu_key = 'xlink_' | append: i | append: '_url' -%}
+          {%- assign xn_key = 'xlink_' | append: i | append: '_label' -%}
+          {%- assign xm_key = 'xlink_' | append: i | append: '_meta' -%}
+          {%- assign xu = section.settings[xu_key] -%}
+          {%- assign xn = section.settings[xn_key] -%}
+          {%- assign xm = section.settings[xm_key] -%}
+          {%- if xu != blank -%}
+          <a href="{{ xu }}" class="lp-crosslinks__tile">
+            <span class="lp-crosslinks__tile-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="5" y="3" width="18" height="22" rx="2"/><path d="M9 8 H19 M9 12 H19 M9 16 H15"/></svg></span>
+            <span class="lp-crosslinks__tile-label"><span class="lp-crosslinks__tile-name">{{ xn | default: 'Learn more' }}</span>{% if xm != blank %}<span class="lp-crosslinks__tile-meta">{{ xm }}</span>{% endif %}</span>
+            <span class="lp-crosslinks__tile-arrow"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg></span>
+          </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  <!-- ENTITY / OECM NOTE -->
+  <section class="lp-entity-note" aria-label="Legal entity and OECM registration">
+    <div class="lp-entity-note__inner">
+      <span class="lp-entity-note__badge bbi-badge bbi-badge--oecm">
+        <span class="dot"></span>
+        OECM Supplier Partner
+      </span>
+      <p>{{ section.settings.entity_note | default: '<b>Brant Business Interiors</b> is registered under our parent legal entity, Brant Basics, as an authorized OECM Supplier Partner. Eligible Ontario broader-public-sector buyers — school boards, hospitals, and municipalities — can purchase heavy-duty and 24/7 office chairs from us without an open tender. Family-owned and supplying Ontario workplaces since 1964, from 296 George St N, Peterborough, ON K9J 3H2.' }}</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  {%- comment -%}
+    Byte-match (SCHEMA-CRIT-1): the visible accordion below and the faq_items list passed
+    to bbi-faq-jsonld (after the footer) are built from the SAME faq_item blocks. Visible
+    Q/A use `| escape`; the snippet serializes the same strings via `| json`. No divergent
+    transforms. Block copy must contain neither "||" (the Q/A delimiter) nor "~~~" (the
+    entry delimiter used to assemble the list — see below).
+  {%- endcomment -%}
+  {%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
+  {%- if faq_blocks.size > 0 -%}
+  <section class="lp-faq" aria-label="Frequently asked questions">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <p class="lp-faq__eyebrow bbi-mono">Common questions</p>
+        <h2>{{ section.settings.faq_heading | default: 'Heavy-duty office chairs — common buyer questions.' }}</h2>
+      </div>
+      <div class="lp-faq__list" id="rev-faq-list">
+        {%- for block in faq_blocks -%}
+          <div class="lp-faq__item{% if forloop.first %} lp-faq__item--open{% endif %}" {{ block.shopify_attributes }}>
+            <button class="lp-faq__trigger" aria-expanded="{{ forloop.first | json }}">
+              <span class="lp-faq__trigger-num">0{{ forloop.index }}</span>
+              <span>{{ block.settings.question | escape }}</span>
+              <span class="lp-faq__chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 6 L8 11 L13 6"/></svg></span>
+            </button>
+            <div class="lp-faq__answer">
+              <p>{{ block.settings.answer | escape }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  <!-- CTA CLOSER -->
+  <section class="bbi-cta-section scheme-inverse" aria-label="Call to action">
+    <div class="bbi-cta-section__inner">
+      <div>
+        <p class="bbi-cta-section__eyebrow">Request a quote</p>
+        <h2 class="bbi-cta-section__heading">{{ section.settings.closer_heading | default: 'Spec your heavy-duty chairs with a real person.' }}</h2>
+        <p class="bbi-cta-section__sub">{{ section.settings.closer_sub | default: 'Tell us the heaviest user, the shift pattern, and the headcount. We will quote the right heavy-duty or 24/7 chairs for your people — delivered and installed across Ontario.' }}</p>
+      </div>
+      <div class="bbi-cta-section__actions">
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="{{ section.settings.closer_cta_url | default: '/pages/quote' }}">{{ section.settings.closer_cta_label | default: 'Request a Quote' }} <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="tel:{{ section.settings.phone_href | default: '18008359565' }}" aria-label="Call Brant Business Interiors at {{ section.settings.phone | default: '1-800-835-9565' }}">Call {{ section.settings.phone | default: '1-800-835-9565' }}</a>
+        <div class="bbi-cta-section__trust">
+          <span class="dot"></span>
+          <span><b>Brant Business Interiors</b> &middot; 296 George St N, Peterborough, ON K9J 3H2 &middot; <a href="tel:18008359565">1-800-835-9565</a> &middot; supplying Ontario since 1964.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
+
+  {%- comment -%} ── Entity JSON-LD (after footer). Organization/LocalBusiness is emitted by bbi-nav → bbi-org-schema and is NOT re-emitted here. ── {%- endcomment -%}
+
+  {%- comment -%} ItemList of full Product nodes (one per chair block). Honesty-gated aggregateRating off (no owned reviews). {%- endcomment -%}
+  {%- render 'bbi-review-product-jsonld',
+      chair_blocks: chair_blocks,
+      list_name: section.settings.compare_heading | default: 'Heavy-duty & 24/7 office chairs compared'
+  -%}
+
+  {%- render 'bbi-service-jsonld',
+    service_name: section.settings.service_name | default: 'Heavy-Duty & 24/7 Office Chair Supply, Delivery and Installation',
+    service_description: section.settings.service_description | default: 'Commercial heavy-duty and 24/7 office chair supply for Ontario businesses and institutions — big-and-tall and bariatric seating rated to 400 and 500 lb and chairs built for around-the-clock use, from the brands Brant Business Interiors carries. Specified to your people and delivered and installed by our own Ontario crew. Authorized dealer with local warranty support; OECM Supplier Partner for eligible broader-public-sector buyers.',
+    service_type: 'Heavy-duty office chair supply and installation',
+    area_served: section.settings.service_area | default: 'Ontario, Canada',
+    id_suffix: section.settings.service_id_suffix | default: 'service-review-heavy-duty'
+  -%}
+
+  {%- comment -%} BreadcrumbList — mirrors the visible crumb band. Build absolute URLs before the render (render does NOT apply filters to argument values). {%- endcomment -%}
+  {%- liquid
+    assign bc_home_url = shop.url
+    assign bc_parent_path = section.settings.crumb_parent_href | default: '/pages/ergonomic-office-chairs'
+    assign bc_parent_url = shop.url | append: bc_parent_path
+    assign bc_self_url = canonical_url
+  -%}
+  {%- render 'bbi-breadcrumb-jsonld',
+      bc1_name: 'Home',
+      bc1_url: bc_home_url,
+      bc2_name: section.settings.crumb_parent_label | default: 'Ergonomic Office Chairs',
+      bc2_url: bc_parent_url,
+      bc3_name: section.settings.crumb_label | default: 'Heavy-Duty & 24/7 Office Chairs',
+      bc3_url: bc_self_url
+  -%}
+
+  {%- comment -%} Build faq_items ("Question||Answer" per block) from the SAME blocks the accordion renders, then split into the array bbi-faq-jsonld expects. {%- endcomment -%}
+  {%- liquid
+    assign faq_build = ''
+    for block in faq_blocks
+      if block.settings.question != blank and block.settings.answer != blank
+        assign faq_build = faq_build | append: block.settings.question | append: '||' | append: block.settings.answer | append: '~~~'
+      endif
+    endfor
+    assign faq_items = faq_build | split: '~~~'
+  -%}
+  {%- render 'bbi-faq-jsonld', faq_items: faq_items -%}
+
+</div><!-- /lp-ds -->
+
+<script>
+(function() {
+  var list = document.getElementById('rev-faq-list');
+  if (!list) return;
+  list.addEventListener('click', function(e) {
+    var btn = e.target.closest('.lp-faq__trigger');
+    if (!btn) return;
+    var item = btn.closest('.lp-faq__item');
+    var isOpen = item.classList.contains('lp-faq__item--open');
+    list.querySelectorAll('.lp-faq__item--open').forEach(function(el) {
+      el.classList.remove('lp-faq__item--open');
+      el.querySelector('.lp-faq__trigger').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('lp-faq__item--open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Review / Product-Pick Hub",
+  "tag": "section",
+  "class": "ds-review-base",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Header logo" },
+    { "type": "header", "content": "Breadcrumb" },
+    { "type": "text", "id": "crumb_parent_label", "label": "Parent crumb label", "default": "Ergonomic Office Chairs" },
+    { "type": "text", "id": "crumb_parent_href", "label": "Parent crumb href", "default": "/pages/ergonomic-office-chairs" },
+    { "type": "text", "id": "crumb_label", "label": "Current crumb label", "default": "Heavy-Duty & 24/7 Office Chairs" },
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "Shop · Heavy-Duty & 24/7 Chairs" },
+    { "type": "text", "id": "hero_heading", "label": "H1 heading", "default": "The best heavy-duty & 24/7 office chairs for Canadian workplaces." },
+    { "type": "textarea", "id": "hero_standfirst", "label": "Standfirst paragraph", "default": "Big-and-tall, bariatric, and multi-shift seating rated to 400 and 500 lb — specified, delivered, and installed across Ontario by Brant Business Interiors since 1964." },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "text", "id": "hero_cta_primary_label", "label": "Hero CTA label", "default": "Browse heavy-duty seating" },
+    { "type": "url", "id": "hero_cta_primary_url", "label": "Hero CTA URL (default: /collections/big-heavy-seating)" },
+    { "type": "header", "content": "Phone" },
+    { "type": "text", "id": "phone", "label": "Phone (display)", "default": "1-800-835-9565" },
+    { "type": "text", "id": "phone_href", "label": "Phone (href, digits only)", "default": "18008359565" },
+    { "type": "header", "content": "Intro (answer-first) + E-E-A-T" },
+    { "type": "text", "id": "intro_eyebrow", "label": "Eyebrow", "default": "The short answer" },
+    { "type": "textarea", "id": "intro_heading", "label": "Heading (answer-first)", "default": "The best heavy-duty office chair is the one rated for the weight and the hours it will actually carry." },
+    { "type": "textarea", "id": "eeat_note", "label": "E-E-A-T byline", "default": "Specified by Brant Business Interiors — authorized contract-seating dealer and OECM Supplier Partner, supplying and installing office chairs across Ontario since 1964." },
+    { "type": "text", "id": "intro_h3_1", "label": "Column 1 heading", "default": "What \"heavy-duty\" actually means" },
+    { "type": "textarea", "id": "intro_para1", "label": "Column 1 paragraph", "default": "A heavy-duty office chair is built and weight-rated for bigger bodies and longer hours than a standard task chair — typically a 400 or 500 lb capacity, a reinforced mechanism and base, and, for control rooms and dispatch desks, a 24/7 occupancy rating. For most Canadian workplaces the right pick comes down to three numbers: the heaviest user it must support, whether it runs one shift or around the clock, and whether it is for a desk, a waiting room, or a clinical space." },
+    { "type": "text", "id": "intro_h3_2", "label": "Column 2 heading", "default": "Why buy through Brant Business Interiors" },
+    { "type": "textarea", "id": "intro_para2", "label": "Column 2 paragraph", "default": "We carry contract-grade heavy-duty seating from Global Furniture Group and Offices to Go, match the model to who is sitting and for how long, and deliver and install it with our own Ontario crew. One contact for the quote, the delivery, and any warranty service after — not a carton you assemble and register yourself." },
+    { "type": "header", "content": "Best-for use-cases" },
+    { "type": "text", "id": "bestfor_eyebrow", "label": "Eyebrow", "default": "Best for" },
+    { "type": "text", "id": "bestfor_heading", "label": "Heading", "default": "Built for the desks a standard chair cannot carry." },
+    { "type": "text", "id": "bestfor_1_label", "label": "Use-case 1 label", "default": "Multi-shift desks" },
+    { "type": "textarea", "id": "bestfor_1_body", "label": "Use-case 1 body", "default": "Desks worked across two or three shifts need a chair rated for continuous, around-the-clock occupancy — not an 8-hour task chair." },
+    { "type": "text", "id": "bestfor_2_label", "label": "Use-case 2 label", "default": "Call centres, dispatch & control rooms" },
+    { "type": "textarea", "id": "bestfor_2_body", "label": "Use-case 2 body", "default": "24/7-rated mechanisms and bases hold up where a seat is never empty — emergency dispatch, security desks, and monitoring rooms." },
+    { "type": "text", "id": "bestfor_3_label", "label": "Use-case 3 label", "default": "Big-and-tall staff" },
+    { "type": "textarea", "id": "bestfor_3_body", "label": "Use-case 3 body", "default": "A 400 or 500 lb capacity, wider seat, and reinforced base support bigger users comfortably and safely all day." },
+    { "type": "text", "id": "bestfor_4_label", "label": "Use-case 4 label", "default": "Bariatric & clinical seating" },
+    { "type": "textarea", "id": "bestfor_4_body", "label": "Use-case 4 body", "default": "Waiting rooms, exam rooms, and patient areas need bariatric-rated guest and stacking chairs with entry-and-exit assist." },
+    { "type": "header", "content": "Comparison" },
+    { "type": "text", "id": "compare_eyebrow", "label": "Eyebrow", "default": "Compared · chairs we carry" },
+    { "type": "text", "id": "compare_heading", "label": "Heading", "default": "Three heavy-duty chairs, side by side." },
+    { "type": "textarea", "id": "compare_sub", "label": "Sub-copy", "default": "Every figure below is pulled from the manufacturer specification for the exact model — the same spec sheet we quote from." },
+    { "type": "header", "content": "What to look for" },
+    { "type": "text", "id": "feature_eyebrow", "label": "Eyebrow", "default": "What to look for" },
+    { "type": "text", "id": "feature_heading", "label": "Heading", "default": "How to choose a heavy-duty chair that lasts." },
+    { "type": "textarea", "id": "feature_sub", "label": "Sub-copy" },
+    { "type": "header", "content": "Cross-links · tile shows when URL set" },
+    { "type": "text", "id": "xlink_eyebrow", "label": "Eyebrow", "default": "Browse & compare" },
+    { "type": "text", "id": "xlink_heading", "label": "Heading", "default": "Keep exploring heavy-duty seating." },
+    { "type": "url", "id": "xlink_1_url", "label": "Tile 1 URL" },
+    { "type": "text", "id": "xlink_1_label", "label": "Tile 1 label" },
+    { "type": "text", "id": "xlink_1_meta", "label": "Tile 1 meta" },
+    { "type": "url", "id": "xlink_2_url", "label": "Tile 2 URL" },
+    { "type": "text", "id": "xlink_2_label", "label": "Tile 2 label" },
+    { "type": "text", "id": "xlink_2_meta", "label": "Tile 2 meta" },
+    { "type": "url", "id": "xlink_3_url", "label": "Tile 3 URL" },
+    { "type": "text", "id": "xlink_3_label", "label": "Tile 3 label" },
+    { "type": "text", "id": "xlink_3_meta", "label": "Tile 3 meta" },
+    { "type": "url", "id": "xlink_4_url", "label": "Tile 4 URL" },
+    { "type": "text", "id": "xlink_4_label", "label": "Tile 4 label" },
+    { "type": "text", "id": "xlink_4_meta", "label": "Tile 4 meta" },
+    { "type": "url", "id": "xlink_5_url", "label": "Tile 5 URL" },
+    { "type": "text", "id": "xlink_5_label", "label": "Tile 5 label" },
+    { "type": "text", "id": "xlink_5_meta", "label": "Tile 5 meta" },
+    { "type": "url", "id": "xlink_6_url", "label": "Tile 6 URL" },
+    { "type": "text", "id": "xlink_6_label", "label": "Tile 6 label" },
+    { "type": "text", "id": "xlink_6_meta", "label": "Tile 6 meta" },
+    { "type": "header", "content": "Entity / OECM note" },
+    { "type": "richtext", "id": "entity_note", "label": "Entity note (rich text)" },
+    { "type": "header", "content": "FAQ" },
+    { "type": "text", "id": "faq_heading", "label": "FAQ heading", "default": "Heavy-duty office chairs — common buyer questions." },
+    { "type": "header", "content": "Closer" },
+    { "type": "text", "id": "closer_heading", "label": "Heading", "default": "Spec your heavy-duty chairs with a real person." },
+    { "type": "textarea", "id": "closer_sub", "label": "Sub-copy", "default": "Tell us the heaviest user, the shift pattern, and the headcount. We will quote the right heavy-duty or 24/7 chairs for your people — delivered and installed across Ontario." },
+    { "type": "text", "id": "closer_cta_label", "label": "Closer CTA label", "default": "Request a Quote" },
+    { "type": "url", "id": "closer_cta_url", "label": "Closer CTA URL (default: /pages/quote)" },
+    { "type": "header", "content": "Service schema (JSON-LD)" },
+    { "type": "text", "id": "service_name", "label": "Service name", "default": "Heavy-Duty & 24/7 Office Chair Supply, Delivery and Installation" },
+    { "type": "textarea", "id": "service_description", "label": "Service description (plain text)", "default": "Commercial heavy-duty and 24/7 office chair supply for Ontario businesses and institutions — big-and-tall and bariatric seating rated to 400 and 500 lb and chairs built for around-the-clock use, from the brands Brant Business Interiors carries. Specified to your people and delivered and installed by our own Ontario crew. Authorized dealer with local warranty support; OECM Supplier Partner for eligible broader-public-sector buyers." },
+    { "type": "text", "id": "service_type", "label": "Service type (display only)", "default": "Heavy-duty office chair supply and installation" },
+    { "type": "text", "id": "service_area", "label": "Service area served", "default": "Ontario, Canada" },
+    { "type": "text", "id": "service_id_suffix", "label": "Service @id suffix (unique per review page)", "default": "service-review-heavy-duty" }
+  ],
+  "blocks": [
+    {
+      "type": "chair",
+      "name": "Chair (anchor product)",
+      "settings": [
+        { "type": "product", "id": "chair_product", "label": "Product (carried + has specs metafields)" },
+        { "type": "text", "id": "pick_label", "label": "Pick label (e.g. Best for 24/7)" },
+        { "type": "textarea", "id": "best_for", "label": "Best-for sentence (editorial — not a spec)" }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "What-to-look-for card",
+      "settings": [
+        { "type": "text", "id": "feat_title", "label": "Title" },
+        { "type": "textarea", "id": "feat_body", "label": "Body" }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Answer (plain text — no \"||\" or \"~~~\")" }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    { "name": "Review / Product-Pick Hub" }
+  ]
+}
+{% endschema %}
