@@ -185,6 +185,28 @@ pages:
       are carved out of the PENDING `ergonomic-seating-desks-storage` cluster and must NOT be
       reassigned when that cluster is split. Desk/storage terms in that cluster remain unclaimed.
 
+  - id: heavy-duty-chairs
+    role: landing                    # review/comparison landing; funnels to carried heavy-duty/bariatric seating
+    icp: both
+    surface: landing_page            # ds-review-base.liquid + page.review-heavy-duty.json (Step 6 review Page #1)
+    slug: /pages/best-office-chairs-heavy-duty
+    status: locked
+    cta_mode: cart_then_quote
+    primary_keyword: heavy duty office chair
+    secondary_keywords:
+      - big and tall office chair
+      - 24 hour office chair
+      - office chair 300 lbs
+      - bariatric office chair
+    deconflicts: heavy duty office chair   # Track-A soft-claim, see note
+    note: >-
+      Step 6 review Page #1 (PR #145, page gid://shopify/Page/172072632633, LIVE). LOCKED owner of
+      "heavy duty office chair" (170/mo). De-conflicts the Track-A "Referenced not claimed as primary"
+      soft-claim on that term in the commercial-grade post (data/content-drafts/batch-ledger.md Slot 5,
+      "left to seating posts") — this page IS the seating owner, so the term is now claimed, not soft.
+      Does NOT claim the 5a-locked ergonomic terms (ergonomic office chair[ canada] / ergonomic task
+      chair / office chair for back pain — owned by /pages/ergonomic-office-chairs).
+
 # Not yet mapped — walkthrough session 2 (this week). Listed so Phase 0 knows they are PENDING, not missing.
 pending_clusters:
   - id: education-library
