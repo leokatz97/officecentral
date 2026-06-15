@@ -1,0 +1,208 @@
+{%- comment -%}
+  Snippet: bbi-review-product-jsonld  (Step 6 — review/product-pick hubs)
+  Purpose: One ItemList JSON-LD node for a review page's set of anchor products.
+           Each itemListElement.item is a FULL Product node (clone of the Product
+           half of bbi-product-jsonld — same specs.*/offers logic) so the ItemList
+           is an honest "ItemList of Products", each item linking to its own PDP.
+
+  Why a self-contained node (not a render of bbi-itemlist-jsonld): that snippet emits
+  CollectionPage > ItemList with *lightweight* ListItems (url + name only) and is
+  designed to AVOID inline Product (the F-15 invalid-Product trap). Here we DO want
+  inline Products — and they carry full `offers`, so they are valid Product nodes,
+  not the bare-Product trap. Hence the Product logic is inlined per item below.
+
+  Honesty rule (mirrors bbi-faq-jsonld): aggregateRating / review are emitted ONLY
+  when product.metafields.reviews.rating_count > 0. BBI owns no reviews today, so
+  this emits ZERO Review/AggregateRating now and auto-activates if real ratings land.
+  Ratings are NEVER fabricated.
+
+  No BreadcrumbList here — the review page emits a single page-level breadcrumb
+  separately (do not double-emit).
+
+  Params:
+    chair_blocks (required) — array of section blocks of type 'chair'; each block's
+                              settings.chair_product is the referenced product object.
+    list_name    (optional) — ItemList.name (human-readable list title).
+{%- endcomment -%}
+{%- liquid
+  assign _rp_count = 0
+  for _b in chair_blocks
+    if _b.settings.chair_product != blank
+      assign _rp_count = _rp_count | plus: 1
+    endif
+  endfor
+-%}
+{%- if _rp_count > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  {%- if list_name != blank %}
+  "name": {{ list_name | json }},
+  {%- endif %}
+  "itemListOrder": "https://schema.org/ItemListOrderAscending",
+  "numberOfItems": {{ _rp_count }},
+  "itemListElement": [
+    {%- assign _pos = 0 -%}
+    {%- for block in chair_blocks -%}
+      {%- assign product = block.settings.chair_product -%}
+      {%- if product == blank -%}{%- continue -%}{%- endif -%}
+      {%- assign _pos = _pos | plus: 1 -%}
+      {%- unless _pos == 1 -%},{%- endunless -%}
+      {%- liquid
+        assign variant = product.selected_or_first_available_variant
+        assign product_url = shop.url | append: product.url
+
+        assign offer_availability = 'https://schema.org/InStock'
+        if product.available == false
+          assign offer_availability = 'https://schema.org/OutOfStock'
+        elsif product.price == 0
+          assign offer_availability = 'https://schema.org/InStock'
+        endif
+
+        assign offer_price = variant.price | divided_by: 100.0
+        assign mpn_val = variant.sku | default: ''
+        assign price_valid_until = 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d'
+
+        assign _ap_manufacturer   = product.metafields.specs.manufacturer.value
+        assign _ap_product_line   = product.metafields.specs.product_line.value
+        assign _ap_model_codes    = product.metafields.specs.model_codes.value
+        assign _ap_dimensions     = product.metafields.specs.dimensions.value
+        assign _ap_weight         = product.metafields.specs.weight.value
+        assign _ap_weight_cap     = product.metafields.specs.weight_capacity.value
+        assign _ap_materials      = product.metafields.specs.materials.value
+        assign _ap_finishes       = product.metafields.specs.finishes_available.value
+        assign _ap_certifications = product.metafields.specs.certifications.value
+        assign _ap_warranty       = product.metafields.specs.warranty.value
+        assign _ap_country        = product.metafields.specs.country_of_manufacture.value
+
+        assign _has_ap = false
+        if _ap_manufacturer or _ap_product_line or _ap_model_codes or _ap_dimensions or _ap_weight or _ap_weight_cap or _ap_materials or _ap_finishes or _ap_certifications or _ap_warranty or _ap_country
+          assign _has_ap = true
+        endif
+
+        comment
+          Honesty gate: only include aggregateRating/review when real owned ratings exist.
+        endcomment
+        assign _rating_count = product.metafields.reviews.rating_count.value | default: 0
+        assign _rating_value = product.metafields.reviews.rating.value
+      -%}
+    {
+      "@type": "ListItem",
+      "position": {{ _pos }},
+      "item": {
+        "@type": "Product",
+        "name": {{ product.title | json }},
+        "description": {{ product.description | strip_html | truncate: 500 | json }},
+        "url": {{ product_url | json }},
+        "image": [
+          {%- for image in product.images limit: 5 -%}
+            {{ image | image_url: width: 1200 | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ],
+        {%- if product.vendor != blank %}
+        "brand": {
+          "@type": "Brand",
+          "name": {{ product.vendor | json }}
+        },
+        {%- endif %}
+        {%- if variant.sku != blank %}
+        "sku": {{ variant.sku | json }},
+        {%- endif %}
+        {%- if mpn_val != blank %}
+        "mpn": {{ mpn_val | json }},
+        {%- endif %}
+        {%- if _has_ap %}
+        "additionalProperty": [
+          {%- assign _ap_first = true -%}
+          {%- if _ap_manufacturer != blank -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Manufacturer","value":{{ _ap_manufacturer | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_product_line != blank -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Product Line","value":{{ _ap_product_line | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_model_codes != blank and _ap_model_codes.size > 0 -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Model","value":{{ _ap_model_codes | join: ', ' | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_dimensions != blank -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Dimensions","value":{{ _ap_dimensions | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_weight != blank -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Weight","value":{{ _ap_weight | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_weight_cap != blank -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Weight Capacity","value":{{ _ap_weight_cap | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_materials != blank -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Materials","value":{{ _ap_materials | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_finishes != blank and _ap_finishes.size > 0 -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Finishes Available","value":{{ _ap_finishes | join: ', ' | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_certifications != blank and _ap_certifications.size > 0 -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Certifications","value":{{ _ap_certifications | join: ', ' | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_warranty != blank -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Warranty","value":{{ _ap_warranty | json }}}
+            {%- assign _ap_first = false -%}
+          {%- endif -%}
+          {%- if _ap_country != blank -%}
+            {%- unless _ap_first -%},{%- endunless -%}
+            {"@type":"PropertyValue","name":"Country of Manufacture","value":{{ _ap_country | json }}}
+          {%- endif -%}
+        ],
+        {%- endif %}
+        {%- if _rating_count > 0 %}
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": {{ _rating_value | json }},
+          "ratingCount": {{ _rating_count }}
+        },
+        {%- endif %}
+        "offers": {
+          "@type": "Offer",
+          "url": {{ product_url | json }},
+          "priceCurrency": "CAD",
+          "itemCondition": "https://schema.org/NewCondition",
+          {%- if product.price == 0 %}
+          "price": "0",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "description": "Price available on request"
+          },
+          {%- else %}
+          "price": {{ offer_price | round: 2 | json }},
+          "priceValidUntil": {{ price_valid_until | json }},
+          {%- endif %}
+          "availability": {{ offer_availability | json }},
+          "seller": {
+            "@type": "Organization",
+            "name": "Brant Business Interiors"
+          }
+        }
+      }
+    }
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
