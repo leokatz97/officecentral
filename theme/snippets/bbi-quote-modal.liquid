@@ -405,6 +405,20 @@ button.bbi-quote-inline:hover { color: #D4252A; }
 </bbi-quote-modal>
 
 <script>
+/* GA4 lead-conversion tracking. Fires through ONE pipe, never both:
+   prefer a page-level gtag (Google tag / hardcoded gtag.js), else fall back to
+   a GTM dataLayer push. No-ops silently if neither is present so it can never
+   throw or block the success UX. Pass ONLY non-PII params (no name/email). */
+function bbiTrackLead(p) {
+  try {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'generate_lead', p);
+    } else if (Array.isArray(window.dataLayer)) {
+      window.dataLayer.push(Object.assign({ event: 'generate_lead' }, p));
+    }
+  } catch (_) {}
+}
+
 class BbiQuoteModal extends HTMLElement {
   connectedCallback() {
     this._dialog = this.querySelector('#bbi-quote-modal-dialog');
@@ -555,10 +569,19 @@ class BbiQuoteModal extends HTMLElement {
      the live form fields are gone by then). */
   _buildRecap() {
     return {
+      /* PII — on-screen recap panel ONLY. NEVER sent to GA4. */
       name:    (this._form.querySelector('#bbi-qm-name')?.value || '').trim(),
       email:   (this._form.querySelector('#bbi-qm-email')?.value || '').trim(),
       enquiry: this._form.querySelector('#bbi-qm-enquiry')?.value || '',
       product: (document.getElementById('bbi-qm-product-title')?.value || '').trim(),
+      /* Non-PII context — carried so the GA4 generate_lead event can fire from
+         _maybeShowPostSubmitSuccess() after the post-submit reload, when the
+         live form fields are gone. Safe to send to GA4. */
+      lead_type:         (document.getElementById('bbi-qm-lead-type')?.value || 'quote').trim(),
+      enquiry_type:      this._form.querySelector('#bbi-qm-enquiry')?.value || '',
+      product_handle:    (document.getElementById('bbi-qm-product-handle')?.value || '').trim(),
+      product_title:     (document.getElementById('bbi-qm-product-title')?.value || '').trim(),
+      collection_handle: (document.getElementById('bbi-qm-collection-handle')?.value || '').trim(),
     };
   }
 
@@ -610,6 +633,20 @@ class BbiQuoteModal extends HTMLElement {
     if (this._dialog && typeof this._dialog.showModal === 'function' && !this._dialog.open) {
       this._dialog.showModal();
     }
+
+    /* GA4 conversion — fire EXACTLY ONCE, at the confirmed success moment
+       (contact_posted=true AND our recap stash both present). The
+       history.replaceState below strips the param, so a refresh can't
+       re-enter this block and double-count. Non-PII params only. */
+    bbiTrackLead({
+      lead_source:    'website_quote_modal',
+      lead_type:      recap.lead_type || 'quote',
+      enquiry_type:   recap.enquiry || '',
+      product:        recap.product || '',
+      product_handle: recap.product_handle || '',
+      category:       recap.collection_handle || ''
+    });
+
     const closeBtn = this.querySelector('#bbi-qm-success-close');
     if (closeBtn) setTimeout(() => closeBtn.focus(), 50);
 
