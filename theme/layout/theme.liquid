@@ -8,6 +8,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#FAF8F5">
     <meta name="robots" content="index,follow">
+
+    {%- comment -%}
+      BBI custom-event GA4 tag. Page-level gtag for G-XLCM9LCNLN, used ONLY to send the custom
+      `generate_lead` event fired by the quote modal (snippets/bbi-quote-modal.liquid). send_page_view:false
+      so it does NOT duplicate the page_view / ecommerce the Google & YouTube channel pixel already sends.
+    {%- endcomment -%}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XLCM9LCNLN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XLCM9LCNLN', { send_page_view: false });
+    </script>
+
     {% render 'meta-tags' %}
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
