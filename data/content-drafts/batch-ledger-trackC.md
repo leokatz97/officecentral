@@ -72,5 +72,19 @@ FAQ shape, intro, CTA, persona).
 - **Sources:** IKEA for Business public pages + 10-year-warranty claim (nominative, factual); ANSI/BIFMA + CSA + GREENGUARD as duty markers; Global / OTG as Canadian manufacturers; founded 1964. Worked TCO figures framed as illustrative ranges.
 - **Carrier gate:** PASS — IKEA referenced factually/neutrally; no implication BBI sells IKEA. Warranty/spec claims only on VERIFIED OTG/Global proof (Kody) at the duty-marker level.
 - **Gates:** validate-meta 56/150 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match 6/6 PASS · 2241 words.
+
+### A3 — Wayfair Professional Alternative for Ontario Offices ✅ PACK + gates PASS
+- **Primary kw:** `wayfair professional alternative` ("wayfair professional" 1900/mo, KD14, navigational = demand context). **Cluster:** wayfair professional alternative canada/reddit, wayfair office furniture (140), canadian equivalent of wayfair (PAA), wayfair business (390, referenced).
+- **SERP/PAA gap (live pull 2026-06-23, Ontario):** AI Overview fires. SERP is Wayfair's own trade/partner pages + Reddit ("is wayfair professional a scam", "do NOT use wayfair professional assembly", "pricing is such a racket") + Canadian HOME-furniture alternatives (furnishmyhome, furnitureflip). PAA: "Canadian equivalent of Wayfair", "Who is Wayfair's biggest competitor", "Is Wayfair Professional cheaper", "How do I order from Wayfair Professional". GAP: every result is home-decor / designer-trade; NONE address a BUSINESS wanting showroom + space planning + install + service.
+- **BBI angle / carve:** online-B2B CHANNEL limits (no Canadian showroom, no space planning, drop-ship from third-party sellers, self-assembly, marketplace returns/warranty) vs a local dealer. Distinct from A1 (dealer-model) and A2 (consumer flat-pack grade): A3 is the CHANNEL axis. Reddit pain points paraphrased, never scraped/quoted.
+- **Intent / persona / stage:** the "should my business buy office furniture on Wayfair Professional or use a local dealer" decision · office manager / designer sourcing online · consideration.
+- **AEO table design:** 6-row channel-capability matrix (online marketplace vs local dealer: test-sit / planning / who-ships / assembly+install / after-sale / procurement-PO). Distinct from A1's model matrix and A2's lifecycle table.
+- **FAQ shape:** "what is Wayfair Professional / good for office furniture / Canadian equivalent / deliver+assemble / best alternative / is online cheaper". 6 Q. Plus a worked ten-desk online fit-out scenario, a decor-vs-contract gap, and a procurement/PO + OECM section.
+- **#1 BBI product:** the Pacific high-back chair (Global, VERIFIED) as the dealer-backed contract-seat contrast to a rotating marketplace listing (varies from Accord/Kody).
+- **Interlinks (verified 200):** /pages/design-services, /collections/task-chairs, /collections/desks, /products/pacific-high-back-tilter, /pages/quote.
+- **Cross-links (D3 HELD, plain text):** where-to-buy-office-furniture-dealer-big-box-online, commercial-vs-consumer-grade-office-furniture.
+- **Sources:** Wayfair Professional public pages (free B2B membership, Pro pricing, AllModern/Joss & Main, marketplace/drop-ship, no Canadian showroom) nominative/factual; ANSI/BIFMA + CSA duty markers; Global/OTG Canadian manufacturers; OECM (Brant Basics); founded 1964.
+- **Carrier gate:** PASS — Wayfair referenced factually/neutrally; no implication BBI sells Wayfair lines. Spec/duty claims only on VERIFIED Global proof (Pacific) at marker level.
+- **Gates:** validate-meta 52/151 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match 6/6 PASS · 2211 words.
 </content>
 </invoke>
