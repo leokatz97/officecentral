@@ -58,5 +58,19 @@ FAQ shape, intro, CTA, persona).
 - **Sources:** Source public positioning (Canadian-owned since 1984, showrooms across Canada, largest in-stock inventory) from sourceofficefurniture.ca + LinkedIn; OECM Agreement (Brant Basics); founded 1964. Nominative, factual, no disparagement.
 - **Carrier gate:** PASS — Source referenced factually/neutrally only; no implication BBI sells Source lines.
 - **Gates:** validate-meta 53/145 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match 6/6 PASS · 2248 words.
+
+### A2 — IKEA Office Furniture Alternative for Business (Ontario) ✅ PACK + gates PASS
+- **Primary kw:** `ikea office furniture alternative` (alt-tail; "ikea office furniture" 720/mo navigational = demand context). **Cluster:** ikea office furniture for business, commercial alternative to ikea, is ikea office furniture good for business.
+- **SERP/PAA gap (live pull 2026-06-23, Canada):** SERP for "ikea office furniture for business" is 100% IKEA's own pages (IKEA for Business, desks, MARKUS $229 / FLINTAN $79 / MITTZON) plus Pinterest. Related: "IKEA office furniture canada", "Structube office furniture", "The Brick office furniture". IKEA's own pages claim a 10-year warranty on office families. GAP: no dealer makes the contract duty-cycle / fleet-consistency / install-service case as the BUSINESS alternative to IKEA flat-pack.
+- **BBI angle / carve:** consumer flat-pack durability thesis (duty cycle, BIFMA/CSA, warranty-vs-duty distinction, fleet matching, install). Distinct from A1 (A1 = dealer-model contrast; A2 = grade contrast) and from A3 (A3 = online channel). Links UP to the Track-A commercial-vs-consumer hub (D3 held) rather than re-arguing the concept.
+- **Intent / persona / stage:** the "should my business buy IKEA or step up" decision · SMB founder / office manager furnishing a first real office · consideration. Fair, non-disparaging (IKEA = good consumer furniture, wrong duty).
+- **AEO table design:** "five-year office life" lifecycle table (consumer flat-pack vs contract-grade) across 7 rows. Distinct from A1's model matrix.
+- **FAQ shape:** "is it good / does it last / the 10-year warranty / best alternative / home furniture in an office / is contract pricier". 6 Q. Plus a worked ten-seat TCO example and a desk-specific section.
+- **#1 BBI product:** The Kody mesh task chair (OTG, VERIFIED) as the contract-grade-seat contrast to a 79-dollar home chair (varies from A1's Accord).
+- **Interlinks (verified 200):** /collections/desks, /collections/task-chairs, /products/kody-mesh-chair-otg13110, /pages/design-services, /pages/quote.
+- **Cross-links (D3 HELD, plain text):** commercial-vs-consumer-grade-office-furniture, where-to-buy-office-furniture-dealer-big-box-online.
+- **Sources:** IKEA for Business public pages + 10-year-warranty claim (nominative, factual); ANSI/BIFMA + CSA + GREENGUARD as duty markers; Global / OTG as Canadian manufacturers; founded 1964. Worked TCO figures framed as illustrative ranges.
+- **Carrier gate:** PASS — IKEA referenced factually/neutrally; no implication BBI sells IKEA. Warranty/spec claims only on VERIFIED OTG/Global proof (Kody) at the duty-marker level.
+- **Gates:** validate-meta 56/150 PASS · check-handles 5/5 200 · create-draft DRY RUN byte-match 6/6 PASS · 2241 words.
 </content>
 </invoke>
