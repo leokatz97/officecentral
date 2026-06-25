@@ -28,6 +28,26 @@
 
 ---
 
+## 🟢 2026-06-25 — NAP RELOCATION — close-out — full build-state record (street + postal) · branch `reloc/closeout-doc-2026-06-25` · doc-only, NOTHING written to store/theme here
+
+**The designated build-state note prior sessions deferred. Records every relocation bucket completed since the #163 seed sync — the THEME, ADMIN, and CONTENT surfaces — in one place. Additive; all prior rows (incl. the 2026-06-24 DATA-DOC entry below) untouched. No theme write, no Admin-API write, no published-state change in this PR.**
+
+- **Relocation:** `296 George St N, K9J 3H2` → **`701 The Queensway, Units 2-4, K9J 7J6`**. **City unchanged** (still **Peterborough, ON**); **phone, emails, founding/"since 1964", and areaServed all FROZEN** throughout — never touched on any surface.
+- **THEME canonical NAP — PR #162:** `bbi-org-schema`, `bbi-localbusiness-schema`, footer NAP (street + postal only). (PR #161 was the read-only relocation audit.)
+- **DATA-DOC seed sync — PR #163:** `llms-txt-draft`, ~20 city packs, `lead-routing` / `icp` / etc. so regeneration never re-emits the old NAP. Brantford→Peterborough applied **only** on the one stale-NAP recommendation line. Archival snapshots intentionally left at the old address as point-in-time records.
+- **ADMIN back-office:** Peterborough **Warehouse Location** updated via `locationEdit` (verified). The **Shop store/billing address** + **all 5 shop policies** were changed **MANUALLY by Steve in Admin** — the token lacks `write_legal_policies`, and the shop-level address has **no Admin-API mutation** (UI-only). **All 6 objects independently readback-verified live.** **Toronto Warehouse (60 Leek Crescent, Richmond Hill) intentionally UNCHANGED** (not the relocated entity).
+- **CONTENT — 7 live objects relocated via Admin API** (`pageUpdate`/`articleUpdate`), publish state untouched: pages `/llms-txt` + `/win-a-prize-with-brant-basics`; articles `oecm-ontario-school-boards-office-furniture` (**street only, no postal**), `source/ikea/wayfair-office-furniture-alternative-ontario`, `buying-new-vs-used-office-furniture-ontario`. Article `commercial-office-furniture-suppliers-ontario` = **no-op** (its 2 Brantford refs are competitor / served-city, correctly left). Every Brantford hit across the pass was inspected by sentence; **none stood in for BBI's own address.**
+- **THEME section-copy — PR #164** (36 files): `ds-lp-*` entity notes, 15 city templates, `llms.txt.liquid`, `index.json`, 3 review templates. JSON templates pushed **live + swap** to preserve Theme-Editor customizations. Two continuity sentences reworded (delivery + relocation) — the "same address" claim retired, leaning on **city + since-1964 longevity**.
+- **THEME section-copy cleanup — PR #165:** `ds-lp-our-work`, `customer-stories`, `faq`.
+- **THEME design-services — PR #166:** continuity sentence ×2 + footer. **Brant Basics confirmed relocated WITH BBI**, so the co-location claim is kept true at the new address.
+
+**STILL OPEN (NOT on-site theme/content — human-in-Admin + off-site):**
+- **Shopify Settings → Notifications:** order / shipping / draft-order-INVOICE / POS template bodies — verify no hardcoded old address (the dynamic shop-address fields are already correct).
+- **QuoteSnap (OmegaQuote) + Globo RFQ** app settings: company / "from" address on quote PDFs / emails — set inside each app, not in Store details.
+- **Google Business Profile + external citations** (directories, OECM supplier listing, social) — sweep **AFTER** all on-site + invoice surfaces are settled.
+
+---
+
 ## 🟢 2026-06-24 — NAP RELOCATION — canonical address moved (street + postal) — DATA-DOC seed sync · branch `reloc/data-doc-seeds-2026-06-24` · doc-only, NOTHING written to store/theme here
 
 **Records the company relocation and the DATA-DOC seed-sync PR that keeps the regen engine from reintroducing the old NAP. Additive — all prior rows untouched. No theme write, no Admin-API write, no published-state change in this PR.**
