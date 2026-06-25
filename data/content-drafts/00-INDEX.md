@@ -45,7 +45,7 @@ Each draft contains: keyword map · competitor gap + BBI angle · outline · ful
 **Fact-checks before any post ships (the drafts mark these inline with ⚠️):**
 1. **Canadian-made origins (Draft 4 — HIGHEST priority).** Every manufacturing-origin claim — Global Furniture Group, ergoCentric, Keilhauer, Teknion, and per-line — must be verified with the manufacturer before publishing. "Made in Canada" is legally defined (Competition Bureau). Default to "Canadian company / designed in Canada" where origin isn't confirmed. I did **not** assert any origin as fact — all are flagged ⚠️verify.
 2. **ergoCentric "designed + built in Toronto" (Drafts 2 & 4).** Confirm before stating.
-3. **Founding year + footprint (Draft 1 & all "Why BBI" blocks).** Build-state cites "founded-1964"; `icp.md` flags the "5 Ontario Locations" line as stale and the canonical address is now Peterborough (296 George St N). Confirm the founding year and how to describe the footprint before any post cites it.
+3. **Founding year + footprint (Draft 1 & all "Why BBI" blocks).** Build-state cites "founded-1964"; `icp.md` flags the "5 Ontario Locations" line as stale and the canonical address is now Peterborough (701 The Queensway, Units 2-4). Confirm the founding year and how to describe the footprint before any post cites it.
 4. **CCOHS 72 sq ft / 6.7 m² workstation figure (Draft 1).** Pulled from the live SERP (ccohs.ca). Verify the exact number + cite the page before publishing as the Canadian benchmark.
 5. **Planning heuristics (Drafts 1, 3, 5).** Space-per-person ranges, "1 pod per 8–12 people," and desk-sharing ratios (0.5–0.7/person) are framed as *guidance*, not standards. Confirm you're comfortable publishing them as heuristics, or swap for a "comes out of the layout" framing.
 
