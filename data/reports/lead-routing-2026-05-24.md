@@ -108,7 +108,7 @@ Top-line: the in-theme plumbing is sound — every quote CTA on the site funnels
 - **No form on this page** (confirmed during PR-2 investigation).
 - **Phone display + CTA** (`:87`, `:118`) — `tel:18008359565` (hardcoded, 11-digit, no `+1`).
 - **Email display** (`:92`) — `mailto:info@brantbusinessinteriors.com`.
-- **Showroom address** (`:97`) — 296 George St N, Peterborough ON K9J 3H2 (consistent with `project_bbi_canonical_address` memory).
+- **Showroom address** (`:97`) — 701 The Queensway, Units 2-4, Peterborough ON K9J 7J6 (consistent with `project_bbi_canonical_address` memory).
 - **Hours** (`:102`) — Monday-Friday 9 am - 5 pm ET.
 - **"Request a Quote" CTA** (`:117`) — `href="/pages/quote"` → opens modal (via global intercept).
 - **OECM bar** (`:153`) — links to `/pages/oecm` (navigation).
@@ -156,7 +156,7 @@ Top-line: the in-theme plumbing is sound — every quote CTA on the site funnels
 - ✓ **Lead-type subject mapping** — `quote`, `design`, `oecm`, `contact` each get a distinct subject prefix (`bbi-quote-modal.liquid:479-486`). `design` lead-type currently only fires from `ds-lp-design-services.liquid:447`; `oecm`/`contact` lead-types are wired but no in-theme trigger currently sets them (OECM callouts go via plain `/pages/quote` anchors → default `lead_type=quote`).
 - ✓ **Single canonical phone number** — every `tel:` link points at the same number `18008359565` (1-800-835-9565 toll-free).
 - ✓ **Single canonical general email** — every `mailto:` points at `info@brantbusinessinteriors.com`. No leakage to `quotes@` or `design@` aliases that don't yet exist.
-- ✓ **Single canonical address** — every footer/contact mention reads "296 George St N, Peterborough ON K9J 3H2" — consistent with `project_bbi_canonical_address` memory (Brantford references already retired in S4-CONTACT-FIX).
+- ✓ **Single canonical address** — every footer/contact mention reads "701 The Queensway, Units 2-4, Peterborough ON K9J 7J6" — consistent with `project_bbi_canonical_address` memory (Brantford references already retired in S4-CONTACT-FIX).
 - ✓ **Modal isolation from cart** — the snippet does not write to cart, does not perform redirects, and waits for `fetch` to complete before showing success state.
 
 ---

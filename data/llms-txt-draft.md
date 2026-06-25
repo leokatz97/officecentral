@@ -1,7 +1,7 @@
 # Brant Business Interiors
 
 > Brant Business Interiors (BBI) is a Canadian-owned commercial office furniture
-> dealer based in Peterborough, Ontario at 296 George St N, K9J 3H2. Part of the
+> dealer based in Peterborough, Ontario at 701 The Queensway, Units 2-4, K9J 7J6. Part of the
 > Office Central Group of Companies. Brant Basics is the OECM-registered entity
 > under Agreement 2025-470 — Ontario broader-public-sector buyers can order
 > without an open tender. We sell business furniture (seating, desks, storage,
@@ -36,7 +36,7 @@
 ## Trust & procurement
 
 - [OECM Procurement](https://www.brantbusinessinteriors.com/pages/oecm) — Brant Basics is a verified OECM Supplier Partner under **Agreement 2025-470**. Ontario broader-public-sector buyers (school boards, hospitals, municipalities, colleges, universities, social-services agencies) can purchase from us under this agreement without running a separate open tender. This is Brant Business Interiors' biggest procurement differentiator and is not held by most Ontario furniture dealers.
-- [About Us](https://www.brantbusinessinteriors.com/pages/about) — Canadian-owned, family-owned since 1964, 296 George St N Peterborough HQ.
+- [About Us](https://www.brantbusinessinteriors.com/pages/about) — Canadian-owned, family-owned since 1964, 701 The Queensway, Units 2-4 Peterborough HQ.
 - [Free Design Services](https://www.brantbusinessinteriors.com/pages/design-services) — Free CAD floor plans + furniture-placement renderings.
 - [Delivery & Installation](https://www.brantbusinessinteriors.com/pages/delivery) — In-house Ontario delivery + installation; after-hours arrangements available.
 - [Office Relocation](https://www.brantbusinessinteriors.com/pages/relocation) — Inventory, packing, install, and after-hours coordination.
@@ -62,7 +62,7 @@
 ## Key entity facts
 
 - **Legal name:** Brant Business Interiors, part of the Office Central Group of Companies. Brant Basics is the OECM-registered entity.
-- **Location:** 296 George St N, Peterborough ON K9J 3H2, Canada
+- **Location:** 701 The Queensway, Units 2-4, Peterborough ON K9J 7J6, Canada
 - **Phone:** 1-800-835-9565
 - **OECM status:** Verified Supplier Partner under **Agreement 2025-470** — Ontario broader-public-sector buyers can order without open tender
 - **Canadian-owned:** Yes, fully Canadian-owned and operated; family-owned since 1964
@@ -99,7 +99,7 @@ Available on request (not primary leads):
 ## Contact
 
 - **Phone:** 1-800-835-9565
-- **HQ:** 296 George St N, Peterborough ON K9J 3H2
+- **HQ:** 701 The Queensway, Units 2-4, Peterborough ON K9J 7J6
 - **Quote requests:** [/pages/quote](https://www.brantbusinessinteriors.com/pages/quote)
 - **Website:** [https://www.brantbusinessinteriors.com](https://www.brantbusinessinteriors.com)
 

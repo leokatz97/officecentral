@@ -163,7 +163,7 @@ without a footer/menu change.
 
 **Recommendation for Steve:**
 - Rewrite the Company definition block to: **Brant Business Interiors
-  Inc.**, with the correct Brantford, Ontario address.
+  Inc.**, with the correct Peterborough, Ontario address.
 - Replace the website reference with **https://www.brantbusinessinteriors.com**.
 - Replace the contact email with **info@brantbusinessinteriors.com**
   (post-day 2 once the inbox is live).

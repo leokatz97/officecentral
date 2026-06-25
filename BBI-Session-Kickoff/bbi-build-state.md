@@ -28,6 +28,23 @@
 
 ---
 
+## 🟢 2026-06-24 — NAP RELOCATION — canonical address moved (street + postal) — DATA-DOC seed sync · branch `reloc/data-doc-seeds-2026-06-24` · doc-only, NOTHING written to store/theme here
+
+**Records the company relocation and the DATA-DOC seed-sync PR that keeps the regen engine from reintroducing the old NAP. Additive — all prior rows untouched. No theme write, no Admin-API write, no published-state change in this PR.**
+
+- **Relocation:** `296 George St N, K9J 3H2` → **`701 The Queensway, Units 2-4, K9J 7J6`**. **City unchanged** (still **Peterborough, ON**); **phone, emails, founding/"since 1964", and areaServed all FROZEN** — not touched anywhere.
+- **THEME canonical NAP — DONE:** PR #162 merged (street + postal only) — updated `bbi-org-schema`, `bbi-localbusiness-schema`, and the footer NAP. (PR #161 was the read-only relocation audit.)
+- **ADMIN:** Peterborough **Warehouse Location** updated via `locationEdit` (verified). The **Shop store address** + **5 policy pages** were changed **MANUALLY by Steve in Admin** — the token lacks `write_legal_policies`, and the shop-level address has **no Admin-API mutation** (UI-only).
+- **Toronto Warehouse (60 Leek Crescent, Richmond Hill) — intentionally UNCHANGED** (not the relocated entity).
+- **This PR (DATA-DOC):** seed/doc sync so regeneration never re-emits the old NAP — `data/llms-txt-draft.md`, ~19 `data/city-pages/*-PACK.json` geo packs, `data/content-drafts/00-INDEX.md`, `data/reports/lead-routing-2026-05-24.md`, and the stale-NAP-city fix in `data/strategy/policy-pages-audit.md`. Every pack re-validated (JSON parse OK); diff asserted to street + postal + the one Brantford→Peterborough city fix only. Archival snapshots (`data/audits/…/captures/*`, forensics, dated reports, `*.bak`, backups/exports/logs) intentionally **left with the old address** as point-in-time records.
+- **STILL OPEN:**
+  - **Section-copy THEME PR** — `ds-lp-*` body copy + 15 city templates + `llms.txt.liquid` + page/collection JSONs + the contact-page map embed — **pending 2 continuity-copy rewrites**.
+  - **CONTENT pass** for live pages/articles carrying the street — `/pages/llms-txt`, `/pages/win-a-prize`, and 6 articles (incl. the Brantford post).
+  - **Human-in-Admin:** notification/invoice templates + the **QuoteSnap / Globo RFQ** app addresses.
+  - **GBP + citations** — after the on-site changes land.
+
+---
+
 ## 🟢 Day 27 — 2026-06-15 — STEP 6 — REVIEW PAGE #4 (LAW FIRMS) LIVE & SCHEMA-VERIFIED — doc-only close-out · branch `docs/step6-lawfirms-closeout` · HALT for review → squash-merge · NOTHING written to store/theme here
 
 **Records Step 6 review Page #4 — law-firm office chairs. The final launch review page. Built + shipped live + page resource created & published (PR #151); published 2026-06-15; this doc PR only records it. Additive — prior rows (incl. the Day-26 Page #3, Day-25 Page #2 and Day-24 infra + Page #1 records) untouched. No theme write, no Admin-API write, no published-state change here.**
