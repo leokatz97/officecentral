@@ -20,18 +20,20 @@ below was de-conflicted against both before keyword work began.
 | A4 | Buying New vs Used Office Furniture in Ontario | new vs used office furniture | `buying-new-vs-used-office-furniture-ontario` | PACK + gates · ⚠ THIN-DEMAND FLAG |
 | C1 | Herman Miller vs Canadian Ergonomic Seating (Ontario) | herman miller alternative | `herman-miller-vs-canadian-ergonomic-seating` | PACK + gates · ⚠ FLAG STEVE + LEGAL |
 
-## Seeded — PLANNED, batch 2 (NOT built this session)
+## Batch 2 — BUILT (2026-06-23, PACK + gates PASS, HALT for Leo voice + Steve carrier/legal review)
 
-| ID | Working title | Claimed primary kw | Lane |
-|---|---|---|---|
-| C2 | Steelcase vs Global office furniture (Ontario) | steelcase vs global | Comparison (carried-vs-noncarried, cautious) |
-| C3 | Knoll vs Canadian contract furniture (Ontario) | knoll alternative | Comparison (cautious, non-carried) |
-| C4 | Haworth vs Canadian workstations (Ontario) | haworth alternative | Comparison (cautious, non-carried) |
-| R1 | Office furniture Kitchener-Waterloo | office furniture kitchener | Regional (geo) |
-| R2 | Office furniture London Ontario | office furniture london ontario | Regional (geo) |
+Branch `feature/content-batch-trackC-b2-2026-06-23`. DOCS ONLY — no Shopify writes, no `--live`, build-state untouched.
+**The five seeds were re-scoped per the build brief** (steelcase-vs-global → Haworth-vs-Teknion; knoll → Keilhauer-vs-Global; haworth-alt → solid-wood-vs-laminate; office-furniture-kitchener → delivery+installation service; office-furniture-london → Waterloo tech corridor). Full carve rules in `batch-ledger-trackC.md`.
 
-> Batch-2 targets are pre-de-conflicted in `batch-ledger-trackC.md` (claimed-keyword block) so research
-> can start clean. Build-state untouched; close-outs noted for the next doc PR.
+| ID | Working title | Primary kw | Handle | Status |
+|---|---|---|---|---|
+| C2 | Haworth vs Teknion: Office Systems Compared in Ontario | haworth vs teknion (AEO) | `haworth-vs-teknion-office-systems-ontario` | PACK + gates · ⚠ FLAG STEVE + LEGAL |
+| C3 | Keilhauer vs Global: Office Seating Compared in Ontario | keilhauer vs global (AEO) | `keilhauer-vs-global-office-seating-ontario` | PACK + gates |
+| C4 | Solid Wood vs Laminate Office Furniture in Ontario | solid wood vs laminate office furniture (AEO) | `solid-wood-vs-laminate-office-furniture-ontario` | PACK + gates · ⚠ PREMISE CORRECTION (Heartwood = laminate) |
+| R1 | Office Furniture Delivery and Installation in Ontario | office furniture installation (90/mo) | `office-furniture-delivery-installation-ontario` | PACK + gates |
+| R2 | Office Furniture for Waterloo Region Tech Offices | region+sector tech (AEO) | `office-furniture-waterloo-region-tech-corridor` | PACK + gates · ⚠ THIN-DEMAND FLAG |
+
+> All five: fresh DataForSEO/live SERP + PAA/AI-Overview → de-conflicted primary kw → differentiated write (distinct table, FAQ, intro, CTA, persona, #1 product) → PACK → validate-meta + check-handles 200 + create-draft DRY RUN byte-match all PASS → committed. Nothing published; build-state close-outs (5 new "Blog #N" rows) noted for the next doc PR. C2 excluded from the next create-draft run until Steve + legal clear it.
 
 ## Per-post artifacts (this session)
 
