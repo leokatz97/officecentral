@@ -28,6 +28,34 @@
 
 ---
 
+## 🟢 2026-06-25 — TRACK C — COMPETITOR / COMPARISON / REGIONAL BLOG PROGRAM — batch-1 + batch-2 close-out (4 LIVE · 5 DRAFT · 1 HELD) · branch `feature/build-state-resync-2026-06-25` · doc-only, NOTHING written to store/theme here
+
+**Reconciliation note — records the full Track-C blog program (two batches, 10 targets) into build-state for the first time; the create-draft / flip-live activity since the batch-1 docs PR was never captured here. Additive; all prior rows (incl. the two 2026-06-25 / 2026-06-24 NAP entries below) untouched. No theme write, no Admin-API write, no published-state change in THIS PR — every state below was verified by independent read-only Admin-API GET + storefront HTTP check on 2026-06-25, not changed here. The NAP relocation CONTENT pass is NOT re-recorded here — it is already fully captured in the 2026-06-25 NAP close-out entry directly below (which is PR #167).**
+
+- **Program shape:** three competitor/comparison lanes de-conflicted vs Track A + Step-6 review pages + geo/city pages — ALTERNATIVE-TO (A), COMPARISON (C), REGIONAL (R). Author byline Steve Katz; News blog `108557861177`. Anti-sameness + carrier/legal discipline per `data/content-drafts/batch-ledger-trackC.md` + `00-INDEX-trackC.md`. CARRIER GATE held: every named competitor (Source / IKEA / Wayfair Professional / Herman Miller / Haworth / used-market) is nominative/neutral only — never implied as a BBI-carried line; "#1 product" proof uses VERIFIED Global / OTG / Heartwood SKUs only.
+- **BATCH 1 — PR #160 (merged 2026-06-23), commit `e974316`:** 5 PACKs built + dry-run gates PASS (validate-meta, check-handles 200, create-draft byte-match). A1–A4 created as `published:false` drafts on 2026-06-23 (create payloads `data/backups/articles/create-6896650*.json`, 17:18–17:19), **then FLIPPED LIVE on 2026-06-25 (~13:52–13:53)** — now PUBLISHED/public (storefront 200 spot-checked). C1 (Herman Miller, NON-CARRIED, cautious bucket, FLAG STEVE + LEGAL) was **PREP'd and HELD** — PACK + HTML on disk only, **no article created, no ID**.
+  - **A1** `689665016121` · `source-office-furniture-alternative-ontario` — **LIVE** (`published_at` 2026-06-25T13:52:35-04:00) · 2248 wd
+  - **A2** `689665048889` · `ikea-office-furniture-alternative-business-ontario` — **LIVE** (2026-06-25T13:53:44) · 2241 wd
+  - **A3** `689665081657` · `wayfair-professional-office-furniture-alternative-ontario` — **LIVE** (2026-06-25T13:53:31) · 2211 wd
+  - **A4** `689665114425` · `buying-new-vs-used-office-furniture-ontario` — **LIVE** (2026-06-25T13:53:15) · 2204 wd · ⚠ thin-demand flag (judged viable; AI-Overview + transactional pool)
+  - **C1** Herman Miller vs Canadian Ergonomic Seating — **PREP'd + HELD** (cautious bucket; no draft, no ID; does not create/flip without Steve + legal sign-off)
+- **BATCH 2 — PR #168 (merged 2026-06-25), squash `51caa55`:** C2/C3/C4/R1/R2 built (5 seeds re-scoped per the build brief), dry-run gates PASS, then created as `published:false` drafts on 2026-06-25 (~16:40; create payloads `create-6897194*.json`). **All 5 remain DRAFT** (`published_at` null, storefront 404 — confirmed). Steve cleared **C2** (Haworth, cautious bucket) for drafting and cleared the **C4** wood-veneer / premise-correction claim (Heartwood casegoods = commercial laminate, NOT solid wood).
+  - **C2** `689719345465` · `haworth-vs-teknion-office-systems-ontario` — DRAFT · ⚠ was FLAG STEVE + LEGAL (Haworth NON-CARRIED), Steve-cleared to draft · 2237 wd
+  - **C3** `689719378233` · `keilhauer-vs-global-office-seating-ontario` — DRAFT (both carried) · 2275 wd
+  - **C4** `689719411001` · `solid-wood-vs-laminate-office-furniture-ontario` — DRAFT · ⚠ premise correction (Heartwood = laminate) Steve-cleared · 2231 wd
+  - **R1** `689719443769` · `office-furniture-delivery-installation-ontario` — DRAFT (province-level service hub, links DOWN to city pages) · 2258 wd
+  - **R2** `689719476537` · `office-furniture-waterloo-region-tech-corridor` — DRAFT · ⚠ thin-demand flag (region+sector AEO play) · 2208 wd
+- **STATUS — Track-C content (verified 2026-06-25 read-only):** **4 LIVE** (A1–A4, published) · **5 DRAFT** (`published:false`: C2/C3/C4/R1/R2 — awaiting Leo's per-post featured image + alt, then flip-live) · **1 HELD** (C1, no draft). **D3 content cross-links HELD** across the program (wire after the held/draft posts go live).
+- **Cleanup (this PR):** committed `scripts/_trackc_readback.py` — the independent read-only Admin-API readback verifier for these drafts (fresh GET, never the mutation echo; checks `published_at`, `global.title_tag`/`description_tag` byte-match, `faq.items` byte-match vs visible block, body + engine anchors). It was untracked clutter from the create-draft run; tracking it (a pure read tool, no writes) keeps the helper auditable. **`data/backups/articles/` left untouched** (gitignored create payloads/responses — point-in-time records).
+
+**STILL OPEN (carry-forward — verified current state 2026-06-25, NOT actioned here):**
+- **Track-C flip-readiness:** C2/C3/C4/R1/R2 each need Leo's featured image + alt + Steve final sign-off before `flip-live`; C1 stays HELD pending Steve + legal. D3 cross-links remain held until live.
+- **boardroom-conference-meeting-1 duplicate unpublish** — STILL OPEN: both `/collections/boardroom-conference-meeting-1` and the canonical `/collections/boardroom-conference-meeting` serve **200** (duplicate not yet folded/301'd).
+- **OTG chair warranty metafield review** — OPEN (Steve, data-side): `specs.warranty` on Ashton + Brighton `MVL2787` reads "Limited Lifetime Warranty", likely overstating OTG's actual term; live site-wide (also Pages #2/#4 anchors). Fix at source.
+- **Gardex vs FireKing on `fire-resistant-file-cabinets-storage`** — OPEN decision for Steve: the category is stocked 100% Gardex (Gardex already named as the carried brand in collection copy); do NOT re-push a FireKing copy correction.
+
+---
+
 ## 🟢 2026-06-25 — NAP RELOCATION — close-out — full build-state record (street + postal) · branch `reloc/closeout-doc-2026-06-25` · doc-only, NOTHING written to store/theme here
 
 **The designated build-state note prior sessions deferred. Records every relocation bucket completed since the #163 seed sync — the THEME, ADMIN, and CONTENT surfaces — in one place. Additive; all prior rows (incl. the 2026-06-24 DATA-DOC entry below) untouched. No theme write, no Admin-API write, no published-state change in this PR.**
