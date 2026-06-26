@@ -2,6 +2,58 @@
   "sections": {
     "ds-lp-brands-otg": {
       "type": "ds-lp-brands-otg",
+      "blocks": {
+        "faq_dealer_status": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Brant Business Interiors an Offices to Go dealer?",
+            "answer": "Yes. Brant Business Interiors is an authorized Offices to Go (OTG) dealer serving Ontario. We quote across the OTG catalogue — seating, desks, tables, storage, and accessories — with volume pricing, free design layout, and delivery and installation by our own Ontario crew."
+          }
+        },
+        "faq_otg_vs_global": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What’s the difference between OTG and Global Furniture Group?",
+            "answer": "Global Furniture Group is the parent company; OTG (Offices to Go) is GFG’s high-volume value brand. Global’s catalogue targets premium and executive segments; OTG targets institutional and small-business budgets at commercial quality. Both share GFG’s engineering, sourcing, and post-sale support framework. Most buyers spec OTG when they want GFG-backed quality at a workhorse price point."
+          }
+        },
+        "faq_lead_time": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What are typical lead times on OTG orders?",
+            "answer": "Lead times depend on the product line and order size. Stock seating and desks ship from Canadian distribution in days; configured workstations, large casegoods, and custom fabric or finish combinations run on standard GFG production lead times. We confirm exact lead times when quoting — call 1-800-835-9565 or request a quote and we’ll respond in 1 business day."
+          }
+        },
+        "faq_oecm": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are OTG products available to OECM buyers?",
+            "answer": "Brant Business Interiors is registered under our parent legal entity, Brant Basics, as an authorized OECM Supplier Partner. Eligible Ontario broader-public-sector buyers — school boards, hospitals, and municipalities — can purchase office furniture and installation from us without an open tender. Family-owned and supplying Ontario workplaces since 1964, from 701 The Queensway, Units 2-4, Peterborough, ON K9J 7J6."
+          }
+        },
+        "faq_fitouts": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does Brant Business Interiors handle large institutional OTG fit-outs?",
+            "answer": "Yes — this is core BBI work. We handle volume pricing for school boards, hospitals, and municipalities; free design layout and space planning; coordinated delivery; and white-glove installation across Ontario. Send us your floor plan or specification and we’ll return a configured quote and install schedule."
+          }
+        },
+        "faq_warranty": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How is the OTG warranty handled?",
+            "answer": "OTG product warranties are coordinated through Global Furniture Group’s standard warranty programs, which vary by product line. As your authorized OTG dealer, Brant Business Interiors files claims directly with GFG on your behalf — one call to us handles the process from start to finish. We confirm the exact warranty terms on every product at quote time."
+          }
+        }
+      },
+      "block_order": [
+        "faq_dealer_status",
+        "faq_otg_vs_global",
+        "faq_lead_time",
+        "faq_oecm",
+        "faq_fitouts",
+        "faq_warranty"
+      ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
         "hero_image": "shopify://shop_images/bbi-brand-otg-hero-v2.jpg"

@@ -2,6 +2,50 @@
   "sections": {
     "ds-lp-brands-keilhauer": {
       "type": "ds-lp-brands-keilhauer",
+      "blocks": {
+        "faq_dealer_status": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Brant Business Interiors a Keilhauer dealer?",
+            "answer": "Yes. Brant Business Interiors is an authorized Keilhauer dealer serving Ontario. We supply, quote, deliver, and install the Keilhauer lines we carry — boardroom and conference chairs, lounge seating, task seating, and tables — for institutional and workplace clients, with delivery and installation by our own Ontario crew."
+          }
+        },
+        "faq_made_in_toronto": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Where is Keilhauer furniture made?",
+            "answer": "Keilhauer manufactures its products in Toronto, Ontario, and has been Canadian-owned and operated since 1981. Buying Canadian-made keeps lead times shorter than imported alternatives and means post-sale service and replacement parts do not require cross-border coordination."
+          }
+        },
+        "faq_warranty": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What warranty do Keilhauer products carry?",
+            "answer": "Keilhauer warrants its products against defects in materials and workmanship for 10 years under standard single-shift use — covering desk, conference and task chairs, lounge seating, and tables — with textiles warranted for 1 year. For heavy use above 40 hours per week the furniture warranty is 5 years. As your authorized dealer, Brant Business Interiors files warranty claims directly with Keilhauer on your behalf."
+          }
+        },
+        "faq_com": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I specify custom fabric or my own material (COM)?",
+            "answer": "Yes — Keilhauer offers a broad fabric library and supports COM (customer’s own material) on most upholstered products. Send us your fabric specification and we will confirm Keilhauer’s COM requirements — rub count, application, and yardage — and the lead time before your purchase order is issued."
+          }
+        },
+        "faq_oecm": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are Keilhauer products available to OECM buyers?",
+            "answer": "Brant Business Interiors is registered under our parent legal entity, Brant Basics, as an authorized OECM Supplier Partner. Eligible Ontario broader-public-sector buyers — school boards, hospitals, and municipalities — can purchase office furniture and installation from us without an open tender. Family-owned and supplying Ontario workplaces since 1964, from 701 The Queensway, Units 2-4, Peterborough, ON K9J 7J6."
+          }
+        }
+      },
+      "block_order": [
+        "faq_dealer_status",
+        "faq_made_in_toronto",
+        "faq_warranty",
+        "faq_com",
+        "faq_oecm"
+      ],
       "settings": {
         "logo": "shopify://shop_images/bbi-logo-v2_aa647658-6557-4dc8-abb7-f20f7b4c4a03.png",
         "hero_image": "shopify://shop_images/bbi-brand-keilhauer-hero-v2.jpg"
