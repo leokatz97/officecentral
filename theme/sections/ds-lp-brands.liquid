@@ -248,7 +248,7 @@
     <div class="lp-brand-tiles__inner">
       <div class="lp-brand-tiles__head">
         <p class="lp-brand-tiles__eyebrow bbi-mono">Our brands</p>
-        <h2>Six manufacturer lines, one authorized dealer.</h2>
+        <h2>Seven manufacturer lines, one authorized dealer.</h2>
       </div>
       <div class="lp-brand-tiles__grid">
 
@@ -354,6 +354,24 @@
           <div class="lp-brand-tile__body">
             <h3 class="lp-brand-tile__name">ObusForme</h3>
             <p class="lp-brand-tile__meta">Ergonomic back-support seating &middot; consumer-recognizable &middot; GFG family</p>
+            <span class="lp-brand-tile__cta">View brand
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/pages/brands-humanscale" class="lp-brand-tile">
+          <div class="lp-brand-tile__media">
+            {%- if section.settings.humanscale_image != blank -%}
+              {%- assign hs_alt = 'Humanscale sit-stand desks and task lighting by Brant Business Interiors' -%}
+              {{ section.settings.humanscale_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: hs_alt, width: 800 }}
+            {%- else -%}
+              <div class="lp-brand-tile__ph">humanscale-space.jpg &middot; 16:9</div>
+            {%- endif -%}
+          </div>
+          <div class="lp-brand-tile__body">
+            <h3 class="lp-brand-tile__name">Humanscale</h3>
+            <p class="lp-brand-tile__meta">Sit-stand desks &middot; LED task lighting &middot; New York&ndash;based ergonomic design</p>
             <span class="lp-brand-tile__cta">View brand
               <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
             </span>
@@ -494,7 +512,8 @@
     { "type": "image_picker", "id": "global_image", "label": "Global/Teknion tile image", "info": "Upload global-teknion-space.jpg from data/page-images/global-teknion/" },
     { "type": "image_picker", "id": "otg_image", "label": "OTG tile image", "info": "Upload otg-space.jpg" },
     { "type": "image_picker", "id": "heartwood_image", "label": "Heartwood tile image", "info": "Upload heartwood-space.jpg" },
-    { "type": "image_picker", "id": "obusforme_image", "label": "ObusForme tile image", "info": "Upload obusforme-space.jpg" }
+    { "type": "image_picker", "id": "obusforme_image", "label": "ObusForme tile image", "info": "Upload obusforme-space.jpg" },
+    { "type": "image_picker", "id": "humanscale_image", "label": "Humanscale tile image", "info": "Upload humanscale-space.jpg" }
   ],
   "presets": [{ "name": "Brands Hub" }]
 }
