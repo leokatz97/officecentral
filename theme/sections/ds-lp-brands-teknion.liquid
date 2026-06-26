@@ -1,0 +1,423 @@
+{%- comment -%}
+  Section: ds-lp-brands-teknion
+  Purpose: Teknion standalone brand/dealer landing page (Path B — additive). Brant Business
+           Interiors is the AUTHORIZED DEALER (not the manufacturer). Company/line level only —
+           Teknion is NOT in data/specs.json, so NO model specs, dimensions, or capacities.
+  Why standalone: the combined Global/Teknion page (ds-lp-brands-global-teknion) leads its
+           title/meta with Global and never targeted the Teknion brand head. This page fills the
+           Teknion brand-head gap (teknion / teknion dealer / teknion canada / teknion ontario /
+           teknion furniture) WITHOUT touching the combined page.
+  De-conflict: the real Teknion ranking asset is the COLLECTION /collections/global-teknion
+           ("teknion ls", "teknion chairs"). This page targets BRAND + DEALER head terms only and
+           LINKS to the collection for product browse — it does NOT compete on product-line/browse
+           terms. Combined brand page is cross-referenced for the sister-brand relationship.
+  Carried lines (live vendor=Teknion, 2026-06-26): Glass walls, Zones, Untethered, Chronicle,
+           Expansion, Byward, AC Executive, AC Boardroom, Lounge, Boardroom, Seating. Name only.
+  Canadian: Teknion is genuinely Canadian (Toronto, founded 1983 by Saul Feldberg, sister to
+           Global Furniture Group under the Feldberg family, David Feldberg CEO) — maple-leaf
+           accent is CORRECT here.
+  Used by: page.brands-teknion.json (template suffix: brands-teknion)
+  Schema: Brand (distinct @id via canonical_url#brand-teknion + sameAs teknion.com) + Service
+          (provider → #organization, no parentOrganization) + FAQPage (blocks). Honest-dealer
+          pattern (SCHEMA-BRAND-1 / SCHEMA-CRIT-1) — manufacturer wording on the Brand node ONLY.
+          @id is auto-distinct from the combined page because canonical_url differs (Option A);
+          shared sameAs reconciles the Teknion entity. NO combined-page edit needed.
+  OECM: buyer-level hedge only (no product-level eligibility / no Agreement-number-as-claim).
+  Gate: theme.liquid bbi_landing gate — suppresses Starlite header/footer/cart.
+{%- endcomment -%}
+
+{% # theme-check-disable RemoteAsset %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+{% # theme-check-enable RemoteAsset %}
+
+<style>
+:root{--bodyFont:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--headingFont:"Inter Tight","Inter",system-ui,sans-serif;--headingFontWeight:600;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--inputRadius:4px;--buttonRadius:4px;--cardRadius:8px;--shadow-sm:0 1px 2px rgba(11,11,12,.04),0 2px 8px rgba(11,11,12,.05);--shadow-md:0 2px 4px rgba(11,11,12,.05),0 12px 32px rgba(11,11,12,.08);--saleBadgeBackground:#D4252A;--saleBadgeBackground-rgb:212,37,42;--fs-h0:44px;--lh-h0:1.05;--ls-h0:-0.02em;--fs-h1:32px;--lh-h1:1.1;--ls-h1:-0.015em;--fs-h2:24px;--lh-h2:1.15;--ls-h2:-0.01em;--fs-h3:18px;--lh-h3:1.25;--ls-h3:-0.005em;--fs-body:16px;--lh-body:1.55;--fs-small:13px;--lh-small:1.5;--fs-button:15px;--lh-button:1;--ls-button:0.01em;}
+@media(min-width:768px){:root{--fs-h0:72px;--fs-h1:48px;--lh-h1:1.05;--fs-h2:32px;--lh-h2:1.1;--fs-h3:22px;--lh-h3:1.2;--fs-small:14px;}}
+.lp-teknion.scheme-default{--background:#FFFFFF;--background-rgb:255,255,255;--alternateBackground:#FAFAFA;--alternateBackground-rgb:250,250,250;--cardBackground:#FFFFFF;--cardBackground-rgb:255,255,255;--textColor:#0B0B0C;--textColor-rgb:11,11,12;--linkColor:#0B0B0C;--headingColor:#0B0B0C;--headingColor-rgb:11,11,12;--buttonBackground:#D4252A;--buttonBackground-rgb:11,11,12;--buttonColor:#FFFFFF;--buttonBorder:#D4252A;--buttonBackgroundHover:#0B0B0C;--buttonColorHover:#FFFFFF;--buttonBorderHover:#0B0B0C;--alternateButtonBackground:#FFFFFF;--alternateButtonColor:#0B0B0C;--alternateButtonBorder:#0B0B0C;--alternateButtonBackgroundHover:#0B0B0C;--alternateButtonColorHover:#FFFFFF;--alternateButtonBorderHover:#0B0B0C;--borderColor:#E5E5E7;--borderColor-rgb:229,229,231;--shadowColor:#0B0B0C;--shadowColor-rgb:11,11,12;--headerBg:#FFFFFF;--headerColor:#0B0B0C;--headerHoverColor:#D4252A;}
+.lp-teknion .scheme-inverse{--background:#0B0B0C;--background-rgb:11,11,12;--alternateBackground:#161618;--textColor:#FFFFFF;--textColor-rgb:255,255,255;--linkColor:#FFFFFF;--headingColor:#FFFFFF;--headingColor-rgb:255,255,255;--buttonBackground:#FFFFFF;--buttonBackground-rgb:255,255,255;--buttonColor:#0B0B0C;--buttonBorder:#FFFFFF;--buttonBackgroundHover:#D4252A;--buttonColorHover:#FFFFFF;--buttonBorderHover:#D4252A;--alternateButtonBackground:transparent;--alternateButtonColor:#FFFFFF;--alternateButtonBorder:#FFFFFF;--alternateButtonBackgroundHover:#FFFFFF;--alternateButtonColorHover:#0B0B0C;--alternateButtonBorderHover:#FFFFFF;--borderColor:#1F1F21;--borderColor-rgb:31,31,33;--shadowColor:#000000;--shadowColor-rgb:0,0,0;}
+.lp-teknion *,.lp-teknion *::before,.lp-teknion *::after{box-sizing:border-box;}
+.lp-teknion{font-family:var(--bodyFont);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--textColor);background:var(--background);-webkit-font-smoothing:antialiased;}
+.lp-teknion img{display:block;max-width:100%;height:auto;}
+.lp-teknion a{color:var(--linkColor);text-decoration:none;}
+.lp-teknion .bbi-icon--leaf{display:inline-block;width:14px;height:14px;vertical-align:-2px;color:#D4252A;flex-shrink:0;}
+.lp-teknion .bbi-mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-teknion .bbi-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);padding:12px 20px;min-height:44px;font-family:var(--bodyFont);font-size:var(--fs-button);line-height:var(--lh-button);letter-spacing:var(--ls-button);font-weight:600;border-radius:var(--buttonRadius);border:1px solid transparent;cursor:pointer;text-decoration:none;transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;white-space:nowrap;}
+.lp-teknion .bbi-btn:focus{outline:none;}.lp-teknion .bbi-btn:focus-visible{outline:2px solid var(--textColor);outline-offset:2px;}
+.lp-teknion .bbi-btn--lg{min-height:52px;padding:16px 24px;font-size:16px;}
+.lp-teknion .bbi-btn--primary{background:var(--buttonBackground);color:var(--buttonColor);border-color:var(--buttonBorder);}
+.lp-teknion .bbi-btn--primary:hover{background:var(--buttonBackgroundHover);color:var(--buttonColorHover);border-color:var(--buttonBorderHover);}
+.lp-teknion .bbi-btn--secondary{background:var(--alternateButtonBackground);color:var(--alternateButtonColor);border-color:var(--alternateButtonBorder);}
+.lp-teknion .bbi-btn--secondary:hover{background:var(--alternateButtonBackgroundHover);color:var(--alternateButtonColorHover);}
+.lp-teknion .bbi-btn--tertiary{background:transparent;color:var(--textColor);border-color:transparent;padding-left:4px;padding-right:4px;}
+.lp-teknion .bbi-btn--tertiary .label{position:relative;}
+.lp-teknion .bbi-btn--tertiary .label::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;}
+.lp-teknion .bbi-btn .arrow{display:inline-block;transform:translateY(-0.5px);}
+.lp-teknion .lp-hero{padding:var(--space-12) 0;border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-teknion .lp-hero__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--space-12);align-items:center;}
+.lp-teknion .lp-hero__text{max-width:560px;}
+.lp-teknion .lp-hero__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);}
+.lp-teknion .lp-hero__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-teknion .lp-hero__eyebrow-label{color:rgba(var(--textColor-rgb),0.6);}
+.lp-teknion .lp-hero__badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:6px 12px;border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:999px;margin-bottom:var(--space-6);font-size:12px;color:rgba(var(--textColor-rgb),0.78);}
+.lp-teknion .lp-hero__badge-dot{width:6px;height:6px;border-radius:50%;background:var(--saleBadgeBackground);}
+.lp-teknion .lp-hero h1{font-family:var(--headingFont);font-size:var(--fs-h1);line-height:var(--lh-h1);letter-spacing:var(--ls-h1);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);text-wrap:balance;}
+.lp-teknion .lp-hero__standfirst{font-size:18px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-6);text-wrap:pretty;}
+.lp-teknion .lp-hero__cta-row{display:flex;gap:var(--space-3);flex-wrap:wrap;}
+.lp-teknion .lp-hero__media{position:relative;aspect-ratio:5/4;background:var(--alternateBackground);border-radius:var(--cardRadius);overflow:hidden;}
+.lp-teknion .lp-hero__media img{width:100%;height:100%;object-fit:cover;}
+.lp-teknion .lp-hero__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,rgba(var(--shadowColor-rgb),.03) 0 8px,rgba(var(--shadowColor-rgb),.07) 8px 16px),var(--alternateBackground);color:rgba(var(--textColor-rgb),.5);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;}
+.lp-teknion .lp-hero__caption{position:absolute;left:var(--space-4);bottom:var(--space-4);background:rgba(var(--shadowColor-rgb),.7);color:#fff;padding:6px 10px;border-radius:4px;font-size:12px;display:inline-flex;align-items:center;gap:var(--space-2);}
+.lp-teknion .lp-hero__caption-dot{width:4px;height:4px;border-radius:50%;background:var(--saleBadgeBackground);}
+.lp-teknion .lp-intro{padding:var(--space-12) 0;}
+.lp-teknion .lp-intro__inner{max-width:880px;margin:0 auto;padding:0 var(--space-6);}
+.lp-teknion .lp-intro__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-teknion .lp-intro__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-teknion .lp-intro h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);letter-spacing:var(--ls-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-6);}
+.lp-teknion .lp-intro__body p{font-size:17px;line-height:1.65;color:rgba(var(--textColor-rgb),0.78);margin:0 0 var(--space-4);}
+.lp-teknion .lp-intro__body p:last-child{margin-bottom:0;}
+.lp-teknion .lp-diff{padding:var(--space-12) 0;background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.5);border-bottom:1px solid rgba(var(--borderColor-rgb),0.5);}
+.lp-teknion .lp-diff__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-teknion .lp-diff__head{margin-bottom:var(--space-8);}
+.lp-teknion .lp-diff__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-teknion .lp-diff__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-teknion .lp-diff h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);letter-spacing:var(--ls-h2);font-weight:600;color:var(--headingColor);margin:0;max-width:44ch;}
+.lp-teknion .lp-diff__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);}
+.lp-teknion .lp-diff-card{background:var(--cardBackground);border:1px solid rgba(var(--borderColor-rgb),0.6);border-radius:var(--cardRadius);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-3);}
+.lp-teknion .lp-diff-card__num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;color:var(--saleBadgeBackground);font-weight:400;}
+.lp-teknion .lp-diff-card__label{font-family:var(--headingFont);font-size:var(--fs-h3);line-height:var(--lh-h3);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-teknion .lp-diff-card__sentence{font-size:14px;line-height:1.6;color:rgba(var(--textColor-rgb),0.72);margin:0;}
+.lp-teknion .lp-crosslinks{padding:var(--space-12) 0;}
+.lp-teknion .lp-crosslinks__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);}
+.lp-teknion .lp-crosslinks__head{margin-bottom:var(--space-8);}
+.lp-teknion .lp-crosslinks__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-teknion .lp-crosslinks__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-teknion .lp-crosslinks h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0;}
+.lp-teknion .lp-crosslinks__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);}
+.lp-teknion .lp-crosslinks__tile{display:flex;align-items:center;gap:var(--space-4);padding:var(--space-5,20px) var(--space-6);border:1px solid rgba(var(--borderColor-rgb),0.6);border-radius:var(--cardRadius);text-decoration:none;color:var(--textColor);transition:box-shadow 140ms ease,border-color 140ms ease;}
+.lp-teknion .lp-crosslinks__tile:hover{box-shadow:var(--shadow-sm);border-color:rgba(var(--borderColor-rgb),1);}
+.lp-teknion .lp-crosslinks__tile-icon{color:rgba(var(--textColor-rgb),0.5);flex-shrink:0;}
+.lp-teknion .lp-crosslinks__tile-label{flex:1;}
+.lp-teknion .lp-crosslinks__tile-name{display:block;font-size:15px;font-weight:600;color:var(--headingColor);}
+.lp-teknion .lp-crosslinks__tile-meta{display:block;font-size:12px;color:rgba(var(--textColor-rgb),0.55);margin-top:2px;}
+.lp-teknion .lp-crosslinks__tile-arrow{color:rgba(var(--textColor-rgb),0.4);transition:transform 120ms ease;}
+.lp-teknion .lp-crosslinks__tile:hover .lp-crosslinks__tile-arrow{transform:translateX(3px);}
+.lp-teknion .lp-oecm-bar{background:var(--alternateBackground);border-top:1px solid rgba(var(--borderColor-rgb),0.5);border-bottom:1px solid rgba(var(--borderColor-rgb),0.5);padding:var(--space-8) 0;}
+.lp-teknion .lp-oecm-bar__inner{max-width:1280px;margin:0 auto;padding:0 var(--space-6);display:flex;align-items:center;gap:var(--space-8);flex-wrap:wrap;}
+.lp-teknion .lp-oecm-badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:6px 12px;border:1px solid rgba(var(--borderColor-rgb),0.8);border-radius:999px;font-size:12px;white-space:nowrap;color:rgba(var(--textColor-rgb),0.78);}
+.lp-teknion .lp-oecm-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--saleBadgeBackground);flex-shrink:0;}
+.lp-teknion .lp-oecm-bar__lead{display:flex;align-items:flex-start;gap:var(--space-4);flex:1 1 400px;flex-wrap:wrap;}
+.lp-teknion .lp-oecm-bar__copy{font-size:15px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);margin:0;max-width:72ch;}
+.lp-teknion .lp-oecm-bar__meta{flex-shrink:0;}
+.lp-teknion .lp-faq{padding:var(--space-12) 0;border-top:1px solid rgba(var(--borderColor-rgb),0.5);}
+.lp-teknion .lp-faq__inner{max-width:860px;margin:0 auto;padding:0 var(--space-6);}
+.lp-teknion .lp-faq__head{margin-bottom:var(--space-8);}
+.lp-teknion .lp-faq__eyebrow{display:inline-flex;align-items:center;gap:var(--space-2);color:rgba(var(--textColor-rgb),0.6);margin-bottom:var(--space-4);}
+.lp-teknion .lp-faq__eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--saleBadgeBackground);}
+.lp-teknion .lp-faq h2{font-family:var(--headingFont);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;color:var(--headingColor);margin:0 0 var(--space-4);}
+.lp-teknion .lp-faq__cta{font-size:15px;color:rgba(var(--textColor-rgb),0.72);margin:0;}
+.lp-teknion .lp-faq__cta a{color:var(--textColor);text-decoration:underline;}
+.lp-teknion .lp-faq-item{border-bottom:1px solid rgba(var(--borderColor-rgb),0.6);}
+.lp-teknion .lp-faq-item summary{list-style:none;display:flex;align-items:baseline;gap:var(--space-4);padding:var(--space-6) 0;cursor:pointer;}
+.lp-teknion .lp-faq-item summary::-webkit-details-marker{display:none;}
+.lp-teknion .lp-faq-item__num{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;color:rgba(var(--textColor-rgb),0.4);flex-shrink:0;width:24px;}
+.lp-teknion .lp-faq-item__q{flex:1;font-size:16px;font-weight:500;color:var(--headingColor);line-height:1.4;}
+.lp-teknion .lp-faq-item__icon{flex-shrink:0;width:20px;height:20px;border-radius:50%;border:1px solid rgba(var(--borderColor-rgb),0.8);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(var(--textColor-rgb),0.5);transition:transform 160ms ease;}
+.lp-teknion details[open] .lp-faq-item__icon{transform:rotate(45deg);}
+.lp-teknion .lp-faq-item__icon::after{content:"+";}
+.lp-teknion .lp-faq-item__body{padding:0 0 var(--space-6) calc(24px + var(--space-4));}
+.lp-teknion .lp-faq-item__body p{font-size:15px;line-height:1.65;color:rgba(var(--textColor-rgb),0.78);margin:0;}
+.lp-teknion .lp-closer{background:var(--background);color:var(--textColor);}
+.lp-teknion .lp-closer__inner{max-width:1320px;margin:0 auto;padding:96px 32px;display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:center;}
+.lp-teknion .lp-closer__eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(var(--textColor-rgb),0.7);margin:0 0 16px;}
+.lp-teknion .lp-closer__heading{font-family:var(--headingFont);font-size:clamp(32px,4.2vw,56px);line-height:1.05;letter-spacing:-0.015em;font-weight:600;margin:0 0 20px;text-wrap:balance;}
+.lp-teknion .lp-closer__sub{font-size:17px;line-height:1.55;color:rgba(var(--textColor-rgb),0.78);max-width:52ch;margin:0;}
+.lp-teknion .lp-closer__actions{display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+.lp-teknion .lp-closer__trust{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(var(--textColor-rgb),0.78);}
+.lp-teknion .lp-closer__trust .dot{flex:0 0 auto;margin-top:7px;width:6px;height:6px;border-radius:99px;background:var(--saleBadgeBackground);}
+.lp-teknion .lp-closer__trust b{color:var(--textColor);font-weight:600;}
+.lp-teknion .lp-closer__trust a{color:var(--textColor);text-decoration:underline;}
+@media(max-width:1024px){.lp-teknion .lp-diff__grid{grid-template-columns:repeat(2,1fr);}.lp-teknion .lp-crosslinks__grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){.lp-teknion .lp-hero__inner{grid-template-columns:1fr;}.lp-teknion .lp-hero__media{display:none;}.lp-teknion .lp-diff__grid{grid-template-columns:1fr;}.lp-teknion .lp-crosslinks__grid{grid-template-columns:1fr;}.lp-teknion .lp-closer__inner{grid-template-columns:1fr;padding:64px 24px;}.lp-teknion .bbi-header__nav{display:none;}}
+</style>
+
+<div class="lp-teknion scheme-default">
+
+  {%- render 'bbi-nav', logo: section.settings.logo, active: 'brands' -%}
+  {%- render 'bbi-crumbs', c2_label: 'Brands', c2_href: '/pages/brands', c3_label: 'Teknion' -%}
+
+
+  <section class="lp-hero" aria-label="Hero">
+    <div class="lp-hero__inner">
+      <div class="lp-hero__text">
+        <p class="lp-hero__eyebrow bbi-mono">
+          <span class="lp-hero__eyebrow-label">Brand &middot; Authorized Teknion Dealer</span>
+        </p>
+        <span class="lp-hero__badge">
+          <span class="lp-hero__badge-dot"></span>
+          Authorized Teknion Dealer &middot; Ontario
+        </span>
+        <h1>{{ section.settings.heading | default: 'Teknion workstations, walls, and seating, from your Ontario dealer.' }}</h1>
+        <p class="lp-hero__standfirst">{{ section.settings.subheading | default: 'Brant Business Interiors is an authorized Teknion dealer serving Ontario institutions. We specify, quote, deliver, and install Teknion workstations, architectural walls, and contract seating. Quote in 1 business day.' }}</p>
+        <div class="lp-hero__cta-row">
+          <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
+            Request a Quote <span class="arrow">&#8594;</span>
+          </a>
+          <a class="bbi-btn bbi-btn--secondary bbi-btn--lg" href="/collections/global-teknion">
+            Browse Teknion Furniture
+          </a>
+        </div>
+      </div>
+      <div class="lp-hero__media" aria-hidden="true">
+        {%- if section.settings.hero_image != blank -%}
+          {%- assign t_hero_alt = 'Teknion workstations and architectural walls supplied by Brant Business Interiors' -%}
+          {{ section.settings.hero_image | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', alt: t_hero_alt, width: 1200 }}
+        {%- else -%}
+          <div class="lp-hero__ph">Hero image &middot; 5:4 &middot; upload teknion-space.jpg</div>
+        {%- endif -%}
+        <div class="lp-hero__caption">
+          <span class="lp-hero__caption-dot"></span>
+          <span>Teknion &mdash; supplied &amp; installed across Ontario</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-intro" aria-label="About Teknion">
+    <div class="lp-intro__inner">
+      <p class="lp-intro__eyebrow bbi-mono">About Teknion</p>
+      <h2>Is Brant Business Interiors a Teknion dealer?</h2>
+      <div class="lp-intro__body">
+        <p>Yes &mdash; Brant Business Interiors is an authorized Teknion dealer serving Ontario. Through our dealer account we specify, quote, deliver, and install the Teknion lines we carry for Ontario institutions, with delivery and installation by our own crew. Family-owned and supplying Ontario workplaces since 1964 <svg class="bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg>, from 701 The Queensway, Units 2-4, Peterborough, ON K9J 7J6.</p>
+        <p>Teknion is a Canadian contract-furniture manufacturer <svg class="bbi-icon--leaf" viewBox="0 0 13 13" fill="currentColor" aria-hidden="true"><path d="M6.5 0 L7.6 3.5 L11 2 L9 5 L13 6.5 L9.5 7 L11 10.5 L6.5 8.5 L2 10.5 L3.5 7 L0 6.5 L4 5 L2 2 L5.4 3.5 Z"/></svg> headquartered in Toronto, founded in 1983 by Saul Feldberg and led today by David Feldberg. It is the sister company to Global Furniture Group &mdash; both owned by the Feldberg family &mdash; and is known for workstations, demountable and architectural wall systems, height-adjustable desking, and contract seating for corporate and institutional workplaces. For how the two families compare, read our <a href="/blogs/news/global-vs-teknion-office-furniture">Global vs Teknion guide</a>, or see the combined <a href="/pages/brands-global-teknion">Global / Teknion brand page</a> for the sister-brand relationship.</p>
+        <p>The Teknion lines we carry today include Glass walls, Zones, Untethered, Chronicle, Expansion, Byward, AC Executive, AC Boardroom, Lounge, Boardroom, and Seating. As a multi-line contract dealer we handle Teknion alongside the rest of your fit-out &mdash; seating, desking, storage, and tables &mdash; on a single quote, with one Ontario install. We confirm current Teknion model availability, finish options, and lead time before your purchase order is issued.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-diff" aria-label="Why buy Teknion through Brant Business Interiors">
+    <div class="lp-diff__inner">
+      <div class="lp-diff__head">
+        <p class="lp-diff__eyebrow bbi-mono">Why buy through us</p>
+        <h2>Three reasons Ontario buyers source Teknion through Brant Business Interiors.</h2>
+      </div>
+      <div class="lp-diff__grid">
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">Authorized</span>
+          <h3 class="lp-diff-card__label">Authorized dealer account</h3>
+          <p class="lp-diff-card__sentence">We hold a Teknion dealer account. Specification, quotes, orders, warranty claims, and replacement parts run through one Ontario point of contact &mdash; not a national call centre.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">Multi-line</span>
+          <h3 class="lp-diff-card__label">One quote for the whole project</h3>
+          <p class="lp-diff-card__sentence">Teknion slots into a larger fit-out. We consolidate Teknion workstations, walls, and seating with Global, ergonomic, and value-line furniture on a single quote and a single install.</p>
+        </article>
+        <article class="lp-diff-card">
+          <span class="lp-diff-card__num">Ontario</span>
+          <h3 class="lp-diff-card__label">Delivery &amp; install by our own crew</h3>
+          <p class="lp-diff-card__sentence">Our team delivers and installs across Ontario &mdash; workstations built and levelled, walls fitted, seating placed. No third-party freight handoff, no out-of-province coordination.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-crosslinks" aria-label="Browse Teknion and related pages">
+    <div class="lp-crosslinks__inner">
+      <div class="lp-crosslinks__head">
+        <p class="lp-crosslinks__eyebrow bbi-mono">Browse &amp; compare</p>
+        <h2>Browse Teknion &mdash; or compare with Global.</h2>
+      </div>
+      <div class="lp-crosslinks__grid">
+
+        <a href="/collections/global-teknion" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 10 H25"/><path d="M5 10 V22"/><path d="M23 10 V22"/><path d="M5 16 H14 V22 H5 Z"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Browse Teknion Products</span>
+            <span class="lp-crosslinks__tile-meta">Workstations &middot; walls &middot; seating &middot; tables</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/blogs/news/global-vs-teknion-office-furniture" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4" y="4" width="20" height="20" rx="2"/><path d="M14 6 V22"/><path d="M7 11 H11 M7 15 H11 M17 11 H21 M17 15 H21"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">Global vs Teknion</span>
+            <span class="lp-crosslinks__tile-meta">Which line &middot; comparison guide</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+        <a href="/pages/brands" class="lp-crosslinks__tile">
+          <span class="lp-crosslinks__tile-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4" y="4" width="8" height="8"/><rect x="16" y="4" width="8" height="8"/><rect x="4" y="16" width="8" height="8"/><rect x="16" y="16" width="8" height="8"/></svg>
+          </span>
+          <span class="lp-crosslinks__tile-label">
+            <span class="lp-crosslinks__tile-name">All Brands We Carry</span>
+            <span class="lp-crosslinks__tile-meta">Global &middot; Teknion &middot; Keilhauer &middot; ergoCentric &amp; more</span>
+          </span>
+          <span class="lp-crosslinks__tile-arrow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 9 H15"/><path d="M10 4 L15 9 L10 14"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-oecm-bar" aria-label="OECM procurement">
+    <div class="lp-oecm-bar__inner">
+      <div class="lp-oecm-bar__lead">
+        <span class="lp-oecm-badge">
+          <span class="dot"></span>
+          OECM Supplier Partner
+        </span>
+        <p class="lp-oecm-bar__copy"><b>Brant Business Interiors</b> is registered under our parent legal entity, Brant Basics, as an authorized OECM Supplier Partner. Eligible Ontario broader-public-sector buyers &mdash; school boards, hospitals, and municipalities &mdash; can purchase office furniture and installation from us without an open tender. Family-owned and supplying Ontario workplaces since 1964, from 701 The Queensway, Units 2-4, Peterborough, ON K9J 7J6.</p>
+      </div>
+      <div class="lp-oecm-bar__meta">
+        <a href="/pages/oecm" class="bbi-btn bbi-btn--tertiary">
+          <span class="label">Learn about OECM purchasing</span>
+          <span class="arrow"> &#8594;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section class="lp-faq" aria-label="Frequently asked questions">
+    <div class="lp-faq__inner">
+      <div class="lp-faq__head">
+        <p class="lp-faq__eyebrow bbi-mono">Common questions</p>
+        <h2>What buyers ask about Teknion.</h2>
+        <p class="lp-faq__cta">Still have a question? <a href="tel:18008359565">Call 1&#8209;800&#8209;835&#8209;9565</a> or <a href="/pages/quote">request a quote</a> and we&rsquo;ll respond in 1 business day.</p>
+      </div>
+      {%- comment -%}
+        FAQ byte-match (SCHEMA-CRIT-1): the visible accordion below and the faq_items list passed to
+        bbi-faq-jsonld (after the footer) are built from the SAME faq_item blocks (question + "||" +
+        answer), split on the same delimiters. Do not edit one without the other.
+      {%- endcomment -%}
+      <div class="lp-faq__list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq_item' and block.settings.question != blank and block.settings.answer != blank -%}
+        <details class="lp-faq-item" {{ block.shopify_attributes }}>
+          <summary>
+            <span class="lp-faq-item__num">0{{ forloop.index }}</span>
+            <span class="lp-faq-item__q">{{ block.settings.question | escape }}</span>
+            <span class="lp-faq-item__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="lp-faq-item__body">
+            <p>{{ block.settings.answer | escape }}</p>
+          </div>
+        </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-closer scheme-inverse" aria-label="Request a quote">
+    <div class="lp-closer__inner">
+      <div>
+        <p class="lp-closer__eyebrow">Authorized Teknion dealer</p>
+        <h2 class="lp-closer__heading">Specify Teknion. We&rsquo;ll quote, deliver, and install.</h2>
+        <p class="lp-closer__sub">Authorized Ontario dealer. Quote in 1 business day &mdash; workstations, architectural walls, and seating, delivered and installed by our own crew.</p>
+      </div>
+      <div class="lp-closer__actions">
+        <a class="bbi-btn bbi-btn--primary bbi-btn--lg" href="/pages/quote">
+          Request a Quote <span class="arrow">&#8594;</span>
+        </a>
+        <div class="lp-closer__trust">
+          <span class="dot"></span>
+          <span><b>Authorized dealer</b> &mdash; warranty claims handled through one Ontario contact.</span>
+        </div>
+        <div class="lp-closer__trust">
+          <span class="dot"></span>
+          <span>Or call <a href="tel:18008359565">1&#8209;800&#8209;835&#8209;9565</a> &middot; Mon&ndash;Fri 8&ndash;5 ET</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- render 'bbi-footer', logo: section.settings.logo -%}
+
+  {%- render 'bbi-brand-jsonld',
+    brand_name: "Teknion",
+    brand_description: "Teknion is a Canadian contract furniture manufacturer headquartered in Toronto, specializing in workstations, demountable and architectural wall systems, height-adjustable desking, and contract seating for corporate and institutional workplaces.",
+    same_as: "https://www.teknion.com",
+    id_suffix: "brand-teknion"
+  -%}
+
+  {%- render 'bbi-service-jsonld',
+    service_name: "Authorized Teknion Dealer",
+    service_description: "Brant Business Interiors is an authorized Teknion dealer offering workstations, architectural walls, height-adjustable desking, and contract seating for commercial, institutional, education, healthcare, and government workspaces across Ontario. Contact Brant Business Interiors for current Teknion model availability, finish selection, delivery, and installation.",
+    service_type: "Furniture Dealer",
+    id_suffix: "service-teknion"
+  -%}
+
+  {%- comment -%}
+    FAQPage (SCHEMA-CRIT-1): built from the SAME faq_item blocks the visible accordion renders.
+    Assemble "Question||Answer" per block joined by "~~~", split into the array bbi-faq-jsonld expects.
+    Snippet emits NOTHING if there are zero valid pairs (honesty rule). Net page schema after this build
+    = 1 Brand (Teknion) + 1 Service (Authorized Teknion Dealer) + 1 FAQPage. No Organization re-emit
+    (bbi-nav covers it). NO parentOrganization / manufacturer wording lives on the Brand node only.
+    @id is auto-distinct from the combined Global/Teknion page because canonical_url differs (Option A);
+    shared sameAs reconciles the Teknion entity. No combined-page edit needed.
+  {%- endcomment -%}
+  {%- liquid
+    assign faq_blocks = section.blocks | where: 'type', 'faq_item'
+    assign faq_build = ''
+    for block in faq_blocks
+      if block.settings.question != blank and block.settings.answer != blank
+        assign faq_build = faq_build | append: block.settings.question | append: '||' | append: block.settings.answer | append: '~~~'
+      endif
+    endfor
+    assign faq_items = faq_build | split: '~~~'
+  -%}
+  {%- render 'bbi-faq-jsonld', faq_items: faq_items -%}
+
+</div><!-- /lp-teknion -->
+
+{% schema %}
+{
+  "name": "Teknion Brand Page",
+  "class": "ds-lp-brands-teknion",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "heading", "label": "H1 heading", "default": "Teknion workstations, walls, and seating, from your Ontario dealer." },
+    { "type": "textarea", "id": "subheading", "label": "Hero standfirst", "default": "Brant Business Interiors is an authorized Teknion dealer serving Ontario institutions. We specify, quote, deliver, and install Teknion workstations, architectural walls, and contract seating. Quote in 1 business day." },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image (5:4)", "info": "Upload teknion-space.jpg from data/page-images/teknion/" }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Answer (plain text — no \"||\" or \"~~~\")" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Teknion Brand Page",
+      "blocks": [
+        { "type": "faq_item", "settings": { "question": "Is Brant Business Interiors a Teknion dealer?", "answer": "Yes. Brant Business Interiors is an authorized Teknion dealer serving Ontario. We specify, quote, deliver, and install the Teknion lines we carry — workstations, demountable and architectural wall systems, height-adjustable desking, and contract seating — for institutional and workplace clients, with delivery and installation by our own Ontario crew." } },
+        { "type": "faq_item", "settings": { "question": "Which Teknion lines does Brant Business Interiors carry?", "answer": "The Teknion lines we carry today include Glass walls, Zones, Untethered, Chronicle, Expansion, Byward, AC Executive, AC Boardroom, Lounge, Boardroom, and Seating. We confirm current model availability, finish, and configuration on every quote. For other Teknion products, ask us — as an authorized dealer we can quote across the catalogue." } },
+        { "type": "faq_item", "settings": { "question": "Is Teknion a Canadian company?", "answer": "Yes. Teknion is a Canadian contract-furniture manufacturer headquartered in Toronto, founded in 1983 by Saul Feldberg and led today by David Feldberg. It is the sister company to Global Furniture Group, both owned by the Feldberg family. Brant Business Interiors is a Canadian, family-owned dealer supplying Ontario workplaces since 1964." } },
+        { "type": "faq_item", "settings": { "question": "What is the lead time, and do you deliver and install across Ontario?", "answer": "Teknion products are specified to order, so we confirm the exact lead time on your quote before your purchase order is issued. Brant Business Interiors delivers and installs across Ontario with our own team — workstations built and levelled, walls fitted, seating placed — coordinated with your site contact, with no third-party freight handoff. Call 1-800-835-9565 or request a quote and we will respond in one business day." } },
+        { "type": "faq_item", "settings": { "question": "Are Teknion products available to OECM buyers?", "answer": "Brant Business Interiors is registered under our parent legal entity, Brant Basics, as an authorized OECM Supplier Partner. Eligible Ontario broader-public-sector buyers — school boards, hospitals, and municipalities — can purchase office furniture and installation from us without an open tender. Family-owned and supplying Ontario workplaces since 1964, from 701 The Queensway, Units 2-4, Peterborough, ON K9J 7J6." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
