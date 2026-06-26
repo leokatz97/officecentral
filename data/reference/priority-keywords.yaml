@@ -292,6 +292,28 @@ pending_clusters:
   - id: brand-dealer
     icp: both
     note: "39 net-new home-turf brand terms (ergocentric/global/keilhauer/obusforme/teknion) -> brand_page."
+    claimed:
+      # De-conflict (2026-06-26): standalone brand pages now own the brand-HEAD terms below. Both pages
+      # are built; nav-wired; await Leo's PUBLISH to go live (Teknion nav: PR #182 page + this session's
+      # standalone nav entry; Humanscale nav: #177/#178).
+      #
+      # Teknion — /pages/brands-teknion owns the dealer/geo HEAD terms. NOTE: product-line + category-browse
+      # terms (e.g. "teknion ls", "teknion workstations" browse intent) stay with /collections/global-teknion,
+      # the ranking collection — do NOT lock those to the page.
+      - {kw: teknion, owner: /pages/brands-teknion}
+      - {kw: teknion dealer, owner: /pages/brands-teknion}
+      - {kw: teknion canada, owner: /pages/brands-teknion}
+      - {kw: teknion ontario, owner: /pages/brands-teknion}
+      - {kw: teknion furniture, owner: /pages/brands-teknion}
+      - {kw: teknion office furniture, owner: /pages/brands-teknion}
+      #
+      # Humanscale — /pages/brands-humanscale owns dealer/geo + the two lines BBI actually carries (sit-stand
+      # desks + task lighting). Do NOT lock humanscale chairs / monitor arms — BBI doesn't stock those lines.
+      - {kw: humanscale dealer, owner: /pages/brands-humanscale}
+      - {kw: humanscale canada, owner: /pages/brands-humanscale}
+      - {kw: humanscale ontario, owner: /pages/brands-humanscale}
+      - {kw: humanscale sit-stand desk, owner: /pages/brands-humanscale}
+      - {kw: humanscale task lighting, owner: /pages/brands-humanscale}
   - id: ergonomic-seating-desks-storage
     icp: both
     note: "Shared product clusters (ergonomic chair, height-adjustable desk, filing). Split by CTA."
