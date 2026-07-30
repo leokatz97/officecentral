@@ -120,7 +120,10 @@ body { background: #FFFFFF !important; }
   font-family:var(--headingFont,"Inter Tight","Inter",sans-serif);
   font-size:16px;font-weight:700;
   white-space:nowrap;
+  color:var(--saleBadgeBackground,#D4252A);
 }
+/* BBI: red price values in the order summary (labels stay dark). */
+#bbi-cart-subtotal,#bbi-cart-total{color:var(--saleBadgeBackground,#D4252A);}
 .bbi-cart__remove{
   background:none;border:none;cursor:pointer;
   font-size:12px;color:rgba(11,11,12,.4);

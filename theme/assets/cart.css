@@ -332,6 +332,14 @@ button#cartUpdate {
     justify-content: center;
 }
 
+/* BBI: red price text in the cart drawer (reuse sale-badge red #D4252A).
+   .actual-price = current/sale line price; .compare-price strikethrough is
+   left untouched at its muted colour. [data-cart-final-price] = drawer grand total. */
+.cart-item-quantity-price .product-price .actual-price,
+[data-cart-final-price] {
+    color: #D4252A;
+}
+
 .btn-remove {
     margin-left: auto;
     min-width: 30px;

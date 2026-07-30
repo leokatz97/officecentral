@@ -1265,8 +1265,11 @@
     
     .product-price .actual-price {
         font-weight: 500;
+        /* BBI: red current/sale price (reuse sale-badge red #D4252A). Compare-at
+           strikethrough below is left at its muted inherited colour. */
+        color: #D4252A;
     }
-    
+
     .product-price .compare-price {
         font-size: var(--smallText);
         text-decoration: line-through;
