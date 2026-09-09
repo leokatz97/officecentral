@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Delivery Forms Admin</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <main class="wrap wrap--wide">
+    <header class="brand">
+      <div class="brand__mark" aria-hidden="true">OC</div>
+      <div>
+        <div class="brand__name">Delivery Forms</div>
+        <div class="brand__tag">Admin view</div>
+      </div>
+      <div class="brand__right" id="headerActions" hidden>
+        <button class="btn btn--ghost btn--sm" id="refreshBtn" type="button">Refresh</button>
+        <button class="btn btn--ghost btn--sm" id="exportBtn" type="button">Download CSV</button>
+        <button class="btn btn--ghost btn--sm" id="logoutBtn" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <section id="loginView" class="login" hidden>
+      <form class="card stack" id="loginForm">
+        <div>
+          <p class="eyebrow">Office staff only</p>
+          <h1 class="title" style="font-size: 24px">Sign in</h1>
+        </div>
+        <div class="field">
+          <label class="field__label" for="password">Admin password</label>
+          <input class="control" id="password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <div id="loginError" class="notice notice--danger" role="alert" hidden></div>
+        <button class="btn btn--primary btn--block" type="submit" id="loginBtn">Sign in</button>
+      </form>
+    </section>
+
+    <section id="setupView" class="stack" hidden></section>
+
+    <section id="appView" class="stack" hidden>
+      <div id="setupNotice"></div>
+      <div class="stats" id="stats"></div>
+      <div class="toolbar">
+        <input class="control grow" id="search" type="search" placeholder="Search customer, quote #, contact…" aria-label="Search">
+        <select class="control" id="brandFilter" aria-label="Filter by company"><option value="">All companies</option></select>
+        <select class="control" id="repFilter" aria-label="Filter by rep"><option value="">All reps</option></select>
+        <label><input type="checkbox" id="showHandled" checked> Show handled</label>
+      </div>
+      <div class="table-wrap">
+        <table id="table">
+          <thead>
+            <tr>
+              <th>Submitted</th>
+              <th>Company</th>
+              <th>Rep</th>
+              <th>Quote #</th>
+              <th>Customer</th>
+              <th>Contact</th>
+              <th>Floor</th>
+              <th>Delivery</th>
+              <th>Email</th>
+              <th>Handled</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty" id="empty" hidden></div>
+      </div>
+    </section>
+  </main>
+  <script src="/admin.js" defer></script>
+</body>
+</html>
