@@ -17,12 +17,30 @@ const GENERAL_SITE_STATUS = [
   'New Building Opening',
 ];
 
-const SALES_REPS = [
+// Rep dropdown per company. Names only unless a number was given.
+const SCHOOLHOUSE_REPS = [
   'Terry (905) 475-7753',
   'Ryan (226) 747-5979',
   'Tiffany',
   'Shiva (416) 856-5080',
 ];
+
+const OFFICE_CENTRAL_REPS = [
+  'Raph S',
+  'Adam M',
+  'Adam S',
+  'Mandy P',
+  'Nadeen S',
+  'Jessica S',
+  'Steve K',
+  'Angelo F',
+  'Graham M',
+  'Rob T',
+  'Sharon N',
+  'Lisa H',
+];
+
+const BRANT_REPS = ['Katrina', 'Shawn', 'Matthew', 'Andrea', 'Steve'];
 
 export const BRANDS = {
   schoolhouse: {
@@ -31,7 +49,7 @@ export const BRANDS = {
     shortName: 'Schoolhouse',
     tagline: 'Furniture. All Kinds. Right Here.',
     accent: '#e8731a',
-    reps: SALES_REPS,
+    reps: SCHOOLHOUSE_REPS,
     siteStatusOptions: SCHOOL_SITE_STATUS,
     mailTo: ['Sales@schoolhouseproducts.ca'],
     mailCc: ['Dinesh@schoolhouseproducts.ca'],
@@ -42,10 +60,10 @@ export const BRANDS = {
     shortName: 'Office Central',
     tagline: 'Delivery Information',
     accent: '#1b3f7a',
-    reps: SALES_REPS,
+    reps: OFFICE_CENTRAL_REPS,
     siteStatusOptions: GENERAL_SITE_STATUS,
-    mailTo: ['Sales@schoolhouseproducts.ca'],
-    mailCc: ['Dinesh@schoolhouseproducts.ca'],
+    mailTo: ['Sams@officecentral.com'],
+    mailCc: [],
   },
   brant: {
     slug: 'brant',
@@ -53,14 +71,15 @@ export const BRANDS = {
     shortName: 'Brant',
     tagline: 'Delivery Information',
     accent: '#d4252a',
-    reps: SALES_REPS,
+    reps: BRANT_REPS,
     siteStatusOptions: GENERAL_SITE_STATUS,
-    mailTo: ['Sales@schoolhouseproducts.ca'],
-    mailCc: ['Dinesh@schoolhouseproducts.ca'],
+    mailTo: ['Wendy.Howden@brantbasics.com'],
+    mailCc: [],
   },
 };
 
-// Form fields in display order. `optionsFrom` pulls options off the brand.
+// Form fields in display order. Every field is required (Steve's call).
+// `optionsFrom` pulls options off the brand.
 // `allowOther` adds an "Other" choice with a free-text box.
 export const FIELDS = [
   { key: 'rep', label: 'Sales Representative', type: 'select', required: true, optionsFrom: 'reps' },
@@ -81,21 +100,21 @@ export const FIELDS = [
     key: 'dock',
     label: 'Truck Level Loading Dock or Handbalm',
     type: 'select',
-    required: false,
+    required: true,
     options: ['Truck Level Loading Dock', 'Handbalm'],
   },
   {
     key: 'delivery',
     label: 'Installation or Straight Delivery',
     type: 'select',
-    required: false,
+    required: true,
     options: ['Installation', 'Straight Delivery'],
   },
   {
     key: 'timeRestriction',
     label: 'Delivery Time Restrictions',
     type: 'select',
-    required: false,
+    required: true,
     options: ['No Restrictions', '8:00 AM to 12 PM', '12 PM to 5 PM'],
     allowOther: true,
   },
@@ -107,7 +126,7 @@ export const FIELDS = [
     options: ['Stairs', 'Elevator', 'Elevator and Stairs', 'Main Floor'],
   },
   { key: 'siteStatus', label: 'Site Status', type: 'select', required: true, optionsFrom: 'siteStatusOptions' },
-  { key: 'notes', label: 'Additional Information', type: 'textarea', required: false },
+  { key: 'notes', label: 'Additional Information', type: 'textarea', required: true },
 ];
 
 export const OTHER = 'Other';
