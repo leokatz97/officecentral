@@ -2,7 +2,7 @@
 // Env vars: SMTP_USER, SMTP_PASS (a Gmail App Password), optional SMTP_HOST,
 // SMTP_PORT, MAIL_FROM.
 import nodemailer from 'nodemailer';
-import { FIELDS } from './brands.js';
+import { FIELDS, displayValue } from './brands.js';
 
 export function mailConfigured() {
   return Boolean(process.env.SMTP_USER && process.env.SMTP_PASS);
@@ -30,7 +30,7 @@ export function buildEmail(brand, record) {
   const v = record.values;
   const subject = `Delivery Info: ${v.customer} | Quote #${v.quote} | ${v.rep.split(' (')[0]}`;
 
-  const rows = FIELDS.map((f) => [f.label, v[f.key] || '—']);
+  const rows = FIELDS.map((f) => [f.label, displayValue(f, v[f.key]) || '—']);
   rows.push(['Submitted', new Date(record.submittedAt).toLocaleString('en-CA', { timeZone: 'America/Toronto' }) + ' (Toronto)']);
   rows.push(['Form', brand.name]);
 

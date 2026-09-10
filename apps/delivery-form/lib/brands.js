@@ -125,6 +125,7 @@ export const FIELDS = [
     required: true,
     options: ['Installation', 'Straight Delivery'],
   },
+  { key: 'installDate', label: 'Tentative Install Date', type: 'date', required: true },
   {
     key: 'timeRestriction',
     label: 'Delivery Time Restrictions',
@@ -202,7 +203,28 @@ export function validateSubmission(body, brand) {
       errors[field.key] = 'That email address does not look right.';
       continue;
     }
+    if (field.type === 'date' && raw && !isValidDate(raw)) {
+      errors[field.key] = 'Please pick a date from the calendar.';
+      continue;
+    }
     values[field.key] = raw;
   }
   return { values, errors };
+}
+
+// Dates are stored as YYYY-MM-DD (what <input type="date"> submits).
+function isValidDate(s) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;
+  const d = new Date(`${s}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
+}
+
+// Human-readable value for display in emails and the admin view.
+export function displayValue(field, value) {
+  if (field.type === 'date' && /^\d{4}-\d{2}-\d{2}$/.test(value || '')) {
+    return new Date(`${value}T00:00:00Z`).toLocaleDateString('en-CA', {
+      timeZone: 'UTC', weekday: 'short', month: 'short', day: 'numeric', year: 'numeric',
+    });
+  }
+  return value;
 }

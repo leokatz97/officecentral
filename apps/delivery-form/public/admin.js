@@ -30,6 +30,8 @@
     const d = new Date(iso);
     return d.toLocaleString('en-CA', { timeZone: 'America/Toronto', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   };
+  const fmtDay = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(v || '') ? new Date(`${v}T00:00:00Z`).toLocaleDateString('en-CA', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' }) : v || '—');
+  const showValue = (f, v) => (f.type === 'date' ? fmtDay(v) : v || '—');
   const brandOf = (slug) => brands.find((b) => b.slug === slug) || { name: slug, shortName: slug, accent: '#666' };
   const repName = (rep) => (rep || '').split(' (')[0];
 
@@ -207,6 +209,7 @@
         el('td', { class: 'cell-wrap' }, [el('div', { text: v.contactName || '—' }), el('div', { class: 'muted', text: v.contactPhone || '' })]),
         el('td', { text: v.floor || '—' }),
         el('td', { text: v.delivery || '—' }),
+        el('td', { class: 'num', text: fmtDay(v.installDate) }),
         el('td', {}, [emailPill(s)]),
       );
       const check = el('label', { class: 'check' }, [el('input', { type: 'checkbox' }), el('span', { class: 'muted', text: s.handled ? 'Done' : 'Open' })]);
@@ -226,13 +229,13 @@
   function detailRow(s) {
     const dl = el('dl', { class: 'detail__grid' });
     for (const f of fields) {
-      dl.append(el('div', {}, [el('dt', { text: f.label }), el('dd', { text: s.values[f.key] || '—' })]));
+      dl.append(el('div', {}, [el('dt', { text: f.label }), el('dd', { text: showValue(f, s.values[f.key]) })]));
     }
     const emailTo = s.email ? [...(s.email.to || []), ...(s.email.cc || []).map((c) => `${c} (cc)`)].join(', ') : '—';
     dl.append(el('div', {}, [el('dt', { text: 'Emailed to' }), el('dd', { text: emailTo })]));
     if (s.email && s.email.error) dl.append(el('div', {}, [el('dt', { text: 'Email error' }), el('dd', { text: s.email.error })]));
     if (s.handledAt) dl.append(el('div', {}, [el('dt', { text: 'Marked handled' }), el('dd', { text: fmtDate(s.handledAt) })]));
-    return el('tr', { class: 'detail' }, [el('td', { colspan: '10' }, [dl])]);
+    return el('tr', { class: 'detail' }, [el('td', { colspan: '11' }, [dl])]);
   }
 
   function toggleDetail(id) {

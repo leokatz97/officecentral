@@ -78,6 +78,8 @@
       control = el('input', {
         class: 'control', id, name: field.key, type: field.type, required: field.required,
         autocomplete: auto, inputmode: field.type === 'tel' ? 'tel' : null, placeholder: field.placeholder || null,
+        // Install dates are in the future; keep the calendar from offering the past.
+        min: field.type === 'date' ? new Date().toISOString().slice(0, 10) : null,
       });
       wrap.append(control);
     }
@@ -107,13 +109,20 @@
       if (f.required && !v) errors[f.key] = 'This one is required.';
       else if (f.type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) errors[f.key] = 'That email address does not look right.';
       else if (f.type === 'select' && f.allowOther && v === OTHER && !(data[`${f.key}Other`] || '').trim()) errors[f.key] = 'Please describe the "Other" choice.';
+      else if (f.type === 'date' && v && !/^\d{4}-\d{2}-\d{2}$/.test(v)) errors[f.key] = 'Please pick a date from the calendar.';
     }
     return errors;
+  }
+
+  function fmtDate(v) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+    return new Date(`${v}T00:00:00Z`).toLocaleDateString('en-CA', { timeZone: 'UTC', weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   }
 
   function displayValue(field, data) {
     const v = (data[field.key] || '').trim();
     if (field.type === 'select' && field.allowOther && v === OTHER) return `Other: ${(data[`${field.key}Other`] || '').trim()}`;
+    if (field.type === 'date') return fmtDate(v);
     return v;
   }
 
