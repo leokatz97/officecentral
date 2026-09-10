@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Delivery Information</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="brand" id="brandHeader">
+      <div class="brand__mark" id="brandMark" aria-hidden="true"></div>
+      <div>
+        <div class="brand__name" id="brandName">Loading…</div>
+        <div class="brand__tag" id="brandTag"></div>
+      </div>
+    </header>
+
+    <section id="intro">
+      <p class="eyebrow">Sales rep form</p>
+      <h1 class="title">Delivery Information</h1>
+      <p class="lede">Fill this in once the order is confirmed. It goes straight to the delivery team by email. Fields marked <span style="color: var(--danger)">*</span> are required.</p>
+    </section>
+
+    <form id="deliveryForm" class="card stack" style="margin-top: 22px" novalidate hidden>
+      <div id="fields" class="stack"></div>
+      <div class="field" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden">
+        <label for="website">Website</label>
+        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <div id="formError" class="notice notice--danger" role="alert" hidden></div>
+      <button class="btn btn--primary btn--block" id="submitBtn" type="submit">Send delivery info</button>
+    </form>
+
+    <section id="done" class="card done" hidden>
+      <div class="done__icon" aria-hidden="true">✓</div>
+      <h2>Sent to the delivery team</h2>
+      <p id="doneNote"></p>
+      <dl class="summary" id="doneSummary"></dl>
+      <button class="btn btn--ghost" id="againBtn" type="button">Fill in another delivery</button>
+    </section>
+
+    <section id="loadError" class="notice notice--danger" hidden></section>
+  </main>
+  <script src="/form.js" defer></script>
+</body>
+</html>
