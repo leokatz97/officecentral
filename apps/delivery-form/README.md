@@ -24,8 +24,9 @@ every other branch gets a preview URL on its pull request.
 
 ## Vercel setup (one time)
 
-1. **Storage:** project → Storage → Create Database → Blob → connect to the
-   project. This injects `BLOB_READ_WRITE_TOKEN`.
+1. **Storage:** project → Storage → Create Database → Blob (choose **Private**
+   access) → connect to the project. This injects a `*_READ_WRITE_TOKEN`
+   variable; the app finds it whatever prefix Vercel gave it.
 2. **Email:** project → Settings → Environment Variables:
    - `SMTP_USER`: the Gmail / Google Workspace address that sends the email.
    - `SMTP_PASS`: a Gmail App Password for that account

@@ -1,14 +1,23 @@
 // Submission storage on Vercel Blob (private). One JSON file per submission.
-// Connect a Blob store to the Vercel project and BLOB_READ_WRITE_TOKEN is
-// injected automatically.
+// Connecting a Blob store to the Vercel project injects a read-write token.
+// Vercel names it BLOB_READ_WRITE_TOKEN by default, or <prefix>_READ_WRITE_TOKEN
+// when the store was connected with a custom prefix, so accept either.
 import { put, list, get } from '@vercel/blob';
 
 const PREFIX = 'submissions/';
 const ID_RE = /^[A-Za-z0-9-]{10,80}$/;
 const MAX_LISTED = 2000;
 
+function blobToken() {
+  if (process.env.BLOB_READ_WRITE_TOKEN) return process.env.BLOB_READ_WRITE_TOKEN;
+  const key = Object.keys(process.env).find(
+    (k) => k.endsWith('_READ_WRITE_TOKEN') && String(process.env[k]).startsWith('vercel_blob_rw_'),
+  );
+  return key ? process.env[key] : '';
+}
+
 export function storeConfigured() {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+  return Boolean(blobToken());
 }
 
 export function newId() {
@@ -28,12 +37,13 @@ export async function saveSubmission(record) {
     contentType: 'application/json',
     addRandomSuffix: false,
     allowOverwrite: true,
+    token: blobToken(),
   });
 }
 
 export async function getSubmission(id) {
   if (!validId(id)) return null;
-  const result = await get(`${PREFIX}${id}.json`, { access: 'private', useCache: false });
+  const result = await get(`${PREFIX}${id}.json`, { access: 'private', useCache: false, token: blobToken() });
   if (!result || !result.stream) return null;
   return JSON.parse(await new Response(result.stream).text());
 }
@@ -42,7 +52,7 @@ export async function listSubmissions() {
   const blobs = [];
   let cursor;
   do {
-    const page = await list({ prefix: PREFIX, cursor, limit: 1000 });
+    const page = await list({ prefix: PREFIX, cursor, limit: 1000, token: blobToken() });
     blobs.push(...page.blobs);
     cursor = page.hasMore ? page.cursor : undefined;
   } while (cursor && blobs.length < MAX_LISTED);
@@ -52,7 +62,7 @@ export async function listSubmissions() {
 
   const records = await mapLimit(blobs, 12, async (blob) => {
     try {
-      const result = await get(blob.url, { access: 'private', useCache: false });
+      const result = await get(blob.url, { access: 'private', useCache: false, token: blobToken() });
       if (!result || !result.stream) return null;
       return JSON.parse(await new Response(result.stream).text());
     } catch (err) {
