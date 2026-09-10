@@ -44,9 +44,8 @@ export const BRANDS = {
     accent: '#1b3f7a',
     reps: SALES_REPS,
     siteStatusOptions: GENERAL_SITE_STATUS,
-    // Placeholder until the OC delivery inbox is confirmed.
-    mailTo: ['steve@officecentral.com'],
-    mailCc: [],
+    mailTo: ['Sales@schoolhouseproducts.ca'],
+    mailCc: ['Dinesh@schoolhouseproducts.ca'],
   },
   brant: {
     slug: 'brant',
@@ -56,9 +55,8 @@ export const BRANDS = {
     accent: '#d4252a',
     reps: SALES_REPS,
     siteStatusOptions: GENERAL_SITE_STATUS,
-    // Placeholder until the Brant delivery inbox is confirmed.
-    mailTo: ['steve@officecentral.com'],
-    mailCc: [],
+    mailTo: ['Sales@schoolhouseproducts.ca'],
+    mailCc: ['Dinesh@schoolhouseproducts.ca'],
   },
 };
 
