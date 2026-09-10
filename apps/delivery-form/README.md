@@ -16,6 +16,12 @@ purpose: it is not part of the Shopify storefront. Hosted on Vercel.
 
 Everything lives in `lib/brands.js`. Edit and redeploy.
 
+## Deploys
+
+The Vercel project `oc-delivery-form` is connected to this GitHub repo with
+Root Directory `apps/delivery-form`. Merging to `main` deploys to production;
+every other branch gets a preview URL on its pull request.
+
 ## Vercel setup (one time)
 
 1. **Storage:** project → Storage → Create Database → Blob → connect to the
