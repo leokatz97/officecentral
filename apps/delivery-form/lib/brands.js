@@ -25,22 +25,37 @@ const SCHOOLHOUSE_REPS = [
   'Shiva (416) 856-5080',
 ];
 
+// Lists from Trevor Katz, 2026-09-10.
 const OFFICE_CENTRAL_REPS = [
-  'Raph S',
-  'Adam M',
-  'Adam S',
-  'Mandy P',
-  'Nadeen S',
-  'Jessica S',
-  'Steve K',
-  'Angelo F',
-  'Graham M',
-  'Rob T',
-  'Sharon N',
-  'Lisa H',
+  'Trevor Katz',
+  'Adam Miller',
+  'Adam Sargon',
+  'Alisha Harder',
+  'Angelo Fermo',
+  'Brenda Skinner',
+  'Jade Holborn',
+  'Jeff Dawson',
+  'Jeff Tomkins',
+  'Jessica Steeves',
+  "Kevin O'Reilly",
+  'Kim Snider',
+  'Mandy Pow',
+  'Nadeen Sinclair',
+  'Rachel Harari',
+  'Raph Shuchat',
+  'Rob Tanner',
+  'Sharon Novotny',
+  'Steve Katz',
+  'Tammy',
+  'Willy Bergman',
 ];
 
-const BRANT_REPS = ['Katrina', 'Shawn', 'Matthew', 'Andrea', 'Steve'];
+const BRANT_REPS = [
+  'Andrea Parolari',
+  'Katrina Favron',
+  'Matt Guerin',
+  'Shawn Powell',
+];
 
 export const BRANDS = {
   schoolhouse: {
