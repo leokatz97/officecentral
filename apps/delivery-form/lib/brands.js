@@ -93,7 +93,7 @@ export const BRANDS = {
   },
 };
 
-// Form fields in display order. Every field is required (Steve's call).
+// Form fields in display order. Every field is required except Additional Information.
 // `optionsFrom` pulls options off the brand.
 // `allowOther` adds an "Other" choice with a free-text box.
 export const FIELDS = [
@@ -142,7 +142,7 @@ export const FIELDS = [
     options: ['Stairs', 'Elevator', 'Elevator and Stairs', 'Main Floor'],
   },
   { key: 'siteStatus', label: 'Site Status', type: 'select', required: true, optionsFrom: 'siteStatusOptions' },
-  { key: 'notes', label: 'Additional Information', type: 'textarea', required: true },
+  { key: 'notes', label: 'Additional Information', type: 'textarea', required: false },
 ];
 
 export const OTHER = 'Other';
