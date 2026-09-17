@@ -54,10 +54,30 @@ ${rows
   return { subject, text, html };
 }
 
+// A plain address in From looks like a stranger to spam filters; a display
+// name makes the notification recognisable in the delivery team's inbox.
+function fromAddress() {
+  if (process.env.MAIL_FROM) return process.env.MAIL_FROM;
+  return { name: 'Office Central Delivery Forms', address: process.env.SMTP_USER };
+}
+
+// Sent from the admin view to prove the email path works end to end.
+export async function sendTestEmail(brand) {
+  const when = new Date().toLocaleString('en-CA', { timeZone: 'America/Toronto' });
+  const info = await transport().sendMail({
+    from: fromAddress(),
+    to: brand.mailTo.join(', '),
+    cc: brand.mailCc.length ? brand.mailCc.join(', ') : undefined,
+    subject: `Test: ${brand.name} delivery form`,
+    text: `This is a test from the ${brand.name} delivery information form, sent ${when} (Toronto).\n\nIf you can read this, delivery form emails reach this inbox. Nothing to action.\n\nIf this landed in junk or spam, mark it "not junk" so real submissions come through.`,
+  });
+  return info.messageId;
+}
+
 export async function sendSubmissionEmail(brand, record) {
   const { subject, text, html } = buildEmail(brand, record);
   const info = await transport().sendMail({
-    from: process.env.MAIL_FROM || process.env.SMTP_USER,
+    from: fromAddress(),
     to: brand.mailTo.join(', '),
     cc: brand.mailCc.length ? brand.mailCc.join(', ') : undefined,
     replyTo: record.values.contactEmail || undefined,

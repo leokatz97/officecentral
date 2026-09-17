@@ -81,6 +81,54 @@
     return items;
   }
 
+  // ---- email check ----
+  function renderMailCheck() {
+    const box = $('mailRows');
+    const recipients = status.recipients || {};
+    const slugs = Object.keys(recipients);
+    if (!slugs.length) {
+      $('mailCheck').hidden = true;
+      return;
+    }
+    $('mailCheck').hidden = false;
+    box.replaceChildren(
+      ...slugs.map((slug) => {
+        const r = recipients[slug];
+        const addresses = [...(r.to || []), ...(r.cc || []).map((c) => `${c} (cc)`)].join(', ');
+        const result = el('div', { class: 'field__hint', role: 'status' });
+        const btn = el('button', { class: 'btn btn--ghost btn--sm', type: 'button', text: 'Send test' });
+        btn.addEventListener('click', () => sendTest(slug, btn, result));
+        const row = el('div', { class: 'row', style: 'justify-content: space-between; align-items: flex-start; gap: 14px' }, [
+          el('div', {}, [el('div', { style: 'font-weight: 600', text: r.name }), el('div', { class: 'muted', style: 'font-size: 14px', text: addresses }), result]),
+          btn,
+        ]);
+        if (!status.mail) btn.disabled = true;
+        return row;
+      }),
+    );
+  }
+
+  async function sendTest(slug, btn, result) {
+    btn.disabled = true;
+    result.textContent = 'Sending…';
+    result.style.color = '';
+    try {
+      const { res, json } = await api('/api/admin/test-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ brand: slug }),
+      });
+      if (!res.ok || !json.ok) throw new Error(json.error || 'Could not send.');
+      result.textContent = 'Sent. Check the inbox, and the junk folder if it is not there.';
+      result.style.color = 'var(--ok)';
+    } catch (err) {
+      result.textContent = err.message;
+      result.style.color = 'var(--danger)';
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
   function renderSetupNotice() {
     const box = $('setupNotice');
     const items = setupSteps();
@@ -116,6 +164,7 @@
     }
     show('app');
     renderSetupNotice();
+    renderMailCheck();
     await load();
   }
 

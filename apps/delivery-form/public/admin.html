@@ -41,6 +41,11 @@
 
     <section id="appView" class="stack" hidden>
       <div id="setupNotice"></div>
+      <section class="card" id="mailCheck" hidden>
+        <h2 class="title" style="font-size: 18px">Where submissions are emailed</h2>
+        <p class="field__hint">Send a test to confirm it arrives. If it lands in junk, mark it "not junk" so real ones come through.</p>
+        <div id="mailRows" class="stack" style="gap: 10px; margin-top: 14px"></div>
+      </section>
       <div class="stats" id="stats"></div>
       <div class="toolbar">
         <input class="control grow" id="search" type="search" placeholder="Search customer, quote #, contact…" aria-label="Search">
