@@ -100,9 +100,9 @@ export const FIELDS = [
   { key: 'rep', label: 'Sales Representative', type: 'select', required: true, optionsFrom: 'reps' },
   { key: 'quote', label: 'Quote #', type: 'text', required: true, placeholder: 'e.g. Q-10482' },
   { key: 'customer', label: 'Customer Name', type: 'text', required: true },
-  { key: 'contactName', label: 'Contact Name (person receiving the delivery)', type: 'text', required: true },
-  { key: 'contactEmail', label: 'Contact Email Address', type: 'email', required: true },
-  { key: 'contactPhone', label: 'Contact Phone # (cell is best)', type: 'tel', required: true },
+  { key: 'contactName', label: 'Onsite Contact Name (person receiving the delivery)', type: 'text', required: true },
+  { key: 'contactEmail', label: 'Onsite Contact Email Address', type: 'email', required: true },
+  { key: 'contactPhone', label: 'Onsite Contact Phone # (cell is best)', type: 'tel', required: true },
   {
     key: 'floor',
     label: 'What floor are the goods being taken to?',
@@ -113,10 +113,10 @@ export const FIELDS = [
   },
   {
     key: 'dock',
-    label: 'Truck Level Loading Dock or Handbalm',
+    label: 'Truck Level Loading Dock or Handbomb',
     type: 'select',
     required: true,
-    options: ['Truck Level Loading Dock', 'Handbalm'],
+    options: ['Truck Level Loading Dock', 'Handbomb'],
   },
   {
     key: 'delivery',
