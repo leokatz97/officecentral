@@ -94,6 +94,18 @@
     $('mailFrom').textContent = status.mailFrom
       ? `Sent from ${status.mailFrom}. That is the account whose App Password lives in Vercel as SMTP_PASS.`
       : 'No sending account is set yet.';
+    const pass = $('mailPass');
+    const shape = status.mailPass || {};
+    if (!shape.set) {
+      pass.textContent = 'No password is set in Vercel as SMTP_PASS.';
+      pass.style.color = 'var(--danger)';
+    } else if (shape.looksRight) {
+      pass.textContent = 'The saved password looks like a Gmail App Password (16 letters).';
+      pass.style.color = 'var(--ok)';
+    } else {
+      pass.textContent = `The saved password is ${shape.chars} characters${shape.hasSpaces ? ' and has spaces in it' : ''}. A Gmail App Password is 16 letters with no spaces, so this is not one yet. Replace SMTP_PASS in Vercel and redeploy.`;
+      pass.style.color = 'var(--danger)';
+    }
     box.replaceChildren(
       ...slugs.map((slug) => {
         const r = recipients[slug];

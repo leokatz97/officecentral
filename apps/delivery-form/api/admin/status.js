@@ -3,7 +3,7 @@
 import { sendJson, methodNotAllowed } from '../../lib/http.js';
 import { adminConfigured, isAuthed } from '../../lib/auth.js';
 import { storeConfigured } from '../../lib/store.js';
-import { mailConfigured } from '../../lib/mail.js';
+import { mailConfigured, passwordShape } from '../../lib/mail.js';
 import { BRANDS } from '../../lib/brands.js';
 
 export default function handler(req, res) {
@@ -14,6 +14,7 @@ export default function handler(req, res) {
     payload.store = storeConfigured();
     payload.mail = mailConfigured();
     payload.mailFrom = process.env.SMTP_USER || '';
+    payload.mailPass = passwordShape();
     payload.recipients = Object.fromEntries(
       Object.values(BRANDS).map((b) => [b.slug, { name: b.name, to: b.mailTo, cc: b.mailCc }]),
     );
