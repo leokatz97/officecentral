@@ -13,6 +13,7 @@ export default function handler(req, res) {
   if (authed) {
     payload.store = storeConfigured();
     payload.mail = mailConfigured();
+    payload.mailFrom = process.env.SMTP_USER || '';
     payload.recipients = Object.fromEntries(
       Object.values(BRANDS).map((b) => [b.slug, { name: b.name, to: b.mailTo, cc: b.mailCc }]),
     );

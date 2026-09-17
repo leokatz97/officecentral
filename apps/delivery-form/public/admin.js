@@ -91,6 +91,9 @@
       return;
     }
     $('mailCheck').hidden = false;
+    $('mailFrom').textContent = status.mailFrom
+      ? `Sent from ${status.mailFrom}. That is the account whose App Password lives in Vercel as SMTP_PASS.`
+      : 'No sending account is set yet.';
     box.replaceChildren(
       ...slugs.map((slug) => {
         const r = recipients[slug];
