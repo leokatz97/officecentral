@@ -8,13 +8,30 @@ export function mailConfigured() {
   return Boolean(process.env.SMTP_USER && process.env.SMTP_PASS);
 }
 
+// A Gmail App Password is exactly 16 lowercase letters. Reporting the shape of
+// whatever is configured (never the value) turns "invalid login" into a
+// specific, fixable answer: wrong kind of password, or spaces left in.
+export function passwordShape() {
+  const raw = process.env.SMTP_PASS || '';
+  if (!raw) return { set: false };
+  const stripped = raw.replace(/\s/g, '');
+  return {
+    set: true,
+    chars: raw.length,
+    hasSpaces: /\s/.test(raw),
+    looksRight: /^[a-zA-Z]{16}$/.test(stripped),
+  };
+}
+
 function transport() {
   const port = Number(process.env.SMTP_PORT || 465);
   return nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port,
     secure: port === 465,
-    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+    // Google displays App Passwords in four spaced groups; the spaces are
+    // presentational and must not be sent.
+    auth: { user: process.env.SMTP_USER, pass: (process.env.SMTP_PASS || '').replace(/\s/g, '') },
   });
 }
 
