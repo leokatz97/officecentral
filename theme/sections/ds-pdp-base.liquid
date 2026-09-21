@@ -497,22 +497,26 @@ a.pdp-cta-closer__btn:hover { background: var(--saleBadgeBackground); border-col
             endif
           endfor
         -%}
-        <div class="pdp-badges-row">
-          {%- comment -%}
-            In-stock badge removed 2026-09-20: inventory is not tracked in Shopify,
-            so product.available was always true and the badge was not a real signal.
-            Sold-out badge stays — it is driven by the is_unbuyable gate ($0 price / unavailable).
-          {%- endcomment -%}
-          {%- if is_unbuyable -%}
-            <span class="pdp-badge--sold">Sold out</span>
-          {%- endif -%}
-          {%- if has_oecm -%}
-            <span class="pdp-tag-pill pdp-tag-pill--oecm">OECM Eligible</span>
-          {%- endif -%}
-          {%- if has_canadian -%}
-            <span class="pdp-tag-pill pdp-tag-pill--canadian">Canadian Made</span>
-          {%- endif -%}
-        </div>
+        {%- comment -%}
+          In-stock badge removed 2026-09-20: inventory is not tracked in Shopify,
+          so product.available was always true and the badge was not a real signal.
+          Sold-out badge stays — it is driven by the is_unbuyable gate ($0 price / unavailable).
+          The row itself is now gated so it does not reserve blank space on a
+          product with no pills at all.
+        {%- endcomment -%}
+        {%- if is_unbuyable or has_oecm or has_canadian -%}
+          <div class="pdp-badges-row">
+            {%- if is_unbuyable -%}
+              <span class="pdp-badge--sold">Sold out</span>
+            {%- endif -%}
+            {%- if has_oecm -%}
+              <span class="pdp-tag-pill pdp-tag-pill--oecm">OECM Eligible</span>
+            {%- endif -%}
+            {%- if has_canadian -%}
+              <span class="pdp-tag-pill pdp-tag-pill--canadian">Canadian Made</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
 
         <div class="pdp-price-row">
           {{ product.selected_or_first_available_variant.price | money }}
