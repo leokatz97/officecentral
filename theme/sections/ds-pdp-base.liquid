@@ -108,13 +108,7 @@ body { background: #FFFFFF !important; }
 .pdp-info__sku { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; color: rgba(var(--textColor-rgb),0.4); margin: 0 0 4px; }
 .pdp-info__variant-count { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.06em; color: rgba(var(--textColor-rgb),0.35); margin: 0 0 16px; }
 
-/* Availability badge */
-.pdp-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 100px; }
-.pdp-badge--available { background: rgba(22,163,74,0.1); color: #15803D; }
-.pdp-badge--unavailable { background: rgba(var(--saleBadgeBackground-rgb),0.1); color: var(--saleBadgeBackground); }
-.pdp-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
-
-/* OECM / Canadian / availability badges row */
+/* OECM / Canadian badges row */
 .pdp-badges-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 20px; }
 .pdp-tag-pill { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid; border-radius: 100px; padding: 3px 10px; display: inline-flex; align-items: center; gap: 5px; }
 .pdp-tag-pill--oecm { border-color: #15803D; color: #15803D; }
@@ -503,22 +497,26 @@ a.pdp-cta-closer__btn:hover { background: var(--saleBadgeBackground); border-col
             endif
           endfor
         -%}
-        <div class="pdp-badges-row">
-          {%- if is_unbuyable -%}
-            <span class="pdp-badge--sold">Sold out</span>
-          {%- else -%}
-            <span class="pdp-badge pdp-badge--available">
-              <span class="pdp-badge__dot" aria-hidden="true"></span>
-              In stock
-            </span>
-          {%- endif -%}
-          {%- if has_oecm -%}
-            <span class="pdp-tag-pill pdp-tag-pill--oecm">OECM Eligible</span>
-          {%- endif -%}
-          {%- if has_canadian -%}
-            <span class="pdp-tag-pill pdp-tag-pill--canadian">Canadian Made</span>
-          {%- endif -%}
-        </div>
+        {%- comment -%}
+          In-stock badge removed 2026-09-20: inventory is not tracked in Shopify,
+          so product.available was always true and the badge was not a real signal.
+          Sold-out badge stays — it is driven by the is_unbuyable gate ($0 price / unavailable).
+          The row itself is now gated so it does not reserve blank space on a
+          product with no pills at all.
+        {%- endcomment -%}
+        {%- if is_unbuyable or has_oecm or has_canadian -%}
+          <div class="pdp-badges-row">
+            {%- if is_unbuyable -%}
+              <span class="pdp-badge--sold">Sold out</span>
+            {%- endif -%}
+            {%- if has_oecm -%}
+              <span class="pdp-tag-pill pdp-tag-pill--oecm">OECM Eligible</span>
+            {%- endif -%}
+            {%- if has_canadian -%}
+              <span class="pdp-tag-pill pdp-tag-pill--canadian">Canadian Made</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
 
         <div class="pdp-price-row">
           {{ product.selected_or_first_available_variant.price | money }}
