@@ -23,6 +23,7 @@ const SCHOOLHOUSE_REPS = [
   'Ryan (226) 747-5979',
   'Tiffany',
   'Shiva (416) 856-5080',
+  'Clive Katz',
 ];
 
 // Lists from Trevor Katz, 2026-09-10.
