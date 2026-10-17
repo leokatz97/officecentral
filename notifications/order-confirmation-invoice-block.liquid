@@ -1,0 +1,10 @@
+{% if financial_status == 'pending' %}
+<p>Hi {{ customer.first_name }},</p>
+<p>Thank you for your order with Brant Business Interiors. <strong>This email is your invoice — your order is reserved but not yet paid.</strong></p>
+<p><strong>Invoice / Order:</strong> {{ name }}<br>
+<strong>Amount due:</strong> {{ total_price | money }}</p>
+<p><strong>To pay, call 1-800-835-9565</strong> (Mon–Fri, 8:30 a.m.–5:00 p.m. ET) and quote your order number.</p>
+<p>We accept: credit card by phone, Interac e-Transfer, EFT / bank transfer, cheque, and PO / invoice terms for OECM and public-sector accounts.</p>
+<p>Once payment is received, we'll confirm your order and begin processing. The order summary below is for your records.</p>
+<hr>
+{% endif %}
