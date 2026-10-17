@@ -35,8 +35,8 @@ em-dashes too. En-dashes appear only inside numeric ranges.
 - **NEW · URL / blog handle.** Articles live at `/blogs/{blog}/{article}`; the blog segment is
   mandatory and cannot be removed. The current blog handle is "news". Set a clean article handle
   (no redundancy) from the first post. If the blog is ever renamed, every article URL changes and
-  301 redirects are required; the API token lacks `write_content`, so redirects ship as a CSV for
-  Steve to upload in Admin.
+  301 redirects are required; ship them as a CSV for Steve to upload in Admin, or POST them via
+  the Admin API — the token holds `write_content` (re-verified 2026-06-08).
 
 ---
 

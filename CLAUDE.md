@@ -36,7 +36,7 @@ Follows standard Shopify theme best practices plus BBI-specific rules that overr
 ├── data/            Everything scripts read/write (CSVs, JSON, logs, backups)
 │   ├── specs/       Per-product spec JSON from lookup-specs.py (Hero 100)
 │   ├── reports/     Proposal CSVs (tags, industry) — source of truth for pushes
-│   ├── redirects/   URL redirect CSVs for Shopify Admin upload
+│   ├── redirects/   URL redirect CSVs — now pushable via Admin API (write_content held; Admin upload optional)
 │   ├── exports/     Full Shopify product/order exports (reference snapshots)
 │   ├── backups/     Pre-change snapshots (menus, products, collections)
 │   ├── logs/        Push audit trails (timestamped JSON)

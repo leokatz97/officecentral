@@ -135,7 +135,9 @@ def main():
         msg = str(e)
         if 'access denied' in msg.lower() or 'write_content' in msg.lower() or 'access' in msg.lower():
             print()
-            print('  ⚠️  Could not auto-create redirect — token missing write_content scope.')
+            print('  ⚠️  Could not auto-create redirect — Admin API access error (see message above).')
+            print('      Note: the token DOES hold write_content (re-verified 2026-06-08); if this fires,')
+            print('      investigate the actual API error rather than assuming a scope gap.')
             print('  MANUAL STEP for Leo:')
             print('     Shopify Admin → Online Store → Navigation → URL Redirects → Create URL redirect')
             print(f'     From: /llms.txt   To: /pages/{handle}')
