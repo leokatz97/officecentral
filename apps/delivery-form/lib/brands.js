@@ -41,6 +41,7 @@ const OFFICE_CENTRAL_REPS = [
   'Jessica Steeves',
   "Kevin O'Reilly",
   'Kim Snider',
+  'Lisa Huisman',
   'Mandy Pow',
   'Nadeen Sinclair',
   'Rachel Harari',
